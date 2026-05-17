@@ -1,5 +1,8 @@
-# Secrets — 키 노출 방지 (.env 절대 커밋 X, 새 PC 에 수동 복사)
+# Secrets — 키 노출 방지 (절대 git 에 올리지 말 것)
 .env
+keys_local.txt
+*_secrets.txt
+
 # OAuth 토큰 캐시 (재발급되니 굳이 옮길 필요 없음)
 data/cache_*_token.json
 
