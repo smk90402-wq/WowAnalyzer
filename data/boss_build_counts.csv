@@ -1,0 +1,324 @@
+encounter_name,class,spec,hero_cluster,n
+"Belo'ren, Child of Al'ar",Death Knight,Unholy,0,1
+"Belo'ren, Child of Al'ar",Death Knight,Unholy,1,1
+"Belo'ren, Child of Al'ar",Demon Hunter,Devourer,1,1
+"Belo'ren, Child of Al'ar",Druid,Balance,0,2
+"Belo'ren, Child of Al'ar",Evoker,Augmentation,1,2
+"Belo'ren, Child of Al'ar",Hunter,Marksmanship,0,2
+"Belo'ren, Child of Al'ar",Mage,Frost,0,2
+"Belo'ren, Child of Al'ar",Paladin,Retribution,0,1
+"Belo'ren, Child of Al'ar",Rogue,Subtlety,1,1
+"Belo'ren, Child of Al'ar",Warlock,Demonology,0,2
+"Chimaerus, the Undreamt God",Death Knight,Frost,0,10
+"Chimaerus, the Undreamt God",Death Knight,Unholy,0,17
+"Chimaerus, the Undreamt God",Death Knight,Unholy,1,25
+"Chimaerus, the Undreamt God",Demon Hunter,Devourer,0,42
+"Chimaerus, the Undreamt God",Demon Hunter,Devourer,1,56
+"Chimaerus, the Undreamt God",Demon Hunter,Havoc,0,42
+"Chimaerus, the Undreamt God",Demon Hunter,Havoc,1,13
+"Chimaerus, the Undreamt God",Druid,Balance,0,82
+"Chimaerus, the Undreamt God",Druid,Balance,1,17
+"Chimaerus, the Undreamt God",Druid,Feral,0,14
+"Chimaerus, the Undreamt God",Evoker,Augmentation,0,86
+"Chimaerus, the Undreamt God",Evoker,Augmentation,1,11
+"Chimaerus, the Undreamt God",Evoker,Devastation,0,19
+"Chimaerus, the Undreamt God",Evoker,Devastation,1,15
+"Chimaerus, the Undreamt God",Hunter,Beast Mastery,0,22
+"Chimaerus, the Undreamt God",Hunter,Beast Mastery,1,77
+"Chimaerus, the Undreamt God",Hunter,Marksmanship,0,4
+"Chimaerus, the Undreamt God",Hunter,Marksmanship,1,18
+"Chimaerus, the Undreamt God",Hunter,Survival,0,77
+"Chimaerus, the Undreamt God",Hunter,Survival,1,20
+"Chimaerus, the Undreamt God",Mage,Fire,0,3
+"Chimaerus, the Undreamt God",Mage,Fire,1,2
+"Chimaerus, the Undreamt God",Mage,Frost,0,73
+"Chimaerus, the Undreamt God",Mage,Frost,1,22
+"Chimaerus, the Undreamt God",Monk,Windwalker,0,70
+"Chimaerus, the Undreamt God",Monk,Windwalker,1,18
+"Chimaerus, the Undreamt God",Paladin,Retribution,0,11
+"Chimaerus, the Undreamt God",Paladin,Retribution,1,86
+"Chimaerus, the Undreamt God",Priest,Shadow,0,67
+"Chimaerus, the Undreamt God",Priest,Shadow,1,32
+"Chimaerus, the Undreamt God",Rogue,Assassination,0,30
+"Chimaerus, the Undreamt God",Rogue,Outlaw,0,6
+"Chimaerus, the Undreamt God",Rogue,Outlaw,1,11
+"Chimaerus, the Undreamt God",Rogue,Subtlety,0,76
+"Chimaerus, the Undreamt God",Rogue,Subtlety,1,23
+"Chimaerus, the Undreamt God",Shaman,Elemental,0,55
+"Chimaerus, the Undreamt God",Shaman,Elemental,1,43
+"Chimaerus, the Undreamt God",Shaman,Enhancement,0,14
+"Chimaerus, the Undreamt God",Shaman,Enhancement,1,10
+"Chimaerus, the Undreamt God",Warlock,Affliction,0,2
+"Chimaerus, the Undreamt God",Warlock,Affliction,1,3
+"Chimaerus, the Undreamt God",Warlock,Demonology,0,99
+"Chimaerus, the Undreamt God",Warlock,Destruction,0,13
+"Chimaerus, the Undreamt God",Warlock,Destruction,1,17
+"Chimaerus, the Undreamt God",Warrior,Arms,0,9
+"Chimaerus, the Undreamt God",Warrior,Fury,0,53
+"Chimaerus, the Undreamt God",Warrior,Fury,1,46
+Crown of the Cosmos,Death Knight,Unholy,0,6
+Crown of the Cosmos,Death Knight,Unholy,1,1
+Crown of the Cosmos,Demon Hunter,Devourer,1,4
+Crown of the Cosmos,Druid,Balance,1,1
+Crown of the Cosmos,Druid,Feral,0,1
+Crown of the Cosmos,Evoker,Augmentation,0,5
+Crown of the Cosmos,Evoker,Augmentation,1,3
+Crown of the Cosmos,Hunter,Beast Mastery,0,3
+Crown of the Cosmos,Hunter,Marksmanship,0,3
+Crown of the Cosmos,Hunter,Marksmanship,1,2
+Crown of the Cosmos,Hunter,Survival,0,1
+Crown of the Cosmos,Mage,Frost,0,5
+Crown of the Cosmos,Mage,Frost,1,1
+Crown of the Cosmos,Paladin,Retribution,0,1
+Crown of the Cosmos,Priest,Shadow,0,1
+Crown of the Cosmos,Priest,Shadow,1,1
+Crown of the Cosmos,Rogue,Subtlety,0,4
+Crown of the Cosmos,Shaman,Elemental,0,3
+Crown of the Cosmos,Shaman,Elemental,1,1
+Crown of the Cosmos,Warlock,Demonology,0,1
+Crown of the Cosmos,Warlock,Destruction,0,5
+Crown of the Cosmos,Warrior,Arms,0,2
+Crown of the Cosmos,Warrior,Fury,0,1
+Fallen-King Salhadaar,Death Knight,Frost,0,15
+Fallen-King Salhadaar,Death Knight,Frost,1,3
+Fallen-King Salhadaar,Death Knight,Unholy,0,53
+Fallen-King Salhadaar,Death Knight,Unholy,1,44
+Fallen-King Salhadaar,Demon Hunter,Devourer,0,51
+Fallen-King Salhadaar,Demon Hunter,Devourer,1,48
+Fallen-King Salhadaar,Demon Hunter,Havoc,0,40
+Fallen-King Salhadaar,Demon Hunter,Havoc,1,6
+Fallen-King Salhadaar,Druid,Balance,0,81
+Fallen-King Salhadaar,Druid,Balance,1,17
+Fallen-King Salhadaar,Druid,Feral,0,23
+Fallen-King Salhadaar,Druid,Feral,1,7
+Fallen-King Salhadaar,Evoker,Augmentation,0,31
+Fallen-King Salhadaar,Evoker,Augmentation,1,63
+Fallen-King Salhadaar,Evoker,Devastation,0,22
+Fallen-King Salhadaar,Evoker,Devastation,1,29
+Fallen-King Salhadaar,Hunter,Beast Mastery,0,89
+Fallen-King Salhadaar,Hunter,Beast Mastery,1,9
+Fallen-King Salhadaar,Hunter,Marksmanship,0,7
+Fallen-King Salhadaar,Hunter,Marksmanship,1,71
+Fallen-King Salhadaar,Hunter,Survival,0,65
+Fallen-King Salhadaar,Hunter,Survival,1,24
+Fallen-King Salhadaar,Mage,Fire,0,8
+Fallen-King Salhadaar,Mage,Fire,1,2
+Fallen-King Salhadaar,Mage,Frost,0,81
+Fallen-King Salhadaar,Mage,Frost,1,15
+Fallen-King Salhadaar,Monk,Windwalker,0,77
+Fallen-King Salhadaar,Monk,Windwalker,1,23
+Fallen-King Salhadaar,Paladin,Retribution,0,97
+Fallen-King Salhadaar,Paladin,Retribution,1,1
+Fallen-King Salhadaar,Priest,Shadow,0,65
+Fallen-King Salhadaar,Priest,Shadow,1,34
+Fallen-King Salhadaar,Rogue,Assassination,0,38
+Fallen-King Salhadaar,Rogue,Outlaw,0,9
+Fallen-King Salhadaar,Rogue,Outlaw,1,17
+Fallen-King Salhadaar,Rogue,Subtlety,0,74
+Fallen-King Salhadaar,Rogue,Subtlety,1,24
+Fallen-King Salhadaar,Shaman,Elemental,0,54
+Fallen-King Salhadaar,Shaman,Elemental,1,42
+Fallen-King Salhadaar,Shaman,Enhancement,0,53
+Fallen-King Salhadaar,Shaman,Enhancement,1,17
+Fallen-King Salhadaar,Warlock,Affliction,1,4
+Fallen-King Salhadaar,Warlock,Demonology,0,96
+Fallen-King Salhadaar,Warlock,Destruction,0,75
+Fallen-King Salhadaar,Warlock,Destruction,1,22
+Fallen-King Salhadaar,Warrior,Arms,0,61
+Fallen-King Salhadaar,Warrior,Arms,1,1
+Fallen-King Salhadaar,Warrior,Fury,0,58
+Fallen-King Salhadaar,Warrior,Fury,1,40
+Imperator Averzian,Death Knight,Frost,0,17
+Imperator Averzian,Death Knight,Frost,1,1
+Imperator Averzian,Death Knight,Unholy,0,31
+Imperator Averzian,Death Knight,Unholy,1,29
+Imperator Averzian,Demon Hunter,Devourer,0,46
+Imperator Averzian,Demon Hunter,Devourer,1,53
+Imperator Averzian,Demon Hunter,Havoc,0,48
+Imperator Averzian,Demon Hunter,Havoc,1,12
+Imperator Averzian,Druid,Balance,0,82
+Imperator Averzian,Druid,Balance,1,18
+Imperator Averzian,Druid,Feral,0,8
+Imperator Averzian,Druid,Feral,1,3
+Imperator Averzian,Evoker,Augmentation,0,46
+Imperator Averzian,Evoker,Augmentation,1,51
+Imperator Averzian,Evoker,Devastation,0,15
+Imperator Averzian,Evoker,Devastation,1,13
+Imperator Averzian,Hunter,Beast Mastery,0,29
+Imperator Averzian,Hunter,Beast Mastery,1,31
+Imperator Averzian,Hunter,Marksmanship,0,7
+Imperator Averzian,Hunter,Marksmanship,1,27
+Imperator Averzian,Hunter,Survival,0,86
+Imperator Averzian,Hunter,Survival,1,10
+Imperator Averzian,Mage,Fire,0,5
+Imperator Averzian,Mage,Fire,1,2
+Imperator Averzian,Mage,Frost,0,76
+Imperator Averzian,Mage,Frost,1,24
+Imperator Averzian,Monk,Windwalker,0,87
+Imperator Averzian,Monk,Windwalker,1,13
+Imperator Averzian,Paladin,Retribution,0,28
+Imperator Averzian,Paladin,Retribution,1,71
+Imperator Averzian,Priest,Shadow,0,66
+Imperator Averzian,Priest,Shadow,1,32
+Imperator Averzian,Rogue,Assassination,0,5
+Imperator Averzian,Rogue,Outlaw,0,4
+Imperator Averzian,Rogue,Outlaw,1,16
+Imperator Averzian,Rogue,Subtlety,0,66
+Imperator Averzian,Rogue,Subtlety,1,34
+Imperator Averzian,Shaman,Elemental,0,55
+Imperator Averzian,Shaman,Elemental,1,45
+Imperator Averzian,Shaman,Enhancement,0,44
+Imperator Averzian,Shaman,Enhancement,1,34
+Imperator Averzian,Warlock,Affliction,0,1
+Imperator Averzian,Warlock,Affliction,1,2
+Imperator Averzian,Warlock,Demonology,0,99
+Imperator Averzian,Warlock,Destruction,0,3
+Imperator Averzian,Warlock,Destruction,1,4
+Imperator Averzian,Warrior,Arms,0,5
+Imperator Averzian,Warrior,Arms,1,4
+Imperator Averzian,Warrior,Fury,0,44
+Imperator Averzian,Warrior,Fury,1,20
+Lightblinded Vanguard,Death Knight,Frost,0,1
+Lightblinded Vanguard,Death Knight,Unholy,0,19
+Lightblinded Vanguard,Death Knight,Unholy,1,12
+Lightblinded Vanguard,Demon Hunter,Devourer,0,37
+Lightblinded Vanguard,Demon Hunter,Devourer,1,42
+Lightblinded Vanguard,Demon Hunter,Havoc,0,3
+Lightblinded Vanguard,Druid,Balance,0,2
+Lightblinded Vanguard,Druid,Balance,1,19
+Lightblinded Vanguard,Druid,Feral,1,1
+Lightblinded Vanguard,Evoker,Augmentation,0,58
+Lightblinded Vanguard,Evoker,Devastation,1,1
+Lightblinded Vanguard,Hunter,Beast Mastery,1,8
+Lightblinded Vanguard,Hunter,Marksmanship,0,46
+Lightblinded Vanguard,Hunter,Marksmanship,1,11
+Lightblinded Vanguard,Hunter,Survival,0,14
+Lightblinded Vanguard,Hunter,Survival,1,1
+Lightblinded Vanguard,Mage,Fire,0,1
+Lightblinded Vanguard,Mage,Frost,0,57
+Lightblinded Vanguard,Mage,Frost,1,10
+Lightblinded Vanguard,Monk,Windwalker,0,3
+Lightblinded Vanguard,Paladin,Retribution,0,2
+Lightblinded Vanguard,Paladin,Retribution,1,25
+Lightblinded Vanguard,Priest,Shadow,0,3
+Lightblinded Vanguard,Priest,Shadow,1,19
+Lightblinded Vanguard,Rogue,Assassination,1,13
+Lightblinded Vanguard,Rogue,Outlaw,1,5
+Lightblinded Vanguard,Rogue,Subtlety,0,4
+Lightblinded Vanguard,Rogue,Subtlety,1,3
+Lightblinded Vanguard,Shaman,Elemental,0,11
+Lightblinded Vanguard,Shaman,Elemental,1,10
+Lightblinded Vanguard,Shaman,Enhancement,0,2
+Lightblinded Vanguard,Shaman,Enhancement,1,1
+Lightblinded Vanguard,Warlock,Affliction,0,1
+Lightblinded Vanguard,Warlock,Demonology,0,65
+Lightblinded Vanguard,Warlock,Demonology,1,1
+Lightblinded Vanguard,Warlock,Destruction,0,11
+Lightblinded Vanguard,Warrior,Arms,1,30
+Lightblinded Vanguard,Warrior,Fury,0,6
+Midnight Falls,Death Knight,Unholy,0,2
+Midnight Falls,Demon Hunter,Devourer,1,2
+Midnight Falls,Evoker,Augmentation,1,2
+Midnight Falls,Hunter,Beast Mastery,0,1
+Midnight Falls,Hunter,Marksmanship,0,1
+Midnight Falls,Mage,Frost,0,1
+Midnight Falls,Paladin,Retribution,0,1
+Midnight Falls,Rogue,Subtlety,0,1
+Midnight Falls,Shaman,Elemental,1,1
+Midnight Falls,Warlock,Demonology,0,2
+Vaelgor & Ezzorak,Death Knight,Frost,0,3
+Vaelgor & Ezzorak,Death Knight,Unholy,0,47
+Vaelgor & Ezzorak,Death Knight,Unholy,1,36
+Vaelgor & Ezzorak,Demon Hunter,Devourer,0,50
+Vaelgor & Ezzorak,Demon Hunter,Devourer,1,49
+Vaelgor & Ezzorak,Demon Hunter,Havoc,0,2
+Vaelgor & Ezzorak,Demon Hunter,Havoc,1,13
+Vaelgor & Ezzorak,Druid,Balance,0,2
+Vaelgor & Ezzorak,Druid,Balance,1,95
+Vaelgor & Ezzorak,Druid,Feral,0,1
+Vaelgor & Ezzorak,Druid,Feral,1,20
+Vaelgor & Ezzorak,Evoker,Augmentation,0,91
+Vaelgor & Ezzorak,Evoker,Augmentation,1,6
+Vaelgor & Ezzorak,Evoker,Devastation,0,25
+Vaelgor & Ezzorak,Evoker,Devastation,1,35
+Vaelgor & Ezzorak,Hunter,Beast Mastery,0,18
+Vaelgor & Ezzorak,Hunter,Beast Mastery,1,78
+Vaelgor & Ezzorak,Hunter,Marksmanship,0,76
+Vaelgor & Ezzorak,Hunter,Marksmanship,1,19
+Vaelgor & Ezzorak,Hunter,Survival,0,39
+Vaelgor & Ezzorak,Hunter,Survival,1,7
+Vaelgor & Ezzorak,Mage,Fire,0,5
+Vaelgor & Ezzorak,Mage,Fire,1,2
+Vaelgor & Ezzorak,Mage,Frost,0,86
+Vaelgor & Ezzorak,Mage,Frost,1,10
+Vaelgor & Ezzorak,Monk,Windwalker,0,53
+Vaelgor & Ezzorak,Monk,Windwalker,1,2
+Vaelgor & Ezzorak,Paladin,Retribution,0,3
+Vaelgor & Ezzorak,Paladin,Retribution,1,92
+Vaelgor & Ezzorak,Priest,Shadow,0,67
+Vaelgor & Ezzorak,Priest,Shadow,1,26
+Vaelgor & Ezzorak,Rogue,Assassination,0,5
+Vaelgor & Ezzorak,Rogue,Assassination,1,18
+Vaelgor & Ezzorak,Rogue,Outlaw,0,2
+Vaelgor & Ezzorak,Rogue,Outlaw,1,14
+Vaelgor & Ezzorak,Rogue,Subtlety,0,21
+Vaelgor & Ezzorak,Rogue,Subtlety,1,74
+Vaelgor & Ezzorak,Shaman,Elemental,0,52
+Vaelgor & Ezzorak,Shaman,Elemental,1,44
+Vaelgor & Ezzorak,Shaman,Enhancement,0,16
+Vaelgor & Ezzorak,Shaman,Enhancement,1,28
+Vaelgor & Ezzorak,Warlock,Affliction,0,25
+Vaelgor & Ezzorak,Warlock,Affliction,1,1
+Vaelgor & Ezzorak,Warlock,Demonology,0,100
+Vaelgor & Ezzorak,Warlock,Destruction,0,7
+Vaelgor & Ezzorak,Warlock,Destruction,1,25
+Vaelgor & Ezzorak,Warrior,Arms,0,7
+Vaelgor & Ezzorak,Warrior,Arms,1,51
+Vaelgor & Ezzorak,Warrior,Fury,0,61
+Vaelgor & Ezzorak,Warrior,Fury,1,22
+Vorasius,Death Knight,Frost,0,5
+Vorasius,Death Knight,Frost,1,24
+Vorasius,Death Knight,Unholy,0,47
+Vorasius,Death Knight,Unholy,1,49
+Vorasius,Demon Hunter,Devourer,0,51
+Vorasius,Demon Hunter,Devourer,1,46
+Vorasius,Demon Hunter,Havoc,0,46
+Vorasius,Demon Hunter,Havoc,1,6
+Vorasius,Druid,Balance,0,79
+Vorasius,Druid,Balance,1,17
+Vorasius,Druid,Feral,0,52
+Vorasius,Druid,Feral,1,1
+Vorasius,Evoker,Augmentation,0,20
+Vorasius,Evoker,Augmentation,1,78
+Vorasius,Evoker,Devastation,0,9
+Vorasius,Evoker,Devastation,1,16
+Vorasius,Hunter,Beast Mastery,0,99
+Vorasius,Hunter,Marksmanship,1,65
+Vorasius,Hunter,Survival,0,18
+Vorasius,Hunter,Survival,1,80
+Vorasius,Mage,Fire,0,5
+Vorasius,Mage,Fire,1,3
+Vorasius,Mage,Frost,0,82
+Vorasius,Mage,Frost,1,18
+Vorasius,Monk,Windwalker,0,7
+Vorasius,Monk,Windwalker,1,93
+Vorasius,Paladin,Retribution,0,97
+Vorasius,Paladin,Retribution,1,1
+Vorasius,Priest,Shadow,0,64
+Vorasius,Priest,Shadow,1,35
+Vorasius,Rogue,Assassination,0,57
+Vorasius,Rogue,Outlaw,0,27
+Vorasius,Rogue,Outlaw,1,1
+Vorasius,Rogue,Subtlety,0,78
+Vorasius,Rogue,Subtlety,1,21
+Vorasius,Shaman,Elemental,0,61
+Vorasius,Shaman,Elemental,1,37
+Vorasius,Shaman,Enhancement,0,39
+Vorasius,Shaman,Enhancement,1,23
+Vorasius,Warlock,Affliction,1,18
+Vorasius,Warlock,Demonology,0,7
+Vorasius,Warlock,Demonology,1,91
+Vorasius,Warlock,Destruction,0,39
+Vorasius,Warrior,Arms,0,63
+Vorasius,Warrior,Fury,0,47
+Vorasius,Warrior,Fury,1,23

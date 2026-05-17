@@ -1,0 +1,2269 @@
+class,spec,talent_id,tree,pick_rate,pick_rate_others
+Death Knight,Frost,96161,spec?,1.0,0.0
+Death Knight,Frost,96165,spec?,1.0,0.0
+Death Knight,Frost,96173,spec?,1.0,0.0
+Death Knight,Frost,96174,spec?,1.0,0.0
+Death Knight,Frost,96176,spec?,1.0,0.0
+Death Knight,Frost,96179,spec?,1.0,0.0
+Death Knight,Frost,96180,spec?,1.0,0.0
+Death Knight,Frost,96182,spec?,1.0,0.0
+Death Knight,Frost,96183,spec?,1.0,0.0
+Death Knight,Frost,96184,spec?,1.0,0.0
+Death Knight,Frost,96187,spec?,1.0,0.0
+Death Knight,Frost,96190,spec?,1.0,0.0
+Death Knight,Frost,96194,spec?,1.0,0.0
+Death Knight,Frost,96195,spec?,1.0,0.0
+Death Knight,Frost,96196,spec?,1.0,0.0
+Death Knight,Frost,96197,spec?,1.0,0.0
+Death Knight,Frost,96198,spec?,1.0,0.0
+Death Knight,Frost,96200,spec?,1.0,0.0
+Death Knight,Frost,96201,spec?,1.0,0.0
+Death Knight,Frost,96202,spec?,1.0,0.0
+Death Knight,Frost,96203,spec?,1.0,0.0
+Death Knight,Frost,96205,spec?,1.0,0.0
+Death Knight,Frost,96207,spec?,1.0,0.0
+Death Knight,Frost,96208,spec?,1.0,0.0
+Death Knight,Frost,96210,spec?,1.0,0.0
+Death Knight,Frost,96213,spec?,1.0,0.0
+Death Knight,Frost,96214,spec?,1.0,0.0
+Death Knight,Frost,96216,spec?,1.0,0.0
+Death Knight,Frost,96220,spec?,1.0,0.0
+Death Knight,Frost,96222,spec?,1.0,0.0
+Death Knight,Frost,96225,spec?,1.0,0.0
+Death Knight,Frost,96228,spec?,1.0,0.0
+Death Knight,Frost,96231,spec?,1.0,0.0
+Death Knight,Frost,96236,spec?,1.0,0.0
+Death Knight,Frost,96238,spec?,1.0,0.0
+Death Knight,Frost,96239,spec?,1.0,0.0
+Death Knight,Frost,96240,spec?,1.0,0.0
+Death Knight,Frost,96242,spec?,1.0,0.0
+Death Knight,Frost,96243,spec?,1.0,0.0
+Death Knight,Frost,96244,spec?,1.0,0.0
+Death Knight,Frost,96245,spec?,1.0,0.0
+Death Knight,Frost,96246,spec?,1.0,0.0
+Death Knight,Frost,96247,spec?,1.0,0.0
+Death Knight,Frost,96248,spec?,1.0,0.0
+Death Knight,Frost,96252,spec?,1.0,0.0
+Death Knight,Frost,96253,spec?,1.0,0.0
+Death Knight,Frost,96254,spec?,1.0,0.0
+Death Knight,Frost,117629,spec?,1.0,0.0
+Death Knight,Frost,117631,spec?,1.0,0.0
+Death Knight,Frost,117633,spec?,1.0,0.0
+Death Knight,Frost,117640,spec?,1.0,0.0
+Death Knight,Frost,117646,spec?,1.0,0.0
+Death Knight,Frost,117654,spec?,1.0,0.0
+Death Knight,Frost,117655,spec?,1.0,0.0
+Death Knight,Frost,117658,spec?,1.0,0.0
+Death Knight,Frost,117659,spec?,1.0,0.0
+Death Knight,Frost,117665,spec?,1.0,0.0
+Death Knight,Frost,123324,spec?,1.0,0.0
+Death Knight,Frost,123420,spec?,1.0,0.0
+Death Knight,Frost,125874,spec?,1.0,0.0
+Death Knight,Frost,125875,spec?,1.0,0.0
+Death Knight,Frost,125876,spec?,1.0,0.0
+Death Knight,Frost,125878,spec?,1.0,0.0
+Death Knight,Frost,126015,spec?,1.0,0.0
+Death Knight,Frost,126016,spec?,1.0,0.0
+Death Knight,Frost,126017,spec?,1.0,0.0
+Death Knight,Frost,131618,spec?,1.0,0.0
+Death Knight,Frost,133362,spec?,1.0,0.0
+Death Knight,Frost,135991,spec?,1.0,0.0
+Death Knight,Frost,135992,spec?,1.0,0.0
+Death Knight,Frost,135993,spec?,1.0,0.0
+Death Knight,Frost,136523,spec?,1.0,0.0
+Death Knight,Frost,136524,spec?,1.0,0.0
+Death Knight,Frost,136526,spec?,1.0,0.0
+Death Knight,Frost,136966,spec?,1.0,0.0
+Death Knight,Frost,136967,spec?,1.0,0.0
+Death Knight,Frost,136968,spec?,1.0,0.0
+Demon Hunter,Devourer,112839,공용,1.0,1.0
+Demon Hunter,Devourer,112841,공용,1.0,1.0
+Demon Hunter,Devourer,112844,공용,1.0,1.0
+Demon Hunter,Devourer,112845,공용,1.0,1.0
+Demon Hunter,Devourer,112846,공용,1.0,1.0
+Demon Hunter,Devourer,112847,공용,1.0,1.0
+Demon Hunter,Devourer,112849,공용,1.0,1.0
+Demon Hunter,Devourer,112850,공용,1.0,1.0
+Demon Hunter,Devourer,112851,공용,1.0,1.0
+Demon Hunter,Devourer,112852,공용,1.0,1.0
+Demon Hunter,Devourer,112853,공용,1.0,1.0
+Demon Hunter,Devourer,112859,공용,1.0,0.75
+Demon Hunter,Devourer,112862,공용,1.0,1.0
+Demon Hunter,Devourer,112863,공용,1.0,1.0
+Demon Hunter,Devourer,112918,공용,1.0,1.0
+Demon Hunter,Devourer,112919,공용,1.0,1.0
+Demon Hunter,Devourer,112921,공용,1.0,1.0
+Demon Hunter,Devourer,112926,공용,1.0,0.75
+Demon Hunter,Devourer,117755,공용,1.0,1.0
+Demon Hunter,Devourer,117758,공용,1.0,1.0
+Demon Hunter,Devourer,117759,공용,1.0,1.0
+Demon Hunter,Devourer,117762,공용,1.0,1.0
+Demon Hunter,Devourer,136501,공용,1.0,1.0
+Demon Hunter,Devourer,136502,공용,1.0,1.0
+Demon Hunter,Devourer,112838,공용,0.5,0.75
+Demon Hunter,Devourer,112861,공용,0.5,1.0
+Demon Hunter,Devourer,117768,공용,0.5,0.75
+Demon Hunter,Devourer,112927,공용,0.5,0.75
+Demon Hunter,Devourer,112848,미분류,1.0,0.25
+Demon Hunter,Devourer,112914,미분류,0.5,0.25
+Demon Hunter,Devourer,132278,전문화,1.0,0.0
+Demon Hunter,Devourer,132280,전문화,1.0,0.0
+Demon Hunter,Devourer,132281,전문화,1.0,0.0
+Demon Hunter,Devourer,132282,전문화,1.0,0.0
+Demon Hunter,Devourer,132283,전문화,1.0,0.0
+Demon Hunter,Devourer,132284,전문화,1.0,0.0
+Demon Hunter,Devourer,132285,전문화,1.0,0.0
+Demon Hunter,Devourer,132286,전문화,1.0,0.0
+Demon Hunter,Devourer,132287,전문화,1.0,0.0
+Demon Hunter,Devourer,132288,전문화,1.0,0.0
+Demon Hunter,Devourer,132289,전문화,1.0,0.0
+Demon Hunter,Devourer,133106,전문화,1.0,0.0
+Demon Hunter,Devourer,133107,전문화,1.0,0.0
+Demon Hunter,Devourer,133110,전문화,1.0,0.0
+Demon Hunter,Devourer,133370,전문화,1.0,0.0
+Demon Hunter,Devourer,133511,전문화,1.0,0.0
+Demon Hunter,Devourer,133512,전문화,1.0,0.0
+Demon Hunter,Devourer,133538,전문화,1.0,0.0
+Demon Hunter,Devourer,134149,전문화,1.0,0.0
+Demon Hunter,Devourer,134251,전문화,1.0,0.0
+Demon Hunter,Devourer,134272,전문화,1.0,0.0
+Demon Hunter,Devourer,134280,전문화,1.0,0.0
+Demon Hunter,Devourer,134330,전문화,1.0,0.0
+Demon Hunter,Devourer,135659,전문화,1.0,0.0
+Demon Hunter,Devourer,135660,전문화,1.0,0.0
+Demon Hunter,Devourer,135661,전문화,1.0,0.0
+Demon Hunter,Devourer,135662,전문화,1.0,0.0
+Demon Hunter,Devourer,135663,전문화,1.0,0.0
+Demon Hunter,Devourer,135664,전문화,1.0,0.0
+Demon Hunter,Devourer,135665,전문화,1.0,0.0
+Demon Hunter,Devourer,135667,전문화,1.0,0.0
+Demon Hunter,Devourer,135669,전문화,1.0,0.0
+Demon Hunter,Devourer,135670,전문화,1.0,0.0
+Demon Hunter,Devourer,135671,전문화,1.0,0.0
+Demon Hunter,Devourer,135672,전문화,1.0,0.0
+Demon Hunter,Devourer,135673,전문화,1.0,0.0
+Demon Hunter,Devourer,136131,전문화,1.0,0.0
+Demon Hunter,Devourer,136690,전문화,1.0,0.0
+Demon Hunter,Devourer,136691,전문화,1.0,0.0
+Demon Hunter,Devourer,136693,전문화,1.0,0.0
+Demon Hunter,Devourer,136697,전문화,1.0,0.0
+Demon Hunter,Devourer,136699,전문화,1.0,0.0
+Demon Hunter,Devourer,136810,전문화,1.0,0.0
+Demon Hunter,Devourer,137014,전문화,1.0,0.0
+Demon Hunter,Devourer,137015,전문화,1.0,0.0
+Demon Hunter,Devourer,137016,전문화,1.0,0.0
+Demon Hunter,Devourer,117767,전문화,0.5,0.0
+Demon Hunter,Havoc,112839,공용,1.0,1.0
+Demon Hunter,Havoc,112841,공용,1.0,1.0
+Demon Hunter,Havoc,112844,공용,1.0,1.0
+Demon Hunter,Havoc,112845,공용,1.0,1.0
+Demon Hunter,Havoc,112846,공용,1.0,1.0
+Demon Hunter,Havoc,112847,공용,1.0,1.0
+Demon Hunter,Havoc,112849,공용,1.0,1.0
+Demon Hunter,Havoc,112850,공용,1.0,1.0
+Demon Hunter,Havoc,112851,공용,1.0,1.0
+Demon Hunter,Havoc,112852,공용,1.0,1.0
+Demon Hunter,Havoc,112853,공용,1.0,1.0
+Demon Hunter,Havoc,112862,공용,1.0,1.0
+Demon Hunter,Havoc,112863,공용,1.0,1.0
+Demon Hunter,Havoc,112918,공용,1.0,1.0
+Demon Hunter,Havoc,112919,공용,1.0,1.0
+Demon Hunter,Havoc,112921,공용,1.0,1.0
+Demon Hunter,Havoc,117755,공용,1.0,1.0
+Demon Hunter,Havoc,117758,공용,1.0,1.0
+Demon Hunter,Havoc,117759,공용,1.0,1.0
+Demon Hunter,Havoc,117762,공용,1.0,1.0
+Demon Hunter,Havoc,136501,공용,1.0,1.0
+Demon Hunter,Havoc,136502,공용,1.0,1.0
+Demon Hunter,Havoc,112859,공용,0.75,1.0
+Demon Hunter,Havoc,112926,공용,0.75,1.0
+Demon Hunter,Havoc,112848,공용,0.25,1.0
+Demon Hunter,Havoc,112912,미분류,0.25,0.0
+Demon Hunter,Havoc,112917,미분류,0.25,0.0
+Demon Hunter,Havoc,112924,미분류,0.25,0.0
+Demon Hunter,Havoc,124010,미분류,0.25,0.0
+Demon Hunter,Havoc,112861,영웅,1.0,0.5
+Demon Hunter,Havoc,112838,영웅,0.75,0.5
+Demon Hunter,Havoc,112927,영웅,0.75,0.5
+Demon Hunter,Havoc,117768,영웅,0.75,0.5
+Demon Hunter,Havoc,112914,영웅,0.25,0.5
+Demon Hunter,Havoc,112823,전문화,1.0,0.0
+Demon Hunter,Havoc,112824,전문화,1.0,0.0
+Demon Hunter,Havoc,112825,전문화,1.0,0.0
+Demon Hunter,Havoc,112826,전문화,1.0,0.0
+Demon Hunter,Havoc,112827,전문화,1.0,0.0
+Demon Hunter,Havoc,112830,전문화,1.0,0.0
+Demon Hunter,Havoc,112831,전문화,1.0,0.0
+Demon Hunter,Havoc,112832,전문화,1.0,0.0
+Demon Hunter,Havoc,112834,전문화,1.0,0.0
+Demon Hunter,Havoc,112911,전문화,1.0,0.0
+Demon Hunter,Havoc,112923,전문화,1.0,0.0
+Demon Hunter,Havoc,112928,전문화,1.0,0.0
+Demon Hunter,Havoc,112936,전문화,1.0,0.0
+Demon Hunter,Havoc,112938,전문화,1.0,0.0
+Demon Hunter,Havoc,112939,전문화,1.0,0.0
+Demon Hunter,Havoc,112944,전문화,1.0,0.0
+Demon Hunter,Havoc,112948,전문화,1.0,0.0
+Demon Hunter,Havoc,112949,전문화,1.0,0.0
+Demon Hunter,Havoc,112950,전문화,1.0,0.0
+Demon Hunter,Havoc,112951,전문화,1.0,0.0
+Demon Hunter,Havoc,112953,전문화,1.0,0.0
+Demon Hunter,Havoc,112955,전문화,1.0,0.0
+Demon Hunter,Havoc,112957,전문화,1.0,0.0
+Demon Hunter,Havoc,112959,전문화,1.0,0.0
+Demon Hunter,Havoc,115246,전문화,1.0,0.0
+Demon Hunter,Havoc,115248,전문화,1.0,0.0
+Demon Hunter,Havoc,117498,전문화,1.0,0.0
+Demon Hunter,Havoc,117499,전문화,1.0,0.0
+Demon Hunter,Havoc,117501,전문화,1.0,0.0
+Demon Hunter,Havoc,117502,전문화,1.0,0.0
+Demon Hunter,Havoc,117506,전문화,1.0,0.0
+Demon Hunter,Havoc,117509,전문화,1.0,0.0
+Demon Hunter,Havoc,117513,전문화,1.0,0.0
+Demon Hunter,Havoc,117514,전문화,1.0,0.0
+Demon Hunter,Havoc,117515,전문화,1.0,0.0
+Demon Hunter,Havoc,117741,전문화,1.0,0.0
+Demon Hunter,Havoc,117744,전문화,1.0,0.0
+Demon Hunter,Havoc,117754,전문화,1.0,0.0
+Demon Hunter,Havoc,117765,전문화,1.0,0.0
+Demon Hunter,Havoc,123329,전문화,1.0,0.0
+Demon Hunter,Havoc,124011,전문화,1.0,0.0
+Demon Hunter,Havoc,136030,전문화,1.0,0.0
+Demon Hunter,Havoc,136031,전문화,1.0,0.0
+Demon Hunter,Havoc,136032,전문화,1.0,0.0
+Demon Hunter,Havoc,137047,전문화,1.0,0.0
+Demon Hunter,Havoc,137048,전문화,1.0,0.0
+Demon Hunter,Havoc,137049,전문화,1.0,0.0
+Demon Hunter,Havoc,117496,전문화,0.75,0.0
+Druid,Balance,103292,공용,1.0,0.966
+Druid,Balance,103296,공용,1.0,0.993
+Druid,Balance,103298,공용,1.0,0.995
+Druid,Balance,103306,공용,1.0,0.995
+Druid,Balance,103311,공용,1.0,0.992
+Druid,Balance,103312,공용,1.0,0.995
+Druid,Balance,103313,공용,1.0,0.993
+Druid,Balance,123794,공용,1.0,0.992
+Druid,Balance,123795,공용,1.0,0.992
+Druid,Balance,128581,공용,1.0,0.992
+Druid,Balance,128591,공용,1.0,0.995
+Druid,Balance,103314,공용,0.999,0.993
+Druid,Balance,128584,공용,0.999,0.826
+Druid,Balance,103284,공용,0.998,0.966
+Druid,Balance,103297,공용,0.998,0.995
+Druid,Balance,123796,공용,0.998,0.992
+Druid,Balance,103287,공용,0.978,0.776
+Druid,Balance,103307,공용,0.951,0.972
+Druid,Balance,128589,공용,0.925,0.733
+Druid,Balance,114300,공용,0.895,0.807
+Druid,Balance,103303,공용,0.757,0.995
+Druid,Balance,103320,공용,0.325,0.992
+Druid,Balance,128585,공용,0.001,0.991
+Druid,Balance,103309,미분류,0.733,0.209
+Druid,Balance,128586,미분류,0.491,0.158
+Druid,Balance,123793,미분류,0.434,0.159
+Druid,Balance,109834,미분류,0.341,0.0
+Druid,Balance,109843,미분류,0.321,0.0
+Druid,Balance,109870,미분류,0.282,0.0
+Druid,Balance,128232,미분류,0.216,0.0
+Druid,Balance,109850,미분류,0.215,0.0
+Druid,Balance,109847,미분류,0.149,0.0
+Druid,Balance,117177,미분류,0.147,0.0
+Druid,Balance,117179,미분류,0.147,0.0
+Druid,Balance,117181,미분류,0.147,0.0
+Druid,Balance,117183,미분류,0.147,0.0
+Druid,Balance,117190,미분류,0.147,0.0
+Druid,Balance,117193,미분류,0.147,0.0
+Druid,Balance,117204,미분류,0.147,0.0
+Druid,Balance,117205,미분류,0.147,0.0
+Druid,Balance,117769,미분류,0.147,0.0
+Druid,Balance,123302,미분류,0.147,0.0
+Druid,Balance,135976,미분류,0.147,0.0
+Druid,Balance,135977,미분류,0.147,0.0
+Druid,Balance,135978,미분류,0.147,0.0
+Druid,Balance,109838,미분류,0.146,0.0
+Druid,Balance,123304,미분류,0.145,0.0
+Druid,Balance,109842,미분류,0.143,0.0
+Druid,Balance,109862,미분류,0.136,0.0
+Druid,Balance,117772,미분류,0.129,0.0
+Druid,Balance,109872,미분류,0.127,0.0
+Druid,Balance,103319,미분류,0.114,0.009
+Druid,Balance,117895,미분류,0.11,0.0
+Druid,Balance,103316,미분류,0.058,0.162
+Druid,Balance,128587,미분류,0.049,0.023
+Druid,Balance,128583,미분류,0.027,0.003
+Druid,Balance,109852,미분류,0.018,0.0
+Druid,Balance,117176,미분류,0.017,0.0
+Druid,Balance,103295,미분류,0.014,0.001
+Druid,Balance,103285,미분류,0.01,0.015
+Druid,Balance,103315,미분류,0.005,0.024
+Druid,Balance,103289,미분류,0.002,0.009
+Druid,Balance,123792,미분류,0.002,0.005
+Druid,Balance,128582,미분류,0.002,0.001
+Druid,Balance,117192,미분류,0.002,0.0
+Druid,Balance,117185,미분류,0.001,0.0
+Druid,Balance,117189,미분류,0.001,0.0
+Druid,Balance,136832,미분류,0.001,0.0
+Druid,Balance,103305,미분류,0.001,0.001
+Druid,Balance,103276,영웅,0.992,0.58
+Druid,Balance,103324,영웅,0.913,0.66
+Druid,Balance,103326,영웅,0.623,0.435
+Druid,Balance,103308,영웅,0.538,0.515
+Druid,Balance,103323,영웅,0.108,0.461
+Druid,Balance,103275,영웅,0.008,0.415
+Druid,Balance,103279,전문화,1.0,0.0
+Druid,Balance,103280,전문화,1.0,0.0
+Druid,Balance,103286,전문화,1.0,0.003
+Druid,Balance,109835,전문화,1.0,0.0
+Druid,Balance,109840,전문화,1.0,0.0
+Druid,Balance,109848,전문화,1.0,0.0
+Druid,Balance,109849,전문화,1.0,0.0
+Druid,Balance,109856,전문화,1.0,0.0
+Druid,Balance,109857,전문화,1.0,0.0
+Druid,Balance,109858,전문화,1.0,0.0
+Druid,Balance,109861,전문화,1.0,0.0
+Druid,Balance,109863,전문화,1.0,0.0
+Druid,Balance,109867,전문화,1.0,0.0
+Druid,Balance,115458,전문화,1.0,0.0
+Druid,Balance,116102,전문화,1.0,0.0
+Druid,Balance,123868,전문화,1.0,0.0
+Druid,Balance,128230,전문화,1.0,0.0
+Druid,Balance,128231,전문화,1.0,0.0
+Druid,Balance,128579,전문화,1.0,0.0
+Druid,Balance,133404,전문화,1.0,0.0
+Druid,Balance,137029,전문화,1.0,0.0
+Druid,Balance,137030,전문화,1.0,0.0
+Druid,Balance,137031,전문화,1.0,0.0
+Druid,Balance,109833,전문화,0.991,0.0
+Druid,Balance,109836,전문화,0.987,0.0
+Druid,Balance,103288,전문화,0.984,0.059
+Druid,Balance,133403,전문화,0.982,0.0
+Druid,Balance,109846,전문화,0.95,0.0
+Druid,Balance,109864,전문화,0.912,0.0
+Druid,Balance,109873,전문화,0.873,0.0
+Druid,Balance,109839,전문화,0.854,0.0
+Druid,Balance,109844,전문화,0.853,0.0
+Druid,Balance,117186,전문화,0.853,0.0
+Druid,Balance,117194,전문화,0.853,0.0
+Druid,Balance,117195,전문화,0.853,0.0
+Druid,Balance,117196,전문화,0.853,0.0
+Druid,Balance,117197,전문화,0.853,0.0
+Druid,Balance,117199,전문화,0.853,0.0
+Druid,Balance,117201,전문화,0.853,0.0
+Druid,Balance,117203,전문화,0.853,0.0
+Druid,Balance,123300,전문화,0.853,0.0
+Druid,Balance,135970,전문화,0.853,0.0
+Druid,Balance,135971,전문화,0.853,0.0
+Druid,Balance,135972,전문화,0.853,0.0
+Druid,Balance,117188,전문화,0.852,0.0
+Druid,Balance,117894,전문화,0.852,0.0
+Druid,Balance,133405,전문화,0.85,0.0
+Druid,Balance,117184,전문화,0.743,0.0
+Druid,Balance,109868,전문화,0.705,0.0
+Druid,Balance,109859,전문화,0.692,0.0
+Druid,Balance,109871,전문화,0.674,0.0
+Druid,Balance,133406,전문화,0.579,0.0
+Druid,Balance,128588,전문화,0.558,0.0
+Druid,Feral,103297,공용,0.995,0.998
+Druid,Feral,103298,공용,0.995,1.0
+Druid,Feral,103303,공용,0.995,0.757
+Druid,Feral,103306,공용,0.995,1.0
+Druid,Feral,103312,공용,0.995,1.0
+Druid,Feral,128591,공용,0.995,1.0
+Druid,Feral,103296,공용,0.993,1.0
+Druid,Feral,103313,공용,0.993,1.0
+Druid,Feral,103314,공용,0.993,0.999
+Druid,Feral,103311,공용,0.992,1.0
+Druid,Feral,123794,공용,0.992,1.0
+Druid,Feral,123795,공용,0.992,1.0
+Druid,Feral,123796,공용,0.992,0.998
+Druid,Feral,128581,공용,0.992,1.0
+Druid,Feral,103307,공용,0.972,0.951
+Druid,Feral,103284,공용,0.966,0.998
+Druid,Feral,103292,공용,0.966,1.0
+Druid,Feral,128584,공용,0.826,0.999
+Druid,Feral,114300,공용,0.807,0.895
+Druid,Feral,103287,공용,0.776,0.978
+Druid,Feral,128589,공용,0.733,0.925
+Druid,Feral,103324,공용,0.66,0.913
+Druid,Feral,103276,공용,0.58,0.992
+Druid,Feral,103309,공용,0.209,0.733
+Druid,Feral,103288,공용,0.059,0.984
+Druid,Feral,103286,공용,0.003,1.0
+Druid,Feral,103323,미분류,0.461,0.108
+Druid,Feral,103275,미분류,0.415,0.008
+Druid,Feral,103181,미분류,0.379,0.0
+Druid,Feral,103145,미분류,0.283,0.0
+Druid,Feral,117230,미분류,0.278,0.0
+Druid,Feral,134211,미분류,0.252,0.0
+Druid,Feral,103156,미분류,0.222,0.0
+Druid,Feral,103153,미분류,0.174,0.0
+Druid,Feral,103316,미분류,0.162,0.058
+Druid,Feral,103176,미분류,0.078,0.0
+Druid,Feral,103166,미분류,0.059,0.0
+Druid,Feral,103154,미분류,0.057,0.0
+Druid,Feral,117206,미분류,0.055,0.0
+Druid,Feral,117207,미분류,0.055,0.0
+Druid,Feral,117208,미분류,0.055,0.0
+Druid,Feral,117210,미분류,0.055,0.0
+Druid,Feral,117211,미분류,0.055,0.0
+Druid,Feral,117215,미분류,0.055,0.0
+Druid,Feral,117218,미분류,0.055,0.0
+Druid,Feral,117220,미분류,0.055,0.0
+Druid,Feral,123297,미분류,0.055,0.0
+Druid,Feral,117216,미분류,0.053,0.0
+Druid,Feral,117219,미분류,0.053,0.0
+Druid,Feral,135979,미분류,0.053,0.0
+Druid,Feral,135980,미분류,0.053,0.0
+Druid,Feral,136624,미분류,0.053,0.0
+Druid,Feral,117214,미분류,0.051,0.0
+Druid,Feral,117222,미분류,0.05,0.0
+Druid,Feral,117233,미분류,0.036,0.0
+Druid,Feral,119854,미분류,0.031,0.0
+Druid,Feral,103315,미분류,0.024,0.005
+Druid,Feral,128587,미분류,0.023,0.049
+Druid,Feral,103299,미분류,0.019,0.0
+Druid,Feral,103178,미분류,0.016,0.0
+Druid,Feral,103285,미분류,0.015,0.01
+Druid,Feral,103289,미분류,0.009,0.002
+Druid,Feral,103319,미분류,0.009,0.114
+Druid,Feral,103144,미분류,0.009,0.0
+Druid,Feral,103169,미분류,0.008,0.0
+Druid,Feral,103149,미분류,0.007,0.0
+Druid,Feral,123792,미분류,0.005,0.002
+Druid,Feral,117213,미분류,0.004,0.0
+Druid,Feral,112967,미분류,0.003,0.0
+Druid,Feral,128583,미분류,0.003,0.027
+Druid,Feral,103295,미분류,0.001,0.014
+Druid,Feral,103305,미분류,0.001,0.001
+Druid,Feral,128582,미분류,0.001,0.002
+Druid,Feral,103320,영웅,0.992,0.325
+Druid,Feral,103308,영웅,0.515,0.538
+Druid,Feral,103326,영웅,0.435,0.623
+Druid,Feral,123793,영웅,0.159,0.434
+Druid,Feral,128586,영웅,0.158,0.491
+Druid,Feral,103277,전문화,1.0,0.0
+Druid,Feral,103300,전문화,1.0,0.0
+Druid,Feral,103301,전문화,1.0,0.0
+Druid,Feral,103162,전문화,0.995,0.0
+Druid,Feral,103163,전문화,0.995,0.0
+Druid,Feral,103165,전문화,0.995,0.0
+Druid,Feral,103180,전문화,0.995,0.0
+Druid,Feral,103182,전문화,0.995,0.0
+Druid,Feral,103183,전문화,0.995,0.0
+Druid,Feral,103186,전문화,0.995,0.0
+Druid,Feral,103187,전문화,0.995,0.0
+Druid,Feral,103188,전문화,0.995,0.0
+Druid,Feral,103302,전문화,0.995,0.0
+Druid,Feral,103318,전문화,0.995,0.0
+Druid,Feral,103322,전문화,0.995,0.0
+Druid,Feral,103161,전문화,0.993,0.0
+Druid,Feral,103167,전문화,0.993,0.0
+Druid,Feral,103150,전문화,0.992,0.0
+Druid,Feral,103157,전문화,0.992,0.0
+Druid,Feral,103179,전문화,0.992,0.0
+Druid,Feral,128580,전문화,0.992,0.0
+Druid,Feral,128585,전문화,0.991,0.001
+Druid,Feral,137044,전문화,0.991,0.0
+Druid,Feral,137045,전문화,0.991,0.0
+Druid,Feral,137046,전문화,0.991,0.0
+Druid,Feral,103168,전문화,0.987,0.0
+Druid,Feral,103147,전문화,0.985,0.0
+Druid,Feral,103152,전문화,0.984,0.0
+Druid,Feral,103160,전문화,0.984,0.0
+Druid,Feral,103172,전문화,0.982,0.0
+Druid,Feral,103177,전문화,0.976,0.0
+Druid,Feral,114771,전문화,0.973,0.0
+Druid,Feral,103175,전문화,0.956,0.0
+Druid,Feral,117221,전문화,0.935,0.0
+Druid,Feral,117223,전문화,0.935,0.0
+Druid,Feral,117224,전문화,0.935,0.0
+Druid,Feral,117226,전문화,0.935,0.0
+Druid,Feral,117227,전문화,0.935,0.0
+Druid,Feral,117231,전문화,0.935,0.0
+Druid,Feral,117232,전문화,0.935,0.0
+Druid,Feral,123296,전문화,0.935,0.0
+Druid,Feral,135973,전문화,0.935,0.0
+Druid,Feral,135974,전문화,0.935,0.0
+Druid,Feral,135975,전문화,0.935,0.0
+Druid,Feral,117225,전문화,0.904,0.0
+Druid,Feral,117234,전문화,0.899,0.0
+Druid,Feral,103159,전문화,0.889,0.0
+Druid,Feral,119855,전문화,0.885,0.0
+Druid,Feral,103185,전문화,0.809,0.0
+Druid,Feral,103184,전문화,0.782,0.0
+Druid,Feral,103173,전문화,0.771,0.0
+Druid,Feral,103174,전문화,0.704,0.0
+Druid,Feral,103170,전문화,0.673,0.0
+Druid,Feral,117229,전문화,0.658,0.0
+Druid,Feral,103164,전문화,0.643,0.0
+Evoker,Augmentation,115596,공용,1.0,1.0
+Evoker,Augmentation,115597,공용,1.0,1.0
+Evoker,Augmentation,115603,공용,1.0,1.0
+Evoker,Augmentation,115609,공용,1.0,1.0
+Evoker,Augmentation,115611,공용,1.0,1.0
+Evoker,Augmentation,115613,공용,1.0,1.0
+Evoker,Augmentation,115614,공용,1.0,1.0
+Evoker,Augmentation,115615,공용,1.0,1.0
+Evoker,Augmentation,115617,공용,1.0,1.0
+Evoker,Augmentation,115618,공용,1.0,1.0
+Evoker,Augmentation,115619,공용,1.0,1.0
+Evoker,Augmentation,115620,공용,1.0,1.0
+Evoker,Augmentation,115621,공용,1.0,1.0
+Evoker,Augmentation,115655,공용,1.0,1.0
+Evoker,Augmentation,115657,공용,1.0,1.0
+Evoker,Augmentation,115658,공용,1.0,1.0
+Evoker,Augmentation,115661,공용,1.0,1.0
+Evoker,Augmentation,115663,공용,1.0,1.0
+Evoker,Augmentation,115664,공용,1.0,1.0
+Evoker,Augmentation,115665,공용,1.0,1.0
+Evoker,Augmentation,115667,공용,1.0,1.0
+Evoker,Augmentation,115669,공용,1.0,1.0
+Evoker,Augmentation,115670,공용,1.0,1.0
+Evoker,Augmentation,116103,공용,1.0,1.0
+Evoker,Augmentation,128216,공용,1.0,1.0
+Evoker,Augmentation,115666,공용,0.75,1.0
+Evoker,Augmentation,115654,공용,0.75,1.0
+Evoker,Augmentation,117518,공용,0.75,1.0
+Evoker,Augmentation,117525,공용,0.75,1.0
+Evoker,Augmentation,117530,공용,0.75,1.0
+Evoker,Augmentation,117531,공용,0.75,1.0
+Evoker,Augmentation,117533,공용,0.75,1.0
+Evoker,Augmentation,117538,공용,0.75,1.0
+Evoker,Augmentation,117541,공용,0.75,1.0
+Evoker,Augmentation,117549,공용,0.75,1.0
+Evoker,Augmentation,117550,공용,0.75,1.0
+Evoker,Augmentation,120123,공용,0.75,1.0
+Evoker,Augmentation,136051,공용,0.75,1.0
+Evoker,Augmentation,136052,공용,0.75,1.0
+Evoker,Augmentation,136053,공용,0.75,1.0
+Evoker,Augmentation,115660,공용,0.5,1.0
+Evoker,Augmentation,136559,공용,0.25,1.0
+Evoker,Augmentation,115595,미분류,0.5,0.25
+Evoker,Augmentation,115656,미분류,0.5,0.25
+Evoker,Augmentation,115600,미분류,0.25,0.0
+Evoker,Augmentation,115687,미분류,0.25,0.0
+Evoker,Augmentation,117522,미분류,0.25,0.0
+Evoker,Augmentation,117526,미분류,0.25,0.0
+Evoker,Augmentation,117529,미분류,0.25,0.0
+Evoker,Augmentation,117532,미분류,0.25,0.0
+Evoker,Augmentation,117539,미분류,0.25,0.0
+Evoker,Augmentation,117544,미분류,0.25,0.0
+Evoker,Augmentation,117545,미분류,0.25,0.0
+Evoker,Augmentation,117548,미분류,0.25,0.0
+Evoker,Augmentation,117551,미분류,0.25,0.0
+Evoker,Augmentation,117552,미분류,0.25,0.0
+Evoker,Augmentation,123334,미분류,0.25,0.0
+Evoker,Augmentation,126310,미분류,0.25,0.0
+Evoker,Augmentation,135741,미분류,0.25,0.0
+Evoker,Augmentation,135742,미분류,0.25,0.0
+Evoker,Augmentation,135743,미분류,0.25,0.0
+Evoker,Augmentation,115577,미분류,0.25,0.25
+Evoker,Augmentation,115616,미분류,0.25,0.25
+Evoker,Augmentation,125610,미분류,0.25,0.0
+Evoker,Augmentation,115598,미분류,0.25,0.0
+Evoker,Augmentation,115706,미분류,0.25,0.0
+Evoker,Augmentation,115493,전문화,1.0,0.0
+Evoker,Augmentation,115495,전문화,1.0,0.0
+Evoker,Augmentation,115496,전문화,1.0,0.0
+Evoker,Augmentation,115498,전문화,1.0,0.0
+Evoker,Augmentation,115499,전문화,1.0,0.0
+Evoker,Augmentation,115500,전문화,1.0,0.0
+Evoker,Augmentation,115502,전문화,1.0,0.0
+Evoker,Augmentation,115504,전문화,1.0,0.0
+Evoker,Augmentation,115505,전문화,1.0,0.0
+Evoker,Augmentation,115506,전문화,1.0,0.0
+Evoker,Augmentation,115507,전문화,1.0,0.0
+Evoker,Augmentation,115508,전문화,1.0,0.0
+Evoker,Augmentation,115511,전문화,1.0,0.0
+Evoker,Augmentation,115512,전문화,1.0,0.0
+Evoker,Augmentation,115519,전문화,1.0,0.0
+Evoker,Augmentation,115520,전문화,1.0,0.0
+Evoker,Augmentation,115521,전문화,1.0,0.0
+Evoker,Augmentation,115522,전문화,1.0,0.0
+Evoker,Augmentation,115523,전문화,1.0,0.0
+Evoker,Augmentation,115527,전문화,1.0,0.0
+Evoker,Augmentation,115530,전문화,1.0,0.0
+Evoker,Augmentation,115533,전문화,1.0,0.0
+Evoker,Augmentation,115536,전문화,1.0,0.0
+Evoker,Augmentation,115675,전문화,1.0,0.0
+Evoker,Augmentation,115685,전문화,1.0,0.0
+Evoker,Augmentation,115688,전문화,1.0,0.0
+Evoker,Augmentation,126304,전문화,1.0,0.0
+Evoker,Augmentation,126305,전문화,1.0,0.0
+Evoker,Augmentation,137011,전문화,1.0,0.0
+Evoker,Augmentation,137012,전문화,1.0,0.0
+Evoker,Augmentation,137013,전문화,1.0,0.0
+Evoker,Augmentation,115602,전문화,0.75,0.0
+Evoker,Augmentation,115690,전문화,0.75,0.0
+Evoker,Augmentation,115686,전문화,0.75,0.0
+Evoker,Augmentation,122279,전문화,0.75,0.0
+Evoker,Augmentation,123331,전문화,0.75,0.0
+Evoker,Augmentation,136560,전문화,0.5,0.0
+Evoker,Devastation,115596,공용,1.0,1.0
+Evoker,Devastation,115597,공용,1.0,1.0
+Evoker,Devastation,115603,공용,1.0,1.0
+Evoker,Devastation,115609,공용,1.0,1.0
+Evoker,Devastation,115611,공용,1.0,1.0
+Evoker,Devastation,115613,공용,1.0,1.0
+Evoker,Devastation,115614,공용,1.0,1.0
+Evoker,Devastation,115615,공용,1.0,1.0
+Evoker,Devastation,115617,공용,1.0,1.0
+Evoker,Devastation,115618,공용,1.0,1.0
+Evoker,Devastation,115619,공용,1.0,1.0
+Evoker,Devastation,115620,공용,1.0,1.0
+Evoker,Devastation,115621,공용,1.0,1.0
+Evoker,Devastation,115654,공용,1.0,0.75
+Evoker,Devastation,115655,공용,1.0,1.0
+Evoker,Devastation,115657,공용,1.0,1.0
+Evoker,Devastation,115658,공용,1.0,1.0
+Evoker,Devastation,115661,공용,1.0,1.0
+Evoker,Devastation,115663,공용,1.0,1.0
+Evoker,Devastation,115664,공용,1.0,1.0
+Evoker,Devastation,115665,공용,1.0,1.0
+Evoker,Devastation,115666,공용,1.0,0.75
+Evoker,Devastation,115667,공용,1.0,1.0
+Evoker,Devastation,115669,공용,1.0,1.0
+Evoker,Devastation,115670,공용,1.0,1.0
+Evoker,Devastation,116103,공용,1.0,1.0
+Evoker,Devastation,117518,공용,1.0,0.75
+Evoker,Devastation,117525,공용,1.0,0.75
+Evoker,Devastation,117530,공용,1.0,0.75
+Evoker,Devastation,117531,공용,1.0,0.75
+Evoker,Devastation,117533,공용,1.0,0.75
+Evoker,Devastation,117538,공용,1.0,0.75
+Evoker,Devastation,117541,공용,1.0,0.75
+Evoker,Devastation,117549,공용,1.0,0.75
+Evoker,Devastation,117550,공용,1.0,0.75
+Evoker,Devastation,120123,공용,1.0,0.75
+Evoker,Devastation,128216,공용,1.0,1.0
+Evoker,Devastation,136051,공용,1.0,0.75
+Evoker,Devastation,136052,공용,1.0,0.75
+Evoker,Devastation,136053,공용,1.0,0.75
+Evoker,Devastation,136559,미분류,1.0,0.25
+Evoker,Devastation,115577,미분류,0.25,0.25
+Evoker,Devastation,115616,미분류,0.25,0.25
+Evoker,Devastation,115630,미분류,0.25,0.0
+Evoker,Devastation,115660,영웅,1.0,0.5
+Evoker,Devastation,115656,영웅,0.25,0.5
+Evoker,Devastation,115595,영웅,0.25,0.5
+Evoker,Devastation,115578,전문화,1.0,0.0
+Evoker,Devastation,115579,전문화,1.0,0.0
+Evoker,Devastation,115580,전문화,1.0,0.0
+Evoker,Devastation,115581,전문화,1.0,0.0
+Evoker,Devastation,115587,전문화,1.0,0.0
+Evoker,Devastation,115588,전문화,1.0,0.0
+Evoker,Devastation,115592,전문화,1.0,0.0
+Evoker,Devastation,115593,전문화,1.0,0.0
+Evoker,Devastation,115623,전문화,1.0,0.0
+Evoker,Devastation,115624,전문화,1.0,0.0
+Evoker,Devastation,115627,전문화,1.0,0.0
+Evoker,Devastation,115631,전문화,1.0,0.0
+Evoker,Devastation,115632,전문화,1.0,0.0
+Evoker,Devastation,115634,전문화,1.0,0.0
+Evoker,Devastation,115635,전문화,1.0,0.0
+Evoker,Devastation,115636,전문화,1.0,0.0
+Evoker,Devastation,115637,전문화,1.0,0.0
+Evoker,Devastation,115638,전문화,1.0,0.0
+Evoker,Devastation,115639,전문화,1.0,0.0
+Evoker,Devastation,115640,전문화,1.0,0.0
+Evoker,Devastation,115641,전문화,1.0,0.0
+Evoker,Devastation,115642,전문화,1.0,0.0
+Evoker,Devastation,115643,전문화,1.0,0.0
+Evoker,Devastation,115645,전문화,1.0,0.0
+Evoker,Devastation,115646,전문화,1.0,0.0
+Evoker,Devastation,115647,전문화,1.0,0.0
+Evoker,Devastation,115668,전문화,1.0,0.0
+Evoker,Devastation,115683,전문화,1.0,0.0
+Evoker,Devastation,117536,전문화,1.0,0.0
+Evoker,Devastation,123333,전문화,1.0,0.0
+Evoker,Devastation,137008,전문화,1.0,0.0
+Evoker,Devastation,137009,전문화,1.0,0.0
+Evoker,Devastation,137010,전문화,1.0,0.0
+Evoker,Devastation,115629,전문화,0.75,0.0
+Hunter,Beast Mastery,126443,공용,1.0,1.0
+Hunter,Beast Mastery,126444,공용,1.0,1.0
+Hunter,Beast Mastery,126447,공용,1.0,1.0
+Hunter,Beast Mastery,126453,공용,1.0,1.0
+Hunter,Beast Mastery,126460,공용,1.0,1.0
+Hunter,Beast Mastery,126465,공용,1.0,1.0
+Hunter,Beast Mastery,126470,공용,1.0,1.0
+Hunter,Beast Mastery,126473,공용,1.0,1.0
+Hunter,Beast Mastery,126475,공용,1.0,1.0
+Hunter,Beast Mastery,126488,공용,1.0,1.0
+Hunter,Beast Mastery,126489,공용,1.0,1.0
+Hunter,Beast Mastery,126490,공용,1.0,0.998
+Hunter,Beast Mastery,135708,공용,1.0,1.0
+Hunter,Beast Mastery,135710,공용,1.0,1.0
+Hunter,Beast Mastery,136677,공용,1.0,1.0
+Hunter,Beast Mastery,126450,공용,0.999,0.999
+Hunter,Beast Mastery,126454,공용,0.992,0.999
+Hunter,Beast Mastery,126481,공용,0.984,0.998
+Hunter,Beast Mastery,136685,공용,0.959,0.91
+Hunter,Beast Mastery,126468,공용,0.953,0.946
+Hunter,Beast Mastery,135705,공용,0.923,0.817
+Hunter,Beast Mastery,126459,공용,0.807,0.798
+Hunter,Beast Mastery,126484,공용,0.619,0.958
+Hunter,Beast Mastery,126407,미분류,0.497,0.0
+Hunter,Beast Mastery,126435,미분류,0.494,0.0
+Hunter,Beast Mastery,126432,미분류,0.492,0.0
+Hunter,Beast Mastery,126427,미분류,0.49,0.0
+Hunter,Beast Mastery,126430,미분류,0.479,0.0
+Hunter,Beast Mastery,132188,미분류,0.479,0.0
+Hunter,Beast Mastery,132189,미분류,0.479,0.0
+Hunter,Beast Mastery,126439,미분류,0.474,0.0
+Hunter,Beast Mastery,126401,미분류,0.432,0.0
+Hunter,Beast Mastery,126406,미분류,0.39,0.0
+Hunter,Beast Mastery,136676,미분류,0.249,0.181
+Hunter,Beast Mastery,136670,미분류,0.242,0.198
+Hunter,Beast Mastery,126480,미분류,0.111,0.146
+Hunter,Beast Mastery,123781,미분류,0.087,0.049
+Hunter,Beast Mastery,126457,미분류,0.069,0.054
+Hunter,Beast Mastery,136686,미분류,0.039,0.089
+Hunter,Beast Mastery,126446,미분류,0.027,0.011
+Hunter,Beast Mastery,126458,미분류,0.018,0.026
+Hunter,Beast Mastery,126476,미분류,0.011,0.006
+Hunter,Beast Mastery,136671,미분류,0.007,0.006
+Hunter,Beast Mastery,126438,미분류,0.002,0.0
+Hunter,Beast Mastery,126483,미분류,0.002,0.0
+Hunter,Beast Mastery,136062,미분류,0.002,0.001
+Hunter,Beast Mastery,136674,미분류,0.001,0.001
+Hunter,Beast Mastery,126471,미분류,0.001,0.002
+Hunter,Beast Mastery,117559,영웅,1.0,0.5
+Hunter,Beast Mastery,117563,영웅,1.0,0.5
+Hunter,Beast Mastery,117564,영웅,1.0,0.5
+Hunter,Beast Mastery,117566,영웅,1.0,0.5
+Hunter,Beast Mastery,117581,영웅,1.0,0.5
+Hunter,Beast Mastery,117582,영웅,1.0,0.5
+Hunter,Beast Mastery,117585,영웅,1.0,0.5
+Hunter,Beast Mastery,117588,영웅,1.0,0.5
+Hunter,Beast Mastery,117589,영웅,1.0,0.5
+Hunter,Beast Mastery,136060,영웅,1.0,0.5
+Hunter,Beast Mastery,136061,영웅,1.0,0.5
+Hunter,Beast Mastery,136236,영웅,0.998,0.499
+Hunter,Beast Mastery,117569,영웅,0.979,0.181
+Hunter,Beast Mastery,117576,영웅,0.913,0.451
+Hunter,Beast Mastery,135711,영웅,0.619,0.405
+Hunter,Beast Mastery,135706,영웅,0.565,0.469
+Hunter,Beast Mastery,135709,영웅,0.527,0.617
+Hunter,Beast Mastery,136673,영웅,0.454,0.491
+Hunter,Beast Mastery,135712,영웅,0.438,0.601
+Hunter,Beast Mastery,136675,영웅,0.374,0.468
+Hunter,Beast Mastery,135704,영웅,0.371,0.313
+Hunter,Beast Mastery,126452,영웅,0.355,0.413
+Hunter,Beast Mastery,128358,영웅,0.021,0.319
+Hunter,Beast Mastery,123347,전문화,1.0,0.0
+Hunter,Beast Mastery,126352,전문화,1.0,0.0
+Hunter,Beast Mastery,126397,전문화,1.0,0.0
+Hunter,Beast Mastery,126402,전문화,1.0,0.0
+Hunter,Beast Mastery,126404,전문화,1.0,0.0
+Hunter,Beast Mastery,126405,전문화,1.0,0.0
+Hunter,Beast Mastery,126408,전문화,1.0,0.0
+Hunter,Beast Mastery,126409,전문화,1.0,0.0
+Hunter,Beast Mastery,126415,전문화,1.0,0.0
+Hunter,Beast Mastery,126416,전문화,1.0,0.0
+Hunter,Beast Mastery,126418,전문화,1.0,0.0
+Hunter,Beast Mastery,126419,전문화,1.0,0.0
+Hunter,Beast Mastery,126420,전문화,1.0,0.0
+Hunter,Beast Mastery,126424,전문화,1.0,0.0
+Hunter,Beast Mastery,126431,전문화,1.0,0.0
+Hunter,Beast Mastery,126433,전문화,1.0,0.0
+Hunter,Beast Mastery,126436,전문화,1.0,0.0
+Hunter,Beast Mastery,126437,전문화,1.0,0.0
+Hunter,Beast Mastery,126440,전문화,1.0,0.0
+Hunter,Beast Mastery,136679,전문화,1.0,0.0
+Hunter,Beast Mastery,137050,전문화,1.0,0.0
+Hunter,Beast Mastery,137051,전문화,1.0,0.0
+Hunter,Beast Mastery,137052,전문화,1.0,0.0
+Hunter,Beast Mastery,126461,전문화,0.814,0.0
+Hunter,Beast Mastery,126400,전문화,0.568,0.0
+Hunter,Beast Mastery,128265,전문화,0.546,0.0
+Hunter,Beast Mastery,126426,전문화,0.521,0.0
+Hunter,Beast Mastery,126434,전문화,0.521,0.0
+Hunter,Beast Mastery,126421,전문화,0.519,0.0
+Hunter,Beast Mastery,126403,전문화,0.517,0.0
+Hunter,Beast Mastery,126425,전문화,0.517,0.0
+Hunter,Beast Mastery,126417,전문화,0.516,0.0
+Hunter,Beast Mastery,126399,전문화,0.5,0.0
+Hunter,Marksmanship,126443,공용,1.0,1.0
+Hunter,Marksmanship,126444,공용,1.0,1.0
+Hunter,Marksmanship,126447,공용,1.0,1.0
+Hunter,Marksmanship,126450,공용,1.0,0.998
+Hunter,Marksmanship,126453,공용,1.0,1.0
+Hunter,Marksmanship,126454,공용,1.0,0.995
+Hunter,Marksmanship,126460,공용,1.0,1.0
+Hunter,Marksmanship,126465,공용,1.0,1.0
+Hunter,Marksmanship,126470,공용,1.0,1.0
+Hunter,Marksmanship,126473,공용,1.0,1.0
+Hunter,Marksmanship,126475,공용,1.0,1.0
+Hunter,Marksmanship,126481,공용,1.0,0.99
+Hunter,Marksmanship,126488,공용,1.0,1.0
+Hunter,Marksmanship,126489,공용,1.0,1.0
+Hunter,Marksmanship,126490,공용,1.0,0.998
+Hunter,Marksmanship,135708,공용,1.0,1.0
+Hunter,Marksmanship,135710,공용,1.0,1.0
+Hunter,Marksmanship,136677,공용,1.0,1.0
+Hunter,Marksmanship,126468,공용,0.98,0.933
+Hunter,Marksmanship,126484,공용,0.963,0.786
+Hunter,Marksmanship,135705,공용,0.953,0.802
+Hunter,Marksmanship,136685,공용,0.9,0.94
+Hunter,Marksmanship,126459,공용,0.728,0.838
+Hunter,Marksmanship,135713,미분류,0.456,0.0
+Hunter,Marksmanship,128394,미분류,0.344,0.0
+Hunter,Marksmanship,135714,미분류,0.339,0.0
+Hunter,Marksmanship,136670,미분류,0.33,0.154
+Hunter,Marksmanship,117558,미분류,0.288,0.0
+Hunter,Marksmanship,117565,미분류,0.288,0.0
+Hunter,Marksmanship,117571,미분류,0.288,0.0
+Hunter,Marksmanship,117584,미분류,0.288,0.0
+Hunter,Marksmanship,117590,미분류,0.288,0.0
+Hunter,Marksmanship,123346,미분류,0.288,0.0
+Hunter,Marksmanship,123779,미분류,0.288,0.0
+Hunter,Marksmanship,128238,미분류,0.288,0.0
+Hunter,Marksmanship,132888,미분류,0.288,0.0
+Hunter,Marksmanship,136057,미분류,0.288,0.0
+Hunter,Marksmanship,136058,미분류,0.288,0.0
+Hunter,Marksmanship,136059,미분류,0.288,0.0
+Hunter,Marksmanship,136742,미분류,0.283,0.0
+Hunter,Marksmanship,137377,미분류,0.218,0.0
+Hunter,Marksmanship,136231,미분류,0.205,0.0
+Hunter,Marksmanship,136676,미분류,0.194,0.208
+Hunter,Marksmanship,128375,미분류,0.159,0.0
+Hunter,Marksmanship,117557,미분류,0.147,0.0
+Hunter,Marksmanship,128219,미분류,0.141,0.0
+Hunter,Marksmanship,136686,미분류,0.099,0.059
+Hunter,Marksmanship,128370,미분류,0.087,0.0
+Hunter,Marksmanship,128372,미분류,0.087,0.0
+Hunter,Marksmanship,128716,미분류,0.087,0.0
+Hunter,Marksmanship,126457,미분류,0.083,0.047
+Hunter,Marksmanship,117554,미분류,0.083,0.0
+Hunter,Marksmanship,126480,미분류,0.045,0.179
+Hunter,Marksmanship,128411,미분류,0.018,0.0
+Hunter,Marksmanship,126458,미분류,0.013,0.029
+Hunter,Marksmanship,128381,미분류,0.011,0.0
+Hunter,Marksmanship,136671,미분류,0.01,0.005
+Hunter,Marksmanship,123870,미분류,0.007,0.0
+Hunter,Marksmanship,117583,미분류,0.005,0.0
+Hunter,Marksmanship,126471,미분류,0.004,0.001
+Hunter,Marksmanship,126446,미분류,0.002,0.023
+Hunter,Marksmanship,126476,미분류,0.001,0.011
+Hunter,Marksmanship,128378,미분류,0.001,0.0
+Hunter,Marksmanship,135709,영웅,0.735,0.513
+Hunter,Marksmanship,135711,영웅,0.587,0.421
+Hunter,Marksmanship,136675,영웅,0.556,0.377
+Hunter,Marksmanship,135706,영웅,0.48,0.511
+Hunter,Marksmanship,136673,영웅,0.478,0.48
+Hunter,Marksmanship,135712,영웅,0.454,0.593
+Hunter,Marksmanship,126452,영웅,0.243,0.469
+Hunter,Marksmanship,135704,영웅,0.16,0.419
+Hunter,Marksmanship,126466,전문화,1.0,0.0
+Hunter,Marksmanship,128367,전문화,1.0,0.0
+Hunter,Marksmanship,128383,전문화,1.0,0.0
+Hunter,Marksmanship,128386,전문화,1.0,0.0
+Hunter,Marksmanship,128396,전문화,1.0,0.0
+Hunter,Marksmanship,128397,전문화,1.0,0.0
+Hunter,Marksmanship,128399,전문화,1.0,0.0
+Hunter,Marksmanship,128404,전문화,1.0,0.0
+Hunter,Marksmanship,128406,전문화,1.0,0.0
+Hunter,Marksmanship,128710,전문화,1.0,0.0
+Hunter,Marksmanship,128717,전문화,1.0,0.0
+Hunter,Marksmanship,132193,전문화,1.0,0.0
+Hunter,Marksmanship,132194,전문화,1.0,0.0
+Hunter,Marksmanship,137056,전문화,1.0,0.0
+Hunter,Marksmanship,137057,전문화,1.0,0.0
+Hunter,Marksmanship,137058,전문화,1.0,0.0
+Hunter,Marksmanship,137375,전문화,1.0,0.0
+Hunter,Marksmanship,128377,전문화,0.999,0.0
+Hunter,Marksmanship,128395,전문화,0.999,0.0
+Hunter,Marksmanship,128401,전문화,0.999,0.0
+Hunter,Marksmanship,128407,전문화,0.999,0.0
+Hunter,Marksmanship,128609,전문화,0.999,0.0
+Hunter,Marksmanship,128388,전문화,0.989,0.0
+Hunter,Marksmanship,128408,전문화,0.982,0.0
+Hunter,Marksmanship,128376,전문화,0.915,0.0
+Hunter,Marksmanship,128384,전문화,0.915,0.0
+Hunter,Marksmanship,132195,전문화,0.915,0.0
+Hunter,Marksmanship,136232,전문화,0.915,0.0
+Hunter,Marksmanship,132192,전문화,0.886,0.0
+Hunter,Marksmanship,128400,전문화,0.777,0.0
+Hunter,Marksmanship,117555,전문화,0.712,0.0
+Hunter,Marksmanship,117562,전문화,0.712,0.0
+Hunter,Marksmanship,117567,전문화,0.712,0.0
+Hunter,Marksmanship,117568,전문화,0.712,0.0
+Hunter,Marksmanship,117570,전문화,0.712,0.0
+Hunter,Marksmanship,117573,전문화,0.712,0.0
+Hunter,Marksmanship,117575,전문화,0.712,0.0
+Hunter,Marksmanship,117578,전문화,0.712,0.0
+Hunter,Marksmanship,117586,전문화,0.712,0.0
+Hunter,Marksmanship,117587,전문화,0.712,0.0
+Hunter,Marksmanship,123345,전문화,0.712,0.0
+Hunter,Marksmanship,136063,전문화,0.712,0.0
+Hunter,Marksmanship,136065,전문화,0.712,0.0
+Hunter,Marksmanship,136521,전문화,0.712,0.0
+Hunter,Marksmanship,117577,전문화,0.705,0.0
+Hunter,Marksmanship,128714,전문화,0.657,0.0
+Hunter,Marksmanship,128413,전문화,0.645,0.0
+Hunter,Marksmanship,137376,전문화,0.582,0.0
+Hunter,Marksmanship,137378,전문화,0.582,0.0
+Hunter,Survival,126443,공용,1.0,1.0
+Hunter,Survival,126444,공용,1.0,1.0
+Hunter,Survival,126447,공용,1.0,1.0
+Hunter,Survival,126453,공용,1.0,1.0
+Hunter,Survival,126460,공용,1.0,1.0
+Hunter,Survival,126465,공용,1.0,1.0
+Hunter,Survival,126470,공용,1.0,1.0
+Hunter,Survival,126473,공용,1.0,1.0
+Hunter,Survival,126475,공용,1.0,1.0
+Hunter,Survival,126488,공용,1.0,1.0
+Hunter,Survival,126489,공용,1.0,1.0
+Hunter,Survival,135708,공용,1.0,1.0
+Hunter,Survival,135710,공용,1.0,1.0
+Hunter,Survival,136677,공용,1.0,1.0
+Hunter,Survival,126450,공용,0.998,0.999
+Hunter,Survival,126454,공용,0.998,0.996
+Hunter,Survival,126481,공용,0.996,0.992
+Hunter,Survival,126490,공용,0.996,1.0
+Hunter,Survival,126484,공용,0.953,0.791
+Hunter,Survival,136685,공용,0.92,0.929
+Hunter,Survival,126468,공용,0.913,0.966
+Hunter,Survival,126459,공용,0.869,0.768
+Hunter,Survival,135705,공용,0.681,0.938
+Hunter,Survival,126480,미분류,0.247,0.078
+Hunter,Survival,126339,미분류,0.19,0.0
+Hunter,Survival,136676,미분류,0.167,0.222
+Hunter,Survival,135689,미분류,0.112,0.0
+Hunter,Survival,123781,미분류,0.099,0.043
+Hunter,Survival,136686,미분류,0.08,0.069
+Hunter,Survival,126458,미분류,0.04,0.016
+Hunter,Survival,126457,미분류,0.025,0.076
+Hunter,Survival,126446,미분류,0.019,0.015
+Hunter,Survival,126476,미분류,0.011,0.006
+Hunter,Survival,126341,미분류,0.01,0.0
+Hunter,Survival,126479,미분류,0.007,0.0
+Hunter,Survival,136671,미분류,0.002,0.008
+Hunter,Survival,136066,미분류,0.002,0.0
+Hunter,Survival,136062,미분류,0.001,0.001
+Hunter,Survival,136674,미분류,0.001,0.001
+Hunter,Survival,117559,영웅,1.0,0.5
+Hunter,Survival,117563,영웅,1.0,0.5
+Hunter,Survival,117564,영웅,1.0,0.5
+Hunter,Survival,117566,영웅,1.0,0.5
+Hunter,Survival,117581,영웅,1.0,0.5
+Hunter,Survival,117582,영웅,1.0,0.5
+Hunter,Survival,117585,영웅,1.0,0.5
+Hunter,Survival,117588,영웅,1.0,0.5
+Hunter,Survival,117589,영웅,1.0,0.5
+Hunter,Survival,136060,영웅,1.0,0.5
+Hunter,Survival,136061,영웅,1.0,0.5
+Hunter,Survival,136236,영웅,0.999,0.499
+Hunter,Survival,117576,영웅,0.901,0.457
+Hunter,Survival,135712,영웅,0.748,0.446
+Hunter,Survival,126452,영웅,0.582,0.299
+Hunter,Survival,136673,영웅,0.505,0.466
+Hunter,Survival,135709,영웅,0.499,0.631
+Hunter,Survival,135704,영웅,0.466,0.265
+Hunter,Survival,135706,영웅,0.458,0.522
+Hunter,Survival,136675,영웅,0.38,0.465
+Hunter,Survival,117569,영웅,0.363,0.489
+Hunter,Survival,135711,영웅,0.223,0.603
+Hunter,Survival,136670,영웅,0.066,0.286
+Hunter,Survival,100543,전문화,1.0,0.0
+Hunter,Survival,123350,전문화,1.0,0.0
+Hunter,Survival,126314,전문화,1.0,0.0
+Hunter,Survival,126322,전문화,1.0,0.0
+Hunter,Survival,126323,전문화,1.0,0.0
+Hunter,Survival,126324,전문화,1.0,0.0
+Hunter,Survival,126328,전문화,1.0,0.0
+Hunter,Survival,126332,전문화,1.0,0.0
+Hunter,Survival,126342,전문화,1.0,0.0
+Hunter,Survival,126345,전문화,1.0,0.0
+Hunter,Survival,135498,전문화,1.0,0.0
+Hunter,Survival,135500,전문화,1.0,0.0
+Hunter,Survival,135501,전문화,1.0,0.0
+Hunter,Survival,135502,전문화,1.0,0.0
+Hunter,Survival,135503,전문화,1.0,0.0
+Hunter,Survival,135504,전문화,1.0,0.0
+Hunter,Survival,135510,전문화,1.0,0.0
+Hunter,Survival,135511,전문화,1.0,0.0
+Hunter,Survival,135512,전문화,1.0,0.0
+Hunter,Survival,135514,전문화,1.0,0.0
+Hunter,Survival,135515,전문화,1.0,0.0
+Hunter,Survival,136680,전문화,1.0,0.0
+Hunter,Survival,136682,전문화,1.0,0.0
+Hunter,Survival,136683,전문화,1.0,0.0
+Hunter,Survival,137053,전문화,1.0,0.0
+Hunter,Survival,137054,전문화,1.0,0.0
+Hunter,Survival,137055,전문화,1.0,0.0
+Hunter,Survival,126330,전문화,0.999,0.0
+Hunter,Survival,135507,전문화,0.998,0.0
+Hunter,Survival,135496,전문화,0.987,0.0
+Hunter,Survival,136684,전문화,0.888,0.0
+Hunter,Survival,128412,전문화,0.827,0.0
+Hunter,Survival,126316,전문화,0.82,0.0
+Hunter,Survival,128358,전문화,0.637,0.011
+Mage,Arcane,80141,공용,1.0,1.0
+Mage,Arcane,80142,공용,1.0,1.0
+Mage,Arcane,80147,공용,1.0,1.0
+Mage,Arcane,80153,공용,1.0,1.0
+Mage,Arcane,80155,공용,1.0,1.0
+Mage,Arcane,80157,공용,1.0,1.0
+Mage,Arcane,80159,공용,1.0,1.0
+Mage,Arcane,80161,공용,1.0,1.0
+Mage,Arcane,80163,공용,1.0,1.0
+Mage,Arcane,80173,공용,1.0,1.0
+Mage,Arcane,80174,공용,1.0,1.0
+Mage,Arcane,80181,공용,1.0,1.0
+Mage,Arcane,80182,공용,1.0,1.0
+Mage,Arcane,80183,공용,1.0,1.0
+Mage,Arcane,80187,공용,1.0,1.0
+Mage,Arcane,115877,공용,1.0,1.0
+Mage,Arcane,126060,공용,1.0,1.0
+Mage,Arcane,134187,공용,1.0,1.0
+Mage,Arcane,134188,공용,1.0,1.0
+Mage,Arcane,134189,공용,1.0,1.0
+Mage,Arcane,134190,공용,1.0,1.0
+Mage,Arcane,134191,공용,1.0,1.0
+Mage,Arcane,136579,공용,1.0,1.0
+Mage,Arcane,80170,공용,0.875,1.0
+Mage,Arcane,134192,공용,0.5,1.0
+Mage,Arcane,134184,미분류,0.875,0.167
+Mage,Arcane,80140,미분류,0.375,0.167
+Mage,Arcane,126509,미분류,0.125,0.0
+Mage,Arcane,126532,미분류,0.125,0.0
+Mage,Arcane,80189,미분류,0.125,0.0
+Mage,Arcane,134183,영웅,1.0,0.667
+Mage,Arcane,80175,영웅,0.875,0.333
+Mage,Arcane,125818,영웅,0.625,0.333
+Mage,Arcane,125819,영웅,0.125,0.5
+Mage,Arcane,80180,전문화,1.0,0.0
+Mage,Arcane,117257,전문화,1.0,0.0
+Mage,Arcane,117258,전문화,1.0,0.0
+Mage,Arcane,117259,전문화,1.0,0.0
+Mage,Arcane,117261,전문화,1.0,0.0
+Mage,Arcane,117262,전문화,1.0,0.0
+Mage,Arcane,117263,전문화,1.0,0.0
+Mage,Arcane,117264,전문화,1.0,0.0
+Mage,Arcane,117265,전문화,1.0,0.0
+Mage,Arcane,117266,전문화,1.0,0.0
+Mage,Arcane,117267,전문화,1.0,0.0
+Mage,Arcane,123344,전문화,1.0,0.0
+Mage,Arcane,126508,전문화,1.0,0.0
+Mage,Arcane,126511,전문화,1.0,0.0
+Mage,Arcane,126515,전문화,1.0,0.0
+Mage,Arcane,126516,전문화,1.0,0.0
+Mage,Arcane,126519,전문화,1.0,0.0
+Mage,Arcane,126523,전문화,1.0,0.0
+Mage,Arcane,126537,전문화,1.0,0.0
+Mage,Arcane,126538,전문화,1.0,0.0
+Mage,Arcane,126539,전문화,1.0,0.0
+Mage,Arcane,126540,전문화,1.0,0.0
+Mage,Arcane,126541,전문화,1.0,0.0
+Mage,Arcane,126543,전문화,1.0,0.0
+Mage,Arcane,126544,전문화,1.0,0.0
+Mage,Arcane,126545,전문화,1.0,0.0
+Mage,Arcane,126550,전문화,1.0,0.0
+Mage,Arcane,128267,전문화,1.0,0.0
+Mage,Arcane,128689,전문화,1.0,0.0
+Mage,Arcane,134020,전문화,1.0,0.0
+Mage,Arcane,134024,전문화,1.0,0.0
+Mage,Arcane,134026,전문화,1.0,0.0
+Mage,Arcane,134027,전문화,1.0,0.0
+Mage,Arcane,134028,전문화,1.0,0.0
+Mage,Arcane,134030,전문화,1.0,0.0
+Mage,Arcane,134047,전문화,1.0,0.0
+Mage,Arcane,134194,전문화,1.0,0.0
+Mage,Arcane,134834,전문화,1.0,0.0
+Mage,Arcane,135918,전문화,1.0,0.0
+Mage,Arcane,135919,전문화,1.0,0.0
+Mage,Arcane,135920,전문화,1.0,0.0
+Mage,Arcane,136465,전문화,1.0,0.0
+Mage,Arcane,136578,전문화,1.0,0.0
+Mage,Arcane,137026,전문화,1.0,0.0
+Mage,Arcane,137027,전문화,1.0,0.0
+Mage,Arcane,137028,전문화,1.0,0.0
+Mage,Arcane,137084,전문화,1.0,0.0
+Mage,Arcane,126530,전문화,0.875,0.0
+Mage,Arcane,134196,전문화,0.875,0.0
+Mage,Fire,80141,공용,1.0,1.0
+Mage,Fire,80142,공용,1.0,1.0
+Mage,Fire,80147,공용,1.0,1.0
+Mage,Fire,80153,공용,1.0,1.0
+Mage,Fire,80155,공용,1.0,1.0
+Mage,Fire,80157,공용,1.0,1.0
+Mage,Fire,80159,공용,1.0,1.0
+Mage,Fire,80161,공용,1.0,1.0
+Mage,Fire,80163,공용,1.0,1.0
+Mage,Fire,80170,공용,1.0,0.875
+Mage,Fire,80173,공용,1.0,1.0
+Mage,Fire,80174,공용,1.0,1.0
+Mage,Fire,80181,공용,1.0,1.0
+Mage,Fire,80182,공용,1.0,1.0
+Mage,Fire,80183,공용,1.0,1.0
+Mage,Fire,80187,공용,1.0,1.0
+Mage,Fire,115877,공용,1.0,1.0
+Mage,Fire,126060,공용,1.0,1.0
+Mage,Fire,134187,공용,1.0,1.0
+Mage,Fire,134188,공용,1.0,1.0
+Mage,Fire,134189,공용,1.0,1.0
+Mage,Fire,134190,공용,1.0,1.0
+Mage,Fire,134191,공용,1.0,1.0
+Mage,Fire,136579,공용,1.0,1.0
+Mage,Fire,134183,공용,0.667,1.0
+Mage,Fire,80175,공용,0.333,0.875
+Mage,Fire,134184,공용,0.167,0.875
+Mage,Fire,125819,미분류,0.5,0.125
+Mage,Fire,135606,미분류,0.333,0.0
+Mage,Fire,134182,미분류,0.333,0.0
+Mage,Fire,135598,미분류,0.333,0.0
+Mage,Fire,136577,미분류,0.333,0.0
+Mage,Fire,135602,미분류,0.167,0.0
+Mage,Fire,80144,미분류,0.167,0.0
+Mage,Fire,134192,영웅,1.0,0.5
+Mage,Fire,125818,영웅,0.333,0.625
+Mage,Fire,80140,영웅,0.167,0.375
+Mage,Fire,80178,전문화,1.0,0.0
+Mage,Fire,117246,전문화,1.0,0.0
+Mage,Fire,117247,전문화,1.0,0.0
+Mage,Fire,117248,전문화,1.0,0.0
+Mage,Fire,117249,전문화,1.0,0.0
+Mage,Fire,117250,전문화,1.0,0.0
+Mage,Fire,117251,전문화,1.0,0.0
+Mage,Fire,117253,전문화,1.0,0.0
+Mage,Fire,117255,전문화,1.0,0.0
+Mage,Fire,117256,전문화,1.0,0.0
+Mage,Fire,123340,전문화,1.0,0.0
+Mage,Fire,124750,전문화,1.0,0.0
+Mage,Fire,124756,전문화,1.0,0.0
+Mage,Fire,124759,전문화,1.0,0.0
+Mage,Fire,124760,전문화,1.0,0.0
+Mage,Fire,124771,전문화,1.0,0.0
+Mage,Fire,124779,전문화,1.0,0.0
+Mage,Fire,124783,전문화,1.0,0.0
+Mage,Fire,124786,전문화,1.0,0.0
+Mage,Fire,124789,전문화,1.0,0.0
+Mage,Fire,124793,전문화,1.0,0.0
+Mage,Fire,134186,전문화,1.0,0.0
+Mage,Fire,135600,전문화,1.0,0.0
+Mage,Fire,135603,전문화,1.0,0.0
+Mage,Fire,135604,전문화,1.0,0.0
+Mage,Fire,135607,전문화,1.0,0.0
+Mage,Fire,135609,전문화,1.0,0.0
+Mage,Fire,135610,전문화,1.0,0.0
+Mage,Fire,135612,전문화,1.0,0.0
+Mage,Fire,135613,전문화,1.0,0.0
+Mage,Fire,135615,전문화,1.0,0.0
+Mage,Fire,135616,전문화,1.0,0.0
+Mage,Fire,135617,전문화,1.0,0.0
+Mage,Fire,135618,전문화,1.0,0.0
+Mage,Fire,135621,전문화,1.0,0.0
+Mage,Fire,135924,전문화,1.0,0.0
+Mage,Fire,135925,전문화,1.0,0.0
+Mage,Fire,135926,전문화,1.0,0.0
+Mage,Fire,136587,전문화,1.0,0.0
+Mage,Fire,136589,전문화,1.0,0.0
+Mage,Fire,136879,전문화,1.0,0.0
+Mage,Fire,137035,전문화,1.0,0.0
+Mage,Fire,137036,전문화,1.0,0.0
+Mage,Fire,137037,전문화,1.0,0.0
+Mage,Fire,135619,전문화,0.833,0.0
+Mage,Fire,117252,전문화,0.667,0.0
+Mage,Fire,136878,전문화,0.667,0.0
+Mage,Fire,134249,전문화,0.5,0.0
+Mage,Fire,117254,전문화,0.5,0.0
+Monk,Windwalker,124805,spec?,1.0,0.0
+Monk,Windwalker,124806,spec?,1.0,0.0
+Monk,Windwalker,124807,spec?,1.0,0.0
+Monk,Windwalker,124810,spec?,1.0,0.0
+Monk,Windwalker,124812,spec?,1.0,0.0
+Monk,Windwalker,124820,spec?,1.0,0.0
+Monk,Windwalker,124826,spec?,1.0,0.0
+Monk,Windwalker,124827,spec?,1.0,0.0
+Monk,Windwalker,124828,spec?,1.0,0.0
+Monk,Windwalker,124829,spec?,1.0,0.0
+Monk,Windwalker,124833,spec?,1.0,0.0
+Monk,Windwalker,124834,spec?,1.0,0.0
+Monk,Windwalker,124836,spec?,1.0,0.0
+Monk,Windwalker,124926,spec?,1.0,0.0
+Monk,Windwalker,124927,spec?,1.0,0.0
+Monk,Windwalker,124932,spec?,1.0,0.0
+Monk,Windwalker,124936,spec?,1.0,0.0
+Monk,Windwalker,124937,spec?,1.0,0.0
+Monk,Windwalker,124941,spec?,1.0,0.0
+Monk,Windwalker,124944,spec?,1.0,0.0
+Monk,Windwalker,124953,spec?,1.0,0.0
+Monk,Windwalker,124956,spec?,1.0,0.0
+Monk,Windwalker,124960,spec?,1.0,0.0
+Monk,Windwalker,124961,spec?,1.0,0.0
+Monk,Windwalker,124962,spec?,1.0,0.0
+Monk,Windwalker,124963,spec?,1.0,0.0
+Monk,Windwalker,124964,spec?,1.0,0.0
+Monk,Windwalker,124965,spec?,1.0,0.0
+Monk,Windwalker,124968,spec?,1.0,0.0
+Monk,Windwalker,124969,spec?,1.0,0.0
+Monk,Windwalker,124975,spec?,1.0,0.0
+Monk,Windwalker,124976,spec?,1.0,0.0
+Monk,Windwalker,124980,spec?,1.0,0.0
+Monk,Windwalker,124982,spec?,1.0,0.0
+Monk,Windwalker,124983,spec?,1.0,0.0
+Monk,Windwalker,124984,spec?,1.0,0.0
+Monk,Windwalker,124985,spec?,1.0,0.0
+Monk,Windwalker,125012,spec?,1.0,0.0
+Monk,Windwalker,125013,spec?,1.0,0.0
+Monk,Windwalker,125015,spec?,1.0,0.0
+Monk,Windwalker,125017,spec?,1.0,0.0
+Monk,Windwalker,125020,spec?,1.0,0.0
+Monk,Windwalker,125022,spec?,1.0,0.0
+Monk,Windwalker,125023,spec?,1.0,0.0
+Monk,Windwalker,125025,spec?,1.0,0.0
+Monk,Windwalker,125026,spec?,1.0,0.0
+Monk,Windwalker,125046,spec?,1.0,0.0
+Monk,Windwalker,125063,spec?,1.0,0.0
+Monk,Windwalker,125065,spec?,1.0,0.0
+Monk,Windwalker,125066,spec?,1.0,0.0
+Monk,Windwalker,125068,spec?,1.0,0.0
+Monk,Windwalker,125069,spec?,1.0,0.0
+Monk,Windwalker,125070,spec?,1.0,0.0
+Monk,Windwalker,125071,spec?,1.0,0.0
+Monk,Windwalker,125072,spec?,1.0,0.0
+Monk,Windwalker,125073,spec?,1.0,0.0
+Monk,Windwalker,125074,spec?,1.0,0.0
+Monk,Windwalker,125076,spec?,1.0,0.0
+Monk,Windwalker,128711,spec?,1.0,0.0
+Monk,Windwalker,134452,spec?,1.0,0.0
+Monk,Windwalker,134453,spec?,1.0,0.0
+Monk,Windwalker,134543,spec?,1.0,0.0
+Monk,Windwalker,135955,spec?,1.0,0.0
+Monk,Windwalker,135956,spec?,1.0,0.0
+Monk,Windwalker,135957,spec?,1.0,0.0
+Monk,Windwalker,136514,spec?,1.0,0.0
+Monk,Windwalker,136599,spec?,1.0,0.0
+Monk,Windwalker,137076,spec?,1.0,0.0
+Monk,Windwalker,137077,spec?,1.0,0.0
+Monk,Windwalker,137078,spec?,1.0,0.0
+Monk,Windwalker,124824,spec?,0.75,0.0
+Monk,Windwalker,124930,spec?,0.75,0.0
+Monk,Windwalker,124971,spec?,0.75,0.0
+Monk,Windwalker,136515,spec?,0.75,0.0
+Monk,Windwalker,124954,spec?,0.75,0.0
+Monk,Windwalker,124818,spec?,0.5,0.0
+Monk,Windwalker,124931,spec?,0.5,0.0
+Monk,Windwalker,125010,spec?,0.5,0.0
+Monk,Windwalker,124823,spec?,0.5,0.0
+Monk,Windwalker,124955,spec?,0.5,0.0
+Monk,Windwalker,124957,spec?,0.5,0.0
+Monk,Windwalker,125009,spec?,0.5,0.0
+Monk,Windwalker,124940,spec?,0.5,0.0
+Monk,Windwalker,136511,spec?,0.25,0.0
+Monk,Windwalker,136517,spec?,0.25,0.0
+Monk,Windwalker,124825,spec?,0.25,0.0
+Monk,Windwalker,134029,spec?,0.25,0.0
+Monk,Windwalker,136518,spec?,0.25,0.0
+Paladin,Retribution,102493,spec?,1.0,0.0
+Paladin,Retribution,102497,spec?,1.0,0.0
+Paladin,Retribution,102498,spec?,1.0,0.0
+Paladin,Retribution,102499,spec?,1.0,0.0
+Paladin,Retribution,102504,spec?,1.0,0.0
+Paladin,Retribution,102505,spec?,1.0,0.0
+Paladin,Retribution,102506,spec?,1.0,0.0
+Paladin,Retribution,102518,spec?,1.0,0.0
+Paladin,Retribution,102519,spec?,1.0,0.0
+Paladin,Retribution,102583,spec?,1.0,0.0
+Paladin,Retribution,102587,spec?,1.0,0.0
+Paladin,Retribution,102590,spec?,1.0,0.0
+Paladin,Retribution,102592,spec?,1.0,0.0
+Paladin,Retribution,102596,spec?,1.0,0.0
+Paladin,Retribution,102597,spec?,1.0,0.0
+Paladin,Retribution,102602,spec?,1.0,0.0
+Paladin,Retribution,102603,spec?,1.0,0.0
+Paladin,Retribution,102612,spec?,1.0,0.0
+Paladin,Retribution,102622,spec?,1.0,0.0
+Paladin,Retribution,102625,spec?,1.0,0.0
+Paladin,Retribution,114824,spec?,1.0,0.0
+Paladin,Retribution,114828,spec?,1.0,0.0
+Paladin,Retribution,114830,spec?,1.0,0.0
+Paladin,Retribution,115022,spec?,1.0,0.0
+Paladin,Retribution,115024,spec?,1.0,0.0
+Paladin,Retribution,115034,spec?,1.0,0.0
+Paladin,Retribution,115043,spec?,1.0,0.0
+Paladin,Retribution,115165,spec?,1.0,0.0
+Paladin,Retribution,115438,spec?,1.0,0.0
+Paladin,Retribution,115439,spec?,1.0,0.0
+Paladin,Retribution,115443,spec?,1.0,0.0
+Paladin,Retribution,115453,spec?,1.0,0.0
+Paladin,Retribution,115475,spec?,1.0,0.0
+Paladin,Retribution,115481,spec?,1.0,0.0
+Paladin,Retribution,117810,spec?,1.0,0.0
+Paladin,Retribution,117811,spec?,1.0,0.0
+Paladin,Retribution,117812,spec?,1.0,0.0
+Paladin,Retribution,117813,spec?,1.0,0.0
+Paladin,Retribution,117815,spec?,1.0,0.0
+Paladin,Retribution,117816,spec?,1.0,0.0
+Paladin,Retribution,117818,spec?,1.0,0.0
+Paladin,Retribution,117819,spec?,1.0,0.0
+Paladin,Retribution,117822,spec?,1.0,0.0
+Paladin,Retribution,117823,spec?,1.0,0.0
+Paladin,Retribution,123357,spec?,1.0,0.0
+Paladin,Retribution,128241,spec?,1.0,0.0
+Paladin,Retribution,128243,spec?,1.0,0.0
+Paladin,Retribution,128251,spec?,1.0,0.0
+Paladin,Retribution,128257,spec?,1.0,0.0
+Paladin,Retribution,128259,spec?,1.0,0.0
+Paladin,Retribution,128263,spec?,1.0,0.0
+Paladin,Retribution,133481,spec?,1.0,0.0
+Paladin,Retribution,135564,spec?,1.0,0.0
+Paladin,Retribution,135565,spec?,1.0,0.0
+Paladin,Retribution,136003,spec?,1.0,0.0
+Paladin,Retribution,136004,spec?,1.0,0.0
+Paladin,Retribution,136005,spec?,1.0,0.0
+Paladin,Retribution,136127,spec?,1.0,0.0
+Paladin,Retribution,136487,spec?,1.0,0.0
+Paladin,Retribution,136503,spec?,1.0,0.0
+Paladin,Retribution,136594,spec?,1.0,0.0
+Paladin,Retribution,136809,spec?,1.0,0.0
+Paladin,Retribution,137023,spec?,1.0,0.0
+Paladin,Retribution,137024,spec?,1.0,0.0
+Paladin,Retribution,137025,spec?,1.0,0.0
+Paladin,Retribution,102515,spec?,0.857,0.0
+Paladin,Retribution,102516,spec?,0.857,0.0
+Paladin,Retribution,102604,spec?,0.857,0.0
+Paladin,Retribution,115435,spec?,0.857,0.0
+Paladin,Retribution,115454,spec?,0.857,0.0
+Paladin,Retribution,115467,spec?,0.857,0.0
+Paladin,Retribution,117858,spec?,0.857,0.0
+Paladin,Retribution,128260,spec?,0.857,0.0
+Paladin,Retribution,128264,spec?,0.714,0.0
+Paladin,Retribution,102521,spec?,0.571,0.0
+Paladin,Retribution,102584,spec?,0.571,0.0
+Paladin,Retribution,136592,spec?,0.571,0.0
+Paladin,Retribution,115452,spec?,0.429,0.0
+Paladin,Retribution,115483,spec?,0.429,0.0
+Paladin,Retribution,115440,spec?,0.286,0.0
+Paladin,Retribution,115447,spec?,0.286,0.0
+Paladin,Retribution,102594,spec?,0.286,0.0
+Paladin,Retribution,115239,spec?,0.286,0.0
+Paladin,Retribution,102476,spec?,0.143,0.0
+Paladin,Retribution,102595,spec?,0.143,0.0
+Paladin,Retribution,115468,spec?,0.143,0.0
+Paladin,Retribution,136486,spec?,0.143,0.0
+Paladin,Retribution,128255,spec?,0.143,0.0
+Paladin,Retribution,117814,spec?,0.143,0.0
+Paladin,Retribution,102620,spec?,0.143,0.0
+Paladin,Retribution,102525,spec?,0.143,0.0
+Paladin,Retribution,115488,spec?,0.143,0.0
+Priest,Shadow,103674,spec?,1.0,0.0
+Priest,Shadow,103677,spec?,1.0,0.0
+Priest,Shadow,103682,spec?,1.0,0.0
+Priest,Shadow,103683,spec?,1.0,0.0
+Priest,Shadow,103686,spec?,1.0,0.0
+Priest,Shadow,103781,spec?,1.0,0.0
+Priest,Shadow,103782,spec?,1.0,0.0
+Priest,Shadow,103784,spec?,1.0,0.0
+Priest,Shadow,103789,spec?,1.0,0.0
+Priest,Shadow,103792,spec?,1.0,0.0
+Priest,Shadow,103796,spec?,1.0,0.0
+Priest,Shadow,103798,spec?,1.0,0.0
+Priest,Shadow,103799,spec?,1.0,0.0
+Priest,Shadow,103801,spec?,1.0,0.0
+Priest,Shadow,103806,spec?,1.0,0.0
+Priest,Shadow,103808,spec?,1.0,0.0
+Priest,Shadow,103810,spec?,1.0,0.0
+Priest,Shadow,103811,spec?,1.0,0.0
+Priest,Shadow,103812,spec?,1.0,0.0
+Priest,Shadow,103813,spec?,1.0,0.0
+Priest,Shadow,103817,spec?,1.0,0.0
+Priest,Shadow,103818,spec?,1.0,0.0
+Priest,Shadow,103819,spec?,1.0,0.0
+Priest,Shadow,103823,spec?,1.0,0.0
+Priest,Shadow,103825,spec?,1.0,0.0
+Priest,Shadow,103826,spec?,1.0,0.0
+Priest,Shadow,103828,spec?,1.0,0.0
+Priest,Shadow,103833,spec?,1.0,0.0
+Priest,Shadow,103834,spec?,1.0,0.0
+Priest,Shadow,103835,spec?,1.0,0.0
+Priest,Shadow,103836,spec?,1.0,0.0
+Priest,Shadow,103837,spec?,1.0,0.0
+Priest,Shadow,103840,spec?,1.0,0.0
+Priest,Shadow,103841,spec?,1.0,0.0
+Priest,Shadow,103851,spec?,1.0,0.0
+Priest,Shadow,103853,spec?,1.0,0.0
+Priest,Shadow,103854,spec?,1.0,0.0
+Priest,Shadow,103860,spec?,1.0,0.0
+Priest,Shadow,103863,spec?,1.0,0.0
+Priest,Shadow,103864,spec?,1.0,0.0
+Priest,Shadow,103865,spec?,1.0,0.0
+Priest,Shadow,103867,spec?,1.0,0.0
+Priest,Shadow,114588,spec?,1.0,0.0
+Priest,Shadow,115448,spec?,1.0,0.0
+Priest,Shadow,117279,spec?,1.0,0.0
+Priest,Shadow,117280,spec?,1.0,0.0
+Priest,Shadow,117283,spec?,1.0,0.0
+Priest,Shadow,117284,spec?,1.0,0.0
+Priest,Shadow,117288,spec?,1.0,0.0
+Priest,Shadow,117291,spec?,1.0,0.0
+Priest,Shadow,117300,spec?,1.0,0.0
+Priest,Shadow,117302,spec?,1.0,0.0
+Priest,Shadow,117305,spec?,1.0,0.0
+Priest,Shadow,123289,spec?,1.0,0.0
+Priest,Shadow,133378,spec?,1.0,0.0
+Priest,Shadow,133400,spec?,1.0,0.0
+Priest,Shadow,134284,spec?,1.0,0.0
+Priest,Shadow,134844,spec?,1.0,0.0
+Priest,Shadow,134845,spec?,1.0,0.0
+Priest,Shadow,134846,spec?,1.0,0.0
+Priest,Shadow,134849,spec?,1.0,0.0
+Priest,Shadow,134851,spec?,1.0,0.0
+Priest,Shadow,134859,spec?,1.0,0.0
+Priest,Shadow,134860,spec?,1.0,0.0
+Priest,Shadow,135091,spec?,1.0,0.0
+Priest,Shadow,136034,spec?,1.0,0.0
+Priest,Shadow,136035,spec?,1.0,0.0
+Priest,Shadow,136157,spec?,1.0,0.0
+Priest,Shadow,136185,spec?,1.0,0.0
+Priest,Shadow,136223,spec?,1.0,0.0
+Priest,Shadow,136688,spec?,1.0,0.0
+Priest,Shadow,136811,spec?,1.0,0.0
+Priest,Shadow,136990,spec?,1.0,0.0
+Priest,Shadow,136991,spec?,1.0,0.0
+Priest,Shadow,136992,spec?,1.0,0.0
+Priest,Shadow,103786,spec?,0.833,0.0
+Priest,Shadow,125083,spec?,0.833,0.0
+Priest,Shadow,125085,spec?,0.833,0.0
+Priest,Shadow,117281,spec?,0.167,0.0
+Priest,Shadow,117289,spec?,0.167,0.0
+Priest,Shadow,103785,spec?,0.167,0.0
+Rogue,Assassination,112509,spec?,1.0,0.0
+Rogue,Assassination,112510,spec?,1.0,0.0
+Rogue,Assassination,112511,spec?,1.0,0.0
+Rogue,Assassination,112513,spec?,1.0,0.0
+Rogue,Assassination,112518,spec?,1.0,0.0
+Rogue,Assassination,112521,spec?,1.0,0.0
+Rogue,Assassination,112526,spec?,1.0,0.0
+Rogue,Assassination,112572,spec?,1.0,0.0
+Rogue,Assassination,112574,spec?,1.0,0.0
+Rogue,Assassination,112575,spec?,1.0,0.0
+Rogue,Assassination,112580,spec?,1.0,0.0
+Rogue,Assassination,112583,spec?,1.0,0.0
+Rogue,Assassination,112585,spec?,1.0,0.0
+Rogue,Assassination,112630,spec?,1.0,0.0
+Rogue,Assassination,112633,spec?,1.0,0.0
+Rogue,Assassination,112634,spec?,1.0,0.0
+Rogue,Assassination,112635,spec?,1.0,0.0
+Rogue,Assassination,112636,spec?,1.0,0.0
+Rogue,Assassination,112638,spec?,1.0,0.0
+Rogue,Assassination,112639,spec?,1.0,0.0
+Rogue,Assassination,112640,spec?,1.0,0.0
+Rogue,Assassination,112642,spec?,1.0,0.0
+Rogue,Assassination,112643,spec?,1.0,0.0
+Rogue,Assassination,112644,spec?,1.0,0.0
+Rogue,Assassination,112646,spec?,1.0,0.0
+Rogue,Assassination,112648,spec?,1.0,0.0
+Rogue,Assassination,112649,spec?,1.0,0.0
+Rogue,Assassination,112650,spec?,1.0,0.0
+Rogue,Assassination,112651,spec?,1.0,0.0
+Rogue,Assassination,112652,spec?,1.0,0.0
+Rogue,Assassination,112654,spec?,1.0,0.0
+Rogue,Assassination,112655,spec?,1.0,0.0
+Rogue,Assassination,112657,spec?,1.0,0.0
+Rogue,Assassination,112659,spec?,1.0,0.0
+Rogue,Assassination,112660,spec?,1.0,0.0
+Rogue,Assassination,112661,spec?,1.0,0.0
+Rogue,Assassination,112662,spec?,1.0,0.0
+Rogue,Assassination,112663,spec?,1.0,0.0
+Rogue,Assassination,112664,spec?,1.0,0.0
+Rogue,Assassination,112665,spec?,1.0,0.0
+Rogue,Assassination,112670,spec?,1.0,0.0
+Rogue,Assassination,112672,spec?,1.0,0.0
+Rogue,Assassination,112673,spec?,1.0,0.0
+Rogue,Assassination,112676,spec?,1.0,0.0
+Rogue,Assassination,112677,spec?,1.0,0.0
+Rogue,Assassination,112678,spec?,1.0,0.0
+Rogue,Assassination,112679,spec?,1.0,0.0
+Rogue,Assassination,114737,spec?,1.0,0.0
+Rogue,Assassination,117106,spec?,1.0,0.0
+Rogue,Assassination,117130,spec?,1.0,0.0
+Rogue,Assassination,117131,spec?,1.0,0.0
+Rogue,Assassination,117133,spec?,1.0,0.0
+Rogue,Assassination,117139,spec?,1.0,0.0
+Rogue,Assassination,117145,spec?,1.0,0.0
+Rogue,Assassination,117704,spec?,1.0,0.0
+Rogue,Assassination,117711,spec?,1.0,0.0
+Rogue,Assassination,117716,spec?,1.0,0.0
+Rogue,Assassination,117717,spec?,1.0,0.0
+Rogue,Assassination,117719,spec?,1.0,0.0
+Rogue,Assassination,117722,spec?,1.0,0.0
+Rogue,Assassination,117724,spec?,1.0,0.0
+Rogue,Assassination,117726,spec?,1.0,0.0
+Rogue,Assassination,117727,spec?,1.0,0.0
+Rogue,Assassination,117736,spec?,1.0,0.0
+Rogue,Assassination,117740,spec?,1.0,0.0
+Rogue,Assassination,123371,spec?,1.0,0.0
+Rogue,Assassination,125615,spec?,1.0,0.0
+Rogue,Assassination,134840,spec?,1.0,0.0
+Rogue,Assassination,136024,spec?,1.0,0.0
+Rogue,Assassination,136025,spec?,1.0,0.0
+Rogue,Assassination,136026,spec?,1.0,0.0
+Rogue,Assassination,136881,spec?,1.0,0.0
+Rogue,Assassination,137065,spec?,1.0,0.0
+Rogue,Assassination,137066,spec?,1.0,0.0
+Rogue,Assassination,137067,spec?,1.0,0.0
+Rogue,Assassination,117137,spec?,0.5,0.0
+Rogue,Assassination,125132,spec?,0.5,0.0
+Rogue,Assassination,117735,spec?,0.5,0.0
+Shaman,Elemental,127851,공용,1.0,1.0
+Shaman,Elemental,127855,공용,1.0,1.0
+Shaman,Elemental,127856,공용,1.0,1.0
+Shaman,Elemental,127858,공용,1.0,1.0
+Shaman,Elemental,127859,공용,1.0,1.0
+Shaman,Elemental,127861,공용,1.0,1.0
+Shaman,Elemental,127868,공용,1.0,1.0
+Shaman,Elemental,127871,공용,1.0,1.0
+Shaman,Elemental,127877,공용,1.0,1.0
+Shaman,Elemental,127880,공용,1.0,1.0
+Shaman,Elemental,127881,공용,1.0,1.0
+Shaman,Elemental,127888,공용,1.0,1.0
+Shaman,Elemental,127889,공용,1.0,1.0
+Shaman,Elemental,127890,공용,1.0,1.0
+Shaman,Elemental,127891,공용,1.0,1.0
+Shaman,Elemental,127892,공용,1.0,1.0
+Shaman,Elemental,127893,공용,1.0,1.0
+Shaman,Elemental,127894,공용,1.0,1.0
+Shaman,Elemental,127906,공용,1.0,1.0
+Shaman,Elemental,127909,공용,1.0,1.0
+Shaman,Elemental,135590,공용,1.0,1.0
+Shaman,Elemental,135591,공용,1.0,1.0
+Shaman,Elemental,136585,공용,1.0,1.0
+Shaman,Elemental,127854,영웅,1.0,0.667
+Shaman,Elemental,127865,영웅,1.0,0.667
+Shaman,Elemental,127883,영웅,1.0,0.333
+Shaman,Elemental,127905,영웅,1.0,0.333
+Shaman,Elemental,101844,전문화,1.0,0.0
+Shaman,Elemental,101850,전문화,1.0,0.0
+Shaman,Elemental,101853,전문화,1.0,0.0
+Shaman,Elemental,101859,전문화,1.0,0.0
+Shaman,Elemental,101860,전문화,1.0,0.0
+Shaman,Elemental,101861,전문화,1.0,0.0
+Shaman,Elemental,101862,전문화,1.0,0.0
+Shaman,Elemental,101864,전문화,1.0,0.0
+Shaman,Elemental,101865,전문화,1.0,0.0
+Shaman,Elemental,101867,전문화,1.0,0.0
+Shaman,Elemental,101869,전문화,1.0,0.0
+Shaman,Elemental,101870,전문화,1.0,0.0
+Shaman,Elemental,101871,전문화,1.0,0.0
+Shaman,Elemental,101873,전문화,1.0,0.0
+Shaman,Elemental,101876,전문화,1.0,0.0
+Shaman,Elemental,101885,전문화,1.0,0.0
+Shaman,Elemental,101889,전문화,1.0,0.0
+Shaman,Elemental,101892,전문화,1.0,0.0
+Shaman,Elemental,101893,전문화,1.0,0.0
+Shaman,Elemental,117464,전문화,1.0,0.0
+Shaman,Elemental,117465,전문화,1.0,0.0
+Shaman,Elemental,117467,전문화,1.0,0.0
+Shaman,Elemental,117477,전문화,1.0,0.0
+Shaman,Elemental,117482,전문화,1.0,0.0
+Shaman,Elemental,117483,전문화,1.0,0.0
+Shaman,Elemental,117486,전문화,1.0,0.0
+Shaman,Elemental,117489,전문화,1.0,0.0
+Shaman,Elemental,117490,전문화,1.0,0.0
+Shaman,Elemental,123376,전문화,1.0,0.0
+Shaman,Elemental,127857,전문화,1.0,0.0
+Shaman,Elemental,127873,전문화,1.0,0.0
+Shaman,Elemental,127884,전문화,1.0,0.0
+Shaman,Elemental,127899,전문화,1.0,0.0
+Shaman,Elemental,127908,전문화,1.0,0.0
+Shaman,Elemental,127913,전문화,1.0,0.0
+Shaman,Elemental,127915,전문화,1.0,0.0
+Shaman,Elemental,127916,전문화,1.0,0.0
+Shaman,Elemental,127917,전문화,1.0,0.0
+Shaman,Elemental,127919,전문화,1.0,0.0
+Shaman,Elemental,127920,전문화,1.0,0.0
+Shaman,Elemental,127921,전문화,1.0,0.0
+Shaman,Elemental,127924,전문화,1.0,0.0
+Shaman,Elemental,127925,전문화,1.0,0.0
+Shaman,Elemental,128225,전문화,1.0,0.0
+Shaman,Elemental,128226,전문화,1.0,0.0
+Shaman,Elemental,135985,전문화,1.0,0.0
+Shaman,Elemental,135986,전문화,1.0,0.0
+Shaman,Elemental,135987,전문화,1.0,0.0
+Shaman,Elemental,136561,전문화,1.0,0.0
+Shaman,Elemental,136714,전문화,1.0,0.0
+Shaman,Elemental,136972,전문화,1.0,0.0
+Shaman,Elemental,136973,전문화,1.0,0.0
+Shaman,Elemental,136974,전문화,1.0,0.0
+Shaman,Enhancement,127851,공용,1.0,1.0
+Shaman,Enhancement,127855,공용,1.0,1.0
+Shaman,Enhancement,127856,공용,1.0,1.0
+Shaman,Enhancement,127858,공용,1.0,1.0
+Shaman,Enhancement,127859,공용,1.0,1.0
+Shaman,Enhancement,127861,공용,1.0,1.0
+Shaman,Enhancement,127868,공용,1.0,1.0
+Shaman,Enhancement,127871,공용,1.0,1.0
+Shaman,Enhancement,127877,공용,1.0,1.0
+Shaman,Enhancement,127880,공용,1.0,1.0
+Shaman,Enhancement,127881,공용,1.0,1.0
+Shaman,Enhancement,127888,공용,1.0,1.0
+Shaman,Enhancement,127889,공용,1.0,1.0
+Shaman,Enhancement,127890,공용,1.0,1.0
+Shaman,Enhancement,127891,공용,1.0,1.0
+Shaman,Enhancement,127892,공용,1.0,1.0
+Shaman,Enhancement,127893,공용,1.0,1.0
+Shaman,Enhancement,127894,공용,1.0,1.0
+Shaman,Enhancement,127906,공용,1.0,1.0
+Shaman,Enhancement,127909,공용,1.0,1.0
+Shaman,Enhancement,135590,공용,1.0,1.0
+Shaman,Enhancement,135591,공용,1.0,1.0
+Shaman,Enhancement,136585,공용,1.0,1.0
+Shaman,Enhancement,127854,공용,0.667,1.0
+Shaman,Enhancement,127865,공용,0.667,1.0
+Shaman,Enhancement,127905,공용,0.333,1.0
+Shaman,Enhancement,127883,공용,0.333,1.0
+Shaman,Enhancement,135718,미분류,0.333,0.0
+Shaman,Enhancement,127882,미분류,0.333,0.0
+Shaman,Enhancement,127853,미분류,0.333,0.0
+Shaman,Enhancement,127864,미분류,0.333,0.0
+Shaman,Enhancement,135254,미분류,0.333,0.0
+Shaman,Enhancement,101801,전문화,1.0,0.0
+Shaman,Enhancement,101802,전문화,1.0,0.0
+Shaman,Enhancement,101804,전문화,1.0,0.0
+Shaman,Enhancement,101805,전문화,1.0,0.0
+Shaman,Enhancement,101806,전문화,1.0,0.0
+Shaman,Enhancement,101809,전문화,1.0,0.0
+Shaman,Enhancement,101811,전문화,1.0,0.0
+Shaman,Enhancement,101812,전문화,1.0,0.0
+Shaman,Enhancement,101813,전문화,1.0,0.0
+Shaman,Enhancement,101814,전문화,1.0,0.0
+Shaman,Enhancement,101815,전문화,1.0,0.0
+Shaman,Enhancement,101818,전문화,1.0,0.0
+Shaman,Enhancement,101819,전문화,1.0,0.0
+Shaman,Enhancement,101823,전문화,1.0,0.0
+Shaman,Enhancement,101824,전문화,1.0,0.0
+Shaman,Enhancement,101825,전문화,1.0,0.0
+Shaman,Enhancement,101826,전문화,1.0,0.0
+Shaman,Enhancement,101827,전문화,1.0,0.0
+Shaman,Enhancement,101828,전문화,1.0,0.0
+Shaman,Enhancement,101829,전문화,1.0,0.0
+Shaman,Enhancement,101832,전문화,1.0,0.0
+Shaman,Enhancement,101833,전문화,1.0,0.0
+Shaman,Enhancement,101834,전문화,1.0,0.0
+Shaman,Enhancement,101840,전문화,1.0,0.0
+Shaman,Enhancement,101841,전문화,1.0,0.0
+Shaman,Enhancement,117456,전문화,1.0,0.0
+Shaman,Enhancement,117468,전문화,1.0,0.0
+Shaman,Enhancement,117469,전문화,1.0,0.0
+Shaman,Enhancement,117471,전문화,1.0,0.0
+Shaman,Enhancement,117474,전문화,1.0,0.0
+Shaman,Enhancement,117476,전문화,1.0,0.0
+Shaman,Enhancement,117479,전문화,1.0,0.0
+Shaman,Enhancement,117487,전문화,1.0,0.0
+Shaman,Enhancement,117488,전문화,1.0,0.0
+Shaman,Enhancement,123379,전문화,1.0,0.0
+Shaman,Enhancement,125822,전문화,1.0,0.0
+Shaman,Enhancement,125824,전문화,1.0,0.0
+Shaman,Enhancement,127910,전문화,1.0,0.0
+Shaman,Enhancement,128236,전문화,1.0,0.0
+Shaman,Enhancement,128270,전문화,1.0,0.0
+Shaman,Enhancement,135593,전문화,1.0,0.0
+Shaman,Enhancement,135982,전문화,1.0,0.0
+Shaman,Enhancement,135983,전문화,1.0,0.0
+Shaman,Enhancement,135984,전문화,1.0,0.0
+Shaman,Enhancement,136969,전문화,1.0,0.0
+Shaman,Enhancement,136970,전문화,1.0,0.0
+Shaman,Enhancement,136971,전문화,1.0,0.0
+Shaman,Enhancement,101799,전문화,0.667,0.0
+Shaman,Enhancement,127869,전문화,0.667,0.0
+Shaman,Enhancement,127896,전문화,0.667,0.0
+Shaman,Enhancement,127902,전문화,0.667,0.0
+Shaman,Enhancement,127874,전문화,0.667,0.0
+Shaman,Enhancement,135592,전문화,0.667,0.0
+Warlock,Affliction,91430,공용,1.0,1.0
+Warlock,Affliction,91434,공용,1.0,1.0
+Warlock,Affliction,91438,공용,1.0,1.0
+Warlock,Affliction,91441,공용,1.0,1.0
+Warlock,Affliction,91452,공용,1.0,1.0
+Warlock,Affliction,91460,공용,1.0,1.0
+Warlock,Affliction,91461,공용,1.0,1.0
+Warlock,Affliction,91463,공용,1.0,1.0
+Warlock,Affliction,91466,공용,1.0,1.0
+Warlock,Affliction,124694,공용,1.0,1.0
+Warlock,Affliction,136102,공용,1.0,0.999
+Warlock,Affliction,136103,공용,1.0,1.0
+Warlock,Affliction,136568,공용,1.0,1.0
+Warlock,Affliction,136569,공용,1.0,1.0
+Warlock,Affliction,91439,공용,0.999,0.999
+Warlock,Affliction,91444,공용,0.999,1.0
+Warlock,Affliction,136571,공용,0.999,0.999
+Warlock,Affliction,136570,공용,0.994,0.991
+Warlock,Affliction,91469,공용,0.99,0.997
+Warlock,Affliction,136572,공용,0.954,0.983
+Warlock,Affliction,91459,공용,0.932,0.987
+Warlock,Affliction,136105,공용,0.92,0.895
+Warlock,Affliction,136107,공용,0.919,0.914
+Warlock,Affliction,91425,공용,0.893,0.91
+Warlock,Affliction,91432,공용,0.852,0.917
+Warlock,Affliction,91468,공용,0.844,0.704
+Warlock,Affliction,91445,공용,0.839,0.898
+Warlock,Affliction,136106,공용,0.7,0.714
+Warlock,Affliction,136100,공용,0.632,0.726
+Warlock,Affliction,136101,공용,0.616,0.725
+Warlock,Affliction,136573,미분류,0.447,0.259
+Warlock,Affliction,91504,미분류,0.447,0.0
+Warlock,Affliction,136111,미분류,0.441,0.0
+Warlock,Affliction,136114,미분류,0.43,0.0
+Warlock,Affliction,136126,미분류,0.43,0.0
+Warlock,Affliction,124692,미분류,0.428,0.0
+Warlock,Affliction,136113,미분류,0.427,0.0
+Warlock,Affliction,136118,미분류,0.401,0.0
+Warlock,Affliction,123838,미분류,0.301,0.016
+Warlock,Affliction,117420,미분류,0.289,0.006
+Warlock,Affliction,136110,미분류,0.288,0.0
+Warlock,Affliction,91451,미분류,0.219,0.101
+Warlock,Affliction,91446,미분류,0.158,0.102
+Warlock,Affliction,136104,미분류,0.158,0.033
+Warlock,Affliction,91440,미분류,0.149,0.117
+Warlock,Affliction,117447,미분류,0.127,0.009
+Warlock,Affliction,91424,미분류,0.124,0.171
+Warlock,Affliction,91454,미분류,0.113,0.096
+Warlock,Affliction,124693,미분류,0.104,0.0
+Warlock,Affliction,91447,미분류,0.058,0.1
+Warlock,Affliction,91458,미분류,0.022,0.021
+Warlock,Affliction,136108,미분류,0.014,0.009
+Warlock,Affliction,115459,미분류,0.007,0.009
+Warlock,Affliction,91422,미분류,0.007,0.002
+Warlock,Affliction,123387,미분류,0.007,0.0
+Warlock,Affliction,117451,미분류,0.001,0.0
+Warlock,Affliction,91431,영웅,0.616,0.408
+Warlock,Affliction,91457,영웅,0.343,0.299
+Warlock,Affliction,91465,영웅,0.337,0.468
+Warlock,Affliction,136738,영웅,0.262,0.296
+Warlock,Affliction,91467,영웅,0.156,0.296
+Warlock,Affliction,117419,영웅,0.007,0.236
+Warlock,Affliction,117426,영웅,0.007,0.326
+Warlock,Affliction,117431,영웅,0.007,0.326
+Warlock,Affliction,117432,영웅,0.007,0.319
+Warlock,Affliction,117434,영웅,0.007,0.326
+Warlock,Affliction,117437,영웅,0.007,0.326
+Warlock,Affliction,117439,영웅,0.007,0.326
+Warlock,Affliction,117441,영웅,0.007,0.326
+Warlock,Affliction,117442,영웅,0.007,0.326
+Warlock,Affliction,117450,영웅,0.007,0.326
+Warlock,Affliction,136093,영웅,0.007,0.326
+Warlock,Affliction,136094,영웅,0.007,0.326
+Warlock,Affliction,136095,영웅,0.007,0.326
+Warlock,Affliction,123310,영웅,0.006,0.326
+Warlock,Affliction,91552,전문화,1.0,0.0
+Warlock,Affliction,91553,전문화,1.0,0.0
+Warlock,Affliction,91554,전문화,1.0,0.0
+Warlock,Affliction,91558,전문화,1.0,0.0
+Warlock,Affliction,91568,전문화,1.0,0.0
+Warlock,Affliction,91570,전문화,1.0,0.0
+Warlock,Affliction,91571,전문화,1.0,0.0
+Warlock,Affliction,91580,전문화,1.0,0.0
+Warlock,Affliction,126303,전문화,1.0,0.0
+Warlock,Affliction,136120,전문화,1.0,0.0
+Warlock,Affliction,136121,전문화,1.0,0.0
+Warlock,Affliction,136122,전문화,1.0,0.0
+Warlock,Affliction,136812,전문화,1.0,0.0
+Warlock,Affliction,136981,전문화,1.0,0.0
+Warlock,Affliction,136982,전문화,1.0,0.0
+Warlock,Affliction,136983,전문화,1.0,0.0
+Warlock,Affliction,136119,전문화,0.996,0.0
+Warlock,Affliction,117418,전문화,0.993,0.047
+Warlock,Affliction,117422,전문화,0.993,0.047
+Warlock,Affliction,117429,전문화,0.993,0.047
+Warlock,Affliction,117435,전문화,0.993,0.047
+Warlock,Affliction,117443,전문화,0.993,0.047
+Warlock,Affliction,117444,전문화,0.993,0.047
+Warlock,Affliction,117448,전문화,0.993,0.047
+Warlock,Affliction,117454,전문화,0.993,0.047
+Warlock,Affliction,123384,전문화,0.993,0.0
+Warlock,Affliction,136096,전문화,0.993,0.047
+Warlock,Affliction,136097,전문화,0.993,0.047
+Warlock,Affliction,136098,전문화,0.993,0.047
+Warlock,Affliction,126064,전문화,0.986,0.0
+Warlock,Affliction,91576,전문화,0.946,0.0
+Warlock,Affliction,91572,전문화,0.896,0.0
+Warlock,Affliction,123840,전문화,0.865,0.038
+Warlock,Affliction,136124,전문화,0.725,0.0
+Warlock,Affliction,123839,전문화,0.703,0.04
+Warlock,Affliction,136123,전문화,0.693,0.0
+Warlock,Affliction,117421,전문화,0.692,0.03
+Warlock,Affliction,136117,전문화,0.669,0.0
+Warlock,Affliction,136813,전문화,0.647,0.0
+Warlock,Affliction,91562,전문화,0.631,0.0
+Warlock,Affliction,136125,전문화,0.573,0.0
+Warlock,Affliction,91566,전문화,0.572,0.0
+Warlock,Affliction,136115,전문화,0.57,0.0
+Warlock,Affliction,136112,전문화,0.569,0.0
+Warlock,Affliction,136109,전문화,0.548,0.0
+Warlock,Affliction,91567,전문화,0.544,0.0
+Warlock,Affliction,91577,전문화,0.528,0.0
+Warlock,Demonology,91430,공용,1.0,1.0
+Warlock,Demonology,91434,공용,1.0,1.0
+Warlock,Demonology,91438,공용,1.0,1.0
+Warlock,Demonology,91439,공용,1.0,0.999
+Warlock,Demonology,91441,공용,1.0,1.0
+Warlock,Demonology,91444,공용,1.0,0.999
+Warlock,Demonology,91452,공용,1.0,1.0
+Warlock,Demonology,91460,공용,1.0,1.0
+Warlock,Demonology,91461,공용,1.0,1.0
+Warlock,Demonology,91463,공용,1.0,1.0
+Warlock,Demonology,91466,공용,1.0,1.0
+Warlock,Demonology,124694,공용,1.0,1.0
+Warlock,Demonology,136103,공용,1.0,1.0
+Warlock,Demonology,136568,공용,1.0,1.0
+Warlock,Demonology,136569,공용,1.0,1.0
+Warlock,Demonology,136571,공용,1.0,0.998
+Warlock,Demonology,136102,공용,0.999,1.0
+Warlock,Demonology,91469,공용,0.996,0.994
+Warlock,Demonology,136570,공용,0.992,0.992
+Warlock,Demonology,91459,공용,0.985,0.96
+Warlock,Demonology,136572,공용,0.971,0.974
+Warlock,Demonology,91425,공용,0.923,0.895
+Warlock,Demonology,91445,공용,0.919,0.858
+Warlock,Demonology,91432,공용,0.882,0.902
+Warlock,Demonology,136107,공용,0.851,0.948
+Warlock,Demonology,136105,공용,0.846,0.932
+Warlock,Demonology,91468,공용,0.669,0.791
+Warlock,Demonology,136101,공용,0.607,0.73
+Warlock,Demonology,117449,미분류,0.675,0.133
+Warlock,Demonology,136724,미분류,0.489,0.0
+Warlock,Demonology,125835,미분류,0.469,0.0
+Warlock,Demonology,136229,미분류,0.469,0.0
+Warlock,Demonology,91467,미분류,0.331,0.209
+Warlock,Demonology,125839,미분류,0.312,0.0
+Warlock,Demonology,136738,미분류,0.302,0.276
+Warlock,Demonology,118839,미분류,0.232,0.041
+Warlock,Demonology,91424,미분류,0.182,0.142
+Warlock,Demonology,91454,미분류,0.167,0.069
+Warlock,Demonology,91440,미분류,0.165,0.11
+Warlock,Demonology,125830,미분류,0.157,0.0
+Warlock,Demonology,91451,미분류,0.136,0.143
+Warlock,Demonology,91447,미분류,0.136,0.061
+Warlock,Demonology,136721,미분류,0.099,0.0
+Warlock,Demonology,135311,미분류,0.094,0.0
+Warlock,Demonology,123383,미분류,0.093,0.0
+Warlock,Demonology,91446,미분류,0.081,0.141
+Warlock,Demonology,136104,미분류,0.047,0.089
+Warlock,Demonology,123838,미분류,0.033,0.151
+Warlock,Demonology,117447,미분류,0.018,0.064
+Warlock,Demonology,136108,미분류,0.017,0.008
+Warlock,Demonology,115459,미분류,0.015,0.006
+Warlock,Demonology,91458,미분류,0.013,0.025
+Warlock,Demonology,117420,미분류,0.012,0.145
+Warlock,Demonology,136720,미분류,0.009,0.0
+Warlock,Demonology,117445,미분류,0.004,0.0
+Warlock,Demonology,91422,미분류,0.004,0.004
+Warlock,Demonology,136725,미분류,0.001,0.0
+Warlock,Demonology,117423,영웅,0.907,0.174
+Warlock,Demonology,117427,영웅,0.907,0.174
+Warlock,Demonology,117428,영웅,0.907,0.174
+Warlock,Demonology,117430,영웅,0.907,0.174
+Warlock,Demonology,117433,영웅,0.907,0.174
+Warlock,Demonology,117440,영웅,0.907,0.174
+Warlock,Demonology,117446,영웅,0.907,0.174
+Warlock,Demonology,117452,영웅,0.907,0.174
+Warlock,Demonology,117453,영웅,0.907,0.174
+Warlock,Demonology,136090,영웅,0.907,0.174
+Warlock,Demonology,136091,영웅,0.907,0.174
+Warlock,Demonology,136092,영웅,0.907,0.174
+Warlock,Demonology,118838,영웅,0.902,0.174
+Warlock,Demonology,136100,영웅,0.783,0.651
+Warlock,Demonology,136106,영웅,0.779,0.674
+Warlock,Demonology,91465,영웅,0.441,0.416
+Warlock,Demonology,91431,영웅,0.378,0.528
+Warlock,Demonology,91457,영웅,0.342,0.299
+Warlock,Demonology,136573,영웅,0.238,0.364
+Warlock,Demonology,117418,영웅,0.093,0.496
+Warlock,Demonology,117422,영웅,0.093,0.496
+Warlock,Demonology,117429,영웅,0.093,0.496
+Warlock,Demonology,117435,영웅,0.093,0.496
+Warlock,Demonology,117443,영웅,0.093,0.496
+Warlock,Demonology,117444,영웅,0.093,0.496
+Warlock,Demonology,117448,영웅,0.093,0.496
+Warlock,Demonology,117454,영웅,0.093,0.496
+Warlock,Demonology,136096,영웅,0.093,0.496
+Warlock,Demonology,136097,영웅,0.093,0.496
+Warlock,Demonology,136098,영웅,0.093,0.496
+Warlock,Demonology,123839,영웅,0.081,0.352
+Warlock,Demonology,123840,영웅,0.075,0.433
+Warlock,Demonology,117421,영웅,0.061,0.346
+Warlock,Demonology,125834,전문화,1.0,0.0
+Warlock,Demonology,125836,전문화,1.0,0.0
+Warlock,Demonology,125837,전문화,1.0,0.0
+Warlock,Demonology,125848,전문화,1.0,0.0
+Warlock,Demonology,125850,전문화,1.0,0.0
+Warlock,Demonology,125855,전문화,1.0,0.0
+Warlock,Demonology,125860,전문화,1.0,0.0
+Warlock,Demonology,125866,전문화,1.0,0.0
+Warlock,Demonology,125869,전문화,1.0,0.0
+Warlock,Demonology,135306,전문화,1.0,0.0
+Warlock,Demonology,135312,전문화,1.0,0.0
+Warlock,Demonology,135314,전문화,1.0,0.0
+Warlock,Demonology,135319,전문화,1.0,0.0
+Warlock,Demonology,136719,전문화,1.0,0.0
+Warlock,Demonology,136727,전문화,1.0,0.0
+Warlock,Demonology,136728,전문화,1.0,0.0
+Warlock,Demonology,136978,전문화,1.0,0.0
+Warlock,Demonology,136979,전문화,1.0,0.0
+Warlock,Demonology,136980,전문화,1.0,0.0
+Warlock,Demonology,136726,전문화,0.999,0.0
+Warlock,Demonology,125854,전문화,0.997,0.0
+Warlock,Demonology,135315,전문화,0.997,0.0
+Warlock,Demonology,136227,전문화,0.997,0.0
+Warlock,Demonology,123386,전문화,0.907,0.0
+Warlock,Demonology,136730,전문화,0.907,0.0
+Warlock,Demonology,135303,전문화,0.889,0.0
+Warlock,Demonology,136722,전문화,0.885,0.0
+Warlock,Demonology,135313,전문화,0.854,0.0
+Warlock,Demonology,125838,전문화,0.688,0.0
+Warlock,Demonology,125829,전문화,0.534,0.0
+Warlock,Demonology,135310,전문화,0.53,0.0
+Warlock,Destruction,91430,공용,1.0,1.0
+Warlock,Destruction,91434,공용,1.0,1.0
+Warlock,Destruction,91438,공용,1.0,1.0
+Warlock,Destruction,91441,공용,1.0,1.0
+Warlock,Destruction,91444,공용,1.0,0.999
+Warlock,Destruction,91452,공용,1.0,1.0
+Warlock,Destruction,91460,공용,1.0,1.0
+Warlock,Destruction,91461,공용,1.0,1.0
+Warlock,Destruction,91463,공용,1.0,1.0
+Warlock,Destruction,91466,공용,1.0,1.0
+Warlock,Destruction,124694,공용,1.0,1.0
+Warlock,Destruction,136102,공용,1.0,0.999
+Warlock,Destruction,136103,공용,1.0,1.0
+Warlock,Destruction,136568,공용,1.0,1.0
+Warlock,Destruction,136569,공용,1.0,1.0
+Warlock,Destruction,91439,공용,0.999,0.999
+Warlock,Destruction,91469,공용,0.999,0.993
+Warlock,Destruction,136571,공용,0.997,0.999
+Warlock,Destruction,136572,공용,0.994,0.962
+Warlock,Destruction,136570,공용,0.99,0.993
+Warlock,Destruction,91459,공용,0.989,0.959
+Warlock,Destruction,136107,공용,0.978,0.885
+Warlock,Destruction,91432,공용,0.951,0.867
+Warlock,Destruction,136105,공용,0.944,0.883
+Warlock,Destruction,91425,공용,0.898,0.908
+Warlock,Destruction,91445,공용,0.877,0.879
+Warlock,Destruction,91468,공용,0.738,0.756
+Warlock,Destruction,136100,공용,0.669,0.707
+Warlock,Destruction,136106,공용,0.648,0.74
+Warlock,Destruction,136833,미분류,0.485,0.0
+Warlock,Destruction,117419,미분류,0.473,0.004
+Warlock,Destruction,91477,미분류,0.468,0.0
+Warlock,Destruction,123385,미분류,0.348,0.0
+Warlock,Destruction,126493,미분류,0.316,0.0
+Warlock,Destruction,91494,미분류,0.289,0.0
+Warlock,Destruction,123309,미분류,0.18,0.0
+Warlock,Destruction,91583,미분류,0.165,0.0
+Warlock,Destruction,91424,미분류,0.16,0.153
+Warlock,Destruction,91446,미분류,0.123,0.119
+Warlock,Destruction,118839,미분류,0.083,0.116
+Warlock,Destruction,91440,미분류,0.07,0.157
+Warlock,Destruction,91451,미분류,0.067,0.177
+Warlock,Destruction,91447,미분류,0.065,0.097
+Warlock,Destruction,134219,미분류,0.043,0.0
+Warlock,Destruction,91458,미분류,0.028,0.018
+Warlock,Destruction,91454,미분류,0.025,0.14
+Warlock,Destruction,126494,미분류,0.024,0.0
+Warlock,Destruction,136104,미분류,0.02,0.102
+Warlock,Destruction,128601,미분류,0.02,0.0
+Warlock,Destruction,123308,미분류,0.014,0.0
+Warlock,Destruction,91499,미분류,0.006,0.0
+Warlock,Destruction,115459,미분류,0.004,0.011
+Warlock,Destruction,136108,미분류,0.001,0.016
+Warlock,Destruction,125618,미분류,0.001,0.0
+Warlock,Destruction,136101,영웅,0.843,0.612
+Warlock,Destruction,91465,영웅,0.495,0.389
+Warlock,Destruction,91431,영웅,0.439,0.497
+Warlock,Destruction,117423,영웅,0.348,0.453
+Warlock,Destruction,117427,영웅,0.348,0.453
+Warlock,Destruction,117428,영웅,0.348,0.453
+Warlock,Destruction,117430,영웅,0.348,0.453
+Warlock,Destruction,117433,영웅,0.348,0.453
+Warlock,Destruction,117440,영웅,0.348,0.453
+Warlock,Destruction,117446,영웅,0.348,0.453
+Warlock,Destruction,117452,영웅,0.348,0.453
+Warlock,Destruction,117453,영웅,0.348,0.453
+Warlock,Destruction,118838,영웅,0.348,0.451
+Warlock,Destruction,136090,영웅,0.348,0.453
+Warlock,Destruction,136091,영웅,0.348,0.453
+Warlock,Destruction,136092,영웅,0.348,0.453
+Warlock,Destruction,136738,영웅,0.29,0.282
+Warlock,Destruction,136573,영웅,0.281,0.342
+Warlock,Destruction,117449,영웅,0.265,0.337
+Warlock,Destruction,91467,영웅,0.262,0.244
+Warlock,Destruction,91457,영웅,0.255,0.342
+Warlock,Destruction,91478,전문화,1.0,0.0
+Warlock,Destruction,91482,전문화,1.0,0.0
+Warlock,Destruction,91496,전문화,1.0,0.0
+Warlock,Destruction,91502,전문화,1.0,0.0
+Warlock,Destruction,91584,전문화,1.0,0.0
+Warlock,Destruction,91589,전문화,1.0,0.0
+Warlock,Destruction,91590,전문화,1.0,0.0
+Warlock,Destruction,91591,전문화,1.0,0.0
+Warlock,Destruction,126002,전문화,1.0,0.0
+Warlock,Destruction,136835,전문화,1.0,0.0
+Warlock,Destruction,136984,전문화,1.0,0.0
+Warlock,Destruction,136985,전문화,1.0,0.0
+Warlock,Destruction,136986,전문화,1.0,0.0
+Warlock,Destruction,91479,전문화,0.999,0.0
+Warlock,Destruction,91484,전문화,0.999,0.0
+Warlock,Destruction,91486,전문화,0.999,0.0
+Warlock,Destruction,91581,전문화,0.999,0.0
+Warlock,Destruction,91588,전문화,0.999,0.0
+Warlock,Destruction,91582,전문화,0.997,0.0
+Warlock,Destruction,126004,전문화,0.997,0.0
+Warlock,Destruction,91481,전문화,0.996,0.0
+Warlock,Destruction,134221,전문화,0.994,0.0
+Warlock,Destruction,91474,전문화,0.992,0.0
+Warlock,Destruction,91489,전문화,0.985,0.0
+Warlock,Destruction,91592,전문화,0.98,0.0
+Warlock,Destruction,91473,전문화,0.976,0.0
+Warlock,Destruction,91493,전문화,0.71,0.0
+Warlock,Destruction,91500,전문화,0.655,0.0
+Warlock,Destruction,117426,전문화,0.652,0.004
+Warlock,Destruction,117431,전문화,0.652,0.004
+Warlock,Destruction,117434,전문화,0.652,0.004
+Warlock,Destruction,117437,전문화,0.652,0.004
+Warlock,Destruction,117439,전문화,0.652,0.004
+Warlock,Destruction,117441,전문화,0.652,0.004
+Warlock,Destruction,117442,전문화,0.652,0.004
+Warlock,Destruction,117450,전문화,0.652,0.004
+Warlock,Destruction,123310,전문화,0.652,0.003
+Warlock,Destruction,123382,전문화,0.652,0.0
+Warlock,Destruction,136093,전문화,0.652,0.004
+Warlock,Destruction,136094,전문화,0.652,0.004
+Warlock,Destruction,136095,전문화,0.652,0.004
+Warlock,Destruction,117432,전문화,0.638,0.004
+Warlock,Destruction,136834,전문화,0.533,0.0
+Warlock,Destruction,91488,전문화,0.506,0.0
+Warrior,Arms,112183,공용,1.0,1.0
+Warrior,Arms,112185,공용,1.0,1.0
+Warrior,Arms,112188,공용,1.0,0.985
+Warrior,Arms,112208,공용,1.0,1.0
+Warrior,Arms,112216,공용,1.0,1.0
+Warrior,Arms,112224,공용,1.0,1.0
+Warrior,Arms,112233,공용,1.0,1.0
+Warrior,Arms,112235,공용,1.0,1.0
+Warrior,Arms,112248,공용,1.0,1.0
+Warrior,Arms,112249,공용,1.0,0.999
+Warrior,Arms,134032,공용,1.0,1.0
+Warrior,Arms,134033,공용,1.0,1.0
+Warrior,Arms,135597,공용,1.0,0.999
+Warrior,Arms,112245,공용,0.999,1.0
+Warrior,Arms,112219,공용,0.998,0.984
+Warrior,Arms,112253,공용,0.998,1.0
+Warrior,Arms,118850,공용,0.995,0.948
+Warrior,Arms,112238,공용,0.992,0.92
+Warrior,Arms,112217,공용,0.991,0.996
+Warrior,Arms,112215,공용,0.976,0.97
+Warrior,Arms,112206,공용,0.957,0.822
+Warrior,Arms,136626,공용,0.928,0.828
+Warrior,Arms,134226,공용,0.858,0.998
+Warrior,Arms,136625,공용,0.8,0.982
+Warrior,Arms,112242,미분류,0.353,0.286
+Warrior,Arms,135932,미분류,0.32,0.0
+Warrior,Arms,112147,미분류,0.318,0.0
+Warrior,Arms,135937,미분류,0.318,0.0
+Warrior,Arms,135938,미분류,0.318,0.0
+Warrior,Arms,114740,미분류,0.311,0.0
+Warrior,Arms,136700,미분류,0.309,0.0
+Warrior,Arms,117390,미분류,0.308,0.0
+Warrior,Arms,117391,미분류,0.308,0.0
+Warrior,Arms,117393,미분류,0.308,0.0
+Warrior,Arms,117396,미분류,0.308,0.0
+Warrior,Arms,117403,미분류,0.308,0.0
+Warrior,Arms,117408,미분류,0.308,0.0
+Warrior,Arms,117409,미분류,0.308,0.0
+Warrior,Arms,117415,미분류,0.308,0.0
+Warrior,Arms,117416,미분류,0.308,0.0
+Warrior,Arms,119857,미분류,0.308,0.0
+Warrior,Arms,123393,미분류,0.308,0.0
+Warrior,Arms,136071,미분류,0.308,0.0
+Warrior,Arms,136072,미분류,0.308,0.0
+Warrior,Arms,136073,미분류,0.308,0.0
+Warrior,Arms,136702,미분류,0.308,0.0
+Warrior,Arms,119858,미분류,0.271,0.0
+Warrior,Arms,112211,미분류,0.258,0.212
+Warrior,Arms,134225,미분류,0.201,0.018
+Warrior,Arms,134216,미분류,0.183,0.0
+Warrior,Arms,117386,미분류,0.037,0.0
+Warrior,Arms,123408,미분류,0.036,0.006
+Warrior,Arms,134217,미분류,0.036,0.0
+Warrior,Arms,112241,미분류,0.031,0.061
+Warrior,Arms,123770,미분류,0.03,0.001
+Warrior,Arms,123409,미분류,0.028,0.006
+Warrior,Arms,134254,미분류,0.014,0.013
+Warrior,Arms,112214,미분류,0.006,0.0
+Warrior,Arms,135939,미분류,0.002,0.0
+Warrior,Arms,135943,미분류,0.002,0.0
+Warrior,Arms,112190,영웅,0.804,0.488
+Warrior,Arms,112209,영웅,0.707,0.58
+Warrior,Arms,117381,영웅,0.692,0.544
+Warrior,Arms,117385,영웅,0.692,0.544
+Warrior,Arms,117398,영웅,0.692,0.544
+Warrior,Arms,117406,영웅,0.692,0.544
+Warrior,Arms,117407,영웅,0.692,0.544
+Warrior,Arms,117410,영웅,0.692,0.544
+Warrior,Arms,117411,영웅,0.692,0.544
+Warrior,Arms,117417,영웅,0.692,0.544
+Warrior,Arms,136074,영웅,0.692,0.544
+Warrior,Arms,136075,영웅,0.692,0.544
+Warrior,Arms,136076,영웅,0.692,0.544
+Warrior,Arms,117383,영웅,0.664,0.538
+Warrior,Arms,117384,영웅,0.663,0.543
+Warrior,Arms,117392,영웅,0.657,0.538
+Warrior,Arms,112198,영웅,0.62,0.579
+Warrior,Arms,136627,영웅,0.52,0.446
+Warrior,Arms,134031,영웅,0.433,0.422
+Warrior,Arms,112210,영웅,0.333,0.409
+Warrior,Arms,112205,영웅,0.011,0.461
+Warrior,Arms,118853,영웅,0.001,0.457
+Warrior,Arms,112121,전문화,1.0,0.0
+Warrior,Arms,112122,전문화,1.0,0.0
+Warrior,Arms,112123,전문화,1.0,0.0
+Warrior,Arms,112126,전문화,1.0,0.0
+Warrior,Arms,112128,전문화,1.0,0.0
+Warrior,Arms,112131,전문화,1.0,0.0
+Warrior,Arms,112134,전문화,1.0,0.0
+Warrior,Arms,112144,전문화,1.0,0.0
+Warrior,Arms,112146,전문화,1.0,0.0
+Warrior,Arms,112179,전문화,1.0,0.0
+Warrior,Arms,112184,전문화,1.0,0.0
+Warrior,Arms,112310,전문화,1.0,0.0
+Warrior,Arms,112318,전문화,1.0,0.0
+Warrior,Arms,112320,전문화,1.0,0.0
+Warrior,Arms,114643,전문화,1.0,0.0
+Warrior,Arms,135941,전문화,1.0,0.0
+Warrior,Arms,135944,전문화,1.0,0.0
+Warrior,Arms,136703,전문화,1.0,0.0
+Warrior,Arms,136987,전문화,1.0,0.0
+Warrior,Arms,136988,전문화,1.0,0.0
+Warrior,Arms,136989,전문화,1.0,0.0
+Warrior,Arms,112137,전문화,0.996,0.0
+Warrior,Arms,112129,전문화,0.988,0.0
+Warrior,Arms,114739,전문화,0.705,0.0
+Warrior,Arms,135942,전문화,0.698,0.0
+Warrior,Arms,112125,전문화,0.692,0.0
+Warrior,Arms,112314,전문화,0.692,0.0
+Warrior,Arms,123390,전문화,0.692,0.0
+Warrior,Arms,135940,전문화,0.692,0.0
+Warrior,Arms,112145,전문화,0.689,0.0
+Warrior,Arms,112317,전문화,0.689,0.0
+Warrior,Arms,112311,전문화,0.683,0.0
+Warrior,Arms,114733,전문화,0.683,0.0
+Warrior,Arms,135934,전문화,0.683,0.0
+Warrior,Arms,112135,전문화,0.619,0.0
+Warrior,Fury,112183,공용,1.0,1.0
+Warrior,Fury,112185,공용,1.0,1.0
+Warrior,Fury,112208,공용,1.0,1.0
+Warrior,Fury,112216,공용,1.0,1.0
+Warrior,Fury,112224,공용,1.0,1.0
+Warrior,Fury,112233,공용,1.0,1.0
+Warrior,Fury,112235,공용,1.0,1.0
+Warrior,Fury,112245,공용,1.0,0.999
+Warrior,Fury,112248,공용,1.0,1.0
+Warrior,Fury,112253,공용,1.0,0.998
+Warrior,Fury,134032,공용,1.0,1.0
+Warrior,Fury,134033,공용,1.0,1.0
+Warrior,Fury,112249,공용,0.999,1.0
+Warrior,Fury,135597,공용,0.999,1.0
+Warrior,Fury,134226,공용,0.998,0.858
+Warrior,Fury,112217,공용,0.996,0.991
+Warrior,Fury,112188,공용,0.985,1.0
+Warrior,Fury,112219,공용,0.984,0.998
+Warrior,Fury,136625,공용,0.982,0.8
+Warrior,Fury,112215,공용,0.97,0.976
+Warrior,Fury,118850,공용,0.948,0.995
+Warrior,Fury,112238,공용,0.92,0.992
+Warrior,Fury,136626,공용,0.828,0.928
+Warrior,Fury,112206,공용,0.822,0.957
+Warrior,Fury,112209,공용,0.58,0.707
+Warrior,Fury,112190,공용,0.488,0.804
+Warrior,Fury,136452,미분류,0.485,0.0
+Warrior,Fury,112255,미분류,0.472,0.0
+Warrior,Fury,112205,미분류,0.461,0.011
+Warrior,Fury,118853,미분류,0.457,0.001
+Warrior,Fury,112285,미분류,0.456,0.0
+Warrior,Fury,117382,미분류,0.456,0.0
+Warrior,Fury,117394,미분류,0.456,0.0
+Warrior,Fury,117397,미분류,0.456,0.0
+Warrior,Fury,117400,미분류,0.456,0.0
+Warrior,Fury,117402,미분류,0.456,0.0
+Warrior,Fury,117404,미분류,0.456,0.0
+Warrior,Fury,117405,미분류,0.456,0.0
+Warrior,Fury,117413,미분류,0.456,0.0
+Warrior,Fury,123392,미분류,0.456,0.0
+Warrior,Fury,136068,미분류,0.456,0.0
+Warrior,Fury,136069,미분류,0.456,0.0
+Warrior,Fury,136070,미분류,0.456,0.0
+Warrior,Fury,118834,미분류,0.453,0.0
+Warrior,Fury,117414,미분류,0.373,0.0
+Warrior,Fury,117395,미분류,0.29,0.0
+Warrior,Fury,112211,미분류,0.212,0.258
+Warrior,Fury,118836,미분류,0.167,0.0
+Warrior,Fury,134213,미분류,0.116,0.0
+Warrior,Fury,112264,미분류,0.088,0.0
+Warrior,Fury,118835,미분류,0.083,0.0
+Warrior,Fury,112241,미분류,0.061,0.031
+Warrior,Fury,112274,미분류,0.032,0.0
+Warrior,Fury,134214,미분류,0.021,0.0
+Warrior,Fury,134225,미분류,0.018,0.201
+Warrior,Fury,134254,미분류,0.013,0.014
+Warrior,Fury,123409,미분류,0.006,0.028
+Warrior,Fury,112276,미분류,0.006,0.0
+Warrior,Fury,123408,미분류,0.006,0.036
+Warrior,Fury,117389,미분류,0.004,0.0
+Warrior,Fury,112296,미분류,0.002,0.0
+Warrior,Fury,136449,미분류,0.002,0.0
+Warrior,Fury,123770,미분류,0.001,0.03
+Warrior,Fury,112198,영웅,0.579,0.62
+Warrior,Fury,117381,영웅,0.544,0.692
+Warrior,Fury,117385,영웅,0.544,0.692
+Warrior,Fury,117398,영웅,0.544,0.692
+Warrior,Fury,117406,영웅,0.544,0.692
+Warrior,Fury,117407,영웅,0.544,0.692
+Warrior,Fury,117410,영웅,0.544,0.692
+Warrior,Fury,117411,영웅,0.544,0.692
+Warrior,Fury,117417,영웅,0.544,0.692
+Warrior,Fury,136074,영웅,0.544,0.692
+Warrior,Fury,136075,영웅,0.544,0.692
+Warrior,Fury,136076,영웅,0.544,0.692
+Warrior,Fury,117384,영웅,0.543,0.663
+Warrior,Fury,117383,영웅,0.538,0.664
+Warrior,Fury,117392,영웅,0.538,0.657
+Warrior,Fury,136627,영웅,0.446,0.52
+Warrior,Fury,134031,영웅,0.422,0.433
+Warrior,Fury,112210,영웅,0.409,0.333
+Warrior,Fury,112242,영웅,0.286,0.353
+Warrior,Fury,112182,전문화,1.0,0.0
+Warrior,Fury,112240,전문화,1.0,0.0
+Warrior,Fury,112259,전문화,1.0,0.0
+Warrior,Fury,112261,전문화,1.0,0.0
+Warrior,Fury,112265,전문화,1.0,0.0
+Warrior,Fury,112266,전문화,1.0,0.0
+Warrior,Fury,112267,전문화,1.0,0.0
+Warrior,Fury,112268,전문화,1.0,0.0
+Warrior,Fury,112270,전문화,1.0,0.0
+Warrior,Fury,112275,전문화,1.0,0.0
+Warrior,Fury,112277,전문화,1.0,0.0
+Warrior,Fury,112281,전문화,1.0,0.0
+Warrior,Fury,112299,전문화,1.0,0.0
+Warrior,Fury,112300,전문화,1.0,0.0
+Warrior,Fury,112301,전문화,1.0,0.0
+Warrior,Fury,114644,전문화,1.0,0.0
+Warrior,Fury,119139,전문화,1.0,0.0
+Warrior,Fury,136451,전문화,1.0,0.0
+Warrior,Fury,136453,전문화,1.0,0.0
+Warrior,Fury,136735,전문화,1.0,0.0
+Warrior,Fury,137002,전문화,1.0,0.0
+Warrior,Fury,137003,전문화,1.0,0.0
+Warrior,Fury,137004,전문화,1.0,0.0
+Warrior,Fury,112272,전문화,0.999,0.0
+Warrior,Fury,112298,전문화,0.999,0.0
+Warrior,Fury,112271,전문화,0.998,0.0
+Warrior,Fury,112292,전문화,0.998,0.0
+Warrior,Fury,136448,전문화,0.998,0.0
+Warrior,Fury,136454,전문화,0.996,0.0
+Warrior,Fury,112263,전문화,0.97,0.0
+Warrior,Fury,112279,전문화,0.964,0.0
+Warrior,Fury,112284,전문화,0.544,0.0
+Warrior,Fury,123389,전문화,0.544,0.0

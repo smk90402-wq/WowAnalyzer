@@ -1,0 +1,228 @@
+{
+  "Warlock/Demonology": [
+    {
+      "hero": "diabolist",
+      "scenario": "Raid",
+      "is_best": false,
+      "code": "CoQAAAAAAAAAAAAAAAAAAAAAAYmZMzoZjhZmxsMAAAAAAAgxMGWgB2GtRDLGjZ2mlZmZYAgZYmZmZGgZmxMDAAwYmZmZYGLzYAD"
+    },
+    {
+      "hero": "diabolist",
+      "scenario": "Raid Cleave",
+      "is_best": false,
+      "code": "CoQAAAAAAAAAAAAAAAAAAAAAAYmhZGNbmx2MzYWGAAAAAAAwYGDLwAbj2ohFDGLz2MzMmBAmxMzMzMDwMzwMbAAgZmZmxMD2mBwA"
+    },
+    {
+      "hero": "diabolist",
+      "scenario": "Mythic+",
+      "is_best": true,
+      "code": "CoQAAAAAAAAAAAAAAAAAAAAAAwMjZGNbmx2MzYWGAAAAAAAwYGDLwAbj2ohFDGLjZmZmZAgZMzYmZGgxMMzGAAYmZmZmZGsNzAMA"
+    },
+    {
+      "hero": "diabolist",
+      "scenario": "Delves",
+      "is_best": true,
+      "code": "CoQAAAAAAAAAAAAAAAAAAAAAAYmhZGNbmx2MzYWGAAAAAAAwYGDLwAbj2ohFDGLz2MzMmBAmxMzMzMDwMzwMbAAgZmZmxMD2mBwA"
+    },
+    {
+      "hero": "soul-harvester",
+      "scenario": "Raid",
+      "is_best": true,
+      "code": "CoQAAAAAAAAAAAAAAAAAAAAAAYmZMzoZjhZmxsMAAAAAAAjllBGwAmhlQGbGjZ2mlZmZYAgZYmZGgZmZmxMDAAwYmZmZYGLzYAD"
+    },
+    {
+      "hero": "soul-harvester",
+      "scenario": "Raid Cleave",
+      "is_best": true,
+      "code": "CoQAAAAAAAAAAAAAAAAAAAAAAYmhZGNbmx2MzYWGAAAAAAgxyyADYAzwSIjNDGLz2MzMmBAmxMzMDwMzMzwMbAAgZmZmxMD2mBwA"
+    },
+    {
+      "hero": "soul-harvester",
+      "scenario": "Mythic+",
+      "is_best": false,
+      "code": "CoQAAAAAAAAAAAAAAAAAAAAAAYmhZGNbmx2MzYWGAAAAAAgxyyADYAzwSIjNDGLjZmZmZAgZMzYGgZmZmhZ2AAAzMzMjZGsNzAMA"
+    },
+    {
+      "hero": "soul-harvester",
+      "scenario": "Delves",
+      "is_best": false,
+      "code": "CoQAAAAAAAAAAAAAAAAAAAAAAYmhZGNbmx2MzYWGAAAAAAgxyyADYAzwSIjNDGLz2MzMmBAmxMzMDwMzMzwMbAAgZmZmxMD2mBwA"
+    }
+  ],
+  "Druid/Balance": [
+    {
+      "hero": "keeper-of-the-grove",
+      "scenario": "Raid",
+      "is_best": true,
+      "code": "CYGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWoMbNjxMDMmlZmZmBYYWmZZsNjZsxyMGzMzYBDAGgltxGmmZWGBAAAYzMzMzgNjhxMAmZAgB"
+    },
+    {
+      "hero": "keeper-of-the-grove",
+      "scenario": "Mythic+",
+      "is_best": false,
+      "code": "CYGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWoMbNMmZgxsMzMzMLMgZbmlZWmxM2YZGjZmZsgBADwy2YDTzMLjAAAAsZm5BmZwmxMGDAzMAwA"
+    },
+    {
+      "hero": "keeper-of-the-grove",
+      "scenario": "Delves",
+      "is_best": false,
+      "code": "CYGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWoMbNMmZgxsMzMzMLMgZZmlx2MmxGLzYmZGmFMAYAW2GbYamZbEAAAgNmZmZwmxMGzAYmBAGA"
+    },
+    {
+      "hero": "elunes-chosen",
+      "scenario": "Raid",
+      "is_best": false,
+      "code": "CYGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWoMbNjxMDwsMzMzMYYGzyMbzwMzYhlZWmZMmZDDAGLbzMYMbjATAAAAWMzMzMYzwYMAAMzADA"
+    },
+    {
+      "hero": "elunes-chosen",
+      "scenario": "Mythic+",
+      "is_best": true,
+      "code": "CYGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWoMbNMmZgxsMzMzMLMgZZmlZWMzMWYZmlxMjxGGAMW2mZwY2GBmAAAAswMzMD2MmxYAAYmBGA"
+    },
+    {
+      "hero": "elunes-chosen",
+      "scenario": "Delves",
+      "is_best": false,
+      "code": "CYGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWoMbNMmZgxsMzMzMLMgZZmlZWMzMWYZmlxMjxGGAMW2mZwY2GBmAAAAswMzMD2MmxYAAYmBGA"
+    }
+  ],
+  "Hunter/Beast Mastery": [
+    {
+      "hero": "pack-leader",
+      "scenario": "Raid",
+      "is_best": true,
+      "code": "C0PAAAAAAAAAAAAAAAAAAAAAAAMmxwCsAzwQDbAAYG2GzsNzwMmZYYmxYmxMzYGzwMzYGzghmBAAAAwMAAAMzMzAMzGCDzCYbAA"
+    },
+    {
+      "hero": "pack-leader",
+      "scenario": "Mythic+",
+      "is_best": false,
+      "code": "C0PAAAAAAAAAAAAAAAAAAAAAAAMmxwCsBzwQDbAAYGzyMzsYGmZmZGzMMmxMMzYmZGbzMDjZYZoZAAAAAAAAAzDMmZAzshAmFw2AA"
+    },
+    {
+      "hero": "pack-leader",
+      "scenario": "Delves",
+      "is_best": true,
+      "code": "C0PAAAAAAAAAAAAAAAAAAAAAAAMmxwGsAzwQDbAAYGzyMzsYGmZmZGzMMmxMMzMzYGmZGGzMMmmBAAAAAAAAMGzAMzCCWmZBsNA"
+    },
+    {
+      "hero": "dark-ranger",
+      "scenario": "Raid",
+      "is_best": false,
+      "code": "C0PAAAAAAAAAAAAAAAAAAAAAAYzsNwAGwMsBZsAAgZYZmZMzwMmBzYmZGmxMzMzYGmZGGzMMmmBAAAAwMAAAMGzgZGgglZWAbDA"
+    },
+    {
+      "hero": "dark-ranger",
+      "scenario": "Mythic+",
+      "is_best": true,
+      "code": "C0PAAAAAAAAAAAAAAAAAAAAAAYzsNwAGwMsBZsAAgZGLzMDzwMzMYGzMzwMmZGzMzYbmZYMDLDNDAAAAgZAAAYegxMDzMABMLgtBA"
+    },
+    {
+      "hero": "dark-ranger",
+      "scenario": "Delves",
+      "is_best": false,
+      "code": "C0PAAAAAAAAAAAAAAAAAAAAAAYzsNwAGwMsBZsAAgZGLzMDzwMzMYGzMzwMmZmZGzwMzwYmhx0MAAAAAmBAAgxYGMzAEsMzCYbAA"
+    }
+  ],
+  "Warrior/Arms": [
+    {
+      "hero": "slayer",
+      "scenario": "Slayer",
+      "is_best": true,
+      "code": "CcEAAAAAAAAAAAAAAAAAAAAAAAzMzsMzMzMDAAAghphxYGWmZmZGMmZAAAAAMzyMDIjxyyALgBMDTIzgNwMjNz2YwMGgZGAmxwA"
+    },
+    {
+      "hero": "slayer",
+      "scenario": "Raid MT",
+      "is_best": true,
+      "code": "CcEAAAAAAAAAAAAAAAAAAAAAAAzMzsMzYmZAAAAMMNMGzwyMzMzgxMDAAAAgZWmZgtMGLLDsAGwMMhMD2AzM2MbjBzsNAzMAMjhB"
+    },
+    {
+      "hero": "slayer",
+      "scenario": "Mythic+",
+      "is_best": false,
+      "code": "CcEAAAAAAAAAAAAAAAAAAAAAAgZmZmFzYmZGAAAghphxYmZzMzMzYmxMDAAAAgxyMDsFGLbDsAGwMMhMD2AzMMMY2mZbAmZAwYYA"
+    },
+    {
+      "hero": "slayer",
+      "scenario": "Delving",
+      "is_best": false,
+      "code": "CcEAAAAAAAAAAAAAAAAAAAAAAgZmZmFzYmZGAAAghphxYmZzMzMzYmxMDAAAAgxyMDsFGLbDsAGwMMhMD2AzMMMY2mZbAmZAwYYA"
+    },
+    {
+      "hero": "colossus",
+      "scenario": "Colossus",
+      "is_best": false,
+      "code": "CcEAAAAAAAAAAAAAAAAAAAAAAAzMzsMzMzMDAAAghphZYmxyMzMzgxMDAAAAgZMzAyMgNzYYDGYGtRjBLAzYzsNGMjBzMAgZMMA"
+    },
+    {
+      "hero": "colossus",
+      "scenario": "MT Raid",
+      "is_best": false,
+      "code": "CcEAAAAAAAAAAAAAAAAAAAAAAgZmxsMzMzYGAAAghphZYmxyMzMzgxMDAAAAgxmZgtYAbmxwGMwMajGDWAmxmZbwsZ2GMzAAmZGGA"
+    },
+    {
+      "hero": "colossus",
+      "scenario": "Mythic+",
+      "is_best": true,
+      "code": "CcEAAAAAAAAAAAAAAAAAAAAAAgZmxsMzMzYGAAAghphxwMbLzMzMjZGzMAAAAAGbmB2iBsZGDLwAzoNaMYBYGMGMbmtBzMAgZmhB"
+    },
+    {
+      "hero": "colossus",
+      "scenario": "Delving",
+      "is_best": true,
+      "code": "CcEAAAAAAAAAAAAAAAAAAAAAAgZmxsMzMzYGAAAghphxwMbLzMzMjZGzMAAAAAGbmB2iBsZGDLwAzoNaMYBYGMGMbmtBzMAgZmhB"
+    }
+  ],
+  "Warrior/Fury": [
+    {
+      "hero": "slayer",
+      "scenario": "Raid ST",
+      "is_best": true,
+      "code": "CgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgGDjxMsMzMzMDjZmZGzMzsMzMGzMbDzMAAQMWWGYBMBzwEYG2AmZ2Y2GAAMzYYMzMMYA"
+    },
+    {
+      "hero": "slayer",
+      "scenario": "Raid MT",
+      "is_best": true,
+      "code": "CgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgGDjxMsMzMzMDjZmZGzYmlZmxYmZbMzMAAQMWWGYBMBzwEYG2AmZ2Y2GAAMzYYMzMMYA"
+    },
+    {
+      "hero": "slayer",
+      "scenario": "Mythic+",
+      "is_best": false,
+      "code": "CgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgGDjhZ2WmZmZmZmxMjZMjZWmZGjZmtxMzAAAxYZZgFwEMDTgZYDwMYMAAYmxwMzMDDG"
+    },
+    {
+      "hero": "slayer",
+      "scenario": "Delving",
+      "is_best": false,
+      "code": "CgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgGDjhZ2WmZmZmZmxMjZMjZWmZGjZmtxMzAAAxYZZgFwEMDTgZYDwMYMAAYmxwMzMDDG"
+    },
+    {
+      "hero": "mountain-thane",
+      "scenario": "Mountain Thane",
+      "is_best": false,
+      "code": "CgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgGDDzMjlZmZmZYMzMzYmZmlZmxYmZZYmBAACDsBLLGNmBkZBzYBwMY2GAMzAYYMzMMYA"
+    },
+    {
+      "hero": "mountain-thane",
+      "scenario": "MT Raid",
+      "is_best": false,
+      "code": "CgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgGDDzMjlZmZmZYMzYGzYmlZmxYmZZMzMAAQYgNYZxoxMgMLYGLAmZjZbAwMDghZmZwgB"
+    },
+    {
+      "hero": "mountain-thane",
+      "scenario": "Mythic+",
+      "is_best": true,
+      "code": "CgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgGDjZMz2yMzMjZmxMjZMjZWmZGjZmlxMzAAAhB2glFjGzAysgZsAYGMGAMzAYYmZGMYA"
+    },
+    {
+      "hero": "mountain-thane",
+      "scenario": "Delving",
+      "is_best": true,
+      "code": "CgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgGDjZMz2yMzMjZmxMjZMjZWmZGjZmlxMzAAAhB2glFjGzAysgZsAYGMGAMzAYYmZGMYA"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+class,spec,n_with_pi,n_without_pi,median_with_pi,median_without_pi,uplift_abs,uplift_pct,pi_rate_pct
+Hunter,Survival,100,354,117566,109675,7890,7.19,22.0
+Druid,Feral,28,105,109212,101890,7321,7.19,21.1
+Monk,Windwalker,270,181,113433,106934,6499,6.08,59.9
+Hunter,Marksmanship,120,249,113763,108990,4773,4.38,32.5
+Shaman,Enhancement,46,239,107808,105469,2338,2.22,16.1
+Shaman,Elemental,167,355,113680,112297,1383,1.23,32.0
+Druid,Balance,68,453,114024,113163,861,0.76,13.1
+Warrior,Fury,36,390,108575,108285,290,0.27,8.5
+Hunter,Beast Mastery,118,353,105056,104972,84,0.08,25.1
+Warlock,Demonology,169,403,124144,124065,79,0.06,29.5
+Mage,Frost,47,529,120831,120969,-138,-0.11,8.2
+Death Knight,Unholy,92,339,105844,106033,-189,-0.18,21.3
+Warlock,Destruction,55,172,107714,108040,-326,-0.3,24.2
+Demon Hunter,Devourer,198,389,135672,136359,-687,-0.5,33.7
+Rogue,Subtlety,21,490,107429,108001,-572,-0.53,4.1
+Evoker,Devastation,30,175,107097,107669,-572,-0.53,14.6
+Paladin,Retribution,76,456,113770,114731,-961,-0.84,14.3
+Demon Hunter,Havoc,29,206,103014,107958,-4945,-4.58,12.3

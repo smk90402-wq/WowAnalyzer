@@ -1,0 +1,170 @@
+class,spec,cluster,n_players,talent_id,pick_rate_in_cluster,pick_rate_other,gap
+Druid,Balance,0,364,109843,0.764,0.0,0.764
+Druid,Balance,0,364,109870,0.615,0.04,0.575
+Druid,Balance,0,364,109847,0.352,0.002,0.35
+Druid,Balance,0,364,135977,0.349,0.0,0.349
+Druid,Balance,0,364,135978,0.349,0.0,0.349
+Druid,Balance,0,364,135976,0.349,0.0,0.349
+Druid,Balance,0,364,117204,0.349,0.0,0.349
+Druid,Balance,0,364,123302,0.349,0.0,0.349
+Druid,Balance,0,364,117205,0.349,0.0,0.349
+Druid,Balance,0,364,117769,0.349,0.0,0.349
+Druid,Balance,1,501,133406,1.0,0.0,1.0
+Druid,Balance,1,501,128232,0.367,0.008,0.359
+Druid,Balance,1,501,117894,1.0,0.648,0.352
+Druid,Balance,1,501,109844,1.0,0.651,0.349
+Druid,Balance,1,501,135972,1.0,0.651,0.349
+Druid,Balance,1,501,117203,1.0,0.651,0.349
+Druid,Balance,1,501,135970,1.0,0.651,0.349
+Druid,Balance,1,501,135971,1.0,0.651,0.349
+Druid,Balance,1,501,117194,1.0,0.651,0.349
+Druid,Balance,1,501,117186,1.0,0.651,0.349
+Druid,Feral,0,235,103181,0.983,0.099,0.884
+Druid,Feral,0,235,103145,0.872,0.01,0.862
+Druid,Feral,0,235,134211,0.791,0.002,0.79
+Druid,Feral,0,235,117230,0.723,0.071,0.652
+Druid,Feral,0,235,103153,0.528,0.01,0.518
+Druid,Feral,0,235,103156,0.511,0.089,0.422
+Druid,Feral,1,507,103174,0.998,0.068,0.93
+Druid,Feral,1,507,103170,0.959,0.055,0.903
+Druid,Feral,1,507,103164,0.925,0.034,0.891
+Druid,Feral,1,507,117229,0.927,0.077,0.85
+Druid,Feral,1,507,103185,0.998,0.4,0.598
+Druid,Feral,1,507,128584,0.949,0.562,0.387
+Druid,Feral,1,507,103173,0.892,0.511,0.381
+Druid,Feral,1,507,103159,0.992,0.668,0.324
+Druid,Feral,1,507,117234,0.996,0.689,0.307
+Hunter,Beast Mastery,0,465,126434,1.0,0.007,0.993
+Hunter,Beast Mastery,0,465,126426,1.0,0.007,0.993
+Hunter,Beast Mastery,0,465,126417,0.994,0.002,0.991
+Hunter,Beast Mastery,0,465,126403,0.994,0.005,0.989
+Hunter,Beast Mastery,0,465,126425,0.994,0.005,0.989
+Hunter,Beast Mastery,0,465,126421,0.996,0.007,0.989
+Hunter,Beast Mastery,0,465,126432,0.951,0.0,0.951
+Hunter,Beast Mastery,0,465,126399,0.955,0.012,0.943
+Hunter,Beast Mastery,0,465,126401,0.834,0.0,0.834
+Hunter,Beast Mastery,0,465,126406,0.744,0.009,0.735
+Hunter,Beast Mastery,1,433,126430,0.993,0.0,0.993
+Hunter,Beast Mastery,1,433,132188,0.993,0.0,0.993
+Hunter,Beast Mastery,1,433,132189,0.993,0.0,0.993
+Hunter,Beast Mastery,1,433,126439,0.984,0.0,0.984
+Hunter,Beast Mastery,1,433,126435,1.0,0.024,0.976
+Hunter,Beast Mastery,1,433,126427,0.993,0.022,0.972
+Hunter,Beast Mastery,1,433,126407,0.998,0.03,0.968
+Hunter,Beast Mastery,1,433,128265,0.991,0.131,0.86
+Hunter,Beast Mastery,1,433,126400,1.0,0.166,0.834
+Hunter,Beast Mastery,1,433,135709,0.882,0.196,0.687
+Hunter,Marksmanship,0,239,117558,1.0,0.0,1.0
+Hunter,Marksmanship,0,239,117565,1.0,0.0,1.0
+Hunter,Marksmanship,0,239,117584,1.0,0.0,1.0
+Hunter,Marksmanship,0,239,117571,1.0,0.0,1.0
+Hunter,Marksmanship,0,239,123346,1.0,0.0,1.0
+Hunter,Marksmanship,0,239,123779,1.0,0.0,1.0
+Hunter,Marksmanship,0,239,117590,1.0,0.0,1.0
+Hunter,Marksmanship,0,239,128238,1.0,0.0,1.0
+Hunter,Marksmanship,0,239,136057,1.0,0.0,1.0
+Hunter,Marksmanship,0,239,136058,1.0,0.0,1.0
+Hunter,Marksmanship,1,592,117555,1.0,0.0,1.0
+Hunter,Marksmanship,1,592,117568,1.0,0.0,1.0
+Hunter,Marksmanship,1,592,117567,1.0,0.0,1.0
+Hunter,Marksmanship,1,592,117562,1.0,0.0,1.0
+Hunter,Marksmanship,1,592,117578,1.0,0.0,1.0
+Hunter,Marksmanship,1,592,117575,1.0,0.0,1.0
+Hunter,Marksmanship,1,592,117573,1.0,0.0,1.0
+Hunter,Marksmanship,1,592,117570,1.0,0.0,1.0
+Hunter,Marksmanship,1,592,117587,1.0,0.0,1.0
+Hunter,Marksmanship,1,592,123345,1.0,0.0,1.0
+Hunter,Survival,0,431,135704,0.777,0.13,0.647
+Hunter,Survival,0,431,126452,0.78,0.368,0.411
+Hunter,Survival,0,431,126480,0.443,0.035,0.408
+Hunter,Survival,0,431,135712,0.93,0.551,0.379
+Hunter,Survival,0,431,128412,0.981,0.659,0.322
+Hunter,Survival,1,399,135709,0.83,0.193,0.637
+Hunter,Survival,1,399,136675,0.662,0.118,0.543
+Hunter,Survival,1,399,135705,0.897,0.48,0.417
+Hunter,Survival,1,399,136673,0.674,0.348,0.326
+Warlock,Affliction,0,297,136114,1.0,0.0,1.0
+Warlock,Affliction,0,297,136126,1.0,0.0,1.0
+Warlock,Affliction,0,297,136113,0.993,0.0,0.993
+Warlock,Affliction,0,297,136111,1.0,0.02,0.98
+Warlock,Affliction,0,297,91504,0.99,0.038,0.952
+Warlock,Affliction,0,297,136109,0.923,0.266,0.656
+Warlock,Affliction,0,297,136110,0.66,0.008,0.652
+Warlock,Affliction,0,297,91562,0.987,0.363,0.624
+Warlock,Affliction,0,297,136124,0.997,0.52,0.476
+Warlock,Affliction,0,297,136123,0.916,0.525,0.39
+Warlock,Affliction,1,394,136115,1.0,0.0,1.0
+Warlock,Affliction,1,394,136112,0.997,0.0,0.997
+Warlock,Affliction,1,394,136125,1.0,0.007,0.993
+Warlock,Affliction,1,394,91577,0.914,0.017,0.897
+Warlock,Affliction,1,394,136813,0.987,0.195,0.792
+Warlock,Affliction,1,394,91567,0.873,0.108,0.765
+Warlock,Affliction,1,394,136117,0.997,0.232,0.765
+Warlock,Affliction,1,394,136118,0.698,0.007,0.691
+Warlock,Demonology,0,476,125829,1.0,0.0,1.0
+Warlock,Demonology,0,476,135310,0.994,0.0,0.994
+Warlock,Demonology,0,476,125839,0.513,0.082,0.431
+Warlock,Demonology,1,416,136229,1.0,0.004,0.996
+Warlock,Demonology,1,416,125835,0.993,0.011,0.982
+Warlock,Demonology,1,416,136724,0.998,0.044,0.953
+Warlock,Demonology,1,416,125838,0.918,0.487,0.431
+Warlock,Destruction,0,465,117431,1.0,0.0,1.0
+Warlock,Destruction,0,465,117426,1.0,0.0,1.0
+Warlock,Destruction,0,465,117450,1.0,0.0,1.0
+Warlock,Destruction,0,465,117442,1.0,0.0,1.0
+Warlock,Destruction,0,465,117441,1.0,0.0,1.0
+Warlock,Destruction,0,465,136095,1.0,0.0,1.0
+Warlock,Destruction,0,465,136094,1.0,0.0,1.0
+Warlock,Destruction,0,465,136093,1.0,0.0,1.0
+Warlock,Destruction,0,465,123382,1.0,0.0,1.0
+Warlock,Destruction,0,465,123310,1.0,0.0,1.0
+Warlock,Destruction,1,248,117423,1.0,0.0,1.0
+Warlock,Destruction,1,248,117428,1.0,0.0,1.0
+Warlock,Destruction,1,248,117427,1.0,0.0,1.0
+Warlock,Destruction,1,248,117430,1.0,0.0,1.0
+Warlock,Destruction,1,248,117433,1.0,0.0,1.0
+Warlock,Destruction,1,248,117453,1.0,0.0,1.0
+Warlock,Destruction,1,248,117446,1.0,0.0,1.0
+Warlock,Destruction,1,248,136090,1.0,0.0,1.0
+Warlock,Destruction,1,248,123385,1.0,0.0,1.0
+Warlock,Destruction,1,248,136092,1.0,0.0,1.0
+Warrior,Arms,0,260,117393,1.0,0.0,1.0
+Warrior,Arms,0,260,117396,1.0,0.0,1.0
+Warrior,Arms,0,260,117390,1.0,0.0,1.0
+Warrior,Arms,0,260,117391,1.0,0.0,1.0
+Warrior,Arms,0,260,117409,1.0,0.0,1.0
+Warrior,Arms,0,260,136072,1.0,0.0,1.0
+Warrior,Arms,0,260,136073,1.0,0.0,1.0
+Warrior,Arms,0,260,136702,1.0,0.0,1.0
+Warrior,Arms,0,260,136071,1.0,0.0,1.0
+Warrior,Arms,0,260,117416,1.0,0.0,1.0
+Warrior,Arms,1,585,112125,1.0,0.0,1.0
+Warrior,Arms,1,585,117385,1.0,0.0,1.0
+Warrior,Arms,1,585,117398,1.0,0.0,1.0
+Warrior,Arms,1,585,112314,1.0,0.0,1.0
+Warrior,Arms,1,585,117381,1.0,0.0,1.0
+Warrior,Arms,1,585,117411,1.0,0.0,1.0
+Warrior,Arms,1,585,136075,1.0,0.0,1.0
+Warrior,Arms,1,585,136074,1.0,0.0,1.0
+Warrior,Arms,1,585,135940,1.0,0.0,1.0
+Warrior,Arms,1,585,136076,1.0,0.0,1.0
+Warrior,Fury,0,375,117382,1.0,0.0,1.0
+Warrior,Fury,0,375,117397,1.0,0.0,1.0
+Warrior,Fury,0,375,117394,1.0,0.0,1.0
+Warrior,Fury,0,375,112285,1.0,0.0,1.0
+Warrior,Fury,0,375,117405,1.0,0.0,1.0
+Warrior,Fury,0,375,117404,1.0,0.0,1.0
+Warrior,Fury,0,375,117402,1.0,0.0,1.0
+Warrior,Fury,0,375,136070,1.0,0.0,1.0
+Warrior,Fury,0,375,136068,1.0,0.0,1.0
+Warrior,Fury,0,375,136069,1.0,0.0,1.0
+Warrior,Fury,1,447,117381,1.0,0.0,1.0
+Warrior,Fury,1,447,117385,1.0,0.0,1.0
+Warrior,Fury,1,447,112284,1.0,0.0,1.0
+Warrior,Fury,1,447,117417,1.0,0.0,1.0
+Warrior,Fury,1,447,117406,1.0,0.0,1.0
+Warrior,Fury,1,447,117407,1.0,0.0,1.0
+Warrior,Fury,1,447,136076,1.0,0.0,1.0
+Warrior,Fury,1,447,136075,1.0,0.0,1.0
+Warrior,Fury,1,447,136074,1.0,0.0,1.0
+Warrior,Fury,1,447,123389,1.0,0.0,1.0

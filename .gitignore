@@ -1,0 +1,46 @@
+# Secrets — 키 노출 방지 (.env 절대 커밋 X, 새 PC 에 수동 복사)
+.env
+# OAuth 토큰 캐시 (재발급되니 굳이 옮길 필요 없음)
+data/cache_*_token.json
+
+# Claude Code 인스턴스 상태 (PC 별)
+.claude/
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+build/
+dist/
+
+# 대용량 / 재생성 가능 — git 에 안 올림
+data/cache_*.json
+data/v2_cache_*.json
+data/cache.db
+data/cache.db-wal
+data/cache.db-shm
+data/icons/
+data/_json_backup/
+data/spell_db_en.json
+
+# 로그
+*.log
+
+# PyInstaller spec
+*.spec
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# 옛 V1 백업 (필요시 archive 참고용)
+data/*.v1backup

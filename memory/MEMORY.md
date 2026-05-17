@@ -1,0 +1,12 @@
+- [User profile](user_profile.md) — Korean-speaking WoW player building log analyzers in Python; reuses same WCL key across environments by choice — do NOT remind about rotation
+- [Korean WoW term pitfalls](feedback_wow_kr_terms.md) — 마력주입 = Power Infusion (Priest), NOT Aug Evoker; 한밤 = Midnight expansion. Verify jargon, don't guess.
+- [No stale WoW knowledge](feedback_wow_knowledge.md) — Never answer spec difficulty/meta questions from general knowledge; always go to current-patch logs.
+- [Project vision](project_vision.md) — Final goal is situational rotation-study tool (CDs/potions/procs/tracked buffs + boss-phase group splits). 5 target specs: Demo Lock, Balance Druid, BM Hunter, Arms Warrior, Fury Warrior.
+- [Build cadence](feedback_build_cadence.md) — Rebuild LogAnalyze.exe via PyInstaller at the end of EVERY response. User confirmed despite the ~1-2 min cost.
+- [Rate limit policy](feedback_rate_limit.md) — When WCL 429 hits, wait it out (even 1hr). Don't throttle, don't reorganize. Throughput > limit avoidance.
+- [Autonomy mode](feedback_autonomy.md) — Don't ask for next step. Run obvious follow-ups; ask only for data-loss / preference / ambiguity.
+- [Status report](feedback_status_report.md) — Every response ends with a standard "## 상태" block (this-turn done / background / build). NEVER include "next autonomous work" line.
+- [API references](reference_apis.md) — WCL V2 reference code at `~/Downloads/warcraftlog-api-v2-master`; Blizzard docs at community.developer.battle.net. Check first when stuck on query shape.
+- [V2 API + Platinum](project_v2_api.md) — Migrating to V2 GraphQL (rdps works there). User has Platinum (18k pts/hr). Awaiting full credentials.
+- [V2 only — V1 deprecation](project_v2_only.md) — All new fetchers must use V2 GraphQL. Only rankings CSV stays; other data is fetched on-demand and JSON-cached.
+- [Visual talent tree](project_talent_tree_visual.md) — Replace talent_table with WCL "최상위 100 분리" style visual tree (class/spec/hero + trinkets/embellishments). Blizzard talent-tree endpoint has full data.
