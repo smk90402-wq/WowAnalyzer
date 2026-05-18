@@ -310,23 +310,32 @@ QListWidget, QTreeWidget {{
     border-radius: {t.panel_radius}px;
     padding: 6px;
     outline: none;
+    /* Palette Highlight 거친 직사각형 비활성화 — QSS 로 부드럽게 그림 */
+    selection-background-color: transparent;
+    selection-color: {t.accent};
 }}
 QListWidget::item, QTreeWidget::item {{
-    padding: 8px 8px 8px 12px;
+    padding: 6px 12px;
     border-radius: 6px;
-    border-left: 3px solid transparent;
-    margin: 1px 0;
+    margin: 2px 4px;
+    color: {t.text};
 }}
-QListWidget::item:hover, QTreeWidget::item:hover {{ background-color: {t.surface_alt}; }}
-QListWidget::item:selected, QTreeWidget::item:selected {{
-    background-color: {sel_45};
-    border-left: 3px solid {t.accent};
-    color: #ffffff;
+QListWidget::item:hover, QTreeWidget::item:hover {{
+    background-color: {t.surface_alt};
+    color: {t.text};
 }}
+QListWidget::item:selected, QTreeWidget::item:selected,
 QListWidget::item:selected:active, QTreeWidget::item:selected:active {{
-    background-color: {sel_70};
+    background-color: {sel_45};
+    color: {t.accent};
+    font-weight: 600;
+}}
+QListWidget::item:selected:!active, QTreeWidget::item:selected:!active {{
+    background-color: {sel_45};
+    color: {t.accent};
 }}
 QTreeWidget::branch {{ background-color: transparent; }}
+QTreeWidget::branch:selected {{ background-color: transparent; }}
 
 /* Tabs */
 QTabBar {{ qproperty-drawBase: 0; }}

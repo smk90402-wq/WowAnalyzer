@@ -1599,6 +1599,7 @@ class RankingPanel(QWidget):
         rh.setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
         self.ranking_table.itemSelectionChanged.connect(self._on_ranking_row_changed)
         top_split.addWidget(vbox_panel("랭킹 (top 100)", self.ranking_table))
+        # 랭킹 셀이 짧지 않게 — 다음 spell_table 보다 3배 넓게
 
         self.spell_table = QTableWidget()
         self.spell_table.setColumnCount(3)
@@ -1614,7 +1615,7 @@ class RankingPanel(QWidget):
         sh.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
         top_split.addWidget(vbox_panel("딜 비중 TOP10 (top 20 합산)", self.spell_table))
 
-        top_split.setStretchFactor(0, 2)
+        top_split.setStretchFactor(0, 3)
         top_split.setStretchFactor(1, 1)
         main_split.addWidget(top_split)
 
