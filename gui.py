@@ -96,6 +96,7 @@ from PySide6.QtWidgets import (
     QTabWidget,
     QTableWidget,
     QTableWidgetItem,
+    QTextBrowser,
     QTreeWidget,
     QTreeWidgetItem,
     QVBoxLayout,
@@ -1263,6 +1264,203 @@ def _resolve_name(spell_id: int, spell_db: dict) -> tuple[str, str]:
     return f"미상 #{spell_id}", ""
 
 
+# ── 캐릭터 빌드 패널 헬퍼들 ──────────────────────────────────────────────────
+
+SLOT_KR: dict[int, str] = {
+    0: "머리",     1: "목",       2: "어깨",
+    4: "가슴",     5: "허리",     6: "다리",     7: "발",
+    8: "손목",     9: "손",
+    10: "반지 1",  11: "반지 2",
+    12: "장신구 1", 13: "장신구 2",
+    14: "망토",
+    15: "주무기",  16: "보조무기",
+    17: "원거리",
+}
+
+STAT_KR: dict[str, str] = {
+    "Item Level": "장비레벨",
+    "Stamina":    "체력",
+    "Strength":   "힘",
+    "Agility":    "민첩성",
+    "Intellect":  "지능",
+    "Crit":       "극대화",
+    "Haste":      "가속",
+    "Mastery":    "특화",
+    "Versatility": "유연",
+    "Leech":      "흡혈",
+    "Avoidance":  "회피",
+    "Speed":      "이동속도",
+}
+
+# 대략적 rating → % 변환 (Midnight 11.x 기준 추정 — 패치별 다름)
+RATING_PER_PCT: dict[str, float] = {
+    "Crit":        180.0,
+    "Haste":       170.0,
+    "Mastery":     180.0,
+    "Versatility": 205.0,
+    "Leech":       110.0,
+    "Avoidance":   110.0,
+    "Speed":       100.0,
+}
+
+
+def _resolve_buff(sp: int, spell_db: dict, buff_db: dict) -> tuple[str, str]:
+    """(name, icon_file) — spell_db 우선, 없으면 buff_db_en (영문이라도)."""
+    primary, _sub = _resolve_name(sp, spell_db)
+    icon = (spell_db.get(str(sp), {}) or {}).get("icon") or ""
+    if primary.startswith("미상 #"):
+        meta = buff_db.get(str(sp)) or buff_db.get(sp)
+        if isinstance(meta, dict):
+            primary = meta.get("name") or primary
+            icon = icon or meta.get("icon") or ""
+    return primary, icon
+
+
+def _pre_fight_buffs(rid: str, fid: int, sid: int | None, spell_db: dict) -> list[dict]:
+    """전투 시작 후 0~5초 사이 활성 (apply*) buff 들.
+
+    참고: 진짜 음식/영약/오일/숫돌은 pre-pull (fight.startTime 이전) 에 걸려있어서
+    V2 events 쿼리 (startTime=fight.startTime) 결과엔 안 들어옴. 여기 잡히는 건
+    fight 시작 직후 in-combat 버프 (사냥꾼 Barbed Shot, 힐러 Atonement 등).
+    소비템 전용 쿼리는 별도 작업 필요 (TODO).
+    """
+    v2 = _v2_data()
+    if v2 is None or sid is None:
+        return []
+    ev = v2.events.get(f"{rid}:{fid}:{sid}")
+    if not isinstance(ev, dict):
+        return []
+    window = db_fight_window(rid, fid)
+    if not window:
+        return []
+    start_ms = window[0]
+    pre_max = start_ms + 5000
+    buff_db = _load_json("buff_db_en.json")
+    seen: set[int] = set()
+    out: list[dict] = []
+    for e in ev.get("buffs") or []:
+        if not isinstance(e, list) or len(e) < 3:
+            continue
+        try:
+            ts = int(e[0]); sp = int(e[1])
+        except (TypeError, ValueError):
+            continue
+        tp = e[2] if isinstance(e[2], str) else ""
+        if not tp.startswith("apply"):
+            continue
+        if not (start_ms <= ts <= pre_max):
+            continue
+        if sp in seen:
+            continue
+        seen.add(sp)
+        name, icon = _resolve_buff(sp, spell_db, buff_db)
+        out.append({"spell_id": sp, "name": name, "icon": icon})
+    return out
+
+
+def _build_info_empty_html(msg: str = "랭킹 행 클릭 시 빌드 표시") -> str:
+    return (
+        f"<html><body style='background:#1a1614;color:#a39c8e;"
+        f"font-family:Pretendard Variable,Segoe UI,sans-serif;font-size:10pt;"
+        f"padding:32px;text-align:center'>"
+        f"<p>{_html_escape(msg)}</p></body></html>"
+    )
+
+
+def _build_info_html(char: str, pre_buffs: list[dict], stats: dict | None,
+                     gear: list[dict]) -> str:
+    """오른쪽 패널 HTML — 캐릭터명 + 전투 시작 버프 + 총 스탯."""
+    style = (
+        "background:#1a1614;color:#f5f0e8;font-family:'Pretendard Variable',"
+        "'Segoe UI',sans-serif;font-size:9.5pt;padding:12px 16px;line-height:1.55"
+    )
+
+    # 1. 캐릭터 헤더
+    avg_ilvl = ""
+    if stats and isinstance(stats.get("Item Level"), int):
+        avg_ilvl = f"<span style='color:#c8a560'>· ilvl {stats['Item Level']}</span>"
+    elif gear:
+        ilvls = [g.get("ilvl") for g in gear if isinstance(g.get("ilvl"), int)]
+        if ilvls:
+            avg = sum(ilvls) / len(ilvls)
+            avg_ilvl = f"<span style='color:#a39c8e'>· 평균 ilvl {avg:.1f}</span>"
+
+    parts = [
+        f"<div style='font-size:11pt;font-weight:600;color:#d97757;"
+        f"margin-bottom:8px'>{_html_escape(char)} {avg_ilvl}</div>"
+    ]
+
+    # 2. 전투 시작 시 활성 버프 (in-combat 첫 5초 — 소비템 X, 자기스킬/힐러버프 위주)
+    parts.append(
+        "<div style='color:#c8a560;font-size:9pt;font-weight:600;"
+        "letter-spacing:0.04em;text-transform:uppercase;"
+        "margin-top:10px;margin-bottom:6px'>전투 시작 시 활성 buff (V2 첫 5초)</div>"
+    )
+    if pre_buffs:
+        parts.append("<table style='border-collapse:collapse'>")
+        for b in pre_buffs:
+            icon_html = ""
+            if b.get("icon"):
+                icon_html = (
+                    f"<img src='https://wow.zamimg.com/images/wow/icons/medium/{b['icon']}' "
+                    f"style='width:20px;height:20px;border-radius:3px;vertical-align:middle'>"
+                )
+            parts.append(
+                f"<tr><td style='padding:2px 8px 2px 0'>{icon_html}</td>"
+                f"<td style='padding:2px 0;color:#f5f0e8'>{_html_escape(b['name'])}</td>"
+                f"<td style='padding:2px 0 2px 6px;color:#6b6359;font-size:8.5pt'>#{b['spell_id']}</td>"
+                f"</tr>"
+            )
+        parts.append("</table>")
+        parts.append(
+            "<div style='color:#6b6359;font-size:8.5pt;margin-top:6px'>"
+            "※ 진짜 음식/영약/오일/숫돌은 pre-pull 이라 별도 쿼리 필요 (다음 작업)"
+            "</div>"
+        )
+    else:
+        parts.append(
+            "<div style='color:#6b6359'>(events 캐시 없음 — primary 5스펙만 backfill, "
+            "tree-comp/non-target 스펙은 cast/buff 데이터 없음)</div>"
+        )
+
+    # 3. 총 스탯
+    parts.append(
+        "<div style='color:#c8a560;font-size:9pt;font-weight:600;"
+        "letter-spacing:0.04em;text-transform:uppercase;"
+        "margin-top:14px;margin-bottom:6px'>총 스탯 (rating)</div>"
+    )
+    if stats:
+        parts.append("<table style='border-collapse:collapse'>")
+        prio = ["Item Level", "Stamina", "Strength", "Agility", "Intellect",
+                "Crit", "Haste", "Mastery", "Versatility",
+                "Leech", "Avoidance", "Speed"]
+        for k in prio:
+            if k not in stats:
+                continue
+            v = stats[k]
+            if not isinstance(v, int):
+                continue
+            kr = STAT_KR.get(k, k)
+            extra = ""
+            if k in RATING_PER_PCT and v > 0:
+                pct = v / RATING_PER_PCT[k]
+                extra = f" <span style='color:#a39c8e'>~ {pct:.1f}%</span>"
+            parts.append(
+                f"<tr><td style='color:#a39c8e;padding:2px 12px 2px 0'>{kr}</td>"
+                f"<td style='text-align:right;padding:2px 0;color:#f5f0e8'>{v:,}</td>"
+                f"<td style='padding:2px 0 2px 4px'>{extra}</td></tr>"
+            )
+        parts.append("</table>")
+    else:
+        parts.append(
+            "<div style='color:#6b6359'>(stats 없음 — wcl_v2_data 업데이트 후 "
+            "새 backfill 분부터 수집됨)</div>"
+        )
+
+    body = "".join(parts)
+    return f"<html><body style='{style}'>{body}</body></html>"
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # 로딩 오버레이 — 무거운 click 작업 동안 위에 띄움
 
@@ -1424,57 +1622,48 @@ class RankingPanel(QWidget):
         self.detail_tabs = QTabWidget()
         self.detail_tabs.setDocumentMode(True)
 
-        # 탭 1: 특성 분포 (상: 픽률 + 하: WoWhead 추천 빌드)
-        self.talent_table = QTableWidget()
-        self.talent_table.setColumnCount(5)
-        self.talent_table.setHorizontalHeaderLabels(["트리", "특성", "선택률", "수", "평균 pt"])
-        self.talent_table.verticalHeader().setVisible(False)
-        self.talent_table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
-        self.talent_table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
-        self.talent_table.setAlternatingRowColors(True)
-        self.talent_table.setIconSize(QSize(24, 24))
-        th = self.talent_table.horizontalHeader()
-        th.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
-        th.setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
-        th.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
-        th.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
-        th.setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
-
-        # 비주얼 트리 (QWebEngineView)
+        # 탭 1: 특성 + 빌드 (상: 트리, 하 좌: 장비, 하 우: 버프+스탯)
+        # 비주얼 트리 (QWebEngineView) — top100 픽률 + 평균 포인트 오버레이
         self.tree_view = QWebEngineView()
-        self.tree_view.setMinimumHeight(420)
+        self.tree_view.setMinimumHeight(360)
         self.tree_view.setHtml(_tree_empty_html())
 
-        self.builds_table = QTableWidget()
-        self.builds_table.setColumnCount(4)
-        self.builds_table.setHorizontalHeaderLabels(["영웅특성", "시나리오", "BEST", "임포트 코드 (더블클릭 = 복사)"])
-        self.builds_table.verticalHeader().setVisible(False)
-        self.builds_table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
-        self.builds_table.setAlternatingRowColors(True)
-        bh = self.builds_table.horizontalHeader()
-        bh.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
-        bh.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
-        bh.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
-        bh.setSectionResizeMode(3, QHeaderView.ResizeMode.Stretch)
-        self.builds_table.cellDoubleClicked.connect(self._copy_build_code)
+        # 장비 테이블 (선택한 캐릭터의 17개 슬롯)
+        self.gear_table = QTableWidget()
+        self.gear_table.setColumnCount(5)
+        self.gear_table.setHorizontalHeaderLabels(["슬롯", "아이템", "ilvl", "마부", "보석"])
+        self.gear_table.verticalHeader().setVisible(False)
+        self.gear_table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.gear_table.setAlternatingRowColors(True)
+        self.gear_table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        gh = self.gear_table.horizontalHeader()
+        gh.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        gh.setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+        gh.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
+        gh.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
+        gh.setSectionResizeMode(4, QHeaderView.ResizeMode.Stretch)
+
+        # 버프 + 스탯 (HTML rich text)
+        self.build_info = QTextBrowser()
+        self.build_info.setOpenExternalLinks(True)
+        self.build_info.setHtml(_build_info_empty_html())
 
         talent_wrap = QWidget()
         tw_v = QVBoxLayout(talent_wrap)
         tw_v.setContentsMargins(0, 0, 0, 0)
         tw_v.setSpacing(6)
         sp = QSplitter(Qt.Orientation.Vertical)
-        sp.addWidget(vbox_panel("특성 트리 (top100 픽률 오버레이)", self.tree_view))
-        # 표 형태는 보조 — 작게
+        sp.addWidget(vbox_panel("특성 트리 (top100 픽률 + 평균 포인트)", self.tree_view))
         side_sp = QSplitter(Qt.Orientation.Horizontal)
-        side_sp.addWidget(vbox_panel("픽률 표 (디버그/대체)", self.talent_table))
-        side_sp.addWidget(vbox_panel("WoWhead 가이드 추천 빌드", self.builds_table))
-        side_sp.setStretchFactor(0, 1)
-        side_sp.setStretchFactor(1, 1)
+        side_sp.addWidget(vbox_panel("장비 (랭킹 행 클릭)", self.gear_table))
+        side_sp.addWidget(vbox_panel("버프 (전투 시작 시) + 스탯", self.build_info))
+        side_sp.setStretchFactor(0, 3)
+        side_sp.setStretchFactor(1, 2)
         sp.addWidget(side_sp)
-        sp.setStretchFactor(0, 4)
+        sp.setStretchFactor(0, 3)
         sp.setStretchFactor(1, 2)
         tw_v.addWidget(sp, 1)
-        self.detail_tabs.addTab(talent_wrap, "특성 분포")
+        self.detail_tabs.addTab(talent_wrap, "특성 + 빌드")
 
         # 탭 2: 딜사이클 (header 행 + timeline)
         timeline_wrap = QWidget()
@@ -1515,11 +1704,12 @@ class RankingPanel(QWidget):
 
     def _refresh(self) -> None:
         self.rotation_timeline.set_empty("랭킹에서 캐릭터 클릭")
+        self.gear_table.setRowCount(0)
+        self.build_info.setHtml(_build_info_empty_html())
         if not all([self.encounter_id, self.class_en, self.spec_en]):
             self.header.setText("← 보스와 전문화를 골라봐")
             self.ranking_table.setRowCount(0)
             self.spell_table.setRowCount(0)
-            self.talent_table.setRowCount(0)
             self._current_df = None
             return
 
@@ -1544,7 +1734,6 @@ class RankingPanel(QWidget):
             self._populate_rankings(df)
             self._populate_top_damage(df)
             self._populate_talents(df)
-            self._populate_builds()
         finally:
             self.loader.hide()
 
@@ -1690,12 +1879,9 @@ class RankingPanel(QWidget):
         log.info("top damage render: chars=%d spells=%d shown=%d pending=%d",
                  matched, len(agg), len(rows), pending)
 
-    # ── 특성 분포 (3-tree 분류 그룹핑) ────────────────────────────────────
+    # ── 특성 트리만 갱신 (top100 픽률 + 평균 포인트 오버레이) ─────────────
     def _populate_talents(self, ranking_df) -> None:
         spell_db = _load_json("spell_db.json")
-        tree_lut = _load_tree_lut()
-
-        # SQL 한 방에 — 랭킹 캐릭터들의 talent_id 별 카운트
         triples: list[tuple[str, int, str]] = []
         for _, row in ranking_df.iterrows():
             rid = str(row["report_id"])
@@ -1706,89 +1892,8 @@ class RankingPanel(QWidget):
             char = str(row["character"])
             triples.append((rid, fid, char))
         counts, pts_sum, matched = db_talent_counts_for_ranks(triples)
-        if not counts:
-            self.talent_table.setRowCount(0)
-            return
-
         denom = max(matched, 1)
-        # 평균 포인트 헬퍼 — counts 에 있으면 항상 pts_sum 에도 있음
-        def avg_pts_of(tid: int) -> float:
-            n = counts.get(tid, 0)
-            if n <= 0:
-                return 0.0
-            return pts_sum.get(tid, n) / n
-        cls, spec = self.class_en, self.spec_en
 
-        # 한국 와우 UI 명칭 매핑: 공용 → 직업, 전문화 → 전문화, 영웅 → 영웅
-        TREE_DISPLAY = {
-            "공용":    "직업 특성",
-            "전문화":  "전문화 특성",
-            "영웅":    "영웅 특성",
-            "spec?":   "전문화 특성",   # 단일 DPS 클래스는 비교 못해도 일단 전문화로 표시
-            "미분류":  "기타",
-        }
-        TREE_ORDER = {
-            "직업 특성":   0,
-            "전문화 특성": 1,
-            "영웅 특성":   2,
-            "기타":        9,
-        }
-        TREE_COLOR = {
-            "직업 특성":   QColor("#88c0d0"),
-            "전문화 특성": QColor("#d97757"),
-            "영웅 특성":   QColor("#b48ead"),
-            "기타":        QColor("#6b6359"),
-        }
-
-        def tree_of(tid: int) -> str:
-            raw = tree_lut.get((cls, spec, tid), "미분류")
-            return TREE_DISPLAY.get(raw, "기타")
-
-        # 미상 (영문/한글 둘 다 없는) 행은 일단 숨김 — WoWhead 데이터 한계
-        meaningful = [(tid, cnt) for tid, cnt in counts.items()
-                      if spell_db.get(str(tid), {}).get("name_ko") or
-                         spell_db.get(str(tid), {}).get("name_en")]
-        hidden_count = len(counts) - len(meaningful)
-
-        rows_sorted = sorted(
-            meaningful,
-            key=lambda x: (TREE_ORDER.get(tree_of(x[0]), 9), -x[1], x[0]),
-        )
-
-        self.talent_table.setSortingEnabled(False)
-        self.talent_table.setRowCount(len(rows_sorted))
-        for i, (tid, cnt) in enumerate(rows_sorted):
-            t = tree_of(tid)
-            tree_item = _center_cell(t)
-            tree_item.setForeground(TREE_COLOR.get(t, QColor("#f5f0e8")))
-            self.talent_table.setItem(i, 0, tree_item)
-
-            primary, sub = _resolve_name(tid, spell_db)
-            label = f"{primary}    ({sub})" if sub else primary
-            self.talent_table.setItem(i, 1, _make_spell_item(tid, label, spell_db))
-
-            pct = cnt / denom * 100
-            pct_item = _center_cell(f"{pct:5.1f}%")
-            if pct >= 99.5:
-                pct_item.setForeground(QColor("#6b6359"))
-            elif pct < 60:
-                pct_item.setForeground(QColor("#e07a5f"))
-            self.talent_table.setItem(i, 2, pct_item)
-            self.talent_table.setItem(i, 3, _center_cell(f"{cnt}/{denom}"))
-            # 평균 포인트 (1pt 노드는 항상 1.0, 2pt 노드는 1.0~2.0)
-            avg = avg_pts_of(tid)
-            pts_item = _center_cell(f"{avg:.2f}")
-            if avg >= 1.95:
-                pts_item.setForeground(QColor("#d97757"))  # 2pt 거의 풀
-            elif avg < 1.5:
-                pts_item.setForeground(QColor("#a39c8e"))  # 1pt 위주
-            self.talent_table.setItem(i, 4, pts_item)
-
-        self.talent_table.setSortingEnabled(True)
-        log.info("talents: chars=%d shown=%d hidden_unknown=%d",
-                 matched, len(rows_sorted), hidden_count)
-
-        # ── 비주얼 트리도 같이 갱신 ───────────────────────────────────────
         all_trees = _load_json("talent_trees.json")
         key = f"{self.class_en}/{self.spec_en}"
         tree_data = all_trees.get(key)
@@ -1799,56 +1904,74 @@ class RankingPanel(QWidget):
                 f"{key} 트리 데이터 없음 — fetch_talent_trees.py 의 SPECS 에 추가 필요"
             )
         self.tree_view.setHtml(tree_html)
+        log.info("talents tree: chars=%d unique_talents=%d", matched, len(counts))
 
-    # ── WoWhead 추천 빌드 ─────────────────────────────────────────────────
-    def _populate_builds(self) -> None:
-        all_builds = _load_json("wowhead_builds.json")
-        key = f"{self.class_en}/{self.spec_en}"
-        builds = all_builds.get(key) or []
-        self.builds_table.setRowCount(len(builds))
-
-        # 영웅특성 코드 → 한글 매핑 (간단)
-        HERO_KR = {
-            "pack-leader": "무리의 우두머리", "dark-ranger": "어둠 순찰자",
-            "diabolist": "지옥술사", "soul-harvester": "영혼 수확자",
-            "hellcaller": "지옥소환사",
-            "keeper-of-the-grove": "수풀의 수호자", "elunes-chosen": "엘룬의 선택받은 자",
-            "wildstalker": "야생추적자", "druid-of-the-claw": "발톱의 드루이드",
-            "slayer": "학살자", "colossus": "거신",
-            "mountain-thane": "산왕",
-        }
-
-        for i, b in enumerate(builds):
-            hero = b.get("hero") or "?"
-            hero_kr = HERO_KR.get(hero, hero)
-            scenario = b.get("scenario") or "?"
-            is_best = b.get("is_best", False)
-            code = b.get("code") or ""
-
-            self.builds_table.setItem(i, 0, _center_cell(hero_kr))
-            self.builds_table.setItem(i, 1, _center_cell(scenario))
-            best_item = _center_cell("★" if is_best else "")
-            if is_best:
-                best_item.setForeground(QColor("#d97757"))
-            self.builds_table.setItem(i, 2, best_item)
-            code_item = QTableWidgetItem(code)
-            code_item.setForeground(QColor("#a39c8e"))
-            code_item.setData(Qt.ItemDataRole.UserRole, code)
-            code_item.setToolTip("더블클릭 시 클립보드에 복사")
-            self.builds_table.setItem(i, 3, code_item)
-
-        log.info("wowhead builds: spec=%s count=%d", key, len(builds))
-
-    def _copy_build_code(self, row: int, _col: int) -> None:
-        item = self.builds_table.item(row, 3)
-        if not item:
+    # ── 선택 캐릭터 빌드 (장비 + 전투시작 버프 + 스탯) ────────────────────
+    def _populate_character_build(self, rid: str, fid: int, char: str) -> None:
+        v2 = _v2_data()
+        if v2 is None:
+            self.gear_table.setRowCount(0)
+            self.build_info.setHtml(_build_info_empty_html("V2Data 로드 안 됨"))
             return
-        code = item.data(Qt.ItemDataRole.UserRole) or item.text()
-        QApplication.clipboard().setText(code)
-        log.info("clipboard copied: %s...", code[:50])
-        # 헤더 임시 알림 (간단)
-        scn = self.builds_table.item(row, 1).text() if self.builds_table.item(row, 1) else ""
-        self.header.setText(self.header.text() + f"   ✓ [{scn}] 코드 복사됨")
+        pf = v2.pfight.get(f"{rid}:{fid}:{char}")
+        if not isinstance(pf, dict):
+            self.gear_table.setRowCount(0)
+            self.build_info.setHtml(_build_info_empty_html(
+                f"{char} 의 빌드 데이터 캐시 없음 — backfill 미진행 스펙이거나 타겟 외"
+            ))
+            return
+
+        spell_db = _load_json("spell_db.json")
+        # 1) gear table
+        gear = pf.get("gear") or []
+        # slot 키로 정렬, 0~17 순서 표시
+        gear_sorted = sorted(
+            (g for g in gear if isinstance(g, dict)),
+            key=lambda g: (g.get("slot") if isinstance(g.get("slot"), int) else 99),
+        )
+        self.gear_table.setRowCount(len(gear_sorted))
+        for i, g in enumerate(gear_sorted):
+            slot = g.get("slot") if isinstance(g.get("slot"), int) else -1
+            slot_kr = SLOT_KR.get(slot, f"슬롯 #{slot}")
+            self.gear_table.setItem(i, 0, _center_cell(slot_kr))
+            item_name = g.get("name") or f"item #{g.get('id')}"
+            self.gear_table.setItem(i, 1, QTableWidgetItem(item_name))
+            ilvl = g.get("ilvl") or "-"
+            self.gear_table.setItem(i, 2, _center_cell(str(ilvl)))
+            # 마부 — spell_db 에서 이름 lookup
+            ench_id = g.get("ench")
+            if ench_id:
+                primary, _sub = _resolve_name(int(ench_id), spell_db)
+                ench_text = primary if not primary.startswith("미상 #") else f"#{ench_id}"
+            else:
+                ench_text = "—"
+            ench_item = QTableWidgetItem(ench_text)
+            if ench_text == "—":
+                ench_item.setForeground(QColor("#6b6359"))
+            self.gear_table.setItem(i, 3, ench_item)
+            # 보석 — count + name list
+            gems = [x for x in (g.get("gems") or []) if isinstance(x, int)]
+            if gems:
+                # gems 는 item ID — spell_db 에 없을 수 있음. 일단 ID 만 표시
+                gem_text = f"{len(gems)}개: " + ", ".join(f"#{x}" for x in gems[:3])
+                if len(gems) > 3:
+                    gem_text += f" +{len(gems)-3}"
+            else:
+                gem_text = "—"
+            gem_item = QTableWidgetItem(gem_text)
+            if gem_text == "—":
+                gem_item.setForeground(QColor("#6b6359"))
+            self.gear_table.setItem(i, 4, gem_item)
+
+        # 2) buffs at fight start + stats
+        sid = pf.get("sourceID") if isinstance(pf.get("sourceID"), int) else None
+        pre_buffs = _pre_fight_buffs(rid, fid, sid, spell_db) if sid else []
+        stats = pf.get("stats") if isinstance(pf.get("stats"), dict) else None
+
+        html = _build_info_html(char, pre_buffs, stats, gear_sorted)
+        self.build_info.setHtml(html)
+        log.info("character build: %s gear=%d pre_buffs=%d has_stats=%s",
+                 char, len(gear_sorted), len(pre_buffs), bool(stats))
 
     # ── 딜사이클 (랭킹 행 선택 시) ────────────────────────────────────────
     def _on_ranking_row_changed(self) -> None:
@@ -1869,10 +1992,12 @@ class RankingPanel(QWidget):
             return
         char = str(row.get("character", ""))
 
-        # SQLite 사용 — 8~30MB JSON 안 읽음
+        # V2 cache (메모리) lookup — 빠름
         self.loader.show_with(f"{char} 의 시전·버프 불러오는 중…")
         try:
             spell_db = _load_json("spell_db.json")  # 작음 (3MB), 메모리 캐시
+            # 빌드 패널도 같이 갱신 (장비/버프/스탯) — 탭 안 바꿔도 캐시됨
+            self._populate_character_build(rid, fid, char)
             sid = db_source_id(rid, char)
             if sid is None:
                 self.rotation_timeline.set_empty("이 캐릭의 source ID 매핑 없음")

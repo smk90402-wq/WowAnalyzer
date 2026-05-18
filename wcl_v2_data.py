@@ -283,8 +283,20 @@ class V2Data:
                     "ench": g.get("permanentEnchant"),
                     "bonus": list(g.get("bonusIDs") or []),
                 })
+        # 스탯: {name: rating} (min == max 보통, min 만 사용)
+        stats_raw = ci.get("stats") or {}
+        stats_compact: dict[str, int] = {}
+        if isinstance(stats_raw, dict):
+            for k, v in stats_raw.items():
+                if isinstance(v, dict):
+                    mn = v.get("min")
+                    if isinstance(mn, (int, float)):
+                        stats_compact[k] = int(mn)
+                elif isinstance(v, (int, float)):
+                    stats_compact[k] = int(v)
         out = {"talents": talent_ids, "talent_points": talent_points,
                "nodes": node_ids, "gear": compact_gear,
+               "stats": stats_compact,
                "sourceID": target.get("id")}
         self.pfight[key] = out
         return out
