@@ -25,13 +25,14 @@ dist/
 
 # 대용량 / 재생성 가능 — git 에 안 올림
 data/cache_*.json
-data/v2_cache_*.json
 data/cache.db
 data/cache.db-wal
 data/cache.db-shm
 data/icons/
 data/_json_backup/
 data/spell_db_en.json
+
+# v2_cache_*.json 은 Git LFS 로 트래킹 (PC 간 sync 가능) — .gitattributes 참고
 
 # PC 별 사용자 설정 (테마 등) — sync 안 함
 data/user_settings.json
