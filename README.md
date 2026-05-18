@@ -21,7 +21,6 @@ classify_talents.py  →  data/rankings_with_talents.csv   (영웅특성 k-means
 
 analyze_difficulty.py →  data/difficulty_ranking.csv     (CV 기반 스펙 쉬움도)
 analyze_pi_impact.py  →  data/pi_impact.csv              (PI 받은 vs 안 받은 영향)
-analyze_ramp.py       →  (램프/셋업 분석)
 analyze_hero.py       →  data/hero_analysis.csv          (군집 × ease × PI 통합)
 
 fetch_casts.py        →  data/cache_casts.json           (캐스트 이벤트)
@@ -52,11 +51,8 @@ cp .env.example .env              # 그 다음 .env 채우기 (아래 참고)
 
 | 종류 | 용도 | 발급 위치 |
 |---|---|---|
-| `WCL_V1_KEY` | V1 (legacy) — 일부 enrich 호환 | [profile](https://www.warcraftlogs.com/profile) Web API |
-| `WCL_V2_CLIENT_ID` + `WCL_V2_CLIENT_SECRET` | **V2 (메인)** — rdps 정상, 사이트와 일치 | [api/clients](https://www.warcraftlogs.com/api/clients) 에서 new client |
-
-**V2 가 메인** — `metric=rdps` 가 V1 에선 500 server error 라 사이트 랭킹과 일치하지 않음.
-V2 의 GraphQL `worldData.encounter.characterRankings` 가 정답.
+| `WCL_V2_CLIENT_ID` + `WCL_V2_CLIENT_SECRET` | WarcraftLogs V2 GraphQL — 메인 데이터 | [api/clients](https://www.warcraftlogs.com/api/clients) 에서 new client |
+| `BLIZZARD_CLIENT_ID` + `BLIZZARD_CLIENT_SECRET` | Blizzard Game Data — 한글 spell/talent/boss | [develop.battle.net](https://develop.battle.net/access/clients) |
 
 ### 구독 (선택 — rate limit 만 영향)
 
@@ -94,6 +90,6 @@ python gui.py                 # GUI 실행
 
 ## 라이선스 / 데이터 출처
 
-- 로그 데이터: [WarcraftLogs](https://www.warcraftlogs.com/) V1 API
+- 로그 데이터: [WarcraftLogs](https://www.warcraftlogs.com/) V2 GraphQL API
 - 스펠 메타: [WoWhead](https://ko.wowhead.com/) (한글 이름·아이콘·툴팁 위젯)
 - 코드: 본인 사용 목적, 별도 라이선스 미지정

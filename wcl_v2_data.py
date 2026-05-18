@@ -257,11 +257,15 @@ class V2Data:
         talent_tree = ci.get("talentTree") or []
         talent_ids = []
         node_ids = []
+        talent_points: dict[str, int] = {}  # str(talent_id) → rank (points spent, 1 or 2)
         for t in talent_tree:
             if isinstance(t, dict):
                 tid = t.get("id")
                 if tid is not None:
                     talent_ids.append(tid)
+                    rank = t.get("rank")
+                    if isinstance(rank, int) and rank >= 1:
+                        talent_points[str(tid)] = rank
                 nid = t.get("nodeID")
                 if nid is not None:
                     node_ids.append(nid)
@@ -279,7 +283,8 @@ class V2Data:
                     "ench": g.get("permanentEnchant"),
                     "bonus": list(g.get("bonusIDs") or []),
                 })
-        out = {"talents": talent_ids, "nodes": node_ids, "gear": compact_gear,
+        out = {"talents": talent_ids, "talent_points": talent_points,
+               "nodes": node_ids, "gear": compact_gear,
                "sourceID": target.get("id")}
         self.pfight[key] = out
         return out

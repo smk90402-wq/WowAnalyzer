@@ -48,6 +48,33 @@ SPECS = [
 ]
 
 
+def _extract_option(d: dict) -> dict | None:
+    """tooltip 또는 choice_of_tooltips 의 원소 1개 → option dict.
+
+    Blizzard 응답 실제 구조:
+      {
+        "talent":        {"id": X, "name": "..."},
+        "spell_tooltip": {"spell": {"id": Y, "name": "..."}, "description": "...", "cast_time": "..."}
+      }
+    """
+    if not isinstance(d, dict):
+        return None
+    talent = d.get("talent") or {}
+    st = d.get("spell_tooltip") or {}
+    spell = st.get("spell") or {}
+    talent_id = talent.get("id")
+    spell_id = spell.get("id")
+    if talent_id is None and spell_id is None:
+        return None
+    return {
+        "talent_id": talent_id,
+        "spell_id": spell_id,
+        "name": spell.get("name") or talent.get("name") or "",
+        "desc": st.get("description") or "",
+        "cast": st.get("cast_time") or "",
+    }
+
+
 def compact_node(n: dict) -> dict:
     """노드 하나에서 필요한 필드만 추출."""
     out = {
@@ -59,37 +86,25 @@ def compact_node(n: dict) -> dict:
         "y": n.get("raw_position_y"),
         "unlocks": list(n.get("unlocks") or []),
         "max_rank": 1,
-        "options": [],  # [{talent_id, spell_id, name, icon, desc}]
+        "options": [],  # [{talent_id, spell_id, name, desc, cast}]
     }
     ranks = n.get("ranks") or []
     if ranks:
         out["max_rank"] = max((r.get("rank") or 1) for r in ranks)
-        # 마지막 rank 의 tooltip 사용
+        # 마지막 rank 의 tooltip 사용 (가장 최종 효과)
         last = ranks[-1]
-        if "tooltip" in last and isinstance(last["tooltip"], dict):
-            tt = last["tooltip"]
-            spell = tt.get("spell") or {}
-            talent = tt.get("talent") or {}
-            out["options"].append({
-                "talent_id": talent.get("id"),
-                "spell_id": spell.get("id"),
-                "name": spell.get("name") or talent.get("name") or "",
-                "desc": spell.get("description") or "",
-                "cast": spell.get("cast_time") or "",
-            })
-        if "choice_of_tooltips" in last and isinstance(last["choice_of_tooltips"], list):
-            for c in last["choice_of_tooltips"]:
-                if not isinstance(c, dict):
-                    continue
-                spell = c.get("spell") or {}
-                talent = c.get("talent") or {}
-                out["options"].append({
-                    "talent_id": talent.get("id"),
-                    "spell_id": spell.get("id"),
-                    "name": spell.get("name") or talent.get("name") or "",
-                    "desc": spell.get("description") or "",
-                    "cast": spell.get("cast_time") or "",
-                })
+        tt = last.get("tooltip")
+        if isinstance(tt, dict):
+            opt = _extract_option(tt)
+            if opt:
+                out["options"].append(opt)
+        # CHOICE 노드 — 여러 선택지
+        chs = last.get("choice_of_tooltips")
+        if isinstance(chs, list):
+            for c in chs:
+                opt = _extract_option(c)
+                if opt:
+                    out["options"].append(opt)
     return out
 
 

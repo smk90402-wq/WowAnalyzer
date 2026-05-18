@@ -20,6 +20,6 @@ type: feedback
 - ✅ 전제군주 아베르지안, 보라시우스, 바엘고어와 에조라크, 몰락한 왕 살라다르, 빛에 눈이 먼 선봉대, 우주의 왕관, 꿈결을 벗어난 신 카이메루스
 - ⏳ Belo'ren / Midnight Falls — 도감 미확인, 추측값 유지
 
-**Why:** Misread 마력주입 as Aug Evoker → wrote an enrichment script checking raid composition for Augmentation. User firmly corrected: "마력주입 사제버프거든 제대로 할래?" The correct approach is checking whether the ranking character received the Power Infusion buff (via /v1/report/tables/buffs with abilityid=10060), not checking raid composition.
+**Why:** Misread 마력주입 as Aug Evoker → wrote an enrichment script checking raid composition for Augmentation. User firmly corrected: "마력주입 사제버프거든 제대로 할래?" The correct approach is checking whether the ranking character received the Power Infusion buff (via V2 GraphQL events filter `ability.id = 10060` on the character), not checking raid composition.
 
 **How to apply:** For Korean WoW jargon, if the English mapping isn't crystal clear, either (a) grep/search the codebase or WoWhead for the exact spell/spec, or (b) ask the user to confirm — don't guess. A wrong guess here burned ~20 minutes of work.

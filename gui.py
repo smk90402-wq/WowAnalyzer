@@ -75,8 +75,10 @@ log.info("=== gui.py start  frozen=%s  log=%s ===",
 
 import json
 
-from PySide6.QtCore import Qt, QUrl, QSize
-from PySide6.QtGui import QColor, QDesktopServices, QFont, QFontMetrics, QIcon, QPalette, QPixmap
+from themes import THEMES, build_qss, DEFAULT_THEME_ID, Theme
+
+from PySide6.QtCore import Qt, QUrl, QSize, QThread, Signal
+from PySide6.QtGui import QAction, QActionGroup, QColor, QDesktopServices, QFont, QFontMetrics, QIcon, QPalette, QPixmap
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWidgets import (
     QAbstractItemView,
@@ -254,163 +256,169 @@ def _build_tooltip(spell_meta: dict) -> str:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# SQLite (cache.db) — 큰 데이터는 JSON 대신 인덱스 조회로
+# V2 cache 직접 접근 — V2Data 의 dict 를 그대로 lookup (cache.db 안 씀)
 
-import sqlite3 as _sqlite
+# V2Data 싱글톤 — v2_cache_*.json dict 를 직접 들고 lookup. cache.db 안 씀.
+# 첫 호출 시 4개 JSON (~150MB) 로드 — 3-5초 freeze. 이후 dict O(1).
+_v2: object | None = None
 
-_db_conn: _sqlite.Connection | None = None
 
-
-def _db() -> _sqlite.Connection | None:
-    global _db_conn
-    if _db_conn is not None:
-        return _db_conn
-    if not DATA_DIR:
-        return None
-    path = DATA_DIR / "cache.db"
-    if not path.exists():
-        log.warning("cache.db 없음 — migrate_to_sqlite.py 실행 필요")
-        return None
-    _db_conn = _sqlite.connect(str(path), check_same_thread=False)
-    _db_conn.row_factory = _sqlite.Row
-    _db_conn.execute("PRAGMA journal_mode=WAL")
-    _db_conn.execute("PRAGMA cache_size=-65536")  # 64MB cache
-    log.info("opened cache.db at %s", path)
-    return _db_conn
+def _v2_data():
+    """V2Data 싱글톤 lazy init. 실패하면 None (.env 키 없음 / V2Data 로드 실패)."""
+    global _v2
+    if _v2 is not None:
+        return _v2
+    try:
+        from wcl_v2_data import V2Data
+        v2 = V2Data()
+        log.info("V2Data loaded: meta=%d pfight=%d events=%d damage=%d",
+                 len(v2.meta), len(v2.pfight), len(v2.events), len(v2.damage))
+        _v2 = v2
+    except Exception:
+        log.exception("V2Data init fail")
+    return _v2
 
 
 def db_casts(rid: str, fid: int, sid: int) -> list[tuple]:
-    """[(ts, spell_id, type), ...]"""
-    c = _db()
-    if not c:
+    """[(ts, spell_id, type), ...] — V2 cache events 직접 lookup."""
+    v2 = _v2_data()
+    if v2 is None:
         return []
-    rows = c.execute(
-        "SELECT ts, spell_id, type FROM casts WHERE rid=? AND fid=? AND source_id=?",
-        (rid, fid, sid),
-    ).fetchall()
-    return [(r["ts"], r["spell_id"], r["type"]) for r in rows]
+    ev = v2.events.get(f"{rid}:{fid}:{sid}")
+    if not isinstance(ev, dict):
+        return []
+    out = []
+    for e in ev.get("casts") or []:
+        if not isinstance(e, list) or len(e) < 2:
+            continue
+        try:
+            ts = int(e[0]); sp = int(e[1])
+        except (TypeError, ValueError):
+            continue
+        tp = e[2] if len(e) > 2 else "cast"
+        out.append((ts, sp, tp))
+    return out
 
 
 def db_buffs(rid: str, fid: int, sid: int) -> list[tuple]:
-    """[(ts, spell_id, type[, stack]), ...]"""
-    c = _db()
-    if not c:
+    """[(ts, spell_id, type[, stack]), ...] — V2 cache events 직접 lookup."""
+    v2 = _v2_data()
+    if v2 is None:
         return []
-    rows = c.execute(
-        "SELECT ts, spell_id, type, stack FROM buffs WHERE rid=? AND fid=? AND source_id=?",
-        (rid, fid, sid),
-    ).fetchall()
+    ev = v2.events.get(f"{rid}:{fid}:{sid}")
+    if not isinstance(ev, dict):
+        return []
     out = []
-    for r in rows:
-        rec = [r["ts"], r["spell_id"], r["type"]]
-        if r["stack"] is not None:
-            rec.append(r["stack"])
+    for e in ev.get("buffs") or []:
+        if not isinstance(e, list) or len(e) < 2:
+            continue
+        try:
+            ts = int(e[0]); sp = int(e[1])
+        except (TypeError, ValueError):
+            continue
+        rec = [ts, sp, e[2] if len(e) > 2 else ""]
+        if len(e) > 3 and e[3] is not None:
+            rec.append(e[3])
         out.append(tuple(rec))
     return out
 
 
 def db_source_id(rid: str, char_name: str) -> int | None:
-    c = _db()
-    if not c:
+    """meta.actors 우선, 없으면 pfight 의 sourceID fallback."""
+    v2 = _v2_data()
+    if v2 is None:
         return None
-    r = c.execute(
-        "SELECT source_id FROM source_ids WHERE rid=? AND char_name=?",
-        (rid, char_name),
-    ).fetchone()
-    return r["source_id"] if r else None
+    meta = v2.meta.get(rid)
+    if isinstance(meta, dict):
+        actors = meta.get("actors") or {}
+        sid = actors.get(char_name)
+        if isinstance(sid, int):
+            return sid
+    # fallback: pfight 의 sourceID — player_fight() 가 fetch 시 채워둠
+    prefix = f"{rid}:"
+    suffix = f":{char_name}"
+    for key, pf in v2.pfight.items():
+        if key.startswith(prefix) and key.endswith(suffix) and isinstance(pf, dict):
+            sid = pf.get("sourceID")
+            if isinstance(sid, int):
+                return sid
+    return None
 
 
 def db_fight_window(rid: str, fid: int) -> list | None:
-    c = _db()
-    if not c:
+    """[start_ms, end_ms] — V2 cache meta 의 fights 에서 lookup."""
+    v2 = _v2_data()
+    if v2 is None:
         return None
-    r = c.execute(
-        "SELECT start_ms, end_ms FROM fights WHERE rid=? AND fid=?",
-        (rid, fid),
-    ).fetchone()
-    if not r:
+    meta = v2.meta.get(rid)
+    if not isinstance(meta, dict):
         return None
-    return [r["start_ms"], r["end_ms"]]
+    for f in meta.get("fights") or []:
+        if f.get("id") == fid:
+            start, end = f.get("startTime"), f.get("endTime")
+            if start is None or end is None:
+                return None
+            try:
+                return [int(start), int(end)]
+            except (TypeError, ValueError):
+                return None
+    return None
 
 
 def db_damage(rid: str, fid: int, sid: int) -> list[dict]:
-    c = _db()
-    if not c:
+    """[{guid, name, icon, total}, ...] — V2 cache damage 직접 lookup."""
+    v2 = _v2_data()
+    if v2 is None:
         return []
-    rows = c.execute(
-        "SELECT spell_guid, name, icon, total FROM damage WHERE rid=? AND fid=? AND source_id=?",
-        (rid, fid, sid),
-    ).fetchall()
-    return [{"guid": r["spell_guid"], "name": r["name"], "icon": r["icon"], "total": r["total"]} for r in rows]
+    entries = v2.damage.get(f"{rid}:{fid}:{sid}")
+    if not isinstance(entries, list):
+        return []
+    out = []
+    for e in entries:
+        if not isinstance(e, dict):
+            continue
+        gid = e.get("guid")
+        if not isinstance(gid, int):
+            continue
+        out.append({
+            "guid": gid,
+            "name": e.get("name") or "",
+            "icon": e.get("icon") or "",
+            "total": int(e.get("total") or 0),
+        })
+    return out
 
 
-def _ingest_v2_damage_to_db(damage_cache: dict) -> None:
-    """V2Data.damage 캐시의 새 엔트리들을 SQLite damage 테이블에 INSERT."""
-    c = _db()
-    if not c:
-        return
-    rows = []
-    for key, entries in damage_cache.items():
-        if not isinstance(entries, list):
+def db_talent_counts_for_ranks(
+    rid_fid_char: list[tuple[str, int, str]],
+) -> tuple[dict[int, int], dict[int, int], int]:
+    """(rid, fid, char) → (picks_by_tid, total_pts_by_tid, matched_chars).
+
+    talent_points (rank, 1/2) 가 cache 에 있으면 합산. 옛 엔트리 (없음) 는 1pt 로 간주.
+    avg = total_pts[tid] / picks[tid].
+    """
+    v2 = _v2_data()
+    if v2 is None or not rid_fid_char:
+        return {}, {}, 0
+    counts: dict[int, int] = {}
+    pts_sum: dict[int, int] = {}
+    matched = 0
+    for rid, fid, char in rid_fid_char:
+        pf = v2.pfight.get(f"{rid}:{fid}:{char}")
+        if not isinstance(pf, dict):
             continue
-        parts = key.split(":")
-        if len(parts) != 3:
+        talents = pf.get("talents") or []
+        if not talents:
             continue
-        try:
-            rid, fid, sid = parts[0], int(parts[1]), int(parts[2])
-        except (TypeError, ValueError):
-            continue
-        # 이미 있으면 skip
-        existing = c.execute(
-            "SELECT 1 FROM damage WHERE rid=? AND fid=? AND source_id=? LIMIT 1",
-            (rid, fid, sid),
-        ).fetchone()
-        if existing:
-            continue
-        for e in entries:
-            if not isinstance(e, dict):
+        matched += 1
+        points = pf.get("talent_points") or {}
+        for tid in talents:
+            if not isinstance(tid, int):
                 continue
-            gid = e.get("guid")
-            if not isinstance(gid, int):
-                continue
-            rows.append((rid, fid, sid, gid, e.get("name") or "", e.get("icon") or "",
-                         int(e.get("total") or 0)))
-    if rows:
-        c.executemany(
-            "INSERT INTO damage (rid, fid, source_id, spell_guid, name, icon, total) VALUES (?,?,?,?,?,?,?)",
-            rows,
-        )
-        c.commit()
-        log.info("damage ingested to db: %d rows", len(rows))
-
-
-def db_talent_counts_for_ranks(rid_fid_char: list[tuple[str, int, str]]) -> tuple[dict[int, int], int]:
-    """주어진 (rid, fid, char) 리스트 들의 talent_id 별 출현 횟수 + 본 캐릭 수."""
-    c = _db()
-    if not c:
-        return {}, 0
-    if not rid_fid_char:
-        return {}, 0
-    # 임시 테이블에 묶음 넣고 JOIN
-    c.execute("CREATE TEMP TABLE IF NOT EXISTS _q (rid TEXT, fid INTEGER, char_name TEXT)")
-    c.execute("DELETE FROM _q")
-    c.executemany("INSERT INTO _q VALUES (?,?,?)", rid_fid_char)
-    rows = c.execute("""
-        SELECT t.talent_id AS tid, COUNT(*) AS cnt
-        FROM talents t INNER JOIN _q q
-          ON t.rid=q.rid AND t.fid=q.fid AND t.char_name=q.char_name
-        GROUP BY t.talent_id
-    """).fetchall()
-    counts = {r["tid"]: r["cnt"] for r in rows}
-    matched_row = c.execute("""
-        SELECT COUNT(*) AS n FROM (
-          SELECT DISTINCT t.rid, t.fid, t.char_name
-          FROM talents t INNER JOIN _q q
-            ON t.rid=q.rid AND t.fid=q.fid AND t.char_name=q.char_name
-        )
-    """).fetchone()
-    matched = matched_row["n"] if matched_row else 0
-    return counts, matched
+            counts[tid] = counts.get(tid, 0) + 1
+            pts = points.get(str(tid)) if isinstance(points, dict) else None
+            pts_sum[tid] = pts_sum.get(tid, 0) + (int(pts) if isinstance(pts, int) and pts > 0 else 1)
+    return counts, pts_sum, matched
 
 
 def _load_json(filename: str) -> dict:
@@ -448,199 +456,61 @@ CLASS_COLOR: dict[str, str] = {
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 스타일 (다크 테마 + 위젯 QSS)
+# 테마 시스템 (4종, 사용자 선택 + 디스크 저장)
 
-DARK_QSS = """
-/* === Claude-inspired warm dark ============================================ */
-QWidget {
-    background-color: #1a1614;
-    color: #f5f0e8;
-    font-family: 'Pretendard Variable', 'Pretendard', 'Segoe UI Variable',
-                 'Segoe UI', -apple-system, system-ui, sans-serif;
-    font-size: 10pt;
-}
-QMainWindow { background-color: #1a1614; border: none; }
-QTabWidget::pane { background-color: #1a1614; border: none; border-top: 1px solid #2c2521; }
-
-/* 패널 헤더 — 회색, 작게, uppercase 트래킹 (chrome 톤) */
-QLabel#section {
-    color: #a39c8e;
-    font-size: 9.5pt;
-    font-weight: 500;
-    padding: 8px 4px;
-    margin-bottom: 4px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-}
-/* 페이지 헤더 — 카드 X, 브레드크럼 톤, hairline 만 */
-QLabel#pageHeader {
-    color: #f5f0e8;
-    font-size: 13pt;
-    font-weight: 600;
-    padding: 8px 16px;
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid #2c2521;
-    letter-spacing: -0.015em;
-}
-QLabel#placeholder {
-    color: #a39c8e;
-    font-size: 10.5pt;
-    padding: 40px 24px;
-    background-color: #221d1a;
-    border: 1px dashed #3a322c;
-    border-radius: 12px;
-}
-
-/* === Lists / Trees ======================================================== */
-QListWidget, QTreeWidget {
-    background-color: #221d1a;
-    border: 1px solid #2c2521;
-    border-radius: 10px;
-    padding: 6px;
-    outline: none;
-}
-QListWidget::item, QTreeWidget::item {
-    padding: 8px 8px 8px 12px;
-    border-radius: 6px;
-    border-left: 3px solid transparent;
-    margin: 1px 0;
-}
-QListWidget::item:hover, QTreeWidget::item:hover { background-color: #2a2420; }
-QListWidget::item:selected, QTreeWidget::item:selected {
-    background-color: rgba(217, 119, 87, 45);
-    border-left: 3px solid #d97757;
-    color: #ffffff;
-}
-QListWidget::item:selected:active, QTreeWidget::item:selected:active {
-    background-color: rgba(217, 119, 87, 70);
-}
-QTreeWidget::branch { background-color: transparent; }
-
-/* === Tabs ================================================================= */
-QTabBar { qproperty-drawBase: 0; }
-QTabBar::tab {
-    background-color: transparent;
-    color: #a39c8e;
-    padding: 11px 26px;
-    margin-right: 2px;
-    border: none;
-    border-bottom: 2px solid transparent;
-    font-weight: 500;
-    font-size: 10.5pt;
-}
-QTabBar::tab:selected { color: #d97757; border-bottom: 2px solid #d97757; }
-QTabBar::tab:hover:!selected { color: #f5f0e8; border-bottom: 2px solid #3a322c; }
-
-/* === Buttons ============================================================== */
-QPushButton {
-    background-color: #2a2420;
-    color: #f5f0e8;
-    border: 1px solid #3a322c;
-    border-radius: 6px;
-    padding: 8px 16px;
-    font-weight: 500;
-}
-QPushButton:hover { background-color: #332b25; border-color: #d97757; }
-QPushButton:pressed { background-color: #3d342c; }
-QPushButton:checked {
-    background-color: #d97757;
-    color: #1a1614;
-    border-color: #d97757;
-    font-weight: 600;
-}
-QPushButton:checked:hover { background-color: #e8855f; }
-
-/* === Tables =============================================================== */
-QTableWidget {
-    background-color: #221d1a;
-    border: 1px solid #2c2521;
-    border-radius: 8px;
-    gridline-color: transparent;
-    selection-background-color: rgba(217, 119, 87, 50);
-    selection-color: #ffffff;
-}
-QTableWidget::item { padding: 8px 8px; border-bottom: 1px solid #1f1a17; }
-QTableWidget::item:hover { background-color: #2a2420; }
-QTableWidget::item:selected {
-    background-color: rgba(217, 119, 87, 60);
-    color: #ffffff;
-}
-QHeaderView::section {
-    background-color: #221d1a;
-    color: #a39c8e;
-    padding: 8px 12px;
-    border: none;
-    border-bottom: 1px solid #2c2521;
-    font-weight: 500;
-    font-size: 9.5pt;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-}
-QHeaderView::section:last { border-right: none; }
-
-/* === Splitters — hairline + 큰 hit area, hover 도 subtle ================== */
-QSplitter::handle { background-color: #2c2521; }
-QSplitter::handle:hover { background-color: #3a322c; }
-QSplitter::handle:horizontal { width: 4px; }
-QSplitter::handle:vertical { height: 4px; }
-
-/* === Scrollbars =========================================================== */
-QScrollBar:vertical {
-    background-color: #221d1a;
-    width: 12px;
-    border: none;
-    margin: 4px 2px;
-}
-QScrollBar::handle:vertical {
-    background-color: #3a322c;
-    border-radius: 4px;
-    min-height: 32px;
-}
-QScrollBar::handle:vertical:hover { background-color: #d97757; }
-QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; width: 0; }
-QScrollBar:horizontal {
-    background-color: #221d1a;
-    height: 12px;
-    border: none;
-    margin: 2px 4px;
-}
-QScrollBar::handle:horizontal {
-    background-color: #3a322c;
-    border-radius: 4px;
-    min-width: 32px;
-}
-QScrollBar::handle:horizontal:hover { background-color: #d97757; }
-QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal { height: 0; width: 0; }
-
-/* === Tooltips ============================================================= */
-QToolTip {
-    background-color: #221d1a;
-    color: #f5f0e8;
-    border: 1px solid #3a322c;
-    border-radius: 8px;
-    padding: 8px 10px;
-    font-size: 10pt;
-}
-"""
+def _settings_path() -> Path:
+    """user_settings.json 위치 — data/ 가 있으면 거기, 아니면 runtime dir."""
+    if DATA_DIR:
+        return DATA_DIR / "user_settings.json"
+    return _runtime_dir() / "user_settings.json"
 
 
-def apply_dark_palette(app: QApplication) -> None:
-    """Fusion 스타일 + Claude-inspired 따뜻한 다크 팔레트."""
+def _load_theme_id() -> str:
+    p = _settings_path()
+    if not p.exists():
+        return DEFAULT_THEME_ID
+    try:
+        d = json.loads(p.read_text(encoding="utf-8"))
+        tid = d.get("theme")
+        if isinstance(tid, str) and tid in THEMES:
+            return tid
+    except Exception:
+        log.exception("user_settings load fail")
+    return DEFAULT_THEME_ID
+
+
+def _save_theme_id(tid: str) -> None:
+    p = _settings_path()
+    try:
+        d: dict = {}
+        if p.exists():
+            d = json.loads(p.read_text(encoding="utf-8")) or {}
+        d["theme"] = tid
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+        log.info("theme saved: %s", tid)
+    except Exception:
+        log.exception("user_settings save fail")
+
+
+def apply_theme(app: QApplication, theme: Theme) -> None:
+    """Fusion + 테마별 QSS + QPalette 적용. 런타임 전환에도 동일하게 호출."""
     app.setStyle("Fusion")
+    app.setStyleSheet(build_qss(theme))
     pal = QPalette()
-    pal.setColor(QPalette.ColorRole.Window,          QColor("#1a1614"))
-    pal.setColor(QPalette.ColorRole.WindowText,      QColor("#f5f0e8"))
-    pal.setColor(QPalette.ColorRole.Base,            QColor("#221d1a"))
-    pal.setColor(QPalette.ColorRole.AlternateBase,   QColor("#1f1a17"))
-    pal.setColor(QPalette.ColorRole.Text,            QColor("#f5f0e8"))
-    pal.setColor(QPalette.ColorRole.Button,          QColor("#2a2420"))
-    pal.setColor(QPalette.ColorRole.ButtonText,      QColor("#f5f0e8"))
-    pal.setColor(QPalette.ColorRole.Highlight,       QColor("#d97757"))
-    pal.setColor(QPalette.ColorRole.HighlightedText, QColor("#1a1614"))
-    pal.setColor(QPalette.ColorRole.ToolTipBase,     QColor("#221d1a"))
-    pal.setColor(QPalette.ColorRole.ToolTipText,     QColor("#f5f0e8"))
+    pal.setColor(QPalette.ColorRole.Window,          QColor(theme.bg))
+    pal.setColor(QPalette.ColorRole.WindowText,      QColor(theme.text))
+    pal.setColor(QPalette.ColorRole.Base,            QColor(theme.surface))
+    pal.setColor(QPalette.ColorRole.AlternateBase,   QColor(theme.surface_alt))
+    pal.setColor(QPalette.ColorRole.Text,            QColor(theme.text))
+    pal.setColor(QPalette.ColorRole.Button,          QColor(theme.surface_alt))
+    pal.setColor(QPalette.ColorRole.ButtonText,      QColor(theme.text))
+    pal.setColor(QPalette.ColorRole.Highlight,       QColor(theme.accent))
+    pal.setColor(QPalette.ColorRole.HighlightedText, QColor(theme.bg))
+    pal.setColor(QPalette.ColorRole.ToolTipBase,     QColor(theme.surface))
+    pal.setColor(QPalette.ColorRole.ToolTipText,     QColor(theme.text))
     app.setPalette(pal)
+    log.info("theme applied: %s (%s)", theme.id, theme.name_kr)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1163,6 +1033,16 @@ body {
 }
 .tnode.t-essential .pct { background: rgba(217, 119, 87, 0.9); }
 
+/* 평균 포인트 배지 — 좌상단, 2-rank 노드 전용 */
+.tnode .ptsbadge {
+    position: absolute; top: -5px; left: -5px;
+    background: rgba(64, 36, 28, 0.95); color: #f5f0e8;
+    font-size: 9px; font-weight: 600;
+    padding: 1px 4px; border-radius: 7px; min-width: 14px; text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    border: 1px solid rgba(217, 119, 87, 0.4);
+}
+
 /* 호버 툴팁 */
 .tnode .tip {
     display: none; position: absolute; bottom: 48px; left: -8px;
@@ -1173,7 +1053,13 @@ body {
 }
 .tnode:hover .tip { display: block; }
 .tip .tname { color: #d97757; font-weight: 600; font-size: 12px; margin-bottom: 4px; letter-spacing: -0.01em; }
+.tip .tmeta { color: #c8a560; font-size: 10px; margin-bottom: 6px; letter-spacing: 0.01em; }
 .tip .tdesc { color: #c4bdaf; line-height: 1.5; }
+
+/* 위쪽 줄 노드는 툴팁이 위로 못 가니까 아래로 (overflow 회피) */
+.tree-canvas { position: relative; overflow: visible; }
+.tree-col { overflow: visible; }
+.tree-row { overflow: visible; }
 
 .empty {
     color: #a39c8e; text-align: center; padding: 64px 24px;
@@ -1187,14 +1073,15 @@ def _tree_empty_html(msg: str = "보스 + 전문화 선택 시 트리 표시") -
             f"<body><div class='empty'>{_html_escape(msg)}</div></body></html>")
 
 
-def _node_html(node: dict, pick_pct: float, spell_db: dict) -> str:
-    """단일 노드 HTML — 위치 + 아이콘 + 픽률 배지 + 호버 툴팁."""
+def _node_html(node: dict, pick_pct: float, avg_pts: float, spell_db: dict) -> str:
+    """단일 노드 HTML — 위치 + 아이콘 + 픽률 + 평균포인트 배지 + 호버 툴팁."""
     if not node.get("options"):
         return ""
     opt = node["options"][0]
     spell_id = opt.get("spell_id")
     name = opt.get("name") or f"#{node.get('id')}"
     desc = opt.get("desc") or ""
+    max_rank = node.get("max_rank") or 1
 
     # 아이콘 — spell_db 에서 매핑 시도
     icon_file = ""
@@ -1224,37 +1111,56 @@ def _node_html(node: dict, pick_pct: float, spell_db: dict) -> str:
     if node.get("type") == "CHOICE":
         cls += " choice"
 
-    # 배지 — 5% 이상만 표시 (노이즈 제거)
+    # 배지: 우하단 픽률 + (2-rank 노드는) 좌상단 평균 포인트
     pct_html = ""
     if pick_pct >= 5:
         pct_html = f'<div class="pct">{int(round(pick_pct))}</div>'
+    pts_html = ""
+    if max_rank > 1 and pick_pct >= 5:
+        pts_html = f'<div class="ptsbadge">{avg_pts:.1f}</div>'
+
+    # 툴팁: 픽률 + 평균 포인트 (max_rank > 1 일 때만 의미)
+    tip_meta = f"픽률 {int(round(pick_pct))}%"
+    if max_rank > 1:
+        tip_meta += f" · 평균 {avg_pts:.2f}/{max_rank} pts"
 
     return (
         f'<div class="tnode {cls}" style="left:{left}px;top:{top}px">'
         f'<img src="{icon_url}" alt="">'
-        f'{pct_html}'
+        f'{pct_html}{pts_html}'
         f'<div class="tip">'
         f'<div class="tname">{_html_escape(name)}</div>'
-        f'<div class="tdesc">{_html_escape(desc)[:240]}</div>'
+        f'<div class="tmeta">{tip_meta}</div>'
+        f'<div class="tdesc">{_html_escape(desc)[:280]}</div>'
         f'</div></div>'
     )
 
 
-def _build_tree_html(tree_data: dict, pick_count: dict, denom: int,
+def _build_tree_html(tree_data: dict, pick_count: dict, pts_sum: dict, denom: int,
                      spell_db: dict, hero_filter: str | None = None) -> str:
     """class / spec / hero 트리 HTML."""
     if not tree_data:
         return _tree_empty_html("이 스펙은 아직 트리 데이터 없음 — fetch_talent_trees.py 실행 필요")
 
-    def pct_of(node) -> float:
-        # talent_id 매칭 (options[0].talent_id)
+    def _tid_of(node):
         if not node.get("options"):
-            return 0
-        opt = node["options"][0]
-        tid = opt.get("talent_id")
+            return None
+        return node["options"][0].get("talent_id")
+
+    def pct_of(node) -> float:
+        tid = _tid_of(node)
         if tid is None:
             return 0
         return pick_count.get(int(tid), 0) / max(1, denom) * 100
+
+    def avg_pts_of(node) -> float:
+        tid = _tid_of(node)
+        if tid is None:
+            return 1.0
+        n = pick_count.get(int(tid), 0)
+        if n <= 0:
+            return 1.0
+        return pts_sum.get(int(tid), n) / n
 
     def col_size(nodes):
         if not nodes:
@@ -1268,8 +1174,8 @@ def _build_tree_html(tree_data: dict, pick_count: dict, denom: int,
     cw, ch = col_size(class_nodes)
     sw, sh = col_size(spec_nodes)
 
-    class_html = "".join(_node_html(n, pct_of(n), spell_db) for n in class_nodes)
-    spec_html = "".join(_node_html(n, pct_of(n), spell_db) for n in spec_nodes)
+    class_html = "".join(_node_html(n, pct_of(n), avg_pts_of(n), spell_db) for n in class_nodes)
+    spec_html = "".join(_node_html(n, pct_of(n), avg_pts_of(n), spell_db) for n in spec_nodes)
 
     # 영웅 트리: 사용자가 선택한 거 or 첫 번째
     hero_dict = tree_data.get("hero") or {}
@@ -1290,7 +1196,7 @@ def _build_tree_html(tree_data: dict, pick_count: dict, denom: int,
         hero_nodes = hero_dict[chosen_name].get("nodes") or []
         hw, hh = col_size(hero_nodes)
         hero_w, hero_h = hw, hh
-        hero_html = "".join(_node_html(n, pct_of(n), spell_db) for n in hero_nodes)
+        hero_html = "".join(_node_html(n, pct_of(n), avg_pts_of(n), spell_db) for n in hero_nodes)
     other_heroes = ", ".join(n for n in hero_dict.keys() if n != hero_name_display)
     hero_note = f" (다른 영웅트리: {other_heroes})" if other_heroes else ""
 
@@ -1360,6 +1266,48 @@ def _resolve_name(spell_id: int, spell_db: dict) -> tuple[str, str]:
 # ─────────────────────────────────────────────────────────────────────────────
 # 로딩 오버레이 — 무거운 click 작업 동안 위에 띄움
 
+class DamageFetchThread(QThread):
+    """백그라운드에서 V2 damage_table 을 ThreadPoolExecutor(4) 로 병렬 페치.
+
+    main thread 의 V2Data 싱글톤을 공유 — dict 업데이트가 in-place 라
+    main thread 가 즉시 새 데이터 보임. GIL 덕에 dict 쓰기 원자적 (worst case
+    동일 키 중복 페치 ~1).
+    """
+
+    finished_ok = Signal(object)  # emits V2Data | None
+
+    def __init__(self, need_fetch: list[tuple[str, int, str]], v2, parent=None) -> None:
+        super().__init__(parent)
+        self.need_fetch = need_fetch
+        self.v2 = v2  # shared V2Data 인스턴스
+
+    def run(self) -> None:
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+        if self.v2 is None:
+            self.finished_ok.emit(None)
+            return
+
+        try:
+            with ThreadPoolExecutor(max_workers=4) as ex:
+                futures = [
+                    ex.submit(self.v2.damage_table, rid, fid, char)
+                    for rid, fid, char in self.need_fetch
+                ]
+                for fut in as_completed(futures):
+                    try:
+                        fut.result()
+                    except Exception as e:
+                        log.warning("damage_table worker err: %s", e)
+        except Exception:
+            log.exception("DamageFetchThread executor fail")
+
+        try:
+            self.v2.flush()
+        except Exception:
+            log.exception("V2Data flush fail")
+        self.finished_ok.emit(self.v2)
+
+
 class LoadingOverlay(QWidget):
     """반투명 박스 + 텍스트. 부모 위젯을 가득 채우고 raise_() 로 위에."""
 
@@ -1416,6 +1364,8 @@ class RankingPanel(QWidget):
         self.class_en: str | None = None
         self.spec_en: str | None = None
         self._current_df = None
+        self._damage_thread: DamageFetchThread | None = None
+        self._damage_request_token: int = 0
         self._build()
 
     # ── UI 빌드 ──────────────────────────────────────────────────────────
@@ -1476,8 +1426,8 @@ class RankingPanel(QWidget):
 
         # 탭 1: 특성 분포 (상: 픽률 + 하: WoWhead 추천 빌드)
         self.talent_table = QTableWidget()
-        self.talent_table.setColumnCount(4)
-        self.talent_table.setHorizontalHeaderLabels(["트리", "특성", "선택률", "수"])
+        self.talent_table.setColumnCount(5)
+        self.talent_table.setHorizontalHeaderLabels(["트리", "특성", "선택률", "수", "평균 pt"])
         self.talent_table.verticalHeader().setVisible(False)
         self.talent_table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.talent_table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
@@ -1488,6 +1438,7 @@ class RankingPanel(QWidget):
         th.setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
         th.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
         th.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
+        th.setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
 
         # 비주얼 트리 (QWebEngineView)
         self.tree_view = QWebEngineView()
@@ -1628,14 +1579,14 @@ class RankingPanel(QWidget):
             ilvl_item.setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
             self.ranking_table.setItem(i, 4, ilvl_item)
 
-    # ── 딜 비중 TOP10 (top 20 합산, SQLite + V2 lazy fetch) ───────────────
+    # ── 딜 비중 TOP10 (top 20 합산, SQLite + V2 비동기 lazy fetch) ────────
     def _populate_top_damage(self, ranking_df) -> None:
         spell_db = _load_json("spell_db.json")
         sample = ranking_df.head(20)
 
-        # source_id 조회 + 누락 damage 만 V2 lazy fetch
+        # source_id 조회 + 누락 damage 페치 목록
         need_fetch: list[tuple[str, int, str]] = []
-        triples: list[tuple[str, int, int]] = []  # (rid, fid, sid) 도 보관
+        triples: list[tuple[str, int, int]] = []  # SQLite 에 있는 (rid, fid, sid)
         for _, row in sample.iterrows():
             rid = str(row["report_id"])
             try:
@@ -1645,26 +1596,55 @@ class RankingPanel(QWidget):
             char = str(row["character"])
             sid = db_source_id(rid, char)
             if sid is None:
+                # sourceID 아직 없음 — 페치하면 v2_cache 에 들어감
+                need_fetch.append((rid, fid, char))
                 continue
             triples.append((rid, fid, sid))
-            existing = db_damage(rid, fid, sid)
-            if not existing:
+            if not db_damage(rid, fid, sid):
                 need_fetch.append((rid, fid, char))
 
-        if need_fetch:
-            try:
-                from wcl_v2_data import V2Data
-                self.loader.show_with(f"딜 비중 데이터 가져오는 중… ({len(need_fetch)}개)")
-                v2 = V2Data()
-                for rid, fid, char in need_fetch:
-                    v2.damage_table(rid, fid, char)
-                v2.flush()
-                # 새로 받은 거 SQLite 에도 INSERT
-                _ingest_v2_damage_to_db(v2.damage)
-            except Exception as e:
-                log.warning("damage lazy fetch err: %s", e)
+        # 1) SQLite 에 있는 만큼 일단 즉시 렌더 (없으면 placeholder)
+        self._render_top_damage(triples, spell_db, pending=len(need_fetch))
 
-        # 집계
+        # 2) 빠진 게 있으면 백그라운드 페치 — UI 안 막음
+        if not need_fetch:
+            return
+
+        # request token: 사용자가 보스/스펙 바꾼 뒤 stale 응답 무시용
+        self._damage_request_token += 1
+        token = self._damage_request_token
+        sample_snapshot = sample
+        sdb = spell_db
+
+        def _on_done(v2):
+            # 이미 사용자가 다른 필터로 이동했으면 무시
+            if token != self._damage_request_token:
+                return
+            if v2 is None:
+                return
+            # v2 는 main thread V2Data 와 같은 인스턴스 — dict 이미 in-place 업데이트됨
+            # 페치 후 triples 재계산 (sourceID 새로 생긴 행 포함)
+            new_triples: list[tuple[str, int, int]] = []
+            for _, r in sample_snapshot.iterrows():
+                rid_ = str(r["report_id"])
+                try:
+                    fid_ = int(r["fight_id"])
+                except (TypeError, ValueError):
+                    continue
+                char_ = str(r["character"])
+                sid_ = db_source_id(rid_, char_)
+                if sid_ is not None:
+                    new_triples.append((rid_, fid_, sid_))
+            self._render_top_damage(new_triples, sdb, pending=0)
+
+        thread = DamageFetchThread(need_fetch, _v2_data(), self)
+        thread.finished_ok.connect(_on_done)
+        thread.finished.connect(thread.deleteLater)
+        self._damage_thread = thread  # GC 방지
+        thread.start()
+
+    def _render_top_damage(self, triples, spell_db, pending: int = 0) -> None:
+        """SQLite 의 (rid, fid, sid) 들로 스펠별 합산 → spell_table 갱신."""
         agg: dict[int, dict] = {}
         matched = 0
         for rid, fid, sid in triples:
@@ -1683,10 +1663,19 @@ class RankingPanel(QWidget):
         total_all = sum(v["total"] for v in agg.values()) or 1
         rows = sorted(agg.items(), key=lambda x: -x[1]["total"])[:10]
 
+        # 데이터 0건이고 페치 진행 중이면 placeholder 한 줄
+        if not rows and pending > 0:
+            self.spell_table.setRowCount(1)
+            ph = QTableWidgetItem(f"딜 비중 데이터 받는 중… ({pending}개)")
+            ph.setForeground(QColor("#a39c8e"))
+            self.spell_table.setItem(0, 0, ph)
+            self.spell_table.setItem(0, 1, _center_cell(""))
+            self.spell_table.setItem(0, 2, _center_cell(""))
+            return
+
         self.spell_table.setRowCount(len(rows))
         for i, (gid, info) in enumerate(rows):
             primary, sub = _resolve_name(gid, spell_db)
-            # spell_db 에 없으면 V2 damage 의 영문명 사용
             if primary == f"미상 #{gid}" and info.get("name_en"):
                 primary = info["name_en"]
             label = f"{primary}    ({sub})" if sub else primary
@@ -1698,8 +1687,8 @@ class RankingPanel(QWidget):
             self.spell_table.setItem(i, 1, pct_item)
             self.spell_table.setItem(i, 2, _center_cell(f"{int(info['total']):>13,}"))
 
-        log.info("top damage: chars_matched=%d unique_spells=%d shown=%d",
-                 matched, len(agg), len(rows))
+        log.info("top damage render: chars=%d spells=%d shown=%d pending=%d",
+                 matched, len(agg), len(rows), pending)
 
     # ── 특성 분포 (3-tree 분류 그룹핑) ────────────────────────────────────
     def _populate_talents(self, ranking_df) -> None:
@@ -1716,12 +1705,18 @@ class RankingPanel(QWidget):
                 continue
             char = str(row["character"])
             triples.append((rid, fid, char))
-        counts, matched = db_talent_counts_for_ranks(triples)
+        counts, pts_sum, matched = db_talent_counts_for_ranks(triples)
         if not counts:
             self.talent_table.setRowCount(0)
             return
 
         denom = max(matched, 1)
+        # 평균 포인트 헬퍼 — counts 에 있으면 항상 pts_sum 에도 있음
+        def avg_pts_of(tid: int) -> float:
+            n = counts.get(tid, 0)
+            if n <= 0:
+                return 0.0
+            return pts_sum.get(tid, n) / n
         cls, spec = self.class_en, self.spec_en
 
         # 한국 와우 UI 명칭 매핑: 공용 → 직업, 전문화 → 전문화, 영웅 → 영웅
@@ -1780,6 +1775,14 @@ class RankingPanel(QWidget):
                 pct_item.setForeground(QColor("#e07a5f"))
             self.talent_table.setItem(i, 2, pct_item)
             self.talent_table.setItem(i, 3, _center_cell(f"{cnt}/{denom}"))
+            # 평균 포인트 (1pt 노드는 항상 1.0, 2pt 노드는 1.0~2.0)
+            avg = avg_pts_of(tid)
+            pts_item = _center_cell(f"{avg:.2f}")
+            if avg >= 1.95:
+                pts_item.setForeground(QColor("#d97757"))  # 2pt 거의 풀
+            elif avg < 1.5:
+                pts_item.setForeground(QColor("#a39c8e"))  # 1pt 위주
+            self.talent_table.setItem(i, 4, pts_item)
 
         self.talent_table.setSortingEnabled(True)
         log.info("talents: chars=%d shown=%d hidden_unknown=%d",
@@ -1790,7 +1793,7 @@ class RankingPanel(QWidget):
         key = f"{self.class_en}/{self.spec_en}"
         tree_data = all_trees.get(key)
         if tree_data and counts:
-            tree_html = _build_tree_html(tree_data, counts, denom, spell_db)
+            tree_html = _build_tree_html(tree_data, counts, pts_sum, denom, spell_db)
         else:
             tree_html = _tree_empty_html(
                 f"{key} 트리 데이터 없음 — fetch_talent_trees.py 의 SPECS 에 추가 필요"
@@ -2033,6 +2036,8 @@ class MainWindow(QMainWindow):
         # 작업표시줄 제외하고 화면에 들어가면 maximize 도 OK
         self.showMaximized()
 
+        self._build_menubar()
+
         tabs = QTabWidget()
         tabs.setDocumentMode(True)
         tabs.addTab(RaidTab("영웅", has_data=False), "영웅 레이드")
@@ -2047,12 +2052,39 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(container)
         log.info("MainWindow ready")
 
+    def _build_menubar(self) -> None:
+        """테마 메뉴 — 4개 액션 (라디오), 즉시 적용 + 디스크 저장."""
+        bar = self.menuBar()
+        theme_menu = bar.addMenu("테마")
+        self._theme_group = QActionGroup(self)
+        self._theme_group.setExclusive(True)
+        current_id = _load_theme_id()
+        for tid, theme in THEMES.items():
+            act = QAction(theme.name_kr, self, checkable=True)
+            act.setData(tid)
+            if tid == current_id:
+                act.setChecked(True)
+            # default arg 로 클로저 변수 고정 (Python 클로저 함정 회피)
+            act.triggered.connect(lambda _checked=False, _id=tid: self._switch_theme(_id))
+            self._theme_group.addAction(act)
+            theme_menu.addAction(act)
+
+    def _switch_theme(self, tid: str) -> None:
+        theme = THEMES.get(tid)
+        if not theme:
+            return
+        app = QApplication.instance()
+        if app is None:
+            return
+        apply_theme(app, theme)
+        _save_theme_id(tid)
+
 
 def main() -> None:
     log.info("QApplication start")
     app = QApplication(sys.argv)
-    app.setStyleSheet(DARK_QSS)
-    apply_dark_palette(app)
+    theme = THEMES.get(_load_theme_id()) or THEMES[DEFAULT_THEME_ID]
+    apply_theme(app, theme)
     win = MainWindow()
     win.show()
     log.info("event loop enter")

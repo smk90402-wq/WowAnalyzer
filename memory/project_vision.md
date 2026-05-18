@@ -42,7 +42,7 @@ type: project
 - **프록**: 발동된 버프(예: 악마 핵, 별빛섬광 프록, 광폭화)와 그걸 어떻게 소비했는지
 - **추적버프**: 일식/스타로드/광폭화 누적 같은 상태 버프가 시점별로 어떻게 유지/소진되었는지
 - **특성 트리 전체** (현재 cache_talents.json엔 picked nodes만 있음 — 시각적 트리 렌더는 WoWhead 위젯/URL 으로)
-- **아이템 장비** (모든 슬롯 + 보석/마부/장식/특보 보너스ID) — 아직 캐시 없음, `/v1/report/tables/summary` 에서 같이 옴
+- **아이템 장비** (모든 슬롯 + 보석/마부/장식/특보 보너스ID) — 아직 캐시 없음, V2 `reportData.report.table(dataType: Summary)` 에서 같이 옴
 
 **보스 페이즈/조 분기 처리 (중요):**
 - 조 분기 신경 써야 하는 보스는 **카이메루스 (Chimaerus, the Undreamt God / 꿈의균열, encounter_id 3306) 하나뿐**. 나머지 8보스는 그룹 분기 무시 가능.

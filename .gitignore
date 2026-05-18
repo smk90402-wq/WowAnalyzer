@@ -33,6 +33,10 @@ data/icons/
 data/_json_backup/
 data/spell_db_en.json
 
+# PC 별 사용자 설정 (테마 등) — sync 안 함
+data/user_settings.json
+data/backfill.log
+
 # 로그
 *.log
 
@@ -45,5 +49,3 @@ data/spell_db_en.json
 .DS_Store
 Thumbs.db
 
-# 옛 V1 백업 (필요시 archive 참고용)
-data/*.v1backup
