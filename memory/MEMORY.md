@@ -8,6 +8,7 @@
 - [Status report](feedback_status_report.md) — Every response ends with a standard "## 상태" block (this-turn done / background / build). NEVER include "next autonomous work" line.
 - [Auto-commit](feedback_auto_commit.md) — Auto commit + push at end of every response with code changes. User works across multiple PCs via git pull.
 - [API references](reference_apis.md) — WCL V2 reference code at `~/Downloads/warcraftlog-api-v2-master`; Blizzard docs at community.developer.battle.net. Check first when stuck on query shape.
+- [Git LFS workflow](reference_lfs_workflow.md) — v2_cache_*.json (380MB+ events.json) 는 LFS 로 트래킹. 다른 PC 에서 이어받기 위한 셋업.
 - [V2 API + Platinum](project_v2_api.md) — V2 GraphQL is the sole backend (rdps works). User has Platinum (18k pts/hr).
 - [V2 only — V1 removed](project_v2_only.md) — V1 fully deleted 2026-05-18. All fetchers use V2 GraphQL. Only rankings CSV stays; other data on-demand JSON cache.
 - [Cache pipeline](project_cache_pipeline.md) — V2 cache JSON only. backfill_v2 → gui (V2Data dict lookup). SQLite/migrate fully removed 2026-05-18.
