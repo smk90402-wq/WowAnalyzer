@@ -93,6 +93,25 @@ query($code: String!, $start: Float!, $end: Float!, $sid: Int!) {
 }
 """
 
+# 외부 PI (사제의 마력 주입, spell 10060) — 비사제 캐릭이 받은 거 추적용
+# 본인 source 가 아닌 이벤트 (다른 priest 가 본인을 target 으로) — targetID 필터.
+Q_EVENTS_PI_TARGET = """
+query($code: String!, $start: Float!, $end: Float!, $sid: Int!) {
+  reportData {
+    report(code: $code) {
+      events(
+        dataType: Buffs
+        startTime: $start
+        endTime: $end
+        targetID: $sid
+        abilityID: 10060
+        hostilityType: Friendlies
+      ) { data nextPageTimestamp }
+    }
+  }
+}
+"""
+
 # 데미지 합산 테이블 — events 보다 효율적, 스펠별 total/percentage
 Q_DAMAGE_TABLE = """
 query($code: String!, $start: Float!, $end: Float!, $sid: Int!) {
@@ -140,11 +159,13 @@ class V2Data:
         self._cache_events = self.data_dir / "v2_cache_events.json"
         self._cache_damage = self.data_dir / "v2_cache_damage.json"
         self._cache_prepull = self.data_dir / "v2_cache_prepull_buffs.json"
+        self._cache_pi = self.data_dir / "v2_cache_pi_received.json"
         self.meta = _load_json(self._cache_meta)
         self.pfight = _load_json(self._cache_pfight)
         self.events = _load_json(self._cache_events)
         self.damage = _load_json(self._cache_damage)
         self.prepull = _load_json(self._cache_prepull)
+        self.pi_received = _load_json(self._cache_pi)
 
     # ── 보관 ──────────────────────────────────────────────────────────────
     def flush(self) -> None:
@@ -153,6 +174,52 @@ class V2Data:
         _save_json(self._cache_events, self.events)
         _save_json(self._cache_damage, self.damage)
         _save_json(self._cache_prepull, self.prepull)
+        _save_json(self._cache_pi, self.pi_received)
+
+    # ── 외부 PI (사제 → 본인) — 비사제 캐릭만 의미 ────────────────────────
+    def external_pi_buffs(self, rid: str, fid: int, char: str) -> list | None:
+        """본인 (sid) 을 target 으로 받은 마력 주입(10060) buff events.
+
+        Returns: [[ts, 10060, type], ...]  (cast event 와 동일 구조)
+        """
+        pf = self.player_fight(rid, fid, char)
+        if not pf or not isinstance(pf, dict):
+            return None
+        sid = pf.get("sourceID")
+        if not isinstance(sid, int):
+            return None
+        key = f"{rid}:{fid}:{sid}"
+        if key in self.pi_received:
+            return self.pi_received[key]
+        meta = self.report_meta(rid)
+        fights = (meta or {}).get("fights") or []
+        f = next((x for x in fights if x.get("id") == int(fid)), None)
+        if not f:
+            self.pi_received[key] = None
+            return None
+        try:
+            d = self.cli.query(Q_EVENTS_PI_TARGET, {
+                "code": rid, "start": float(f["startTime"]),
+                "end": float(f["endTime"]), "sid": int(sid),
+            })
+        except Exception as e:
+            log.warning("external_pi fetch fail %s: %s", key, e)
+            self.pi_received[key] = None
+            return None
+        evs_obj = (((d or {}).get("reportData") or {}).get("report") or {}).get("events") or {}
+        events = evs_obj.get("data") or []
+        out: list[list] = []
+        for e in events:
+            if not isinstance(e, dict):
+                continue
+            ts = e.get("timestamp")
+            etype = e.get("type") or ""
+            gid = e.get("abilityGameID") or 10060
+            if ts is None or not etype.startswith(("apply", "remove", "refresh")):
+                continue
+            out.append([int(ts), int(gid), etype])
+        self.pi_received[key] = out
+        return out
 
     # ── pre-pull buffs (음식/영약/오일/숫돌) ──────────────────────────────
     def pre_pull_buffs(self, rid: str, fid: int, char: str,

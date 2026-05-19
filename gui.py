@@ -432,6 +432,39 @@ def db_talent_counts_for_ranks(
     return counts, dist, matched
 
 
+def db_node_picks_for_ranks(
+    rid_fid_char: list[tuple[str, int, str]],
+) -> tuple[dict[int, int], dict[int, dict[int, int]], int]:
+    """node_id 기반 픽 카운트 — Blizzard tree 와 매칭되는 유일한 키.
+
+    WCL combatantInfo.talentTree[].nodeID ↔ Blizzard talent-tree node.id.
+    같은 node 가 N 회 등장 = rank N 으로 찍음.
+
+    returns: (picks_by_node, rank_dist_by_node, matched_chars)
+    """
+    v2 = _v2_data()
+    if v2 is None or not rid_fid_char:
+        return {}, {}, 0
+    from collections import Counter
+    counts: dict[int, int] = {}
+    rank_dist: dict[int, dict[int, int]] = {}
+    matched = 0
+    for rid, fid, char in rid_fid_char:
+        pf = v2.pfight.get(f"{rid}:{fid}:{char}")
+        if not isinstance(pf, dict):
+            continue
+        nodes = pf.get("nodes") or []
+        if not nodes:
+            continue
+        matched += 1
+        per_node = Counter(int(n) for n in nodes if isinstance(n, int))
+        for nid, rk in per_node.items():
+            counts[nid] = counts.get(nid, 0) + 1
+            d = rank_dist.setdefault(nid, {})
+            d[rk] = d.get(rk, 0) + 1
+    return counts, rank_dist, matched
+
+
 def hero_tree_picks(tree_data: dict, rid_fid_char: list[tuple[str, int, str]]) -> dict[str, int]:
     """각 영웅 트리별로 몇 명이 골랐는지. 한 캐릭 = 한 영웅 트리 (가장 매칭 많은 거)."""
     v2 = _v2_data()
@@ -785,10 +818,12 @@ class RotationTimeline(QWebEngineView):
             body.style.cursor = 'grabbing';
             e.preventDefault();
           });
+          // 드래그 가속 — 마우스 1px → 화면 2.4px 이동 (느린 체감 보정)
+          const DRAG_SPEED = 2.4;
           document.addEventListener('mousemove', (e) => {
             if (!dragging) return;
-            targetSx = dscX - (e.clientX - dsx);
-            targetSy = dscY - (e.clientY - dsy);
+            targetSx = dscX - (e.clientX - dsx) * DRAG_SPEED;
+            targetSy = dscY - (e.clientY - dsy) * DRAG_SPEED;
             if (!rafPending) {
               rafPending = true;
               requestAnimationFrame(() => {
@@ -1126,7 +1161,7 @@ body {
     background: #15110f;
     transition: transform 100ms ease-out;
 }
-.tnode:hover { transform: scale(1.12); z-index: 50; }
+.tnode:hover { transform: scale(1.12); z-index: 9999; }
 .tnode img { width: 100%; height: 100%; border-radius: 4px; display: block; }
 .tnode.choice { border-radius: 50%; }
 .tnode.choice img { border-radius: 50%; }
@@ -1160,21 +1195,30 @@ body {
     border: 1px solid rgba(217, 119, 87, 0.4);
 }
 
-/* 호버 툴팁 */
+/* 호버 툴팁 — z-index 충분히 높게, 부모 stacking context 위로 */
 .tnode .tip {
     display: none; position: absolute; bottom: 48px; left: -8px;
     background: #15110f; border: 1px solid #3a322c; border-radius: 8px;
     padding: 10px 12px; min-width: 280px; max-width: 400px;
-    z-index: 100; box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+    z-index: 99999; box-shadow: 0 8px 24px rgba(0,0,0,0.7);
     color: #f5f0e8; font-size: 11px; pointer-events: none;
+    /* 화면 끝에서 잘릴 때 자동 반대편으로 — 가능한 한 */
+    max-height: 70vh; overflow-y: auto;
 }
+/* 컨테이너에서도 tooltip 잘림 막기 */
+.tnode .tip table { font-size: 11px; color: #c4bdaf; line-height: 1.4; }
+.tnode .tip a { color: #d97757; text-decoration: none; }
+.tnode .tip .q0 { color: #9d9d9d; }
+.tnode .tip .whtt-name { color: #d97757; font-weight: 600; }
 .tnode:hover .tip { display: block; }
 .tip .tname { color: #d97757; font-weight: 600; font-size: 12px; margin-bottom: 4px; letter-spacing: -0.01em; }
 .tip .tmeta { color: #c8a560; font-size: 10px; margin-bottom: 4px; letter-spacing: 0.01em; }
 .tip .tdist { font-size: 10px; margin-bottom: 6px; line-height: 1.4; padding-left: 6px; border-left: 2px solid #3a322c; }
 .tip .tdesc { color: #c4bdaf; line-height: 1.5; }
 
-/* 위쪽 줄 노드는 툴팁이 위로 못 가니까 아래로 (overflow 회피) */
+/* 모든 stacking context 에 overflow: visible — tooltip 잘림 방지 */
+body { overflow: visible !important; }
+.tree-wrap { overflow: visible; padding-top: 24px; }
 .tree-canvas { position: relative; overflow: visible; }
 .tree-col { overflow: visible; }
 .tree-row { overflow: visible; }
@@ -1192,7 +1236,8 @@ def _tree_empty_html(msg: str = "보스 + 전문화 선택 시 트리 표시") -
 
 
 def _node_html(node: dict, pick_pct: float, pt_breakdown: dict[int, float],
-               denom: int, spell_db: dict) -> str:
+               denom: int, spell_db: dict,
+               scale: float = 0.075, ox: float = 0, oy: float = 0) -> str:
     """단일 노드 HTML — 위치 + 아이콘 + 픽률 + 평균포인트 배지 + 호버 툴팁.
 
     pt_breakdown: {0: pct_0pt, 1: pct_1pt, 2: pct_2pt}
@@ -1231,10 +1276,11 @@ def _node_html(node: dict, pick_pct: float, pt_breakdown: dict[int, float],
     icon_url = (f"https://wow.zamimg.com/images/wow/icons/medium/{icon_file}"
                 if icon_file else "")
 
-    col = node.get("col") or 1
-    row = node.get("row") or 1
-    left = (col - 1) * 56 + 6
-    top = (row - 1) * 56 + 6
+    # raw_position 기반 — display_col 의 sparse gap 회피
+    rx = node.get("x") or 0
+    ry = node.get("y") or 0
+    left = int((rx - ox) * scale) + 24
+    top = int((ry - oy) * scale) + 24
 
     if pick_pct >= 85:
         cls = "t-essential"
@@ -1286,7 +1332,8 @@ def _node_html(node: dict, pick_pct: float, pt_breakdown: dict[int, float],
         f'<div class="tip">'
         f'<div class="tname">{_html_escape(name)}</div>'
         f'{"".join(tip_meta_lines)}'
-        f'<div class="tdesc">{_html_escape(desc)[:280]}</div>'
+        # desc 는 WoWhead HTML (tooltip_ko) 일 수 있어서 raw 로 — 다른 곳도 그렇게 함
+        f'<div class="tdesc">{desc[:1200]}</div>'
         f'</div></div>'
     )
 
@@ -1303,26 +1350,22 @@ def _build_tree_html(tree_data: dict, pick_count: dict, pts_dist: dict,
     if not tree_data:
         return _tree_empty_html("이 스펙은 아직 트리 데이터 없음 — fetch_talent_trees.py 실행 필요")
 
-    def _tid_of(node):
-        if not node.get("options"):
-            return None
-        return node["options"][0].get("talent_id")
-
+    # 매칭 키: node.id (Blizzard) == WCL nodeID. options.talent_id 는 다른 ID 체계라 못 씀.
     def pct_of(node) -> float:
-        tid = _tid_of(node)
-        if tid is None:
+        nid = node.get("id")
+        if nid is None:
             return 0
-        return pick_count.get(int(tid), 0) / max(1, denom) * 100
+        return pick_count.get(int(nid), 0) / max(1, denom) * 100
 
     def breakdown_of(node) -> dict[int, float]:
         """{0: pct_0pt, 1: pct_1pt, 2: pct_2pt}  (in %)."""
-        tid = _tid_of(node)
+        nid = node.get("id")
         max_rank = node.get("max_rank") or 1
         out: dict[int, float] = {k: 0.0 for k in range(0, max_rank + 1)}
-        if tid is None:
+        if nid is None:
             out[0] = 100.0
             return out
-        d = pts_dist.get(int(tid), {})
+        d = pts_dist.get(int(nid), {})
         total_picked = sum(d.values())
         for k, n in d.items():
             if k > max_rank:
@@ -1331,39 +1374,48 @@ def _build_tree_html(tree_data: dict, pick_count: dict, pts_dist: dict,
         out[0] = max(0.0, (denom - total_picked) / denom * 100)
         return out
 
-    def col_size(nodes):
+    # raw_position 기반 컴팩트 레이아웃 — display_col 의 sparse gap 회피
+    TREE_SCALE = 0.075  # raw 9000 → 675px 정도
+    def tree_bounds(nodes):
         if not nodes:
-            return (300, 300)
-        max_col = max((n.get("col") or 1) for n in nodes)
-        max_row = max((n.get("row") or 1) for n in nodes)
-        return (max_col * 56 + 60, max_row * 56 + 60)
+            return (400, 400, 0, 0)
+        xs = [(n.get("x") or 0) for n in nodes]
+        ys = [(n.get("y") or 0) for n in nodes]
+        min_x, max_x = min(xs), max(xs)
+        min_y, max_y = min(ys), max(ys)
+        # padding 40px + 아이콘 폭 36px
+        w = int((max_x - min_x) * TREE_SCALE) + 80
+        h = int((max_y - min_y) * TREE_SCALE) + 80
+        return (w, h, min_x, min_y)
 
     class_nodes = tree_data.get("class") or []
     spec_nodes = tree_data.get("spec") or []
-    cw, ch = col_size(class_nodes)
-    sw, sh = col_size(spec_nodes)
+    cw, ch, cmx, cmy = tree_bounds(class_nodes)
+    sw, sh, smx, smy = tree_bounds(spec_nodes)
 
-    class_html = "".join(_node_html(n, pct_of(n), breakdown_of(n), denom, spell_db)
+    class_html = "".join(_node_html(n, pct_of(n), breakdown_of(n), denom, spell_db,
+                                     scale=TREE_SCALE, ox=cmx, oy=cmy)
                          for n in class_nodes)
-    spec_html = "".join(_node_html(n, pct_of(n), breakdown_of(n), denom, spell_db)
+    spec_html = "".join(_node_html(n, pct_of(n), breakdown_of(n), denom, spell_db,
+                                    scale=TREE_SCALE, ox=smx, oy=smy)
                         for n in spec_nodes)
 
     # 영웅 트리: 가장 많이 뽑힌 거 (hero_picks 기준)
     hero_dict = tree_data.get("hero") or {}
     hero_html = ""
-    hero_w, hero_h = 200, 600
+    hero_w, hero_h = 240, 600
     hero_header_html = "영웅 특성 — (없음)"
     if hero_dict:
-        # hero_picks 가 비어있으면 fallback 으로 노드 평균
         if hero_picks and sum(hero_picks.values()) > 0:
             ranked = sorted(hero_picks.items(), key=lambda x: -x[1])
         else:
             ranked = [(hn, 0) for hn in hero_dict]
         chosen_name = hero_filter if (hero_filter and hero_filter in hero_dict) else ranked[0][0]
         hero_nodes = hero_dict[chosen_name].get("nodes") or []
-        hw, hh = col_size(hero_nodes)
+        hw, hh, hmx, hmy = tree_bounds(hero_nodes)
         hero_w, hero_h = hw, hh
-        hero_html = "".join(_node_html(n, pct_of(n), breakdown_of(n), denom, spell_db)
+        hero_html = "".join(_node_html(n, pct_of(n), breakdown_of(n), denom, spell_db,
+                                        scale=TREE_SCALE, ox=hmx, oy=hmy)
                             for n in hero_nodes)
         # 헤더에 모든 영웅트리 선택률 표시
         pick_total = max(1, sum(hero_picks.values()) if hero_picks else 1)
@@ -2163,22 +2215,23 @@ class RankingPanel(QWidget):
                 continue
             char = str(row["character"])
             triples.append((rid, fid, char))
-        counts, pts_dist, matched = db_talent_counts_for_ranks(triples)
+        # node_id 기반 (Blizzard tree 매칭) — talent_id 는 ID 체계 달라 매칭 안 됨
+        node_counts, node_rank_dist, matched = db_node_picks_for_ranks(triples)
         denom = max(matched, 1)
 
         all_trees = _load_json("talent_trees.json")
         key = f"{self.class_en}/{self.spec_en}"
         tree_data = all_trees.get(key)
-        if tree_data and counts:
+        if tree_data and node_counts:
             hero_picks = hero_tree_picks(tree_data, triples)
-            tree_html = _build_tree_html(tree_data, counts, pts_dist, hero_picks,
-                                          denom, spell_db)
+            tree_html = _build_tree_html(tree_data, node_counts, node_rank_dist,
+                                          hero_picks, denom, spell_db)
         else:
             tree_html = _tree_empty_html(
                 f"{key} 트리 데이터 없음 — fetch_talent_trees.py 의 SPECS 에 추가 필요"
             )
         self.tree_view.setHtml(tree_html)
-        log.info("talents tree: chars=%d unique_talents=%d", matched, len(counts))
+        log.info("talents tree: chars=%d unique_nodes=%d", matched, len(node_counts))
 
     # ── 선택 캐릭터 빌드 (장비 + 전투시작 버프 + 스탯) ────────────────────
     def _populate_character_build(self, rid: str, fid: int, char: str) -> None:
@@ -2367,11 +2420,41 @@ class RankingPanel(QWidget):
                 self.rotation_timeline.set_empty("이 캐릭의 source ID 매핑 없음")
                 return
             cast_events = db_casts(rid, fid, sid)
-            buff_events = db_buffs(rid, fid, sid)
+            buff_events_raw = db_buffs(rid, fid, sid)
             fight_window = db_fight_window(rid, fid)
             if not fight_window:
                 self.rotation_timeline.set_empty("fight 윈도우 데이터 없음")
                 return
+
+            # WCL V2 의 sourceID 가 Buffs 에서 "버프 받는 자" 의미 — 본인이 받은
+            # 모든 버프 (외부 포함). 본인이 시전한 적 있는 spell 만 통과시켜
+            # self-cast 만 필터링. 비사제는 PI (10060) 만 예외로 keep.
+            own_cast_spells = {int(e[1]) for e in cast_events if len(e) >= 2}
+            PI_SPELL = 10060
+            allow_pi = (self.class_en or "") != "Priest"
+            buff_events = [
+                e for e in buff_events_raw
+                if (len(e) >= 2 and (
+                    int(e[1]) in own_cast_spells
+                    or (allow_pi and int(e[1]) == PI_SPELL)
+                ))
+            ]
+            filtered_out = len(buff_events_raw) - len(buff_events)
+            log.info("buffs filter: %d/%d kept (filtered %d external)",
+                     len(buff_events), len(buff_events_raw), filtered_out)
+
+            # 비사제 — 사제로부터 받은 PI 보강 fetch (cast events 에 없는 경우)
+            if allow_pi and PI_SPELL not in own_cast_spells:
+                v2 = _v2_data()
+                if v2 is not None:
+                    try:
+                        pi_evs = v2.external_pi_buffs(rid, fid, char)
+                        if pi_evs:
+                            buff_events = list(buff_events) + list(pi_evs)
+                            v2.flush()
+                            log.info("PI fetched for %s: +%d events", char, len(pi_evs))
+                    except Exception as e:
+                        log.warning("PI fetch fail: %s", e)
 
             self._last_rotation_args = dict(
                 char=char,
