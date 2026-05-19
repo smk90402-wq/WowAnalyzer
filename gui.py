@@ -1538,6 +1538,21 @@ def _pre_fight_buffs(rid: str, fid: int, sid: int | None, spell_db: dict) -> lis
     return out
 
 
+def _enrich_buff_list(spell_ids: list[int], spell_db: dict) -> list[dict]:
+    """[spell_id, ...] (또는 [{spell_id: ...}]) → [{spell_id, name, icon, description}]."""
+    buff_db = _load_json("buff_db_en.json")
+    out: list[dict] = []
+    seen: set[int] = set()
+    for entry in spell_ids:
+        sp = entry["spell_id"] if isinstance(entry, dict) else entry
+        if not isinstance(sp, int) or sp in seen:
+            continue
+        seen.add(sp)
+        name, icon, desc = _resolve_buff(sp, spell_db, buff_db)
+        out.append({"spell_id": sp, "name": name, "icon": icon, "description": desc})
+    return out
+
+
 def _build_info_empty_html(msg: str = "랭킹 행 클릭 시 빌드 표시") -> str:
     return (
         f"<html><body style='background:#1a1614;color:#a39c8e;"
@@ -1547,9 +1562,10 @@ def _build_info_empty_html(msg: str = "랭킹 행 클릭 시 빌드 표시") -> 
     )
 
 
-def _build_info_html(char: str, pre_buffs: list[dict], stats: dict | None,
-                     gear: list[dict]) -> str:
-    """오른쪽 패널 HTML — 캐릭터명 + 전투 시작 버프 + 총 스탯."""
+def _build_info_html(char: str, pre_pull_buffs: list[dict], in_combat_buffs: list[dict],
+                     stats: dict | None, gear: list[dict],
+                     prepull_loading: bool = False) -> str:
+    """오른쪽 패널 HTML — 캐릭터명 + 사전 버프 + 전투 시작 버프 + 총 스탯."""
     style = (
         "background:#1a1614;color:#f5f0e8;font-family:'Pretendard Variable',"
         "'Segoe UI',sans-serif;font-size:9.5pt;padding:12px 16px;line-height:1.55"
@@ -1570,44 +1586,59 @@ def _build_info_html(char: str, pre_buffs: list[dict], stats: dict | None,
         f"margin-bottom:8px'>{_html_escape(char)} {avg_ilvl}</div>"
     ]
 
-    # 2. 전투 시작 시 활성 버프 (in-combat 첫 5초 — 소비템 X, 자기스킬/힐러버프 위주)
+    def _buff_block(b: dict) -> str:
+        icon_html = ""
+        if b.get("icon"):
+            icon_html = (
+                f"<img src='https://wow.zamimg.com/images/wow/icons/medium/{b['icon']}' "
+                f"style='width:24px;height:24px;border-radius:4px;vertical-align:middle;margin-right:6px'>"
+            )
+        desc = (b.get("description") or "").strip()
+        desc_short = desc[:120] + "…" if len(desc) > 120 else desc
+        html = (
+            f"<div style='margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #2c2521'>"
+            f"<div>{icon_html}"
+            f"<span style='color:#f5f0e8;font-weight:600'>{_html_escape(b['name'])}</span>"
+            f" <span style='color:#6b6359;font-size:8.5pt'>#{b['spell_id']}</span></div>"
+        )
+        if desc_short:
+            html += (
+                f"<div style='color:#a39c8e;font-size:9pt;margin-top:2px;padding-left:30px'>"
+                f"{_html_escape(desc_short)}</div>"
+            )
+        html += "</div>"
+        return html
+
+    # 2. 사전 버프 (음식/영약/오일/숫돌) — pre-pull window 600초
     parts.append(
         "<div style='color:#c8a560;font-size:9pt;font-weight:600;"
         "letter-spacing:0.04em;text-transform:uppercase;"
-        "margin-top:10px;margin-bottom:6px'>전투 시작 시 활성 buff (V2 첫 5초)</div>"
+        "margin-top:10px;margin-bottom:6px'>사전 버프 (음식·영약·오일·숫돌 등)</div>"
     )
-    if pre_buffs:
-        for b in pre_buffs:
-            icon_html = ""
-            if b.get("icon"):
-                icon_html = (
-                    f"<img src='https://wow.zamimg.com/images/wow/icons/medium/{b['icon']}' "
-                    f"style='width:24px;height:24px;border-radius:4px;vertical-align:middle;margin-right:6px'>"
-                )
-            desc = (b.get("description") or "").strip()
-            # 한글 description 한 줄로 요약 (너무 길면 잘라냄)
-            desc_short = desc[:120] + "…" if len(desc) > 120 else desc
-            parts.append(
-                f"<div style='margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #2c2521'>"
-                f"<div>{icon_html}"
-                f"<span style='color:#f5f0e8;font-weight:600'>{_html_escape(b['name'])}</span>"
-                f" <span style='color:#6b6359;font-size:8.5pt'>#{b['spell_id']}</span></div>"
-            )
-            if desc_short:
-                parts.append(
-                    f"<div style='color:#a39c8e;font-size:9pt;margin-top:2px;padding-left:30px'>"
-                    f"{_html_escape(desc_short)}</div>"
-                )
-            parts.append("</div>")
+    if prepull_loading:
         parts.append(
-            "<div style='color:#6b6359;font-size:8.5pt;margin-top:6px'>"
-            "※ 진짜 음식/영약/오일/숫돌은 pre-pull 이라 별도 쿼리 필요 (다음 작업)"
-            "</div>"
+            "<div style='color:#a39c8e;font-style:italic'>pre-pull 버프 가져오는 중… (수초)</div>"
         )
+    elif pre_pull_buffs:
+        for b in pre_pull_buffs:
+            parts.append(_buff_block(b))
     else:
         parts.append(
-            "<div style='color:#6b6359'>(events 캐시 없음 — primary 5스펙만 backfill, "
-            "tree-comp/non-target 스펙은 cast/buff 데이터 없음)</div>"
+            "<div style='color:#6b6359'>(pre-pull 캐시 없음 또는 데이터 미수신)</div>"
+        )
+
+    # 3. 전투 시작 시 활성 (in-combat)
+    parts.append(
+        "<div style='color:#c8a560;font-size:9pt;font-weight:600;"
+        "letter-spacing:0.04em;text-transform:uppercase;"
+        "margin-top:14px;margin-bottom:6px'>전투 시작 시 활성 (in-combat, 첫 5초)</div>"
+    )
+    if in_combat_buffs:
+        for b in in_combat_buffs:
+            parts.append(_buff_block(b))
+    else:
+        parts.append(
+            "<div style='color:#6b6359'>(events 캐시 없음 — primary 5스펙만 backfill)</div>"
         )
 
     # 3. 총 스탯
@@ -1631,7 +1662,12 @@ def _build_info_html(char: str, pre_buffs: list[dict], stats: dict | None,
             extra = ""
             if k in RATING_PER_PCT and v > 0:
                 pct = v / RATING_PER_PCT[k]
-                extra = f" <span style='color:#a39c8e'>~ {pct:.1f}%</span>"
+                note = ""
+                if k == "Mastery":
+                    note = " <span style='color:#6b6359;font-size:8.5pt'>×spec배율</span>"
+                extra = (
+                    f" <span style='color:#a39c8e'>→ +{pct:.1f}%</span>{note}"
+                )
             parts.append(
                 f"<tr><td style='color:#a39c8e;padding:2px 12px 2px 0'>{kr}</td>"
                 f"<td style='text-align:right;padding:2px 0;color:#f5f0e8'>{v:,}</td>"
@@ -1639,8 +1675,10 @@ def _build_info_html(char: str, pre_buffs: list[dict], stats: dict | None,
             )
         parts.append("</table>")
         parts.append(
-            "<div style='color:#6b6359;font-size:8.5pt;margin-top:6px'>"
-            "※ %는 pre-DR 추정치 (Midnight 11.x ~35/1%). 실제 게임 % 는 DR 적용으로 낮음."
+            "<div style='color:#6b6359;font-size:8.5pt;margin-top:6px;line-height:1.4'>"
+            "※ % 는 rating 기여 추정치 (Midnight 11.x 기준 1%=35-40 rating, pre-DR).<br>"
+            "실제 게임 표시값은 ① 기본 스탯 (1차 → 2차 자동 변환) ② DR 적용으로 차이 있음.<br>"
+            "Mastery 는 spec 마다 effect 배율 다름 (예: 악마 ×1.8, 야수 ×1.4)."
             "</div>"
         )
     else:
@@ -1655,6 +1693,41 @@ def _build_info_html(char: str, pre_buffs: list[dict], stats: dict | None,
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 로딩 오버레이 — 무거운 click 작업 동안 위에 띄움
+
+class PrepullFetchThread(QThread):
+    """단일 캐릭터의 pre-pull buff (음식/영약/오일/숫돌 등) on-demand 페치.
+
+    V2 events 쿼리에 startTime = fight.start - 600s 줘서 사전 발동된 buff 들도 잡음.
+    main thread V2Data 싱글톤 공유 — prepull dict in-place 업데이트.
+    """
+
+    finished_ok = Signal(dict)  # {"rid": ..., "fid": ..., "char": ..., "buffs": [...]}
+
+    def __init__(self, rid: str, fid: int, char: str, v2, parent=None) -> None:
+        super().__init__(parent)
+        self.rid = rid
+        self.fid = fid
+        self.char = char
+        self.v2 = v2
+
+    def run(self) -> None:
+        if self.v2 is None:
+            self.finished_ok.emit({"rid": self.rid, "fid": self.fid, "char": self.char,
+                                    "buffs": None})
+            return
+        try:
+            buffs = self.v2.pre_pull_buffs(self.rid, self.fid, self.char)
+        except Exception:
+            log.exception("PrepullFetchThread fetch fail")
+            buffs = None
+        try:
+            self.v2.flush()
+        except Exception:
+            log.exception("V2Data flush after prepull fetch fail")
+        self.finished_ok.emit({
+            "rid": self.rid, "fid": self.fid, "char": self.char, "buffs": buffs,
+        })
+
 
 class DamageFetchThread(QThread):
     """백그라운드에서 V2 damage_table 을 ThreadPoolExecutor(4) 로 병렬 페치.
@@ -1756,6 +1829,9 @@ class RankingPanel(QWidget):
         self._current_df = None
         self._damage_thread: DamageFetchThread | None = None
         self._damage_request_token: int = 0
+        self._prepull_thread: PrepullFetchThread | None = None
+        self._prepull_request_token: int = 0
+        self._last_build_render: dict | None = None  # {rid, fid, char, gear, in_combat, stats}
         self._build()
 
     # ── UI 빌드 ──────────────────────────────────────────────────────────
@@ -2197,15 +2273,69 @@ class RankingPanel(QWidget):
                 gem_cell.setForeground(QColor("#6b6359"))
             self.gear_table.setItem(i, 4, gem_cell)
 
-        # 2) buffs at fight start + stats
+        # 2) buffs + stats
         sid = pf.get("sourceID") if isinstance(pf.get("sourceID"), int) else None
-        pre_buffs = _pre_fight_buffs(rid, fid, sid, spell_db) if sid else []
+        in_combat_buffs = _pre_fight_buffs(rid, fid, sid, spell_db) if sid else []
         stats = pf.get("stats") if isinstance(pf.get("stats"), dict) else None
 
-        html = _build_info_html(char, pre_buffs, stats, gear_sorted)
+        # Pre-pull buffs: cache 있으면 사용, 없으면 async fetch
+        pre_pull = []
+        prepull_loading = False
+        v2 = _v2_data()
+        if v2 is not None and sid is not None:
+            prepull_key = f"{rid}:{fid}:{sid}"
+            cached = v2.prepull.get(prepull_key)
+            if cached is not None:
+                pre_pull = _enrich_buff_list(cached, spell_db)
+            else:
+                # 백그라운드 페치 시작
+                prepull_loading = True
+                self._spawn_prepull_fetch(rid, fid, char)
+
+        # 상태 저장 — pre-pull 페치 완료 시 재렌더에 사용
+        self._last_build_render = {
+            "rid": rid, "fid": fid, "char": char, "sid": sid,
+            "gear": gear_sorted, "in_combat": in_combat_buffs,
+            "stats": stats,
+        }
+
+        html = _build_info_html(char, pre_pull, in_combat_buffs, stats, gear_sorted,
+                                prepull_loading=prepull_loading)
         self.build_info.setHtml(html)
-        log.info("character build: %s gear=%d pre_buffs=%d has_stats=%s",
-                 char, len(gear_sorted), len(pre_buffs), bool(stats))
+        log.info("character build: %s gear=%d in_combat=%d pre_pull=%d loading=%s has_stats=%s",
+                 char, len(gear_sorted), len(in_combat_buffs), len(pre_pull),
+                 prepull_loading, bool(stats))
+
+    def _spawn_prepull_fetch(self, rid: str, fid: int, char: str) -> None:
+        """Pre-pull buff 가 캐시에 없을 때 백그라운드 페치."""
+        self._prepull_request_token += 1
+        token = self._prepull_request_token
+
+        def _on_done(result):
+            if token != self._prepull_request_token:
+                return  # 다른 행 클릭함
+            last = self._last_build_render
+            if not last:
+                return
+            if (result.get("rid") != last["rid"] or
+                    result.get("fid") != last["fid"] or
+                    result.get("char") != last["char"]):
+                return
+            buffs_raw = result.get("buffs") or []
+            spell_db = _load_json("spell_db.json")
+            pre_pull = _enrich_buff_list(buffs_raw, spell_db)
+            html = _build_info_html(
+                last["char"], pre_pull, last["in_combat"], last["stats"], last["gear"],
+                prepull_loading=False,
+            )
+            self.build_info.setHtml(html)
+            log.info("prepull rendered: %s pre_pull=%d", last["char"], len(pre_pull))
+
+        thread = PrepullFetchThread(rid, fid, char, _v2_data(), self)
+        thread.finished_ok.connect(_on_done)
+        thread.finished.connect(thread.deleteLater)
+        self._prepull_thread = thread  # GC 방지
+        thread.start()
 
     # ── 딜사이클 (랭킹 행 선택 시) ────────────────────────────────────────
     def _on_ranking_row_changed(self) -> None:

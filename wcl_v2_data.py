@@ -139,10 +139,12 @@ class V2Data:
         self._cache_pfight = self.data_dir / "v2_cache_player_fight.json"
         self._cache_events = self.data_dir / "v2_cache_events.json"
         self._cache_damage = self.data_dir / "v2_cache_damage.json"
+        self._cache_prepull = self.data_dir / "v2_cache_prepull_buffs.json"
         self.meta = _load_json(self._cache_meta)
         self.pfight = _load_json(self._cache_pfight)
         self.events = _load_json(self._cache_events)
         self.damage = _load_json(self._cache_damage)
+        self.prepull = _load_json(self._cache_prepull)
 
     # ── 보관 ──────────────────────────────────────────────────────────────
     def flush(self) -> None:
@@ -150,6 +152,58 @@ class V2Data:
         _save_json(self._cache_pfight, self.pfight)
         _save_json(self._cache_events, self.events)
         _save_json(self._cache_damage, self.damage)
+        _save_json(self._cache_prepull, self.prepull)
+
+    # ── pre-pull buffs (음식/영약/오일/숫돌) ──────────────────────────────
+    def pre_pull_buffs(self, rid: str, fid: int, char: str,
+                       window_sec: int = 600) -> list[dict] | None:
+        """전투 시작 N초 전 ~ 전투 시작 5초 후 사이의 unique applybuff events.
+
+        Returns: [{spell_id, ts}] (ts 가 fight.startTime 이전이면 pre-pull).
+        결과는 v2_cache_prepull_buffs.json 에 캐시 (key = rid:fid:sid).
+        """
+        pf = self.player_fight(rid, fid, char)
+        if not pf or not isinstance(pf, dict):
+            return None
+        sid = pf.get("sourceID")
+        if not isinstance(sid, int):
+            return None
+        key = f"{rid}:{fid}:{sid}"
+        if key in self.prepull:
+            return self.prepull[key]
+        meta = self.report_meta(rid)
+        fights = (meta or {}).get("fights") or []
+        f = next((x for x in fights if x.get("id") == int(fid)), None)
+        if not f:
+            self.prepull[key] = None
+            return None
+        start = float(f["startTime"])
+        try:
+            d = self.cli.query(Q_EVENTS_BUFFS, {
+                "code": rid, "start": start - window_sec * 1000,
+                "end": start + 5000, "sid": int(sid),
+            })
+        except Exception as e:
+            log.warning("pre_pull_buffs fetch fail %s: %s", key, e)
+            self.prepull[key] = None
+            return None
+        evs_obj = (((d or {}).get("reportData") or {}).get("report") or {}).get("events") or {}
+        events = evs_obj.get("data") or []
+        seen: set[int] = set()
+        out: list[dict] = []
+        for e in events:
+            if not isinstance(e, dict):
+                continue
+            if not (e.get("type") or "").startswith("apply"):
+                continue
+            sp = e.get("abilityGameID")
+            if not isinstance(sp, int) or sp in seen:
+                continue
+            seen.add(sp)
+            ts = e.get("timestamp")
+            out.append({"spell_id": sp, "ts": int(ts) if isinstance(ts, (int, float)) else None})
+        self.prepull[key] = out
+        return out
 
     # ── 데미지 테이블 (스펠별 합산) ────────────────────────────────────────
     def damage_table(self, rid: str, fid: int, char: str) -> list | None:

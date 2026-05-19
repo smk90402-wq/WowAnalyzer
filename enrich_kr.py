@@ -193,6 +193,21 @@ def main() -> None:
     except Exception as ex:
         print(f"  events scan err: {ex}")
 
+    # pre-pull buffs (음식/영약/오일 등) 추가 수집
+    try:
+        prepull_path = DATA / "v2_cache_prepull_buffs.json"
+        if prepull_path.exists():
+            prepull = json.loads(prepull_path.read_text(encoding="utf-8"))
+            for entries in prepull.values():
+                if not isinstance(entries, list):
+                    continue
+                for e in entries:
+                    if isinstance(e, dict) and isinstance(e.get("spell_id"), int):
+                        buff_ids.add(e["spell_id"])
+            print(f"  v2_cache_prepull_buffs.json scanned ({len(prepull)} entries)")
+    except Exception as ex:
+        print(f"  prepull scan err: {ex}")
+
     # talent_trees.json 노드들의 spell_id (트리 아이콘용)
     talent_spell_ids: set[int] = set()
     try:
