@@ -11,8 +11,12 @@ type: feedback
 
 **How to apply:**
 - 매 응답에서 코드/메모리/스크립트 변경이 있으면 응답 끝에 자동 커밋 + push
-- 빌드 산출물 (`dist/`, `build/`, `*.spec`), 대용량 캐시 (`data/v2_cache_*.json`,
-  `data/cache.db`), 사용자 설정 (`data/user_settings.json`) 은 .gitignore 에서 제외
+- **스테이징은 명시적으로 `git add <파일> <파일>` 형태로** — `git add -A` 또는 `git add .` 절대 금지
+  (이유: LFS-tracked `data/v2_cache_*.json` 는 backfill 진행되면 갱신되고, `-A` 쓰면 자동으로
+   스테이징되어 의도치 않은 LFS push 발생 → bandwidth 낭비. 2026-05-19 실제로 발생함)
+- `git update-index --assume-unchanged data/v2_cache_*.json` 으로 freeze 해두면 더 안전
+- 빌드 산출물 (`dist/`, `build/`, `*.spec`), 사용자 설정 (`data/user_settings.json`),
+  `data/backfill.log` 은 .gitignore 에서 제외
 - commit 메시지: 한국어 OK, "이번 응답에서 한 일" 요약 (제목 1줄 + 본문 2-3줄)
 - 메시지 끝에 항상 `Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>` 포함
 - push 는 `git push` (현재 브랜치 origin 으로) — 실패 시 사용자에게 알리고 멈춤
