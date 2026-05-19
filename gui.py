@@ -973,18 +973,88 @@ class RotationTimeline(QWebEngineView):
         )
 
 
-def _make_spell_item(spell_id: int, label_text: str, spell_db: dict) -> QTableWidgetItem:
-    """스펠 셀: 아이콘 + 한글/영문 + WoWhead 툴팁."""
+def _make_spell_item(spell_id: int, label_text: str, spell_db: dict,
+                     icon_fallback: str = "") -> QTableWidgetItem:
+    """스펠 셀: 아이콘 + 한글/영문 + 툴팁. spell_db 없으면 icon_fallback 사용."""
     meta = spell_db.get(str(spell_id), {})
     item = QTableWidgetItem(label_text)
     item.setData(Qt.ItemDataRole.UserRole, spell_id)
-    icon_file = meta.get("icon") or ""
+    icon_file = meta.get("icon") or icon_fallback
     icon = _icon_for(icon_file) if icon_file else None
     if icon:
         item.setIcon(icon)
     if meta:
         item.setToolTip(_build_tooltip(meta))
+    elif icon_fallback or label_text:
+        # spell_db 미스 — 최소한의 툴팁 (이름 + ID)
+        item.setToolTip(
+            f"<div style='max-width:320px'>"
+            f"<div style='color:#d97757;font-weight:600;font-size:11pt'>{_html_escape(label_text)}</div>"
+            f"<div style='color:#6b6359;font-size:9pt;margin-top:4px'>#{spell_id} · spell_db 캐시 없음</div>"
+            f"</div>"
+        )
     return item
+
+
+# ── 아이템 한글 lookup + 툴팁 ──────────────────────────────────────────────
+
+_ITEM_QUALITY_COLOR: dict[str, str] = {
+    "POOR":      "#9d9d9d",
+    "COMMON":    "#ffffff",
+    "UNCOMMON":  "#1eff00",
+    "RARE":      "#0070dd",
+    "EPIC":      "#a335ee",
+    "LEGENDARY": "#ff8000",
+    "ARTIFACT":  "#e6cc80",
+    "HEIRLOOM":  "#00ccff",
+}
+
+
+def _build_item_tooltip(item_id: int, meta: dict, gear_entry: dict | None = None) -> str:
+    """아이템 호버 툴팁 HTML — 한글명 + ilvl + 등급 + (선택) 보너스/장식."""
+    name = meta.get("name_ko") or f"#{item_id}"
+    ilvl = meta.get("ilvl")
+    if gear_entry and isinstance(gear_entry.get("ilvl"), int):
+        ilvl = gear_entry["ilvl"]  # 실제 착용 ilvl (업그레이드 반영) 우선
+    quality = (meta.get("quality") or "").upper()
+    color = _ITEM_QUALITY_COLOR.get(quality, "#f5f0e8")
+    bonus_html = ""
+    if gear_entry and gear_entry.get("bonus"):
+        bonus_ids = gear_entry["bonus"][:6]
+        more = "" if len(gear_entry["bonus"]) <= 6 else f" +{len(gear_entry['bonus'])-6}"
+        bonus_html = (
+            f"<div style='color:#6b6359;font-size:8.5pt;margin-top:4px'>"
+            f"bonus: {', '.join(str(b) for b in bonus_ids)}{more}</div>"
+        )
+    return (
+        f"<div style='max-width:340px'>"
+        f"<div style='color:{color};font-size:11pt;font-weight:600'>{_html_escape(name)}</div>"
+        f"<div style='color:#a39c8e;font-size:9pt;margin-top:4px'>"
+        f"아이템 레벨 {ilvl if ilvl is not None else '?'} · {quality or '일반'}</div>"
+        f"<div style='color:#6b6359;font-size:8.5pt'>#{item_id}</div>"
+        f"{bonus_html}"
+        f"</div>"
+    )
+
+
+def _make_item_item(item_id: int, item_db: dict,
+                    gear_entry: dict | None = None) -> QTableWidgetItem:
+    """아이템 셀: 아이콘 + 한글명 + 등급 컬러 + 툴팁."""
+    meta = item_db.get(str(item_id), {})
+    name = meta.get("name_ko") or f"item #{item_id}"
+    cell = QTableWidgetItem(name)
+    cell.setData(Qt.ItemDataRole.UserRole, item_id)
+    quality = (meta.get("quality") or "").upper()
+    color = _ITEM_QUALITY_COLOR.get(quality)
+    if color:
+        cell.setForeground(QColor(color))
+    icon_file = meta.get("icon") or ""
+    if icon_file:
+        ic = _icon_for(icon_file)
+        if ic:
+            cell.setIcon(ic)
+    cell.setToolTip(_build_item_tooltip(item_id, meta, gear_entry))
+    return cell
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1296,15 +1366,16 @@ STAT_KR: dict[str, str] = {
     "Speed":      "이동속도",
 }
 
-# 대략적 rating → % 변환 (Midnight 11.x 기준 추정 — 패치별 다름)
+# Midnight 11.x 레벨 80 기준 rating → % 변환 (pre-DR, 추정치)
+# 출처: WoW 커뮤니티 데이터마이닝 — 정확한 값은 패치별로 변하고 DR 적용 시 더 줄어듦
 RATING_PER_PCT: dict[str, float] = {
-    "Crit":        180.0,
-    "Haste":       170.0,
-    "Mastery":     180.0,
-    "Versatility": 205.0,
-    "Leech":       110.0,
-    "Avoidance":   110.0,
-    "Speed":       100.0,
+    "Crit":        35.0,
+    "Haste":       33.0,
+    "Mastery":     35.0,    # 실제는 spec multiplier 적용 (예: BM Hunter ×1.4)
+    "Versatility": 40.0,
+    "Leech":       25.0,
+    "Avoidance":   20.0,
+    "Speed":       30.0,
 }
 
 
@@ -1431,7 +1502,7 @@ def _build_info_html(char: str, pre_buffs: list[dict], stats: dict | None,
     parts.append(
         "<div style='color:#c8a560;font-size:9pt;font-weight:600;"
         "letter-spacing:0.04em;text-transform:uppercase;"
-        "margin-top:14px;margin-bottom:6px'>총 스탯 (rating)</div>"
+        "margin-top:14px;margin-bottom:6px'>총 스탯 (rating · %추정)</div>"
     )
     if stats:
         parts.append("<table style='border-collapse:collapse'>")
@@ -1455,6 +1526,11 @@ def _build_info_html(char: str, pre_buffs: list[dict], stats: dict | None,
                 f"<td style='padding:2px 0 2px 4px'>{extra}</td></tr>"
             )
         parts.append("</table>")
+        parts.append(
+            "<div style='color:#6b6359;font-size:8.5pt;margin-top:6px'>"
+            "※ %는 pre-DR 추정치 (Midnight 11.x ~35/1%). 실제 게임 % 는 DR 적용으로 낮음."
+            "</div>"
+        )
     else:
         parts.append(
             "<div style='color:#6b6359'>(stats 없음 — wcl_v2_data 업데이트 후 "
@@ -1873,7 +1949,10 @@ class RankingPanel(QWidget):
             if primary == f"미상 #{gid}" and info.get("name_en"):
                 primary = info["name_en"]
             label = f"{primary}    ({sub})" if sub else primary
-            self.spell_table.setItem(i, 0, _make_spell_item(gid, label, spell_db))
+            # V2 damage 가 icon filename 도 주니까 spell_db 미스 시 fallback
+            self.spell_table.setItem(
+                i, 0, _make_spell_item(gid, label, spell_db, icon_fallback=info.get("icon") or "")
+            )
             pct = info["total"] / total_all * 100
             pct_item = _center_cell(f"{pct:5.1f}%")
             if pct >= 15:
@@ -1927,9 +2006,9 @@ class RankingPanel(QWidget):
             return
 
         spell_db = _load_json("spell_db.json")
+        item_db = _load_json("item_db.json")
         # 1) gear table
         gear = pf.get("gear") or []
-        # slot 키로 정렬, 0~17 순서 표시
         gear_sorted = sorted(
             (g for g in gear if isinstance(g, dict)),
             key=lambda g: (g.get("slot") if isinstance(g.get("slot"), int) else 99),
@@ -1939,34 +2018,69 @@ class RankingPanel(QWidget):
             slot = g.get("slot") if isinstance(g.get("slot"), int) else -1
             slot_kr = SLOT_KR.get(slot, f"슬롯 #{slot}")
             self.gear_table.setItem(i, 0, _center_cell(slot_kr))
-            item_name = g.get("name") or f"item #{g.get('id')}"
-            self.gear_table.setItem(i, 1, QTableWidgetItem(item_name))
+            # 아이템 — 한글명 + 아이콘 + 등급 컬러 + 툴팁
+            iid = g.get("id")
+            if isinstance(iid, int):
+                self.gear_table.setItem(i, 1, _make_item_item(iid, item_db, gear_entry=g))
+            else:
+                self.gear_table.setItem(i, 1, QTableWidgetItem("?"))
             ilvl = g.get("ilvl") or "-"
             self.gear_table.setItem(i, 2, _center_cell(str(ilvl)))
-            # 마부 — spell_db 에서 이름 lookup
+            # 마부 — spell_db 에서 한글 이름 lookup (대부분 enchant ID 가 미해결 — fallback 으로 ID 만 표시)
             ench_id = g.get("ench")
             if ench_id:
-                primary, _sub = _resolve_name(int(ench_id), spell_db)
-                ench_text = primary if not primary.startswith("미상 #") else f"#{ench_id}"
+                emeta = spell_db.get(str(ench_id), {})
+                ename_ko = (emeta.get("name_ko") or "").strip()
+                if ename_ko:
+                    ench_cell = _make_spell_item(int(ench_id), ename_ko, spell_db)
+                else:
+                    # spell_db 미해결 — ID 표시 + 정보 미상 툴팁
+                    ench_cell = QTableWidgetItem(f"#{ench_id}")
+                    ench_cell.setForeground(QColor("#a39c8e"))
+                    ench_cell.setToolTip(
+                        f"<div style='max-width:280px'>"
+                        f"<div style='color:#a39c8e'>마부 #{ench_id}</div>"
+                        f"<div style='color:#6b6359;font-size:8.5pt;margin-top:4px'>"
+                        f"한글 DB 미해결 — 대부분 enchant ID 가 spell ID 와 별도 체계"
+                        f"</div></div>"
+                    )
             else:
-                ench_text = "—"
-            ench_item = QTableWidgetItem(ench_text)
-            if ench_text == "—":
-                ench_item.setForeground(QColor("#6b6359"))
-            self.gear_table.setItem(i, 3, ench_item)
-            # 보석 — count + name list
+                ench_cell = QTableWidgetItem("—")
+                ench_cell.setForeground(QColor("#6b6359"))
+            self.gear_table.setItem(i, 3, ench_cell)
+            # 보석 — item_db 에서 한글명 + 첫 보석 아이콘
             gems = [x for x in (g.get("gems") or []) if isinstance(x, int)]
             if gems:
-                # gems 는 item ID — spell_db 에 없을 수 있음. 일단 ID 만 표시
-                gem_text = f"{len(gems)}개: " + ", ".join(f"#{x}" for x in gems[:3])
-                if len(gems) > 3:
-                    gem_text += f" +{len(gems)-3}"
+                gem_names = []
+                for gid in gems:
+                    gmeta = item_db.get(str(gid), {})
+                    nm = gmeta.get("name_ko") or f"#{gid}"
+                    gem_names.append(nm)
+                gem_text = ", ".join(gem_names[:2])
+                if len(gem_names) > 2:
+                    gem_text += f" +{len(gem_names)-2}"
+                gem_cell = QTableWidgetItem(gem_text)
+                # 첫 보석 아이콘
+                first_meta = item_db.get(str(gems[0]), {})
+                if first_meta.get("icon"):
+                    ic = _icon_for(first_meta["icon"])
+                    if ic:
+                        gem_cell.setIcon(ic)
+                # 툴팁: 모든 보석 상세
+                tip_parts = ["<div style='max-width:320px'>"]
+                for gid in gems:
+                    gm = item_db.get(str(gid), {})
+                    tip_parts.append(
+                        f"<div style='margin-bottom:4px'>"
+                        f"<span style='color:#f5f0e8'>{_html_escape(gm.get('name_ko') or '#'+str(gid))}</span>"
+                        f" <span style='color:#6b6359;font-size:8.5pt'>#{gid}</span></div>"
+                    )
+                tip_parts.append("</div>")
+                gem_cell.setToolTip("".join(tip_parts))
             else:
-                gem_text = "—"
-            gem_item = QTableWidgetItem(gem_text)
-            if gem_text == "—":
-                gem_item.setForeground(QColor("#6b6359"))
-            self.gear_table.setItem(i, 4, gem_item)
+                gem_cell = QTableWidgetItem("—")
+                gem_cell.setForeground(QColor("#6b6359"))
+            self.gear_table.setItem(i, 4, gem_cell)
 
         # 2) buffs at fight start + stats
         sid = pf.get("sourceID") if isinstance(pf.get("sourceID"), int) else None
