@@ -242,17 +242,19 @@ def _icon_for(icon_filename: str) -> QIcon | None:
 
 
 def _build_tooltip(spell_meta: dict) -> str:
-    """WoWhead JSON tooltip → Qt rich-text 툴팁."""
+    """spell meta → Qt rich-text 툴팁 (한글 + 영문 + 설명)."""
     name_ko = spell_meta.get("name_ko") or ""
     name_en = spell_meta.get("name_en") or ""
-    body = spell_meta.get("tooltip_ko") or ""
+    # description_ko (Blizzard) 우선, 없으면 tooltip_ko (Wowhead HTML)
+    body = spell_meta.get("description_ko") or spell_meta.get("tooltip_ko") or ""
     title = name_ko or name_en or "(이름 없음)"
     subtitle = f" <span style='color:#a39c8e;font-size:9pt'>({name_en})</span>" if name_ko and name_en else ""
     return (
+        f"<html><body>"
         f"<div style='max-width:480px'>"
         f"<div style='color:#d97757;font-size:11pt;font-weight:600;margin-bottom:4px'>{title}{subtitle}</div>"
         f"<div style='color:#f5f0e8'>{body}</div>"
-        f"</div>"
+        f"</div></body></html>"
     )
 
 
@@ -396,17 +398,18 @@ def db_damage(rid: str, fid: int, sid: int) -> list[dict]:
 
 def db_talent_counts_for_ranks(
     rid_fid_char: list[tuple[str, int, str]],
-) -> tuple[dict[int, int], dict[int, int], int]:
-    """(rid, fid, char) → (picks_by_tid, total_pts_by_tid, matched_chars).
+) -> tuple[dict[int, int], dict[int, dict[int, int]], int]:
+    """(rid, fid, char) → (picks_by_tid, pts_dist_by_tid, matched_chars).
 
-    talent_points (rank, 1/2) 가 cache 에 있으면 합산. 옛 엔트리 (없음) 는 1pt 로 간주.
-    avg = total_pts[tid] / picks[tid].
+    pts_dist[tid] = {1: n_1pt, 2: n_2pt, ...} — 포인트별 픽 카운트.
+    matched - sum(pts_dist[tid].values()) = "0pt (안 찍은) " 카운트.
+    옛 cache 엔트리 (talent_points 없음) 는 1pt 로 간주.
     """
     v2 = _v2_data()
     if v2 is None or not rid_fid_char:
         return {}, {}, 0
     counts: dict[int, int] = {}
-    pts_sum: dict[int, int] = {}
+    dist: dict[int, dict[int, int]] = {}
     matched = 0
     for rid, fid, char in rid_fid_char:
         pf = v2.pfight.get(f"{rid}:{fid}:{char}")
@@ -420,10 +423,48 @@ def db_talent_counts_for_ranks(
         for tid in talents:
             if not isinstance(tid, int):
                 continue
-            counts[tid] = counts.get(tid, 0) + 1
             pts = points.get(str(tid)) if isinstance(points, dict) else None
-            pts_sum[tid] = pts_sum.get(tid, 0) + (int(pts) if isinstance(pts, int) and pts > 0 else 1)
-    return counts, pts_sum, matched
+            if not isinstance(pts, int) or pts < 1:
+                pts = 1
+            counts[tid] = counts.get(tid, 0) + 1
+            d = dist.setdefault(tid, {})
+            d[pts] = d.get(pts, 0) + 1
+    return counts, dist, matched
+
+
+def hero_tree_picks(tree_data: dict, rid_fid_char: list[tuple[str, int, str]]) -> dict[str, int]:
+    """각 영웅 트리별로 몇 명이 골랐는지. 한 캐릭 = 한 영웅 트리 (가장 매칭 많은 거)."""
+    v2 = _v2_data()
+    if v2 is None or not tree_data:
+        return {}
+    hero_dict = tree_data.get("hero") or {}
+    hero_tids: dict[str, set[int]] = {}
+    for hn, hd in hero_dict.items():
+        tids: set[int] = set()
+        for n in hd.get("nodes") or []:
+            for opt in n.get("options") or []:
+                tid = opt.get("talent_id")
+                if isinstance(tid, int):
+                    tids.add(tid)
+        hero_tids[hn] = tids
+    picks: dict[str, int] = {hn: 0 for hn in hero_dict}
+    for rid, fid, char in rid_fid_char:
+        pf = v2.pfight.get(f"{rid}:{fid}:{char}")
+        if not isinstance(pf, dict):
+            continue
+        talents = set(t for t in (pf.get("talents") or []) if isinstance(t, int))
+        if not talents:
+            continue
+        best_hn = None
+        best_n = 0
+        for hn, tids in hero_tids.items():
+            n = len(talents & tids)
+            if n > best_n:
+                best_n = n
+                best_hn = hn
+        if best_hn:
+            picks[best_hn] += 1
+    return picks
 
 
 def _load_json(filename: str) -> dict:
@@ -986,12 +1027,12 @@ def _make_spell_item(spell_id: int, label_text: str, spell_db: dict,
     if meta:
         item.setToolTip(_build_tooltip(meta))
     elif icon_fallback or label_text:
-        # spell_db 미스 — 최소한의 툴팁 (이름 + ID)
         item.setToolTip(
+            f"<html><body>"
             f"<div style='max-width:320px'>"
             f"<div style='color:#d97757;font-weight:600;font-size:11pt'>{_html_escape(label_text)}</div>"
             f"<div style='color:#6b6359;font-size:9pt;margin-top:4px'>#{spell_id} · spell_db 캐시 없음</div>"
-            f"</div>"
+            f"</div></body></html>"
         )
     return item
 
@@ -1027,13 +1068,14 @@ def _build_item_tooltip(item_id: int, meta: dict, gear_entry: dict | None = None
             f"bonus: {', '.join(str(b) for b in bonus_ids)}{more}</div>"
         )
     return (
+        f"<html><body>"
         f"<div style='max-width:340px'>"
         f"<div style='color:{color};font-size:11pt;font-weight:600'>{_html_escape(name)}</div>"
         f"<div style='color:#a39c8e;font-size:9pt;margin-top:4px'>"
         f"아이템 레벨 {ilvl if ilvl is not None else '?'} · {quality or '일반'}</div>"
         f"<div style='color:#6b6359;font-size:8.5pt'>#{item_id}</div>"
         f"{bonus_html}"
-        f"</div>"
+        f"</div></body></html>"
     )
 
 
@@ -1094,9 +1136,9 @@ body {
     box-shadow: 0 0 10px rgba(217, 119, 87, 0.45);
 }
 .tnode.t-common { border-color: #d97757; }
-.tnode.t-split { border-color: #4a4039; }
-.tnode.t-niche { opacity: 0.55; }
-.tnode.t-zero { opacity: 0.22; }
+.tnode.t-split { border-color: #6b6359; }
+.tnode.t-niche { opacity: 0.78; }
+.tnode.t-zero { opacity: 0.45; }
 
 /* 픽률 배지 — 우하단, 정수% */
 .tnode .pct {
@@ -1128,7 +1170,8 @@ body {
 }
 .tnode:hover .tip { display: block; }
 .tip .tname { color: #d97757; font-weight: 600; font-size: 12px; margin-bottom: 4px; letter-spacing: -0.01em; }
-.tip .tmeta { color: #c8a560; font-size: 10px; margin-bottom: 6px; letter-spacing: 0.01em; }
+.tip .tmeta { color: #c8a560; font-size: 10px; margin-bottom: 4px; letter-spacing: 0.01em; }
+.tip .tdist { font-size: 10px; margin-bottom: 6px; line-height: 1.4; padding-left: 6px; border-left: 2px solid #3a322c; }
 .tip .tdesc { color: #c4bdaf; line-height: 1.5; }
 
 /* 위쪽 줄 노드는 툴팁이 위로 못 가니까 아래로 (overflow 회피) */
@@ -1148,17 +1191,39 @@ def _tree_empty_html(msg: str = "보스 + 전문화 선택 시 트리 표시") -
             f"<body><div class='empty'>{_html_escape(msg)}</div></body></html>")
 
 
-def _node_html(node: dict, pick_pct: float, avg_pts: float, spell_db: dict) -> str:
-    """단일 노드 HTML — 위치 + 아이콘 + 픽률 + 평균포인트 배지 + 호버 툴팁."""
+def _node_html(node: dict, pick_pct: float, pt_breakdown: dict[int, float],
+               denom: int, spell_db: dict) -> str:
+    """단일 노드 HTML — 위치 + 아이콘 + 픽률 + 평균포인트 배지 + 호버 툴팁.
+
+    pt_breakdown: {0: pct_0pt, 1: pct_1pt, 2: pct_2pt}
+    denom: top100 분모 (보통 100)
+    """
     if not node.get("options"):
         return ""
     opt = node["options"][0]
     spell_id = opt.get("spell_id")
     name = opt.get("name") or f"#{node.get('id')}"
-    desc = opt.get("desc") or ""
+    # 한글 이름 + description spell_db 에서 우선 (Wowhead enrich 결과)
+    if spell_id:
+        meta = spell_db.get(str(spell_id), {})
+        nm_ko = (meta.get("name_ko") or "").strip()
+        if nm_ko:
+            name = nm_ko
+        desc_db = (meta.get("description_ko") or meta.get("tooltip_ko") or "").strip()
+        desc = desc_db or (opt.get("desc") or "")
+    else:
+        desc = opt.get("desc") or ""
     max_rank = node.get("max_rank") or 1
+    # avg pts (수확자들 평균만)
+    pick_pts = [k for k in pt_breakdown if k >= 1]
+    if pick_pts:
+        picked_sum = sum(k * pt_breakdown.get(k, 0) * denom / 100 for k in pick_pts)
+        picked_n = sum(pt_breakdown.get(k, 0) * denom / 100 for k in pick_pts)
+        avg_pts = picked_sum / picked_n if picked_n > 0 else 1.0
+    else:
+        avg_pts = 1.0
 
-    # 아이콘 — spell_db 에서 매핑 시도
+    # 아이콘 — spell_db
     icon_file = ""
     if spell_id:
         meta = spell_db.get(str(spell_id), {})
@@ -1166,27 +1231,24 @@ def _node_html(node: dict, pick_pct: float, avg_pts: float, spell_db: dict) -> s
     icon_url = (f"https://wow.zamimg.com/images/wow/icons/medium/{icon_file}"
                 if icon_file else "")
 
-    # 위치: display_col × 56px, display_row × 56px
     col = node.get("col") or 1
     row = node.get("row") or 1
     left = (col - 1) * 56 + 6
     top = (row - 1) * 56 + 6
 
-    # 픽률 ramp — design spec 따름
     if pick_pct >= 85:
-        cls = "t-essential"     # 핵심 패스 — 앰버 ring + glow
+        cls = "t-essential"
     elif pick_pct >= 50:
-        cls = "t-common"        # 보편적 — 솔리드 앰버
+        cls = "t-common"
     elif pick_pct >= 25:
-        cls = "t-split"         # 분기 — 회색 ring
+        cls = "t-split"
     elif pick_pct >= 5:
-        cls = "t-niche"         # 소수 — ring 없음, 흐림
+        cls = "t-niche"
     else:
-        cls = "t-zero"          # 거의 안 찍힘 — 거의 안 보임
+        cls = "t-zero"
     if node.get("type") == "CHOICE":
         cls += " choice"
 
-    # 배지: 우하단 픽률 + (2-rank 노드는) 좌상단 평균 포인트
     pct_html = ""
     if pick_pct >= 5:
         pct_html = f'<div class="pct">{int(round(pick_pct))}</div>'
@@ -1194,10 +1256,28 @@ def _node_html(node: dict, pick_pct: float, avg_pts: float, spell_db: dict) -> s
     if max_rank > 1 and pick_pct >= 5:
         pts_html = f'<div class="ptsbadge">{avg_pts:.1f}</div>'
 
-    # 툴팁: 픽률 + 평균 포인트 (max_rank > 1 일 때만 의미)
-    tip_meta = f"픽률 {int(round(pick_pct))}%"
+    # 툴팁 메타: 0/1/2 pt 분포
+    tip_meta_lines = []
     if max_rank > 1:
-        tip_meta += f" · 평균 {avg_pts:.2f}/{max_rank} pts"
+        tip_meta_lines.append(
+            f"<div class='tmeta'>전체 픽률 {int(round(pick_pct))}% · 평균 {avg_pts:.2f}/{max_rank} pts</div>"
+        )
+        # 0pt / 1pt / 2pt breakdown
+        dist_lines = []
+        for k in sorted(pt_breakdown.keys()):
+            pct_k = pt_breakdown.get(k, 0.0)
+            if pct_k < 0.5:
+                continue
+            label = "0pt (안 찍음)" if k == 0 else f"{k}pt"
+            color = "#6b6359" if k == 0 else ("#d97757" if k == max_rank else "#a39c8e")
+            dist_lines.append(
+                f"<div style='color:{color}'>{label}: {pct_k:.1f}%</div>"
+            )
+        tip_meta_lines.append("<div class='tdist'>" + "".join(dist_lines) + "</div>")
+    else:
+        tip_meta_lines.append(
+            f"<div class='tmeta'>픽률 {int(round(pick_pct))}% · 1포인트 노드</div>"
+        )
 
     return (
         f'<div class="tnode {cls}" style="left:{left}px;top:{top}px">'
@@ -1205,15 +1285,21 @@ def _node_html(node: dict, pick_pct: float, avg_pts: float, spell_db: dict) -> s
         f'{pct_html}{pts_html}'
         f'<div class="tip">'
         f'<div class="tname">{_html_escape(name)}</div>'
-        f'<div class="tmeta">{tip_meta}</div>'
+        f'{"".join(tip_meta_lines)}'
         f'<div class="tdesc">{_html_escape(desc)[:280]}</div>'
         f'</div></div>'
     )
 
 
-def _build_tree_html(tree_data: dict, pick_count: dict, pts_sum: dict, denom: int,
+def _build_tree_html(tree_data: dict, pick_count: dict, pts_dist: dict,
+                     hero_picks: dict[str, int], denom: int,
                      spell_db: dict, hero_filter: str | None = None) -> str:
-    """class / spec / hero 트리 HTML."""
+    """class / spec / hero 트리 HTML.
+
+    pts_dist: {tid: {1: n_1pt, 2: n_2pt}}
+    hero_picks: {hero_name: char count}
+    denom: total chars (보통 100)
+    """
     if not tree_data:
         return _tree_empty_html("이 스펙은 아직 트리 데이터 없음 — fetch_talent_trees.py 실행 필요")
 
@@ -1228,14 +1314,22 @@ def _build_tree_html(tree_data: dict, pick_count: dict, pts_sum: dict, denom: in
             return 0
         return pick_count.get(int(tid), 0) / max(1, denom) * 100
 
-    def avg_pts_of(node) -> float:
+    def breakdown_of(node) -> dict[int, float]:
+        """{0: pct_0pt, 1: pct_1pt, 2: pct_2pt}  (in %)."""
         tid = _tid_of(node)
+        max_rank = node.get("max_rank") or 1
+        out: dict[int, float] = {k: 0.0 for k in range(0, max_rank + 1)}
         if tid is None:
-            return 1.0
-        n = pick_count.get(int(tid), 0)
-        if n <= 0:
-            return 1.0
-        return pts_sum.get(int(tid), n) / n
+            out[0] = 100.0
+            return out
+        d = pts_dist.get(int(tid), {})
+        total_picked = sum(d.values())
+        for k, n in d.items():
+            if k > max_rank:
+                k = max_rank
+            out[k] = out.get(k, 0.0) + (n / denom * 100)
+        out[0] = max(0.0, (denom - total_picked) / denom * 100)
+        return out
 
     def col_size(nodes):
         if not nodes:
@@ -1249,31 +1343,40 @@ def _build_tree_html(tree_data: dict, pick_count: dict, pts_sum: dict, denom: in
     cw, ch = col_size(class_nodes)
     sw, sh = col_size(spec_nodes)
 
-    class_html = "".join(_node_html(n, pct_of(n), avg_pts_of(n), spell_db) for n in class_nodes)
-    spec_html = "".join(_node_html(n, pct_of(n), avg_pts_of(n), spell_db) for n in spec_nodes)
+    class_html = "".join(_node_html(n, pct_of(n), breakdown_of(n), denom, spell_db)
+                         for n in class_nodes)
+    spec_html = "".join(_node_html(n, pct_of(n), breakdown_of(n), denom, spell_db)
+                        for n in spec_nodes)
 
-    # 영웅 트리: 사용자가 선택한 거 or 첫 번째
+    # 영웅 트리: 가장 많이 뽑힌 거 (hero_picks 기준)
     hero_dict = tree_data.get("hero") or {}
     hero_html = ""
     hero_w, hero_h = 200, 600
-    hero_name_display = ""
+    hero_header_html = "영웅 특성 — (없음)"
     if hero_dict:
-        # 가장 픽률 높은 영웅 트리 자동 선택
-        def avg_hero_pct(nodes):
-            if not nodes:
-                return 0
-            return sum(pct_of(n) for n in nodes) / len(nodes)
-        if hero_filter and hero_filter in hero_dict:
-            chosen_name = hero_filter
+        # hero_picks 가 비어있으면 fallback 으로 노드 평균
+        if hero_picks and sum(hero_picks.values()) > 0:
+            ranked = sorted(hero_picks.items(), key=lambda x: -x[1])
         else:
-            chosen_name = max(hero_dict.keys(), key=lambda hn: avg_hero_pct(hero_dict[hn].get("nodes") or []))
-        hero_name_display = chosen_name
+            ranked = [(hn, 0) for hn in hero_dict]
+        chosen_name = hero_filter if (hero_filter and hero_filter in hero_dict) else ranked[0][0]
         hero_nodes = hero_dict[chosen_name].get("nodes") or []
         hw, hh = col_size(hero_nodes)
         hero_w, hero_h = hw, hh
-        hero_html = "".join(_node_html(n, pct_of(n), avg_pts_of(n), spell_db) for n in hero_nodes)
-    other_heroes = ", ".join(n for n in hero_dict.keys() if n != hero_name_display)
-    hero_note = f" (다른 영웅트리: {other_heroes})" if other_heroes else ""
+        hero_html = "".join(_node_html(n, pct_of(n), breakdown_of(n), denom, spell_db)
+                            for n in hero_nodes)
+        # 헤더에 모든 영웅트리 선택률 표시
+        pick_total = max(1, sum(hero_picks.values()) if hero_picks else 1)
+        ranking_html = []
+        for hn, cnt in ranked:
+            pct = cnt / pick_total * 100 if hero_picks else 0
+            color = "#d97757" if hn == chosen_name else "#a39c8e"
+            weight = "600" if hn == chosen_name else "400"
+            ranking_html.append(
+                f"<span style='color:{color};font-weight:{weight}'>"
+                f"{_html_escape(hn)} {pct:.0f}%</span>"
+            )
+        hero_header_html = "영웅 특성 — " + " · ".join(ranking_html)
 
     body = f"""
     <div class='tree-wrap'>
@@ -1283,7 +1386,7 @@ def _build_tree_html(tree_data: dict, pick_count: dict, pts_sum: dict, denom: in
           <div class='tree-canvas' style='width:{cw}px;height:{ch}px'>{class_html}</div>
         </div>
         <div class='tree-col'>
-          <h3>영웅 특성 — {_html_escape(hero_name_display)}{_html_escape(hero_note)}</h3>
+          <h3>{hero_header_html}</h3>
           <div class='tree-canvas' style='width:{hero_w}px;height:{hero_h}px'>{hero_html}</div>
         </div>
         <div class='tree-col'>
@@ -1379,16 +1482,18 @@ RATING_PER_PCT: dict[str, float] = {
 }
 
 
-def _resolve_buff(sp: int, spell_db: dict, buff_db: dict) -> tuple[str, str]:
-    """(name, icon_file) — spell_db 우선, 없으면 buff_db_en (영문이라도)."""
+def _resolve_buff(sp: int, spell_db: dict, buff_db: dict) -> tuple[str, str, str]:
+    """(name, icon_file, description) — spell_db 우선, 없으면 buff_db_en."""
     primary, _sub = _resolve_name(sp, spell_db)
-    icon = (spell_db.get(str(sp), {}) or {}).get("icon") or ""
+    sd_entry = spell_db.get(str(sp), {}) or {}
+    icon = sd_entry.get("icon") or ""
+    desc = (sd_entry.get("description_ko") or sd_entry.get("tooltip_ko") or "").strip()
     if primary.startswith("미상 #"):
         meta = buff_db.get(str(sp)) or buff_db.get(sp)
         if isinstance(meta, dict):
             primary = meta.get("name") or primary
             icon = icon or meta.get("icon") or ""
-    return primary, icon
+    return primary, icon, desc
 
 
 def _pre_fight_buffs(rid: str, fid: int, sid: int | None, spell_db: dict) -> list[dict]:
@@ -1428,8 +1533,8 @@ def _pre_fight_buffs(rid: str, fid: int, sid: int | None, spell_db: dict) -> lis
         if sp in seen:
             continue
         seen.add(sp)
-        name, icon = _resolve_buff(sp, spell_db, buff_db)
-        out.append({"spell_id": sp, "name": name, "icon": icon})
+        name, icon, desc = _resolve_buff(sp, spell_db, buff_db)
+        out.append({"spell_id": sp, "name": name, "icon": icon, "description": desc})
     return out
 
 
@@ -1472,21 +1577,28 @@ def _build_info_html(char: str, pre_buffs: list[dict], stats: dict | None,
         "margin-top:10px;margin-bottom:6px'>전투 시작 시 활성 buff (V2 첫 5초)</div>"
     )
     if pre_buffs:
-        parts.append("<table style='border-collapse:collapse'>")
         for b in pre_buffs:
             icon_html = ""
             if b.get("icon"):
                 icon_html = (
                     f"<img src='https://wow.zamimg.com/images/wow/icons/medium/{b['icon']}' "
-                    f"style='width:20px;height:20px;border-radius:3px;vertical-align:middle'>"
+                    f"style='width:24px;height:24px;border-radius:4px;vertical-align:middle;margin-right:6px'>"
                 )
+            desc = (b.get("description") or "").strip()
+            # 한글 description 한 줄로 요약 (너무 길면 잘라냄)
+            desc_short = desc[:120] + "…" if len(desc) > 120 else desc
             parts.append(
-                f"<tr><td style='padding:2px 8px 2px 0'>{icon_html}</td>"
-                f"<td style='padding:2px 0;color:#f5f0e8'>{_html_escape(b['name'])}</td>"
-                f"<td style='padding:2px 0 2px 6px;color:#6b6359;font-size:8.5pt'>#{b['spell_id']}</td>"
-                f"</tr>"
+                f"<div style='margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #2c2521'>"
+                f"<div>{icon_html}"
+                f"<span style='color:#f5f0e8;font-weight:600'>{_html_escape(b['name'])}</span>"
+                f" <span style='color:#6b6359;font-size:8.5pt'>#{b['spell_id']}</span></div>"
             )
-        parts.append("</table>")
+            if desc_short:
+                parts.append(
+                    f"<div style='color:#a39c8e;font-size:9pt;margin-top:2px;padding-left:30px'>"
+                    f"{_html_escape(desc_short)}</div>"
+                )
+            parts.append("</div>")
         parts.append(
             "<div style='color:#6b6359;font-size:8.5pt;margin-top:6px'>"
             "※ 진짜 음식/영약/오일/숫돌은 pre-pull 이라 별도 쿼리 필요 (다음 작업)"
@@ -1963,7 +2075,7 @@ class RankingPanel(QWidget):
         log.info("top damage render: chars=%d spells=%d shown=%d pending=%d",
                  matched, len(agg), len(rows), pending)
 
-    # ── 특성 트리만 갱신 (top100 픽률 + 평균 포인트 오버레이) ─────────────
+    # ── 특성 트리만 갱신 (top100 픽률 + 0/1/2pt 분포 + 영웅 선택률) ────────
     def _populate_talents(self, ranking_df) -> None:
         spell_db = _load_json("spell_db.json")
         triples: list[tuple[str, int, str]] = []
@@ -1975,14 +2087,16 @@ class RankingPanel(QWidget):
                 continue
             char = str(row["character"])
             triples.append((rid, fid, char))
-        counts, pts_sum, matched = db_talent_counts_for_ranks(triples)
+        counts, pts_dist, matched = db_talent_counts_for_ranks(triples)
         denom = max(matched, 1)
 
         all_trees = _load_json("talent_trees.json")
         key = f"{self.class_en}/{self.spec_en}"
         tree_data = all_trees.get(key)
         if tree_data and counts:
-            tree_html = _build_tree_html(tree_data, counts, pts_sum, denom, spell_db)
+            hero_picks = hero_tree_picks(tree_data, triples)
+            tree_html = _build_tree_html(tree_data, counts, pts_dist, hero_picks,
+                                          denom, spell_db)
         else:
             tree_html = _tree_empty_html(
                 f"{key} 트리 데이터 없음 — fetch_talent_trees.py 의 SPECS 에 추가 필요"
@@ -2038,11 +2152,12 @@ class RankingPanel(QWidget):
                     ench_cell = QTableWidgetItem(f"#{ench_id}")
                     ench_cell.setForeground(QColor("#a39c8e"))
                     ench_cell.setToolTip(
+                        f"<html><body>"
                         f"<div style='max-width:280px'>"
                         f"<div style='color:#a39c8e'>마부 #{ench_id}</div>"
                         f"<div style='color:#6b6359;font-size:8.5pt;margin-top:4px'>"
                         f"한글 DB 미해결 — 대부분 enchant ID 가 spell ID 와 별도 체계"
-                        f"</div></div>"
+                        f"</div></div></body></html>"
                     )
             else:
                 ench_cell = QTableWidgetItem("—")
@@ -2067,7 +2182,7 @@ class RankingPanel(QWidget):
                     if ic:
                         gem_cell.setIcon(ic)
                 # 툴팁: 모든 보석 상세
-                tip_parts = ["<div style='max-width:320px'>"]
+                tip_parts = ["<html><body><div style='max-width:320px'>"]
                 for gid in gems:
                     gm = item_db.get(str(gid), {})
                     tip_parts.append(
@@ -2075,7 +2190,7 @@ class RankingPanel(QWidget):
                         f"<span style='color:#f5f0e8'>{_html_escape(gm.get('name_ko') or '#'+str(gid))}</span>"
                         f" <span style='color:#6b6359;font-size:8.5pt'>#{gid}</span></div>"
                     )
-                tip_parts.append("</div>")
+                tip_parts.append("</div></body></html>")
                 gem_cell.setToolTip("".join(tip_parts))
             else:
                 gem_cell = QTableWidgetItem("—")
