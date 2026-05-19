@@ -265,15 +265,19 @@ _v2: object | None = None
 
 
 def _v2_data():
-    """V2Data 싱글톤 lazy init. 실패하면 None (.env 키 없음 / V2Data 로드 실패)."""
+    """V2Data 싱글톤 lazy init. 실패하면 None (.env 키 없음 / V2Data 로드 실패).
+
+    DATA_DIR 을 명시적으로 넘겨야 frozen .exe 에서도 진짜 data/ 폴더를 본다.
+    (wcl_v2_data 의 `Path(__file__).parent` 는 _internal/ 로 resolve 됨)
+    """
     global _v2
     if _v2 is not None:
         return _v2
     try:
         from wcl_v2_data import V2Data
-        v2 = V2Data()
-        log.info("V2Data loaded: meta=%d pfight=%d events=%d damage=%d",
-                 len(v2.meta), len(v2.pfight), len(v2.events), len(v2.damage))
+        v2 = V2Data(data_dir=DATA_DIR)
+        log.info("V2Data loaded from %s: meta=%d pfight=%d events=%d damage=%d",
+                 v2.data_dir, len(v2.meta), len(v2.pfight), len(v2.events), len(v2.damage))
         _v2 = v2
     except Exception:
         log.exception("V2Data init fail")

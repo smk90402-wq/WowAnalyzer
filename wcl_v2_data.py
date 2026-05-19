@@ -26,11 +26,7 @@ from wcl_v2 import WCLV2
 
 log = logging.getLogger("wcl_v2_data")
 
-DATA = Path(__file__).parent / "data"
-CACHE_META = DATA / "v2_cache_report_meta.json"
-CACHE_PFIGHT = DATA / "v2_cache_player_fight.json"
-CACHE_EVENTS = DATA / "v2_cache_events.json"
-CACHE_DAMAGE = DATA / "v2_cache_damage.json"
+DEFAULT_DATA = Path(__file__).parent / "data"
 
 
 # ── GraphQL 쿼리들 ──────────────────────────────────────────────────────────
@@ -130,19 +126,30 @@ def _save_json(p: Path, obj) -> None:
 
 
 class V2Data:
-    def __init__(self) -> None:
+    def __init__(self, data_dir: Path | None = None) -> None:
+        """data_dir: 캐시 JSON 들의 위치. None 이면 wcl_v2_data.py 옆 'data/'.
+
+        **중요:** frozen (PyInstaller) 빌드에서는 Path(__file__).parent 가
+        _internal/ 로 resolve 되어 잘못된 경로를 본다. gui.py 가 동적으로
+        찾은 DATA_DIR 을 항상 명시적으로 넘겨줄 것.
+        """
         self.cli = WCLV2()
-        self.meta = _load_json(CACHE_META)
-        self.pfight = _load_json(CACHE_PFIGHT)
-        self.events = _load_json(CACHE_EVENTS)
-        self.damage = _load_json(CACHE_DAMAGE)
+        self.data_dir = Path(data_dir) if data_dir else DEFAULT_DATA
+        self._cache_meta = self.data_dir / "v2_cache_report_meta.json"
+        self._cache_pfight = self.data_dir / "v2_cache_player_fight.json"
+        self._cache_events = self.data_dir / "v2_cache_events.json"
+        self._cache_damage = self.data_dir / "v2_cache_damage.json"
+        self.meta = _load_json(self._cache_meta)
+        self.pfight = _load_json(self._cache_pfight)
+        self.events = _load_json(self._cache_events)
+        self.damage = _load_json(self._cache_damage)
 
     # ── 보관 ──────────────────────────────────────────────────────────────
     def flush(self) -> None:
-        _save_json(CACHE_META, self.meta)
-        _save_json(CACHE_PFIGHT, self.pfight)
-        _save_json(CACHE_EVENTS, self.events)
-        _save_json(CACHE_DAMAGE, self.damage)
+        _save_json(self._cache_meta, self.meta)
+        _save_json(self._cache_pfight, self.pfight)
+        _save_json(self._cache_events, self.events)
+        _save_json(self._cache_damage, self.damage)
 
     # ── 데미지 테이블 (스펠별 합산) ────────────────────────────────────────
     def damage_table(self, rid: str, fid: int, char: str) -> list | None:
