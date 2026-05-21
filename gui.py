@@ -629,8 +629,8 @@ body {
     padding: 0;
     --pps: 160;   /* px per second, JS wheel 로 변경 */
 }
-body.horizontal { overflow-x: auto; overflow-y: visible; padding-top: 32px; --cast-offset: 0px; }
-body.vertical   { overflow-x: visible; overflow-y: auto; padding-left: 32px; --cast-offset: 0px; }
+body.horizontal { overflow-x: auto; overflow-y: visible; padding-top: 0; --cast-offset: 0px; }
+body.vertical   { overflow-x: visible; overflow-y: auto; padding-left: 0; --cast-offset: 0px; }
 /* 버프 lane 토글 — ComparisonTab 의 체크박스에서 JS 로 hide-buffs 클래스 토글 */
 body.hide-buffs .buffs, body.hide-buffs .buff-label { display: none !important; }
 /* 시간 → 픽셀 매핑 — 좌측 cast-offset (라벨 영역) + 초 * pps */
@@ -640,26 +640,26 @@ body.horizontal .size-w { width:  max(8px, calc(var(--w) * var(--pps) * 1px)); }
 body.vertical   .size-w { height: max(8px, calc(var(--w) * var(--pps) * 1px)); }
 body.horizontal .span-d { width:  calc(var(--cast-offset, 0px) + var(--d) * var(--pps) * 1px); }
 body.vertical   .span-d { height: calc(var(--d) * var(--pps) * 1px); }
-.wrap { padding: 12px 14px; }
+.wrap { padding: 4px 8px; }
 .empty {
     color: #a39c8e; text-align: center; padding: 80px 16px;
     background: #221d1a; border: 1px dashed #3a322c; border-radius: 6px;
 }
 .hdr {
-    color: #d97757; font-size: 12px; font-weight: 600;
-    margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #3a322c;
+    color: #d97757; font-size: 11px; font-weight: 600;
+    margin-bottom: 2px; padding-bottom: 2px; border-bottom: 1px solid #3a322c;
 }
 .timeline { position: relative; }
 .lane-label {
-    color: #a39c8e; font-size: 10px; padding: 2px 6px;
-    background: #221d1a; border-radius: 3px; margin: 8px 0 4px 0;
+    color: #a39c8e; font-size: 10px; padding: 1px 6px;
+    background: #221d1a; border-radius: 3px; margin: 4px 0 2px 0;
     display: inline-block;
 }
 
 /* === 시간 축 ====================================================== */
 .tick { position: absolute; color: transparent; }
-.horizontal .axis  { position: relative; height: 26px; border-bottom: 1px solid #4a4039; margin-bottom: 8px; }
-.horizontal .tick.label { color: #a39c8e; font-size: 10px; width: auto; background: none; padding-left: 4px; line-height: 26px; top: 0; height: 26px; }
+.horizontal .axis  { position: relative; height: 20px; border-bottom: 1px solid #4a4039; margin-bottom: 2px; }
+.horizontal .tick.label { color: #a39c8e; font-size: 10px; width: auto; background: none; padding-left: 4px; line-height: 20px; top: 0; height: 20px; }
 
 .vertical .axis  { position: absolute; left: 0; top: 0; width: 32px; border-right: 1px solid #3a322c; }
 .vertical .tick.label {
@@ -675,7 +675,7 @@ body.vertical   .span-d { height: calc(var(--d) * var(--pps) * 1px); }
 
 /* === 시전 / 버프 lane 컨테이너 ==================================== */
 .casts, .buffs { position: relative; }
-.horizontal .casts { height: 32px; margin-bottom: 8px; }
+.horizontal .casts { height: 32px; margin-bottom: 4px; }
 /* 버프 lane 배경 투명 — 그리드 선 가리지 않게. 살짝 어둠 톤만 (반투명) */
 .horizontal .buffs { background: rgba(31, 26, 23, 0.45); border-radius: 4px; padding: 4px 0; }
 .vertical  .lanes  { position: absolute; left: 36px; top: 0; right: 0; }
