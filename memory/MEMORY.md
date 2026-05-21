@@ -2,7 +2,7 @@
 - [Korean WoW term pitfalls](feedback_wow_kr_terms.md) — 마력주입 = Power Infusion (Priest), NOT Aug Evoker; 한밤 = Midnight expansion. Verify jargon, don't guess.
 - [No stale WoW knowledge](feedback_wow_knowledge.md) — Never answer spec difficulty/meta questions from general knowledge; always go to current-patch logs.
 - [Project vision](project_vision.md) — Final goal is situational rotation-study tool (CDs/potions/procs/tracked buffs + boss-phase group splits). 5 target specs: Demo Lock, Balance Druid, BM Hunter, Arms Warrior, Fury Warrior.
-- [Build cadence](feedback_build_cadence.md) — Rebuild LogAnalyze.exe via PyInstaller at the end of EVERY response. User confirmed despite the ~1-2 min cost.
+- [Build cadence](feedback_build_cadence.md) — Rebuild LogAnalyze.exe via PyInstaller at the end of EVERY response. 2026-05-21 cutover: gui.py(PySide6) → serve.py(FastAPI+pywebview+app/static). 930MB → 36MB.
 - [Build kill exe on PermissionError](feedback_build_kill_exe.md) — If PyInstaller fails with PermissionError, immediately `taskkill /F /IM LogAnalyze.exe` and retry. No sleep, no asking user.
 - [Rate limit policy](feedback_rate_limit.md) — When WCL 429 hits, wait it out (even 1hr). Don't throttle, don't reorganize. Throughput > limit avoidance.
 - [Autonomy mode](feedback_autonomy.md) — Don't ask for next step. Run obvious follow-ups; ask only for data-loss / preference / ambiguity.

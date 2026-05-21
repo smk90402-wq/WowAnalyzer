@@ -12,17 +12,32 @@ from __future__ import annotations
 
 import argparse
 import logging
+import os
 import sys
 import threading
 import time
 
 import uvicorn
 
+# frozen --windowed 에선 sys.stdout/stderr = None — uvicorn 로깅이 죽음.
+# devnull 로 redirect 해서 logging 모듈이 정상 동작하도록.
+if sys.stdout is None or sys.stderr is None:
+    import io
+    sys.stdout = io.StringIO()
+    sys.stderr = io.StringIO()
+
 # stdout UTF-8 (Windows cp949 회피)
 try:
     sys.stdout.reconfigure(encoding="utf-8")
 except Exception:
     pass
+
+# frozen .exe — cwd 를 exe 옆으로 (.env / data/ lookup 정확하게)
+if getattr(sys, "frozen", False):
+    os.chdir(os.path.dirname(sys.executable))
+
+# FastAPI 앱 직접 import — frozen 에서 string "app.main:app" 동적 로딩 실패 회피
+from app.main import app as fastapi_app  # noqa: E402
 
 logging.basicConfig(
     level=logging.INFO,
@@ -35,7 +50,7 @@ DEFAULT_PORT = 9876  # 충돌 방지 — 다른 dev server 와 안 겹치는 포
 
 def _start_uvicorn(port: int) -> threading.Thread:
     """별도 데몬 스레드로 uvicorn 실행. pywebview 메인 스레드 가로채는 거 회피."""
-    cfg = uvicorn.Config("app.main:app", host="127.0.0.1", port=port, log_level="warning")
+    cfg = uvicorn.Config(fastapi_app, host="127.0.0.1", port=port, log_level="warning")
     server = uvicorn.Server(cfg)
 
     t = threading.Thread(target=server.run, daemon=True, name="uvicorn")
@@ -62,8 +77,7 @@ def main() -> None:
 
     if args.api_only:
         log.info("API only — pywebview 안 띄움. http://127.0.0.1:%d/api/ping", args.port)
-        uvicorn.run("app.main:app", host="127.0.0.1", port=args.port,
-                    log_level="info")
+        uvicorn.run(fastapi_app, host="127.0.0.1", port=args.port, log_level="info")
         return
 
     # 백그라운드로 uvicorn → pywebview 메인 스레드

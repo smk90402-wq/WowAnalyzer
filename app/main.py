@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import logging
+import sys
 from pathlib import Path
 
 import json
@@ -28,9 +29,16 @@ from app import timeline as tl_render
 
 log = logging.getLogger("app.main")
 
-DATA_DIR = Path(__file__).parent.parent / "data"
-STATIC_DIR = Path(__file__).parent / "static"
+# Frozen (.exe) vs dev — DATA_DIR 은 항상 exe 옆 (사용자가 캐시 갱신 가능),
+# STATIC_DIR 은 bundle 안 (read-only, PyInstaller --add-data 로 포함).
+if getattr(sys, "frozen", False):
+    DATA_DIR = Path(sys.executable).parent / "data"
+    STATIC_DIR = Path(__file__).parent / "static"
+else:
+    DATA_DIR = Path(__file__).parent.parent / "data"
+    STATIC_DIR = Path(__file__).parent / "static"
 STATIC_DIR.mkdir(exist_ok=True)
+DATA_DIR.mkdir(exist_ok=True)
 
 app = FastAPI(title="WowAnalyzer API", version="0.1.0")
 
