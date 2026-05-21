@@ -625,14 +625,14 @@ body {
     padding: 0;
     --pps: 160;   /* px per second, JS wheel 로 변경 */
 }
-body.horizontal { overflow-x: auto; overflow-y: visible; padding-top: 240px; }
-body.vertical   { overflow-x: visible; overflow-y: auto; padding-left: 240px; }
-/* 시간 → 픽셀 매핑 함수 (CSS calc) — --t (초) 와 --pps 곱 */
-body.horizontal .pos-t { left: calc(var(--t) * var(--pps) * 1px); }
+body.horizontal { overflow-x: auto; overflow-y: visible; padding-top: 240px; --cast-offset: 180px; }
+body.vertical   { overflow-x: visible; overflow-y: auto; padding-left: 240px; --cast-offset: 0px; }
+/* 시간 → 픽셀 매핑 — 좌측 cast-offset (라벨 영역) + 초 * pps */
+body.horizontal .pos-t { left: calc(var(--cast-offset, 0px) + var(--t) * var(--pps) * 1px); }
 body.vertical   .pos-t { top:  calc(var(--t) * var(--pps) * 1px); }
 body.horizontal .size-w { width:  max(8px, calc(var(--w) * var(--pps) * 1px)); }
 body.vertical   .size-w { height: max(8px, calc(var(--w) * var(--pps) * 1px)); }
-body.horizontal .span-d { width:  calc(var(--d) * var(--pps) * 1px); }
+body.horizontal .span-d { width:  calc(var(--cast-offset, 0px) + var(--d) * var(--pps) * 1px); }
 body.vertical   .span-d { height: calc(var(--d) * var(--pps) * 1px); }
 .wrap { padding: 12px 14px; }
 .empty {
@@ -675,17 +675,51 @@ body.vertical   .span-d { height: calc(var(--d) * var(--pps) * 1px); }
 .vertical  .lanes  { position: absolute; left: 36px; top: 0; right: 0; }
 .vertical  .lanes-buffs { left: auto; right: 0; }
 
-/* === 캐스트 아이콘 (40px) ========================================= */
+/* === 캐스트 아이콘 + duration bar (WCL 스타일 per-spell 행) ============= */
 .cast {
     position: absolute;
-    width: 40px; height: 40px;
+    width: 28px; height: 28px;
     z-index: 2;
 }
 .cast img {
-    width: 40px; height: 40px; display: block;
-    border: 1px solid #4a4039; border-radius: 5px; box-sizing: border-box;
+    width: 28px; height: 28px; display: block;
+    border: 1px solid #4a4039; border-radius: 4px; box-sizing: border-box;
+    position: relative; z-index: 2;
 }
-.cast:hover img { border-color: #d97757; z-index: 10; }
+.cast:hover img { border-color: #d97757; }
+.cast:hover { z-index: 10; }
+/* duration bar — 아이콘 시작점부터 cast 완료 시점까지 늘어남 */
+.horizontal .cast-bar {
+    position: absolute; top: 4px; left: 14px;
+    height: 20px; width: calc(var(--d) * var(--pps) * 1px);
+    background: linear-gradient(to right,
+        rgba(217,119,87,0.55) 0%, rgba(217,119,87,0.25) 60%, rgba(217,119,87,0.10) 100%);
+    border-radius: 0 3px 3px 0;
+    z-index: 1; pointer-events: none;
+}
+
+/* 스펠 행 좌측 라벨 (아이콘 + 이름 + 시전 횟수) — pos-t 가 아니라 left: 0 고정 */
+.cast-row-label {
+    position: absolute; left: 0;
+    width: 172px; height: 28px;
+    background: rgba(26, 22, 20, 0.94);
+    border-right: 1px solid #3a322c;
+    padding: 0 8px;
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; color: #f5f0e8;
+    z-index: 4;
+    overflow: hidden;
+    pointer-events: none;
+}
+.cast-row-label img { width: 22px; height: 22px; border-radius: 3px; flex: 0 0 22px; }
+.cast-row-label .rname {
+    flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    color: #f5f0e8;
+}
+.cast-row-label .rcnt {
+    color: #a39c8e; font-size: 9.5px; flex: 0 0 auto;
+    background: rgba(58, 50, 44, 0.8); padding: 1px 5px; border-radius: 8px;
+}
 
 /* === 버프 막대 + 아이콘 (24px 막대) ================================ */
 .buff {
@@ -870,33 +904,50 @@ class RotationTimeline(QWebEngineView):
         BUFF_LANE_PX = 26
         ICON_TIME = ICON_PX / DEFAULT_PPS  # 아이콘이 차지하는 "기본" 시간 (= 0.25s)
 
-        # ── 시전: lane 배정은 기본 pps 기준으로 (zoom 시 재계산 없음) ────────
-        events_sorted: list[tuple[int, int, float, int]] = []
+        CAST_ROW_H = 32   # 스펠 행 높이
+        CAST_LABEL_W = 180  # 좌측 스펠명/아이콘 라벨 영역
+
+        # ── 시전: begincast → cast 페어로 duration 인터벌 만들기 ──────────────
+        # 이벤트: [ts, spell_id, type='begincast'|'cast']
+        cast_intervals: list[tuple[int, int, int]] = []  # (start_ts, end_ts, sid)
+        open_casts: dict[int, int] = {}  # sid → begincast_ts (instant 면 cast 직전 begincast 없음)
         for ev in cast_events:
-            if len(ev) >= 3 and ev[2] != "cast":
+            if len(ev) < 3:
                 continue
-            ts = int(ev[0]); sid = int(ev[1])
-            t_rel = (ts - start_ms) / 1000.0
-            if t_rel < 0:
-                continue
-            ms_in = int(round((t_rel - int(t_rel)) * 1000))
-            events_sorted.append((ts, sid, t_rel, ms_in))
-        events_sorted.sort()
+            ts = int(ev[0]); sid = int(ev[1]); kind = ev[2]
+            if kind == "begincast":
+                open_casts[sid] = ts
+            elif kind == "cast":
+                begin_ts = open_casts.pop(sid, ts)
+                if begin_ts > ts:
+                    begin_ts = ts  # 이상한 페어 방어
+                cast_intervals.append((begin_ts, ts, sid))
+        cast_intervals.sort()
 
-        # lane 점유 — 기본 pps 기준 픽셀 충돌
-        cast_lane_endtime: list[float] = []  # lane 별 다음 사용 가능 t_rel
-        cast_items: list[tuple[int, int, float, int]] = []  # (sid, lane_row, t_rel, ms_in)
-        for ts, sid, t_rel, ms_in in events_sorted:
-            lane_i = 0
-            while lane_i < len(cast_lane_endtime) and cast_lane_endtime[lane_i] > t_rel:
-                lane_i += 1
-            if lane_i == len(cast_lane_endtime):
-                cast_lane_endtime.append(t_rel + ICON_TIME + 0.05)
-            else:
-                cast_lane_endtime[lane_i] = t_rel + ICON_TIME + 0.05
-            cast_items.append((sid, lane_i, t_rel, ms_in))
+        # 미완료 begincast (다음 cast 매칭 안 됨) — 그냥 instant 로 처리
+        for sid, ts in open_casts.items():
+            cast_intervals.append((ts, ts, sid))
+        cast_intervals.sort()
 
-        casts_lane_span = max(len(cast_lane_endtime), 1) * (ICON_PX + 4)
+        # 시간 윈도우 안쪽만
+        cast_intervals = [iv for iv in cast_intervals if iv[1] >= start_ms]
+
+        # 스펠별 cast 횟수 → 빈도순 lane 배정 (이름 있는 거 우선)
+        spell_count: dict[int, int] = {}
+        for _, _, sid in cast_intervals:
+            spell_count[sid] = spell_count.get(sid, 0) + 1
+
+        def _cast_has_name(sid: int) -> bool:
+            m = spell_db.get(str(sid), {})
+            return bool(m.get("name_ko") or m.get("name_en"))
+
+        # 이름 있는 거 먼저, 그 안에서 빈도 desc
+        cast_sids_sorted = sorted(
+            spell_count.keys(),
+            key=lambda s: (0 if _cast_has_name(s) else 1, -spell_count[s], s),
+        )
+        cast_lane: dict[int, int] = {sid: i for i, sid in enumerate(cast_sids_sorted)}
+        casts_lane_span = max(len(cast_lane), 1) * CAST_ROW_H
 
         # ── 버프: lane 배정 — 이름 있는 버프만 ────────────────────────────
         all_intervals, still_open = _compute_buff_intervals(buff_events or [])
@@ -921,9 +972,33 @@ class RotationTimeline(QWebEngineView):
 
         # ── HTML 빌드 — 모든 시간 좌표는 CSS var(--t) / var(--w) / var(--d) ──
         cast_html: list[str] = []
-        for sid, row, t_rel, ms_in in cast_items:
-            lane_pos = row * (ICON_PX + 4)
-            cast_html.append(self._cast_html(sid, lane_pos, t_rel, ms_in, spell_db, is_v))
+        for start_ts, end_ts, sid in cast_intervals:
+            t_rel = max((start_ts - start_ms) / 1000.0, 0)
+            dur_s = max((end_ts - start_ts) / 1000.0, 0)
+            lane_pos = cast_lane.get(sid, 0) * CAST_ROW_H
+            cast_html.append(
+                self._cast_row_html(sid, lane_pos, t_rel, dur_s, spell_db, is_v)
+            )
+
+        # 좌측 스펠 라벨 (스펠 아이콘 + 이름) — 한 행 당 하나
+        cast_label_html: list[str] = []
+        for sid in cast_sids_sorted:
+            meta = spell_db.get(str(sid), {})
+            icon = meta.get("icon") or ""
+            name = meta.get("name_ko") or meta.get("name_en") or f"#{sid}"
+            count = spell_count.get(sid, 0)
+            lane_pos = cast_lane[sid] * CAST_ROW_H
+            icon_html = (
+                f"<img src='https://wow.zamimg.com/images/wow/icons/medium/{icon}'>"
+                if icon else "<span class='no-icon'></span>"
+            )
+            cast_label_html.append(
+                f'<div class="cast-row-label" style="top:{lane_pos}px">'
+                f'{icon_html}'
+                f'<span class="rname">{_html_escape(name)}</span>'
+                f'<span class="rcnt">{count}</span>'
+                f'</div>'
+            )
 
         buff_html: list[str] = []
         for sid, t_start, t_end in intervals:
@@ -960,7 +1035,8 @@ class RotationTimeline(QWebEngineView):
             body = f'''
             <div class="wrap">
                 <div class="hdr">{_html_escape(char)} · fight {duration_s:.1f}s
-                    · 시전 {len(cast_items)}회 · 버프 인터벌 {len(intervals)}개
+                    · 시전 {len(cast_intervals)}회 ({len(cast_lane)}개 스펠)
+                    · 버프 인터벌 {len(intervals)}개
                     {f' (미상 {hidden_unknown_buffs}개 숨김)' if hidden_unknown_buffs else ''}
                     · 휠=줌 · 더블클릭=리셋</div>
                 <div class="timeline span-d" style="{timeline_style}">
@@ -968,6 +1044,7 @@ class RotationTimeline(QWebEngineView):
                     <div class="axis {axis_style} span-d">{"".join(label_html)}</div>
                     <div class="casts lanes span-d" style="{casts_style};left:{casts_left}px">
                         {"".join(cast_html)}
+                        {"".join(cast_label_html)}
                     </div>
                     <div class="buffs lanes lanes-buffs span-d" style="{buffs_style};left:{buffs_left}px">
                         {"".join(buff_html)}
@@ -980,15 +1057,17 @@ class RotationTimeline(QWebEngineView):
             body = f'''
             <div class="wrap">
                 <div class="hdr">{_html_escape(char)} · fight {duration_s:.1f}s
-                    · 시전 {len(cast_items)}회 · 버프 인터벌 {len(intervals)}개
+                    · 시전 {len(cast_intervals)}회 ({len(cast_lane)}개 스펠)
+                    · 버프 인터벌 {len(intervals)}개
                     {f' (미상 {hidden_unknown_buffs}개 숨김)' if hidden_unknown_buffs else ''}
                     · 휠=줌 · 더블클릭=리셋</div>
                 <div class="timeline span-d" style="{timeline_style}">
                     <div class="grid span-d">{"".join(grid_html)}</div>
                     <div class="axis {axis_style} span-d">{"".join(label_html)}</div>
-                    <span class="lane-label">시전</span>
+                    <span class="lane-label">시전 (스펠별 행)</span>
                     <div class="casts span-d" style="{casts_style}">
                         {"".join(cast_html)}
+                        {"".join(cast_label_html)}
                     </div>
                     <span class="lane-label">버프</span>
                     <div class="buffs span-d" style="{buffs_style}">
@@ -1001,29 +1080,36 @@ class RotationTimeline(QWebEngineView):
         self.setHtml(self._wrap(body, body_class))
 
     @staticmethod
-    def _cast_html(sid: int, lane_pos: int, t_rel: float,
-                   ms_in: int, spell_db: dict, is_v: bool) -> str:
+    def _cast_row_html(sid: int, lane_pos: int, t_rel: float, dur_s: float,
+                       spell_db: dict, is_v: bool) -> str:
+        """스펠별 행에 들어가는 단일 cast event — 아이콘 + (cast time 있으면) duration bar."""
         meta = spell_db.get(str(sid), {})
         icon = meta.get("icon") or ""
-        tip_body = (meta.get("tooltip_ko") or meta.get("tooltip_en")
-                    or meta.get("description_ko") or "")
+        tip_body = (meta.get("description_ko") or meta.get("tooltip_ko")
+                    or meta.get("tooltip_en") or "")
+        # Wowhead raw HTML 평문화
+        tip_body_plain = _strip_html(tip_body) if tip_body else ""
         icon_url = (f"https://wow.zamimg.com/images/wow/icons/medium/{icon}"
                     if icon else "")
         title, sub = _resolve_name(sid, spell_db)
-        time_str = f"t={t_rel:.3f}s (+{ms_in}ms)"
-        if sub:
-            subtitle = f'<div class="ten">{_html_escape(sub)} · {time_str}</div>'
-        else:
-            subtitle = f'<div class="ten">{time_str}</div>'
-        # --t = 초 단위 시간 (CSS 가 px 변환), lane_pos = 픽셀 (고정)
+        time_str = f"t={t_rel:.3f}s"
+        if dur_s > 0.05:
+            time_str += f" · 시전 {dur_s*1000:.0f}ms"
+        subtitle = (f'<div class="ten">{_html_escape(sub)} · {time_str}</div>'
+                    if sub else f'<div class="ten">{time_str}</div>')
         cross = f"left:{lane_pos}px" if is_v else f"top:{lane_pos}px"
+        # cast time 있으면 duration bar (아이콘 뒤로 늘어남)
+        bar_html = ""
+        if dur_s > 0.05:
+            bar_html = f'<div class="cast-bar" style="--d:{dur_s:.4f}"></div>'
         return (
             f'<div class="cast pos-t" style="--t:{t_rel:.4f};{cross}">'
+            f'{bar_html}'
             f'<img src="{icon_url}" alt="">'
             f'<div class="tip">'
             f'<div class="tname">{_html_escape(title)}</div>'
             f'{subtitle}'
-            f'<div class="tbody">{tip_body}</div>'
+            f'<div class="tbody">{_html_escape(tip_body_plain)}</div>'
             f'</div></div>'
         )
 
