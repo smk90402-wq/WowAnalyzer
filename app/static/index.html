@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>WoW 한밤 레이드 로그 분석기</title>
+  <link rel="stylesheet" href="/static/main.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="title">WoW 한밤 레이드 로그 분석기</div>
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-tab="heroic">영웅 레이드</button>
+      <button class="tab" data-tab="mythic">신화 레이드</button>
+      <button class="tab disabled" data-tab="arbitrary" title="Week 3 작업 예정">임의 로그 (WIP)</button>
+      <button class="tab disabled" data-tab="comparison" title="Week 3 작업 예정">비교 분석 (WIP)</button>
+    </nav>
+    <div class="meta" id="meta">로딩…</div>
+  </header>
+
+  <main id="main">
+    <!-- 보스 + 클래스 + 스펙 필터 -->
+    <section class="filter-row" id="filter-row">
+      <label>보스
+        <select id="boss-select"><option value="">(전체)</option></select>
+      </label>
+      <label>클래스
+        <select id="class-select"><option value="">(전체)</option></select>
+      </label>
+      <label>전문화
+        <select id="spec-select"><option value="">(전체)</option></select>
+      </label>
+      <span class="count" id="count"></span>
+    </section>
+
+    <!-- 메인 split: 랭킹 (좌) / 캐릭터 빌드 (우, 우선 placeholder) -->
+    <div class="split-h">
+      <section class="panel ranking-panel">
+        <h2>랭킹 (top 100)</h2>
+        <div class="table-wrap">
+          <table id="ranking-table">
+            <thead>
+              <tr>
+                <th>#</th><th>캐릭터</th><th>길드</th><th>서버</th>
+                <th class="right">DPS</th><th class="right">ilvl</th>
+              </tr>
+            </thead>
+            <tbody id="ranking-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel build-panel">
+        <h2 id="build-title">캐릭터 빌드</h2>
+        <div id="build-body" class="empty">랭킹에서 행 클릭</div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/static/main.js"></script>
+</body>
+</html>

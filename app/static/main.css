@@ -1,0 +1,168 @@
+/* ── 테마: gui.py 의 다크 톤 (#1a1614 / #d97757 액센트) ─────────────── */
+:root {
+  --bg-0: #1a1614;
+  --bg-1: #221d1a;
+  --bg-2: #2c2521;
+  --border: #3a322c;
+  --text: #f5f0e8;
+  --text-mute: #a39c8e;
+  --text-dim: #6b6359;
+  --accent: #d97757;
+  --accent-dim: #b35a3e;
+  --row-hover: #2a2320;
+  --row-selected: #3a2a22;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg-0); color: var(--text);
+  font-family: 'Pretendard Variable', 'Pretendard', 'Segoe UI', -apple-system, sans-serif;
+  font-size: 12px;
+  height: 100vh; overflow: hidden;
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+}
+
+/* ── 상단 바 + 탭 ──────────────────────────────────────────────────── */
+.topbar {
+  display: flex; align-items: center;
+  padding: 8px 16px;
+  background: var(--bg-1);
+  border-bottom: 1px solid var(--border);
+  gap: 20px;
+}
+.title { color: var(--accent); font-weight: 600; font-size: 13px; }
+.tabs { display: flex; gap: 4px; }
+.tab {
+  background: transparent; border: none; color: var(--text-mute);
+  padding: 6px 14px; cursor: pointer;
+  border-bottom: 2px solid transparent;
+  font-family: inherit; font-size: 12px;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab.disabled { color: var(--text-dim); cursor: not-allowed; }
+.tab.disabled:hover { color: var(--text-dim); }
+.meta { margin-left: auto; color: var(--text-mute); font-size: 11px; }
+
+/* ── 필터 행 ─────────────────────────────────────────────────────── */
+.filter-row {
+  display: flex; gap: 16px; align-items: center;
+  padding: 8px 16px;
+  background: var(--bg-1);
+  border-bottom: 1px solid var(--border);
+}
+.filter-row label {
+  display: flex; gap: 6px; align-items: center;
+  color: var(--text-mute); font-size: 11px;
+}
+.filter-row select {
+  background: var(--bg-2); color: var(--text);
+  border: 1px solid var(--border); border-radius: 3px;
+  padding: 3px 8px; font-family: inherit; font-size: 12px;
+  min-width: 140px;
+}
+.filter-row select:focus { outline: 1px solid var(--accent); }
+.count { margin-left: auto; color: var(--text-dim); font-size: 11px; }
+
+/* ── 메인 split (좌 랭킹 / 우 빌드) ─────────────────────────────────── */
+.split-h {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  height: 100%;
+  overflow: hidden;
+  gap: 1px;
+  background: var(--border);  /* gap 색 — 패널 사이 1px 선 */
+}
+.panel {
+  background: var(--bg-0);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.panel h2 {
+  margin: 0; padding: 8px 14px;
+  font-size: 11px; font-weight: 600; color: var(--accent);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-1);
+}
+
+/* ── 랭킹 테이블 ───────────────────────────────────────────────────── */
+.table-wrap {
+  flex: 1; overflow: auto;
+}
+#ranking-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 11.5px;
+}
+#ranking-table thead {
+  position: sticky; top: 0; z-index: 1;
+  background: var(--bg-1);
+}
+#ranking-table th {
+  padding: 6px 10px;
+  text-align: left; color: var(--text-mute);
+  font-weight: 500; font-size: 11px;
+  border-bottom: 1px solid var(--border);
+}
+#ranking-table th.right, #ranking-table td.right { text-align: right; }
+#ranking-table tbody tr {
+  cursor: pointer;
+  border-bottom: 1px solid rgba(58, 50, 44, 0.4);
+}
+#ranking-table tbody tr:hover { background: var(--row-hover); }
+#ranking-table tbody tr.selected { background: var(--row-selected); }
+#ranking-table td {
+  padding: 5px 10px;
+  color: var(--text);
+}
+#ranking-table td.mute { color: var(--text-mute); }
+#ranking-table td.num { font-variant-numeric: tabular-nums; }
+
+/* ── 빌드 패널 (우측) ──────────────────────────────────────────────── */
+.build-panel { padding: 0; }
+#build-body {
+  flex: 1; overflow: auto;
+  padding: 16px 14px;
+}
+#build-body.empty {
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-mute);
+  background: var(--bg-1);
+  border: 1px dashed var(--border);
+  border-radius: 4px;
+  margin: 24px;
+}
+#build-body h3 {
+  font-size: 11px; color: var(--accent);
+  margin: 16px 0 8px 0; padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+.build-section { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+.build-row { display: flex; gap: 12px; font-size: 11.5px; }
+.build-row .k { color: var(--text-mute); min-width: 50px; }
+.build-row .v { color: var(--text); }
+.gear-list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.gear-list li {
+  display: flex; gap: 12px;
+  padding: 4px 8px;
+  background: var(--bg-1);
+  border-radius: 3px;
+  font-size: 11px;
+}
+.gear-list .slot { color: var(--text-mute); min-width: 60px; }
+.gear-list .iid { color: var(--text); min-width: 90px; }
+.gear-list .ilvl { color: var(--text-mute); }
+
+/* ── 스크롤바 (Webkit, WebView2 에서 동작) ─────────────────────────── */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-0); }
+::-webkit-scrollbar-thumb { background: var(--bg-2); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border); }

@@ -37,29 +37,16 @@ app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 @app.get("/", response_class=HTMLResponse)
 def index() -> str:
-    """루트 — Week 1 stub. Week 2 부터 실제 SPA shell 로 교체."""
-    return """<!doctype html><html><head><meta charset="utf-8">
-<title>WowAnalyzer (web)</title>
-<style>
-  body { background:#1a1614; color:#f5f0e8; font-family:'Segoe UI',sans-serif;
-         padding:40px; line-height:1.6; }
-  h1 { color:#d97757; margin-bottom:6px; }
-  code { background:#221d1a; padding:2px 6px; border-radius:3px; color:#e6c190; }
-  .note { color:#a39c8e; margin-top:12px; }
-  a { color:#9bb5e0; }
-</style></head><body>
-<h1>WowAnalyzer (web migration)</h1>
-<p>Week 1 — FastAPI 백엔드 wrap 완료. 프론트엔드는 Week 2 부터 작성 중.</p>
-<p class="note">테스트 엔드포인트:</p>
-<ul>
-  <li><a href="/api/ping">/api/ping</a></li>
-  <li><a href="/api/rankings/heroic">/api/rankings/heroic</a> (24300 rows)</li>
-  <li><a href="/api/rankings/mythic">/api/rankings/mythic</a></li>
-  <li><a href="/api/rate">/api/rate</a> (V2 rate limit)</li>
-  <li>POST 형식: <code>/api/character/{rid}/{fid}/{char}</code></li>
-</ul>
-<p class="note">기존 LogAnalyze.exe (PySide6) 그대로 살아있음. 두 UI 가 같은 캐시 / 같은 V2Data 사용.</p>
-</body></html>"""
+    """루트 — Week 2: SPA shell 서빙."""
+    idx = STATIC_DIR / "index.html"
+    if idx.exists():
+        return idx.read_text(encoding="utf-8")
+    # 파일 없으면 안내
+    return (
+        "<h1>index.html missing</h1>"
+        f"<p>expected at: {idx}</p>"
+        "<p>app/static/ 가 비어있으면 git pull 다시 받아주세요.</p>"
+    )
 
 # V2Data 싱글톤 — 첫 요청 때 lazy 초기화 (API 키 / 캐시 로드)
 _v2_inst: V2Data | None = None
