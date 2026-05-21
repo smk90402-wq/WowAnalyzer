@@ -1885,6 +1885,43 @@ def _build_info_html(char: str, pre_pull_buffs: list[dict], in_combat_buffs: lis
 # ─────────────────────────────────────────────────────────────────────────────
 # 로딩 오버레이 — 무거운 click 작업 동안 위에 띄움
 
+class FullCharFetchThread(QThread):
+    """캐시에 없는 (rid, fid, char) 의 pfight + events + prepull 일괄 V2 페치.
+
+    임의 로그 분석 모드에서 backfill 없는 캐릭 클릭 시 사용.
+    완료 시 _on_ranking_row_changed 재호출로 정상 렌더 흐름 트리거.
+    """
+
+    finished_ok = Signal(dict)  # {rid, fid, char, ok}
+
+    def __init__(self, rid: str, fid: int, char: str, v2, parent=None) -> None:
+        super().__init__(parent)
+        self.rid = rid
+        self.fid = fid
+        self.char = char
+        self.v2 = v2
+
+    def run(self) -> None:
+        if self.v2 is None:
+            self.finished_ok.emit({
+                "rid": self.rid, "fid": self.fid, "char": self.char, "ok": False,
+            })
+            return
+        try:
+            self.v2.player_fight(self.rid, self.fid, self.char)
+            self.v2.events_for(self.rid, self.fid, self.char)
+            self.v2.pre_pull_buffs(self.rid, self.fid, self.char)
+        except Exception:
+            log.exception("FullCharFetchThread fetch fail")
+        try:
+            self.v2.flush()
+        except Exception:
+            pass
+        self.finished_ok.emit({
+            "rid": self.rid, "fid": self.fid, "char": self.char, "ok": True,
+        })
+
+
 class StatsFetchThread(QThread):
     """캐시된 pfight 에 stats 가 없을 때 (옛날 fetch) 강제 refetch.
 
@@ -2056,6 +2093,8 @@ class RankingPanel(QWidget):
         self._prepull_request_token: int = 0
         self._stats_thread: StatsFetchThread | None = None
         self._stats_request_token: int = 0
+        self._full_char_thread: FullCharFetchThread | None = None
+        self._full_char_request_token: int = 0
         self._last_build_render: dict | None = None  # {rid, fid, char, gear, in_combat, stats}
         self._build()
 
@@ -2531,6 +2570,32 @@ class RankingPanel(QWidget):
                  char, len(gear_sorted), len(in_combat_buffs), len(pre_pull),
                  prepull_loading, bool(stats))
 
+    def _spawn_full_char_fetch(self, rid: str, fid: int, char: str) -> None:
+        """임의 로그 / 비백필 캐릭 — pfight+events+prepull 일괄 페치 후 row 클릭 재처리."""
+        self._full_char_request_token += 1
+        token = self._full_char_request_token
+
+        def _on_done(result):
+            if token != self._full_char_request_token:
+                return  # 사용자가 이미 다른 row 클릭함
+            # 현재 선택된 row 가 같은 캐릭인지 확인 후 재호출
+            if self._current_df is None or self._current_df.empty:
+                return
+            row_idx = self.ranking_table.currentRow()
+            if row_idx < 0 or row_idx >= len(self._current_df):
+                return
+            cur = self._current_df.iloc[row_idx]
+            if (str(cur.get("report_id", "")) == result["rid"]
+                    and int(cur.get("fight_id", 0)) == result["fid"]
+                    and str(cur.get("character", "")) == result["char"]):
+                self._on_ranking_row_changed()  # 이번엔 캐시 hit 으로 정상 렌더
+
+        thread = FullCharFetchThread(rid, fid, char, _v2_data(), self)
+        thread.finished_ok.connect(_on_done)
+        thread.finished.connect(thread.deleteLater)
+        self._full_char_thread = thread  # GC 방지
+        thread.start()
+
     def _spawn_stats_fetch(self, rid: str, fid: int, char: str) -> None:
         """stats 가 없는 옛 pfight 엔트리 백그라운드 강제 refetch."""
         self._stats_request_token += 1
@@ -2623,6 +2688,18 @@ class RankingPanel(QWidget):
             return
         char = str(row.get("character", ""))
 
+        # 캐시 미스 시 async 페치 (임의 로그 / 비백필 캐릭)
+        v2 = _v2_data()
+        pfight_key = f"{rid}:{fid}:{char}"
+        if v2 is not None and pfight_key not in v2.pfight:
+            self.rotation_timeline.set_empty(f"{char} V2 페치 중… (수~십초)")
+            self.gear_table.setRowCount(0)
+            self.build_info.setHtml(_build_info_empty_html(
+                f"{char} 데이터 가져오는 중… (pfight + events + prepull)"
+            ))
+            self._spawn_full_char_fetch(rid, fid, char)
+            return
+
         # V2 cache (메모리) lookup — 빠름
         self.loader.show_with(f"{char} 의 시전·버프 불러오는 중…")
         try:
@@ -2632,6 +2709,12 @@ class RankingPanel(QWidget):
             sid = db_source_id(rid, char)
             if sid is None:
                 self.rotation_timeline.set_empty("이 캐릭의 source ID 매핑 없음")
+                return
+            # events 캐시 미스 → 페치 후 재호출
+            events_key = f"{rid}:{fid}:{sid}"
+            if v2 is not None and events_key not in v2.events:
+                self.rotation_timeline.set_empty(f"{char} events 페치 중…")
+                self._spawn_full_char_fetch(rid, fid, char)
                 return
             cast_events = db_casts(rid, fid, sid)
             buff_events_raw = db_buffs(rid, fid, sid)
