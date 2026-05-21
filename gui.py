@@ -83,10 +83,12 @@ from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWidgets import (
     QAbstractItemView,
     QApplication,
+    QComboBox,
     QFrame,
     QHBoxLayout,
     QHeaderView,
     QLabel,
+    QLineEdit,
     QListWidget,
     QListWidgetItem,
     QMainWindow,
@@ -2811,6 +2813,223 @@ class RaidTab(QWidget):
         self.panel.set_filter(enc_id, enc_name, cls_en, spec_en)
 
 
+_RE_WCL_REPORT = __import__("re").compile(
+    r"(?:warcraftlogs\.com|wcl\.gg)/reports/([a-zA-Z0-9]+)"
+)
+_RE_WCL_FIGHT = __import__("re").compile(r"fight=(\d+|last)")
+_RE_WCL_SOURCE = __import__("re").compile(r"source=(\d+)")
+
+
+def _parse_wcl_url(url: str) -> dict | None:
+    """WCL URL → {rid, fid (str|None), source (int|None)}. 없으면 None."""
+    if not url:
+        return None
+    m = _RE_WCL_REPORT.search(url)
+    if not m:
+        return None
+    out: dict = {"rid": m.group(1), "fid": None, "source": None}
+    fm = _RE_WCL_FIGHT.search(url)
+    if fm:
+        out["fid"] = fm.group(1)
+    sm = _RE_WCL_SOURCE.search(url)
+    if sm:
+        try:
+            out["source"] = int(sm.group(1))
+        except ValueError:
+            pass
+    return out
+
+
+def _fetch_report_players(v2, rid: str, fid: int) -> list[dict] | None:
+    """V2 playerDetails 로 fight 안 모든 플레이어 → [{name, class, spec, sourceID, role, ilvl}]."""
+    if v2 is None:
+        return None
+    try:
+        d = v2.cli.query(
+            """
+            query($code: String!, $fightIDs: [Int]!) {
+              reportData { report(code: $code) {
+                playerDetails(fightIDs: $fightIDs, includeCombatantInfo: true)
+              } }
+            }
+            """,
+            {"code": rid, "fightIDs": [int(fid)]},
+        )
+    except Exception:
+        log.exception("playerDetails fetch fail %s/%s", rid, fid)
+        return None
+    rep = (((d or {}).get("reportData") or {}).get("report") or {})
+    pd_ = (rep.get("playerDetails") or {})
+    actual = pd_.get("data", {}).get("playerDetails") if isinstance(pd_, dict) and "data" in pd_ else pd_
+    if not isinstance(actual, dict):
+        return None
+    out: list[dict] = []
+    for role in ("dps", "tanks", "healers"):
+        for p in actual.get(role, []) or []:
+            if not isinstance(p, dict):
+                continue
+            ci = p.get("combatantInfo") or {}
+            il_raw = (ci.get("stats") or {}).get("Item Level") or {}
+            ilvl = il_raw.get("min") if isinstance(il_raw, dict) else None
+            specs = p.get("specs") or []
+            spec_kr = (specs[0] if specs else "") or ""
+            cls = p.get("type") or ""
+            out.append({
+                "name": p.get("name") or "",
+                "class": cls,
+                "spec": spec_kr,
+                "sourceID": p.get("id"),
+                "role": role,
+                "ilvl": ilvl,
+                "server": p.get("server") or "",
+            })
+    return out
+
+
+class ArbitraryLogTab(QWidget):
+    """WCL URL 입력 → 임의 fight + player 단일 분석. RankingPanel 재사용."""
+
+    def __init__(self, parent=None) -> None:
+        super().__init__(parent)
+        self._fights: list[dict] = []
+        self._players: list[dict] = []
+        self._rid: str | None = None
+        self._build_ui()
+
+    def _build_ui(self) -> None:
+        outer = QVBoxLayout(self)
+        outer.setContentsMargins(24, 24, 24, 24)
+        outer.setSpacing(12)
+
+        # URL row
+        url_row = QHBoxLayout()
+        url_row.setSpacing(6)
+        url_lab = QLabel("WCL URL")
+        url_lab.setObjectName("section")
+        url_row.addWidget(url_lab)
+        self.url_input = QLineEdit()
+        self.url_input.setPlaceholderText(
+            "https://www.warcraftlogs.com/reports/abc123  또는  ko.warcraftlogs.com/reports/abc123#fight=2"
+        )
+        self.url_input.returnPressed.connect(self._on_fetch)
+        url_row.addWidget(self.url_input, 1)
+        self.fetch_btn = QPushButton("리포트 분석")
+        self.fetch_btn.clicked.connect(self._on_fetch)
+        url_row.addWidget(self.fetch_btn)
+        outer.addLayout(url_row)
+
+        # Fight selector
+        fight_row = QHBoxLayout()
+        fight_lab = QLabel("Fight")
+        fight_lab.setObjectName("section")
+        fight_row.addWidget(fight_lab)
+        self.fight_combo = QComboBox()
+        self.fight_combo.setMinimumWidth(420)
+        self.fight_combo.currentIndexChanged.connect(self._on_fight_changed)
+        fight_row.addWidget(self.fight_combo)
+        fight_row.addStretch()
+        self.status_label = QLabel("")
+        self.status_label.setStyleSheet("color: #a39c8e;")
+        fight_row.addWidget(self.status_label)
+        outer.addLayout(fight_row)
+
+        # Embedded RankingPanel — 클릭 시 _populate_character_build 등 그대로 동작
+        self.panel = RankingPanel()
+        outer.addWidget(self.panel, 1)
+
+    def _on_fetch(self) -> None:
+        url = self.url_input.text().strip()
+        parsed = _parse_wcl_url(url)
+        if not parsed:
+            self.status_label.setText("URL 파싱 실패 — warcraftlogs.com/reports/... 형식")
+            return
+        self.status_label.setText("리포트 메타 가져오는 중…")
+        QApplication.processEvents()
+        v2 = _v2_data()
+        if v2 is None:
+            self.status_label.setText("V2Data 사용 불가 (.env 확인)")
+            return
+        meta = v2.report_meta(parsed["rid"])
+        if not meta:
+            self.status_label.setText("리포트 못 찾음 (private 이거나 잘못된 ID)")
+            return
+        self._rid = parsed["rid"]
+        self._fights = meta.get("fights") or []
+        # 보스 이름 한글로
+        from itertools import chain
+        boss_kr = {enc_id: name_kr for enc_id, _, name_kr in BOSSES}
+        # populate combo
+        self.fight_combo.blockSignals(True)
+        self.fight_combo.clear()
+        for f in self._fights:
+            fid = f.get("id"); enc_id = f.get("encounterID")
+            dur = (f.get("endTime", 0) - f.get("startTime", 0)) / 1000.0
+            nm = boss_kr.get(enc_id, f"encounter {enc_id}")
+            self.fight_combo.addItem(f"fight {fid} · {nm} ({dur:.0f}s)", userData=fid)
+        self.fight_combo.blockSignals(False)
+        self.status_label.setText(f"{self._rid} · {len(self._fights)} fights")
+        # URL 에 fight 지정돼 있으면 선택
+        if parsed.get("fid"):
+            for i in range(self.fight_combo.count()):
+                if str(self.fight_combo.itemData(i)) == str(parsed["fid"]):
+                    self.fight_combo.setCurrentIndex(i)
+                    return
+        if self.fight_combo.count() > 0:
+            self.fight_combo.setCurrentIndex(0)
+            self._on_fight_changed(0)
+
+    def _on_fight_changed(self, idx: int) -> None:
+        if idx < 0 or not self._rid:
+            return
+        fid = self.fight_combo.itemData(idx)
+        if fid is None:
+            return
+        self.status_label.setText(f"fight {fid} 플레이어 가져오는 중…")
+        QApplication.processEvents()
+        v2 = _v2_data()
+        players = _fetch_report_players(v2, self._rid, int(fid))
+        if not players:
+            self.status_label.setText("플레이어 목록 페치 실패")
+            return
+        self._players = players
+        # fake DataFrame — 기존 RankingPanel 의 _current_df 형식
+        import pandas as pd
+        rows = []
+        for i, p in enumerate(players, 1):
+            rows.append({
+                "report_id": self._rid,
+                "fight_id": int(fid),
+                "character": p["name"],
+                "server": p.get("server") or "",
+                "class": p["class"],
+                "spec": p["spec"],
+                "dps": 0,  # damage 계산 없이 0 으로
+                "item_level": p.get("ilvl") or "",
+                "rank": i,
+                "encounter_id": next((f.get("encounterID") for f in self._fights if f.get("id") == int(fid)), 0),
+            })
+        df = pd.DataFrame(rows)
+        fight_meta = next((f for f in self._fights if f.get("id") == int(fid)), {})
+        enc_id = fight_meta.get("encounterID")
+        from collections import OrderedDict
+        boss_kr = next((n for eid, _, n in BOSSES if eid == enc_id), f"encounter {enc_id}")
+        # RankingPanel 의 헤더/데이터만 update — _refresh() 의 aggregate 부분은 안 거침
+        p = self.panel
+        p.encounter_id = enc_id
+        p.encounter_name = boss_kr
+        p.class_en = None  # mixed
+        p.spec_en = None
+        p._current_df = df
+        p.header.setText(f"{boss_kr}  ·  {self._rid}/fight {fid}  ·  플레이어 {len(players)}명")
+        p.spell_table.setRowCount(0)
+        p.gear_table.setRowCount(0)
+        p.build_info.setHtml(_build_info_empty_html("플레이어 클릭 시 빌드 표시"))
+        p.tree_view.setHtml(_tree_empty_html("임의 로그 모드 — 트리 픽률 X (단일 fight)"))
+        p.rotation_timeline.set_empty("플레이어 클릭")
+        p._populate_rankings(df)
+        self.status_label.setText(f"플레이어 {len(players)}명 — 행 클릭")
+
+
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
@@ -2826,6 +3045,7 @@ class MainWindow(QMainWindow):
         tabs.setDocumentMode(True)
         tabs.addTab(RaidTab("영웅", has_data=False), "영웅 레이드")
         tabs.addTab(RaidTab("신화", has_data=True),  "신화 레이드")
+        tabs.addTab(ArbitraryLogTab(),               "임의 로그 분석")
         tabs.setCurrentIndex(1)
         tabs.currentChanged.connect(lambda i: log.info("tab change: %s", tabs.tabText(i)))
 
