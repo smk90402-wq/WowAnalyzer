@@ -232,16 +232,36 @@ function esc(s) {
 }
 
 // ── 이벤트 바인딩 ───────────────────────────────────────────────────────
+function switchTab(tab) {
+  $$('#tabs .tab').forEach(t => t.classList.remove('active'));
+  $$('.tab-pane').forEach(p => p.classList.remove('active'));
+  const btn = document.querySelector(`#tabs .tab[data-tab="${tab}"]`);
+  if (btn) btn.classList.add('active');
+  // ranking pane: heroic/mythic 공용. arbitrary: 별도 pane.
+  const paneId = (tab === 'arbitrary') ? 'arbitrary' : 'ranking';
+  document.querySelector(`#pane-${paneId}`).classList.add('active');
+}
+
 function bind() {
   $('#tabs').addEventListener('click', e => {
     const btn = e.target.closest('.tab');
     if (!btn || btn.classList.contains('disabled')) return;
-    $$('#tabs .tab').forEach(t => t.classList.remove('active'));
-    btn.classList.add('active');
     const tab = btn.dataset.tab;
+    switchTab(tab);
     if (tab === 'heroic' || tab === 'mythic') {
       loadRankings(tab);
     }
+  });
+
+  // 임의 로그
+  $('#arb-fetch').addEventListener('click', onArbitraryFetch);
+  $('#arb-url').addEventListener('keydown', e => {
+    if (e.key === 'Enter') onArbitraryFetch();
+  });
+  $('#arb-fight').addEventListener('change', onArbitraryFightChange);
+  $('#arb-player-body').addEventListener('click', e => {
+    const tr = e.target.closest('tr');
+    if (tr) onArbitraryPlayerClick(tr);
   });
 
   $('#boss-select').addEventListener('change', e => {
@@ -276,6 +296,151 @@ function bind() {
     document.querySelectorAll('.tree-mode').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   });
+}
+
+// ── 임의 로그 탭 ────────────────────────────────────────────────────────
+const arbState = {
+  rid: null,
+  meta: null,        // /api/report response
+  fights: [],
+  fid: null,
+  players: [],
+  selectedChar: null,
+};
+
+function parseWclUrl(url) {
+  // https://www.warcraftlogs.com/reports/{rid}?fight={fid} (한국 도메인 ko. 도)
+  const m = url.match(/reports\/([A-Za-z0-9]+)(?:.*?fight=([0-9]+))?/);
+  return m ? { rid: m[1], fid: m[2] ? parseInt(m[2], 10) : null } : null;
+}
+
+async function onArbitraryFetch() {
+  const url = $('#arb-url').value.trim();
+  const parsed = parseWclUrl(url);
+  if (!parsed) {
+    $('#arb-status').textContent = 'URL 파싱 실패 — warcraftlogs.com/reports/... 형식';
+    return;
+  }
+  $('#arb-status').textContent = '리포트 페치 중…';
+  try {
+    const r = await fetch(`/api/report/${encodeURIComponent(parsed.rid)}`);
+    if (!r.ok) throw new Error(`HTTP ${r.status}: ${await r.text()}`);
+    const meta = await r.json();
+    arbState.rid = parsed.rid;
+    arbState.meta = meta;
+    arbState.fights = meta.fights || [];
+    if (arbState.fights.length === 0) {
+      $('#arb-status').textContent = 'fight 0개 (private 이거나 잘못된 ID)';
+      return;
+    }
+    populateArbFights(parsed.fid);
+    $('#arb-status').textContent = `${parsed.rid} · fights ${arbState.fights.length}개`;
+  } catch (e) {
+    $('#arb-status').textContent = `실패: ${e.message}`;
+    console.error(e);
+  }
+}
+
+function populateArbFights(preferFid) {
+  const DIFF_KR = {1: 'LFR', 2: 'Normal', 3: 'Heroic', 4: 'Mythic', 5: 'Mythic'};
+  const sel = $('#arb-fight');
+  sel.innerHTML = arbState.fights.map(f => {
+    const dur = ((f.endTime || 0) - (f.startTime || 0)) / 1000;
+    const diff = DIFF_KR[f.difficulty] || `diff${f.difficulty}`;
+    const kill = f.kill ? '✓' : '✗';
+    const nm = f.name || `enc ${f.encounterID}`;
+    return `<option value="${f.id}">fight ${f.id} · ${diff} · ${kill} ${esc(nm)} (${dur.toFixed(0)}s)</option>`;
+  }).join('');
+  if (preferFid) {
+    const opt = sel.querySelector(`option[value="${preferFid}"]`);
+    if (opt) sel.value = String(preferFid);
+  }
+  onArbitraryFightChange();
+}
+
+function onArbitraryFightChange() {
+  const fidStr = $('#arb-fight').value;
+  if (!fidStr) return;
+  arbState.fid = parseInt(fidStr, 10);
+  // V2Data.report_meta 의 actors 는 {name: sourceID} dict. report 전체 (per-fight 아님).
+  // 클릭 시 pfight 가 None 이면 "이 fight 미참가" 표시.
+  const actorsObj = arbState.meta?.actors || {};
+  const names = Object.keys(actorsObj).sort((a, b) => a.localeCompare(b, 'ko'));
+  arbState.players = names;
+  const tbody = $('#arb-player-body');
+  tbody.innerHTML = names.map(nm => `
+    <tr data-name="${esc(nm)}">
+      <td>${esc(nm)}</td>
+      <td class="mute">source #${actorsObj[nm]}</td>
+      <td class="mute">${esc('—')}</td>
+    </tr>
+  `).join('');
+  $('#arb-build-body').className = 'empty';
+  $('#arb-build-body').textContent = '플레이어 클릭';
+}
+
+async function onArbitraryPlayerClick(tr) {
+  $$('#arb-player-body tr.selected').forEach(t => t.classList.remove('selected'));
+  tr.classList.add('selected');
+  const char = tr.dataset.name;
+  arbState.selectedChar = char;
+  const rid = arbState.rid;
+  const fid = arbState.fid;
+  if (!rid || !fid || !char) return;
+
+  $('#arb-build-title').textContent = `캐릭터 빌드 — ${char}`;
+  $('#arb-build-body').className = '';
+  $('#arb-build-body').innerHTML =
+    `<p style="color:var(--text-mute)">${esc(char)} 데이터 로드 중… (V2 페치 + events, 수~십초 가능)</p>`;
+  try {
+    const r = await fetch(`/api/character/${encodeURIComponent(rid)}/${fid}/${encodeURIComponent(char)}`);
+    if (!r.ok) throw new Error(`HTTP ${r.status}: ${await r.text()}`);
+    const d = await r.json();
+    // ranking row 형태로 emulate (renderBuild 재사용)
+    const fakeRow = {
+      character: char,
+      class: '',  // V2 player_fight 응답에 직접 없음
+      spec: '',
+      item_level: null,
+      dps: null,
+      rank: null,
+      report_id: rid,
+      fight_id: fid,
+      encounter_id: d.encounter_id,
+      encounter_name: d.encounter_name,
+    };
+    renderBuildInto('#arb-build-body', d, fakeRow);
+  } catch (e) {
+    $('#arb-build-body').innerHTML =
+      `<p style="color:#d97757">로드 실패: ${esc(e.message)}</p>`;
+  }
+}
+
+function renderBuildInto(selector, d, row) {
+  // ranking 의 renderBuild 와 동일 — 단지 target selector 만 다름
+  const gear = d.gear || [];
+  const statsKr = d.stats_kr || [];
+  const tlUrl = `/api/timeline/${encodeURIComponent(row.report_id)}/${row.fight_id}/${encodeURIComponent(row.character)}`;
+  document.querySelector(selector).innerHTML = `
+    <div class="build-section">
+      <div class="build-row">
+        <span class="k">캐릭</span>
+        <span class="v">${esc(row.character)}</span>
+      </div>
+      <div class="build-row">
+        <span class="k">보스</span>
+        <span class="v">${esc(d.encounter_name || row.encounter_name || '?')}</span>
+      </div>
+    </div>
+    <h3>딜사이클</h3>
+    <iframe class="tl-frame" src="${tlUrl}" title="타임라인"></iframe>
+    <h3>장비 (${gear.length} 슬롯)</h3>
+    <ul class="gear-list">
+      ${gear.map(g => gearItemHtml(g)).join('')}
+    </ul>
+    <h3>스탯</h3>
+    ${renderStats(statsKr)}
+  `;
 }
 
 // ── 부트 ────────────────────────────────────────────────────────────────

@@ -11,14 +11,14 @@
     <nav class="tabs" id="tabs">
       <button class="tab active" data-tab="heroic">영웅 레이드</button>
       <button class="tab" data-tab="mythic">신화 레이드</button>
-      <button class="tab disabled" data-tab="arbitrary" title="Week 3 작업 예정">임의 로그 (WIP)</button>
-      <button class="tab disabled" data-tab="comparison" title="Week 3 작업 예정">비교 분석 (WIP)</button>
+      <button class="tab" data-tab="arbitrary">임의 로그 분석</button>
+      <button class="tab disabled" data-tab="comparison" title="다음 작업 예정">비교 분석 (WIP)</button>
     </nav>
     <div class="meta" id="meta">로딩…</div>
   </header>
 
-  <main id="main">
-    <!-- 보스 + 클래스 + 스펙 필터 -->
+  <!-- ── 영웅/신화 공용 ranking view ───────────────────────── -->
+  <main class="tab-pane active" data-pane="ranking" id="pane-ranking">
     <section class="filter-row" id="filter-row">
       <label>보스
         <select id="boss-select"><option value="">(전체)</option></select>
@@ -32,7 +32,6 @@
       <span class="count" id="count"></span>
     </section>
 
-    <!-- 메인 split: 랭킹 (좌) / 캐릭터 빌드 (우, 우선 placeholder) -->
     <div class="split-h">
       <section class="panel ranking-panel">
         <h2>랭킹 (top 100)</h2>
@@ -52,6 +51,44 @@
       <section class="panel build-panel">
         <h2 id="build-title">캐릭터 빌드</h2>
         <div id="build-body" class="empty">랭킹에서 행 클릭</div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ── 임의 로그 분석 ─────────────────────────────────────── -->
+  <main class="tab-pane" data-pane="arbitrary" id="pane-arbitrary">
+    <section class="arb-controls">
+      <label>WCL URL
+        <input type="text" id="arb-url" placeholder="https://www.warcraftlogs.com/reports/..."
+               size="80">
+      </label>
+      <button id="arb-fetch">리포트 분석</button>
+      <span class="arb-status" id="arb-status"></span>
+    </section>
+    <section class="arb-controls">
+      <label>Fight
+        <select id="arb-fight"><option value="">(URL 분석 후)</option></select>
+      </label>
+    </section>
+
+    <div class="split-h">
+      <section class="panel ranking-panel">
+        <h2>플레이어 (fight 참가)</h2>
+        <div class="table-wrap">
+          <table id="arb-player-table">
+            <thead>
+              <tr>
+                <th>캐릭터</th><th>Source ID</th><th></th>
+              </tr>
+            </thead>
+            <tbody id="arb-player-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel build-panel">
+        <h2 id="arb-build-title">캐릭터 빌드</h2>
+        <div id="arb-build-body" class="empty">플레이어 클릭</div>
       </section>
     </div>
   </main>
