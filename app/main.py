@@ -322,6 +322,112 @@ def _talent_trees() -> dict:
     return _talent_trees_cache
 
 
+@app.get("/api/talent-tree-aggregate", response_class=HTMLResponse)
+def talent_tree_aggregate(cls: str = "", spec: str = "",
+                          encounter_id: int = 0,
+                          difficulty: str = "heroic") -> str:
+    """Top100 aggregate — 보스/스펙별 모든 캐릭의 pfight cache 에서 노드 픽 합산.
+
+    rankings CSV 의 (rid, fid, char) 튜플 → pfight 조회 → 카운트.
+    pfight cache 미스인 캐릭은 skip. denom = 캐시 매칭된 캐릭 수.
+    """
+    if not cls or not spec:
+        return tt_render._empty("class/spec query 누락")
+    key = f"{cls}/{spec}"
+    trees = _talent_trees()
+    tree_data = trees.get(key)
+    if not tree_data:
+        return tt_render._empty(f"트리 데이터 없음: {key}")
+
+    # rankings CSV 필터
+    fname = DIFFICULTY_FILES.get(difficulty)
+    if not fname:
+        return tt_render._empty(f"unknown difficulty: {difficulty}")
+    path = DATA_DIR / fname
+    if not path.exists():
+        return tt_render._empty(f"CSV 없음: {fname}")
+    df = pd.read_csv(path)
+    mask = (df["class"] == cls) & (df["spec"] == spec)
+    if encounter_id:
+        mask = mask & (df["encounter_id"] == encounter_id)
+    sub = df[mask]
+    if sub.empty:
+        return tt_render._empty(f"필터링 결과 없음: {cls}/{spec} boss={encounter_id}")
+
+    # pfight cache 합산
+    v2 = _v2()
+    pick_count: dict[int, int] = {}
+    pts_dist: dict[int, dict[int, int]] = {}
+    matched = 0
+    from collections import Counter
+    for _, r in sub.iterrows():
+        rid = str(r.get("report_id") or "")
+        fid_raw = r.get("fight_id")
+        char_nm = str(r.get("character") or "")
+        if not rid or not char_nm:
+            continue
+        try:
+            fid_int = int(fid_raw)
+        except (TypeError, ValueError):
+            continue
+        pf = v2.pfight.get(f"{rid}:{fid_int}:{char_nm}")
+        if not isinstance(pf, dict):
+            continue
+        nodes = pf.get("nodes") or []
+        if not nodes:
+            continue
+        matched += 1
+        per_node = Counter(int(n) for n in nodes if isinstance(n, int))
+        for nid, rk in per_node.items():
+            pick_count[nid] = pick_count.get(nid, 0) + 1
+            d = pts_dist.setdefault(nid, {})
+            d[rk] = d.get(rk, 0) + 1
+
+    if matched == 0:
+        return tt_render._empty(
+            f"백필된 캐릭 0명 — {cls}/{spec} boss={encounter_id}\n"
+            f"전체 {len(sub)} 명 중 pfight 캐시 매칭 0. backfill_v2.py 필요."
+        )
+
+    # hero_picks 합산
+    hero_dict = tree_data.get("hero") or {}
+    hero_tids: dict[str, set[int]] = {}
+    for hn, hd in hero_dict.items():
+        tids: set[int] = set()
+        for n in hd.get("nodes") or []:
+            for opt in n.get("options") or []:
+                tid = opt.get("talent_id")
+                if isinstance(tid, int):
+                    tids.add(tid)
+        hero_tids[hn] = tids
+    hero_picks: dict[str, int] = {hn: 0 for hn in hero_dict}
+    for _, r in sub.iterrows():
+        rid = str(r.get("report_id") or "")
+        try:
+            fid_int = int(r.get("fight_id"))
+        except (TypeError, ValueError):
+            continue
+        char_nm = str(r.get("character") or "")
+        pf = v2.pfight.get(f"{rid}:{fid_int}:{char_nm}")
+        if not isinstance(pf, dict):
+            continue
+        talents = set(t for t in (pf.get("talents") or []) if isinstance(t, int))
+        if not talents:
+            continue
+        best_hn = None; best_n = 0
+        for hn, tids in hero_tids.items():
+            n = len(talents & tids)
+            if n > best_n:
+                best_n = n; best_hn = hn
+        if best_hn:
+            hero_picks[best_hn] += 1
+
+    return tt_render.render_html(
+        tree_data, pick_count, pts_dist, hero_picks,
+        denom=matched, spell_db=_spell_db(), hero_filter=None,
+    )
+
+
 @app.get("/api/talent-tree/{rid}/{fid}/{char}", response_class=HTMLResponse)
 def talent_tree_html(rid: str, fid: int, char: str,
                      cls: str = "", spec: str = "") -> str:

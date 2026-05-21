@@ -197,6 +197,20 @@ body {
   margin-bottom: 8px;
 }
 
+/* 트리 본인/Top100 토글 */
+.tree-toggle { float: right; margin-top: -3px; }
+.tree-mode {
+  background: var(--bg-2); border: 1px solid var(--border); color: var(--text-mute);
+  font-family: inherit; font-size: 10.5px;
+  padding: 3px 8px; cursor: pointer;
+  border-radius: 3px; margin-left: 4px;
+}
+.tree-mode:hover { color: var(--text); }
+.tree-mode.active {
+  color: var(--text); background: var(--accent-dim);
+  border-color: var(--accent);
+}
+
 /* ── 스크롤바 (Webkit, WebView2 에서 동작) ─────────────────────────── */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: var(--bg-0); }

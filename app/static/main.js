@@ -24,11 +24,18 @@ async function loadRankings(difficulty) {
     const j = await r.json();
     state.difficulty = difficulty;
     state.rows = j.rows;
-    state.bossFilter = '';
     state.classFilter = '';
     state.specFilter = '';
     state.selectedRowIdx = -1;
     populateFilters();
+    // 보스 자동 선택: 첫 보스. 24300 rows 전체 보단 보스별 ~2700 rows 가 더 유의미.
+    const bossSel = $('#boss-select');
+    if (bossSel.options.length > 1) {
+      bossSel.selectedIndex = 1;
+      state.bossFilter = bossSel.value;
+    } else {
+      state.bossFilter = '';
+    }
     renderTable();
     $('#meta').textContent =
       `${j.row_count.toLocaleString()} rows · ${difficulty}`;
@@ -86,8 +93,8 @@ function filteredRows() {
 function renderTable() {
   const rows = filteredRows();
   const tbody = $('#ranking-body');
-  // top 200개만 우선 렌더 (전체 24300 은 DOM 무거움 — 가상화는 Week 3)
-  const max = 200;
+  // 보스+클래스 필터 적용 시 보통 100명 미만. 무필터 + 영웅 전체 = 24300 → cap 1500 으로 부드럽게.
+  const max = 1500;
   const slice = rows.slice(0, max);
   tbody.innerHTML = slice.map((r, i) => `
     <tr data-idx="${i}">
@@ -101,7 +108,7 @@ function renderTable() {
   `).join('');
   $('#count').textContent =
     `${rows.length.toLocaleString()} / ${state.rows.length.toLocaleString()} rows`
-    + (rows.length > max ? ` (위 ${max}개 표시)` : '');
+    + (rows.length > max ? ` (상위 ${max}개 표시 — 필터 좁혀서 좁히기)` : '');
 }
 
 // ── 행 클릭 → 캐릭터 빌드 페치 ──────────────────────────────────────────
@@ -154,8 +161,15 @@ function renderBuild(d, row) {
     </div>
     <h3>딜사이클</h3>
     <iframe class="tl-frame" src="${tlUrl}" title="타임라인"></iframe>
-    <h3>특성 트리 (본인 픽)</h3>
-    <iframe class="tree-frame" src="${treeUrl}" title="특성 트리"></iframe>
+    <h3>특성 트리
+      <span class="tree-toggle">
+        <button class="tree-mode active" data-mode="self">본인 픽</button>
+        <button class="tree-mode" data-mode="agg">Top100 픽률</button>
+      </span>
+    </h3>
+    <iframe class="tree-frame" id="tree-frame" src="${treeUrl}" title="특성 트리"
+      data-self-url="${treeUrl}"
+      data-agg-url="/api/talent-tree-aggregate?cls=${encodeURIComponent(row.class)}&spec=${encodeURIComponent(row.spec)}&encounter_id=${row.encounter_id}&difficulty=${state.difficulty}"></iframe>
     <h3>장비 (${gear.length} 슬롯)</h3>
     <ul class="gear-list">
       ${gear.map(g => gearItemHtml(g)).join('')}
@@ -248,6 +262,19 @@ function bind() {
   $('#ranking-body').addEventListener('click', e => {
     const tr = e.target.closest('tr');
     if (tr) onRowClick(tr);
+  });
+
+  // 트리 본인/Top100 토글 — 빌드 패널이 매번 재렌더되므로 위임 핸들러
+  $('#build-body').addEventListener('click', e => {
+    const btn = e.target.closest('.tree-mode');
+    if (!btn) return;
+    const iframe = $('#tree-frame');
+    if (!iframe) return;
+    const mode = btn.dataset.mode;
+    const url = mode === 'agg' ? iframe.dataset.aggUrl : iframe.dataset.selfUrl;
+    iframe.src = url;
+    document.querySelectorAll('.tree-mode').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
   });
 }
 
