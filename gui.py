@@ -665,15 +665,16 @@ body.vertical   .span-d { height: calc(var(--d) * var(--pps) * 1px); }
 
 /* === 그리드 — 1초 간격 minor + 5초 간격 major, 시전/버프 영역까지 내려감 === */
 .grid { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 0; }
-.horizontal .gline { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(255, 255, 255, 0.04); }
-.horizontal .gline.major { background: rgba(217, 119, 87, 0.22); width: 1px; }
-.vertical .gline { position: absolute; left: 0; right: 0; height: 1px; background: rgba(255, 255, 255, 0.04); }
-.vertical .gline.major { background: rgba(217, 119, 87, 0.22); height: 1px; }
+.horizontal .gline { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(245, 240, 232, 0.10); }
+.horizontal .gline.major { background: rgba(217, 119, 87, 0.40); width: 1px; }
+.vertical .gline { position: absolute; left: 0; right: 0; height: 1px; background: rgba(245, 240, 232, 0.10); }
+.vertical .gline.major { background: rgba(217, 119, 87, 0.40); height: 1px; }
 
 /* === 시전 / 버프 lane 컨테이너 ==================================== */
 .casts, .buffs { position: relative; }
 .horizontal .casts { height: 32px; margin-bottom: 8px; }
-.horizontal .buffs { background: #1f1a17; border-radius: 4px; padding: 4px 0; }
+/* 버프 lane 배경 투명 — 그리드 선 가리지 않게. 살짝 어둠 톤만 (반투명) */
+.horizontal .buffs { background: rgba(31, 26, 23, 0.45); border-radius: 4px; padding: 4px 0; }
 .vertical  .lanes  { position: absolute; left: 36px; top: 0; right: 0; }
 .vertical  .lanes-buffs { left: auto; right: 0; }
 
