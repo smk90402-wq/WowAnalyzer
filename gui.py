@@ -2098,6 +2098,8 @@ class RankingPanel(QWidget):
         self._full_char_thread: FullCharFetchThread | None = None
         self._full_char_request_token: int = 0
         self._last_build_render: dict | None = None  # {rid, fid, char, gear, in_combat, stats}
+        # 비교 분석 탭에서 등록하는 hook (build 렌더 끝나면 자기 자신 전달)
+        self._on_build_rendered_hook = None  # callable(panel) | None
         self._build()
 
     # ── UI 빌드 ──────────────────────────────────────────────────────────
@@ -2477,7 +2479,9 @@ class RankingPanel(QWidget):
         for i, g in enumerate(gear_sorted):
             slot = g.get("slot") if isinstance(g.get("slot"), int) else -1
             slot_kr = SLOT_KR.get(slot, f"슬롯 #{slot}")
-            self.gear_table.setItem(i, 0, _center_cell(slot_kr))
+            slot_cell = _center_cell(slot_kr)
+            slot_cell.setData(Qt.ItemDataRole.UserRole, slot)  # 비교 diff 용
+            self.gear_table.setItem(i, 0, slot_cell)
             # 아이템 — 한글명 + 아이콘 + 등급 컬러 + 툴팁
             iid = g.get("id")
             if isinstance(iid, int):
@@ -2574,6 +2578,13 @@ class RankingPanel(QWidget):
         log.info("character build: %s gear=%d in_combat=%d pre_pull=%d loading=%s has_stats=%s",
                  char, len(gear_sorted), len(in_combat_buffs), len(pre_pull),
                  prepull_loading, bool(stats))
+
+        # 비교 분석 hook — 양쪽 모두 렌더 시 diff 하이라이트
+        if self._on_build_rendered_hook:
+            try:
+                self._on_build_rendered_hook(self)
+            except Exception:
+                log.exception("build rendered hook failed")
 
     def _on_ranking_context_menu(self, pos) -> None:
         """랭킹 행 우클릭 → 비교 분석 좌/우 추가."""
@@ -3199,15 +3210,15 @@ class ComparisonTab(QWidget):
         outer.setContentsMargins(8, 8, 8, 8)
         outer.setSpacing(0)
 
-        hint = QLabel(
+        self.hint = QLabel(
             "비교 분석 — 좌측 / 우측 각각 WCL URL 입력. 캐릭터 클릭하면 자동 V2 페치."
         )
-        hint.setStyleSheet("color: #a39c8e; font-size: 9.5pt; padding: 4px 12px;")
+        self.hint.setStyleSheet("color: #a39c8e; font-size: 9.5pt; padding: 4px 12px;")
 
         wrap = QVBoxLayout()
         wrap.setContentsMargins(0, 0, 0, 0)
         wrap.setSpacing(4)
-        wrap.addWidget(hint)
+        wrap.addWidget(self.hint)
 
         splitter = QSplitter(Qt.Orientation.Horizontal)
         splitter.setChildrenCollapsible(False)
@@ -3220,6 +3231,70 @@ class ComparisonTab(QWidget):
         wrap.addWidget(splitter, 1)
 
         outer.addLayout(wrap)
+
+        # 양쪽 RankingPanel build 렌더 hook 등록 → 다 차면 diff 하이라이트
+        self.left.panel._on_build_rendered_hook = self._on_side_build_rendered
+        self.right.panel._on_build_rendered_hook = self._on_side_build_rendered
+
+    # ── 비교 diff 하이라이트 ─────────────────────────────────────────────
+    def _on_side_build_rendered(self, panel) -> None:
+        """한쪽 build 렌더 끝남 → 양쪽 다 차있으면 gear diff 적용."""
+        ld = self.left.panel._last_build_render
+        rd = self.right.panel._last_build_render
+        if not (ld and rd):
+            self.hint.setText(
+                "비교 분석 — 좌측 / 우측 각각 WCL URL 입력. 캐릭터 클릭하면 자동 V2 페치."
+            )
+            return
+        diff_slots = self._apply_gear_diff(
+            self.left.panel.gear_table, ld.get("gear") or [],
+            self.right.panel.gear_table, rd.get("gear") or [],
+        )
+        lchar = ld.get("char", "?")
+        rchar = rd.get("char", "?")
+        self.hint.setText(
+            f"비교: 좌 {lchar} ↔ 우 {rchar}  ·  장비 차이 {diff_slots} 슬롯 (빨강 강조)"
+        )
+
+    @staticmethod
+    def _apply_gear_diff(ltab, lgear, rtab, rgear) -> int:
+        """양쪽 gear_table 의 슬롯별 비교 — item ID 다르면 두 테이블 모두 빨강 배경.
+
+        Returns: diff 슬롯 갯수.
+        """
+        diff_color = QColor(120, 50, 50, 130)   # 어두운 빨강 (반투명)
+        same_color = QColor(0, 0, 0, 0)         # 투명 (초기화)
+        # 슬롯 → item_id 매핑
+        l_by_slot = {g.get("slot"): g.get("id") for g in lgear if isinstance(g, dict)}
+        r_by_slot = {g.get("slot"): g.get("id") for g in rgear if isinstance(g, dict)}
+
+        def paint(table, partner_by_slot):
+            n_diff = 0
+            for row in range(table.rowCount()):
+                slot_item = table.item(row, 0)
+                if not slot_item:
+                    continue
+                slot = slot_item.data(Qt.ItemDataRole.UserRole)
+                my_id = None
+                # 같은 테이블의 gear list 에서 이 slot 의 id 찾기
+                for g in (lgear if table is ltab else rgear):
+                    if isinstance(g, dict) and g.get("slot") == slot:
+                        my_id = g.get("id")
+                        break
+                partner_id = partner_by_slot.get(slot)
+                is_diff = (my_id != partner_id)
+                color = diff_color if is_diff else same_color
+                if is_diff:
+                    n_diff += 1
+                for col in range(table.columnCount()):
+                    cell = table.item(row, col)
+                    if cell:
+                        cell.setBackground(color)
+            return n_diff
+
+        n_left = paint(ltab, r_by_slot)
+        paint(rtab, l_by_slot)
+        return n_left
 
 
 class MainWindow(QMainWindow):
