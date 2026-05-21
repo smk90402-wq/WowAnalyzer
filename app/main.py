@@ -23,6 +23,8 @@ from fastapi.staticfiles import StaticFiles
 # 기존 백엔드 그대로 import
 from wcl_v2_data import V2Data
 
+from app import timeline as tl_render
+
 log = logging.getLogger("app.main")
 
 DATA_DIR = Path(__file__).parent.parent / "data"
@@ -157,6 +159,52 @@ def character_detail(rid: str, fid: int, char: str) -> JSONResponse:
                 break
 
     return JSONResponse(out)
+
+
+# ── 타임라인 HTML (iframe srcdoc 으로 embed) ───────────────────────────────
+_spell_db_cache: dict | None = None
+
+
+def _spell_db() -> dict:
+    """spell_db.json 한 번만 로드. ~3MB, 약 4500 entries."""
+    global _spell_db_cache
+    if _spell_db_cache is None:
+        path = DATA_DIR / "spell_db.json"
+        if path.exists():
+            _spell_db_cache = json.loads(path.read_text(encoding="utf-8"))
+        else:
+            _spell_db_cache = {}
+    return _spell_db_cache
+
+
+@app.get("/api/timeline/{rid}/{fid}/{char}", response_class=HTMLResponse)
+def timeline_html(rid: str, fid: int, char: str, orientation: str = "h") -> str:
+    """캐스트/버프 + fight_window + spell_db → 완성된 HTML 문서.
+
+    프론트엔드는 iframe.srcdoc 에 그대로 박아 넣음 (Qt WebView 와 동일 흐름).
+    """
+    v2 = _v2()
+    pfight_key = f"{rid}:{fid}:{char}"
+    if pfight_key not in v2.pfight:
+        try:
+            v2.player_fight(rid, fid, char)
+        except Exception as e:
+            raise HTTPException(502, f"player_fight 실패: {e}")
+    ev = v2.events_for(rid, fid, char) or {}
+    casts = ev.get("casts") or []
+    buffs = ev.get("buffs") or []
+    # fight window
+    meta = v2.meta.get(rid) or {}
+    fw: list = []
+    for f in meta.get("fights") or []:
+        if f.get("id") == fid:
+            fw = [f.get("startTime"), f.get("endTime")]
+            break
+    return tl_render.render_html(
+        char=char, casts=casts, buffs=buffs,
+        fight_window=fw, spell_db=_spell_db(),
+        orientation=orientation,
+    )
 
 
 # ── V2 rate limit (디버깅용) ────────────────────────────────────────────────
