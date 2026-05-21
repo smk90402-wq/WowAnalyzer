@@ -2953,21 +2953,34 @@ class ArbitraryLogTab(QWidget):
         if not meta:
             self.status_label.setText("리포트 못 찾음 (private 이거나 잘못된 ID)")
             return
+        # 캐시된 meta 가 옛 killType:Kills 일 수 있어서, fight 갯수 0 이거나
+        # encounter 누락이면 force refetch 한 번.
+        if not (meta.get("fights") or []):
+            v2.meta.pop(parsed["rid"], None)
+            meta = v2.report_meta(parsed["rid"])
+            if not meta:
+                self.status_label.setText("재페치 실패 — 리포트 권한 / 네트워크 확인")
+                return
         self._rid = parsed["rid"]
         self._fights = meta.get("fights") or []
-        # 보스 이름 한글로
-        from itertools import chain
+        if not self._fights:
+            self.status_label.setText(f"{self._rid} — fights 0개. private report 일 가능성")
+            return
         boss_kr = {enc_id: name_kr for enc_id, _, name_kr in BOSSES}
-        # populate combo
+        DIFF_KR = {1: "LFR", 2: "Normal", 3: "Heroic", 4: "Mythic", 5: "Mythic"}  # WoW 11.x
         self.fight_combo.blockSignals(True)
         self.fight_combo.clear()
         for f in self._fights:
             fid = f.get("id"); enc_id = f.get("encounterID")
             dur = (f.get("endTime", 0) - f.get("startTime", 0)) / 1000.0
-            nm = boss_kr.get(enc_id, f"encounter {enc_id}")
-            self.fight_combo.addItem(f"fight {fid} · {nm} ({dur:.0f}s)", userData=fid)
+            nm = boss_kr.get(enc_id, f.get("name") or f"encounter {enc_id}")
+            diff_lab = DIFF_KR.get(f.get("difficulty"), f"diff{f.get('difficulty')}")
+            kill_mark = "✓" if f.get("kill") else "✗"
+            self.fight_combo.addItem(
+                f"fight {fid} · {diff_lab} · {kill_mark} {nm} ({dur:.0f}s)", userData=fid
+            )
         self.fight_combo.blockSignals(False)
-        self.status_label.setText(f"{self._rid} · {len(self._fights)} fights")
+        self.status_label.setText(f"{self._rid} · fights {len(self._fights)}")
         # URL 에 fight 지정돼 있으면 선택
         if parsed.get("fid"):
             for i in range(self.fight_combo.count()):

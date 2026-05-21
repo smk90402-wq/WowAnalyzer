@@ -32,12 +32,13 @@ DEFAULT_DATA = Path(__file__).parent / "data"
 # ── GraphQL 쿼리들 ──────────────────────────────────────────────────────────
 
 # report 메타: fight 시간 + 친구목록 (sourceID 포함)
+# killType: Encounters → kill + wipe 둘 다 포함 (trash 제외). 영웅 wipe / 신화 학습각 다 표시.
 Q_REPORT_META = """
 query($code: String!) {
   reportData {
     report(code: $code) {
-      fights(killType: Kills) {
-        id startTime endTime encounterID difficulty
+      fights(killType: Encounters) {
+        id startTime endTime encounterID difficulty kill name
       }
       masterData(translate: true) {
         actors(type: "Player") {
@@ -346,6 +347,8 @@ class V2Data:
                 "endTime": f.get("endTime"),
                 "encounterID": f.get("encounterID"),
                 "difficulty": f.get("difficulty"),
+                "kill": f.get("kill"),
+                "name": f.get("name"),
             } for f in fights],
             "actors": actors_map,
         }
