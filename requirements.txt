@@ -5,3 +5,8 @@ scikit-learn>=1.3
 numpy>=1.24
 PySide6>=6.6
 PySide6-Addons>=6.6
+
+# 마이그레이션 Phase: PyWebview + FastAPI (병행 운영 — gui.py 유지)
+fastapi>=0.110
+uvicorn[standard]>=0.27
+pywebview>=5.0
