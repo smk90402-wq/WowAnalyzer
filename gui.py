@@ -625,8 +625,8 @@ body {
     padding: 0;
     --pps: 160;   /* px per second, JS wheel 로 변경 */
 }
-body.horizontal { overflow-x: auto; overflow-y: hidden; }
-body.vertical   { overflow-x: hidden; overflow-y: auto; }
+body.horizontal { overflow-x: auto; overflow-y: visible; padding-top: 240px; }
+body.vertical   { overflow-x: visible; overflow-y: auto; padding-left: 240px; }
 /* 시간 → 픽셀 매핑 함수 (CSS calc) — --t (초) 와 --pps 곱 */
 body.horizontal .pos-t { left: calc(var(--t) * var(--pps) * 1px); }
 body.vertical   .pos-t { top:  calc(var(--t) * var(--pps) * 1px); }
@@ -715,8 +715,9 @@ body.vertical   .span-d { height: calc(var(--d) * var(--pps) * 1px); }
     border: 1px solid #4a4039; border-radius: 6px;
     padding: 10px 12px; min-width: 280px; max-width: 460px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-    z-index: 100; pointer-events: none;
+    z-index: 99999; pointer-events: none;
     font-size: 11px;
+    max-height: 60vh; overflow-y: auto;
 }
 .cast:hover .tip, .buff:hover .tip { display: block; }
 .horizontal .cast .tip { bottom: 34px; left: -8px; }
@@ -726,6 +727,9 @@ body.vertical   .span-d { height: calc(var(--d) * var(--pps) * 1px); }
 .tip .tname { color: #d97757; font-size: 12px; font-weight: 600; margin-bottom: 4px; }
 .tip .ten { color: #a39c8e; font-style: italic; font-size: 10px; margin-bottom: 6px; }
 .tip .tbody table { font-size: 11px; }
+/* 모든 stacking 컨테이너 overflow: visible — tooltip 잘림 방지 */
+html { overflow: visible; }
+.wrap, .timeline, .casts, .buffs, .lanes { overflow: visible; }
 """
 
 
