@@ -653,22 +653,19 @@ body.vertical   .span-d { height: calc(var(--d) * var(--pps) * 1px); }
 /* === 시간 축 ====================================================== */
 .tick { position: absolute; color: transparent; }
 .horizontal .axis  { position: relative; height: 26px; border-bottom: 1px solid #4a4039; margin-bottom: 8px; }
-.horizontal .tick.label { color: #888; font-size: 10px; width: auto; background: none; padding-left: 4px; line-height: 26px; top: 0; height: 26px; }
-.horizontal .tick.label.major-label { color: #d97757; font-weight: 600; font-size: 11px; }
+.horizontal .tick.label { color: #a39c8e; font-size: 10px; width: auto; background: none; padding-left: 4px; line-height: 26px; top: 0; height: 26px; }
 
 .vertical .axis  { position: absolute; left: 0; top: 0; width: 32px; border-right: 1px solid #3a322c; }
 .vertical .tick.label {
     left: 0; width: 22px; height: auto; background: none;
-    color: #888; font-size: 10px; text-align: right; padding-right: 4px;
+    color: #a39c8e; font-size: 10px; text-align: right; padding-right: 4px;
 }
-.vertical .tick.label.major-label { color: #d97757; font-weight: 600; font-size: 11px; }
 
 /* === 그리드 — 1초 간격 minor + 5초 간격 major, 시전/버프 영역까지 내려감 === */
 .grid { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 0; }
-.horizontal .gline { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(245, 240, 232, 0.10); }
-.horizontal .gline.major { background: rgba(217, 119, 87, 0.40); width: 1px; }
-.vertical .gline { position: absolute; left: 0; right: 0; height: 1px; background: rgba(245, 240, 232, 0.10); }
-.vertical .gline.major { background: rgba(217, 119, 87, 0.40); height: 1px; }
+/* 모든 초 선 동일 색/투명도 (0s, 1s, 5s 구분 없음) */
+.horizontal .gline { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(245, 240, 232, 0.15); }
+.vertical .gline { position: absolute; left: 0; right: 0; height: 1px; background: rgba(245, 240, 232, 0.15); }
 
 /* === 시전 / 버프 lane 컨테이너 ==================================== */
 .casts, .buffs { position: relative; }
@@ -935,18 +932,12 @@ class RotationTimeline(QWebEngineView):
             lane_pos = buff_lane.get(sid, 0) * BUFF_LANE_PX
             buff_html.append(self._buff_html(sid, lane_pos, t_rel_start, dur_s, spell_db, is_v))
 
-        # grid lines — 매 초마다, 시전/버프까지 풀-하이트
+        # grid lines + labels — 매 초마다 동일 스타일
         grid_html: list[str] = []
-        # labels — 5초마다만 (1초마다는 너무 빽빽함)
         label_html: list[str] = []
         for s in range(0, int(duration_s) + 1):
-            is_major = (s % 5 == 0)
-            line_cls = "gline pos-t major" if is_major else "gline pos-t"
-            grid_html.append(f'<div class="{line_cls}" style="--t:{s}"></div>')
-            if is_major:
-                label_html.append(
-                    f'<div class="tick label pos-t major-label" style="--t:{s}">{s}s</div>'
-                )
+            grid_html.append(f'<div class="gline pos-t" style="--t:{s}"></div>')
+            label_html.append(f'<div class="tick label pos-t" style="--t:{s}">{s}s</div>')
 
         # 컨테이너 — span-d 클래스 + --d 변수 (duration 초)
         d_attr = f"--d:{duration_s:.3f}"
