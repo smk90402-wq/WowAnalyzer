@@ -629,8 +629,8 @@ body {
     padding: 0;
     --pps: 160;   /* px per second, JS wheel 로 변경 */
 }
-body.horizontal { overflow-x: auto; overflow-y: visible; padding-top: 240px; --cast-offset: 180px; }
-body.vertical   { overflow-x: visible; overflow-y: auto; padding-left: 240px; --cast-offset: 0px; }
+body.horizontal { overflow-x: auto; overflow-y: visible; padding-top: 32px; --cast-offset: 0px; }
+body.vertical   { overflow-x: visible; overflow-y: auto; padding-left: 32px; --cast-offset: 0px; }
 /* 버프 lane 토글 — ComparisonTab 의 체크박스에서 JS 로 hide-buffs 클래스 토글 */
 body.hide-buffs .buffs, body.hide-buffs .buff-label { display: none !important; }
 /* 시간 → 픽셀 매핑 — 좌측 cast-offset (라벨 영역) + 초 * pps */
@@ -704,24 +704,6 @@ body.vertical   .span-d { height: calc(var(--d) * var(--pps) * 1px); }
     z-index: 1; pointer-events: none;
 }
 
-/* 스펠 행 좌측 라벨 (아이콘 + 이름 + 시전 횟수) — pos-t 가 아니라 left: 0 고정 */
-.cast-row-label {
-    position: absolute; left: 0;
-    width: 172px; height: 28px;
-    background: rgba(26, 22, 20, 0.94);
-    border-right: 1px solid #3a322c;
-    padding: 0 8px;
-    display: flex; align-items: center; gap: 6px;
-    font-size: 11px; color: #f5f0e8;
-    z-index: 4;
-    overflow: hidden;
-    pointer-events: none;
-}
-.cast-row-label img { width: 22px; height: 22px; border-radius: 3px; flex: 0 0 22px; }
-.cast-row-label .rname {
-    flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    color: #f5f0e8;
-}
 /* === 버프 막대 + 아이콘 (24px 막대) ================================ */
 .buff {
     position: absolute; padding: 0; overflow: hidden;
@@ -995,23 +977,8 @@ class RotationTimeline(QWebEngineView):
                 self._cast_row_html(sid, lane_pos, t_rel, dur_s, spell_db, is_v)
             )
 
-        # 좌측 스펠 라벨 (스펠 아이콘 + 이름) — 한 행 당 하나. 카운트 표시는 제거.
+        # 좌측 스펠 라벨 제거 — 사용자 요청 "툴팁에 정보 있으니 안 보여줘도 됨"
         cast_label_html: list[str] = []
-        for sid in cast_sids_sorted:
-            meta = spell_db.get(str(sid), {})
-            icon = meta.get("icon") or ""
-            name = meta.get("name_ko") or meta.get("name_en") or f"#{sid}"
-            lane_pos = cast_lane[sid] * CAST_ROW_H
-            icon_html = (
-                f"<img src='https://wow.zamimg.com/images/wow/icons/medium/{icon}'>"
-                if icon else "<span class='no-icon'></span>"
-            )
-            cast_label_html.append(
-                f'<div class="cast-row-label" style="top:{lane_pos}px">'
-                f'{icon_html}'
-                f'<span class="rname">{_html_escape(name)}</span>'
-                f'</div>'
-            )
 
         buff_html: list[str] = []
         for sid, t_start, t_end in intervals:
@@ -1077,10 +1044,8 @@ class RotationTimeline(QWebEngineView):
                 <div class="timeline span-d" style="{timeline_style}">
                     <div class="grid span-d">{"".join(grid_html)}</div>
                     <div class="axis {axis_style} span-d">{"".join(label_html)}</div>
-                    <span class="lane-label">시전 (스펠별 행)</span>
                     <div class="casts span-d" style="{casts_style}">
                         {"".join(cast_html)}
-                        {"".join(cast_label_html)}
                     </div>
                     <span class="lane-label buff-label">버프</span>
                     <div class="buffs span-d" style="{buffs_style}">
@@ -2124,10 +2089,12 @@ class RankingPanel(QWidget):
 
         # 메인: 위(랭킹+시전) ↑↓ 아래(탭: 특성 / 딜사이클)
         main_split = QSplitter(Qt.Orientation.Vertical)
+        main_split.setOpaqueResize(False)  # QWebEngineView 리사이즈 lag 회피
         outer.addWidget(main_split, 1)
 
         # ── 위: 랭킹 ▏자주 쓰는 시전
         top_split = QSplitter(Qt.Orientation.Horizontal)
+        top_split.setOpaqueResize(False)
 
         self.ranking_table = QTableWidget()
         self.ranking_table.setColumnCount(5)
@@ -2203,8 +2170,10 @@ class RankingPanel(QWidget):
         tw_v.setContentsMargins(0, 0, 0, 0)
         tw_v.setSpacing(6)
         sp = QSplitter(Qt.Orientation.Vertical)
+        sp.setOpaqueResize(False)
         sp.addWidget(vbox_panel("특성 트리 (top100 픽률 + 평균 포인트)", self.tree_view))
         side_sp = QSplitter(Qt.Orientation.Horizontal)
+        side_sp.setOpaqueResize(False)
         side_sp.addWidget(vbox_panel("장비 (랭킹 행 클릭)", self.gear_table))
         side_sp.addWidget(vbox_panel("버프 (전투 시작 시) + 스탯", self.build_info))
         side_sp.setStretchFactor(0, 3)
@@ -3248,12 +3217,15 @@ class ComparisonTab(QWidget):
         right_tl = self.right.panel.detach_rotation_timeline()
 
         # 위/아래 스플릿: 상단(좌우 패널) ↕ 하단(딜사이클 위아래 stack)
+        # opaqueResize=False — QWebEngineView 6개 동시 리사이즈 lag 회피
         v_split = QSplitter(Qt.Orientation.Vertical)
         v_split.setChildrenCollapsible(False)
+        v_split.setOpaqueResize(False)
 
         # 상단 — 좌우 ArbitraryLogTab (timeline 빠진 상태)
         top_split = QSplitter(Qt.Orientation.Horizontal)
         top_split.setChildrenCollapsible(False)
+        top_split.setOpaqueResize(False)
         top_split.addWidget(self.left)
         top_split.addWidget(self.right)
         top_split.setStretchFactor(0, 1)
@@ -3278,6 +3250,7 @@ class ComparisonTab(QWidget):
         b_layout.addLayout(head)
         tl_split = QSplitter(Qt.Orientation.Vertical)
         tl_split.setChildrenCollapsible(False)
+        tl_split.setOpaqueResize(False)
         # timeline 자체에 라벨 wrapper (어느 쪽인지 식별)
         def _wrap_tl(lab_text: str, tl) -> QWidget:
             w = QWidget()
