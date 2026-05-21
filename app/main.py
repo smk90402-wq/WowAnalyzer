@@ -23,6 +23,7 @@ from fastapi.staticfiles import StaticFiles
 # 기존 백엔드 그대로 import
 from wcl_v2_data import V2Data
 
+from app import talent_tree as tt_render
 from app import timeline as tl_render
 
 log = logging.getLogger("app.main")
@@ -204,6 +205,100 @@ def timeline_html(rid: str, fid: int, char: str, orientation: str = "h") -> str:
         char=char, casts=casts, buffs=buffs,
         fight_window=fw, spell_db=_spell_db(),
         orientation=orientation,
+    )
+
+
+# ── 특성 트리 HTML (iframe srcdoc embed) ───────────────────────────────────
+_talent_trees_cache: dict | None = None
+
+
+def _talent_trees() -> dict:
+    global _talent_trees_cache
+    if _talent_trees_cache is None:
+        path = DATA_DIR / "talent_trees.json"
+        if path.exists():
+            _talent_trees_cache = json.loads(path.read_text(encoding="utf-8"))
+        else:
+            _talent_trees_cache = {}
+    return _talent_trees_cache
+
+
+@app.get("/api/talent-tree/{rid}/{fid}/{char}", response_class=HTMLResponse)
+def talent_tree_html(rid: str, fid: int, char: str,
+                     cls: str = "", spec: str = "") -> str:
+    """특정 캐릭의 특성 트리 — 본인 픽 노드만 100% 표시 (단일캐릭 view).
+
+    cls/spec 은 ranking row 의 class/spec 를 query 로 전달.
+    추후 ?mode=top100 으로 aggregate 모드 추가 예정.
+    """
+    if not cls or not spec:
+        return tt_render._empty("class/spec query 누락")
+    key = f"{cls}/{spec}"
+    trees = _talent_trees()
+    tree_data = trees.get(key)
+    if not tree_data:
+        return tt_render._empty(
+            f"트리 데이터 없음: {key} — fetch_talent_trees.py SPECS 에 추가 필요"
+        )
+
+    v2 = _v2()
+    pf = v2.pfight.get(f"{rid}:{fid}:{char}")
+    if not isinstance(pf, dict):
+        try:
+            pf = v2.player_fight(rid, fid, char)
+        except Exception as e:
+            return tt_render._empty(f"player_fight 실패: {e}")
+    if not isinstance(pf, dict):
+        return tt_render._empty(f"{char} pfight 캐시 미스 + 재페치 실패")
+
+    nodes_picked = pf.get("nodes") or []
+    talent_points = pf.get("talent_points") or {}
+    talent_ids_picked = pf.get("talents") or []
+
+    # node_id 기반 pick_count (denom=1 → picked = 100%, unpicked = 0%)
+    pick_count: dict[int, int] = {int(nid): 1 for nid in nodes_picked
+                                  if isinstance(nid, int)}
+    # pts_dist: {node_id: {rank: 1}} — 노드 → 랭크 매핑은 talent_id→node 관계가 필요한데
+    # 단순화: talent_tree json 의 options[].talent_id 와 매칭
+    pts_dist: dict[int, dict[int, int]] = {}
+    # talent_id 의 rank → node_id 매핑
+    for section in ("class", "spec"):
+        for n in (tree_data.get(section) or []):
+            nid = n.get("id")
+            if not isinstance(nid, int):
+                continue
+            for opt in (n.get("options") or []):
+                tid = opt.get("talent_id")
+                if tid is not None and str(tid) in talent_points:
+                    pts_dist.setdefault(nid, {})[talent_points[str(tid)]] = 1
+                    break
+    # hero 도 마찬가지
+    for hname, hdat in (tree_data.get("hero") or {}).items():
+        for n in (hdat.get("nodes") or []):
+            nid = n.get("id")
+            if not isinstance(nid, int):
+                continue
+            for opt in (n.get("options") or []):
+                tid = opt.get("talent_id")
+                if tid is not None and str(tid) in talent_points:
+                    pts_dist.setdefault(nid, {})[talent_points[str(tid)]] = 1
+                    break
+
+    # hero_picks — 이 캐릭이 어느 영웅트리 뽑았는지 (가장 많이 매칭되는 hero)
+    hero_picks: dict[str, int] = {}
+    hero_filter: str | None = None
+    for hname, hdat in (tree_data.get("hero") or {}).items():
+        h_node_ids = {n.get("id") for n in (hdat.get("nodes") or [])
+                      if isinstance(n.get("id"), int)}
+        matched = sum(1 for nid in nodes_picked if nid in h_node_ids)
+        hero_picks[hname] = matched
+        if matched > 0:
+            if hero_filter is None or matched > hero_picks.get(hero_filter, 0):
+                hero_filter = hname
+
+    return tt_render.render_html(
+        tree_data, pick_count, pts_dist, hero_picks,
+        denom=1, spell_db=_spell_db(), hero_filter=hero_filter,
     )
 
 

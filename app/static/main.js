@@ -154,6 +154,8 @@ function renderBuild(d, row) {
     </div>
     <h3>딜사이클</h3>
     <iframe class="tl-frame" src="${tlUrl}" title="타임라인"></iframe>
+    <h3>특성 트리 (본인 픽)</h3>
+    <iframe class="tree-frame" src="/api/talent-tree/${encodeURIComponent(row.report_id)}/${row.fight_id}/${encodeURIComponent(row.character)}?cls=${encodeURIComponent(row.class)}&spec=${encodeURIComponent(row.spec)}" title="특성 트리"></iframe>
     <h3>장비 (${gear.length} 슬롯)</h3>
     <ul class="gear-list">
       ${gear.map(g => `
@@ -164,8 +166,6 @@ function renderBuild(d, row) {
         </li>
       `).join('')}
     </ul>
-    <h3>특성 (${talents.length} 노드)</h3>
-    <p style="color:var(--text-mute);font-size:11px">트리 시각화는 다음 단계 작업 예정.</p>
     <h3>스탯</h3>
     ${stats ? `<pre style="color:var(--text-mute);font-size:11px">${esc(JSON.stringify(stats, null, 2))}</pre>` : '<p style="color:var(--text-mute)">캐시 없음</p>'}
   `;

@@ -161,9 +161,15 @@ body {
 .gear-list .iid { color: var(--text); min-width: 90px; }
 .gear-list .ilvl { color: var(--text-mute); }
 
-/* ── 타임라인 iframe ──────────────────────────────────────────────── */
+/* ── 타임라인 / 트리 iframe ───────────────────────────────────────── */
 .tl-frame {
   width: 100%; height: 300px;
+  border: 1px solid var(--border); border-radius: 4px;
+  background: var(--bg-0);
+  margin-bottom: 8px;
+}
+.tree-frame {
+  width: 100%; height: 600px;
   border: 1px solid var(--border); border-radius: 4px;
   background: var(--bg-0);
   margin-bottom: 8px;
