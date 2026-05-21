@@ -83,6 +83,7 @@ from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWidgets import (
     QAbstractItemView,
     QApplication,
+    QCheckBox,
     QComboBox,
     QFrame,
     QHBoxLayout,
@@ -630,6 +631,8 @@ body {
 }
 body.horizontal { overflow-x: auto; overflow-y: visible; padding-top: 240px; --cast-offset: 180px; }
 body.vertical   { overflow-x: visible; overflow-y: auto; padding-left: 240px; --cast-offset: 0px; }
+/* 버프 lane 토글 — ComparisonTab 의 체크박스에서 JS 로 hide-buffs 클래스 토글 */
+body.hide-buffs .buffs, body.hide-buffs .buff-label { display: none !important; }
 /* 시간 → 픽셀 매핑 — 좌측 cast-offset (라벨 영역) + 초 * pps */
 body.horizontal .pos-t { left: calc(var(--cast-offset, 0px) + var(--t) * var(--pps) * 1px); }
 body.vertical   .pos-t { top:  calc(var(--t) * var(--pps) * 1px); }
@@ -719,11 +722,6 @@ body.vertical   .span-d { height: calc(var(--d) * var(--pps) * 1px); }
     flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     color: #f5f0e8;
 }
-.cast-row-label .rcnt {
-    color: #a39c8e; font-size: 9.5px; flex: 0 0 auto;
-    background: rgba(58, 50, 44, 0.8); padding: 1px 5px; border-radius: 8px;
-}
-
 /* === 버프 막대 + 아이콘 (24px 막대) ================================ */
 .buff {
     position: absolute; padding: 0; overflow: hidden;
@@ -805,7 +803,17 @@ class RotationTimeline(QWebEngineView):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.setMinimumHeight(280)
+        self._buffs_visible: bool = True  # ComparisonTab 체크박스로 토글됨
         self.set_empty("랭킹에서 캐릭터 클릭")
+
+    def set_buffs_visible(self, visible: bool) -> None:
+        """버프 lane 표시/숨김 — 재렌더 없이 JS 로 body class 토글 + 상태 저장."""
+        self._buffs_visible = bool(visible)
+        # 현재 페이지에 즉시 적용 (다음 렌더에서는 _wrap 의 body_class 가 처리)
+        js = ("document.body && document.body.classList."
+              + ("remove" if visible else "add")
+              + "('hide-buffs');")
+        self.page().runJavaScript(js)
 
     # ── 공용 ─────────────────────────────────────────────────────────────
     def set_empty(self, text: str) -> None:
@@ -884,6 +892,9 @@ class RotationTimeline(QWebEngineView):
         })();
         </script>
         """
+        # 버프 숨김 상태면 body class 에 hide-buffs 추가 (재렌더 후에도 유지)
+        if not self._buffs_visible:
+            body_class = body_class + " hide-buffs"
         return ("<!doctype html><html><head><meta charset='utf-8'><style>"
                 + TIMELINE_CSS + "</style></head>"
                 + f"<body class='{body_class}'>" + body + zoom_js + "</body></html>")
@@ -935,19 +946,20 @@ class RotationTimeline(QWebEngineView):
         # 시간 윈도우 안쪽만
         cast_intervals = [iv for iv in cast_intervals if iv[1] >= start_ms]
 
-        # 스펠별 cast 횟수 → 빈도순 lane 배정 (이름 있는 거 우선)
-        spell_count: dict[int, int] = {}
-        for _, _, sid in cast_intervals:
-            spell_count[sid] = spell_count.get(sid, 0) + 1
+        # 스펠별 첫 시전 시각 — 시간순 lane 배정 (이름 있는 거 우선, 그 다음 첫 시전 빠른 순)
+        # 카운트 기반 정렬은 제거 — 사용자 요청: "시전 횟수 별로 파싱하는건 중요하지않다"
+        first_cast_ts: dict[int, int] = {}
+        for start_ts, _end_ts, sid in cast_intervals:
+            if sid not in first_cast_ts:
+                first_cast_ts[sid] = start_ts
 
         def _cast_has_name(sid: int) -> bool:
             m = spell_db.get(str(sid), {})
             return bool(m.get("name_ko") or m.get("name_en"))
 
-        # 이름 있는 거 먼저, 그 안에서 빈도 desc
         cast_sids_sorted = sorted(
-            spell_count.keys(),
-            key=lambda s: (0 if _cast_has_name(s) else 1, -spell_count[s], s),
+            first_cast_ts.keys(),
+            key=lambda s: (0 if _cast_has_name(s) else 1, first_cast_ts[s], s),
         )
         cast_lane: dict[int, int] = {sid: i for i, sid in enumerate(cast_sids_sorted)}
         casts_lane_span = max(len(cast_lane), 1) * CAST_ROW_H
@@ -983,13 +995,12 @@ class RotationTimeline(QWebEngineView):
                 self._cast_row_html(sid, lane_pos, t_rel, dur_s, spell_db, is_v)
             )
 
-        # 좌측 스펠 라벨 (스펠 아이콘 + 이름) — 한 행 당 하나
+        # 좌측 스펠 라벨 (스펠 아이콘 + 이름) — 한 행 당 하나. 카운트 표시는 제거.
         cast_label_html: list[str] = []
         for sid in cast_sids_sorted:
             meta = spell_db.get(str(sid), {})
             icon = meta.get("icon") or ""
             name = meta.get("name_ko") or meta.get("name_en") or f"#{sid}"
-            count = spell_count.get(sid, 0)
             lane_pos = cast_lane[sid] * CAST_ROW_H
             icon_html = (
                 f"<img src='https://wow.zamimg.com/images/wow/icons/medium/{icon}'>"
@@ -999,7 +1010,6 @@ class RotationTimeline(QWebEngineView):
                 f'<div class="cast-row-label" style="top:{lane_pos}px">'
                 f'{icon_html}'
                 f'<span class="rname">{_html_escape(name)}</span>'
-                f'<span class="rcnt">{count}</span>'
                 f'</div>'
             )
 
@@ -1072,7 +1082,7 @@ class RotationTimeline(QWebEngineView):
                         {"".join(cast_html)}
                         {"".join(cast_label_html)}
                     </div>
-                    <span class="lane-label">버프</span>
+                    <span class="lane-label buff-label">버프</span>
                     <div class="buffs span-d" style="{buffs_style}">
                         {"".join(buff_html)}
                     </div>
@@ -2221,6 +2231,8 @@ class RankingPanel(QWidget):
         head_row.addWidget(self.orient_btn)
         tw_layout.addLayout(head_row)
         self.rotation_timeline = RotationTimeline()
+        self._timeline_layout = tw_layout  # detach 용 참조
+        self._timeline_tab_widget = timeline_wrap  # 비교 모드에서 hide
         tw_layout.addWidget(self.rotation_timeline, 1)
         self.detail_tabs.addTab(timeline_wrap, "딜사이클")
 
@@ -2233,6 +2245,19 @@ class RankingPanel(QWidget):
 
         # 로딩 오버레이 — 전체 패널 위에
         self.loader = LoadingOverlay(self)
+
+    def detach_rotation_timeline(self) -> "RotationTimeline":
+        """비교 모드 — rotation_timeline 위젯을 패널 밖으로 빼서 반환.
+
+        - tw_layout 에서 제거 + 딜사이클 탭 자체를 숨김
+        - render_fight 호출은 그대로 동작 (위젯 참조 유지)
+        - 호출자가 새 부모에 addWidget 해야 함
+        """
+        self._timeline_layout.removeWidget(self.rotation_timeline)
+        idx = self.detail_tabs.indexOf(self._timeline_tab_widget)
+        if idx >= 0:
+            self.detail_tabs.removeTab(idx)
+        return self.rotation_timeline
 
     # ── 필터 변경 ─────────────────────────────────────────────────────────
     def set_filter(self, encounter_id, encounter_name, class_en, spec_en) -> None:
@@ -3206,35 +3231,82 @@ class ComparisonTab(QWidget):
 
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
-        outer = QHBoxLayout(self)
+        outer = QVBoxLayout(self)
         outer.setContentsMargins(8, 8, 8, 8)
-        outer.setSpacing(0)
+        outer.setSpacing(4)
 
         self.hint = QLabel(
             "비교 분석 — 좌측 / 우측 각각 WCL URL 입력. 캐릭터 클릭하면 자동 V2 페치."
         )
         self.hint.setStyleSheet("color: #a39c8e; font-size: 9.5pt; padding: 4px 12px;")
+        outer.addWidget(self.hint)
 
-        wrap = QVBoxLayout()
-        wrap.setContentsMargins(0, 0, 0, 0)
-        wrap.setSpacing(4)
-        wrap.addWidget(self.hint)
-
-        splitter = QSplitter(Qt.Orientation.Horizontal)
-        splitter.setChildrenCollapsible(False)
         self.left = ArbitraryLogTab()
         self.right = ArbitraryLogTab()
-        splitter.addWidget(self.left)
-        splitter.addWidget(self.right)
-        splitter.setStretchFactor(0, 1)
-        splitter.setStretchFactor(1, 1)
-        wrap.addWidget(splitter, 1)
+        # 딜사이클 timeline 을 각 패널에서 detach → 하단 stack 으로 옮김
+        left_tl = self.left.panel.detach_rotation_timeline()
+        right_tl = self.right.panel.detach_rotation_timeline()
 
-        outer.addLayout(wrap)
+        # 위/아래 스플릿: 상단(좌우 패널) ↕ 하단(딜사이클 위아래 stack)
+        v_split = QSplitter(Qt.Orientation.Vertical)
+        v_split.setChildrenCollapsible(False)
+
+        # 상단 — 좌우 ArbitraryLogTab (timeline 빠진 상태)
+        top_split = QSplitter(Qt.Orientation.Horizontal)
+        top_split.setChildrenCollapsible(False)
+        top_split.addWidget(self.left)
+        top_split.addWidget(self.right)
+        top_split.setStretchFactor(0, 1)
+        top_split.setStretchFactor(1, 1)
+        v_split.addWidget(top_split)
+
+        # 하단 — 딜사이클 헤더 (버프 토글) + 좌/우 timeline 위/아래 stack
+        bottom = QWidget()
+        b_layout = QVBoxLayout(bottom)
+        b_layout.setContentsMargins(8, 4, 8, 0)
+        b_layout.setSpacing(4)
+        head = QHBoxLayout()
+        head.setContentsMargins(0, 0, 0, 0)
+        head_lab = QLabel("딜사이클 비교 (위=좌 · 아래=우)")
+        head_lab.setStyleSheet("color: #f5f0e8; font-size: 10pt; font-weight: 600;")
+        head.addWidget(head_lab)
+        head.addStretch()
+        self.buff_chk = QCheckBox("버프 표시")
+        self.buff_chk.setChecked(True)
+        self.buff_chk.toggled.connect(self._on_buff_toggled)
+        head.addWidget(self.buff_chk)
+        b_layout.addLayout(head)
+        tl_split = QSplitter(Qt.Orientation.Vertical)
+        tl_split.setChildrenCollapsible(False)
+        # timeline 자체에 라벨 wrapper (어느 쪽인지 식별)
+        def _wrap_tl(lab_text: str, tl) -> QWidget:
+            w = QWidget()
+            v = QVBoxLayout(w)
+            v.setContentsMargins(0, 0, 0, 0)
+            v.setSpacing(2)
+            lab = QLabel(lab_text)
+            lab.setStyleSheet("color: #a39c8e; font-size: 9pt; padding: 2px 4px;")
+            v.addWidget(lab)
+            v.addWidget(tl, 1)
+            return w
+        tl_split.addWidget(_wrap_tl("◀ 좌측", left_tl))
+        tl_split.addWidget(_wrap_tl("◀ 우측", right_tl))
+        tl_split.setStretchFactor(0, 1)
+        tl_split.setStretchFactor(1, 1)
+        b_layout.addWidget(tl_split, 1)
+        v_split.addWidget(bottom)
+        v_split.setStretchFactor(0, 3)  # 상단 (랭킹/장비/특성) 더 큼
+        v_split.setStretchFactor(1, 2)  # 하단 (딜사이클)
+        outer.addWidget(v_split, 1)
 
         # 양쪽 RankingPanel build 렌더 hook 등록 → 다 차면 diff 하이라이트
         self.left.panel._on_build_rendered_hook = self._on_side_build_rendered
         self.right.panel._on_build_rendered_hook = self._on_side_build_rendered
+
+    def _on_buff_toggled(self, checked: bool) -> None:
+        """버프 lane 표시/숨김 — 양쪽 timeline 에 동시 적용."""
+        self.left.panel.rotation_timeline.set_buffs_visible(checked)
+        self.right.panel.rotation_timeline.set_buffs_visible(checked)
 
     # ── 비교 diff 하이라이트 ─────────────────────────────────────────────
     def _on_side_build_rendered(self, panel) -> None:
