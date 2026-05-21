@@ -92,6 +92,7 @@ from PySide6.QtWidgets import (
     QListWidget,
     QListWidgetItem,
     QMainWindow,
+    QMenu,
     QPushButton,
     QSizePolicy,
     QSplitter,
@@ -2131,6 +2132,9 @@ class RankingPanel(QWidget):
         rh.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
         rh.setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
         self.ranking_table.itemSelectionChanged.connect(self._on_ranking_row_changed)
+        # 우클릭 → 비교 분석 좌/우 추가
+        self.ranking_table.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.ranking_table.customContextMenuRequested.connect(self._on_ranking_context_menu)
         top_split.addWidget(vbox_panel("랭킹 (top 100)", self.ranking_table))
         # 랭킹 셀이 짧지 않게 — 다음 spell_table 보다 3배 넓게
 
@@ -2571,6 +2575,36 @@ class RankingPanel(QWidget):
                  char, len(gear_sorted), len(in_combat_buffs), len(pre_pull),
                  prepull_loading, bool(stats))
 
+    def _on_ranking_context_menu(self, pos) -> None:
+        """랭킹 행 우클릭 → 비교 분석 좌/우 추가."""
+        if self._current_df is None or self._current_df.empty:
+            return
+        item = self.ranking_table.itemAt(pos)
+        if not item:
+            return
+        row_idx = item.row()
+        if row_idx < 0 or row_idx >= len(self._current_df):
+            return
+        rec = self._current_df.iloc[row_idx]
+        rid = str(rec.get("report_id", ""))
+        try:
+            fid = int(rec.get("fight_id", 0))
+        except (TypeError, ValueError):
+            return
+        char = str(rec.get("character", ""))
+        if not rid or not char:
+            return
+        menu = QMenu(self)
+        a_left = menu.addAction(f"비교 분석 → 좌측 추가 ({char})")
+        a_right = menu.addAction(f"비교 분석 → 우측 추가 ({char})")
+        chosen = menu.exec(self.ranking_table.viewport().mapToGlobal(pos))
+        if chosen not in (a_left, a_right):
+            return
+        side = "left" if chosen == a_left else "right"
+        mw = self.window()
+        if hasattr(mw, "load_into_comparison"):
+            mw.load_into_comparison(side, rid, fid, char)
+
     def _spawn_full_char_fetch(self, rid: str, fid: int, char: str) -> None:
         """임의 로그 / 비백필 캐릭 — pfight+events+prepull 일괄 페치 후 row 클릭 재처리."""
         self._full_char_request_token += 1
@@ -2981,7 +3015,15 @@ class ArbitraryLogTab(QWidget):
         self._fights: list[dict] = []
         self._players: list[dict] = []
         self._rid: str | None = None
+        self._pending_char_select: str | None = None  # _on_fight_changed 끝나면 선택
         self._build_ui()
+
+    def load_url_and_select(self, rid: str, fid: int, char: str) -> None:
+        """외부 (비교에 추가 등) 호출용 — URL 자동 입력 + fetch + 특정 캐릭 row 선택."""
+        url = f"https://www.warcraftlogs.com/reports/{rid}?fight={fid}"
+        self.url_input.setText(url)
+        self._pending_char_select = char
+        self._on_fetch()
 
     def _build_ui(self) -> None:
         outer = QVBoxLayout(self)
@@ -3128,6 +3170,15 @@ class ArbitraryLogTab(QWidget):
         p.rotation_timeline.set_empty("플레이어 클릭")
         p._populate_rankings(df)
         self.status_label.setText(f"플레이어 {len(players)}명 — 행 클릭")
+        # pending char 가 있으면 자동 선택 (비교에 추가 흐름)
+        if self._pending_char_select:
+            target = self._pending_char_select
+            self._pending_char_select = None
+            for i in range(p.ranking_table.rowCount()):
+                it = p.ranking_table.item(i, 1)
+                if it and it.text() == target:
+                    p.ranking_table.selectRow(i)
+                    break
 
 
 class ComparisonTab(QWidget):
@@ -3136,6 +3187,11 @@ class ComparisonTab(QWidget):
     각각 독립적으로 URL → fight → player 선택. 같은 시점/같은 보스 다른 캐릭
     비교, 본인 로그 vs 톱100 비교, 본인 다른 시기 비교 등 자유.
     """
+
+    def load_into(self, side: str, rid: str, fid: int, char: str) -> None:
+        """좌(left) / 우(right) 한쪽에 URL 자동 입력 + 캐릭 선택."""
+        target = self.left if side == "left" else self.right
+        target.load_url_and_select(rid, fid, char)
 
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
@@ -3196,7 +3252,9 @@ class MainWindow(QMainWindow):
             "신화 레이드"
         )
         tabs.addTab(ArbitraryLogTab(), "임의 로그 분석")
-        tabs.addTab(ComparisonTab(),   "비교 분석")
+        self.comparison_tab = ComparisonTab()
+        tabs.addTab(self.comparison_tab, "비교 분석")
+        self.tabs = tabs
         tabs.setCurrentIndex(1)
         tabs.currentChanged.connect(lambda i: log.info("tab change: %s", tabs.tabText(i)))
 
@@ -3223,6 +3281,14 @@ class MainWindow(QMainWindow):
             act.triggered.connect(lambda _checked=False, _id=tid: self._switch_theme(_id))
             self._theme_group.addAction(act)
             theme_menu.addAction(act)
+
+    def load_into_comparison(self, side: str, rid: str, fid: int, char: str) -> None:
+        """RankingPanel 우클릭 메뉴 → ComparisonTab 한쪽 로드 + 탭 전환."""
+        self.comparison_tab.load_into(side, rid, fid, char)
+        for i in range(self.tabs.count()):
+            if self.tabs.widget(i) is self.comparison_tab:
+                self.tabs.setCurrentIndex(i)
+                break
 
     def _switch_theme(self, tid: str) -> None:
         theme = THEMES.get(tid)
