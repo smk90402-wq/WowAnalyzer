@@ -650,21 +650,25 @@ body.vertical   .span-d { height: calc(var(--d) * var(--pps) * 1px); }
     display: inline-block;
 }
 
-/* === 시간 축 (1초 단위, 5초마다 라벨) ============================= */
+/* === 시간 축 ====================================================== */
 .tick { position: absolute; color: transparent; }
 .horizontal .axis  { position: relative; height: 26px; border-bottom: 1px solid #4a4039; margin-bottom: 8px; }
-.horizontal .tick  { top: 0; height: 26px; width: 1px; background: #1f1a17; }
-.horizontal .tick.major { background: #6b6359; width: 2px; }
-.horizontal .tick.label { color: #888; font-size: 10px; width: auto; background: none; padding-left: 4px; line-height: 26px; }
+.horizontal .tick.label { color: #888; font-size: 10px; width: auto; background: none; padding-left: 4px; line-height: 26px; top: 0; height: 26px; }
 .horizontal .tick.label.major-label { color: #d97757; font-weight: 600; font-size: 11px; }
 
 .vertical .axis  { position: absolute; left: 0; top: 0; width: 32px; border-right: 1px solid #3a322c; }
-.vertical .tick  { left: 24px; width: 8px; height: 1px; background: #2a2420; }
-.vertical .tick.major { left: 20px; width: 12px; background: #4a4039; }
 .vertical .tick.label {
     left: 0; width: 22px; height: auto; background: none;
     color: #888; font-size: 10px; text-align: right; padding-right: 4px;
 }
+.vertical .tick.label.major-label { color: #d97757; font-weight: 600; font-size: 11px; }
+
+/* === 그리드 — 1초 간격 minor + 5초 간격 major, 시전/버프 영역까지 내려감 === */
+.grid { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 0; }
+.horizontal .gline { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(255, 255, 255, 0.04); }
+.horizontal .gline.major { background: rgba(217, 119, 87, 0.22); width: 1px; }
+.vertical .gline { position: absolute; left: 0; right: 0; height: 1px; background: rgba(255, 255, 255, 0.04); }
+.vertical .gline.major { background: rgba(217, 119, 87, 0.22); height: 1px; }
 
 /* === 시전 / 버프 lane 컨테이너 ==================================== */
 .casts, .buffs { position: relative; }
@@ -930,15 +934,18 @@ class RotationTimeline(QWebEngineView):
             lane_pos = buff_lane.get(sid, 0) * BUFF_LANE_PX
             buff_html.append(self._buff_html(sid, lane_pos, t_rel_start, dur_s, spell_db, is_v))
 
-        # tick — --t 만 박음 (CSS 가 px 변환)
-        tick_html: list[str] = []
+        # grid lines — 매 초마다, 시전/버프까지 풀-하이트
+        grid_html: list[str] = []
+        # labels — 5초마다만 (1초마다는 너무 빽빽함)
+        label_html: list[str] = []
         for s in range(0, int(duration_s) + 1):
             is_major = (s % 5 == 0)
-            cls = "tick pos-t major" if is_major else "tick pos-t"
-            tick_html.append(f'<div class="{cls}" style="--t:{s}"></div>')
-            label_cls = ("tick label pos-t major-label" if is_major
-                         else "tick label pos-t")
-            tick_html.append(f'<div class="{label_cls}" style="--t:{s}">{s}s</div>')
+            line_cls = "gline pos-t major" if is_major else "gline pos-t"
+            grid_html.append(f'<div class="{line_cls}" style="--t:{s}"></div>')
+            if is_major:
+                label_html.append(
+                    f'<div class="tick label pos-t major-label" style="--t:{s}">{s}s</div>'
+                )
 
         # 컨테이너 — span-d 클래스 + --d 변수 (duration 초)
         d_attr = f"--d:{duration_s:.3f}"
@@ -965,7 +972,8 @@ class RotationTimeline(QWebEngineView):
                     {f' (미상 {hidden_unknown_buffs}개 숨김)' if hidden_unknown_buffs else ''}
                     · 휠=줌 · 더블클릭=리셋</div>
                 <div class="timeline span-d" style="{timeline_style}">
-                    <div class="axis {axis_style} span-d">{"".join(tick_html)}</div>
+                    <div class="grid span-d">{"".join(grid_html)}</div>
+                    <div class="axis {axis_style} span-d">{"".join(label_html)}</div>
                     <div class="casts lanes span-d" style="{casts_style};left:{casts_left}px">
                         {"".join(cast_html)}
                     </div>
@@ -984,7 +992,8 @@ class RotationTimeline(QWebEngineView):
                     {f' (미상 {hidden_unknown_buffs}개 숨김)' if hidden_unknown_buffs else ''}
                     · 휠=줌 · 더블클릭=리셋</div>
                 <div class="timeline span-d" style="{timeline_style}">
-                    <div class="axis {axis_style} span-d">{"".join(tick_html)}</div>
+                    <div class="grid span-d">{"".join(grid_html)}</div>
+                    <div class="axis {axis_style} span-d">{"".join(label_html)}</div>
                     <span class="lane-label">시전</span>
                     <div class="casts span-d" style="{casts_style}">
                         {"".join(cast_html)}
