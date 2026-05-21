@@ -3130,6 +3130,42 @@ class ArbitraryLogTab(QWidget):
         self.status_label.setText(f"플레이어 {len(players)}명 — 행 클릭")
 
 
+class ComparisonTab(QWidget):
+    """비교 분석 탭 — ArbitraryLogTab 2개를 좌우 splitter 로 배치.
+
+    각각 독립적으로 URL → fight → player 선택. 같은 시점/같은 보스 다른 캐릭
+    비교, 본인 로그 vs 톱100 비교, 본인 다른 시기 비교 등 자유.
+    """
+
+    def __init__(self, parent=None) -> None:
+        super().__init__(parent)
+        outer = QHBoxLayout(self)
+        outer.setContentsMargins(8, 8, 8, 8)
+        outer.setSpacing(0)
+
+        hint = QLabel(
+            "비교 분석 — 좌측 / 우측 각각 WCL URL 입력. 캐릭터 클릭하면 자동 V2 페치."
+        )
+        hint.setStyleSheet("color: #a39c8e; font-size: 9.5pt; padding: 4px 12px;")
+
+        wrap = QVBoxLayout()
+        wrap.setContentsMargins(0, 0, 0, 0)
+        wrap.setSpacing(4)
+        wrap.addWidget(hint)
+
+        splitter = QSplitter(Qt.Orientation.Horizontal)
+        splitter.setChildrenCollapsible(False)
+        self.left = ArbitraryLogTab()
+        self.right = ArbitraryLogTab()
+        splitter.addWidget(self.left)
+        splitter.addWidget(self.right)
+        splitter.setStretchFactor(0, 1)
+        splitter.setStretchFactor(1, 1)
+        wrap.addWidget(splitter, 1)
+
+        outer.addLayout(wrap)
+
+
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
@@ -3160,6 +3196,7 @@ class MainWindow(QMainWindow):
             "신화 레이드"
         )
         tabs.addTab(ArbitraryLogTab(), "임의 로그 분석")
+        tabs.addTab(ComparisonTab(),   "비교 분석")
         tabs.setCurrentIndex(1)
         tabs.currentChanged.connect(lambda i: log.info("tab change: %s", tabs.tabText(i)))
 
