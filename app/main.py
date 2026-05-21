@@ -123,11 +123,59 @@ def character_detail(rid: str, fid: int, char: str) -> JSONResponse:
         raise HTTPException(404, f"{char} 데이터 캐시 미스 + 재페치 실패")
 
     sid = pf.get("sourceID") if isinstance(pf.get("sourceID"), int) else None
+    raw_gear = pf.get("gear") or []
+    item_db = _item_db()
+
+    # gear 에 한글명 + 아이콘 + 슬롯 한글명 inject
+    enriched_gear = []
+    for g in raw_gear:
+        if not isinstance(g, dict):
+            continue
+        iid = g.get("id")
+        slot = g.get("slot") if isinstance(g.get("slot"), int) else -1
+        meta = item_db.get(str(iid), {}) if isinstance(iid, int) else {}
+        enriched_gear.append({
+            "slot": slot,
+            "slot_kr": SLOT_KR.get(slot, f"슬롯 #{slot}"),
+            "id": iid,
+            "name_ko": meta.get("name_ko") or "",
+            "icon": meta.get("icon") or "",
+            "quality": meta.get("quality") or "",
+            "ilvl": g.get("ilvl") or meta.get("ilvl"),
+            "gems": g.get("gems") or [],
+            "ench": g.get("ench"),
+        })
+    # 슬롯 순 정렬 (-1 은 끝으로)
+    enriched_gear.sort(key=lambda g: (g["slot"] if g["slot"] >= 0 else 999))
+
+    # stats 한글화
+    raw_stats = pf.get("stats") or {}
+    stats_kr: list[dict] = []
+    if isinstance(raw_stats, dict):
+        # 1차 스탯 (체력/힘/민첩/지능) 먼저, 그 다음 2차 스탯
+        primary = ["Stamina", "Strength", "Agility", "Intellect"]
+        secondary = ["Crit", "Haste", "Mastery", "Versatility",
+                     "Leech", "Avoidance", "Speed"]
+        for k in primary + secondary + ["Item Level"]:
+            if k in raw_stats:
+                rating = raw_stats[k]
+                pct = None
+                ratio = RATING_PER_PCT.get(k)
+                if ratio and isinstance(rating, (int, float)):
+                    pct = rating / ratio
+                stats_kr.append({
+                    "key": k,
+                    "label_kr": STAT_KR.get(k, k),
+                    "rating": rating,
+                    "pct": pct,  # null 이면 1차 스탯 (rating only)
+                })
+
     out: dict = {
         "rid": rid, "fid": fid, "char": char, "sourceID": sid,
         "talents": pf.get("talents") or [],
-        "gear": pf.get("gear") or [],
-        "stats": pf.get("stats") or None,
+        "gear": enriched_gear,
+        "stats": raw_stats or None,
+        "stats_kr": stats_kr,
     }
     # casts + buffs — events_for 가 sid 매핑 + 페치 모두 처리
     ev = v2.events_for(rid, fid, char) or {}
@@ -164,6 +212,7 @@ def character_detail(rid: str, fid: int, char: str) -> JSONResponse:
 
 # ── 타임라인 HTML (iframe srcdoc 으로 embed) ───────────────────────────────
 _spell_db_cache: dict | None = None
+_item_db_cache: dict | None = None
 
 
 def _spell_db() -> dict:
@@ -176,6 +225,56 @@ def _spell_db() -> dict:
         else:
             _spell_db_cache = {}
     return _spell_db_cache
+
+
+def _item_db() -> dict:
+    """item_db.json 한 번만 로드. ~150KB, 923 entries."""
+    global _item_db_cache
+    if _item_db_cache is None:
+        path = DATA_DIR / "item_db.json"
+        if path.exists():
+            _item_db_cache = json.loads(path.read_text(encoding="utf-8"))
+        else:
+            _item_db_cache = {}
+    return _item_db_cache
+
+
+# ── 한글 / rating 매핑 ─────────────────────────────────────────────────────
+STAT_KR: dict[str, str] = {
+    "Item Level": "장비레벨",
+    "Stamina":    "체력",
+    "Strength":   "힘",
+    "Agility":    "민첩성",
+    "Intellect":  "지능",
+    "Crit":       "극대화",
+    "Haste":      "가속",
+    "Mastery":    "특화",
+    "Versatility": "유연",
+    "Leech":      "흡혈",
+    "Avoidance":  "회피",
+    "Speed":      "이동속도",
+}
+
+RATING_PER_PCT: dict[str, float] = {
+    "Crit":        35.0,
+    "Haste":       33.0,
+    "Mastery":     35.0,
+    "Versatility": 40.0,
+    "Leech":       25.0,
+    "Avoidance":   20.0,
+    "Speed":       30.0,
+}
+
+SLOT_KR: dict[int, str] = {
+    0: "머리",     1: "목",       2: "어깨",
+    4: "가슴",     5: "허리",     6: "다리",     7: "발",
+    8: "손목",     9: "손",
+    10: "반지 1",  11: "반지 2",
+    12: "장신구 1", 13: "장신구 2",
+    14: "망토",
+    15: "주무기",  16: "보조무기",
+    17: "원거리",
+}
 
 
 @app.get("/api/timeline/{rid}/{fid}/{char}", response_class=HTMLResponse)

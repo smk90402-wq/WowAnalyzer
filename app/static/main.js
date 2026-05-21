@@ -134,9 +134,9 @@ async function onRowClick(rowEl) {
 
 function renderBuild(d, row) {
   const gear = d.gear || [];
-  const talents = d.talents || [];
-  const stats = d.stats;
+  const statsKr = d.stats_kr || [];
   const tlUrl = `/api/timeline/${encodeURIComponent(row.report_id)}/${row.fight_id}/${encodeURIComponent(row.character)}`;
+  const treeUrl = `/api/talent-tree/${encodeURIComponent(row.report_id)}/${row.fight_id}/${encodeURIComponent(row.character)}?cls=${encodeURIComponent(row.class)}&spec=${encodeURIComponent(row.spec)}`;
   $('#build-body').innerHTML = `
     <div class="build-section">
       <div class="build-row">
@@ -155,19 +155,57 @@ function renderBuild(d, row) {
     <h3>딜사이클</h3>
     <iframe class="tl-frame" src="${tlUrl}" title="타임라인"></iframe>
     <h3>특성 트리 (본인 픽)</h3>
-    <iframe class="tree-frame" src="/api/talent-tree/${encodeURIComponent(row.report_id)}/${row.fight_id}/${encodeURIComponent(row.character)}?cls=${encodeURIComponent(row.class)}&spec=${encodeURIComponent(row.spec)}" title="특성 트리"></iframe>
+    <iframe class="tree-frame" src="${treeUrl}" title="특성 트리"></iframe>
     <h3>장비 (${gear.length} 슬롯)</h3>
     <ul class="gear-list">
-      ${gear.map(g => `
-        <li>
-          <span class="slot">slot ${g.slot ?? '?'}</span>
-          <span class="iid">item ${g.id ?? '?'}</span>
-          <span class="ilvl">ilvl ${g.ilvl ?? '?'}</span>
-        </li>
-      `).join('')}
+      ${gear.map(g => gearItemHtml(g)).join('')}
     </ul>
     <h3>스탯</h3>
-    ${stats ? `<pre style="color:var(--text-mute);font-size:11px">${esc(JSON.stringify(stats, null, 2))}</pre>` : '<p style="color:var(--text-mute)">캐시 없음</p>'}
+    ${renderStats(statsKr)}
+  `;
+}
+
+const QUALITY_COLOR = {
+  POOR: '#9d9d9d', COMMON: '#ffffff', UNCOMMON: '#1eff00',
+  RARE: '#0070dd', EPIC: '#a335ee', LEGENDARY: '#ff8000',
+  ARTIFACT: '#e6cc80', HEIRLOOM: '#00ccff',
+};
+
+function gearItemHtml(g) {
+  const name = g.name_ko || `#${g.id ?? '?'}`;
+  const color = QUALITY_COLOR[(g.quality || '').toUpperCase()] || 'var(--text)';
+  const iconUrl = g.icon
+    ? `https://wow.zamimg.com/images/wow/icons/medium/${g.icon}`
+    : '';
+  // wowhead 링크 — 호버 시 wowhead 가 native 툴팁 띄움 (외부 인터넷 필요)
+  const wh = g.id
+    ? `https://www.wowhead.com/item=${g.id}?ilvl=${g.ilvl ?? ''}`
+    : '';
+  return `
+    <li class="gear-item">
+      ${iconUrl ? `<img class="gicon" src="${iconUrl}" alt="">` : '<span class="gicon-empty"></span>'}
+      <div class="ginfo">
+        <a class="gname" href="${wh}" target="_blank" rel="noopener" style="color:${color}">${esc(name)}</a>
+        <span class="gmeta">${esc(g.slot_kr || '')} · ilvl ${g.ilvl ?? '?'}</span>
+      </div>
+    </li>
+  `;
+}
+
+function renderStats(stats) {
+  if (!stats.length) return '<p style="color:var(--text-mute)">캐시 없음</p>';
+  return `
+    <table class="stats-table">
+      <tbody>
+        ${stats.map(s => `
+          <tr>
+            <td class="sk">${esc(s.label_kr)}</td>
+            <td class="sv">${s.rating != null ? s.rating.toLocaleString() : '?'}</td>
+            <td class="sp">${s.pct != null ? `${s.pct.toFixed(2)}%` : ''}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
   `;
 }
 
