@@ -3,6 +3,7 @@
 - [No stale WoW knowledge](feedback_wow_knowledge.md) — Never answer spec difficulty/meta questions from general knowledge; always go to current-patch logs.
 - [Project vision](project_vision.md) — Final goal is situational rotation-study tool (CDs/potions/procs/tracked buffs + boss-phase group splits). 5 target specs: Demo Lock, Balance Druid, BM Hunter, Arms Warrior, Fury Warrior.
 - [Build cadence](feedback_build_cadence.md) — Rebuild LogAnalyze.exe via PyInstaller at the end of EVERY response. User confirmed despite the ~1-2 min cost.
+- [Build kill exe on PermissionError](feedback_build_kill_exe.md) — If PyInstaller fails with PermissionError, immediately `taskkill /F /IM LogAnalyze.exe` and retry. No sleep, no asking user.
 - [Rate limit policy](feedback_rate_limit.md) — When WCL 429 hits, wait it out (even 1hr). Don't throttle, don't reorganize. Throughput > limit avoidance.
 - [Autonomy mode](feedback_autonomy.md) — Don't ask for next step. Run obvious follow-ups; ask only for data-loss / preference / ambiguity.
 - [Status report](feedback_status_report.md) — Every response ends with a standard "## 상태" block (this-turn done / background / build). NEVER include "next autonomous work" line.
