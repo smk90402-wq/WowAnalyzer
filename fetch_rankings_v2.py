@@ -28,14 +28,14 @@ except Exception:
 from wcl_v2 import WCLV2, WCLV2Error
 
 ZONE_ID = 46
-DIFFICULTY = 5
+DEFAULT_DIFFICULTY = 5  # 5=Mythic, 4=Heroic, 3=Normal
+DIFF_LABEL = {3: "normal", 4: "heroic", 5: "mythic"}
 METRIC = "dps"  # rdps 는 V2 도 현재 internal error
 TOP_N = 100
 MAX_PAGES_PER_SPEC = 3  # 100명 채우려면 보통 1~2페이지면 충분 (스펙별 필터링)
 
 OUT_DIR = Path(__file__).parent / "data"
 OUT_DIR.mkdir(exist_ok=True)
-OUT = OUT_DIR / f"rankings_zone{ZONE_ID}_mythic_dps_top{TOP_N}.csv"
 
 # 13 클래스 × DPS 전문화. V2 의 CamelCase 이름.
 # (cls_v2, spec_v2, cls_v1, spec_v1)
@@ -99,7 +99,7 @@ query($encounterId: Int!, $page: Int!, $cls: String!, $spec: String!, $diff: Int
 
 
 def fetch_spec_for_boss(cli: WCLV2, encounter_id: int, cls_v2: str,
-                        spec_v2: str) -> list[dict]:
+                        spec_v2: str, difficulty: int) -> list[dict]:
     """한 보스 × 한 스펙의 top-N rankings."""
     out: list[dict] = []
     for page in range(1, MAX_PAGES_PER_SPEC + 1):
@@ -109,7 +109,7 @@ def fetch_spec_for_boss(cli: WCLV2, encounter_id: int, cls_v2: str,
                 "page": page,
                 "cls": cls_v2,
                 "spec": spec_v2,
-                "diff": DIFFICULTY,
+                "diff": difficulty,
             })
         except WCLV2Error as e:
             print(f"      page {page} 실패: {str(e)[:120]}")
@@ -124,7 +124,10 @@ def fetch_spec_for_boss(cli: WCLV2, encounter_id: int, cls_v2: str,
     return out[:TOP_N]
 
 
-def main() -> None:
+def main(difficulty: int = DEFAULT_DIFFICULTY) -> None:
+    diff_label = DIFF_LABEL.get(difficulty, f"diff{difficulty}")
+    OUT = OUT_DIR / f"rankings_zone{ZONE_ID}_{diff_label}_dps_top{TOP_N}.csv"
+    print(f"=== difficulty={difficulty} ({diff_label}) → {OUT.name} ===")
     try:
         cli = WCLV2()
     except WCLV2Error as e:
@@ -151,7 +154,7 @@ def main() -> None:
         for enc in encounters:
             print(f"\n  {enc['name']} (id={enc['id']})")
             for cls_v2, spec_v2, cls_v1, spec_v1 in TARGETS:
-                ranks = fetch_spec_for_boss(cli, enc["id"], cls_v2, spec_v2)
+                ranks = fetch_spec_for_boss(cli, enc["id"], cls_v2, spec_v2, difficulty)
                 if not ranks:
                     continue
                 for i, r in enumerate(ranks, 1):
@@ -197,4 +200,11 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    # CLI: python fetch_rankings_v2.py [difficulty]  (4=Heroic, 5=Mythic)
+    diff_arg = DEFAULT_DIFFICULTY
+    if len(sys.argv) > 1:
+        try:
+            diff_arg = int(sys.argv[1])
+        except ValueError:
+            sys.exit(f"bad difficulty: {sys.argv[1]} (use 3/4/5)")
+    main(difficulty=diff_arg)

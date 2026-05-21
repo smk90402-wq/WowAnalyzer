@@ -2080,12 +2080,13 @@ def _center_cell(text) -> QTableWidgetItem:
 class RankingPanel(QWidget):
     """4분할: 랭킹 ▏자주 쓰는 시전 ▏특성 ▏딜사이클 (랭킹 행 클릭 시)."""
 
-    def __init__(self, parent=None) -> None:
+    def __init__(self, parent=None, csv_filename: str = "rankings_with_talents.csv") -> None:
         super().__init__(parent)
         self.encounter_id: int | None = None
         self.encounter_name: str | None = None
         self.class_en: str | None = None
         self.spec_en: str | None = None
+        self._csv_filename = csv_filename
         self._current_df = None
         self._damage_thread: DamageFetchThread | None = None
         self._damage_request_token: int = 0
@@ -2248,9 +2249,9 @@ class RankingPanel(QWidget):
 
         self.loader.show_with("랭킹 / 시전 / 특성 불러오는 중…")
         try:
-            rankings = _load_csv("rankings_with_talents.csv")
+            rankings = _load_csv(self._csv_filename)
             if rankings is None:
-                self.header.setText("data/rankings_with_talents.csv 를 못 찾음")
+                self.header.setText(f"data/{self._csv_filename} 를 못 찾음")
                 return
 
             df = rankings[
@@ -2781,10 +2782,13 @@ class RankingPanel(QWidget):
 class RaidTab(QWidget):
     """한 난이도 패널: 보스 ▏직업/전문화 ▏결과."""
 
-    def __init__(self, difficulty_label: str, has_data: bool, parent=None) -> None:
+    def __init__(self, difficulty_label: str, has_data: bool,
+                 csv_filename: str = "rankings_with_talents.csv",
+                 parent=None) -> None:
         super().__init__(parent)
         self.difficulty_label = difficulty_label
         self.has_data = has_data
+        self.csv_filename = csv_filename
         self._sel_encounter: tuple[int, str] | None = None
         self._sel_spec: tuple[str, str] | None = None
         self._build_ui()
@@ -2843,7 +2847,7 @@ class RaidTab(QWidget):
 
         # ── 결과 패널
         if self.has_data:
-            self.panel = RankingPanel()
+            self.panel = RankingPanel(csv_filename=self.csv_filename)
             self.panel.setMinimumWidth(600)
             splitter.addWidget(self.panel)
         else:
@@ -3139,9 +3143,23 @@ class MainWindow(QMainWindow):
 
         tabs = QTabWidget()
         tabs.setDocumentMode(True)
-        tabs.addTab(RaidTab("영웅", has_data=False), "영웅 레이드")
-        tabs.addTab(RaidTab("신화", has_data=True),  "신화 레이드")
-        tabs.addTab(ArbitraryLogTab(),               "임의 로그 분석")
+        # 영웅 / 신화 CSV 존재 여부로 has_data 결정
+        if DATA_DIR:
+            heroic_has = (DATA_DIR / "rankings_zone46_heroic_dps_top100.csv").exists()
+            mythic_has = (DATA_DIR / "rankings_with_talents.csv").exists()
+        else:
+            heroic_has = mythic_has = False
+        tabs.addTab(
+            RaidTab("영웅", has_data=heroic_has,
+                    csv_filename="rankings_zone46_heroic_dps_top100.csv"),
+            "영웅 레이드"
+        )
+        tabs.addTab(
+            RaidTab("신화", has_data=mythic_has,
+                    csv_filename="rankings_with_talents.csv"),
+            "신화 레이드"
+        )
+        tabs.addTab(ArbitraryLogTab(), "임의 로그 분석")
         tabs.setCurrentIndex(1)
         tabs.currentChanged.connect(lambda i: log.info("tab change: %s", tabs.tabText(i)))
 
