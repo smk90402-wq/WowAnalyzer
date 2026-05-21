@@ -33,6 +33,113 @@ body {
 .tab-pane.active { display: flex; }
 #pane-ranking.active, #pane-arbitrary.active { display: grid; grid-template-rows: auto 1fr; height: 100%; }
 #pane-arbitrary.active { grid-template-rows: auto auto 1fr; }
+#pane-comparison.active { display: grid; grid-template-rows: 3fr 2fr; height: 100%; }
+
+/* ── 비교 분석 탭 ──────────────────────────────────────────────────── */
+.comp-top {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--border);
+  overflow: hidden;
+}
+.comp-side {
+  display: grid; grid-template-rows: auto auto auto 1fr auto;
+  background: var(--bg-0); overflow: hidden; min-width: 0;
+}
+.comp-head {
+  display: flex; gap: 12px; align-items: center;
+  padding: 4px 12px;
+  background: var(--bg-1); border-bottom: 1px solid var(--border);
+  font-size: 11px;
+}
+.comp-head .side-label { color: var(--accent); font-weight: 600; }
+.comp-head .comp-stat { color: var(--text-mute); }
+.comp-controls {
+  display: flex; gap: 6px; padding: 4px 12px;
+  background: var(--bg-1); border-bottom: 1px solid var(--border);
+}
+.comp-controls input.comp-url {
+  flex: 1; min-width: 0;
+  background: var(--bg-2); color: var(--text);
+  border: 1px solid var(--border); border-radius: 3px;
+  padding: 3px 8px; font-family: inherit; font-size: 11px;
+}
+.comp-controls button.comp-fetch {
+  background: var(--accent-dim); color: var(--text);
+  border: 1px solid var(--accent); border-radius: 3px;
+  padding: 3px 12px; font-family: inherit; font-size: 11px;
+  cursor: pointer;
+}
+.comp-controls button.comp-fetch:hover { background: var(--accent); }
+.comp-fight {
+  background: var(--bg-2); color: var(--text);
+  border: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 3px 8px; font-family: inherit; font-size: 11px;
+  margin: 4px 12px;
+}
+.comp-players {
+  overflow: auto; min-height: 100px;
+  border-top: 1px solid var(--border);
+}
+.comp-player-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.comp-player-table thead { position: sticky; top: 0; background: var(--bg-1); }
+.comp-player-table th {
+  padding: 4px 8px; text-align: left; color: var(--text-mute);
+  font-weight: 500; border-bottom: 1px solid var(--border);
+}
+.comp-player-table td { padding: 3px 8px; cursor: pointer; }
+.comp-player-table tr:hover td { background: var(--row-hover); }
+.comp-player-table tr.selected td { background: var(--row-selected); }
+.comp-player-table .mute { color: var(--text-mute); }
+
+.comp-build {
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-1);
+  max-height: 220px; overflow: auto;
+  font-size: 11px;
+}
+.comp-build.empty {
+  color: var(--text-mute); text-align: center;
+  padding: 24px 16px;
+}
+
+/* 하단 — 위아래 stack 의 timeline */
+.comp-bottom {
+  display: grid; grid-template-rows: auto 1fr 1fr;
+  background: var(--bg-1); overflow: hidden;
+  border-top: 1px solid var(--border);
+}
+.comp-bottom-head {
+  display: flex; gap: 16px; align-items: center;
+  padding: 4px 12px;
+  background: var(--bg-1); border-bottom: 1px solid var(--border);
+  font-size: 11px; color: var(--text);
+}
+.comp-bottom-head label { color: var(--text-mute); cursor: pointer; }
+.comp-tl {
+  width: 100%; border: none;
+  background: var(--bg-0);
+  border-top: 1px solid var(--border);
+}
+/* 장비 diff 하이라이트 */
+.gear-item.diff {
+  background: rgba(120, 50, 50, 0.5) !important;
+  border-left: 2px solid #c95a4a;
+}
+
+/* 컨텍스트 메뉴 (우클릭) */
+#ctx-menu {
+  position: fixed; z-index: 99999;
+  background: var(--bg-1); border: 1px solid var(--border);
+  border-radius: 4px; box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+  min-width: 200px; padding: 4px 0;
+}
+.ctx-item {
+  padding: 6px 14px;
+  cursor: pointer; color: var(--text);
+  font-size: 11.5px;
+}
+.ctx-item:hover { background: var(--row-hover); color: var(--accent); }
 
 /* ── 상단 바 + 탭 ──────────────────────────────────────────────────── */
 .topbar {

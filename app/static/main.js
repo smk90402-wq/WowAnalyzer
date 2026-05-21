@@ -284,6 +284,22 @@ function bind() {
     if (tr) onRowClick(tr);
   });
 
+  // 우클릭 → 비교에 추가
+  $('#ranking-body').addEventListener('contextmenu', e => {
+    const tr = e.target.closest('tr');
+    if (!tr) return;
+    e.preventDefault();
+    const idx = parseInt(tr.dataset.idx, 10);
+    const r = filteredRows()[idx];
+    if (!r) return;
+    showContextMenu(e.clientX, e.clientY, [
+      { label: `비교 좌측 추가 (${r.character})`,
+        onClick: () => compLoadInto('left', r.report_id, r.fight_id, r.character) },
+      { label: `비교 우측 추가 (${r.character})`,
+        onClick: () => compLoadInto('right', r.report_id, r.fight_id, r.character) },
+    ]);
+  });
+
   // 트리 본인/Top100 토글 — 빌드 패널이 매번 재렌더되므로 위임 핸들러
   $('#build-body').addEventListener('click', e => {
     const btn = e.target.closest('.tree-mode');
@@ -443,8 +459,237 @@ function renderBuildInto(selector, d, row) {
   `;
 }
 
+// ── 비교 분석 탭 ────────────────────────────────────────────────────────
+const compState = {
+  left:  { rid: null, meta: null, fid: null, char: null, data: null },
+  right: { rid: null, meta: null, fid: null, char: null, data: null },
+};
+
+function compSel(side, attr) {
+  return document.querySelector(`[data-side-${attr}="${side}"]`);
+}
+
+async function compFetch(side) {
+  const urlInput = compSel(side, 'url');
+  const stat = compSel(side, 'stat');
+  const parsed = parseWclUrl(urlInput.value.trim());
+  if (!parsed) { stat.textContent = 'URL 파싱 실패'; return; }
+  stat.textContent = '리포트 페치 중…';
+  try {
+    const r = await fetch(`/api/report/${encodeURIComponent(parsed.rid)}`);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const meta = await r.json();
+    compState[side].rid = parsed.rid;
+    compState[side].meta = meta;
+    populateCompFights(side, parsed.fid);
+    stat.textContent = `${parsed.rid} · ${(meta.fights||[]).length} fights`;
+  } catch (e) {
+    stat.textContent = `실패: ${e.message}`;
+  }
+}
+
+function populateCompFights(side, preferFid) {
+  const meta = compState[side].meta || {};
+  const DIFF_KR = {1: 'LFR', 2: 'N', 3: 'H', 4: 'M', 5: 'M'};
+  const sel = compSel(side, 'fight');
+  sel.innerHTML = (meta.fights || []).map(f => {
+    const dur = ((f.endTime || 0) - (f.startTime || 0)) / 1000;
+    const diff = DIFF_KR[f.difficulty] || `d${f.difficulty}`;
+    const kill = f.kill ? '✓' : '✗';
+    return `<option value="${f.id}">fight ${f.id} · ${diff} · ${kill} ${esc(f.name || '?')} (${dur.toFixed(0)}s)</option>`;
+  }).join('');
+  if (preferFid) {
+    const opt = sel.querySelector(`option[value="${preferFid}"]`);
+    if (opt) sel.value = String(preferFid);
+  }
+  compFightChange(side);
+}
+
+function compFightChange(side) {
+  const sel = compSel(side, 'fight');
+  if (!sel.value) return;
+  compState[side].fid = parseInt(sel.value, 10);
+  const meta = compState[side].meta || {};
+  const actors = meta.actors || {};
+  const names = Object.keys(actors).sort((a, b) => a.localeCompare(b, 'ko'));
+  const tbody = compSel(side, 'pbody');
+  tbody.innerHTML = names.map(nm => `
+    <tr data-name="${esc(nm)}"><td>${esc(nm)}</td><td class="mute">#${actors[nm]}</td></tr>
+  `).join('');
+  // 빌드 패널 + 하단 iframe 초기화 (선택 캐릭이 바뀌었으니)
+  compState[side].char = null;
+  compState[side].data = null;
+  const build = compSel(side, 'build');
+  build.className = 'comp-build empty';
+  build.textContent = '캐릭 클릭';
+  const tl = document.getElementById(`comp-tl-${side}`);
+  tl.removeAttribute('src');
+  applyCompDiff();
+}
+
+async function compPlayerClick(side, tr) {
+  document.querySelectorAll(`[data-side-pbody="${side}"] tr.selected`)
+    .forEach(t => t.classList.remove('selected'));
+  tr.classList.add('selected');
+  const char = tr.dataset.name;
+  const rid = compState[side].rid;
+  const fid = compState[side].fid;
+  if (!rid || !fid || !char) return;
+  compState[side].char = char;
+
+  const build = compSel(side, 'build');
+  build.className = 'comp-build';
+  build.innerHTML = `<p style="color:var(--text-mute)">${esc(char)} 데이터 로드 중…</p>`;
+
+  // 하단 iframe 도 같이 띄움
+  const tl = document.getElementById(`comp-tl-${side}`);
+  tl.src = `/api/timeline/${encodeURIComponent(rid)}/${fid}/${encodeURIComponent(char)}`;
+  // 버프 토글 상태 iframe load 후 적용
+  tl.onload = () => applyBuffVisibility();
+
+  try {
+    const r = await fetch(`/api/character/${encodeURIComponent(rid)}/${fid}/${encodeURIComponent(char)}`);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const d = await r.json();
+    compState[side].data = d;
+    renderCompBuild(side, d);
+    applyCompDiff();
+  } catch (e) {
+    build.innerHTML = `<p style="color:#d97757">로드 실패: ${esc(e.message)}</p>`;
+  }
+}
+
+function renderCompBuild(side, d) {
+  const gear = d.gear || [];
+  const statsKr = d.stats_kr || [];
+  const build = compSel(side, 'build');
+  build.innerHTML = `
+    <div class="build-section">
+      <div class="build-row"><span class="k">캐릭</span><span class="v">${esc(d.char || '?')}</span></div>
+      <div class="build-row"><span class="k">보스</span><span class="v">${esc(d.encounter_name || '?')}</span></div>
+    </div>
+    <h3>장비 (${gear.length})</h3>
+    <ul class="gear-list">${gear.map(g => gearItemHtml(g)).join('')}</ul>
+    <h3>스탯</h3>${renderStats(statsKr)}
+  `;
+}
+
+function applyCompDiff() {
+  // 양쪽 다 data 있어야 diff 계산. 한쪽만이면 모든 highlight 제거.
+  const ld = compState.left.data, rd = compState.right.data;
+  // 기존 diff 클래스 다 떼기
+  document.querySelectorAll('[data-side-build] .gear-item').forEach(li => li.classList.remove('diff'));
+  if (!ld || !rd) return;
+  const leftBySlot = {}, rightBySlot = {};
+  (ld.gear || []).forEach(g => { leftBySlot[g.slot] = g.id; });
+  (rd.gear || []).forEach(g => { rightBySlot[g.slot] = g.id; });
+  // 양쪽 gear list 의 li 들을 순서대로 매칭 — gear list 가 슬롯 순으로 정렬돼있음
+  const leftLis = document.querySelectorAll('[data-side-build="left"] .gear-item');
+  const rightLis = document.querySelectorAll('[data-side-build="right"] .gear-item');
+  let diffCount = 0;
+  (ld.gear || []).forEach((g, i) => {
+    const otherId = rightBySlot[g.slot];
+    if (otherId !== g.id) {
+      diffCount++;
+      if (leftLis[i]) leftLis[i].classList.add('diff');
+    }
+  });
+  (rd.gear || []).forEach((g, i) => {
+    const otherId = leftBySlot[g.slot];
+    if (otherId !== g.id) {
+      if (rightLis[i]) rightLis[i].classList.add('diff');
+    }
+  });
+  // stat 라벨에 diff 카운트 표시
+  document.querySelector('[data-side-stat="left"]').textContent =
+    `장비 차이 ${diffCount} 슬롯`;
+  document.querySelector('[data-side-stat="right"]').textContent =
+    `장비 차이 ${diffCount} 슬롯`;
+}
+
+function applyBuffVisibility() {
+  const show = document.getElementById('comp-buff-chk').checked;
+  ['left', 'right'].forEach(side => {
+    const tl = document.getElementById(`comp-tl-${side}`);
+    try {
+      const doc = tl.contentDocument;
+      if (doc && doc.body) {
+        doc.body.classList.toggle('hide-buffs', !show);
+      }
+    } catch (_) { /* cross-origin or not loaded */ }
+  });
+}
+
+// 우클릭 → 비교에 자동 로드. 양쪽 사이드 chained promises.
+async function compLoadInto(side, rid, fid, char) {
+  switchTab('comparison');
+  const urlInput = compSel(side, 'url');
+  urlInput.value = `https://www.warcraftlogs.com/reports/${rid}?fight=${fid}`;
+  await compFetch(side);  // populateCompFights → compFightChange 자동 호출됨
+  // fid 가 preferFid 와 일치하면 그 fight 가 selected. 플레이어 row 찾아 클릭.
+  const tbody = compSel(side, 'pbody');
+  const tr = tbody.querySelector(`tr[data-name="${CSS.escape(char)}"]`);
+  if (tr) {
+    await compPlayerClick(side, tr);
+    tr.scrollIntoView({ block: 'center' });
+  }
+}
+
+// 컨텍스트 메뉴 — 단일 floating div, 외부 클릭 시 닫힘
+function showContextMenu(x, y, items) {
+  closeContextMenu();
+  const menu = document.createElement('div');
+  menu.id = 'ctx-menu';
+  menu.style.left = `${x}px`;
+  menu.style.top = `${y}px`;
+  menu.innerHTML = items.map((it, i) =>
+    `<div class="ctx-item" data-idx="${i}">${esc(it.label)}</div>`
+  ).join('');
+  menu.addEventListener('click', e => {
+    const item = e.target.closest('.ctx-item');
+    if (!item) return;
+    const idx = parseInt(item.dataset.idx, 10);
+    closeContextMenu();
+    if (items[idx]) items[idx].onClick();
+  });
+  document.body.appendChild(menu);
+  // 다음 tick 에 외부 클릭 닫기 바인딩 (이번 클릭 이벤트 안 잡히게)
+  setTimeout(() => document.addEventListener('click', closeContextMenu, { once: true }), 0);
+}
+
+function closeContextMenu() {
+  const m = document.getElementById('ctx-menu');
+  if (m) m.remove();
+}
+
+function bindComparison() {
+  // URL 입력 + 분석 버튼
+  document.querySelectorAll('[data-side-fetch]').forEach(btn => {
+    btn.addEventListener('click', () => compFetch(btn.dataset.sideFetch));
+  });
+  document.querySelectorAll('[data-side-url]').forEach(inp => {
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'Enter') compFetch(inp.dataset.sideUrl);
+    });
+  });
+  // fight 변경
+  document.querySelectorAll('[data-side-fight]').forEach(sel => {
+    sel.addEventListener('change', () => compFightChange(sel.dataset.sideFight));
+  });
+  // 플레이어 클릭 (이벤트 위임)
+  document.querySelectorAll('[data-side-pbody]').forEach(tbody => {
+    tbody.addEventListener('click', e => {
+      const tr = e.target.closest('tr');
+      if (tr) compPlayerClick(tbody.dataset.sidePbody, tr);
+    });
+  });
+  // 버프 토글
+  document.getElementById('comp-buff-chk').addEventListener('change', applyBuffVisibility);
+}
+
 // ── 부트 ────────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
   bind();
+  bindComparison();
   loadRankings('heroic');
 });
