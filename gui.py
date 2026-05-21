@@ -1115,15 +1115,13 @@ def _build_item_tooltip(item_id: int, meta: dict, gear_entry: dict | None = None
             f"<div style='color:#6b6359;font-size:8.5pt;margin-top:4px'>"
             f"bonus: {', '.join(str(b) for b in bonus_ids)}{more}</div>"
         )
+    # Qt rich-text auto-detect: starts with '<' → 자동 HTML 모드. <html> wrapper 불필요.
     return (
-        f"<html><body>"
-        f"<div style='max-width:340px'>"
-        f"<div style='color:{color};font-size:11pt;font-weight:600'>{_html_escape(name)}</div>"
-        f"<div style='color:#a39c8e;font-size:9pt;margin-top:4px'>"
-        f"아이템 레벨 {ilvl if ilvl is not None else '?'} · {quality or '일반'}</div>"
-        f"<div style='color:#6b6359;font-size:8.5pt'>#{item_id}</div>"
+        f"<p style='color:{color};margin:0;font-size:11pt;font-weight:600'>{_html_escape(name)}</p>"
+        f"<p style='color:#a39c8e;margin:4px 0 0 0;font-size:9pt'>"
+        f"아이템 레벨 {ilvl if ilvl is not None else '?'} &middot; {quality or '일반'}</p>"
+        f"<p style='color:#6b6359;margin:2px 0 0 0;font-size:8pt'>#{item_id}</p>"
         f"{bonus_html}"
-        f"</div></body></html>"
     )
 
 
@@ -1547,12 +1545,47 @@ RATING_PER_PCT: dict[str, float] = {
 }
 
 
+_HTML_TAG_RE = __import__("re").compile(r"<[^>]+>")
+_HTML_WHITESPACE_RE = __import__("re").compile(r"\s+")
+
+
+def _strip_html(s: str) -> str:
+    """HTML 태그 다 제거 + 공백 정리. Wowhead tooltip 평문화."""
+    if not s:
+        return ""
+    plain = _HTML_TAG_RE.sub(" ", s)
+    return _HTML_WHITESPACE_RE.sub(" ", plain).strip()
+
+
+# 사전 버프 카테고리 필터 — 음식/영약/오일/숫돌/증강 만 통과
+CONSUMABLE_KEYWORDS = (
+    # 음식 (food)
+    "잘 먹음", "음식", "Well Fed", "Food",
+    # 영약 (flask)
+    "영약", "Flask", "Phial",
+    # 오일 (weapon enchant — oil)
+    "기름", "오일", "Oil",
+    # 숫돌 (weapon enchant — stone)
+    "숫돌", "Whetstone", "Sharpening", "Stone",
+    # 증강 (augment rune)
+    "증강", "Augment", "마법 룬", "마법룬", "고대의 룬", "Rune",
+)
+
+
+def _is_consumable_name(name_ko: str, name_en: str = "") -> bool:
+    """이름에 소비템 키워드 포함되면 True (대소문자 무시)."""
+    blob = (name_ko or "") + " " + (name_en or "")
+    blob_lower = blob.lower()
+    return any(kw.lower() in blob_lower for kw in CONSUMABLE_KEYWORDS)
+
+
 def _resolve_buff(sp: int, spell_db: dict, buff_db: dict) -> tuple[str, str, str]:
-    """(name, icon_file, description) — spell_db 우선, 없으면 buff_db_en."""
+    """(name, icon_file, description) — spell_db 우선, 없으면 buff_db_en. HTML strip."""
     primary, _sub = _resolve_name(sp, spell_db)
     sd_entry = spell_db.get(str(sp), {}) or {}
     icon = sd_entry.get("icon") or ""
-    desc = (sd_entry.get("description_ko") or sd_entry.get("tooltip_ko") or "").strip()
+    raw_desc = (sd_entry.get("description_ko") or sd_entry.get("tooltip_ko") or "").strip()
+    desc = _strip_html(raw_desc)  # Wowhead tooltip HTML 평문화
     if primary.startswith("미상 #"):
         meta = buff_db.get(str(sp)) or buff_db.get(sp)
         if isinstance(meta, dict):
@@ -1674,19 +1707,32 @@ def _build_info_html(char: str, pre_pull_buffs: list[dict], in_combat_buffs: lis
         html += "</div>"
         return html
 
-    # 2. 사전 버프 (음식/영약/오일/숫돌) — pre-pull window 600초
+    # 2. 사전 버프 — 음식/영약/오일/숫돌/증강만 필터링
+    consumables = [b for b in (pre_pull_buffs or []) if _is_consumable_name(b.get("name", ""))]
+    total_prepull = len(pre_pull_buffs or [])
+    filter_note = ""
+    if total_prepull > 0:
+        filter_note = (
+            f" <span style='color:#6b6359;font-weight:400;font-size:8.5pt;text-transform:none;"
+            f"letter-spacing:0'>· 표시 {len(consumables)} / 전체 {total_prepull} (소비템 카테고리만)</span>"
+        )
     parts.append(
         "<div style='color:#c8a560;font-size:9pt;font-weight:600;"
         "letter-spacing:0.04em;text-transform:uppercase;"
-        "margin-top:10px;margin-bottom:6px'>사전 버프 (음식·영약·오일·숫돌 등)</div>"
+        f"margin-top:10px;margin-bottom:6px'>사전 버프 (음식·영약·오일·숫돌·증강){filter_note}</div>"
     )
     if prepull_loading:
         parts.append(
             "<div style='color:#a39c8e;font-style:italic'>pre-pull 버프 가져오는 중… (수초)</div>"
         )
-    elif pre_pull_buffs:
-        for b in pre_pull_buffs:
+    elif consumables:
+        for b in consumables:
             parts.append(_buff_block(b))
+    elif total_prepull > 0:
+        parts.append(
+            f"<div style='color:#6b6359'>이 캐릭은 소비템 사용 흔적 없음 "
+            f"(pre-pull buff {total_prepull}개 중 음식/영약/오일/숫돌/증강 0개)</div>"
+        )
     else:
         parts.append(
             "<div style='color:#6b6359'>(pre-pull 캐시 없음 또는 데이터 미수신)</div>"
@@ -1758,6 +1804,38 @@ def _build_info_html(char: str, pre_pull_buffs: list[dict], in_combat_buffs: lis
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 로딩 오버레이 — 무거운 click 작업 동안 위에 띄움
+
+class StatsFetchThread(QThread):
+    """캐시된 pfight 에 stats 가 없을 때 (옛날 fetch) 강제 refetch.
+
+    cache 의 (rid:fid:char) 키 무효화 후 player_fight() 호출 → 새 데이터에 stats 포함.
+    """
+
+    finished_ok = Signal(dict)  # {rid, fid, char, pf}
+
+    def __init__(self, rid: str, fid: int, char: str, v2, parent=None) -> None:
+        super().__init__(parent)
+        self.rid = rid
+        self.fid = fid
+        self.char = char
+        self.v2 = v2
+
+    def run(self) -> None:
+        if self.v2 is None:
+            self.finished_ok.emit({"rid": self.rid, "fid": self.fid, "char": self.char, "pf": None})
+            return
+        try:
+            key = f"{self.rid}:{self.fid}:{self.char}"
+            self.v2.pfight.pop(key, None)  # 무효화 → player_fight 가 새로 fetch
+            pf = self.v2.player_fight(self.rid, self.fid, self.char)
+            self.v2.flush()
+        except Exception:
+            log.exception("StatsFetchThread fail")
+            pf = None
+        self.finished_ok.emit({
+            "rid": self.rid, "fid": self.fid, "char": self.char, "pf": pf,
+        })
+
 
 class PrepullFetchThread(QThread):
     """단일 캐릭터의 pre-pull buff (음식/영약/오일/숫돌 등) on-demand 페치.
@@ -1896,6 +1974,8 @@ class RankingPanel(QWidget):
         self._damage_request_token: int = 0
         self._prepull_thread: PrepullFetchThread | None = None
         self._prepull_request_token: int = 0
+        self._stats_thread: StatsFetchThread | None = None
+        self._stats_request_token: int = 0
         self._last_build_render: dict | None = None  # {rid, fid, char, gear, in_combat, stats}
         self._build()
 
@@ -2294,12 +2374,9 @@ class RankingPanel(QWidget):
                     ench_cell = QTableWidgetItem(f"#{ench_id}")
                     ench_cell.setForeground(QColor("#a39c8e"))
                     ench_cell.setToolTip(
-                        f"<html><body>"
-                        f"<div style='max-width:280px'>"
-                        f"<div style='color:#a39c8e'>마부 #{ench_id}</div>"
-                        f"<div style='color:#6b6359;font-size:8.5pt;margin-top:4px'>"
-                        f"한글 DB 미해결 — 대부분 enchant ID 가 spell ID 와 별도 체계"
-                        f"</div></div></body></html>"
+                        f"<p style='color:#a39c8e;margin:0'>마부 #{ench_id}</p>"
+                        f"<p style='color:#6b6359;font-size:8.5pt;margin:4px 0 0 0'>"
+                        f"한글 DB 미해결 — enrich_kr.py 재실행 시 Wowhead 스크래핑 시도</p>"
                     )
             else:
                 ench_cell = QTableWidgetItem("—")
@@ -2323,16 +2400,15 @@ class RankingPanel(QWidget):
                     ic = _icon_for(first_meta["icon"])
                     if ic:
                         gem_cell.setIcon(ic)
-                # 툴팁: 모든 보석 상세
-                tip_parts = ["<html><body><div style='max-width:320px'>"]
+                # 툴팁: 모든 보석 상세 (Qt rich-text 자동 인식)
+                tip_parts = []
                 for gid in gems:
                     gm = item_db.get(str(gid), {})
                     tip_parts.append(
-                        f"<div style='margin-bottom:4px'>"
+                        f"<p style='margin:0 0 4px 0'>"
                         f"<span style='color:#f5f0e8'>{_html_escape(gm.get('name_ko') or '#'+str(gid))}</span>"
-                        f" <span style='color:#6b6359;font-size:8.5pt'>#{gid}</span></div>"
+                        f" <span style='color:#6b6359;font-size:8.5pt'>#{gid}</span></p>"
                     )
-                tip_parts.append("</div></body></html>")
                 gem_cell.setToolTip("".join(tip_parts))
             else:
                 gem_cell = QTableWidgetItem("—")
@@ -2343,6 +2419,9 @@ class RankingPanel(QWidget):
         sid = pf.get("sourceID") if isinstance(pf.get("sourceID"), int) else None
         in_combat_buffs = _pre_fight_buffs(rid, fid, sid, spell_db) if sid else []
         stats = pf.get("stats") if isinstance(pf.get("stats"), dict) else None
+        # stats 없으면 백그라운드 refetch (옛 cache 엔트리)
+        if not stats and _v2_data() is not None:
+            self._spawn_stats_fetch(rid, fid, char)
 
         # Pre-pull buffs: cache 있으면 사용, 없으면 async fetch
         pre_pull = []
@@ -2371,6 +2450,48 @@ class RankingPanel(QWidget):
         log.info("character build: %s gear=%d in_combat=%d pre_pull=%d loading=%s has_stats=%s",
                  char, len(gear_sorted), len(in_combat_buffs), len(pre_pull),
                  prepull_loading, bool(stats))
+
+    def _spawn_stats_fetch(self, rid: str, fid: int, char: str) -> None:
+        """stats 가 없는 옛 pfight 엔트리 백그라운드 강제 refetch."""
+        self._stats_request_token += 1
+        token = self._stats_request_token
+
+        def _on_done(result):
+            if token != self._stats_request_token:
+                return
+            last = self._last_build_render
+            if not last:
+                return
+            if (result.get("rid") != last["rid"] or
+                    result.get("fid") != last["fid"] or
+                    result.get("char") != last["char"]):
+                return
+            pf = result.get("pf")
+            if not isinstance(pf, dict):
+                return
+            new_stats = pf.get("stats") if isinstance(pf.get("stats"), dict) else None
+            if not new_stats:
+                return
+            last["stats"] = new_stats
+            # 현재 pre-pull 캐시도 그대로 가져옴
+            spell_db = _load_json("spell_db.json")
+            v2 = _v2_data()
+            pre_pull = []
+            sid = last.get("sid")
+            if v2 and sid:
+                cached = v2.prepull.get(f"{last['rid']}:{last['fid']}:{sid}")
+                if cached is not None:
+                    pre_pull = _enrich_buff_list(cached, spell_db)
+            html = _build_info_html(last["char"], pre_pull, last["in_combat"],
+                                     new_stats, last["gear"], prepull_loading=False)
+            self.build_info.setHtml(html)
+            log.info("stats refetched: %s keys=%d", last["char"], len(new_stats))
+
+        thread = StatsFetchThread(rid, fid, char, _v2_data(), self)
+        thread.finished_ok.connect(_on_done)
+        thread.finished.connect(thread.deleteLater)
+        self._stats_thread = thread
+        thread.start()
 
     def _spawn_prepull_fetch(self, rid: str, fid: int, char: str) -> None:
         """Pre-pull buff 가 캐시에 없을 때 백그라운드 페치."""

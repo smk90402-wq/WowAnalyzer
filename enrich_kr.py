@@ -40,7 +40,13 @@ SPELL_DB = DATA / "spell_db.json"
 ITEM_DB = DATA / "item_db.json"
 
 WOWHEAD_TOOLTIP = "https://nether.wowhead.com/tooltip/spell/{id}?locale=1"
-WOWHEAD_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+WOWHEAD_ENCHANT_PAGE = "https://www.wowhead.com/ko/enchantment={id}"
+WOWHEAD_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+
+# enchant 페이지 스크래핑용
+import re
+_RE_PAGE_TITLE = re.compile(r"<title>([^<]+)</title>")
+_RE_OG_IMAGE = re.compile(r'<meta property="og:image" content="[^"]*?/([A-Za-z0-9_\-]+\.(jpg|png))"', re.IGNORECASE)
 
 
 def wowhead_fallback(sid: int) -> dict:
@@ -60,6 +66,47 @@ def wowhead_fallback(sid: int) -> dict:
             "icon": icon.lower(),
             "description_ko": d.get("tooltip") or "",
             "src": "wowhead",
+        }
+    except Exception:
+        return {"miss": True}
+
+
+def wowhead_enchant_scrape(eid: int) -> dict:
+    """Wowhead 웹 페이지에서 enchant 한글 이름 + 아이콘 추출.
+
+    URL: https://www.wowhead.com/ko/enchantment={id}
+    Title 형식: "강한 해독제 - 마법부여 - 와우 데이터베이스" 또는
+               "아이템 강화: <이름> - 마법부여 - 와우 데이터베이스"
+    """
+    try:
+        r = requests.get(WOWHEAD_ENCHANT_PAGE.format(id=eid), timeout=10, headers=WOWHEAD_HEADERS)
+        if r.status_code != 200:
+            return {"miss": True}
+        html = r.text
+        m = _RE_PAGE_TITLE.search(html)
+        title = (m.group(1) if m else "").strip()
+        # 분리: "<name> - 마법부여 - 와우..." 또는 "아이템 강화: <name> - ..."
+        name = ""
+        if title and "와우" in title:  # Wowhead 페이지 확실
+            # "와우헤드" / "와우 데이터베이스" 부분 자르고 앞부분 추출
+            head = title.split(" - 와우")[0].strip()
+            # "아이템 강화:" prefix 있으면 제거
+            for prefix in ("아이템 강화:", "Enchantment:", "Item Enhancement:"):
+                if head.startswith(prefix):
+                    head = head[len(prefix):].strip()
+                    break
+            # 끝의 " - 마법부여" 등 제거
+            head = head.split(" - ")[0].strip()
+            name = head
+        if not name or len(name) > 100:
+            return {"miss": True}
+        # 아이콘: og:image 메타에서 추출
+        m_icon = _RE_OG_IMAGE.search(html)
+        icon = m_icon.group(1).lower() if m_icon else ""
+        return {
+            "name_ko": name,
+            "icon": icon,
+            "src": "wowhead_enchant_scrape",
         }
     except Exception:
         return {"miss": True}
@@ -117,8 +164,12 @@ def fetch_spell(cli: Blizzard, sid: int) -> dict:
         media = cli.get(f"/data/wow/media/spell/{real_sid}")
         icon = _icon_filename(media)
         return {"name_ko": name, "icon": icon, "description_ko": desc, "src": "blizzard"}
-    # Wowhead fallback
-    return wowhead_fallback(sid)
+    # Wowhead nether tooltip fallback
+    nether = wowhead_fallback(sid)
+    if not nether.get("miss"):
+        return nether
+    # Wowhead enchant page scraping (마부 ID 가 spell ID 와 다른 체계인 경우)
+    return wowhead_enchant_scrape(sid)
 
 
 def main() -> None:
