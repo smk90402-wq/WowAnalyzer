@@ -10,6 +10,7 @@
 """
 from __future__ import annotations
 
+import atexit
 import logging
 import sys
 from pathlib import Path
@@ -67,6 +68,9 @@ def _v2() -> V2Data:
     global _v2_inst
     if _v2_inst is None:
         _v2_inst = V2Data(data_dir=DATA_DIR)
+        # FastAPI 핸들러가 캐시를 변경해도 디스크에 저장되지 않으면 .exe 재시작 시 손실.
+        # atexit 으로 우아한 종료 시 flush. pywebview 윈도우 닫기 → 메인 스레드 종료 시 호출됨.
+        atexit.register(_v2_inst.flush)
     return _v2_inst
 
 
@@ -94,6 +98,13 @@ def rankings(difficulty: str) -> Response:
         raise HTTPException(404, f"rankings CSV not found: {path.name} "
                                  f"— run fetch_rankings_v2.py first")
     df = pd.read_csv(path)
+    # 영문 보스명 → 한글 (도감 검증된 매핑). 미등록은 영문 유지.
+    if "encounter_id" in df.columns and "encounter_name" in df.columns:
+        df["encounter_name"] = df.apply(
+            lambda r: BOSS_KR.get(int(r["encounter_id"]), r["encounter_name"])
+                      if pd.notna(r["encounter_id"]) else r["encounter_name"],
+            axis=1,
+        )
     # pandas to_json 이 NaN → null 변환 처리 (orient=records). 인덱스 미포함.
     rows_json = df.to_json(orient="records", force_ascii=False)
     payload = (
@@ -108,6 +119,13 @@ def report_meta(rid: str) -> JSONResponse:
     meta = _v2().report_meta(rid)
     if not meta:
         raise HTTPException(404, f"report '{rid}' 조회 실패 — private/잘못된 ID/네트워크")
+    # 한글 보스명 채우기 — 구버전 캐시는 fight.name 자체가 비어있음
+    if isinstance(meta, dict):
+        for f in meta.get("fights") or []:
+            if isinstance(f, dict):
+                eid = f.get("encounterID")
+                if isinstance(eid, int):
+                    f["name"] = BOSS_KR.get(eid) or f.get("name") or f"enc {eid}"
     return JSONResponse(meta)
 
 
@@ -178,30 +196,51 @@ def character_detail(rid: str, fid: int, char: str) -> JSONResponse:
                     "pct": pct,  # null 이면 1차 스탯 (rating only)
                 })
 
+    # 임의 로그 탭용 — talent_trees.json 5스펙 중 picked nodes 와 가장 많이
+    # 매칭되는 스펙 추론. ranking row 의 class/spec 없을 때 프론트가 사용.
+    # node_id 사용 (WCL combatantInfo nodeID ↔ Blizzard node.id, 100% 매칭).
+    inferred_cls, inferred_spec = _infer_spec(pf.get("nodes") or [])
+
     out: dict = {
         "rid": rid, "fid": fid, "char": char, "sourceID": sid,
         "talents": pf.get("talents") or [],
         "gear": enriched_gear,
         "stats": raw_stats or None,
         "stats_kr": stats_kr,
+        "inferred_class": inferred_cls,
+        "inferred_spec": inferred_spec,
     }
     # casts + buffs — events_for 가 sid 매핑 + 페치 모두 처리
     ev = v2.events_for(rid, fid, char) or {}
     out["casts"] = ev.get("casts") or []
     out["buffs"] = ev.get("buffs") or []
 
-    # prepull (별도 캐시) — sid 필요
+    # prepull (별도 캐시) — sid 필요. 캐시 hit 만 반환, miss 시 V2 페치 안 함.
+    # 이유: prefetch_prepull.py 가 백필 담당. 핫패스에서 추가 API 호출하면
+    # 첫 클릭이 수~십초 지연되고, 백필 안 된 캐릭은 어차피 데이터 부족.
+    spell_db = _spell_db()
     if sid is not None:
         prepull_key = f"{rid}:{fid}:{sid}"
         cached_pp = v2.prepull.get(prepull_key)
-        if cached_pp is not None:
-            out["prepull"] = cached_pp
-        else:
-            try:
-                out["prepull"] = v2.pre_pull_buffs(rid, fid, char)
-            except Exception as e:
-                log.warning("prepull 실패: %s", e)
-                out["prepull"] = []
+        raw_pp = cached_pp if isinstance(cached_pp, list) else []
+        # spell_db 로 name/icon 한글화 — 프론트에서 그대로 쓰게
+        enriched_pp: list[dict] = []
+        seen: set[int] = set()
+        for p in raw_pp:
+            if not isinstance(p, dict):
+                continue
+            spid = p.get("spell_id")
+            if not isinstance(spid, int) or spid in seen:
+                continue
+            seen.add(spid)
+            meta_sp = spell_db.get(str(spid), {})
+            enriched_pp.append({
+                "spell_id": spid,
+                "ts": p.get("ts"),
+                "name_ko": meta_sp.get("name_ko") or meta_sp.get("name_en") or f"#{spid}",
+                "icon": meta_sp.get("icon") or "",
+            })
+        out["prepull"] = enriched_pp
     else:
         out["prepull"] = []
 
@@ -211,8 +250,12 @@ def character_detail(rid: str, fid: int, char: str) -> JSONResponse:
         for f in meta.get("fights") or []:
             if f.get("id") == fid:
                 out["fight_window"] = [f.get("startTime"), f.get("endTime")]
-                out["encounter_id"] = f.get("encounterID")
-                out["encounter_name"] = f.get("name")
+                eid_ = f.get("encounterID")
+                out["encounter_id"] = eid_
+                # 한글 보스명 우선 — meta 캐시에 name 없는 (구버전 캐시) 도 대비
+                out["encounter_name"] = (
+                    BOSS_KR.get(int(eid_)) if isinstance(eid_, int) else None
+                ) or f.get("name")
                 break
 
     return JSONResponse(out)
@@ -284,6 +327,20 @@ SLOT_KR: dict[int, str] = {
     17: "원거리",
 }
 
+# 한밤 raid (zone 46 = 꿈의 균열) 한글 보스명. 도감 검증된 7명 + 미확인 2명.
+# memory/feedback_wow_kr_terms.md 의 권위 매핑.
+BOSS_KR: dict[int, str] = {
+    3176: "전제군주 아베르지안",
+    3177: "보라시우스",
+    3178: "바엘고어와 에조라크",
+    3179: "몰락한 왕 살라다르",
+    3180: "빛에 눈이 먼 선봉대",
+    3181: "우주의 왕관",
+    3182: "알라르의 자식 벨로렌",     # TODO 도감 검증
+    3183: "한밤이 내린다",            # TODO 도감 검증
+    3306: "꿈결을 벗어난 신 카이메루스",
+}
+
 
 @app.get("/api/timeline/{rid}/{fid}/{char}", response_class=HTMLResponse)
 def timeline_html(rid: str, fid: int, char: str, orientation: str = "h") -> str:
@@ -328,6 +385,64 @@ def _talent_trees() -> dict:
         else:
             _talent_trees_cache = {}
     return _talent_trees_cache
+
+
+# (cls, spec) → spec 트리의 node_id set — talent_trees.json 의 spec 섹션만.
+# class 트리 노드는 같은 클래스 내 spec 끼리 공유돼서 spec 구분 못 함.
+# WCL combatantInfo.talentTree[].nodeID 와 매칭 (Blizzard node.id).
+_spec_node_sets: dict[tuple[str, str], set[int]] | None = None
+
+
+def _build_spec_node_sets() -> dict[tuple[str, str], set[int]]:
+    """각 spec 트리의 spec+hero 섹션 node_id 집합 (class 섹션 제외)."""
+    out: dict[tuple[str, str], set[int]] = {}
+    for key, tree in _talent_trees().items():
+        if "/" not in key:
+            continue
+        cls_, spec_ = key.split("/", 1)
+        ids: set[int] = set()
+        # spec 트리만 — class 트리는 모든 spec 가 공유라 변별 못함
+        for n in (tree.get("spec") or []):
+            nid = n.get("id")
+            if isinstance(nid, int):
+                ids.add(nid)
+        for _, hdat in (tree.get("hero") or {}).items():
+            for n in (hdat.get("nodes") or []):
+                nid = n.get("id")
+                if isinstance(nid, int):
+                    ids.add(nid)
+        out[(cls_, spec_)] = ids
+    return out
+
+
+def _infer_spec(picked_nodes: list) -> tuple[str | None, str | None]:
+    """캐릭의 picked node IDs 와 가장 많이 매칭되는 (class, spec) 반환.
+
+    pfight['nodes'] = WCL combatantInfo nodeID 리스트.
+    talent_trees.json 의 5개 타깃 스펙 (Demo Lock, Balance Druid, BM Hunter,
+    Arms War, Fury War) 만 매칭 가능. 매칭 부족 (강한 매칭 X) 시 (None, None).
+    """
+    global _spec_node_sets
+    if _spec_node_sets is None:
+        _spec_node_sets = _build_spec_node_sets()
+    if not picked_nodes:
+        return None, None
+    picked = {n for n in picked_nodes if isinstance(n, int)}
+    if not picked:
+        return None, None
+    # 점수: spec 의 node_id 중 picked 와 겹치는 개수. spec 사이즈로 정규화.
+    best_key: tuple[str, str] | None = None
+    best_ratio = 0.0
+    for key, ids in _spec_node_sets.items():
+        if not ids:
+            continue
+        n = len(picked & ids)
+        # 임계: spec 노드의 최소 30% 이상 매칭 — 잘못된 추론 회피
+        ratio = n / len(ids)
+        if ratio > best_ratio and ratio >= 0.30:
+            best_ratio = ratio
+            best_key = key
+    return (best_key[0], best_key[1]) if best_key else (None, None)
 
 
 @app.get("/api/talent-tree-aggregate", response_class=HTMLResponse)
@@ -518,5 +633,9 @@ def talent_tree_html(rid: str, fid: int, char: str,
 # ── V2 rate limit (디버깅용) ────────────────────────────────────────────────
 @app.get("/api/rate")
 def rate_left() -> JSONResponse:
-    rate = _v2().points_left()
+    # WCLV2 client 에 points_left — V2Data 가 wrap.
+    try:
+        rate = _v2().cli.points_left()
+    except Exception as e:
+        return JSONResponse({"warning": f"rate query 실패: {e}"}, status_code=503)
     return JSONResponse(rate or {"warning": "rate info unavailable"})

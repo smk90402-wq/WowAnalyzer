@@ -215,9 +215,11 @@ body {
 .arb-status { color: var(--text-mute); font-size: 11px; margin-left: auto; }
 
 /* ── 메인 split (좌 랭킹 / 우 빌드) ─────────────────────────────────── */
+/* 랭킹은 캐릭/길드/서버/DPS/ilvl 텍스트 안 잘릴 정도만 (~560px 고정).
+ * 우측 빌드 패널이 딜사이클 + 특성 트리 다 들고 있어서 더 크게. */
 .split-h {
   display: grid;
-  grid-template-columns: 3fr 2fr;
+  grid-template-columns: minmax(520px, 560px) 1fr;
   height: 100%;
   overflow: hidden;
   gap: 1px;
@@ -242,13 +244,22 @@ body {
 #ranking-table {
   width: 100%; border-collapse: collapse;
   font-size: 11.5px;
+  table-layout: fixed;  /* 컬럼 너비 colgroup 으로 고정 */
 }
+/* 컬럼 너비 — # 30 / 캐릭 110 / 길드 130 / 서버 100 / DPS 90 / ilvl 50 = 510px
+ * 패널 minmax(520, 560) 안에서 텍스트 안 잘리는 최소 폭 */
+#ranking-table col.col-rank   { width: 36px; }
+#ranking-table col.col-char   { width: auto; }
+#ranking-table col.col-guild  { width: 130px; }
+#ranking-table col.col-server { width: 88px; }
+#ranking-table col.col-dps    { width: 78px; }
+#ranking-table col.col-ilvl   { width: 44px; }
 #ranking-table thead {
   position: sticky; top: 0; z-index: 1;
   background: var(--bg-1);
 }
 #ranking-table th {
-  padding: 6px 10px;
+  padding: 6px 8px;
   text-align: left; color: var(--text-mute);
   font-weight: 500; font-size: 11px;
   border-bottom: 1px solid var(--border);
@@ -261,8 +272,10 @@ body {
 #ranking-table tbody tr:hover { background: var(--row-hover); }
 #ranking-table tbody tr.selected { background: var(--row-selected); }
 #ranking-table td {
-  padding: 5px 10px;
+  padding: 5px 8px;
   color: var(--text);
+  /* 긴 텍스트 (길드명 등) 잘림 표시 */
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 #ranking-table td.mute { color: var(--text-mute); }
 #ranking-table td.num { font-variant-numeric: tabular-nums; }
@@ -314,6 +327,28 @@ body {
 .gear-item .gname:hover { text-decoration: underline; }
 .gear-item .gmeta { font-size: 10px; color: var(--text-mute); }
 
+/* ── prepull 버프 리스트 ──────────────────────────────────────────── */
+.prepull-list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.prepull-item {
+  display: flex; align-items: center; gap: 6px;
+  padding: 3px 8px 3px 3px;
+  background: var(--bg-1);
+  border-radius: 3px;
+  font-size: 11px;
+}
+.prepull-item .picon {
+  width: 22px; height: 22px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+}
+.prepull-item .pname {
+  color: var(--text); text-decoration: none;
+}
+.prepull-item .pname:hover { color: var(--accent); text-decoration: underline; }
+
 /* ── 스탯 테이블 ──────────────────────────────────────────────────── */
 .stats-table {
   border-collapse: collapse; font-size: 11.5px;
@@ -328,8 +363,10 @@ body {
   font-variant-numeric: tabular-nums; min-width: 60px; }
 
 /* ── 타임라인 / 트리 iframe ───────────────────────────────────────── */
+/* 딜사이클이 우측 패널 메인 콘텐츠 — 화면의 빈 세로 공간 거의 다 차지.
+ * 75vh = 1080p 에서 ~810px, 1440p 에서 ~1080px. clamp 으로 너무 작거나 커지지 않게. */
 .tl-frame {
-  width: 100%; height: 300px;
+  width: 100%; height: clamp(560px, 75vh, 1100px);
   border: 1px solid var(--border); border-radius: 4px;
   background: var(--bg-0);
   margin-bottom: 8px;

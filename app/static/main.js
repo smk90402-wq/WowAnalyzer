@@ -159,6 +159,7 @@ function renderBuild(d, row) {
         <span class="v">${esc(d.encounter_name || row.encounter_name)}</span>
       </div>
     </div>
+    ${renderPrepull(d.prepull)}
     <h3>딜사이클</h3>
     <iframe class="tl-frame" src="${tlUrl}" title="타임라인"></iframe>
     <h3>특성 트리
@@ -176,6 +177,28 @@ function renderBuild(d, row) {
     </ul>
     <h3>스탯</h3>
     ${renderStats(statsKr)}
+  `;
+}
+
+// prepull = [{spell_id, ts, name_ko, icon}] — 음식/영약/오일/숫돌 등 전투 직전 5초 안에 적용된 버프.
+// 백엔드가 spell_db 로 name_ko + icon 채워 보냄. 빈 배열이면 섹션 숨김.
+function renderPrepull(prepull) {
+  if (!Array.isArray(prepull) || prepull.length === 0) return '';
+  return `
+    <h3>전투 직전 버프 (${prepull.length})</h3>
+    <ul class="prepull-list">
+      ${prepull.map(p => {
+        const iconUrl = p.icon
+          ? `https://wow.zamimg.com/images/wow/icons/medium/${p.icon}`
+          : 'https://wow.zamimg.com/images/wow/icons/medium/inv_misc_questionmark.jpg';
+        return `
+          <li class="prepull-item">
+            <img class="picon" src="${iconUrl}" alt="">
+            <a class="pname" href="https://www.wowhead.com/spell=${p.spell_id}"
+               target="_blank" rel="noopener">${esc(p.name_ko)}</a>
+          </li>`;
+      }).join('')}
+    </ul>
   `;
 }
 
@@ -413,10 +436,11 @@ async function onArbitraryPlayerClick(tr) {
     if (!r.ok) throw new Error(`HTTP ${r.status}: ${await r.text()}`);
     const d = await r.json();
     // ranking row 형태로 emulate (renderBuild 재사용)
+    // class/spec 은 백엔드가 talent_trees.json 5스펙 중 매칭되는 거 추론해서 보냄
     const fakeRow = {
       character: char,
-      class: '',  // V2 player_fight 응답에 직접 없음
-      spec: '',
+      class: d.inferred_class || '',
+      spec: d.inferred_spec || '',
       item_level: null,
       dps: null,
       rank: null,
@@ -437,19 +461,30 @@ function renderBuildInto(selector, d, row) {
   const gear = d.gear || [];
   const statsKr = d.stats_kr || [];
   const tlUrl = `/api/timeline/${encodeURIComponent(row.report_id)}/${row.fight_id}/${encodeURIComponent(row.character)}`;
+  // 추론된 class/spec 이 있으면 특성 트리도 표시 (5 타깃 스펙 한정)
+  const hasTree = row.class && row.spec;
+  const treeUrl = hasTree
+    ? `/api/talent-tree/${encodeURIComponent(row.report_id)}/${row.fight_id}/${encodeURIComponent(row.character)}?cls=${encodeURIComponent(row.class)}&spec=${encodeURIComponent(row.spec)}`
+    : '';
+  const treeHtml = hasTree
+    ? `<h3>특성 트리 (${esc(row.class)} ${esc(row.spec)})</h3>
+       <iframe class="tree-frame" src="${treeUrl}" title="특성 트리"></iframe>`
+    : '<p style="color:var(--text-mute);font-size:11px">특성 트리: talent_trees.json 미등록 스펙 (5 타깃 외 클래스)</p>';
   document.querySelector(selector).innerHTML = `
     <div class="build-section">
       <div class="build-row">
         <span class="k">캐릭</span>
-        <span class="v">${esc(row.character)}</span>
+        <span class="v">${esc(row.character)}${hasTree ? ` · ${esc(row.class)} ${esc(row.spec)}` : ''}</span>
       </div>
       <div class="build-row">
         <span class="k">보스</span>
         <span class="v">${esc(d.encounter_name || row.encounter_name || '?')}</span>
       </div>
     </div>
+    ${renderPrepull(d.prepull)}
     <h3>딜사이클</h3>
     <iframe class="tl-frame" src="${tlUrl}" title="타임라인"></iframe>
+    ${treeHtml}
     <h3>장비 (${gear.length} 슬롯)</h3>
     <ul class="gear-list">
       ${gear.map(g => gearItemHtml(g)).join('')}

@@ -93,6 +93,17 @@ def main() -> None:
     )
     webview.start()  # 블로킹
 
+    # 윈도우 종료 시 V2Data 캐시 명시적 flush — atexit 도 등록돼있지만
+    # pywebview backend 가 os._exit 호출하면 atexit 못 잡는 경우 대비.
+    # 모듈 변수 직접 접근 (from-import 는 import 시점 값 캡처돼서 잘못됨).
+    try:
+        from app import main as app_main
+        if app_main._v2_inst is not None:
+            log.info("종료 — V2 cache flush")
+            app_main._v2_inst.flush()
+    except Exception as e:
+        log.warning("flush 실패: %s", e)
+
 
 if __name__ == "__main__":
     main()

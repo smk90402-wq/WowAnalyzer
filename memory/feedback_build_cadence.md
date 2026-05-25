@@ -9,13 +9,19 @@ type: feedback
 ```
 python -m PyInstaller --noconfirm --windowed --name LogAnalyze ^
   --add-data "app/static;app/static" ^
-  --collect-submodules uvicorn --collect-submodules webview ^
+  --collect-submodules uvicorn ^
   --hidden-import "uvicorn.loops.auto" ^
   --hidden-import "uvicorn.protocols.http.auto" ^
   --hidden-import "uvicorn.protocols.websockets.auto" ^
   --hidden-import "uvicorn.lifespan.on" ^
+  --hidden-import "webview.platforms.edgechromium" ^
+  --exclude-module "PyQt5" --exclude-module "PyQt6" --exclude-module "PySide6" ^
+  --exclude-module "torch" --exclude-module "tensorflow" ^
+  --exclude-module "matplotlib" --exclude-module "scipy" ^
   serve.py
 ```
+
+**왜 excludes:** `--collect-submodules webview` 가 PyQt5 (대체 backend) 까지 끌어들이고, PyInstaller 의 "Looking for dynamic libraries" 단계에서 torch DLL 트리 스캔 중 silently crash 한다 (2026-05-21 확인). EdgeChromium 만 hidden-import 으로 명시. 결과: 산출물 ~100MB (이전 fatter build 50MB+이지만 hang).
 
 **2026-05-21 cutover**: PySide6 (gui.py) → web (serve.py + FastAPI + pywebview + app/static). 산출물 크기 930MB → ~36MB (1/25). `gui.py`, `themes.py` 폐기. 사용자가 명시적으로 Option B 선택 + Week 1~3 마이그레이션 완료.
 

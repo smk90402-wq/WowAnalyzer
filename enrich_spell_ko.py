@@ -43,6 +43,7 @@ except Exception:
 DATA = Path(__file__).parent / "data"
 SPELL_EN = DATA / "spell_db_en.json"
 TALENTS = DATA / "cache_talents.json"
+V2_EVENTS = DATA / "v2_cache_events.json"  # V2 캐시 — casts/buffs 에서 본 spell ID
 OUT = DATA / "spell_db.json"
 
 NETHER = "https://nether.wowhead.com/tooltip/spell/{id}?locale=1"
@@ -92,6 +93,20 @@ def gather_ids() -> tuple[set[int], dict[str, dict]]:
                     ids.add(int(tid))
                 except (TypeError, ValueError):
                     pass
+
+    # V2 이벤트 캐시 — casts/buffs 의 abilityGameID 전부 수집.
+    # 백필된 모든 캐릭의 시전/버프 ID 가 다 들어옴 (전사 6552, 280735 등 누락분 포함).
+    v2_events = load_json(V2_EVENTS, {})
+    for _, evs in v2_events.items():
+        if not isinstance(evs, dict):
+            continue
+        for kind in ("casts", "buffs"):
+            for ev in (evs.get(kind) or []):
+                if isinstance(ev, list) and len(ev) >= 2:
+                    try:
+                        ids.add(int(ev[1]))
+                    except (TypeError, ValueError):
+                        pass
 
     return ids, en_meta
 

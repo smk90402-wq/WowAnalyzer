@@ -133,23 +133,40 @@ html { overflow: visible; }
 
 ZOOM_JS = """
 (function() {
+  // Drag perf 핵심: window.scrollTo (layout reflow) 가 아니라
+  // .timeline 에 transform: translate3d 적용 (GPU compositor 만).
+  // body 는 overflow:hidden — 스크롤바 대신 드래그로 panning.
   const DEFAULT_PPS = 160;
   const MIN_PPS = 16;
   const MAX_PPS = 1200;
   let pps = DEFAULT_PPS;
+  let panX = 0, panY = 0;
   const body = document.body;
   const isV = body.classList.contains('vertical');
-  const scrollKey = isV ? 'scrollY' : 'scrollX';
+  const tl = document.querySelector('.timeline');
+  if (!tl) return;
+
+  body.style.overflow = 'hidden';
+  tl.style.transformOrigin = '0 0';
+  tl.style.willChange = 'transform';
+
+  function applyTransform() {
+    tl.style.transform = 'translate3d(' + (-panX) + 'px,' + (-panY) + 'px,0)';
+  }
+  applyTransform();
 
   function applyPps(newPps, anchor) {
     const oldPps = pps;
     pps = Math.max(MIN_PPS, Math.min(MAX_PPS, newPps));
+    // 앵커 (커서) 의 화면 위치 고정 → 줌인/줌아웃 시 그 시점이 그대로 머무름
     const cursorScreen = isV ? anchor.clientY : anchor.clientX;
-    const worldTime = (window[scrollKey] + cursorScreen) / oldPps;
+    const curPan = isV ? panY : panX;
+    const worldTime = (curPan + cursorScreen) / oldPps;
     body.style.setProperty('--pps', pps);
     const newScreen = worldTime * pps - cursorScreen;
-    if (isV) window.scrollTo(window.scrollX, newScreen);
-    else     window.scrollTo(newScreen, window.scrollY);
+    if (isV) panY = Math.max(0, newScreen);
+    else     panX = Math.max(0, newScreen);
+    applyTransform();
   }
 
   document.addEventListener('wheel', (e) => {
@@ -163,33 +180,68 @@ ZOOM_JS = """
     applyPps(DEFAULT_PPS, e);
   });
 
-  let dragging = false, dsx = 0, dsy = 0, dscX = 0, dscY = 0;
-  let targetSx = 0, targetSy = 0, rafPending = false;
+  let dragging = false, dsx = 0, dsy = 0, dpanX = 0, dpanY = 0;
+  let targetX = 0, targetY = 0, rafPending = false;
   body.style.cursor = 'grab';
   document.addEventListener('mousedown', (e) => {
     if (e.target.closest('.cast') || e.target.closest('.buff')) return;
     if (e.button !== 0) return;
     dragging = true;
     dsx = e.clientX; dsy = e.clientY;
-    dscX = window.scrollX; dscY = window.scrollY;
+    dpanX = panX; dpanY = panY;
+    targetX = panX; targetY = panY;
     body.style.cursor = 'grabbing';
     e.preventDefault();
   });
-  const DRAG_SPEED = 2.4;
   document.addEventListener('mousemove', (e) => {
     if (!dragging) return;
-    targetSx = dscX - (e.clientX - dsx) * DRAG_SPEED;
-    targetSy = dscY - (e.clientY - dsy) * DRAG_SPEED;
+    // 마우스 이동 방향 반대로 pan. 1:1 매핑 — translate3d 라서 충분히 빠름.
+    targetX = Math.max(0, dpanX - (e.clientX - dsx));
+    targetY = Math.max(0, dpanY - (e.clientY - dsy));
     if (!rafPending) {
       rafPending = true;
       requestAnimationFrame(() => {
-        window.scrollTo(targetSx, targetSy);
+        panX = targetX; panY = targetY;
+        applyTransform();
         rafPending = false;
       });
     }
   });
   const endDrag = () => { if (dragging) { dragging = false; body.style.cursor = 'grab'; } };
   ['mouseup', 'mouseleave'].forEach(ev => document.addEventListener(ev, endDrag));
+
+  // ── 툴팁 클램핑 — iframe 가장자리에 닿으면 반대편으로 flip ───────────────
+  // body.overflow:hidden 라서 tip 이 viewport 넘어가면 잘림. mouseenter 시
+  // 실제 rect 측정 → 좌/상 우선이지만 cut 되면 우/하 로 강제 이동.
+  function clampTip(e) {
+    const host = e.target.closest('.cast, .buff');
+    if (!host) return;
+    const tip = host.querySelector(':scope > .tip');
+    if (!tip) return;
+    // 매 hover 마다 inline 스타일 초기화 → CSS default 로 위치 잡힌 후 측정
+    tip.style.left = ''; tip.style.right = ''; tip.style.top = ''; tip.style.bottom = '';
+    // :hover 가 이미 display:block 적용. measure 가능.
+    const tipRect = tip.getBoundingClientRect();
+    const hostRect = host.getBoundingClientRect();
+    const vw = document.documentElement.clientWidth;
+    const vh = document.documentElement.clientHeight;
+    // X 클램프 — 오른쪽 잘리면 왼쪽으로, 왼쪽 잘리면 오른쪽으로
+    if (tipRect.right > vw - 4) {
+      const overflow = tipRect.right - (vw - 4);
+      tip.style.left = (-8 - overflow) + 'px';
+    } else if (tipRect.left < 4) {
+      tip.style.left = (4 - hostRect.left) + 'px';
+    }
+    // Y 클램프 — 위 잘리면 아래로 flip, 아래 잘리면 위로 flip
+    if (tipRect.top < 4) {
+      tip.style.bottom = 'auto';
+      tip.style.top = (hostRect.height + 4) + 'px';
+    } else if (tipRect.bottom > vh - 4) {
+      tip.style.top = 'auto';
+      tip.style.bottom = (hostRect.height + 4) + 'px';
+    }
+  }
+  document.addEventListener('mouseover', clampTip, true);
 })();
 """
 
@@ -198,11 +250,14 @@ def _cast_row_html(sid: int, lane_pos: int, t_rel: float, dur_s: float,
                    spell_db: dict, is_v: bool) -> str:
     meta = spell_db.get(str(sid), {})
     icon = meta.get("icon") or ""
+    # tooltip_ko 는 HTML (포맷팅 보존). description_ko 는 plain. 둘 다 시도, raw 렌더.
+    # spell_db 는 로컬 큐레이션이라 XSS 걱정 없음 (WoWhead 본문 그대로).
     tip_body = (meta.get("description_ko") or meta.get("tooltip_ko")
                 or meta.get("tooltip_en") or "")
-    tip_body_plain = _strip_html(tip_body) if tip_body else ""
+    # spell_db 에 미등록인 ID 는 placeholder ? 아이콘 — 빈 회색 박스 회피
     icon_url = (f"https://wow.zamimg.com/images/wow/icons/medium/{icon}"
-                if icon else "")
+                if icon
+                else "https://wow.zamimg.com/images/wow/icons/medium/inv_misc_questionmark.jpg")
     title, sub = _resolve_name(sid, spell_db)
     time_str = f"t={t_rel:.3f}s"
     if dur_s > 0.05:
@@ -220,7 +275,7 @@ def _cast_row_html(sid: int, lane_pos: int, t_rel: float, dur_s: float,
         f'<div class="tip">'
         f'<div class="tname">{_html_escape(title)}</div>'
         f'{subtitle}'
-        f'<div class="tbody">{_html_escape(tip_body_plain)}</div>'
+        f'<div class="tbody">{tip_body}</div>'
         f'</div></div>'
     )
 
@@ -231,7 +286,8 @@ def _buff_html(sid: int, lane_pos: int, t_rel_start: float, dur_s: float,
     icon = meta.get("icon") or ""
     tip_body = meta.get("tooltip_ko") or meta.get("tooltip_en") or ""
     icon_url = (f"https://wow.zamimg.com/images/wow/icons/medium/{icon}"
-                if icon else "")
+                if icon
+                else "https://wow.zamimg.com/images/wow/icons/medium/inv_misc_questionmark.jpg")
     title, sub = _resolve_name(sid, spell_db)
     subtitle = (f'<div class="ten">{_html_escape(sub)} · 지속 {dur_s:.1f}s</div>'
                 if sub else f'<div class="ten">지속 {dur_s:.1f}s</div>')
@@ -355,7 +411,7 @@ def render_html(*, char: str, casts: list, buffs: list, fight_window: list,
                 · 시전 {len(cast_intervals)}회 ({len(cast_lane)}개 스펠)
                 · 버프 인터벌 {len(intervals)}개
                 {f' (미상 {hidden_unknown_buffs}개 숨김)' if hidden_unknown_buffs else ''}
-                · 휠=줌 · 더블클릭=리셋</div>
+                · 휠=줌 · 드래그=이동 · 더블클릭=리셋</div>
             <div class="timeline span-d" style="{d_attr}">
                 <div class="grid span-d">{"".join(grid_html)}</div>
                 <div class="axis span-d">{"".join(label_html)}</div>
@@ -377,7 +433,7 @@ def render_html(*, char: str, casts: list, buffs: list, fight_window: list,
                 · 시전 {len(cast_intervals)}회 ({len(cast_lane)}개 스펠)
                 · 버프 인터벌 {len(intervals)}개
                 {f' (미상 {hidden_unknown_buffs}개 숨김)' if hidden_unknown_buffs else ''}
-                · 휠=줌 · 더블클릭=리셋</div>
+                · 휠=줌 · 드래그=이동 · 더블클릭=리셋</div>
             <div class="timeline span-d" style="{d_attr}">
                 <div class="grid span-d">{"".join(grid_html)}</div>
                 <div class="axis span-d">{"".join(label_html)}</div>

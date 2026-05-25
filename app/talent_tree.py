@@ -283,4 +283,38 @@ def render_html(tree_data: dict, pick_count: dict, pts_dist: dict,
     </div>"""
     return (f"<!doctype html><html><head><meta charset='utf-8'>"
             f"<style>{TREE_CSS}</style></head>"
-            f"<body>{body}</body></html>")
+            f"<body>{body}<script>{TREE_TIP_JS}</script></body></html>")
+
+
+# 툴팁 클램핑 — timeline 의 clampTip 과 동일 로직. tnode 호버 시 tip 이
+# iframe viewport 밖으로 나가면 반대편으로 flip. talent tree 는 가로로 3컬럼
+# (직업/영웅/전문화) 이라 우측 컬럼 노드 호버 시 tip 이 오른쪽 잘리기 쉬움.
+TREE_TIP_JS = """
+(function() {
+  function clampTip(e) {
+    const host = e.target.closest('.tnode');
+    if (!host) return;
+    const tip = host.querySelector(':scope > .tip');
+    if (!tip) return;
+    tip.style.left = ''; tip.style.right = ''; tip.style.top = ''; tip.style.bottom = '';
+    const tipRect = tip.getBoundingClientRect();
+    const hostRect = host.getBoundingClientRect();
+    const vw = document.documentElement.clientWidth;
+    const vh = document.documentElement.clientHeight;
+    if (tipRect.right > vw - 4) {
+      const overflow = tipRect.right - (vw - 4);
+      tip.style.left = (-8 - overflow) + 'px';
+    } else if (tipRect.left < 4) {
+      tip.style.left = (4 - hostRect.left) + 'px';
+    }
+    if (tipRect.top < 4) {
+      tip.style.bottom = 'auto';
+      tip.style.top = (hostRect.height + 4) + 'px';
+    } else if (tipRect.bottom > vh - 4) {
+      tip.style.top = 'auto';
+      tip.style.bottom = (hostRect.height + 4) + 'px';
+    }
+  }
+  document.addEventListener('mouseover', clampTip, true);
+})();
+"""
