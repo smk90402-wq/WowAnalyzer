@@ -86,7 +86,7 @@ query($code: String!, $start: Float!, $end: Float!, $sid: Int!) {
         dataType: Buffs
         startTime: $start
         endTime: $end
-        sourceID: $sid
+        targetID: $sid
         hostilityType: Friendlies
       ) { data nextPageTimestamp }
     }
@@ -462,7 +462,17 @@ class V2Data:
 
         key = f"{rid}:{fid}:{sid}"
         if key in self.events:
-            return self.events[key]
+            cached = self.events[key]
+            # 새 schema 체크: buff record 4번째 요소 = sourceID (int).
+            # Old schema (length 3) 면 무효화 → 재페치 (외부 버프 필터링용).
+            if isinstance(cached, dict):
+                buffs = cached.get("buffs") or []
+                if not buffs or (isinstance(buffs[0], list) and len(buffs[0]) >= 4):
+                    return cached
+                log.info("events cache %s old schema (no buff sourceID) — re-fetch", key)
+                del self.events[key]
+            elif cached is None:
+                return cached
 
         meta = self.report_meta(rid)
         fights = (meta or {}).get("fights") or []
@@ -480,15 +490,18 @@ class V2Data:
             self.events[key] = None
             return None
 
-        # V2 events: {"timestamp": int, "type": str, "abilityGameID": int, ...}
+        # V2 events: {"timestamp": int, "type": str, "abilityGameID": int, "sourceID": int, ...}
         casts = [[e.get("timestamp"), e.get("abilityGameID") or 0, e.get("type") or "cast"]
                  for e in casts_raw if e.get("abilityGameID")]
+        # buffs: [ts, gid, type, src, stack?]. src 는 buff caster (외부 버프 필터링용).
         buffs = []
         for e in buffs_raw:
             gid = e.get("abilityGameID")
             if not gid:
                 continue
-            rec = [e.get("timestamp"), gid, e.get("type") or ""]
+            src = e.get("sourceID")
+            rec = [e.get("timestamp"), gid, e.get("type") or "",
+                   int(src) if isinstance(src, int) else 0]
             if e.get("stack") is not None:
                 rec.append(e.get("stack"))
             buffs.append(rec)

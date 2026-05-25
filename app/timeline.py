@@ -305,9 +305,39 @@ def _buff_html(sid: int, lane_pos: int, t_rel_start: float, dur_s: float,
     )
 
 
+# 외부 캐스터 버프 중에서도 항상 표시할 spell ID (BL/Hero/TW + PI + 펫 BL + 드럼).
+# self src 가 아닌 외부 버프는 기본 숨김, 이 목록에 있는 것만 통과.
+SHOW_EXTERNAL_BUFFS = {
+    10060,   # Power Infusion (사제 마력주입)
+    2825,    # Bloodlust (호드 주술사 피의 욕망)
+    32182,   # Heroism (얼라 주술사 영웅심)
+    80353,   # Time Warp (마법사 시간 왜곡)
+    264667,  # Primal Rage (사냥꾼 펫 원시의 분노)
+    390386,  # Fury of the Aspects (기원사 측면의 격노)
+    230935,  # Drums of Fury — 격노의 북
+    178207,  # Drums of the Mountain — 산의 북
+    256740,  # Drums of the Maelstrom — 폭풍 북
+    309658,  # Drums of Deathly Ferocity — 죽음의 흉포한 북
+    466904,  # Drums (Midnight 11.x 신규)
+    80354,   # Temporal Displacement (TW 후 디버프)
+    57723,   # Exhaustion (BL 후 디버프)
+    57724,   # Sated (BL 후 디버프)
+    264689,  # Fatigued (Primal Rage 후 디버프)
+}
+
+
 def render_html(*, char: str, casts: list, buffs: list, fight_window: list,
-                spell_db: dict, orientation: str = "h") -> str:
-    """Full HTML document — 가로 (h) / 세로 (v) 타임라인."""
+                spell_db: dict, char_source_id: int | None = None,
+                orientation: str = "h") -> str:
+    """Full HTML document — 가로 (h) / 세로 (v) 타임라인.
+
+    char_source_id 가 주어지면 외부 버프 필터링:
+      - src == char_source_id (자기 자신이 시전한 버프) → 표시
+      - src != char_source_id 이지만 SHOW_EXTERNAL_BUFFS 에 있는 spell → 표시
+      - 그 외 (다른 클래스의 도트힐 등) → 숨김
+    None 이면 필터링 안 함 (backward compat).
+    또한 버프 record 가 옛 schema (length 3, src 없음) 면 필터링 skip.
+    """
     if not fight_window or not casts:
         body = f"<div class='wrap'><div class='empty'>이 fight에 데이터 없음</div></div>"
         return _wrap_doc(body, "horizontal")
@@ -316,6 +346,20 @@ def render_html(*, char: str, casts: list, buffs: list, fight_window: list,
     start_ms = int(fight_window[0])
     end_ms = int(fight_window[1])
     duration_s = max((end_ms - start_ms) / 1000.0, 1.0)
+
+    # 외부 버프 필터링 (char_source_id 와 buff record length 4 둘 다 있을 때만)
+    if char_source_id is not None and buffs:
+        sample = buffs[0]
+        if isinstance(sample, list) and len(sample) >= 4:
+            def _allow(ev):
+                src = ev[3] if len(ev) > 3 else 0
+                gid = ev[1]
+                if src == char_source_id:
+                    return True
+                if gid in SHOW_EXTERNAL_BUFFS:
+                    return True
+                return False
+            buffs = [e for e in buffs if _allow(e)]
 
     CAST_ROW_H = 32
     BUFF_LANE_PX = 26

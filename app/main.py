@@ -358,6 +358,9 @@ def timeline_html(rid: str, fid: int, char: str, orientation: str = "h") -> str:
     ev = v2.events_for(rid, fid, char) or {}
     casts = ev.get("casts") or []
     buffs = ev.get("buffs") or []
+    # 본인 sourceID (외부 버프 필터링용)
+    pf = v2.pfight.get(pfight_key) or {}
+    char_src = pf.get("sourceID") if isinstance(pf.get("sourceID"), int) else None
     # fight window
     meta = v2.meta.get(rid) or {}
     fw: list = []
@@ -368,6 +371,7 @@ def timeline_html(rid: str, fid: int, char: str, orientation: str = "h") -> str:
     return tl_render.render_html(
         char=char, casts=casts, buffs=buffs,
         fight_window=fw, spell_db=_spell_db(),
+        char_source_id=char_src,
         orientation=orientation,
     )
 
