@@ -106,4 +106,17 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    # frozen --windowed 에선 stderr 가 안 보임. crash 시 traceback 을 파일로.
+    try:
+        main()
+    except Exception:
+        import traceback
+        try:
+            base = (os.path.dirname(sys.executable)
+                    if getattr(sys, "frozen", False)
+                    else os.path.dirname(os.path.abspath(__file__)))
+            with open(os.path.join(base, "crash.log"), "w", encoding="utf-8") as fh:
+                fh.write(traceback.format_exc())
+        except Exception:
+            pass
+        raise

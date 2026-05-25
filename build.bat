@@ -16,6 +16,7 @@ python -m PyInstaller --noconfirm --windowed --name LogAnalyze ^
     --hidden-import "uvicorn.protocols.websockets.auto" ^
     --hidden-import "uvicorn.lifespan.on" ^
     --hidden-import "webview.platforms.edgechromium" ^
+    --hidden-import "clr_loader" --hidden-import "pythonnet" ^
     --exclude-module "PyQt5" --exclude-module "PyQt6" --exclude-module "PySide6" ^
     --exclude-module "torch" --exclude-module "tensorflow" ^
     --exclude-module "matplotlib" --exclude-module "scipy" ^
