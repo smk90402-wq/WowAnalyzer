@@ -213,10 +213,27 @@ ZOOM_JS = """
   const endDrag = () => { if (dragging) { dragging = false; body.style.cursor = 'grab'; } };
   ['mouseup', 'mouseleave'].forEach(ev => document.addEventListener(ev, endDrag));
 
-  // 툴팁 클램핑 비활성화 — clampTip 의 위치 계산이 일부 경우 (특히 buff
-  // 의 좁은 폭 + 음수 left) tip 을 viewport 밖으로 보내서 안 보이게 만듦.
-  // 단순히 CSS default 위치 (bottom: 22px/34px, left: -8/0) 만 사용.
-  // 잘리는 경우는 사용자가 줌/팬 해서 보면 됨.
+  // ── 툴팁 Y 클램핑 — tip 이 iframe top 위로 잘리면 호스트 아래로 flip ──────
+  // 첫/두번째 row 의 cast/buff 호버 시 tip 의 헤더(이름)가 보이지 않는 문제.
+  // X 방향은 건드리지 않음 (이전 음수-left 계산 버그 회피).
+  function flipTipIfClippedTop(e) {
+    const host = e.target.closest('.cast, .buff');
+    if (!host) return;
+    const tip = host.querySelector(':scope > .tip');
+    if (!tip) return;
+    // 이전 상태 reset → CSS default 위치 (bottom: 22/34px) 로 layout
+    tip.style.top = '';
+    tip.style.bottom = '';
+    const tipRect = tip.getBoundingClientRect();
+    if (tipRect.height === 0) return;  // 아직 display:block 안 됨
+    if (tipRect.top < 4) {
+      // 위로 잘림 → 호스트 아래로 flip
+      const hostRect = host.getBoundingClientRect();
+      tip.style.bottom = 'auto';
+      tip.style.top = (hostRect.height + 4) + 'px';
+    }
+  }
+  document.addEventListener('mouseover', flipTipIfClippedTop, true);
 })();
 """
 
