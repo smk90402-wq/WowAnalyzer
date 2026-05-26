@@ -8,5 +8,25 @@
     "name": "인사이더",
     "server": "hyjal",
     "region": "kr"
+  },
+  {
+    "name": "아웃사이더",
+    "server": "hyjal",
+    "region": "kr"
+  },
+  {
+    "name": "아웃사이더",
+    "server": "하이잘",
+    "region": "kr"
+  },
+  {
+    "name": "아웃사이더",
+    "server": "아즈샤라",
+    "region": "kr"
+  },
+  {
+    "name": "까망검",
+    "server": "아즈샤라",
+    "region": "kr"
   }
 ]
