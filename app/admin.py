@@ -11,7 +11,13 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-# data_dir 결정 — frozen vs dev
+# Windows 콘솔 cp949 회피 - UTF-8 강제
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+except Exception:
+    pass
+
+# data_dir 결정 - frozen vs dev
 import os
 if getattr(sys, "frozen", False):
     DATA_DIR = Path(sys.executable).parent / "data"
@@ -37,7 +43,7 @@ def cmd_list() -> None:
 def cmd_add(username: str, password: str) -> None:
     try:
         uid = auth.add_user(username, password)
-        print(f"OK — uid={uid} {username}")
+        print(f"OK - uid={uid} {username}")
     except Exception as e:
         print(f"실패: {e}")
         sys.exit(1)
@@ -45,17 +51,17 @@ def cmd_add(username: str, password: str) -> None:
 
 def cmd_delete(username: str) -> None:
     if auth.delete_user(username):
-        print(f"OK — {username} 삭제됨")
+        print(f"OK - {username} 삭제됨")
     else:
-        print(f"NOT FOUND — {username}")
+        print(f"NOT FOUND - {username}")
         sys.exit(1)
 
 
 def cmd_passwd(username: str, password: str) -> None:
     if auth.set_password(username, password):
-        print(f"OK — {username} 패스워드 변경됨")
+        print(f"OK - {username} 패스워드 변경됨")
     else:
-        print(f"NOT FOUND — {username}")
+        print(f"NOT FOUND - {username}")
         sys.exit(1)
 
 
