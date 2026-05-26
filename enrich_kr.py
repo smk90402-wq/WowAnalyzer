@@ -206,41 +206,33 @@ def main() -> None:
             if isinstance(e, dict) and isinstance(e.get("guid"), int):
                 dmg_spell_ids.add(e["guid"])
 
-    # 전투 시작 5초 이내 apply* buff IDs (음식/오일 제외한 in-combat buff)
+    # 전체 fight 의 buff + cast IDs (timeline 호버 툴팁 데이터)
+    # 이전 버전은 5초 이내 apply 만 → 후반 procs 누락. 모두 수집.
     buff_ids: set[int] = set()
+    cast_ids: set[int] = set()
     try:
         events = json.loads(EVENTS.read_text(encoding="utf-8"))
-        meta = json.loads(META.read_text(encoding="utf-8"))
-        # rid → {fid: startTime} index
-        start_idx = {}
-        for rid, m in meta.items():
-            if not isinstance(m, dict):
-                continue
-            for f in m.get("fights", []) or []:
-                if isinstance(f.get("id"), int) and isinstance(f.get("startTime"), (int, float)):
-                    start_idx[(rid, int(f["id"]))] = int(f["startTime"])
         for key, ev in events.items():
             if not isinstance(ev, dict):
                 continue
-            parts = key.split(":")
-            if len(parts) != 3:
-                continue
-            try:
-                rid, fid = parts[0], int(parts[1])
-            except (TypeError, ValueError):
-                continue
-            start = start_idx.get((rid, fid))
-            if start is None:
-                continue
             for e in ev.get("buffs") or []:
-                if not isinstance(e, list) or len(e) < 3:
+                if not isinstance(e, list) or len(e) < 2:
                     continue
                 try:
-                    ts = int(e[0]); sp = int(e[1])
+                    sp = int(e[1])
+                    if sp > 0:
+                        buff_ids.add(sp)
                 except (TypeError, ValueError):
                     continue
-                if (e[2] or "").startswith("apply") and start <= ts <= start + 5000:
-                    buff_ids.add(sp)
+            for e in ev.get("casts") or []:
+                if not isinstance(e, list) or len(e) < 2:
+                    continue
+                try:
+                    sp = int(e[1])
+                    if sp > 0:
+                        cast_ids.add(sp)
+                except (TypeError, ValueError):
+                    continue
     except Exception as ex:
         print(f"  events scan err: {ex}")
 
@@ -278,9 +270,10 @@ def main() -> None:
     except Exception as ex:
         print(f"  talent tree scan err: {ex}")
 
-    spell_ids = ench_ids | dmg_spell_ids | buff_ids | talent_spell_ids
+    spell_ids = ench_ids | dmg_spell_ids | buff_ids | cast_ids | talent_spell_ids
     print(f"  enchant={len(ench_ids)} damage={len(dmg_spell_ids)} "
-          f"buff(in-combat)={len(buff_ids)} talent_opts={len(talent_spell_ids)}")
+          f"buff(all)={len(buff_ids)} cast(all)={len(cast_ids)} "
+          f"talent_opts={len(talent_spell_ids)}")
 
     # 빠진 거만
     missing_items = sorted(i for i in item_ids if str(i) not in item_db or item_db[str(i)].get("miss"))
