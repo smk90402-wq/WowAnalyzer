@@ -284,7 +284,10 @@ def _buff_html(sid: int, lane_pos: int, t_rel_start: float, dur_s: float,
                spell_db: dict, is_v: bool) -> str:
     meta = spell_db.get(str(sid), {})
     icon = meta.get("icon") or ""
-    tip_body = meta.get("tooltip_ko") or meta.get("tooltip_en") or ""
+    # spell_db 키 우선순위: description_ko (Blizzard/Wowhead enrich 본문) →
+    # 호환용 tooltip_ko/en. 옛 코드가 tooltip_ko 만 봐서 비어있던 버그 수정.
+    tip_body = (meta.get("description_ko") or meta.get("tooltip_ko")
+                or meta.get("tooltip_en") or "")
     icon_url = (f"https://wow.zamimg.com/images/wow/icons/medium/{icon}"
                 if icon
                 else "https://wow.zamimg.com/images/wow/icons/medium/inv_misc_questionmark.jpg")
