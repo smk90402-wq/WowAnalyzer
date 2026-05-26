@@ -136,6 +136,32 @@ body {
 .char-list li:hover .ch-del { display: block; }
 .char-list .ch-del:hover { color: #d97757; }
 
+/* 캐릭 등록 inline form */
+.char-form {
+  background: var(--bg-2); border: 1px solid var(--accent);
+  border-radius: 3px; padding: 8px; margin-bottom: 6px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.char-form input, .char-form select {
+  background: var(--bg-1); color: var(--text);
+  border: 1px solid var(--border); border-radius: 3px;
+  padding: 4px 6px; font-family: inherit; font-size: 11px;
+}
+.char-form input:focus, .char-form select:focus { outline: 1px solid var(--accent); }
+.char-form .cf-buttons { display: flex; gap: 4px; margin-top: 4px; }
+.char-form .cf-ok {
+  flex: 1; background: var(--accent-dim); color: var(--text);
+  border: 1px solid var(--accent); border-radius: 3px;
+  padding: 4px 8px; cursor: pointer; font-size: 11px;
+}
+.char-form .cf-cancel {
+  flex: 0 0 auto; background: var(--bg-1); color: var(--text-mute);
+  border: 1px solid var(--border); border-radius: 3px;
+  padding: 4px 8px; cursor: pointer; font-size: 11px;
+}
+.char-form .cf-ok:hover { background: var(--accent); }
+.char-form .cf-error { color: #d97757; font-size: 10px; min-height: 12px; }
+
 .reports-list li .rp-title { color: var(--text); }
 .reports-list li .rp-meta { color: var(--text-mute); font-size: 10px; }
 

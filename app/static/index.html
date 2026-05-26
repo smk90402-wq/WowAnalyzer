@@ -147,10 +147,26 @@
         <div class="sb-section">
           <div class="sb-head">
             <span>등록 캐릭터</span>
-            <button id="char-add" title="새 캐릭터 등록">+</button>
+            <button id="char-add" title="새 캐릭터 등록 폼 열기">+</button>
           </div>
+          <!-- 등록 폼 — prompt() 가 pywebview 에서 동작 안할 수 있어 inline -->
+          <form id="char-add-form" class="char-form" style="display:none">
+            <input type="text" id="cf-name" placeholder="캐릭 이름 (대소문자)" required>
+            <input type="text" id="cf-server" placeholder="서버 slug (azshara, durotan, ...)" required>
+            <select id="cf-region">
+              <option value="kr" selected>kr</option>
+              <option value="us">us</option>
+              <option value="eu">eu</option>
+              <option value="tw">tw</option>
+            </select>
+            <div class="cf-buttons">
+              <button type="submit" class="cf-ok">등록</button>
+              <button type="button" class="cf-cancel">취소</button>
+            </div>
+            <div class="cf-error" id="cf-error"></div>
+          </form>
           <ul class="char-list" id="char-list">
-            <li class="empty">아직 없음 (+ 클릭)</li>
+            <li class="empty">+ 버튼으로 등록</li>
           </ul>
         </div>
         <div class="sb-section">

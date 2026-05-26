@@ -658,13 +658,29 @@ async function loadCharList() {
   }
 }
 
-async function addChar() {
-  const name = prompt('캐릭터 이름 (대소문자 정확히):');
-  if (!name) return;
-  const server = prompt('서버 slug (영문 소문자 — 아즈샤라=azshara, 듀로탄=durotan 등):',
-                        'azshara');
-  if (!server) return;
-  const region = (prompt('region (kr / us / eu / tw):', 'kr') || 'kr').toLowerCase();
+// + 버튼 → form 토글. submit → POST.
+function toggleCharForm(show) {
+  const form = document.getElementById('char-add-form');
+  if (!form) return;
+  const visible = (show !== undefined) ? show : (form.style.display === 'none');
+  form.style.display = visible ? 'flex' : 'none';
+  if (visible) {
+    document.getElementById('cf-name').focus();
+    document.getElementById('cf-error').textContent = '';
+  }
+}
+
+async function submitCharForm(e) {
+  e.preventDefault();
+  const name = document.getElementById('cf-name').value.trim();
+  const server = document.getElementById('cf-server').value.trim().toLowerCase();
+  const region = document.getElementById('cf-region').value;
+  const err = document.getElementById('cf-error');
+  if (!name || !server) {
+    err.textContent = '이름 + 서버 필수';
+    return;
+  }
+  err.textContent = '등록 중…';
   try {
     const r = await fetch('/api/characters', {
       method: 'POST',
@@ -672,18 +688,23 @@ async function addChar() {
       body: JSON.stringify({name, server, region}),
     });
     if (!r.ok) {
-      const t = await r.text();
-      alert(`등록 실패: ${t}`);
+      err.textContent = `실패 (${r.status}): ${(await r.text()).substring(0, 80)}`;
       return;
     }
+    // 성공 → 폼 초기화 + 닫고 list 갱신
+    document.getElementById('cf-name').value = '';
+    document.getElementById('cf-server').value = '';
+    document.getElementById('cf-error').textContent = '';
+    toggleCharForm(false);
     await loadCharList();
-  } catch (e) {
-    alert(`등록 실패: ${e.message}`);
+  } catch (e2) {
+    err.textContent = `에러: ${e2.message}`;
   }
 }
 
 async function deleteChar(name, server, region) {
-  if (!confirm(`${name} (${server}) 삭제?`)) return;
+  // confirm() 도 pywebview 에서 안 동작할 수 있어 직접 진행. ×버튼은 실수가
+  // 드무니 (hover 만 보임) 즉시 삭제.
   try {
     await fetch(`/api/characters/${encodeURIComponent(name)}?server=${encodeURIComponent(server)}&region=${encodeURIComponent(region)}`,
                 {method: 'DELETE'});
@@ -818,9 +839,14 @@ function bindComparison() {
   const buffChk = document.getElementById('comp-buff-chk');
   if (buffChk) buffChk.addEventListener('change', applyBuffVisibility);
 
-  // 사이드바: + 버튼
+  // 사이드바: + 버튼 → form 토글
   const addBtn = document.getElementById('char-add');
-  if (addBtn) addBtn.addEventListener('click', addChar);
+  if (addBtn) addBtn.addEventListener('click', () => toggleCharForm());
+  const addForm = document.getElementById('char-add-form');
+  if (addForm) {
+    addForm.addEventListener('submit', submitCharForm);
+    addForm.querySelector('.cf-cancel').addEventListener('click', () => toggleCharForm(false));
+  }
 
   // 사이드바: 캐릭 클릭 (위임)
   const charUl = document.getElementById('char-list');
