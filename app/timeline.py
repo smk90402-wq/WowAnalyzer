@@ -153,6 +153,15 @@ ZOOM_JS = """
   tl.style.transformOrigin = '0 0';
   tl.style.willChange = 'transform';
 
+  // 비교 탭 같이 2개 timeline 이 parent 에 있으면 부모가 가운데에서 sync.
+  // applying = true 일 때는 broadcast skip → loop 방지.
+  let applying = false;
+  function broadcast() {
+    if (applying) return;
+    try { parent.postMessage({type: 'tlsync', pps, panX, panY}, '*'); }
+    catch (_) { /* no parent or cross-origin */ }
+  }
+
   function applyTransform() {
     tl.style.transform = 'translate3d(' + (-panX) + 'px,' + (-panY) + 'px,0)';
   }
@@ -170,7 +179,23 @@ ZOOM_JS = """
     if (isV) panY = Math.max(0, newScreen);
     else     panX = Math.max(0, newScreen);
     applyTransform();
+    broadcast();
   }
+
+  // 부모로부터 sync 메시지 받음 → 로컬 적용 (broadcast 안 함)
+  window.addEventListener('message', (e) => {
+    const d = e.data;
+    if (!d || d.type !== 'tlapply') return;
+    applying = true;
+    if (typeof d.pps === 'number') {
+      pps = Math.max(MIN_PPS, Math.min(MAX_PPS, d.pps));
+      body.style.setProperty('--pps', pps);
+    }
+    if (typeof d.panX === 'number') panX = Math.max(0, d.panX);
+    if (typeof d.panY === 'number') panY = Math.max(0, d.panY);
+    applyTransform();
+    applying = false;
+  });
 
   document.addEventListener('wheel', (e) => {
     e.preventDefault();
@@ -206,6 +231,7 @@ ZOOM_JS = """
       requestAnimationFrame(() => {
         panX = targetX; panY = targetY;
         applyTransform();
+        broadcast();
         rafPending = false;
       });
     }

@@ -816,6 +816,25 @@ function closeContextMenu() {
   if (m) m.remove();
 }
 
+// 비교 탭 timeline sync — top ↔ bottom iframe 사이에서 wheel/drag 동기화.
+// 각 iframe 의 ZOOM_JS 가 상태 변경 시 parent.postMessage({type:'tlsync',...}).
+// parent 가 받아서 OTHER iframe 에 {type:'tlapply',...} 로 forward.
+function bindTimelineSync() {
+  window.addEventListener('message', (e) => {
+    const d = e.data;
+    if (!d || d.type !== 'tlsync') return;
+    const topTl = document.getElementById('row-tl-top');
+    const botTl = document.getElementById('row-tl-bottom');
+    if (!topTl || !botTl) return;
+    let target = null;
+    if (topTl.contentWindow === e.source) target = botTl;
+    else if (botTl.contentWindow === e.source) target = topTl;
+    if (!target || !target.contentWindow) return;
+    target.contentWindow.postMessage(
+      {type: 'tlapply', pps: d.pps, panX: d.panX, panY: d.panY}, '*');
+  });
+}
+
 function bindComparison() {
   // URL 입력 + 분석 버튼
   document.querySelectorAll('[data-row-fetch]').forEach(btn => {
@@ -894,6 +913,7 @@ function bindComparison() {
 window.addEventListener('DOMContentLoaded', () => {
   bind();
   bindComparison();
+  bindTimelineSync();
   loadRankings('heroic');
   loadCharList();
 });
