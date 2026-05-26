@@ -100,9 +100,12 @@ body.vertical   .span-d { height: calc(var(--d) * var(--pps) * 1px); }
     width: calc(var(--d) * var(--pps) * 1px);
     background: linear-gradient(to right, rgba(217,119,87,0.55) 0%, rgba(217,119,87,0.25) 60%, rgba(217,119,87,0.10) 100%);
     border-radius: 0 3px 3px 0; z-index: 1; pointer-events: none; }
-.buff { position: absolute; padding: 0; overflow: hidden;
+.buff { position: absolute; padding: 0;
     background: #3a322c; border: 1px solid #4a4039; color: #f5f0e8;
     border-radius: 3px; font-size: 11px; box-sizing: border-box; }
+/* overflow: hidden 제거 — .tip 이 .buff 박스 밖 (bottom: 22px) 으로 확장되는데
+   클리핑되어 안 보였음. label .blbl 은 자체 ellipsis 가지므로 .buff 의
+   overflow:hidden 없어도 OK. */
 .buff:hover { border-color: #d97757; z-index: 5; }
 .horizontal .buff { height: 24px; line-height: 24px; }
 .vertical .buff { width: 28px; }
