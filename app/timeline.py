@@ -210,38 +210,10 @@ ZOOM_JS = """
   const endDrag = () => { if (dragging) { dragging = false; body.style.cursor = 'grab'; } };
   ['mouseup', 'mouseleave'].forEach(ev => document.addEventListener(ev, endDrag));
 
-  // ── 툴팁 클램핑 — iframe 가장자리에 닿으면 반대편으로 flip ───────────────
-  // body.overflow:hidden 라서 tip 이 viewport 넘어가면 잘림. mouseenter 시
-  // 실제 rect 측정 → 좌/상 우선이지만 cut 되면 우/하 로 강제 이동.
-  function clampTip(e) {
-    const host = e.target.closest('.cast, .buff');
-    if (!host) return;
-    const tip = host.querySelector(':scope > .tip');
-    if (!tip) return;
-    // 매 hover 마다 inline 스타일 초기화 → CSS default 로 위치 잡힌 후 측정
-    tip.style.left = ''; tip.style.right = ''; tip.style.top = ''; tip.style.bottom = '';
-    // :hover 가 이미 display:block 적용. measure 가능.
-    const tipRect = tip.getBoundingClientRect();
-    const hostRect = host.getBoundingClientRect();
-    const vw = document.documentElement.clientWidth;
-    const vh = document.documentElement.clientHeight;
-    // X 클램프 — 오른쪽 잘리면 왼쪽으로, 왼쪽 잘리면 오른쪽으로
-    if (tipRect.right > vw - 4) {
-      const overflow = tipRect.right - (vw - 4);
-      tip.style.left = (-8 - overflow) + 'px';
-    } else if (tipRect.left < 4) {
-      tip.style.left = (4 - hostRect.left) + 'px';
-    }
-    // Y 클램프 — 위 잘리면 아래로 flip, 아래 잘리면 위로 flip
-    if (tipRect.top < 4) {
-      tip.style.bottom = 'auto';
-      tip.style.top = (hostRect.height + 4) + 'px';
-    } else if (tipRect.bottom > vh - 4) {
-      tip.style.top = 'auto';
-      tip.style.bottom = (hostRect.height + 4) + 'px';
-    }
-  }
-  document.addEventListener('mouseover', clampTip, true);
+  // 툴팁 클램핑 비활성화 — clampTip 의 위치 계산이 일부 경우 (특히 buff
+  // 의 좁은 폭 + 음수 left) tip 을 viewport 밖으로 보내서 안 보이게 만듦.
+  // 단순히 CSS default 위치 (bottom: 22px/34px, left: -8/0) 만 사용.
+  // 잘리는 경우는 사용자가 줌/팬 해서 보면 됨.
 })();
 """
 
@@ -250,10 +222,11 @@ def _cast_row_html(sid: int, lane_pos: int, t_rel: float, dur_s: float,
                    spell_db: dict, is_v: bool) -> str:
     meta = spell_db.get(str(sid), {})
     icon = meta.get("icon") or ""
-    # tooltip_ko 는 HTML (포맷팅 보존). description_ko 는 plain. 둘 다 시도, raw 렌더.
-    # spell_db 는 로컬 큐레이션이라 XSS 걱정 없음 (WoWhead 본문 그대로).
-    tip_body = (meta.get("description_ko") or meta.get("tooltip_ko")
-                or meta.get("tooltip_en") or "")
+    # buff_html 과 동일 — wowhead raw HTML 의 nested <div> 가 outer 닫는
+    # 버그 회피용으로 plain text 평문화 + escape.
+    tip_body_raw = (meta.get("description_ko") or meta.get("tooltip_ko")
+                    or meta.get("tooltip_en") or "")
+    tip_body = _html_escape(_strip_html(tip_body_raw)) if tip_body_raw else ""
     # spell_db 에 미등록인 ID 는 placeholder ? 아이콘 — 빈 회색 박스 회피
     icon_url = (f"https://wow.zamimg.com/images/wow/icons/medium/{icon}"
                 if icon
@@ -285,9 +258,11 @@ def _buff_html(sid: int, lane_pos: int, t_rel_start: float, dur_s: float,
     meta = spell_db.get(str(sid), {})
     icon = meta.get("icon") or ""
     # spell_db 키 우선순위: description_ko (Blizzard/Wowhead enrich 본문) →
-    # 호환용 tooltip_ko/en. 옛 코드가 tooltip_ko 만 봐서 비어있던 버그 수정.
-    tip_body = (meta.get("description_ko") or meta.get("tooltip_ko")
-                or meta.get("tooltip_en") or "")
+    # 호환용 tooltip_ko/en. cast 와 동일하게 HTML 평문화 — wowhead raw 의
+    # 잘못된 nesting (<div class="q"></div>) 이 outer .tip 닫는 버그 회피.
+    tip_body_raw = (meta.get("description_ko") or meta.get("tooltip_ko")
+                    or meta.get("tooltip_en") or "")
+    tip_body = _html_escape(_strip_html(tip_body_raw)) if tip_body_raw else ""
     icon_url = (f"https://wow.zamimg.com/images/wow/icons/medium/{icon}"
                 if icon
                 else "https://wow.zamimg.com/images/wow/icons/medium/inv_misc_questionmark.jpg")
