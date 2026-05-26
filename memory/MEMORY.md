@@ -1,6 +1,7 @@
 - [User profile](user_profile.md) — Korean-speaking WoW player building log analyzers in Python; reuses same API credentials across environments by choice — do NOT remind about rotation
 - [Korean WoW term pitfalls](feedback_wow_kr_terms.md) — 마력주입 = Power Infusion (Priest), NOT Aug Evoker; 한밤 = Midnight expansion. Verify jargon, don't guess.
 - [No stale WoW knowledge](feedback_wow_knowledge.md) — Never answer spec difficulty/meta questions from general knowledge; always go to current-patch logs.
+- [No guess-fix on UI bugs](feedback_no_guess_fix.md) — 사용자 "여전히 안 됨" 한 번 받으면 STOP. 새 가설로 또 코드 수정 금지. DOM/CSS 직접 inspect 필수. 비슷한 element 가 동작하면 두 element CSS diff 가 첫 단계.
 - [Project vision](project_vision.md) — Final goal is situational rotation-study tool (CDs/potions/procs/tracked buffs + boss-phase group splits). 5 target specs: Demo Lock, Balance Druid, BM Hunter, Arms Warrior, Fury Warrior.
 - [Build cadence](feedback_build_cadence.md) — Rebuild LogAnalyze.exe via PyInstaller at the end of EVERY response. 2026-05-21 cutover: gui.py(PySide6) → serve.py(FastAPI+pywebview+app/static). 930MB → 36MB.
 - [Build kill exe on PermissionError](feedback_build_kill_exe.md) — If PyInstaller fails with PermissionError, immediately `taskkill /F /IM LogAnalyze.exe` and retry. No sleep, no asking user.
