@@ -294,6 +294,14 @@ body {
 .tab.disabled { color: var(--text-dim); cursor: not-allowed; }
 .tab.disabled:hover { color: var(--text-dim); }
 .meta { margin-left: auto; color: var(--text-mute); font-size: 11px; }
+.auth-info { display: flex; gap: 8px; align-items: center; }
+.auth-info #auth-user { color: var(--text-mute); font-size: 11px; }
+.auth-info #auth-logout {
+  background: transparent; color: var(--text-mute);
+  border: 1px solid var(--border); border-radius: 3px;
+  padding: 2px 8px; cursor: pointer; font-size: 12px;
+}
+.auth-info #auth-logout:hover { color: var(--accent); border-color: var(--accent); }
 
 /* ── 필터 행 ─────────────────────────────────────────────────────── */
 .filter-row {

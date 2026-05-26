@@ -9,3 +9,7 @@ fastapi>=0.110
 uvicorn[standard]>=0.27
 pywebview>=6.0
 pythonnet>=3.1     # pywebview 6.x 가 Windows EdgeChromium backend 위해 강제
+
+# 다중 사용자 (web 모드): ID/PW 인증
+bcrypt>=4.0         # 패스워드 해시 (passlib 4.x 호환 이슈 회피, 직접 사용)
+itsdangerous>=2.1   # signed session cookie

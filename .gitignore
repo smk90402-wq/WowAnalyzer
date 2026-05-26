@@ -40,6 +40,12 @@ data/user_settings.json
 data/backfill.log
 # data/user_characters.json 은 git 으로 sync (사용자 요청)
 
+# 인증 — 사용자 DB + secret 키 (per-PC, 절대 push 금지)
+data/users.db
+data/users.db-wal
+data/users.db-shm
+data/auth_secret
+
 # 로그 — serve.py 가 .exe 옆 또는 project root logs/ 에 시간별 .log 떨굼
 *.log
 logs/

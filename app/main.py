@@ -18,10 +18,12 @@ from pathlib import Path
 import json
 
 import pandas as pd
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+
+from app import auth
 
 
 class CharIn(BaseModel):
@@ -56,24 +58,79 @@ else:
 STATIC_DIR.mkdir(exist_ok=True)
 DATA_DIR.mkdir(exist_ok=True)
 
+# 인증 초기화 (sqlite users.db + auth_secret 셋업)
+auth.init(DATA_DIR)
+
 app = FastAPI(title="WowAnalyzer API", version="0.1.0")
+
+
+# ── auth: 미들웨어 (/api/* 보호) ────────────────────────────────────────────
+PUBLIC_PATHS = {
+    "/", "/api/ping", "/api/log",
+    "/auth/login", "/auth/me",
+    "/static",  # static prefix — 시작 매칭
+}
+
+
+@app.middleware("http")
+async def auth_gate(request: Request, call_next):
+    path = request.url.path
+    # public 경로면 통과
+    if (path in PUBLIC_PATHS
+            or path.startswith("/static/")
+            or path.startswith("/auth/")):
+        return await call_next(request)
+    # 그 외 (/api/*) 는 인증 필수
+    if not auth.current_user(request):
+        return JSONResponse({"detail": "로그인 필요"}, status_code=401)
+    return await call_next(request)
+
+
+# ── auth: 엔드포인트 ────────────────────────────────────────────────────────
+class LoginIn(BaseModel):
+    username: str
+    password: str
+
+
+@app.post("/auth/login")
+def auth_login(body: LoginIn) -> JSONResponse:
+    user = auth.verify_login(body.username, body.password)
+    if not user:
+        raise HTTPException(401, "username / password 틀림")
+    resp = JSONResponse({"ok": True, "user": user})
+    auth.set_session(resp, user)
+    return resp
+
+
+@app.post("/auth/logout")
+def auth_logout() -> JSONResponse:
+    resp = JSONResponse({"ok": True})
+    auth.clear_session(resp)
+    return resp
+
+
+@app.get("/auth/me")
+def auth_me(request: Request) -> JSONResponse:
+    u = auth.current_user(request)
+    if not u:
+        return JSONResponse({"user": None}, status_code=200)
+    return JSONResponse({"user": u})
 
 # static 파일 마운트 (Week 2 에서 HTML/CSS/JS 추가)
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
 @app.get("/", response_class=HTMLResponse)
-def index() -> str:
-    """루트 — Week 2: SPA shell 서빙."""
+def index(request: Request) -> str:
+    """루트 — 인증 안 됐으면 login.html, 됐으면 SPA shell."""
+    if not auth.current_user(request):
+        login = STATIC_DIR / "login.html"
+        if login.exists():
+            return login.read_text(encoding="utf-8")
     idx = STATIC_DIR / "index.html"
     if idx.exists():
         return idx.read_text(encoding="utf-8")
-    # 파일 없으면 안내
-    return (
-        "<h1>index.html missing</h1>"
-        f"<p>expected at: {idx}</p>"
-        "<p>app/static/ 가 비어있으면 git pull 다시 받아주세요.</p>"
-    )
+    return "<h1>index.html missing</h1>"
 
 # V2Data 싱글톤 — 첫 요청 때 lazy 초기화 (API 키 / 캐시 로드)
 _v2_inst: V2Data | None = None

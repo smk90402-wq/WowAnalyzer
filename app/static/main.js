@@ -6,6 +6,18 @@
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
 
+// ── 인증 — 401 응답 시 로그인 페이지로 ─────────────────────────────────
+// 모든 fetch 를 wrap. 본 main.js 가 인증 후에만 로드되지만 세션 만료 대비.
+const _origFetch = window.fetch.bind(window);
+window.fetch = async function(...args) {
+  const r = await _origFetch(...args);
+  if (r.status === 401) {
+    // 인증 만료 — 로그인 페이지로
+    location.href = '/';
+  }
+  return r;
+};
+
 // ── 프론트엔드 로그 → 백엔드 (사용자 디버깅용) ──────────────────────────
 function logToBackend(level, msg, src='fe', url=null, line=null) {
   try {
@@ -940,11 +952,27 @@ function bindComparison() {
   }
 }
 
+// ── 인증 정보 로드 + 로그아웃 핸들러 ─────────────────────────────────────
+async function loadAuthInfo() {
+  try {
+    const r = await fetch('/auth/me');
+    const d = await r.json();
+    const el = document.getElementById('auth-user');
+    if (el && d.user) el.textContent = d.user.username;
+  } catch (_) {}
+  const btn = document.getElementById('auth-logout');
+  if (btn) btn.addEventListener('click', async () => {
+    await fetch('/auth/logout', {method: 'POST'});
+    location.href = '/';
+  });
+}
+
 // ── 부트 ────────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
   bind();
   bindComparison();
   bindTimelineSync();
+  loadAuthInfo();
   loadRankings('heroic');
   loadCharList();
 });
