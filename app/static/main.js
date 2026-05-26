@@ -270,8 +270,10 @@ function switchTab(tab) {
   $$('.tab-pane').forEach(p => p.classList.remove('active'));
   const btn = document.querySelector(`#tabs .tab[data-tab="${tab}"]`);
   if (btn) btn.classList.add('active');
-  // ranking pane: heroic/mythic 공용. arbitrary: 별도 pane.
-  const paneId = (tab === 'arbitrary') ? 'arbitrary' : 'ranking';
+  // 탭 → pane 매핑: heroic/mythic 은 공용 ranking, 나머지는 각자 pane.
+  const paneId = (tab === 'arbitrary') ? 'arbitrary'
+              : (tab === 'comparison') ? 'comparison'
+              : 'ranking';
   document.querySelector(`#pane-${paneId}`).classList.add('active');
 }
 
