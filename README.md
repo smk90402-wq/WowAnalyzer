@@ -53,14 +53,32 @@ backfill_v2.py          →  data/v2_cache_player_fight.json  (talents/gear/stat
 prefetch_prepull.py     →  data/v2_cache_prepull_buffs.json (음식/영약/오일/숫돌)
 fetch_pi_received.py    →  data/v2_cache_pi_received.json   (사제 PI 수령)
 fetch_talent_trees.py   →  data/talent_trees.json           (Blizzard 트리 구조)
-enrich_spell_ko.py      →  data/spell_db.json               (한글 spell + 아이콘)
+enrich_kr.py            →  data/spell_db.json, item_db.json (한글 spell/item)
 
 serve.py + app/         →  FastAPI + pywebview SPA (HTML/CSS/JS in app/static/)
 ```
 
 각 스크립트 재실행 안전 — `data/v2_cache_*.json` 캐시로 페치 건너뜀.
-`enrich_spell_ko.py` 는 `v2_cache_events.json` 도 source 로 스캔 (전사 등
-누락 spell 자동 발견).
+끝에 자동으로 `data/update_log.json` 에 history 한 줄 기록 (PC 간 sync).
+
+## PC 간 sync (집 ↔ 회사)
+
+git 으로 동기화되는 메타데이터:
+- `data/rankings_zone46_*.csv` — 랭킹 (~3MB 각)
+- `data/spell_db.json` / `item_db.json` / `talent_trees.json` — 한글 메타
+- `data/user_characters.json` — 등록 캐릭
+- `data/cache_manifest.json` — V2 캐시 key 목록 (`.exe` 가 atexit 으로 갱신)
+- `data/update_log.json` — 데이터 갱신 작업 history (스크립트가 끝날 때 자동 기록)
+
+git 으로 안 가는 것 (LFS bandwidth 부담):
+- `data/v2_cache_*.json` — 380MB+ 누적 캐시. 회사 PC 가 manifest 보고 누락 분
+  비교 탭에서 캐릭 클릭 → 자동 페치로 채움.
+
+**history 조회:**
+```
+python update_log.py show       # 최근 20개
+python update_log.py show 50    # 최근 50개
+```
 
 ## API 자격증명
 

@@ -149,6 +149,17 @@ def main() -> None:
     OUT.write_text(json.dumps(result, ensure_ascii=False), encoding="utf-8")
     print(f"\nsaved {OUT}")
 
+    try:
+        from update_log import record
+        record(
+            action="fetch_talent_trees",
+            params={"specs_requested": len(SPECS)},
+            result={"specs_built": len(result)},
+            files=["data/talent_trees.json"],
+        )
+    except Exception as e:
+        print(f"[update_log] skip: {e}")
+
 
 if __name__ == "__main__":
     main()

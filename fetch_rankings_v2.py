@@ -138,6 +138,7 @@ def main(difficulty: int = DEFAULT_DIFFICULTY) -> None:
     print(f"Zone: {zone['name']} ({len(encounters)} encounters)")
 
     rate = cli.points_left()
+    rate_start_pts = rate.get("pointsSpentThisHour") if rate else None
     if rate:
         print(f"V2 rate start: {rate['pointsSpentThisHour']:.1f}/{rate['limitPerHour']}")
 
@@ -195,8 +196,25 @@ def main(difficulty: int = DEFAULT_DIFFICULTY) -> None:
 
     print(f"\nDone. {total_rows} rows -> {OUT}")
     rate = cli.points_left()
+    rate_end_pts = rate.get("pointsSpentThisHour") if rate else None
     if rate:
         print(f"V2 rate end: {rate['pointsSpentThisHour']:.1f}/{rate['limitPerHour']}")
+
+    # PC 간 sync 용 history 한 줄 기록 (data/update_log.json)
+    try:
+        from update_log import record
+        api_pts = (round(rate_end_pts - rate_start_pts, 1)
+                   if rate_start_pts is not None and rate_end_pts is not None
+                   else None)
+        record(
+            action="fetch_rankings_v2",
+            params={"difficulty": difficulty, "label": diff_label,
+                    "zone": ZONE_ID, "top_n": TOP_N},
+            result={"rows": total_rows, "api_pts": api_pts},
+            files=[f"data/{OUT.name}"],
+        )
+    except Exception as e:
+        print(f"[update_log] skip: {e}")
 
 
 if __name__ == "__main__":

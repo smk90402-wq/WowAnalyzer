@@ -78,6 +78,18 @@ def main() -> None:
     rate = d.cli.points_left() or {}
     print(f"end rate: {rate}")
 
+    try:
+        from update_log import record
+        record(
+            action="prefetch_prepull",
+            params={"work_count": len(work)},
+            result={"fetched": fetched, "cached": cached, "failed": failed,
+                    "rate_end": rate.get("pointsSpentThisHour")},
+            files=["data/v2_cache_prepull_buffs.json"],
+        )
+    except Exception as e:
+        print(f"[update_log] skip: {e}")
+
 
 if __name__ == "__main__":
     main()

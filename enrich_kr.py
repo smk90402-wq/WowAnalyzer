@@ -346,6 +346,18 @@ def main() -> None:
     print(f"  item_db.json: {len(item_db)} entries")
     print(f"  spell_db.json: {len(spell_db)} entries")
 
+    try:
+        from update_log import record
+        record(
+            action="enrich_kr",
+            params={"missing_items": len(missing_items),
+                    "missing_spells": len(missing_spells)},
+            result={"item_db": len(item_db), "spell_db": len(spell_db)},
+            files=["data/item_db.json", "data/spell_db.json"],
+        )
+    except Exception as e:
+        print(f"[update_log] skip: {e}")
+
 
 if __name__ == "__main__":
     main()

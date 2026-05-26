@@ -92,6 +92,21 @@ def main(limit: int | None = None) -> None:
     print(f"\nDone. pf_succ={pf_new}  ev_succ={ev_new}  ev_skip={ev_skip}  fails: pf={pf_fail} ev={ev_fail}")
     print(f"end rate: {rate}")
 
+    # PC 간 sync 용 history 한 줄
+    try:
+        from update_log import record
+        record(
+            action="backfill_v2",
+            params={"limit": limit, "processed": len(sub)},
+            result={"pf_new": pf_new, "pf_fail": pf_fail,
+                    "ev_new": ev_new, "ev_fail": ev_fail, "ev_skip": ev_skip,
+                    "rate_end": rate.get("pointsSpentThisHour") if rate else None},
+            files=["data/v2_cache_player_fight.json",
+                   "data/v2_cache_events.json"],
+        )
+    except Exception as e:
+        print(f"[update_log] skip: {e}")
+
 
 if __name__ == "__main__":
     lim = None

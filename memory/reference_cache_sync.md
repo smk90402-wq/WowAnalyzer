@@ -50,3 +50,36 @@ manifest 의 pfight_keys / events_keys 중 **등록 캐릭** (data/user_characte
 
 - `sync_cache_from_manifest.py` — manifest 보고 등록 캐릭의 누락 페치 자동
 - 또는 .exe UI 에 "캐시 동기화" 버튼
+
+---
+
+## update_log.json — 데이터 갱신 history (PC 간 sync)
+
+`cache_manifest.json` 이 "어떤 캐시가 있나" 를 보여준다면, `update_log.json` 은
+**"언제/어디서/뭐 갱신했는지"** history.
+
+- 스키마: `{"entries": [{ts, host, action, params, result, files}, ...]}`
+- 위치: `data/update_log.json` (~수십KB, 일반 git 트래킹)
+- 최대 500 entries (오래된 건 자동 prune)
+
+**자동 기록되는 작업:**
+- `fetch_rankings_v2` — heroic/mythic 랭킹 CSV
+- `backfill_v2` — pfight/events 캐시
+- `prefetch_prepull` — 전투 직전 버프
+- `enrich_kr` — spell_db / item_db 한글화
+- `fetch_talent_trees` — Blizzard 트리 구조
+
+각 스크립트 끝에 `from update_log import record` + `record(...)` 한 줄.
+실패해도 silent skip (본 작업 결과 보호).
+
+**CLI 조회:**
+```
+python update_log.py show       # 최근 20
+python update_log.py show 50    # 최근 50
+```
+
+**활용 흐름:**
+1. 집 PC 에서 `python fetch_rankings_v2.py 5` → update_log 자동 갱신
+2. `git commit + push` (update_log.json + 갱신된 csv 포함)
+3. 회사 PC 에서 `git pull` → `python update_log.py show` 로 "아 어젯밤
+   집 PC 에서 mythic 랭킹 22948 rows 갱신됐네" 확인

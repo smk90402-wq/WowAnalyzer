@@ -1,0 +1,40 @@
+{
+  "entries": [
+    {
+      "ts": "2026-05-27T00:35:52",
+      "host": "SmkDesktop",
+      "action": "fetch_rankings_v2",
+      "params": {
+        "difficulty": 4,
+        "label": "heroic",
+        "zone": 46,
+        "top_n": 100
+      },
+      "result": {
+        "rows": 24300,
+        "api_pts": 246.4
+      },
+      "files": [
+        "data/rankings_zone46_heroic_dps_top100.csv"
+      ]
+    },
+    {
+      "ts": "2026-05-27T00:38:25",
+      "host": "SmkDesktop",
+      "action": "fetch_rankings_v2",
+      "params": {
+        "difficulty": 5,
+        "label": "mythic",
+        "zone": 46,
+        "top_n": 100
+      },
+      "result": {
+        "rows": 22948,
+        "api_pts": 246.5
+      },
+      "files": [
+        "data/rankings_zone46_mythic_dps_top100.csv"
+      ]
+    }
+  ]
+}
