@@ -326,10 +326,10 @@ function bind() {
     const r = filteredRows()[idx];
     if (!r) return;
     showContextMenu(e.clientX, e.clientY, [
-      { label: `비교 좌측 추가 (${r.character})`,
-        onClick: () => compLoadInto('left', r.report_id, r.fight_id, r.character) },
-      { label: `비교 우측 추가 (${r.character})`,
-        onClick: () => compLoadInto('right', r.report_id, r.fight_id, r.character) },
+      { label: `▲ 비교 위 row 추가 (${r.character})`,
+        onClick: () => compLoadInto('top', r.report_id, r.fight_id, r.character) },
+      { label: `▼ 비교 아래 row 추가 (${r.character})`,
+        onClick: () => compLoadInto('bottom', r.report_id, r.fight_id, r.character) },
     ]);
   });
 
@@ -531,39 +531,41 @@ function renderBuildInto(selector, d, row) {
 }
 
 // ── 비교 분석 탭 ────────────────────────────────────────────────────────
+// row-based 비교 분석 — side 식별자 = 'top' | 'bottom'
 const compState = {
-  left:  { rid: null, meta: null, fid: null, char: null, data: null },
-  right: { rid: null, meta: null, fid: null, char: null, data: null },
+  top:    { rid: null, meta: null, fid: null, char: null },
+  bottom: { rid: null, meta: null, fid: null, char: null },
+  selectedChar: null,  // 사이드바에서 active 캐릭 (등록 캐릭) — recent reports lookup 용
 };
 
-function compSel(side, attr) {
-  return document.querySelector(`[data-side-${attr}="${side}"]`);
+function compSel(row, attr) {
+  return document.querySelector(`[data-row-${attr}="${row}"]`);
 }
 
-async function compFetch(side) {
-  const urlInput = compSel(side, 'url');
-  const stat = compSel(side, 'stat');
+async function compFetch(row) {
+  const urlInput = compSel(row, 'url');
+  const meta = compSel(row, 'meta');
   const parsed = parseWclUrl(urlInput.value.trim());
-  if (!parsed) { stat.textContent = 'URL 파싱 실패'; return; }
-  stat.textContent = '리포트 페치 중…';
+  if (!parsed) { meta.textContent = 'URL 파싱 실패'; return; }
+  meta.textContent = '리포트 페치 중…';
   try {
     const r = await fetch(`/api/report/${encodeURIComponent(parsed.rid)}`);
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    const meta = await r.json();
-    compState[side].rid = parsed.rid;
-    compState[side].meta = meta;
-    populateCompFights(side, parsed.fid);
-    stat.textContent = `${parsed.rid} · ${(meta.fights||[]).length} fights`;
+    const m = await r.json();
+    compState[row].rid = parsed.rid;
+    compState[row].meta = m;
+    populateCompFights(row, parsed.fid);
+    meta.textContent = `${parsed.rid} · ${(m.fights||[]).length} fights`;
   } catch (e) {
-    stat.textContent = `실패: ${e.message}`;
+    meta.textContent = `실패: ${e.message}`;
   }
 }
 
-function populateCompFights(side, preferFid) {
-  const meta = compState[side].meta || {};
+function populateCompFights(row, preferFid) {
+  const m = compState[row].meta || {};
   const DIFF_KR = {1: 'LFR', 2: 'N', 3: 'H', 4: 'M', 5: 'M'};
-  const sel = compSel(side, 'fight');
-  sel.innerHTML = (meta.fights || []).map(f => {
+  const sel = compSel(row, 'fight');
+  sel.innerHTML = (m.fights || []).map(f => {
     const dur = ((f.endTime || 0) - (f.startTime || 0)) / 1000;
     const diff = DIFF_KR[f.difficulty] || `d${f.difficulty}`;
     const kill = f.kill ? '✓' : '✗';
@@ -573,136 +575,194 @@ function populateCompFights(side, preferFid) {
     const opt = sel.querySelector(`option[value="${preferFid}"]`);
     if (opt) sel.value = String(preferFid);
   }
-  compFightChange(side);
+  compFightChange(row);
 }
 
-function compFightChange(side) {
-  const sel = compSel(side, 'fight');
+function compFightChange(row) {
+  const sel = compSel(row, 'fight');
   if (!sel.value) return;
-  compState[side].fid = parseInt(sel.value, 10);
-  const meta = compState[side].meta || {};
-  const actors = meta.actors || {};
+  compState[row].fid = parseInt(sel.value, 10);
+  const m = compState[row].meta || {};
+  const actors = m.actors || {};
   const names = Object.keys(actors).sort((a, b) => a.localeCompare(b, 'ko'));
-  const tbody = compSel(side, 'pbody');
+  const tbody = compSel(row, 'pbody');
   tbody.innerHTML = names.map(nm => `
-    <tr data-name="${esc(nm)}"><td>${esc(nm)}</td><td class="mute">#${actors[nm]}</td></tr>
+    <tr data-name="${esc(nm)}"><td>${esc(nm)}</td></tr>
   `).join('');
-  // 빌드 패널 + 하단 iframe 초기화 (선택 캐릭이 바뀌었으니)
-  compState[side].char = null;
-  compState[side].data = null;
-  const build = compSel(side, 'build');
-  build.className = 'comp-build empty';
-  build.textContent = '캐릭 클릭';
-  const tl = document.getElementById(`comp-tl-${side}`);
+  compState[row].char = null;
+  const tl = document.getElementById(`row-tl-${row}`);
   tl.removeAttribute('src');
-  applyCompDiff();
 }
 
-async function compPlayerClick(side, tr) {
-  document.querySelectorAll(`[data-side-pbody="${side}"] tr.selected`)
+async function compPlayerClick(row, tr) {
+  document.querySelectorAll(`[data-row-pbody="${row}"] tr.selected`)
     .forEach(t => t.classList.remove('selected'));
   tr.classList.add('selected');
   const char = tr.dataset.name;
-  const rid = compState[side].rid;
-  const fid = compState[side].fid;
+  const rid = compState[row].rid;
+  const fid = compState[row].fid;
   if (!rid || !fid || !char) return;
-  compState[side].char = char;
+  compState[row].char = char;
 
-  const build = compSel(side, 'build');
-  build.className = 'comp-build';
-  build.innerHTML = `<p style="color:var(--text-mute)">${esc(char)} 데이터 로드 중…</p>`;
-
-  // 하단 iframe 도 같이 띄움
-  const tl = document.getElementById(`comp-tl-${side}`);
+  const tl = document.getElementById(`row-tl-${row}`);
   tl.src = `/api/timeline/${encodeURIComponent(rid)}/${fid}/${encodeURIComponent(char)}`;
-  // 버프 토글 상태 iframe load 후 적용
   tl.onload = () => applyBuffVisibility();
-
-  try {
-    const r = await fetch(`/api/character/${encodeURIComponent(rid)}/${fid}/${encodeURIComponent(char)}`);
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    const d = await r.json();
-    compState[side].data = d;
-    renderCompBuild(side, d);
-    applyCompDiff();
-  } catch (e) {
-    build.innerHTML = `<p style="color:#d97757">로드 실패: ${esc(e.message)}</p>`;
-  }
-}
-
-function renderCompBuild(side, d) {
-  const gear = d.gear || [];
-  const statsKr = d.stats_kr || [];
-  const build = compSel(side, 'build');
-  build.innerHTML = `
-    <div class="build-section">
-      <div class="build-row"><span class="k">캐릭</span><span class="v">${esc(d.char || '?')}</span></div>
-      <div class="build-row"><span class="k">보스</span><span class="v">${esc(d.encounter_name || '?')}</span></div>
-    </div>
-    <h3>장비 (${gear.length})</h3>
-    <ul class="gear-list">${gear.map(g => gearItemHtml(g)).join('')}</ul>
-    <h3>스탯</h3>${renderStats(statsKr)}
-  `;
-}
-
-function applyCompDiff() {
-  // 양쪽 다 data 있어야 diff 계산. 한쪽만이면 모든 highlight 제거.
-  const ld = compState.left.data, rd = compState.right.data;
-  // 기존 diff 클래스 다 떼기
-  document.querySelectorAll('[data-side-build] .gear-item').forEach(li => li.classList.remove('diff'));
-  if (!ld || !rd) return;
-  const leftBySlot = {}, rightBySlot = {};
-  (ld.gear || []).forEach(g => { leftBySlot[g.slot] = g.id; });
-  (rd.gear || []).forEach(g => { rightBySlot[g.slot] = g.id; });
-  // 양쪽 gear list 의 li 들을 순서대로 매칭 — gear list 가 슬롯 순으로 정렬돼있음
-  const leftLis = document.querySelectorAll('[data-side-build="left"] .gear-item');
-  const rightLis = document.querySelectorAll('[data-side-build="right"] .gear-item');
-  let diffCount = 0;
-  (ld.gear || []).forEach((g, i) => {
-    const otherId = rightBySlot[g.slot];
-    if (otherId !== g.id) {
-      diffCount++;
-      if (leftLis[i]) leftLis[i].classList.add('diff');
-    }
-  });
-  (rd.gear || []).forEach((g, i) => {
-    const otherId = leftBySlot[g.slot];
-    if (otherId !== g.id) {
-      if (rightLis[i]) rightLis[i].classList.add('diff');
-    }
-  });
-  // stat 라벨에 diff 카운트 표시
-  document.querySelector('[data-side-stat="left"]').textContent =
-    `장비 차이 ${diffCount} 슬롯`;
-  document.querySelector('[data-side-stat="right"]').textContent =
-    `장비 차이 ${diffCount} 슬롯`;
 }
 
 function applyBuffVisibility() {
-  const show = document.getElementById('comp-buff-chk').checked;
-  ['left', 'right'].forEach(side => {
-    const tl = document.getElementById(`comp-tl-${side}`);
+  const chk = document.getElementById('comp-buff-chk');
+  if (!chk) return;
+  const show = chk.checked;
+  ['top', 'bottom'].forEach(row => {
+    const tl = document.getElementById(`row-tl-${row}`);
     try {
-      const doc = tl.contentDocument;
-      if (doc && doc.body) {
-        doc.body.classList.toggle('hide-buffs', !show);
-      }
-    } catch (_) { /* cross-origin or not loaded */ }
+      const doc = tl && tl.contentDocument;
+      if (doc && doc.body) doc.body.classList.toggle('hide-buffs', !show);
+    } catch (_) { /* not loaded */ }
   });
 }
 
-// 우클릭 → 비교에 자동 로드. 양쪽 사이드 chained promises.
-async function compLoadInto(side, rid, fid, char) {
+// 우클릭 / report 클릭 → 비교 row 로드 (chained promises).
+async function compLoadInto(row, rid, fid, char) {
   switchTab('comparison');
-  const urlInput = compSel(side, 'url');
+  const urlInput = compSel(row, 'url');
   urlInput.value = `https://www.warcraftlogs.com/reports/${rid}?fight=${fid}`;
-  await compFetch(side);  // populateCompFights → compFightChange 자동 호출됨
-  // fid 가 preferFid 와 일치하면 그 fight 가 selected. 플레이어 row 찾아 클릭.
-  const tbody = compSel(side, 'pbody');
+  await compFetch(row);
+  const tbody = compSel(row, 'pbody');
   const tr = tbody.querySelector(`tr[data-name="${CSS.escape(char)}"]`);
   if (tr) {
-    await compPlayerClick(side, tr);
+    await compPlayerClick(row, tr);
     tr.scrollIntoView({ block: 'center' });
+  }
+}
+
+// ── 사이드바: 등록 캐릭터 + 최근 로그 ───────────────────────────────────
+async function loadCharList() {
+  const ul = document.getElementById('char-list');
+  if (!ul) return;
+  try {
+    const chars = await (await fetch('/api/characters')).json();
+    if (!chars.length) {
+      ul.innerHTML = '<li class="empty">+ 버튼으로 등록</li>';
+      return;
+    }
+    ul.innerHTML = chars.map(c => `
+      <li data-cname="${esc(c.name)}" data-cserver="${esc(c.server)}" data-cregion="${esc(c.region)}">
+        <div>${esc(c.name)}</div>
+        <div class="ch-meta">${esc(c.server)} · ${esc(c.region)}</div>
+        <button class="ch-del" title="삭제">×</button>
+      </li>
+    `).join('');
+  } catch (e) {
+    ul.innerHTML = `<li class="empty">로드 실패: ${esc(e.message)}</li>`;
+  }
+}
+
+async function addChar() {
+  const name = prompt('캐릭터 이름 (대소문자 정확히):');
+  if (!name) return;
+  const server = prompt('서버 slug (영문 소문자 — 아즈샤라=azshara, 듀로탄=durotan 등):',
+                        'azshara');
+  if (!server) return;
+  const region = (prompt('region (kr / us / eu / tw):', 'kr') || 'kr').toLowerCase();
+  try {
+    const r = await fetch('/api/characters', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({name, server, region}),
+    });
+    if (!r.ok) {
+      const t = await r.text();
+      alert(`등록 실패: ${t}`);
+      return;
+    }
+    await loadCharList();
+  } catch (e) {
+    alert(`등록 실패: ${e.message}`);
+  }
+}
+
+async function deleteChar(name, server, region) {
+  if (!confirm(`${name} (${server}) 삭제?`)) return;
+  try {
+    await fetch(`/api/characters/${encodeURIComponent(name)}?server=${encodeURIComponent(server)}&region=${encodeURIComponent(region)}`,
+                {method: 'DELETE'});
+    await loadCharList();
+    if (compState.selectedChar &&
+        compState.selectedChar.name === name &&
+        compState.selectedChar.server === server) {
+      compState.selectedChar = null;
+      document.getElementById('reports-list').innerHTML =
+        '<li class="empty">캐릭 클릭</li>';
+      document.getElementById('reports-head').textContent = '최근 로그';
+    }
+  } catch (e) {
+    alert(`삭제 실패: ${e.message}`);
+  }
+}
+
+async function selectChar(name, server, region) {
+  // active 표시
+  document.querySelectorAll('#char-list li').forEach(li => li.classList.remove('active'));
+  const li = document.querySelector(
+    `#char-list li[data-cname="${CSS.escape(name)}"]`);
+  if (li) li.classList.add('active');
+  compState.selectedChar = {name, server, region};
+
+  const ul = document.getElementById('reports-list');
+  const head = document.getElementById('reports-head');
+  head.textContent = `최근 로그 — ${name}`;
+  ul.innerHTML = '<li class="empty">WCL 페치 중…</li>';
+  try {
+    const url = `/api/character-reports?name=${encodeURIComponent(name)}`
+              + `&server=${encodeURIComponent(server)}&region=${encodeURIComponent(region)}&limit=15`;
+    const r = await fetch(url);
+    if (!r.ok) {
+      const t = await r.text();
+      ul.innerHTML = `<li class="empty">실패: ${esc(t.substring(0, 80))}</li>`;
+      return;
+    }
+    const d = await r.json();
+    if (!d.reports.length) {
+      ul.innerHTML = '<li class="empty">최근 로그 없음</li>';
+      return;
+    }
+    ul.innerHTML = d.reports.map(rp => {
+      const dt = rp.startTime ? new Date(rp.startTime) : null;
+      const dstr = dt ? `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}` : '?';
+      return `
+        <li data-rid="${esc(rp.code)}" data-char="${esc(name)}">
+          <div class="rp-title">${esc(rp.title || rp.zone_name || rp.code)}</div>
+          <div class="rp-meta">${esc(rp.zone_name)} · ${dstr}</div>
+        </li>
+      `;
+    }).join('');
+  } catch (e) {
+    ul.innerHTML = `<li class="empty">에러: ${esc(e.message)}</li>`;
+  }
+}
+
+// report 클릭 → 빈 row (또는 우클릭 → 명시적 row 선택) 로 자동 로드
+async function loadReportIntoRow(rid, char, preferRow) {
+  // 빈 row 자동 선택: top → bottom 순. 둘 다 차있으면 top 덮어쓰기.
+  let row = preferRow;
+  if (!row) {
+    if (!compState.top.rid) row = 'top';
+    else if (!compState.bottom.rid) row = 'bottom';
+    else row = 'top';
+  }
+  // 해당 캐릭이 가장 최근에 한 fight 자동 선택
+  const urlInput = compSel(row, 'url');
+  urlInput.value = `https://www.warcraftlogs.com/reports/${rid}`;
+  await compFetch(row);
+  const tbody = compSel(row, 'pbody');
+  const tr = tbody.querySelector(`tr[data-name="${CSS.escape(char)}"]`);
+  if (tr) {
+    await compPlayerClick(row, tr);
+    tr.scrollIntoView({ block: 'center' });
+  } else {
+    compSel(row, 'meta').textContent =
+      `${char} 이 fight 미참가 — 다른 fight 선택`;
   }
 }
 
@@ -735,27 +795,71 @@ function closeContextMenu() {
 
 function bindComparison() {
   // URL 입력 + 분석 버튼
-  document.querySelectorAll('[data-side-fetch]').forEach(btn => {
-    btn.addEventListener('click', () => compFetch(btn.dataset.sideFetch));
+  document.querySelectorAll('[data-row-fetch]').forEach(btn => {
+    btn.addEventListener('click', () => compFetch(btn.dataset.rowFetch));
   });
-  document.querySelectorAll('[data-side-url]').forEach(inp => {
+  document.querySelectorAll('[data-row-url]').forEach(inp => {
     inp.addEventListener('keydown', e => {
-      if (e.key === 'Enter') compFetch(inp.dataset.sideUrl);
+      if (e.key === 'Enter') compFetch(inp.dataset.rowUrl);
     });
   });
   // fight 변경
-  document.querySelectorAll('[data-side-fight]').forEach(sel => {
-    sel.addEventListener('change', () => compFightChange(sel.dataset.sideFight));
+  document.querySelectorAll('[data-row-fight]').forEach(sel => {
+    sel.addEventListener('change', () => compFightChange(sel.dataset.rowFight));
   });
   // 플레이어 클릭 (이벤트 위임)
-  document.querySelectorAll('[data-side-pbody]').forEach(tbody => {
+  document.querySelectorAll('[data-row-pbody]').forEach(tbody => {
     tbody.addEventListener('click', e => {
       const tr = e.target.closest('tr');
-      if (tr) compPlayerClick(tbody.dataset.sidePbody, tr);
+      if (tr) compPlayerClick(tbody.dataset.rowPbody, tr);
     });
   });
   // 버프 토글
-  document.getElementById('comp-buff-chk').addEventListener('change', applyBuffVisibility);
+  const buffChk = document.getElementById('comp-buff-chk');
+  if (buffChk) buffChk.addEventListener('change', applyBuffVisibility);
+
+  // 사이드바: + 버튼
+  const addBtn = document.getElementById('char-add');
+  if (addBtn) addBtn.addEventListener('click', addChar);
+
+  // 사이드바: 캐릭 클릭 (위임)
+  const charUl = document.getElementById('char-list');
+  if (charUl) {
+    charUl.addEventListener('click', e => {
+      const delBtn = e.target.closest('.ch-del');
+      const li = e.target.closest('li[data-cname]');
+      if (delBtn && li) {
+        e.stopPropagation();
+        deleteChar(li.dataset.cname, li.dataset.cserver, li.dataset.cregion);
+        return;
+      }
+      if (li) {
+        selectChar(li.dataset.cname, li.dataset.cserver, li.dataset.cregion);
+      }
+    });
+  }
+
+  // 사이드바: 리포트 클릭 → 빈 row 자동 로드
+  const repUl = document.getElementById('reports-list');
+  if (repUl) {
+    repUl.addEventListener('click', e => {
+      const li = e.target.closest('li[data-rid]');
+      if (!li) return;
+      loadReportIntoRow(li.dataset.rid, li.dataset.char);
+    });
+    repUl.addEventListener('contextmenu', e => {
+      const li = e.target.closest('li[data-rid]');
+      if (!li) return;
+      e.preventDefault();
+      const rid = li.dataset.rid, char = li.dataset.char;
+      showContextMenu(e.clientX, e.clientY, [
+        { label: `▲ 위 row 로 (${char})`,
+          onClick: () => loadReportIntoRow(rid, char, 'top') },
+        { label: `▼ 아래 row 로 (${char})`,
+          onClick: () => loadReportIntoRow(rid, char, 'bottom') },
+      ]);
+    });
+  }
 }
 
 // ── 부트 ────────────────────────────────────────────────────────────────
@@ -763,4 +867,5 @@ window.addEventListener('DOMContentLoaded', () => {
   bind();
   bindComparison();
   loadRankings('heroic');
+  loadCharList();
 });

@@ -36,6 +36,7 @@ data/spell_db_en.json
 
 # PC 별 사용자 설정 (테마 등) — sync 안 함
 data/user_settings.json
+data/user_characters.json
 data/backfill.log
 
 # 로그

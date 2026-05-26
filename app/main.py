@@ -21,6 +21,13 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
+
+
+class CharIn(BaseModel):
+    name: str
+    server: str
+    region: str = "kr"
 
 # 기존 백엔드 그대로 import
 from wcl_v2_data import V2Data
@@ -643,3 +650,118 @@ def rate_left() -> JSONResponse:
     except Exception as e:
         return JSONResponse({"warning": f"rate query 실패: {e}"}, status_code=503)
     return JSONResponse(rate or {"warning": "rate info unavailable"})
+
+
+# ── 사용자 등록 캐릭터 (per-PC, gitignored) ────────────────────────────────
+CHARS_FILE = DATA_DIR / "user_characters.json"
+
+
+def _load_chars() -> list:
+    if CHARS_FILE.exists():
+        try:
+            d = json.loads(CHARS_FILE.read_text(encoding="utf-8"))
+            return d if isinstance(d, list) else []
+        except Exception:
+            return []
+    return []
+
+
+def _save_chars(chars: list) -> None:
+    CHARS_FILE.write_text(
+        json.dumps(chars, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+@app.get("/api/characters")
+def chars_list() -> JSONResponse:
+    """등록된 캐릭터 목록 — name, server (slug), region."""
+    return JSONResponse(_load_chars())
+
+
+@app.post("/api/characters")
+def chars_add(body: CharIn) -> JSONResponse:
+    """{name, server, region} 추가."""
+    name = body.name.strip()
+    server = body.server.strip().lower()
+    region = body.region.strip().lower() or "kr"
+    if not name or not server:
+        raise HTTPException(400, "name + server 필수")
+    chars = _load_chars()
+    for c in chars:
+        if (c.get("name") == name and c.get("server") == server
+                and c.get("region") == region):
+            raise HTTPException(409, "이미 등록됨")
+    chars.append({"name": name, "server": server, "region": region})
+    _save_chars(chars)
+    return JSONResponse({"ok": True, "count": len(chars)})
+
+
+@app.delete("/api/characters/{name}")
+def chars_delete(name: str, server: str = "", region: str = "kr") -> JSONResponse:
+    chars = _load_chars()
+    new = [c for c in chars
+           if not (c.get("name") == name
+                   and (not server or c.get("server") == server)
+                   and (not region or c.get("region") == region))]
+    if len(new) == len(chars):
+        raise HTTPException(404, f"{name} (server={server}) 못 찾음")
+    _save_chars(new)
+    return JSONResponse({"ok": True, "count": len(new)})
+
+
+# WCL V2 characterData 쿼리 — recent reports 조회
+Q_CHAR_REPORTS = """
+query($name: String!, $server: String!, $region: String!, $limit: Int!) {
+  characterData {
+    character(name: $name, serverSlug: $server, serverRegion: $region) {
+      id
+      name
+      recentReports(limit: $limit) {
+        data {
+          code
+          title
+          startTime
+          endTime
+          zone { id name }
+          owner { name }
+        }
+      }
+    }
+  }
+}
+"""
+
+
+@app.get("/api/character-reports")
+def character_reports(name: str, server: str, region: str = "kr",
+                      limit: int = 15) -> JSONResponse:
+    """등록 캐릭의 WCL 최근 리포트 N개. (rid, title, 시각, 존)."""
+    v2 = _v2()
+    try:
+        d = v2.cli.query(Q_CHAR_REPORTS, {
+            "name": name, "server": server.lower(),
+            "region": region.lower(), "limit": int(limit),
+        })
+    except Exception as e:
+        raise HTTPException(502, f"WCL char query 실패: {e}")
+    ch = (((d or {}).get("characterData") or {}).get("character") or {})
+    if not ch:
+        raise HTTPException(404,
+            f"WCL 에 캐릭 없음: {name} @ {server} ({region}). "
+            f"서버 slug (영문 소문자, 띄어쓰기 없이) 확인.")
+    reports = ((ch.get("recentReports") or {}).get("data") or [])
+    return JSONResponse({
+        "char_id": ch.get("id"),
+        "name": ch.get("name"),
+        "reports": [
+            {
+                "code": r.get("code"),
+                "title": r.get("title") or "",
+                "startTime": r.get("startTime"),
+                "endTime": r.get("endTime"),
+                "zone_id": ((r.get("zone") or {}).get("id")),
+                "zone_name": ((r.get("zone") or {}).get("name") or ""),
+                "owner": ((r.get("owner") or {}).get("name") or ""),
+            }
+            for r in reports
+        ],
+    })

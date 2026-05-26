@@ -101,51 +101,72 @@
     </div>
   </main>
 
-  <!-- ── 비교 분석 ─────────────────────────────────────────── -->
+  <!-- ── 비교 분석 (row-based: 상하 row + 우측 사이드바) ─────── -->
   <main class="tab-pane" data-pane="comparison" id="pane-comparison">
-    <!-- 상단: 좌우 패널 -->
-    <div class="comp-top">
-      <section class="comp-side" data-side="left">
-        <div class="comp-head"><span class="side-label">좌측</span><span class="comp-stat" data-side-stat="left"></span></div>
-        <div class="comp-controls">
-          <input type="text" class="comp-url" placeholder="WCL URL" data-side-url="left">
-          <button class="comp-fetch" data-side-fetch="left">분석</button>
+    <div class="comp-grid">
+      <!-- 위쪽 row -->
+      <section class="comp-row" data-row="top">
+        <div class="row-header">
+          <span class="row-label">▲ 위 row</span>
+          <input type="text" class="row-url" placeholder="WCL URL" data-row-url="top">
+          <button class="row-fetch" data-row-fetch="top">분석</button>
+          <select class="row-fight" data-row-fight="top"><option value="">(URL 분석 후)</option></select>
+          <span class="row-meta" data-row-meta="top"></span>
         </div>
-        <select class="comp-fight" data-side-fight="left"><option value="">(URL 분석 후)</option></select>
-        <div class="comp-players">
-          <table class="comp-player-table" data-side-table="left">
-            <thead><tr><th>캐릭터</th><th>Source</th></tr></thead>
-            <tbody data-side-pbody="left"></tbody>
-          </table>
+        <div class="row-body">
+          <div class="row-players">
+            <table class="row-player-table">
+              <thead><tr><th>캐릭터</th></tr></thead>
+              <tbody data-row-pbody="top"></tbody>
+            </table>
+          </div>
+          <iframe class="row-tl" id="row-tl-top" title="위 타임라인"></iframe>
         </div>
-        <div class="comp-build empty" data-side-build="left">캐릭 클릭</div>
       </section>
-      <section class="comp-side" data-side="right">
-        <div class="comp-head"><span class="side-label">우측</span><span class="comp-stat" data-side-stat="right"></span></div>
-        <div class="comp-controls">
-          <input type="text" class="comp-url" placeholder="WCL URL" data-side-url="right">
-          <button class="comp-fetch" data-side-fetch="right">분석</button>
+      <!-- 아래쪽 row -->
+      <section class="comp-row" data-row="bottom">
+        <div class="row-header">
+          <span class="row-label">▼ 아래 row</span>
+          <input type="text" class="row-url" placeholder="WCL URL" data-row-url="bottom">
+          <button class="row-fetch" data-row-fetch="bottom">분석</button>
+          <select class="row-fight" data-row-fight="bottom"><option value="">(URL 분석 후)</option></select>
+          <span class="row-meta" data-row-meta="bottom"></span>
         </div>
-        <select class="comp-fight" data-side-fight="right"><option value="">(URL 분석 후)</option></select>
-        <div class="comp-players">
-          <table class="comp-player-table" data-side-table="right">
-            <thead><tr><th>캐릭터</th><th>Source</th></tr></thead>
-            <tbody data-side-pbody="right"></tbody>
-          </table>
+        <div class="row-body">
+          <div class="row-players">
+            <table class="row-player-table">
+              <thead><tr><th>캐릭터</th></tr></thead>
+              <tbody data-row-pbody="bottom"></tbody>
+            </table>
+          </div>
+          <iframe class="row-tl" id="row-tl-bottom" title="아래 타임라인"></iframe>
         </div>
-        <div class="comp-build empty" data-side-build="right">캐릭 클릭</div>
       </section>
-    </div>
-    <!-- 하단: 딜사이클 위아래 stack -->
-    <div class="comp-bottom">
-      <div class="comp-bottom-head">
-        <span>딜사이클 비교 (위=좌 · 아래=우)</span>
-        <label class="comp-buff-toggle">
-          <input type="checkbox" id="comp-buff-chk" checked> 버프 표시
-        </label>
-      </div>
-      <iframe class="comp-tl" id="comp-tl-left" title="좌측 타임라인"></iframe>
-      <iframe class="comp-tl" id="comp-tl-right" title="우측 타임라인"></iframe>
+      <!-- 우측 사이드바: 등록 캐릭터 + 최근 로그 -->
+      <aside class="comp-sidebar">
+        <div class="sb-section">
+          <div class="sb-head">
+            <span>등록 캐릭터</span>
+            <button id="char-add" title="새 캐릭터 등록">+</button>
+          </div>
+          <ul class="char-list" id="char-list">
+            <li class="empty">아직 없음 (+ 클릭)</li>
+          </ul>
+        </div>
+        <div class="sb-section">
+          <div class="sb-head">
+            <span id="reports-head">최근 로그</span>
+          </div>
+          <ul class="reports-list" id="reports-list">
+            <li class="empty">캐릭 클릭</li>
+          </ul>
+        </div>
+        <div class="sb-section">
+          <label class="sb-buff-toggle">
+            <input type="checkbox" id="comp-buff-chk" checked> 버프 표시
+          </label>
+        </div>
+      </aside>
     </div>
   </main>
 
