@@ -16,6 +16,8 @@ import os
 import sys
 import threading
 import time
+from datetime import datetime
+from pathlib import Path
 
 import uvicorn
 
@@ -39,11 +41,52 @@ if getattr(sys, "frozen", False):
 # FastAPI 앱 직접 import — frozen 에서 string "app.main:app" 동적 로딩 실패 회피
 from app.main import app as fastapi_app  # noqa: E402
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s %(name)s %(levelname)s %(message)s",
-)
+# ── 디버그 로그 — .exe 옆 logs/ 에 시간별 파일 ──────────────────────────────
+# 사용자가 문제 발생 시 첨부할 수 있도록. 최근 20개만 유지.
+_BASE_DIR = (Path(sys.executable).parent
+             if getattr(sys, "frozen", False)
+             else Path(__file__).parent)
+LOG_DIR = _BASE_DIR / "logs"
+LOG_DIR.mkdir(exist_ok=True)
+_LOG_PATH = LOG_DIR / f"wowanalyzer_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+
+# 오래된 로그 정리 (최근 20개만)
+_existing = sorted(LOG_DIR.glob("wowanalyzer_*.log"))
+for _old in _existing[:-20]:
+    try: _old.unlink()
+    except Exception: pass
+
+_LOG_FMT = "%(asctime)s %(levelname)-5s %(name)-22s %(message)s"
+_LOG_DATEFMT = "%H:%M:%S.%f"
+
+# 파일 핸들러 + (dev 모드만) 콘솔 핸들러
+_root = logging.getLogger()
+_root.setLevel(logging.INFO)
+_root.handlers.clear()
+
+_fh = logging.FileHandler(_LOG_PATH, encoding="utf-8")
+_fh.setFormatter(logging.Formatter(_LOG_FMT, datefmt="%Y-%m-%d %H:%M:%S"))
+_root.addHandler(_fh)
+
+if not getattr(sys, "frozen", False):
+    # dev 모드 — 콘솔에도 출력
+    _sh = logging.StreamHandler(sys.stdout)
+    _sh.setFormatter(logging.Formatter(_LOG_FMT, datefmt="%H:%M:%S"))
+    _root.addHandler(_sh)
+
+# uvicorn 의 access/error 로거도 같은 파일 핸들러 받게
+for _name in ("uvicorn", "uvicorn.access", "uvicorn.error", "fastapi"):
+    _lg = logging.getLogger(_name)
+    _lg.handlers.clear()
+    _lg.propagate = True  # root 로 전달 → 파일 핸들러 통해 기록
+    _lg.setLevel(logging.INFO)
+
 log = logging.getLogger("serve")
+log.info("=" * 60)
+log.info("WowAnalyzer 시작 — frozen=%s log=%s",
+         getattr(sys, "frozen", False), _LOG_PATH.name)
+log.info("base_dir=%s cwd=%s", _BASE_DIR, os.getcwd())
+log.info("=" * 60)
 
 DEFAULT_PORT = 9876  # 충돌 방지 — 다른 dev server 와 안 겹치는 포트
 

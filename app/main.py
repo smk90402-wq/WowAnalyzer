@@ -29,6 +29,14 @@ class CharIn(BaseModel):
     server: str
     region: str = "kr"
 
+
+class FrontLog(BaseModel):
+    level: str = "info"   # debug / info / warn / error
+    msg: str
+    src: str = "fe"       # source (e.g., 'console.error', 'window.onerror')
+    url: str | None = None
+    line: int | None = None
+
 # 기존 백엔드 그대로 import
 from wcl_v2_data import V2Data
 
@@ -78,13 +86,56 @@ def _v2() -> V2Data:
         # FastAPI 핸들러가 캐시를 변경해도 디스크에 저장되지 않으면 .exe 재시작 시 손실.
         # atexit 으로 우아한 종료 시 flush. pywebview 윈도우 닫기 → 메인 스레드 종료 시 호출됨.
         atexit.register(_v2_inst.flush)
+        atexit.register(_save_cache_manifest)
     return _v2_inst
+
+
+# ── 캐시 manifest — LFS push 회피 시 다른 PC 가 무얼 받아야 하는지 명시 ──
+# v2_cache_*.json (대용량, LFS) 는 push 안 하더라도 이 파일 (작은 JSON) 은
+# git 트래킹되어 다른 PC 에서 pull 받음. 그 PC 가 manifest 보고
+# 본인 PC 의 캐시와 diff 비교 → 누락된 키 자동 페치 가능.
+def _save_cache_manifest() -> None:
+    if _v2_inst is None:
+        return
+    try:
+        manifest = {
+            "generated_at": __import__("time").time(),
+            "host": __import__("socket").gethostname(),
+            "pfight_keys": sorted(k for k, v in _v2_inst.pfight.items()
+                                  if isinstance(v, dict)),
+            "events_keys": sorted(k for k, v in _v2_inst.events.items()
+                                  if isinstance(v, dict)),
+            "report_meta_rids": sorted(_v2_inst.meta.keys()),
+        }
+        path = DATA_DIR / "cache_manifest.json"
+        path.write_text(
+            json.dumps(manifest, ensure_ascii=False, indent=2),
+            encoding="utf-8")
+        log.info("cache_manifest 저장: pfight=%d events=%d meta=%d",
+                 len(manifest["pfight_keys"]), len(manifest["events_keys"]),
+                 len(manifest["report_meta_rids"]))
+    except Exception as e:
+        log.warning("cache_manifest 저장 실패: %s", e)
 
 
 # ── 헬스 ────────────────────────────────────────────────────────────────────
 @app.get("/api/ping")
 def ping() -> dict:
     return {"ok": True, "msg": "WowAnalyzer API live"}
+
+
+# ── frontend 로그 → 백엔드 .log 파일 ────────────────────────────────────────
+_fe_log = logging.getLogger("frontend")
+
+
+@app.post("/api/log")
+def fe_log(body: FrontLog) -> dict:
+    """JS 에서 호출 — 에러/디버그 메시지를 백엔드 log 파일에 기록."""
+    level = (body.level or "info").lower()
+    fn = getattr(_fe_log, level, _fe_log.info)
+    loc = f" @ {body.url}:{body.line}" if body.url else ""
+    fn("[%s]%s %s", body.src, loc, body.msg)
+    return {"ok": True}
 
 
 # ── 랭킹 CSV → JSON ─────────────────────────────────────────────────────────
@@ -265,6 +316,9 @@ def character_detail(rid: str, fid: int, char: str) -> JSONResponse:
                 ) or f.get("name")
                 break
 
+    # 매 character fetch 후 manifest 자동 갱신 (force-kill 시 atexit 못 잡는
+    # 케이스 대비 — 가장 자주 호출되는 endpoint).
+    _save_cache_manifest()
     return JSONResponse(out)
 
 

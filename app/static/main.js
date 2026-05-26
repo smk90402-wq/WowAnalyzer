@@ -6,6 +6,37 @@
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
 
+// ── 프론트엔드 로그 → 백엔드 (사용자 디버깅용) ──────────────────────────
+function logToBackend(level, msg, src='fe', url=null, line=null) {
+  try {
+    fetch('/api/log', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({level, msg: String(msg).substring(0, 2000), src, url, line}),
+    }).catch(() => {});
+  } catch (_) {}
+}
+window.addEventListener('error', (e) => {
+  logToBackend('error',
+    `${e.message} (${e.filename || '?'}:${e.lineno || '?'}:${e.colno || '?'})`,
+    'window.onerror', e.filename, e.lineno);
+});
+window.addEventListener('unhandledrejection', (e) => {
+  logToBackend('error',
+    `unhandledrejection: ${(e.reason && e.reason.message) || e.reason}`,
+    'window.onunhandled');
+});
+// console.error / console.warn 도 백엔드에 mirror
+['error', 'warn'].forEach(lvl => {
+  const orig = console[lvl].bind(console);
+  console[lvl] = function(...args) {
+    orig(...args);
+    logToBackend(lvl === 'warn' ? 'warning' : 'error',
+                 args.map(a => typeof a === 'string' ? a : JSON.stringify(a)).join(' '),
+                 `console.${lvl}`);
+  };
+});
+
 const state = {
   difficulty: 'heroic',
   rows: [],           // 현재 difficulty 의 모든 랭킹 row

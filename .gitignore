@@ -25,6 +25,7 @@ dist/
 
 # 대용량 / 재생성 가능 — git 에 안 올림
 data/cache_*.json
+!data/cache_manifest.json
 data/cache.db
 data/cache.db-wal
 data/cache.db-shm
@@ -39,8 +40,9 @@ data/user_settings.json
 data/backfill.log
 # data/user_characters.json 은 git 으로 sync (사용자 요청)
 
-# 로그
+# 로그 — serve.py 가 .exe 옆 또는 project root logs/ 에 시간별 .log 떨굼
 *.log
+logs/
 
 # PyInstaller spec
 *.spec
