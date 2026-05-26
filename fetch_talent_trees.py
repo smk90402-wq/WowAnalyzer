@@ -45,6 +45,11 @@ SPECS = [
     ("Hunter/Beast Mastery",   774, 253),
     ("Warrior/Arms",           850, 71),
     ("Warrior/Fury",           850, 72),
+    # Monk 추가 (인사이더 등 사용자 캐릭) — Brewmaster 268 / Windwalker 269 / Mistweaver 270.
+    # class tree id 는 Blizzard talent-tree/index 확인 결과 1000 (Monk 수도사).
+    ("Monk/Brewmaster",        1000, 268),
+    ("Monk/Windwalker",        1000, 269),
+    ("Monk/Mistweaver",        1000, 270),
 ]
 
 
