@@ -362,6 +362,27 @@ body {
 .stats-table .sp { color: var(--accent); text-align: right;
   font-variant-numeric: tabular-nums; min-width: 60px; }
 
+/* ── 빌드 패널 내부 탭 (딜사이클 / 아이템·특성·스탯) ─────────────── */
+.bp-header { padding: 0; }
+.bp-tabs {
+  display: flex; gap: 2px;
+  border-bottom: 1px solid var(--border);
+  margin: 8px 0 0 0;
+  position: sticky; top: 0;
+  background: var(--bg-0);
+  z-index: 2;
+}
+.bp-tab {
+  background: transparent; border: none; color: var(--text-mute);
+  padding: 6px 14px; cursor: pointer;
+  border-bottom: 2px solid transparent;
+  font-family: inherit; font-size: 11.5px;
+}
+.bp-tab:hover { color: var(--text); }
+.bp-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.bp-pane { display: none; padding-top: 8px; }
+.bp-pane.active { display: block; }
+
 /* ── 타임라인 / 트리 iframe ───────────────────────────────────────── */
 /* 딜사이클이 우측 패널 메인 콘텐츠 — 화면의 빈 세로 공간 거의 다 차지.
  * 75vh = 1080p 에서 ~810px, 1440p 에서 ~1080px. clamp 으로 너무 작거나 커지지 않게. */

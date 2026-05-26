@@ -144,39 +144,49 @@ function renderBuild(d, row) {
   const statsKr = d.stats_kr || [];
   const tlUrl = `/api/timeline/${encodeURIComponent(row.report_id)}/${row.fight_id}/${encodeURIComponent(row.character)}`;
   const treeUrl = `/api/talent-tree/${encodeURIComponent(row.report_id)}/${row.fight_id}/${encodeURIComponent(row.character)}?cls=${encodeURIComponent(row.class)}&spec=${encodeURIComponent(row.spec)}`;
+  const aggUrl = `/api/talent-tree-aggregate?cls=${encodeURIComponent(row.class)}&spec=${encodeURIComponent(row.spec)}&encounter_id=${row.encounter_id}&difficulty=${state.difficulty}`;
   $('#build-body').innerHTML = `
-    <div class="build-section">
-      <div class="build-row">
-        <span class="k">캐릭</span>
-        <span class="v">${esc(row.character)} · ${esc(row.class)} ${esc(row.spec)} · ilvl ${row.item_level ?? '?'}</span>
+    <div class="bp-header">
+      <div class="build-section">
+        <div class="build-row">
+          <span class="k">캐릭</span>
+          <span class="v">${esc(row.character)} · ${esc(row.class)} ${esc(row.spec)} · ilvl ${row.item_level ?? '?'}</span>
+        </div>
+        <div class="build-row">
+          <span class="k">DPS</span>
+          <span class="v">${row.dps != null ? Math.round(row.dps).toLocaleString() : '?'} · #${row.rank}</span>
+        </div>
+        <div class="build-row">
+          <span class="k">보스</span>
+          <span class="v">${esc(d.encounter_name || row.encounter_name)}</span>
+        </div>
       </div>
-      <div class="build-row">
-        <span class="k">DPS</span>
-        <span class="v">${row.dps != null ? Math.round(row.dps).toLocaleString() : '?'} · #${row.rank}</span>
-      </div>
-      <div class="build-row">
-        <span class="k">보스</span>
-        <span class="v">${esc(d.encounter_name || row.encounter_name)}</span>
-      </div>
+      ${renderPrepull(d.prepull)}
     </div>
-    ${renderPrepull(d.prepull)}
-    <h3>딜사이클</h3>
-    <iframe class="tl-frame" src="${tlUrl}" title="타임라인"></iframe>
-    <h3>특성 트리
-      <span class="tree-toggle">
-        <button class="tree-mode active" data-mode="self">본인 픽</button>
-        <button class="tree-mode" data-mode="agg">Top100 픽률</button>
-      </span>
-    </h3>
-    <iframe class="tree-frame" id="tree-frame" src="${treeUrl}" title="특성 트리"
-      data-self-url="${treeUrl}"
-      data-agg-url="/api/talent-tree-aggregate?cls=${encodeURIComponent(row.class)}&spec=${encodeURIComponent(row.spec)}&encounter_id=${row.encounter_id}&difficulty=${state.difficulty}"></iframe>
-    <h3>장비 (${gear.length} 슬롯)</h3>
-    <ul class="gear-list">
-      ${gear.map(g => gearItemHtml(g)).join('')}
-    </ul>
-    <h3>스탯</h3>
-    ${renderStats(statsKr)}
+    <div class="bp-tabs">
+      <button class="bp-tab active" data-bp-tab="cycle">딜사이클</button>
+      <button class="bp-tab" data-bp-tab="gear">아이템 / 특성 / 스탯</button>
+    </div>
+    <div class="bp-pane active" data-bp-pane="cycle">
+      <iframe class="tl-frame" src="${tlUrl}" title="타임라인"></iframe>
+    </div>
+    <div class="bp-pane" data-bp-pane="gear">
+      <h3>특성 트리
+        <span class="tree-toggle">
+          <button class="tree-mode active" data-mode="self">본인 픽</button>
+          <button class="tree-mode" data-mode="agg">Top100 픽률</button>
+        </span>
+      </h3>
+      <iframe class="tree-frame" id="tree-frame" src="${treeUrl}" title="특성 트리"
+        data-self-url="${treeUrl}"
+        data-agg-url="${aggUrl}"></iframe>
+      <h3>장비 (${gear.length} 슬롯)</h3>
+      <ul class="gear-list">
+        ${gear.map(g => gearItemHtml(g)).join('')}
+      </ul>
+      <h3>스탯</h3>
+      ${renderStats(statsKr)}
+    </div>
   `;
 }
 
@@ -323,18 +333,36 @@ function bind() {
     ]);
   });
 
-  // 트리 본인/Top100 토글 — 빌드 패널이 매번 재렌더되므로 위임 핸들러
-  $('#build-body').addEventListener('click', e => {
-    const btn = e.target.closest('.tree-mode');
-    if (!btn) return;
-    const iframe = $('#tree-frame');
-    if (!iframe) return;
-    const mode = btn.dataset.mode;
-    const url = mode === 'agg' ? iframe.dataset.aggUrl : iframe.dataset.selfUrl;
-    iframe.src = url;
-    document.querySelectorAll('.tree-mode').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  });
+  // 빌드 패널 위임 — 매 row 클릭마다 재렌더 → 위임 패턴 필수
+  function bindBuildPanel(rootSel) {
+    document.querySelector(rootSel).addEventListener('click', e => {
+      // 1) 트리 본인 vs Top100 토글
+      const tBtn = e.target.closest('.tree-mode');
+      if (tBtn) {
+        const iframe = document.querySelector(rootSel + ' .tree-frame');
+        if (!iframe) return;
+        const url = tBtn.dataset.mode === 'agg'
+          ? iframe.dataset.aggUrl : iframe.dataset.selfUrl;
+        if (url) iframe.src = url;
+        document.querySelectorAll(rootSel + ' .tree-mode')
+          .forEach(b => b.classList.remove('active'));
+        tBtn.classList.add('active');
+        return;
+      }
+      // 2) 딜사이클 ↔ 아이템/특성/스탯 탭 전환
+      const pBtn = e.target.closest('.bp-tab');
+      if (pBtn) {
+        const root = document.querySelector(rootSel);
+        root.querySelectorAll('.bp-tab').forEach(b => b.classList.remove('active'));
+        pBtn.classList.add('active');
+        root.querySelectorAll('.bp-pane').forEach(p => p.classList.toggle(
+          'active', p.dataset.bpPane === pBtn.dataset.bpTab));
+        return;
+      }
+    });
+  }
+  bindBuildPanel('#build-body');
+  bindBuildPanel('#arb-build-body');
 }
 
 // ── 임의 로그 탭 ────────────────────────────────────────────────────────
@@ -457,11 +485,10 @@ async function onArbitraryPlayerClick(tr) {
 }
 
 function renderBuildInto(selector, d, row) {
-  // ranking 의 renderBuild 와 동일 — 단지 target selector 만 다름
+  // ranking 의 renderBuild 와 동일 구조 — target selector 만 다름. 탭으로 분리.
   const gear = d.gear || [];
   const statsKr = d.stats_kr || [];
   const tlUrl = `/api/timeline/${encodeURIComponent(row.report_id)}/${row.fight_id}/${encodeURIComponent(row.character)}`;
-  // 추론된 class/spec 이 있으면 특성 트리도 표시 (5 타깃 스펙 한정)
   const hasTree = row.class && row.spec;
   const treeUrl = hasTree
     ? `/api/talent-tree/${encodeURIComponent(row.report_id)}/${row.fight_id}/${encodeURIComponent(row.character)}?cls=${encodeURIComponent(row.class)}&spec=${encodeURIComponent(row.spec)}`
@@ -471,26 +498,35 @@ function renderBuildInto(selector, d, row) {
        <iframe class="tree-frame" src="${treeUrl}" title="특성 트리"></iframe>`
     : '<p style="color:var(--text-mute);font-size:11px">특성 트리: talent_trees.json 미등록 스펙 (5 타깃 외 클래스)</p>';
   document.querySelector(selector).innerHTML = `
-    <div class="build-section">
-      <div class="build-row">
-        <span class="k">캐릭</span>
-        <span class="v">${esc(row.character)}${hasTree ? ` · ${esc(row.class)} ${esc(row.spec)}` : ''}</span>
+    <div class="bp-header">
+      <div class="build-section">
+        <div class="build-row">
+          <span class="k">캐릭</span>
+          <span class="v">${esc(row.character)}${hasTree ? ` · ${esc(row.class)} ${esc(row.spec)}` : ''}</span>
+        </div>
+        <div class="build-row">
+          <span class="k">보스</span>
+          <span class="v">${esc(d.encounter_name || row.encounter_name || '?')}</span>
+        </div>
       </div>
-      <div class="build-row">
-        <span class="k">보스</span>
-        <span class="v">${esc(d.encounter_name || row.encounter_name || '?')}</span>
-      </div>
+      ${renderPrepull(d.prepull)}
     </div>
-    ${renderPrepull(d.prepull)}
-    <h3>딜사이클</h3>
-    <iframe class="tl-frame" src="${tlUrl}" title="타임라인"></iframe>
-    ${treeHtml}
-    <h3>장비 (${gear.length} 슬롯)</h3>
-    <ul class="gear-list">
-      ${gear.map(g => gearItemHtml(g)).join('')}
-    </ul>
-    <h3>스탯</h3>
-    ${renderStats(statsKr)}
+    <div class="bp-tabs">
+      <button class="bp-tab active" data-bp-tab="cycle">딜사이클</button>
+      <button class="bp-tab" data-bp-tab="gear">아이템 / 특성 / 스탯</button>
+    </div>
+    <div class="bp-pane active" data-bp-pane="cycle">
+      <iframe class="tl-frame" src="${tlUrl}" title="타임라인"></iframe>
+    </div>
+    <div class="bp-pane" data-bp-pane="gear">
+      ${treeHtml}
+      <h3>장비 (${gear.length} 슬롯)</h3>
+      <ul class="gear-list">
+        ${gear.map(g => gearItemHtml(g)).join('')}
+      </ul>
+      <h3>스탯</h3>
+      ${renderStats(statsKr)}
+    </div>
   `;
 }
 
