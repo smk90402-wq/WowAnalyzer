@@ -58,75 +58,23 @@ else:
 STATIC_DIR.mkdir(exist_ok=True)
 DATA_DIR.mkdir(exist_ok=True)
 
-# 인증 초기화 (sqlite users.db + auth_secret 셋업)
-auth.init(DATA_DIR)
+# 인증 — 일시 비활성화 (사용자 요청 "로그인 일단 롤백"). 코드는 app/auth.py
+# + app/admin.py 그대로 보존, 미들웨어/엔드포인트만 끔. 다시 켜고 싶으면
+# 아래 블록 unindent / 미들웨어 함수 다시 활성화.
+auth.init(DATA_DIR)  # users.db / auth_secret 은 그대로 둬도 무관
 
 app = FastAPI(title="WowAnalyzer API", version="0.1.0")
 
-
-# ── auth: 미들웨어 (/api/* 보호) ────────────────────────────────────────────
-PUBLIC_PATHS = {
-    "/", "/api/ping", "/api/log",
-    "/auth/login", "/auth/me",
-    "/static",  # static prefix — 시작 매칭
-}
-
-
-@app.middleware("http")
-async def auth_gate(request: Request, call_next):
-    path = request.url.path
-    # public 경로면 통과
-    if (path in PUBLIC_PATHS
-            or path.startswith("/static/")
-            or path.startswith("/auth/")):
-        return await call_next(request)
-    # 그 외 (/api/*) 는 인증 필수
-    if not auth.current_user(request):
-        return JSONResponse({"detail": "로그인 필요"}, status_code=401)
-    return await call_next(request)
-
-
-# ── auth: 엔드포인트 ────────────────────────────────────────────────────────
-class LoginIn(BaseModel):
-    username: str
-    password: str
-
-
-@app.post("/auth/login")
-def auth_login(body: LoginIn) -> JSONResponse:
-    user = auth.verify_login(body.username, body.password)
-    if not user:
-        raise HTTPException(401, "username / password 틀림")
-    resp = JSONResponse({"ok": True, "user": user})
-    auth.set_session(resp, user)
-    return resp
-
-
-@app.post("/auth/logout")
-def auth_logout() -> JSONResponse:
-    resp = JSONResponse({"ok": True})
-    auth.clear_session(resp)
-    return resp
-
-
-@app.get("/auth/me")
-def auth_me(request: Request) -> JSONResponse:
-    u = auth.current_user(request)
-    if not u:
-        return JSONResponse({"user": None}, status_code=200)
-    return JSONResponse({"user": u})
+# auth_gate 미들웨어 비활성화 — 모든 /api/* 가 인증 없이 통과.
+# /auth/login, /auth/me 도 사용 안 함 (frontend 가 호출 안 함).
 
 # static 파일 마운트 (Week 2 에서 HTML/CSS/JS 추가)
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
 @app.get("/", response_class=HTMLResponse)
-def index(request: Request) -> str:
-    """루트 — 인증 안 됐으면 login.html, 됐으면 SPA shell."""
-    if not auth.current_user(request):
-        login = STATIC_DIR / "login.html"
-        if login.exists():
-            return login.read_text(encoding="utf-8")
+def index() -> str:
+    """루트 — SPA shell 바로 서빙 (인증 비활성)."""
     idx = STATIC_DIR / "index.html"
     if idx.exists():
         return idx.read_text(encoding="utf-8")
