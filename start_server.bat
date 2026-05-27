@@ -4,27 +4,48 @@ cd /d "%~dp0"
 echo === WowAnalyzer 웹서버 + Cloudflare Tunnel ===
 echo.
 
-rem 1) LogAnalyze.exe (pywebview 윈도우 + FastAPI uvicorn port 9876) 실행
-rem    - 본인 PC 에서 직접 확인할 때는 윈도우 닫지 말 것
-rem    - 친구만 접속할 거면 LogAnalyze.exe 대신 --api-only 모드:
-rem        python serve.py --api-only --port 9876
-if exist "dist\LogAnalyze\LogAnalyze.exe" (
-    echo [1/2] LogAnalyze.exe 시작 (백그라운드)
-    start "" "dist\LogAnalyze\LogAnalyze.exe"
-) else (
-    echo [1/2] dist\LogAnalyze\LogAnalyze.exe 없음 - build.bat 먼저
+rem 빌드 결과 확인
+if not exist "dist\LogAnalyze\LogAnalyze.exe" (
+    echo dist\LogAnalyze\LogAnalyze.exe 없음 - build.bat 먼저
     pause
     exit /b 1
 )
 
-rem 2) FastAPI ready 까지 5초 대기
+rem ── data junction 자동 보정 ────────────────────────────────────────
+rem  frozen exe 가 첫 실행 시 빈 data 폴더 자동 생성 → junction 깨짐
+rem  → 매번 시작할 때 junction 인지 확인하고 아니면 재생성
+fsutil reparsepoint query "dist\LogAnalyze\data" >nul 2>&1
+if errorlevel 1 (
+    if exist "dist\LogAnalyze\data\*" (
+        echo *** WARN: dist\LogAnalyze\data 가 junction 아니고 안에 데이터 있음
+        echo     수동 처리 필요. 진행 중단.
+        pause
+        exit /b 1
+    )
+    if exist "dist\LogAnalyze\data" rmdir /q "dist\LogAnalyze\data" 2>nul
+    mklink /J "dist\LogAnalyze\data" "%~dp0data" >nul
+    echo [boot] data junction 재생성
+)
+
+rem ── .env copy (없으면) ────────────────────────────────────────────
+if not exist "dist\LogAnalyze\.env" (
+    if exist ".env" copy ".env" "dist\LogAnalyze\.env" >nul
+)
+
+rem ── 1) LogAnalyze.exe 백그라운드 실행 ─────────────────────────────
+echo [1/2] LogAnalyze.exe 시작 (백그라운드, port 9876)
+start "" "dist\LogAnalyze\LogAnalyze.exe"
+
+rem uvicorn ready 대기
 echo     uvicorn ready 대기 (5초)
 timeout /t 5 /nobreak >nul
 
-rem 3) Cloudflare Tunnel - 임시 URL 발급 (PC 켜져있는 동안 유지)
+rem ── 2) Cloudflare Tunnel ──────────────────────────────────────────
+rem  - quick mode: URL 매번 다름 (PC 재시작 시 새 URL)
+rem  - named mode (영구 URL): cloudflared login + tunnel create + DNS 매핑 후
+rem     cloudflared tunnel run <tunnel-name>
 echo [2/2] Cloudflare Tunnel 시작
-echo     -> 잠시 후 "https://xxxxx.trycloudflare.com" URL 표시됨
-echo     -> 이 URL 을 친구한테 공유 (rtv / 1234 로 로그인)
-echo     -> Ctrl+C 누르면 Tunnel 종료 (LogAnalyze.exe 는 계속 실행)
+echo     -> URL 표시되면 친구한테 공유
+echo     -> 로그인: rtv / 1234
 echo.
 cloudflared tunnel --url http://localhost:9876

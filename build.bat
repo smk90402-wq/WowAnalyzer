@@ -17,6 +17,7 @@ python -m PyInstaller --noconfirm --windowed --name LogAnalyze ^
     --hidden-import "uvicorn.lifespan.on" ^
     --hidden-import "webview.platforms.edgechromium" ^
     --hidden-import "clr_loader" --hidden-import "pythonnet" ^
+    --hidden-import "bcrypt" --hidden-import "itsdangerous" ^
     --exclude-module "PyQt5" --exclude-module "PyQt6" --exclude-module "PySide6" ^
     --exclude-module "torch" --exclude-module "tensorflow" ^
     --exclude-module "matplotlib" --exclude-module "scipy" ^
@@ -29,11 +30,25 @@ if errorlevel 1 (
     exit /b 1
 )
 
-rem data 폴더 + .env junction/copy — 처음 빌드면 자동 셋업
-if not exist "dist\LogAnalyze\data" (
-    mklink /J "dist\LogAnalyze\data" "%~dp0data" >nul
-    echo data junction 생성됨
+rem data junction 자동 보정 — frozen exe 가 mkdir 로 빈 data 만들면 junction 깨짐
+rem  → junction 이 아니고 비어있으면 삭제 후 mklink 재생성
+call :ensure_data_junction
+goto :after_data
+
+:ensure_data_junction
+fsutil reparsepoint query "dist\LogAnalyze\data" >nul 2>&1
+if not errorlevel 1 goto :eof
+rem junction 아님. 비어있는지 체크 (빈 폴더면 안전하게 삭제)
+if exist "dist\LogAnalyze\data\*" (
+    echo *** WARN: dist\LogAnalyze\data 에 데이터 있고 junction 아님 - 수동 정리 필요
+    goto :eof
 )
+if exist "dist\LogAnalyze\data" rmdir /q "dist\LogAnalyze\data" 2>nul
+mklink /J "dist\LogAnalyze\data" "%~dp0data" >nul
+echo data junction 재생성됨
+goto :eof
+
+:after_data
 if not exist "dist\LogAnalyze\.env" (
     if exist ".env" (
         copy ".env" "dist\LogAnalyze\.env" >nul
