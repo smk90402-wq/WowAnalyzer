@@ -45,12 +45,23 @@ TREE_COMP_TARGETS = {
 TARGETS = PRIMARY_TARGETS | TREE_COMP_TARGETS
 
 
-def main(limit: int | None = None) -> None:
+def main(limit: int | None = None, all_specs: bool = False,
+         per_spec: int | None = None) -> None:
     df = pd.read_csv(CSV)
     df["report_id"] = df["report_id"].astype(str)
     df["fight_id"] = df["fight_id"].astype(int)
-    sub = df[df.apply(lambda r: (r["class"], r["spec"]) in TARGETS, axis=1)].copy()
+    if all_specs:
+        # 전 스펙 — 로테 난이도용 casts 필요. events 도 전원 페치.
+        sub = df.copy()
+    else:
+        sub = df[df.apply(lambda r: (r["class"], r["spec"]) in TARGETS, axis=1)].copy()
     sub = sub.sort_values(["encounter_name", "class", "spec", "rank"]).reset_index(drop=True)
+    # 스펙당 상위 N 만 (로테 난이도는 ~100이면 통계적으로 충분, 풀의 6배 비용 회피)
+    if per_spec is not None:
+        sub = (sub.sort_values("rank")
+               .groupby(["class", "spec"], group_keys=False)
+               .head(per_spec)
+               .reset_index(drop=True))
     if limit is not None:
         sub = sub.head(limit)
 
@@ -70,8 +81,8 @@ def main(limit: int | None = None) -> None:
         else:
             pf_fail += 1
 
-        # events (casts + buffs) — primary 만
-        if (cls, spec) in PRIMARY_TARGETS:
+        # events (casts + buffs) — all_specs 면 전원, 아니면 primary 만
+        if all_specs or (cls, spec) in PRIMARY_TARGETS:
             ev = d.events_for(rid, fid, char)
             if ev:
                 ev_new += 1
@@ -109,10 +120,19 @@ def main(limit: int | None = None) -> None:
 
 
 if __name__ == "__main__":
-    lim = None
-    if len(sys.argv) > 1:
-        try:
-            lim = int(sys.argv[1])
-        except ValueError:
-            sys.exit(f"bad limit: {sys.argv[1]}")
-    main(lim)
+    # 사용:
+    #   python backfill_v2.py            # 5 타깃 스펙 (기존)
+    #   python backfill_v2.py --all      # 전 스펙 casts+buffs (로테 난이도용)
+    #   python backfill_v2.py --all --per-spec 150  # 스펙당 상위 150
+    #   python backfill_v2.py 200        # 앞 200행만 (파일럿)
+    lim = None; all_specs = False; per_spec = None
+    args = sys.argv[1:]; i = 0
+    while i < len(args):
+        a = args[i]
+        if a == "--all":
+            all_specs = True; i += 1
+        elif a == "--per-spec":
+            per_spec = int(args[i + 1]); i += 2
+        else:
+            lim = int(a); i += 1
+    main(lim, all_specs=all_specs, per_spec=per_spec)

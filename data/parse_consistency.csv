@@ -1,0 +1,28 @@
+class,spec,n,median_dps,avg_cv,consistency
+Mage,Frost,900,155532,0.0234,1.0
+Rogue,Subtlety,900,154404,0.0254,0.985
+Hunter,Beast Mastery,900,145479,0.0257,0.983
+Death Knight,Unholy,900,154904,0.0295,0.955
+Warlock,Demonology,900,160145,0.03,0.952
+Paladin,Retribution,900,150356,0.0325,0.933
+Evoker,Augmentation,900,160327,0.0339,0.923
+Demon Hunter,Devourer,900,162109,0.035,0.915
+Warrior,Fury,900,151306,0.0361,0.907
+Druid,Balance,900,157745,0.0365,0.904
+Death Knight,Frost,900,157638,0.0374,0.897
+Priest,Shadow,900,158160,0.0384,0.89
+Warrior,Arms,900,151048,0.0385,0.889
+Shaman,Elemental,900,161122,0.0399,0.879
+Demon Hunter,Havoc,900,154180,0.0448,0.843
+Rogue,Assassination,809,130986,0.0474,0.824
+Warlock,Destruction,769,144165,0.05,0.805
+Hunter,Marksmanship,869,152296,0.0531,0.782
+Warlock,Affliction,769,136095,0.0533,0.781
+Hunter,Survival,872,157996,0.0548,0.77
+Evoker,Devastation,781,136175,0.0626,0.712
+Monk,Windwalker,879,156688,0.07,0.658
+Rogue,Outlaw,826,144456,0.0983,0.45
+Mage,Arcane,702,122319,0.0993,0.443
+Shaman,Enhancement,831,142453,0.1026,0.419
+Mage,Fire,763,132281,0.1378,0.161
+Druid,Feral,834,133274,0.1597,0.0

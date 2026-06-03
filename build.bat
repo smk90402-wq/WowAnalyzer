@@ -38,14 +38,20 @@ goto :after_data
 :ensure_data_junction
 fsutil reparsepoint query "dist\LogAnalyze\data" >nul 2>&1
 if not errorlevel 1 goto :eof
-rem junction 아님. 비어있는지 체크 (빈 폴더면 안전하게 삭제)
+rem junction 아님. frozen exe 가 부팅 때 auth_secret/users.db 만들어 빈 junction 을
+rem 일반폴더로 덮은 경우가 흔함 → 이 둘은 원본 data 에도 있어 안전 삭제.
+rem 그 외 파일이 있으면 진짜 데이터일 수 있어 보존(경고).
 if exist "dist\LogAnalyze\data\*" (
-    echo *** WARN: dist\LogAnalyze\data 에 데이터 있고 junction 아님 - 수동 정리 필요
-    goto :eof
+    for %%F in ("dist\LogAnalyze\data\*") do (
+        if /I not "%%~nxF"=="auth_secret" if /I not "%%~nxF"=="users.db" (
+            echo *** WARN: dist\LogAnalyze\data 에 예상밖 파일 %%~nxF - 수동 정리 필요
+            goto :eof
+        )
+    )
 )
-if exist "dist\LogAnalyze\data" rmdir /q "dist\LogAnalyze\data" 2>nul
+if exist "dist\LogAnalyze\data" rmdir /s /q "dist\LogAnalyze\data" 2>nul
 mklink /J "dist\LogAnalyze\data" "%~dp0data" >nul
-echo data junction 재생성됨
+echo data junction 재생성됨 (auth 임시파일 정리 포함)
 goto :eof
 
 :after_data

@@ -27,25 +27,34 @@ df = pd.read_csv(CSV)
 df = df.dropna(subset=["pi_received"]).copy()
 df["pi_received"] = df["pi_received"].astype(bool)
 
+# ── 보스별 통제 uplift ──────────────────────────────────────────────────────
+# 보스마다 DPS 레벨(128k~219k)이 다르고 PI율도 다름(쫄파이 보스서 PI↑).
+# 보스 무시하고 with/without 비교하면 PI 받음 그룹이 고DPS 보스로 쏠려 가짜 uplift.
+# → 보스별로 uplift 계산 후 평균 (Simpson's paradox 회피).
+MIN_PER_BOSS = 8   # 한 보스 그룹에 최소 with/without 각 8
 rows = []
 for (cls, spec), g in df.groupby(["class", "spec"]):
-    got = g[g["pi_received"]]
-    nope = g[~g["pi_received"]]
-    if len(got) < MIN_SAMPLES_EACH or len(nope) < MIN_SAMPLES_EACH:
+    per_boss = []
+    for bid, gb in g.groupby("encounter_id"):
+        got_b = gb[gb["pi_received"]]; nope_b = gb[~gb["pi_received"]]
+        if len(got_b) < MIN_PER_BOSS or len(nope_b) < MIN_PER_BOSS:
+            continue
+        mb = nope_b["dps"].median()
+        if mb > 0:
+            per_boss.append((got_b["dps"].median() - mb) / mb * 100)
+    got = g[g["pi_received"]]; nope = g[~g["pi_received"]]
+    if len(per_boss) < 3:   # 통제 가능한 보스 3개 미만이면 신뢰 불가 → 스킵
         continue
-    med_got = got["dps"].median()
-    med_nope = nope["dps"].median()
-    uplift_abs = med_got - med_nope
-    uplift_pct = (uplift_abs / med_nope) * 100
+    uplift_pct = sum(per_boss) / len(per_boss)
     rows.append({
         "class": cls,
         "spec": spec,
         "n_with_pi": len(got),
         "n_without_pi": len(nope),
-        "median_with_pi": int(round(med_got)),
-        "median_without_pi": int(round(med_nope)),
-        "uplift_abs": int(round(uplift_abs)),
-        "uplift_pct": round(uplift_pct, 2),
+        "bosses_used": len(per_boss),
+        "median_with_pi": int(round(got["dps"].median())),
+        "median_without_pi": int(round(nope["dps"].median())),
+        "uplift_pct": round(uplift_pct, 2),  # 보스별 평균 (통제됨)
     })
 
 summary = pd.DataFrame(rows)
@@ -64,7 +73,7 @@ print("PI 영향 큰 순 (TOP = 의존 큼, BOTTOM = PI 없어도 잘하는 스�
 print(f"필터: PI 받음 >= {MIN_SAMPLES_EACH}건 AND PI 없음 >= {MIN_SAMPLES_EACH}건")
 print("=" * 95)
 cols = ["class", "spec", "pi_rate_pct", "n_with_pi", "n_without_pi",
-        "median_with_pi", "median_without_pi", "uplift_abs", "uplift_pct"]
+        "bosses_used", "uplift_pct"]
 print(summary_sorted[cols].to_string(index=False))
 
 out = Path(__file__).parent / "data" / "pi_impact.csv"

@@ -168,12 +168,112 @@ def rankings(difficulty: str) -> Response:
                       if pd.notna(r["encounter_id"]) else r["encounter_name"],
             axis=1,
         )
+    # 클래스/전문화 한글 컬럼 추가 (영문 class/spec 은 필터/트리 API 용으로 보존).
+    if "class" in df.columns:
+        df["class_kr"] = df["class"].map(CLASS_KR).fillna(df["class"])
+    if "spec" in df.columns:
+        df["spec_kr"] = df["spec"].map(SPEC_KR).fillna(df["spec"])
     # pandas to_json 이 NaN → null 변환 처리 (orient=records). 인덱스 미포함.
     rows_json = df.to_json(orient="records", force_ascii=False)
     payload = (
         f'{{"difficulty":"{difficulty}","row_count":{len(df)},"rows":{rows_json}}}'
     )
     return Response(content=payload, media_type="application/json")
+
+
+# ── 스펙 메타 종합 (4차원 분석 표) ─────────────────────────────────────────
+@app.get("/api/spec-meta")
+def spec_meta() -> Response:
+    """run_full_analysis 산출 spec_meta_ranking.csv + 로테 raw 메트릭 → JSON 표."""
+    p = DATA_DIR / "spec_meta_ranking.csv"
+    if not p.exists():
+        raise HTTPException(404, "spec_meta_ranking.csv 없음 — run_full_analysis.py 실행 필요")
+    df = pd.read_csv(p)  # spec_meta_ranking.csv 에 ease(커뮤니티)·rot_rank·로그메트릭 이미 포함
+    df = df.sort_values("score", ascending=False).reset_index(drop=True)
+    df.insert(0, "rank", df.index + 1)
+    df["class_kr"] = df["class"].map(CLASS_KR).fillna(df["class"])
+    df["spec_kr"] = df["spec"].map(SPEC_KR).fillna(df["spec"])
+    # 스킬천장 (가이드/아키타입 추정) inject
+    df["skill_ceiling"] = df.apply(
+        lambda r: SKILL_CEILING.get((r["class"], r["spec"]), (0, ""))[0], axis=1)
+    df["skill_label"] = df["skill_ceiling"].map(SKILL_LABEL).fillna("?")
+    df["skill_reason"] = df.apply(
+        lambda r: SKILL_CEILING.get((r["class"], r["spec"]), (0, ""))[1], axis=1)
+    # 실전 메타 강도 (파스 무관, raw DPS) inject
+    df["raid_tier"] = df.apply(lambda r: RAID_TIER.get((r["class"], r["spec"]), "?"), axis=1)
+    df["mplus_tier"] = df.apply(lambda r: MPLUS_TIER.get((r["class"], r["spec"]), "?"), axis=1)
+    df["meta_note"] = df.apply(lambda r: META_NOTE.get((r["class"], r["spec"]), ""), axis=1)
+    df["tuning"] = df.apply(lambda r: TUNING.get((r["class"], r["spec"]), ("", ""))[0], axis=1)
+    df["tuning_note"] = df.apply(lambda r: TUNING.get((r["class"], r["spec"]), ("", ""))[1], axis=1)
+    # 특임/유틸 부담 (1낮음~5높음, 높을수록 파스 불리) inject
+    df["burden"] = df.apply(lambda r: UTILITY_BURDEN.get((r["class"], r["spec"]), (0, ""))[0], axis=1)
+    df["burden_note"] = df.apply(lambda r: UTILITY_BURDEN.get((r["class"], r["spec"]), (0, ""))[1], axis=1)
+    # 모집단(인구) → 파스 유리도 inject. 인구↑=깔아주는 뉴비 많아 평균이상 실력자 고파스 쉬움.
+    # (WCL ranking 은 page20=2000 에서 하드캡 → 2000=상위인기, <2000=정확 인구.)
+    pop_path = DATA_DIR / "spec_population.csv"
+    if pop_path.exists():
+        pop = pd.read_csv(pop_path)
+        col = "pop_real" if "pop_real" in pop.columns else "pop_avg"
+        pop = pop[["class", "spec", col, "pop_favor"]].rename(columns={col: "pop_avg"})
+        # WCL CamelCase → CSV 공백형 정규화 후 머지
+        pop["spec"] = pop["spec"].replace({"BeastMastery": "Beast Mastery"})
+        pop["class"] = pop["class"].replace({"DemonHunter": "Demon Hunter", "DeathKnight": "Death Knight"})
+        df = df.merge(pop, on=["class", "spec"], how="left")
+    else:
+        df["pop_avg"] = None
+        df["pop_favor"] = None
+    # 스펙 가이드(설명/로테/꿀팁) inject — 팝업 우측 패널용
+    guide = _spec_guide()
+    df["guide_desc"] = df.apply(
+        lambda r: (guide.get(f'{r["class"]}|{r["spec"]}') or {}).get("desc", ""), axis=1)
+    df["guide_rotation"] = df.apply(
+        lambda r: (guide.get(f'{r["class"]}|{r["spec"]}') or {}).get("rotation", ""), axis=1)
+    df["guide_tips"] = df.apply(
+        lambda r: (guide.get(f'{r["class"]}|{r["spec"]}') or {}).get("tips", []), axis=1)
+    keep = ["rank", "kr", "class", "spec", "class_kr", "spec_kr", "score",
+            "ease", "rot_rank", "pi_indep", "uplift_pct", "pi_rate_pct", "consistency",
+            "raid_tier", "mplus_tier", "meta_note", "tuning", "tuning_note",
+            "burden", "burden_note", "pop_avg", "pop_favor",
+            "guide_desc", "guide_rotation", "guide_tips",
+            "aoe_ratio", "skill_ceiling", "skill_label", "skill_reason",
+            "cleave_med", "unique_spells", "apm", "bigram_entropy"]
+    keep = [c for c in keep if c in df.columns]
+    rows_json = df[keep].to_json(orient="records", force_ascii=False)
+    return Response(content=f'{{"row_count":{len(df)},"rows":{rows_json}}}',
+                    media_type="application/json")
+
+
+# ── 딜사이클 베이스 (로테이션 데이터) ────────────────────────────────────────
+@app.get("/api/rotation")
+def rotation_data() -> Response:
+    """data/rotation_data.json 그대로 서빙 (클래스>전문화>빌드>단일/광/오프너).
+
+    매 요청 재로드 → json 편집 즉시 반영. 사용자 후속 차별화 편집 용이.
+    """
+    p = DATA_DIR / "rotation_data.json"
+    if not p.exists():
+        raise HTTPException(404, "rotation_data.json 없음")
+    return Response(content=p.read_text(encoding="utf-8"),
+                    media_type="application/json")
+
+
+@app.get("/api/boss-dealcycle")
+def boss_dealcycle() -> Response:
+    """data/boss_dealcycle.json — 네임드별 실측 딜사이클 (top100 events 역산).
+
+    오프너·쿨기 타이밍·블러드/물약 커버리지·버프 업타임·빌드 분기. 한글 보스명 inject.
+    """
+    p = DATA_DIR / "boss_dealcycle.json"
+    if not p.exists():
+        raise HTTPException(404, "boss_dealcycle.json 없음 — extract_boss_dealcycle.py 실행 필요")
+    import json as _json
+    data = _json.loads(p.read_text(encoding="utf-8"))
+    # 보스명 한글화 (BOSS_KR)
+    for spec_key, bosses in data.items():
+        for eid, d in bosses.items():
+            d["boss_kr"] = BOSS_KR.get(int(eid), d.get("boss_kr", eid))
+    return Response(content=_json.dumps({"data": data}, ensure_ascii=False),
+                    media_type="application/json")
 
 
 # ── V2 report meta (lazy) ───────────────────────────────────────────────────
@@ -272,6 +372,8 @@ def character_detail(rid: str, fid: int, char: str) -> JSONResponse:
         "stats_kr": stats_kr,
         "inferred_class": inferred_cls,
         "inferred_spec": inferred_spec,
+        "inferred_class_kr": CLASS_KR.get(inferred_cls or "", inferred_cls),
+        "inferred_spec_kr": SPEC_KR.get(inferred_spec or "", inferred_spec),
     }
     # casts + buffs — events_for 가 sid 매핑 + 페치 모두 처리
     ev = v2.events_for(rid, fid, char) or {}
@@ -393,8 +495,9 @@ SLOT_KR: dict[int, str] = {
     17: "원거리",
 }
 
-# 한밤 raid (zone 46 = 꿈의 균열) 한글 보스명. 도감 검증된 7명 + 미확인 2명.
-# memory/feedback_wow_kr_terms.md 의 권위 매핑.
+# 한밤 raid (zone 46) 한글 보스명 — Blizzard journal-encounter ko_KR 전수 검증 (2026-05-30).
+# WCL encounter_id → Blizzard journalID: 3176→2733 ... 3306→2795 (영문명 exact 매칭).
+# 9개 전부 공식 API 값. 추측 아님. (스크립트: blizzard.py journal-encounter)
 BOSS_KR: dict[int, str] = {
     3176: "전제군주 아베르지안",
     3177: "보라시우스",
@@ -402,10 +505,192 @@ BOSS_KR: dict[int, str] = {
     3179: "몰락한 왕 살라다르",
     3180: "빛에 눈이 먼 선봉대",
     3181: "우주의 왕관",
-    3182: "알라르의 자식 벨로렌",     # TODO 도감 검증
-    3183: "한밤이 내린다",            # TODO 도감 검증
+    3182: "알라르의 자손 벨로렌",
+    3183: "한밤의 도래",
     3306: "꿈결을 벗어난 신 카이메루스",
 }
+
+# 클래스/전문화 공식 ko_KR — Blizzard playable-class/specialization 인덱스 (2026-05-30).
+# WCL 영문명(공백 포함) → 한국 클라 공식명. 추측 아님 (Fury=분노, 격노 아님).
+CLASS_KR: dict[str, str] = {
+    "Death Knight": "죽음의 기사", "Demon Hunter": "악마사냥꾼",
+    "Druid": "드루이드", "Evoker": "기원사", "Hunter": "사냥꾼",
+    "Mage": "마법사", "Monk": "수도사", "Paladin": "성기사",
+    "Priest": "사제", "Rogue": "도적", "Shaman": "주술사",
+    "Warlock": "흑마법사", "Warrior": "전사",
+}
+SPEC_KR: dict[str, str] = {
+    "Frost": "냉기", "Unholy": "부정", "Devourer": "포식", "Havoc": "파멸",
+    "Balance": "조화", "Feral": "야성", "Augmentation": "증강",
+    "Devastation": "황폐", "Beast Mastery": "야수", "Marksmanship": "사격",
+    "Survival": "생존", "Arcane": "비전", "Fire": "화염", "Windwalker": "풍운",
+    "Retribution": "징벌", "Shadow": "암흑", "Assassination": "암살",
+    "Outlaw": "무법", "Subtlety": "잠행", "Elemental": "정기",
+    "Enhancement": "고양", "Affliction": "고통", "Demonology": "악마",
+    "Destruction": "파괴", "Arms": "무기", "Fury": "분노",
+}
+
+# 점수뽑기 스킬천장 (1=쉬움 ~ 5=매우어려움) — 로그 통계로 안 잡히는 최적화 난이도.
+# 출처: 클래스 아키타입/커뮤니티 통념 + 사용자 제보(포식). **주관적 추정** (한밤 전용
+# 가이드 미존재). 로테 난이도와 별개 — "이 스펙으로 고파스 뽑기가 얼마나 까다롭나".
+SKILL_CEILING: dict[tuple[str, str], tuple[int, str]] = {
+    ("Mage", "Frost"): (1, "정형적·변동 작음, 안정적으로 고파스"),
+    ("Mage", "Fire"): (4, "연소 윈도우 + 점화 RNG로 변동 큼"),
+    ("Mage", "Arcane"): (4, "마나/소각 페이즈 관리가 빡셈"),
+    ("Warlock", "Demonology"): (2, "폭정 정렬만 맞추면 안정적"),
+    ("Warlock", "Affliction"): (3, "다중 도트 갱신·악의의 마법 타이밍"),
+    ("Warlock", "Destruction"): (2, "불씨 관리, 비교적 관대"),
+    ("Demon Hunter", "Devourer"): (4, "붕괴하는 별 버스트 5~6회 + 기력관리 (사용자 제보)"),
+    ("Demon Hunter", "Havoc"): (3, "탈태 윈도우 관리"),
+    ("Druid", "Balance"): (3, "천체 에너지·일식 관리"),
+    ("Druid", "Feral"): (5, "출혈 스냅샷·기력·도트 관리, 최상위 천장"),
+    ("Hunter", "Beast Mastery"): (1, "이동 중 시전, 매우 관대"),
+    ("Hunter", "Marksmanship"): (3, "정밀 사격·트릭샷 타이밍"),
+    ("Hunter", "Survival"): (4, "근접 냥꾼, 복잡한 우선순위"),
+    ("Monk", "Windwalker"): (4, "복잡한 우선순위·기 관리"),
+    ("Paladin", "Retribution"): (2, "비교적 정형적"),
+    ("Priest", "Shadow"): (4, "도트·정신력 관리"),
+    ("Rogue", "Assassination"): (3, "출혈·기력 관리"),
+    ("Rogue", "Outlaw"): (4, "한 방의 멋 굴림·즉흥 대응"),
+    ("Rogue", "Subtlety"): (5, "그림자 춤 윈도우·심포니, 최난도"),
+    ("Shaman", "Elemental"): (3, "소용돌이·정기 관리"),
+    ("Shaman", "Enhancement"): (4, "소용돌이·복잡한 우선순위"),
+    ("Evoker", "Augmentation"): (5, "지원 스펙·흑요석 정렬, 매우 복잡"),
+    ("Evoker", "Devastation"): (3, "정수 관리"),
+    ("Warrior", "Arms"): (3, "거인의 강타 윈도우 정렬"),
+    ("Warrior", "Fury"): (2, "격노 유지, APM 높지만 관대"),
+    ("Death Knight", "Unholy"): (3, "고름 상처 관리"),
+    ("Death Knight", "Frost"): (3, "룬·룬마력 관리"),
+}
+SKILL_LABEL = {1: "쉬움", 2: "쉬움", 3: "중간", 4: "어려움", 5: "매우어려움"}
+
+# ── 실전 메타 강도 (S~D) — **파스와 무관, raw DPS/실전 강함** ───────────────────
+# 출처: 최신 유튜브(12.0.5, 밸패 후) — 레이드는 KDVow "kings dethroned" 상세 분석,
+#   쐐기는 Marcelian/Flame 콤프 + Sky 전체 티어. 시즌 튜닝 따라 변함.
+# raid/M+ 가 갈리는 스펙(냉기죽기·비전·생존 등)은 META_NOTE 로 표기.
+RAID_TIER: dict[tuple[str, str], str] = {
+    ("Warlock", "Demonology"): "S", ("Mage", "Frost"): "S", ("Hunter", "Survival"): "S",
+    ("Death Knight", "Frost"): "S", ("Demon Hunter", "Devourer"): "S", ("Monk", "Windwalker"): "S",
+    ("Evoker", "Augmentation"): "A", ("Druid", "Balance"): "A", ("Rogue", "Outlaw"): "A",
+    ("Shaman", "Elemental"): "A", ("Paladin", "Retribution"): "A", ("Priest", "Shadow"): "A",
+    ("Death Knight", "Unholy"): "A",
+    ("Warlock", "Affliction"): "B", ("Warrior", "Arms"): "B", ("Warlock", "Destruction"): "B",
+    ("Hunter", "Marksmanship"): "B", ("Evoker", "Devastation"): "B", ("Shaman", "Enhancement"): "B",
+    ("Warrior", "Fury"): "B", ("Demon Hunter", "Havoc"): "B", ("Rogue", "Subtlety"): "B",
+    ("Hunter", "Beast Mastery"): "B",
+    ("Rogue", "Assassination"): "C", ("Mage", "Arcane"): "C", ("Mage", "Fire"): "C",
+    ("Druid", "Feral"): "C",
+}
+# 쐐기 티어 = **mythicstats.com/dps 실측** (WCL API 기반 16~24키 평균딜, period 1065 week10).
+# 유튜브 티어영상은 부정확 판명(냉마 S로 잘못 적었었음 → 실측 F) → 실측 데이터로 전면 교체.
+# 사이트 6등급(S~F): S=1~2위, B=3~6, C=7~13, D=14~22, F=23~27 (avg DPS 6분할).
+MPLUS_TIER: dict[tuple[str, str], str] = {
+    ("Death Knight", "Unholy"): "S", ("Demon Hunter", "Devourer"): "S",
+    ("Warlock", "Demonology"): "B", ("Evoker", "Augmentation"): "B",
+    ("Paladin", "Retribution"): "B", ("Warrior", "Arms"): "B",
+    ("Druid", "Feral"): "C", ("Rogue", "Outlaw"): "C", ("Hunter", "Survival"): "C",
+    ("Rogue", "Assassination"): "C", ("Warlock", "Affliction"): "C",
+    ("Rogue", "Subtlety"): "C", ("Hunter", "Beast Mastery"): "C",
+    ("Warrior", "Fury"): "D", ("Shaman", "Enhancement"): "D", ("Mage", "Arcane"): "D",
+    ("Monk", "Windwalker"): "D", ("Priest", "Shadow"): "D", ("Hunter", "Marksmanship"): "D",
+    ("Demon Hunter", "Havoc"): "D", ("Death Knight", "Frost"): "D", ("Shaman", "Elemental"): "D",
+    ("Mage", "Fire"): "F", ("Warlock", "Destruction"): "F", ("Mage", "Frost"): "F",
+    ("Evoker", "Devastation"): "F", ("Druid", "Balance"): "F",
+}
+# ── 최근 튜닝 모멘텀 (PvE 순변동) — **공식 블리자드 핫픽스 시계열** ──────────
+# 출처: Icy-Veins(=Wowhead 한글판과 동일 블리자드 원본) 튜닝 패스 3회 종합:
+#   ① 한밤 레이드前(pre-raid) ② 5/5 대규모 ③ 5/28 신화後(post-mythic). 2026-06 리서치.
+# 방향: ↑↑강한버프 ↑버프 →유지/혼재 ↓너프 ↓↓강한너프 (티어=현재강도 / 이건=추세).
+TUNING: dict[tuple[str, str], tuple[str, str]] = {
+    ("Warrior", "Arms"): ("↑↑", "3패스 연속 버프 (전체+15%·마무리+20%·압도+20%) — 급상승"),
+    ("Warrior", "Fury"): ("↑↑", "전체+10%·+5%·마무리/학살자 버프 누적"),
+    ("Priest", "Shadow"): ("↑↑", "전체+16% + 죽음의말+80%·환영+35% — 대폭 버프"),
+    ("Rogue", "Subtlety"): ("↑↑", "기습/그림자칼+20%·전체+7% 누적"),
+    ("Mage", "Arcane"): ("↑↑", "비전작렬+25%·권능의부담 대폭 — 5/28 추가버프"),
+    ("Hunter", "Marksmanship"): ("↑↑", "신속+20%·폭발+100%·다중+30% 대폭"),
+    ("Hunter", "Survival"): ("↑↑", "평타+35%·폭탄+80%·전체+4% 누적 — raid S 등극"),
+    ("Hunter", "Beast Mastery"): ("↑↑", "날카로운+35%·코브라+100%·+4%×2 — 본캐, 계속 버프받는중"),
+    ("Druid", "Balance"): ("↑↑", "전체+20%(세트너프 동반) — 큰 상향"),
+    ("Warlock", "Affliction"): ("↑↑", "불안정+20%·부패+20%·고통+10% 부활버프"),
+    ("Demon Hunter", "Havoc"): ("↑", "전체+6%·핵심기+10% — 데바스 대비 상향"),
+    ("Rogue", "Outlaw"): ("↑", "전체+9% 버프"),
+    ("Shaman", "Enhancement"): ("↑", "전체+8%·+5% 누적"),
+    ("Druid", "Feral"): ("↑", "전체+6%·+3%(광기-8% 동반) — 순상향"),
+    ("Paladin", "Retribution"): ("↑", "근접+25%·심판+25%(신성폭풍-12%·최후선고 조정) 순상향"),
+    ("Shaman", "Elemental"): ("↑", "사슬/지진+10% 소폭"),
+    ("Death Knight", "Frost"): ("↑", "+5%·+4% 버프 — raid S 유지"),
+    ("Mage", "Fire"): ("→", "파이어볼/점화 버프 ↔ 점화확산 너프 — 혼재"),
+    ("Warlock", "Destruction"): ("→", "혼돈의화살+35% ↔ 헬콜러 너프 — 혼재"),
+    ("Rogue", "Assassination"): ("→", "큰 변동 없음 (소폭 버프만)"),
+    ("Evoker", "Devastation"): ("↓", "대량분해 보너스 15→10% 너프"),
+    ("Warlock", "Demonology"): ("↓", "악마 재조정·영혼수확자 대폭 너프"),
+    ("Death Knight", "Unholy"): ("↓", "전체-20%(표적버프 동반)·마구스/기사 -15~25%"),
+    ("Evoker", "Augmentation"): ("↓↓", "전체+13%였다가 세트 반토막·-5% — 너프 추세"),
+    ("Demon Hunter", "Devourer"): ("↓↓", "전체-4%·-3%·섬멸자 너프 — 과튜닝 회수중"),
+}
+
+META_NOTE: dict[tuple[str, str], str] = {
+    ("Death Knight", "Frost"): "레이드 S(보스딜 1위)↔쐐기 D(쿨기의존·단일약함) 극단 분리",
+    ("Mage", "Frost"): "레이드 강함↔쐐기 F(실측 25위, mythicstats) — 레이드/쐐기 극단 분리",
+    ("Hunter", "Survival"): "레이드 S(전체딜)↔쐐기 C(실측 9위)",
+    ("Warlock", "Destruction"): "레이드 강함↔쐐기 F(실측 24위) — 단일 약함",
+    ("Druid", "Balance"): "쐐기 F(실측 27위 최하위, mythicstats)",
+    ("Evoker", "Devastation"): "쐐기 F(실측 26위) — 너프 후 추락",
+    ("Hunter", "Beast Mastery"): "본인 본캐 — 레이드 B/쐐기 C(실측 13위). 단일 약함. 무빙자유라 특임차출 많음(파스 불리요인)",
+}
+
+# ── 특임/유틸 부담 (1낮음 ~ 5높음) — **파스 불리 요인** ──────────────────────
+# 사용자 통찰: 상위 경쟁자는 '로그 몰아주기'(클리어팟이 특정 1명에게 딜 몰아주고 특임 면제)
+# 가능하나, 일반 유저는 강제 특임을 본인이 맡음 → 그 시간 딜 손실 = 파스/일관성 직격.
+# ★사용자 교정(중요)★: "이동 자유=편함"이 아니라 **"이동 자유=특임 차출 1순위"**.
+#   무빙 자유로운 직업(특히 캐스팅없는 야냥)은 레이드가 "네가 가서 처리해"로 구슬소각·미끼·
+#   원거리기믹·키팅을 다 떠맡김 (벨로렌 거북상 구슬특임이 정확한 예). → 부담 높음.
+#   캐스터/터렛형(고정딜)이 오히려 "나 캐스팅중이라 못 감"으로 특임 빠지기 쉬움 = 부담 낮음.
+# 부담 요소: 이동기믹 셔틀·소각/미끼·키팅·차단·해제·외생기 강제. 무빙+생존기 좋을수록 차출↑.
+UTILITY_BURDEN: dict[tuple[str, str], tuple[int, str]] = {
+    # 부담 낮음 (고정 캐스터·터렛형 — "캐스팅중"으로 특임 빠지기 쉬움 → 파스 유리)
+    ("Warlock", "Destruction"): (2, "고정 캐스터, 관문 외엔 셔틀 차출 적음"),
+    ("Warlock", "Demonology"): (2, "셋업형 고정딜, 특임 빠지기 쉬움"),
+    ("Warlock", "Affliction"): (2, "도트 깔고 고정 — 자리 이탈 손해라 특임 면제 경향"),
+    ("Mage", "Fire"): (2, "연소 윈도우 묶임 → 특임 차출 적음"),
+    ("Mage", "Arcane"): (2, "버스트 셋업 묶임, 고정딜"),
+    ("Priest", "Shadow"): (2, "도트+고정 채널, 무빙 약해 특임 잘 안 줌"),
+    ("Evoker", "Devastation"): (2, "공명/시전 묶임 (25야드 제약)"),
+    ("Mage", "Frost"): (3, "고정캐스터지만 블링크로 가끔 셔틀"),
+    # 중간
+    ("Hunter", "Marksmanship"): (3, "원거리지만 조준사격 캐스팅 묶임 — 야냥보단 덜 차출"),
+    ("Warrior", "Arms"): (3, "돌진 기동 있어 셔틀 차출"),
+    ("Warrior", "Fury"): (3, "돌진·기동기믹 차출"),
+    ("Death Knight", "Unholy"): (3, "그립 쫄집결·AMZ 강제 유틸"),
+    ("Death Knight", "Frost"): (3, "그립·AMZ 차출"),
+    ("Rogue", "Assassination"): (3, "차단·해제독·기믹 관여"),
+    ("Rogue", "Subtlety"): (3, "차단·기절·산개 셔틀"),
+    ("Shaman", "Elemental"): (3, "정화·토템·이동기믹 차출"),
+    ("Demon Hunter", "Devourer"): (3, "낙인·차단 관여 (메타 유지 묶임은 완화)"),
+    # 높음 (무빙 자유·생존기 좋음 → 레이드가 이동기믹/소각/미끼/키팅 다 떠맡김 = 파스 불리)
+    ("Hunter", "Beast Mastery"): (4, "★캐스팅0·100% 이동딜 = 레이드 이동기믹/구슬소각/미끼 차출 1순위 (벨로렌 거북상 구슬특임이 예). 본인 지적 반영 — 무빙자유=특임자석"),
+    ("Hunter", "Survival"): (4, "근접+높은 기동, 미끼·차단·기믹 차출 잦음"),
+    ("Demon Hunter", "Havoc"): (4, "최고 기동성 — 혼돈낙인·대규모차단·산개 단골 차출"),
+    ("Monk", "Windwalker"): (4, "다리차기·고리·기믹 셔틀 단골 — 딜 끊김 잦음"),
+    ("Rogue", "Outlaw"): (4, "기동 좋아 산개·셔틀 차출 잦음"),
+    ("Druid", "Balance"): (4, "이동캐스팅+군중제어·미끼·키팅·전투부활 강제"),
+    ("Druid", "Feral"): (4, "고기동 근접 — 키팅·미끼·전투부활·산개 단골"),
+    ("Shaman", "Enhancement"): (4, "토템셔틀·대규모해제·키팅 차출 잦음"),
+    ("Paladin", "Retribution"): (4, "축복(보호/희생)·외생기·해제 강제 — 유틸왕이라 딜 양보 잦음"),
+    ("Evoker", "Augmentation"): (5, "버퍼라 본인딜<남딜 — 파스 개념 자체가 불리 (지원특화)"),
+}
+
+
+def _spec_guide() -> dict:
+    """스펙별 팝업 가이드(설명/로테/꿀팁) — data/spec_guide.json. 매 요청 재로드(편집 즉시반영)."""
+    p = DATA_DIR / "spec_guide.json"
+    if not p.exists():
+        return {}
+    try:
+        import json as _json
+        return _json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
 
 
 @app.get("/api/timeline/{rid}/{fid}/{char}", response_class=HTMLResponse)

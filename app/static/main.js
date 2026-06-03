@@ -48,6 +48,305 @@ const state = {
   selectedRowIdx: -1, // filtered rows 안의 인덱스
 };
 
+// ── 메타 분석 (4차원 종합 표) ────────────────────────────────────────────
+let _metaLoaded = false;
+let _metaRows = [];   // 팝업용 행 데이터 보관
+async function loadSpecMeta(force) {
+  if (_metaLoaded && !force) return;
+  const body = $('#meta-body');
+  body.innerHTML = '<tr><td colspan="18" class="empty">로딩…</td></tr>';
+  try {
+    const r = await fetch('/api/spec-meta');
+    if (!r.ok) throw new Error(`HTTP ${r.status} — run_full_analysis.py 필요할 수 있음`);
+    const j = await r.json();
+    renderSpecMeta(j.rows || []);
+    _metaLoaded = true;
+  } catch (e) {
+    body.innerHTML = `<tr><td colspan="18" class="empty">로드 실패: ${esc(e.message)}</td></tr>`;
+  }
+}
+
+function renderSpecMeta(rows) {
+  const fmt = (v, d = 2) => (v == null || Number.isNaN(v)) ? '-' : Number(v).toFixed(d);
+  const body = $('#meta-body');
+  _metaRows = rows;
+  body.innerHTML = rows.map((r, i) => {
+    const piHi = r.pi_indep != null && r.pi_indep >= 0.9;
+    const upDep = r.uplift_pct != null && r.uplift_pct >= 3;
+    // 광딜 프로필 강조: >1.4 다타겟 특화(초록), <1.1 단일형(흐림)
+    const aoeHi = r.aoe_ratio != null && r.aoe_ratio >= 1.4;
+    // 스킬천장: 1~2 쉬움(초록), 4~5 어려움(빨강), 셀 tooltip=근거
+    const sc = r.skill_ceiling || 0;
+    const scCls = sc >= 4 ? 'bad' : (sc >= 1 && sc <= 2 ? 'good' : 'mute');
+    const scTxt = sc ? `${sc} ${r.skill_label || ''}` : '-';
+    // 메타 티어 색: S/A 초록, B 기본, C/D 빨강. note 있으면 ※ 표시 + title
+    const tierCls = (t) => t === 'S' || t === 'A' ? 'good' : (t === 'C' || t === 'D' ? 'bad' : 'mute');
+    const tuneCls = (t) => (t === '↑↑' || t === '↑') ? 'good' : ((t === '↓↓' || t === '↓') ? 'bad' : 'mute');
+    const note = r.meta_note || '';
+    const tierCell = (t) => `<td class="right num ${tierCls(t)}" title="${esc(note)}">${t || '-'}${note ? '<span class="note-mark">※</span>' : ''}</td>`;
+    return `
+    <tr class="meta-row" data-idx="${i}" title="클릭 = 특징 팝업">
+      <td class="mute num">${r.rank}</td>
+      <td>${esc(r.kr || (r.class_kr + ' ' + r.spec_kr))}</td>
+      <td class="right num strong">${fmt(r.score, 3)}</td>
+      <td class="right num">${fmt(r.ease)}</td>
+      <td class="right mute num">${r.rot_rank != null ? Math.round(r.rot_rank) : '-'}</td>
+      <td class="right num ${piHi ? 'good' : ''}">${fmt(r.pi_indep)}</td>
+      <td class="right num ${upDep ? 'bad' : 'mute'}">${r.uplift_pct != null ? (r.uplift_pct >= 0 ? '+' : '') + fmt(r.uplift_pct) + '%' : '-'}</td>
+      <td class="right num">${fmt(r.consistency)}</td>
+      ${tierCell(r.raid_tier)}
+      ${tierCell(r.mplus_tier)}
+      <td class="right num ${tuneCls(r.tuning)}" title="${esc(r.tuning_note || '')}">${r.tuning || '-'}</td>
+      <td class="right num ${r.pop_favor >= 70 ? 'good' : (r.pop_favor != null && r.pop_favor < 35 ? 'bad' : 'mute')}" title="실제 모집단 ~${r.pop_avg != null ? Number(r.pop_avg).toLocaleString() : '?'}명">${r.pop_favor != null ? Math.round(r.pop_favor) : '-'}</td>
+      <td class="right num ${r.burden >= 4 ? 'bad' : (r.burden && r.burden <= 2 ? 'good' : 'mute')}" title="${esc(r.burden_note || '')}">${r.burden || '-'}</td>
+      <td class="right num ${aoeHi ? 'good' : 'mute'}">${r.aoe_ratio != null ? fmt(r.aoe_ratio) : '-'}</td>
+      <td class="right num ${scCls}" title="${esc(r.skill_reason || '')}">${scTxt}</td>
+      <td class="right mute num">${r.unique_spells != null ? Math.round(r.unique_spells) : '-'}</td>
+      <td class="right mute num">${r.apm != null ? Math.round(r.apm) : '-'}</td>
+      <td class="right mute num">${r.cleave_med != null ? Math.round(r.cleave_med).toLocaleString() : '-'}</td>
+    </tr>`;
+  }).join('');
+  updateSortIndicators();
+}
+
+// ── 메타 표 정렬 (헤더 클릭) ───────────────────────────────────────────
+const _TIER_ORD = { S: 5, A: 4, B: 3, C: 2, D: 1 };
+const _TUNE_ORD = { '↑↑': 2, '↑': 1, '→': 0, '↓': -1, '↓↓': -2 };
+let _metaSort = { field: 'score', dir: -1 };
+function _metaSortVal(r, field) {
+  if (field === 'kr') return r.kr || ((r.class_kr || '') + ' ' + (r.spec_kr || ''));
+  if (field === 'raid_tier' || field === 'mplus_tier') return _TIER_ORD[r[field]] || 0;
+  if (field === 'tuning') return (r.tuning in _TUNE_ORD) ? _TUNE_ORD[r.tuning] : -99;
+  const v = r[field];
+  return (v == null || Number.isNaN(Number(v))) ? -Infinity : Number(v);
+}
+function sortMetaRows(field) {
+  if (_metaSort.field === field) _metaSort.dir *= -1;       // 같은 컬럼=방향 토글
+  else _metaSort = { field, dir: field === 'kr' ? 1 : -1 }; // 새 컬럼=숫자 내림/문자 오름
+  const dir = _metaSort.dir;
+  const sorted = _metaRows.slice().sort((a, b) => {
+    const va = _metaSortVal(a, field), vb = _metaSortVal(b, field);
+    if (typeof va === 'string') return dir * va.localeCompare(vb, 'ko');
+    if (va === vb) return a.rank - b.rank;  // 동점은 종합순위로 안정 정렬
+    return dir * (va - vb);
+  });
+  renderSpecMeta(sorted);
+}
+function updateSortIndicators() {
+  $$('#meta-table thead th[data-sort]').forEach(th => {
+    const active = th.dataset.sort === _metaSort.field;
+    th.classList.toggle('sorted', active);
+    let arrow = th.querySelector('.sort-arrow');
+    if (active) {
+      if (!arrow) { arrow = document.createElement('span'); arrow.className = 'sort-arrow'; th.appendChild(arrow); }
+      arrow.textContent = _metaSort.dir < 0 ? ' ▼' : ' ▲';
+    } else if (arrow) { arrow.remove(); }
+  });
+}
+
+// ── 스펙 특징 팝업 ─────────────────────────────────────────────────────
+const _fmtN = (v, d = 2) => (v == null || Number.isNaN(Number(v))) ? '-' : Number(v).toFixed(d);
+const _diffLabel = (rank) => {
+  if (rank == null) return '?';
+  if (rank <= 5) return '매우 쉬움'; if (rank <= 11) return '쉬움';
+  if (rank <= 17) return '중간'; if (rank <= 22) return '어려움';
+  return '매우 어려움';
+};
+
+function specTraits(r) {
+  const out = [];
+  const rank = r.rot_rank;
+  out.push({ tone: rank <= 11 ? 'good' : (rank >= 18 ? 'bad' : ''),
+    text: `딜사이클 <b>${_diffLabel(rank)}</b> (난이도 #${rank != null ? Math.round(rank) : '?'}/27)` });
+  const sc = r.score;
+  const pt = sc >= 0.85 ? '파스 매우 잘 뽑힘' : (sc >= 0.70 ? '파스 잘 뽑히는 편'
+    : (sc >= 0.50 ? '파스 보통' : '파스 까다로움'));
+  out.push({ tone: sc >= 0.70 ? 'good' : (sc < 0.50 ? 'bad' : ''),
+    text: `<b>${pt}</b> (종합 ${_fmtN(sc, 3)} · ${r.rank}위)` });
+  if (r.pi_indep != null) {
+    const dep = r.uplift_pct != null && r.uplift_pct >= 3;
+    out.push({ tone: dep ? 'bad' : 'good', text: dep
+      ? `마력주입(PI) <b>의존</b> — uplift +${_fmtN(r.uplift_pct, 1)}% (사제 버프 있어야 고파스)`
+      : `마력주입(PI) <b>독립</b> — 버프 없이도 OK (uplift ${r.uplift_pct >= 0 ? '+' : ''}${_fmtN(r.uplift_pct, 1)}%)` });
+  }
+  if (r.consistency != null)
+    out.push({ tone: r.consistency >= 0.85 ? 'good' : (r.consistency < 0.60 ? 'bad' : ''),
+      text: r.consistency >= 0.85 ? '기믹/RNG에 <b>안정적</b> (일관성↑)'
+        : (r.consistency < 0.60 ? '기믹/RNG에 <b>흔들림</b> (일관성↓)' : '일관성 보통') });
+  out.push({ tone: 'info',
+    text: `실전 성능 — 레이드 <b>${r.raid_tier || '?'}</b> · 쐐기 <b>${r.mplus_tier || '?'}</b> <span class="sm-muted">(순수 성능, 파스 무관)</span>` });
+  if (r.meta_note) out.push({ tone: 'warn', text: `⚠ ${esc(r.meta_note)}` });
+  if (r.tuning) {
+    const up = r.tuning.includes('↑'), down = r.tuning.includes('↓');
+    out.push({ tone: up ? 'good' : (down ? 'bad' : ''),
+      text: `최근 튜닝 <b>${r.tuning}</b> ${up ? '(버프받는 중·상승세)' : (down ? '(너프 중·하락세)' : '(유지)')} — ${esc(r.tuning_note || '')}` });
+  }
+  if (r.pop_favor != null) {
+    const many = r.pop_favor >= 70, few = r.pop_favor < 35;
+    out.push({ tone: '',
+      text: `인구 <b>~${r.pop_avg != null ? Number(r.pop_avg).toLocaleString() : '?'}명</b> ${many ? '(많음 — median 파스엔 유리)' : (few ? '(적음 — 고인물풀)' : '(중간)')} <span class="sm-muted">점수 미반영·1%추구자엔 무의미</span>` });
+  }
+  if (r.burden) {
+    const hi = r.burden >= 4, lo = r.burden <= 2;
+    out.push({ tone: lo ? 'good' : (hi ? 'bad' : ''),
+      text: `특임/유틸 부담 <b>${r.burden}/5</b> ${hi ? '(높음 — 강제 기믹에 딜 끊김, 파스 불리)' : (lo ? '(낮음 — 순수딜 집중 가능, 파스 유리)' : '(중간)')} — ${esc(r.burden_note || '')}` });
+  }
+  if (r.aoe_ratio != null)
+    out.push({ tone: '', text: r.aoe_ratio >= 1.4 ? `<b>다타겟·쫄파이 특화</b> (광딜비 ${_fmtN(r.aoe_ratio)})`
+      : (r.aoe_ratio < 1.1 ? `<b>단일 위주</b> (광딜비 ${_fmtN(r.aoe_ratio)})` : `광/단일 균형 (${_fmtN(r.aoe_ratio)})`) });
+  if (r.skill_ceiling >= 4)
+    out.push({ tone: 'bad', text: `최적화 <b>스킬천장 높음</b> (${r.skill_label}) — ${esc(r.skill_reason || '')}` });
+  return out;
+}
+
+function openSpecModal(idx) {
+  const r = _metaRows[idx];
+  if (!r) return;
+  const traits = specTraits(r).map(t =>
+    `<div class="sm-trait ${t.tone}">${t.text}</div>`).join('');
+  const cell = (label, val) => `<div class="sm-cell"><span>${label}</span><b>${val}</b></div>`;
+  const grid = [
+    cell('로테 쉬움', _fmtN(r.ease)),
+    cell('난이도 순위', r.rot_rank != null ? '#' + Math.round(r.rot_rank) : '-'),
+    cell('PI 독립', _fmtN(r.pi_indep)),
+    cell('PI uplift', r.uplift_pct != null ? (r.uplift_pct >= 0 ? '+' : '') + _fmtN(r.uplift_pct, 1) + '%' : '-'),
+    cell('일관성', _fmtN(r.consistency)),
+    cell('레이드 티어', r.raid_tier || '-'),
+    cell('쐐기 티어', r.mplus_tier || '-'),
+    cell('최근 튜닝', r.tuning || '-'),
+    cell('인구', r.pop_avg != null ? '~' + Number(r.pop_avg).toLocaleString() : '-'),
+    cell('특임 부담', r.burden ? r.burden + '/5' : '-'),
+    cell('광딜 프로필', _fmtN(r.aoe_ratio)),
+    cell('스킬천장', r.skill_ceiling ? r.skill_ceiling + ' ' + (r.skill_label || '') : '-'),
+    cell('APM', r.apm != null ? Math.round(r.apm) : '-'),
+    cell('스킬 수', r.unique_spells != null ? Math.round(r.unique_spells) : '-'),
+    cell('쫄파이 DPS', r.cleave_med != null ? Math.round(r.cleave_med).toLocaleString() : '-'),
+  ].join('');
+  // ── 우측 패널: 스펙 설명 / 로테이션 / 꿀팁 ──
+  const tips = Array.isArray(r.guide_tips) ? r.guide_tips : [];
+  const tipsHtml = tips.length ? tips.map(tp => {
+    const body = esc(tp.d || '').replace(/\n/g, '<br>');
+    const src = tp.src ? `<div class="sm-tip-src">— ${esc(tp.src)}</div>` : '';
+    const sc = tp.scope || '공용';
+    const scCls = sc === '쐐기' ? 'mplus' : (sc === '레이드' ? 'raid' : 'both');
+    const badge = `<span class="sm-tip-scope ${scCls}">${esc(sc)}</span>`;
+    return `<div class="sm-tip"><div class="sm-tip-t">💡 ${esc(tp.t || '')} ${badge}</div><div class="sm-tip-d">${body}</div>${src}</div>`;
+  }).join('') : `<div class="sm-empty">아직 꿀팁 없음 — 영상/가이드 찾으면 추가됨</div>`;
+  const rightHtml = `
+    <div class="sm-sec-label">스펙 설명</div>
+    <div class="sm-guide-desc">${r.guide_desc ? esc(r.guide_desc) : '<span class="sm-empty">설명 미작성</span>'}</div>
+    <div class="sm-sec-label">로테이션</div>
+    <div class="sm-guide-rot">${r.guide_rotation ? esc(r.guide_rotation) : '<span class="sm-empty">로테 미작성</span>'}</div>
+    <div class="sm-sec-label">꿀팁 ${tips.length ? '(' + tips.length + ')' : ''}</div>
+    <div class="sm-tips">${tipsHtml}</div>`;
+
+  $('#spec-modal-body').innerHTML = `
+    <div class="sm-head">
+      <span class="sm-rank">#${r.rank}</span>
+      <span class="sm-title">${esc(r.kr || (r.class_kr + ' ' + r.spec_kr))}</span>
+      <span class="sm-score">종합 ${_fmtN(r.score, 3)}</span>
+    </div>
+    <div class="sm-cols">
+      <div class="sm-col-left">
+        <div class="sm-sec-label">특징 요약</div>
+        <div class="sm-traits">${traits}</div>
+        <div class="sm-sec-label">지표 상세</div>
+        <div class="sm-grid">${grid}</div>
+      </div>
+      <div class="sm-col-right">${rightHtml}</div>
+    </div>
+    <div class="sm-foot">난이도·스킬천장·꿀팁 = 유튜브(12.0.5)/가이드 큐레이션 · 레이드/쐐기 티어 = 순수 성능(파스 무관) · PI독립·일관성·광딜·인구 = 로그 데이터</div>`;
+  $('#spec-modal').classList.add('show');
+}
+function closeSpecModal() { $('#spec-modal').classList.remove('show'); }
+
+// ── 딜사이클 (로테이션 베이스) ─────────────────────────────────────────
+let _rotData = null, _bossCycle = null;
+const _rotSel = { cls: null, spec: null, build: null, mode: 'general' };
+async function loadRotation() {
+  if (_rotData) { renderRotControls(); return; }
+  $('#rot-body').innerHTML = '<div class="empty">로딩…</div>';
+  try {
+    const [r, b] = await Promise.all([fetch('/api/rotation'), fetch('/api/boss-dealcycle')]);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    _rotData = await r.json();
+    _bossCycle = b.ok ? (await b.json()).data : {};
+    renderRotControls();
+  } catch (e) {
+    $('#rot-body').innerHTML = `<div class="empty">로드 실패: ${esc(e.message)}</div>`;
+  }
+}
+function _rotClasses() { return Object.keys(_rotData).filter(k => !k.startsWith('_')); }
+function renderRotControls() {
+  const classes = _rotClasses();
+  if (!_rotSel.cls || !classes.includes(_rotSel.cls)) _rotSel.cls = classes[0];
+  const clsObj = _rotData[_rotSel.cls];
+  const specs = Object.keys(clsObj.specs || {});
+  if (!_rotSel.spec || !specs.includes(_rotSel.spec)) _rotSel.spec = specs[0];
+  const builds = Object.keys(clsObj.specs[_rotSel.spec].builds || {});
+  if (!_rotSel.build || !builds.includes(_rotSel.build)) _rotSel.build = builds[0];
+  // 콤보박스 채우기
+  const opt = (v, label, sel) => `<option value="${esc(v)}" ${v === sel ? 'selected' : ''}>${esc(label)}</option>`;
+  $('#rot-class').innerHTML = classes.map(c => opt(c, _rotData[c].kr || c, _rotSel.cls)).join('');
+  $('#rot-spec').innerHTML = specs.map(s => opt(s, clsObj.specs[s].kr || s, _rotSel.spec)).join('');
+  $('#rot-build').innerHTML = builds.map(b => opt(b, b, _rotSel.build)).join('');
+  if (_rotSel.mode === 'boss') renderRotBoss(); else renderRotBody();
+}
+
+function renderRotBoss() {
+  const key = `${_rotSel.cls}|${_rotSel.spec}`;
+  const bosses = _bossCycle && _bossCycle[key];
+  if (!bosses || !Object.keys(bosses).length) {
+    $('#rot-body').innerHTML = '<div class="empty">이 전문화는 보스별 실측 데이터 없음 (top100 캐시 부족)</div>';
+    return;
+  }
+  // 킬타임 순 정렬
+  const cards = Object.entries(bosses).sort((a, b) => a[1].kill_s - b[1].kill_s).map(([eid, d]) => {
+    const opener = (d.opener || []).map(o => `<span class="bc-skill">${esc(o.skill)}</span>`).join('<span class="bc-arrow">→</span>');
+    const cds = (d.cooldowns || []).map(c => `${esc(c.skill)} <b>${c.first_s}s</b>·${c.count}회`).join(' / ');
+    let boxHtml = '';
+    if (d.box) {
+      const b = d.box;
+      if (b.opener_pct >= 70) boxHtml = `오프닝 사용 (${b.opener_pct}%)`;
+      else if (b.delayed_first_s != null) boxHtml = `<b>오프닝 X → 첫 사용 ~${b.delayed_first_s}s</b> <span class="bc-mute">(오프닝 ${b.opener_pct}%, 지연 ${b.delayed_n}판)</span>`;
+      else boxHtml = `혼재 (오프닝 ${b.opener_pct}%)`;
+    }
+    const lust = d.lust ? `블러드 ${d.lust.cover} @${d.lust.first_s}s` : '블러드 데이터없음';
+    const pot = d.potion ? `물약 ${d.potion.cover}` : '';
+    const ups = (d.buff_uptime || []).map(u => `${esc(u.buff)} ${u.pct}%`).join(' · ');
+    const build = d.build ? `<span class="bc-build ${d.build.pick.includes('광') || d.build.pick.includes('난타') ? 'aoe' : 'st'}">${esc(d.build.pick)} (광 ${d.build.aoe_pct}%)</span>` : '';
+    return `<div class="bc-card">
+      <div class="bc-head"><span class="bc-boss">${esc(d.boss_kr)}</span>
+        <span class="bc-kill">킬 ${d.kill_s}s · n=${d.n}</span>${build}</div>
+      <div class="bc-row"><span class="bc-label">오프너${d.opener_match != null ? ` <span class="bc-match">대표 ${d.opener_match}%</span>` : ''}</span><div class="bc-opener">${opener}</div></div>
+      ${cds ? `<div class="bc-row"><span class="bc-label">쿨기</span><div>${cds}</div></div>` : ''}
+      ${boxHtml ? `<div class="bc-row"><span class="bc-label">상자</span><div>${boxHtml}</div></div>` : ''}
+      <div class="bc-row"><span class="bc-label">타이밍</span><div class="bc-mute">${lust}${pot ? ' · ' + pot : ''}</div></div>
+      ${ups ? `<div class="bc-row"><span class="bc-label">버프업타임</span><div class="bc-mute">${ups}</div></div>` : ''}
+    </div>`;
+  }).join('');
+  $('#rot-body').innerHTML = `<div class="bc-note">⚠ top100 실측 역산. 블러드는 펫블러드(야수)외엔 외부주술사라 받은판만 집계(커버리지 표기). 물약 추적 희박=참고.</div><div class="bc-grid">${cards}</div>`;
+}
+function renderRotBody() {
+  const spec = _rotData[_rotSel.cls].specs[_rotSel.spec];
+  const build = spec.builds[_rotSel.build];
+  if (!build) { $('#rot-body').innerHTML = '<div class="empty">빌드 없음</div>'; return; }
+  const list = (arr) => arr && arr.length
+    ? `<ol class="rot-list">${arr.map(x => `<li>${esc(x)}</li>`).join('')}</ol>`
+    : '<div class="sm-empty">데이터 없음</div>';
+  $('#rot-body').innerHTML = `
+    <div class="rot-meta">
+      <div class="rot-summary">${esc(spec.summary || '')}</div>
+      ${spec.stat ? `<div class="rot-stat"><b>스탯</b> ${esc(spec.stat)}</div>` : ''}
+      ${build.hero_note ? `<div class="rot-hero"><b>${esc(_rotSel.build)}</b> ${esc(build.hero_note)}</div>` : ''}
+    </div>
+    <div class="rot-cols">
+      <div class="rot-col"><div class="rot-col-h single">단일 우선순위</div>${list(build.single)}</div>
+      <div class="rot-col"><div class="rot-col-h aoe">광역 우선순위</div>${list(build.aoe)}</div>
+      <div class="rot-col"><div class="rot-col-h opener">오프너</div>${list(build.opener)}</div>
+    </div>`;
+}
+
 // ── 데이터 로드 ──────────────────────────────────────────────────────────
 async function loadRankings(difficulty) {
   $('#meta').textContent = `${difficulty} 로딩 중…`;
@@ -93,10 +392,18 @@ function populateFilters() {
         .map(([id, nm]) => `<option value="${id}">${esc(nm)}</option>`)
         .join('');
 
-  // 클래스 — 중복 제거 + 정렬
-  const classes = [...new Set(state.rows.map(r => r.class).filter(Boolean))].sort();
+  // 영문 class/spec → 한글 매핑 (백엔드가 행마다 class_kr/spec_kr 동봉)
+  state.clsKr = {}; state.specKr = {};
+  for (const r of state.rows) {
+    if (r.class && r.class_kr) state.clsKr[r.class] = r.class_kr;
+    if (r.spec && r.spec_kr) state.specKr[r.spec] = r.spec_kr;
+  }
+
+  // 클래스 — 한글 표시, value 는 영문(필터/트리 API 용). 한글 가나다순.
+  const classes = [...new Set(state.rows.map(r => r.class).filter(Boolean))]
+    .sort((a, b) => (state.clsKr[a]||a).localeCompare(state.clsKr[b]||b, 'ko'));
   $('#class-select').innerHTML = '<option value="">(전체)</option>'
-    + classes.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+    + classes.map(c => `<option value="${esc(c)}">${esc(state.clsKr[c]||c)}</option>`).join('');
 
   // 스펙은 클래스 선택에 따라 갱신
   updateSpecOptions();
@@ -108,10 +415,14 @@ function updateSpecOptions() {
     state.rows
       .filter(r => !cls || r.class === cls)
       .map(r => r.spec).filter(Boolean)
-  )].sort();
+  )].sort((a, b) => (state.specKr[a]||a).localeCompare(state.specKr[b]||b, 'ko'));
   $('#spec-select').innerHTML = '<option value="">(전체)</option>'
-    + specs.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
+    + specs.map(s => `<option value="${esc(s)}">${esc(state.specKr[s]||s)}</option>`).join('');
 }
+
+// 영문 class/spec → 한글 (state 매핑, 없으면 영문 그대로)
+function clsKr(en) { return (state.clsKr && state.clsKr[en]) || en; }
+function specKr(en) { return (state.specKr && state.specKr[en]) || en; }
 
 // ── 필터 적용 + 테이블 렌더 ─────────────────────────────────────────────
 function filteredRows() {
@@ -183,7 +494,7 @@ function renderBuild(d, row) {
       <div class="build-section">
         <div class="build-row">
           <span class="k">캐릭</span>
-          <span class="v">${esc(row.character)} · ${esc(row.class)} ${esc(row.spec)} · ilvl ${row.item_level ?? '?'}</span>
+          <span class="v">${esc(row.character)} · ${esc(clsKr(row.class))} ${esc(specKr(row.spec))} · ilvl ${row.item_level ?? '?'}</span>
         </div>
         <div class="build-row">
           <span class="k">DPS</span>
@@ -306,6 +617,8 @@ function switchTab(tab) {
   // 탭 → pane 매핑: heroic/mythic 은 공용 ranking, 나머지는 각자 pane.
   const paneId = (tab === 'arbitrary') ? 'arbitrary'
               : (tab === 'comparison') ? 'comparison'
+              : (tab === 'meta') ? 'meta'
+              : (tab === 'rotation') ? 'rotation'
               : 'ranking';
   document.querySelector(`#pane-${paneId}`).classList.add('active');
 }
@@ -318,7 +631,31 @@ function bind() {
     switchTab(tab);
     if (tab === 'heroic' || tab === 'mythic') {
       loadRankings(tab);
+    } else if (tab === 'meta') {
+      loadSpecMeta();
+    } else if (tab === 'rotation') {
+      loadRotation();
     }
+  });
+
+  // 딜사이클 콤보박스
+  $('#rot-class').addEventListener('change', e => {
+    _rotSel.cls = e.target.value; _rotSel.spec = null; _rotSel.build = null; renderRotControls();
+  });
+  $('#rot-spec').addEventListener('change', e => {
+    _rotSel.spec = e.target.value; _rotSel.build = null; renderRotControls();
+  });
+  $('#rot-build').addEventListener('change', e => {
+    _rotSel.build = e.target.value;
+    if (_rotSel.mode === 'boss') renderRotBoss(); else renderRotBody();
+  });
+  // 일반/보스별 모드 토글
+  document.querySelector('.rot-mode')?.addEventListener('click', e => {
+    const btn = e.target.closest('.rot-mode-btn');
+    if (!btn) return;
+    _rotSel.mode = btn.dataset.mode;
+    $$('.rot-mode-btn').forEach(b => b.classList.toggle('active', b === btn));
+    if (_rotSel.mode === 'boss') renderRotBoss(); else renderRotBody();
   });
 
   // 임의 로그
@@ -366,6 +703,27 @@ function bind() {
       { label: `▼ 비교 아래 row 추가 (${r.character})`,
         onClick: () => compLoadInto('bottom', r.report_id, r.fight_id, r.character) },
     ]);
+  });
+
+  // 메타 표 헤더 클릭 → 정렬 (내림/오름 토글)
+  const _mthead = document.querySelector('#meta-table thead');
+  if (_mthead) _mthead.addEventListener('click', e => {
+    const th = e.target.closest('th[data-sort]');
+    if (th) sortMetaRows(th.dataset.sort);
+  });
+  // 메타 표 row 클릭 → 특징 팝업
+  $('#meta-body').addEventListener('click', e => {
+    const tr = e.target.closest('tr.meta-row');
+    if (!tr) return;
+    openSpecModal(parseInt(tr.dataset.idx, 10));
+  });
+  // 팝업 닫기: 배경 클릭 / X / Esc
+  const sm = $('#spec-modal');
+  if (sm) sm.addEventListener('click', e => {
+    if (e.target === sm || e.target.closest('.sm-close')) closeSpecModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeSpecModal();
   });
 
   // 빌드 패널 위임 — 매 row 클릭마다 재렌더 → 위임 패턴 필수
@@ -528,8 +886,11 @@ function renderBuildInto(selector, d, row) {
   const treeUrl = hasTree
     ? `/api/talent-tree/${encodeURIComponent(row.report_id)}/${row.fight_id}/${encodeURIComponent(row.character)}?cls=${encodeURIComponent(row.class)}&spec=${encodeURIComponent(row.spec)}`
     : '';
+  // 추론된 spec 한글 (백엔드 inferred_*_kr, 없으면 매핑 fallback)
+  const clsK = d.inferred_class_kr || clsKr(row.class);
+  const specK = d.inferred_spec_kr || specKr(row.spec);
   const treeHtml = hasTree
-    ? `<h3>특성 트리 (${esc(row.class)} ${esc(row.spec)})</h3>
+    ? `<h3>특성 트리 (${esc(clsK)} ${esc(specK)})</h3>
        <iframe class="tree-frame" src="${treeUrl}" title="특성 트리"></iframe>`
     : '<p style="color:var(--text-mute);font-size:11px">특성 트리: talent_trees.json 미등록 스펙 (5 타깃 외 클래스)</p>';
   document.querySelector(selector).innerHTML = `
@@ -537,7 +898,7 @@ function renderBuildInto(selector, d, row) {
       <div class="build-section">
         <div class="build-row">
           <span class="k">캐릭</span>
-          <span class="v">${esc(row.character)}${hasTree ? ` · ${esc(row.class)} ${esc(row.spec)}` : ''}</span>
+          <span class="v">${esc(row.character)}${hasTree ? ` · ${esc(clsK)} ${esc(specK)}` : ''}</span>
         </div>
         <div class="build-row">
           <span class="k">보스</span>

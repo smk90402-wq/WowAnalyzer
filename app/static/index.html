@@ -13,6 +13,8 @@
       <button class="tab" data-tab="mythic">신화 레이드</button>
       <button class="tab" data-tab="arbitrary">임의 로그 분석</button>
       <button class="tab" data-tab="comparison">비교 분석</button>
+      <button class="tab" data-tab="meta">메타 분석</button>
+      <button class="tab" data-tab="rotation">딜사이클</button>
     </nav>
     <div class="meta" id="meta">로딩…</div>
     <div class="auth-info" id="auth-info">
@@ -188,6 +190,70 @@
         </div>
       </aside>
     </div>
+  </main>
+
+  <!-- ── 메타 분석 (스펙 종합) ──────────────────────────────── -->
+  <main class="tab-pane" data-pane="meta" id="pane-meta">
+    <section class="meta-head">
+      <h2>파스 관점 스펙 메타 <span class="meta-sub">— 헤더에 마우스 올리면 지표 설명. WCL 파스=전문화별 백분위라 raw DPS 천장은 파스력과 무관.</span></h2>
+    </section>
+    <section class="panel meta-panel">
+      <div class="table-wrap">
+        <table id="meta-table">
+          <thead>
+            <tr>
+              <th data-sort="rank" data-tip="종합 순위. 클릭=정렬">#</th>
+              <th data-sort="kr" data-tip="클래스 / 전문화. 클릭=가나다 정렬">스펙</th>
+              <th class="right" data-sort="score" data-tip="종합 점수 = 로테쉬움×0.45 + PI독립×0.35 + 일관성×0.20. 광딜 raw DPS·스킬천장은 점수 미반영(아래 참고). 클릭=정렬">종합</th>
+              <th class="right" data-sort="ease" data-tip="딜사이클 난이도 (0~1, 높을수록 쉬움). ★최신 유튜브(12.0.5) 큐레이션★ — Comeback Kids/Bispril/Dal 난이도 영상 종합. 로그 APM/엔트로피는 근딜=즉시시전 편향 + 바쁨≠어려움이라 측정 불가 → 참고 컬럼 강등. 클릭=정렬">로테<br>쉬움</th>
+              <th class="right mute" data-sort="rot_rank" data-tip="난이도 순위 (1=가장 쉬움 ~ 27=가장 어려움). 최신 유튜브 종합. 클릭=정렬">난이도<br>순위</th>
+              <th class="right" data-sort="pi_indep" data-tip="마력주입(사제 PI 버프) 독립도 (0~1). uplift가 0에 가까울수록 1.00 = PI 없이도 자기 전문화서 고파스 가능. 클릭=정렬">PI<br>독립</th>
+              <th class="right" data-sort="uplift_pct" data-tip="PI uplift = 마력주입 받을 때 딜 상승%. 보스별 통제 평균. 작을수록 PI 독립. 화염 +7.5%=의존, 포식 −0.08%=완전독립. 클릭=정렬">uplift</th>
+              <th class="right" data-sort="consistency" data-tip="일관성 (0~1) = 상위 파스 격차(보스별 CV) 작나 = 기믹/RNG에 딜 안 무너지나. 쫄파이 안정성도 여기 포함. 높을수록 안정적 고파스. 클릭=정렬">일관성</th>
+              <th class="right info" data-sort="raid_tier" data-tip="실전 레이드 메타 강도 (S~D). ★파스와 무관 — raw DPS/실전 강함★. 최신 유튜브(12.0.5, 밸패 후) 레이드 티어 종합. 셀에 마우스=raid↔쐐기 갈리는 스펙 메모. 클릭=정렬(S→D)">레이드<br>티어</th>
+              <th class="right info" data-sort="mplus_tier" data-tip="실전 쐐기(M+) 메타 강도 (S~D). ★파스와 무관★. 최신 유튜브 M+ 콤프/티어 종합. 냉기죽기(레이드S↔쐐기D)·비전 등은 레이드와 크게 갈림 — 셀 호버. 클릭=정렬(S→D)">쐐기<br>티어</th>
+              <th class="right info" data-sort="tuning" data-tip="최근 튜닝 추세 (↑↑강버프~↓↓강너프). ★공식 블리자드 핫픽스 시계열★ (pre-raid→5/5→5/28 신화後). 티어=현재강도 / 이건=추세. ↑=버프받는중(상승세), ↓=너프중(하락세). 셀 호버=수치. 클릭=정렬">최근<br>튜닝</th>
+              <th class="right info mute" data-sort="pop_favor" data-tip="인구 파스유리도 (0~100). ★점수 미반영·참고용★. 인구 많을수록 '깔아주는' 평균이하 플레이어 많아 median 파스 따기 쉬움. ⚠단 99파스(상위1%) 추구자한텐 무의미 — 깔아주는 뉴비는 median에만 도움. WCL 모집단(2000=상위인기 캡). 셀 호버=실인구. 클릭=정렬">인구<br>유리</th>
+              <th class="right info" data-sort="burden" data-tip="특임/유틸 부담 (1낮음~5높음). ★파스 불리 요인★ — 상위경쟁자는 로그몰아주기로 특임 면제받지만 일반유저는 강제 기믹/특임을 본인이 맡아 그시간 딜손실. 차단·해제·키팅·외생기 강제 많은 직업일수록 부담↑=파스/일관성 불리. ★기믹/유틸 지식 큐레이션★. 셀 호버=근거. 클릭=정렬">특임<br>부담</th>
+              <th class="right info" data-sort="aoe_ratio" data-tip="광딜 프로필 = 쫄파이보스 / 단일보스 DPS 비율. 높을수록 다타겟 특화. ★참고용★ — 파스엔 무관(정규화), 실전 킬 기여도/레이드 적합 지표. 클릭=정렬">광딜<br>프로필</th>
+              <th class="right info" data-sort="skill_ceiling" data-tip="점수뽑기 스킬천장 (1쉬움~5매우어려움). 로그 통계로 안 잡히는 최적화 난이도(붕괴하는별 윈도우 등). ★가이드/아키타입 추정, 주관적★ — 점수 미반영. 셀에 마우스=근거. 클릭=정렬">스킬<br>천장</th>
+              <th class="right mute" data-sort="unique_spells" data-tip="한 전투 고유 시전 스펠 종류 수 (로그). ★참고용★ — 점수 미반영. 클릭=정렬">스킬수</th>
+              <th class="right mute" data-sort="apm" data-tip="분당 시전 횟수 (로그, 오프-GCD 연타 보정). ★참고용 — 점수 미반영★. 근딜=즉시시전이라 캐스터보다 구조적으로 높음(난이도 무관). 클릭=정렬">APM</th>
+              <th class="right mute" data-sort="cleave_med" data-tip="광딜 4보스(바엘고어/한밤의도래/빛눈먼선봉대/우주의왕관) median raw DPS. 참고용. 클릭=정렬">쫄파이<br>DPS</th>
+            </tr>
+          </thead>
+          <tbody id="meta-body"><tr><td colspan="18" class="empty">로딩…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+    <!-- 스펙 특징 팝업 -->
+    <div id="spec-modal">
+      <div class="spec-modal-card">
+        <button class="sm-close" title="닫기 (Esc)">✕</button>
+        <div id="spec-modal-body"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ── 딜사이클 (로테이션 베이스) ─────────────────────────── -->
+  <main class="tab-pane" data-pane="rotation" id="pane-rotation">
+    <section class="rot-controls">
+      <label>클래스
+        <select id="rot-class"></select>
+      </label>
+      <label>전문화
+        <select id="rot-spec"></select>
+      </label>
+      <label>영웅특성
+        <select id="rot-build"></select>
+      </label>
+      <div class="rot-mode">
+        <button class="rot-mode-btn active" data-mode="general">일반 로테</button>
+        <button class="rot-mode-btn" data-mode="boss">보스별 실측</button>
+      </div>
+      <span class="rot-hint">일반=가이드 베이스 / 보스별=top100 실측 역산</span>
+    </section>
+    <div id="rot-body" class="rot-body"><div class="empty">로딩…</div></div>
   </main>
 
   <script src="/static/main.js"></script>

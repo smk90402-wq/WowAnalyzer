@@ -76,13 +76,16 @@ query($id: Int!) {
     zone(id: $id) {
       id name
       encounters { id name }
+      partitions { id name default }
     }
   }
 }
 """
 
+# partition 명시 — 패치(12.0.5=2) 경계 고정. 안 주면 default(=최신) 사용.
 QUERY_RANKS = """
-query($encounterId: Int!, $page: Int!, $cls: String!, $spec: String!, $diff: Int!) {
+query($encounterId: Int!, $page: Int!, $cls: String!, $spec: String!,
+      $diff: Int!, $partition: Int!) {
   worldData {
     encounter(id: $encounterId) {
       characterRankings(
@@ -91,6 +94,7 @@ query($encounterId: Int!, $page: Int!, $cls: String!, $spec: String!, $diff: Int
         className: $cls
         specName: $spec
         page: $page
+        partition: $partition
       )
     }
   }
@@ -99,7 +103,8 @@ query($encounterId: Int!, $page: Int!, $cls: String!, $spec: String!, $diff: Int
 
 
 def fetch_spec_for_boss(cli: WCLV2, encounter_id: int, cls_v2: str,
-                        spec_v2: str, difficulty: int) -> list[dict]:
+                        spec_v2: str, difficulty: int,
+                        partition: int) -> list[dict]:
     """한 보스 × 한 스펙의 top-N rankings."""
     out: list[dict] = []
     for page in range(1, MAX_PAGES_PER_SPEC + 1):
@@ -110,6 +115,7 @@ def fetch_spec_for_boss(cli: WCLV2, encounter_id: int, cls_v2: str,
                 "cls": cls_v2,
                 "spec": spec_v2,
                 "diff": difficulty,
+                "partition": partition,
             })
         except WCLV2Error as e:
             print(f"      page {page} 실패: {str(e)[:120]}")
@@ -135,7 +141,13 @@ def main(difficulty: int = DEFAULT_DIFFICULTY) -> None:
 
     zone = cli.query(QUERY_ZONE, {"id": ZONE_ID})["worldData"]["zone"]
     encounters = zone["encounters"]
-    print(f"Zone: {zone['name']} ({len(encounters)} encounters)")
+    # 최신 패치 partition 자동 선택 (default=True 인 것). 패치 늘어도 알아서 최신.
+    parts = zone.get("partitions") or []
+    default_part = next((p for p in parts if p.get("default")), None)
+    partition = default_part["id"] if default_part else 1
+    part_name = default_part["name"] if default_part else "?"
+    print(f"Zone: {zone['name']} ({len(encounters)} encounters) "
+          f"· partition={partition} ({part_name})")
 
     rate = cli.points_left()
     rate_start_pts = rate.get("pointsSpentThisHour") if rate else None
@@ -155,7 +167,8 @@ def main(difficulty: int = DEFAULT_DIFFICULTY) -> None:
         for enc in encounters:
             print(f"\n  {enc['name']} (id={enc['id']})")
             for cls_v2, spec_v2, cls_v1, spec_v1 in TARGETS:
-                ranks = fetch_spec_for_boss(cli, enc["id"], cls_v2, spec_v2, difficulty)
+                ranks = fetch_spec_for_boss(cli, enc["id"], cls_v2, spec_v2,
+                                            difficulty, partition)
                 if not ranks:
                     continue
                 for i, r in enumerate(ranks, 1):
@@ -209,7 +222,7 @@ def main(difficulty: int = DEFAULT_DIFFICULTY) -> None:
         record(
             action="fetch_rankings_v2",
             params={"difficulty": difficulty, "label": diff_label,
-                    "zone": ZONE_ID, "top_n": TOP_N},
+                    "zone": ZONE_ID, "top_n": TOP_N, "partition": partition},
             result={"rows": total_rows, "api_pts": api_pts},
             files=[f"data/{OUT.name}"],
         )
