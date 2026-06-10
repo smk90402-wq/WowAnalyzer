@@ -208,6 +208,9 @@ def spec_meta() -> Response:
     # 특임/유틸 부담 (1낮음~5높음, 높을수록 파스 불리) inject
     df["burden"] = df.apply(lambda r: UTILITY_BURDEN.get((r["class"], r["spec"]), (0, ""))[0], axis=1)
     df["burden_note"] = df.apply(lambda r: UTILITY_BURDEN.get((r["class"], r["spec"]), (0, ""))[1], axis=1)
+    # 막공 환영도 (1기피~5최우선) inject — 신화 모집단+top100+인벤 모집글+컴프가이드 합성
+    df["pug"] = df.apply(lambda r: PUG_WELCOME.get((r["class"], r["spec"]), (0, ""))[0], axis=1)
+    df["pug_note"] = df.apply(lambda r: PUG_WELCOME.get((r["class"], r["spec"]), (0, ""))[1], axis=1)
     # 모집단(인구) → 파스 유리도 inject. 인구↑=깔아주는 뉴비 많아 평균이상 실력자 고파스 쉬움.
     # (WCL ranking 은 page20=2000 에서 하드캡 → 2000=상위인기, <2000=정확 인구.)
     pop_path = DATA_DIR / "spec_population.csv"
@@ -233,7 +236,7 @@ def spec_meta() -> Response:
     keep = ["rank", "kr", "class", "spec", "class_kr", "spec_kr", "score",
             "ease", "rot_rank", "pi_indep", "uplift_pct", "pi_rate_pct", "consistency",
             "raid_tier", "mplus_tier", "meta_note", "tuning", "tuning_note",
-            "burden", "burden_note", "pop_avg", "pop_favor",
+            "burden", "burden_note", "pug", "pug_note", "pop_avg", "pop_favor",
             "guide_desc", "guide_rotation", "guide_tips",
             "aoe_ratio", "skill_ceiling", "skill_label", "skill_reason",
             "cleave_med", "unique_spells", "apm", "bigram_entropy"]
@@ -254,6 +257,81 @@ def rotation_data() -> Response:
     if not p.exists():
         raise HTTPException(404, "rotation_data.json 없음")
     return Response(content=p.read_text(encoding="utf-8"),
+                    media_type="application/json")
+
+
+_STAT_DR_CACHE: dict | None = None
+
+
+def _stat_dr() -> dict:
+    global _STAT_DR_CACHE
+    if _STAT_DR_CACHE is None:
+        p = DATA_DIR / "stat_dr.json"
+        import json as _json
+        _STAT_DR_CACHE = _json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+    return _STAT_DR_CACHE
+
+
+def _effective_pct(stat_kr: str, rating: int) -> float | None:
+    """rating → 실효%(점감 적용). 한밤 DR 브래킷 누진.
+
+    brk=[[1320,0.10],...]: 1320 은 -10% 구간의 *시작*. 즉 0~1320 무점감,
+    1320~1760 에 -10%, 1760~2200 에 -20%... 각 구간의 rating 부분만 해당 페널티.
+    (maxroll 검증: 가속 1320=30% 무점감, +264 → 35.4%)
+    """
+    dr = _stat_dr()
+    per = dr.get("per_1pct", {}).get(stat_kr)
+    brk = dr.get("brackets", {}).get(stat_kr)
+    if not per or not brk or not rating:
+        return None
+    floor = brk[0][0]
+    eff = min(rating, floor) * 1.0   # 0~첫경계: 무점감
+    prev = floor
+    for i in range(len(brk)):
+        if rating <= prev:
+            break
+        penalty = brk[i][1]
+        upper = brk[i + 1][0] if i + 1 < len(brk) else float("inf")
+        seg = min(rating, upper) - prev
+        if seg > 0:
+            eff += seg * (1 - penalty)
+        prev = upper
+    return round(eff / per, 1)
+
+
+@app.get("/api/stat-dr")
+def stat_dr() -> Response:
+    """한밤 2차스탯 점감(DR) 브래킷 — maxroll 출처. 스탯 탭 표시용."""
+    return Response(content=__import__("json").dumps(_stat_dr(), ensure_ascii=False),
+                    media_type="application/json")
+
+
+@app.get("/api/boss-stats")
+def boss_stats() -> Response:
+    """data/boss_stats.json — 보스별 스탯 분포 (top1~20 개별 + 21~100 평균).
+
+    같은 전문화도 광특/단일특 스탯이 다름(빌드별 분리). 한글 보스명 + 실효%(DR) inject.
+    """
+    p = DATA_DIR / "boss_stats.json"
+    if not p.exists():
+        raise HTTPException(404, "boss_stats.json 없음 — extract_boss_stats.py 실행 필요")
+    import json as _json
+    data = _json.loads(p.read_text(encoding="utf-8"))
+    STATS = ["특화", "치명", "가속", "유연"]
+
+    def add_eff(stats: dict) -> dict:
+        return {k: _effective_pct(k, v) for k, v in stats.items()}
+
+    for spec_key, bosses in data.items():
+        for eid, d in bosses.items():
+            d["boss_kr"] = BOSS_KR.get(int(eid), d.get("boss_kr", eid))
+            for row in d.get("top", []):
+                row["eff"] = add_eff(row.get("stats", {}))
+            for blk in (d.get("top_avg") or []):
+                blk["eff"] = add_eff(blk.get("stats", {}))
+            for blk in (d.get("rest_avg") or []):
+                blk["eff"] = add_eff(blk.get("stats", {}))
+    return Response(content=_json.dumps({"data": data}, ensure_ascii=False),
                     media_type="application/json")
 
 
@@ -293,15 +371,52 @@ def report_meta(rid: str) -> JSONResponse:
 
 
 # ── 캐릭터 상세 (pfight + events + prepull) ─────────────────────────────────
+@app.get("/api/gear/{rid}/{fid}/{char}")
+def gear_only(rid: str, fid: int, char: str) -> JSONResponse:
+    """장비창 전용 경량 엔드포인트 — player_fight 캐시에서 gear 만 (casts/buffs 안 건드림).
+
+    character_detail 은 events 캐시 미스 시 WCL 페치로 느림(8초+). 장비창은 gear 만
+    필요하므로 캐시 hit 이면 즉시(ms), 미스면 즉시 404 (WCL 페치 안 함).
+    """
+    pf = _v2().pfight.get(f"{rid}:{fid}:{char}")
+    if not isinstance(pf, dict):
+        raise HTTPException(404, f"{char} 장비 캐시 미스")
+    item_db = _item_db()
+    gear = []
+    for g in (pf.get("gear") or []):
+        if not isinstance(g, dict):
+            continue
+        iid = g.get("id")
+        slot = g.get("slot") if isinstance(g.get("slot"), int) else -1
+        meta = item_db.get(str(iid), {}) if isinstance(iid, int) else {}
+        # 보석 enrich — gem ID 는 아이템 ID 라 item_db 에 이름·아이콘 있음
+        gems = []
+        for gem_id in (g.get("gems") or []):
+            gm = item_db.get(str(gem_id), {})
+            gems.append({"id": gem_id, "name_ko": gm.get("name_ko") or "",
+                         "icon": gm.get("icon") or ""})
+        gear.append({
+            "slot": slot, "slot_kr": SLOT_KR.get(slot, f"슬롯 #{slot}"), "id": iid,
+            "name_ko": meta.get("name_ko") or "", "icon": meta.get("icon") or "",
+            "quality": meta.get("quality") or "", "ilvl": g.get("ilvl") or meta.get("ilvl"),
+            "gems": gems, "ench": g.get("ench"),
+        })
+    gear.sort(key=lambda g: (g["slot"] if g["slot"] >= 0 else 999))
+    return JSONResponse({"gear": gear})
+
+
 @app.get("/api/character/{rid}/{fid}/{char}")
-def character_detail(rid: str, fid: int, char: str) -> JSONResponse:
+def character_detail(rid: str, fid: int, char: str, cache_only: int = 0) -> JSONResponse:
     """선택 캐릭의 talents/gear + casts/buffs + prepull buffs + stats.
 
     캐시 미스면 V2 GraphQL 호출 (수~십초). 캐시 hit 이면 ms 단위.
+    cache_only=1 이면 캐시 미스 시 WCL 페치 안 하고 즉시 404 (장비창용 — 8초 행 방지).
     """
     v2 = _v2()
     pfight_key = f"{rid}:{fid}:{char}"
     if pfight_key not in v2.pfight:
+        if cache_only:
+            raise HTTPException(404, f"{char} 캐시에 없음 (cache_only)")
         # backfill_v2 와 동일 흐름: pfight 페치 (talents + gear 포함)
         try:
             v2.player_fight(rid, fid, char)
@@ -678,6 +793,52 @@ UTILITY_BURDEN: dict[tuple[str, str], tuple[int, str]] = {
     ("Shaman", "Enhancement"): (4, "토템셔틀·대규모해제·키팅 차출 잦음"),
     ("Paladin", "Retribution"): (4, "축복(보호/희생)·외생기·해제 강제 — 유틸왕이라 딜 양보 잦음"),
     ("Evoker", "Augmentation"): (5, "버퍼라 본인딜<남딜 — 파스 개념 자체가 불리 (지원특화)"),
+}
+
+# ── 막공 환영도 (1기피 ~ 5최우선) — 레이드 가기 쉬운 정도 ──────────────────
+# 사용자 가설: "이번 시즌 근딜 천대, 죽기·전딜만 예외, 원딜 위주" (표본=신화. 영웅은 아무나 데려감)
+# 근거 4종 합성 (2026-06, 12.0.5 신화):
+#  ① WCL 신화 모집단: 근딜 평균 967 vs 원딜 1,436 (캡2000 도달 근딜 3/13 vs 원딜 9/13) → 천대 지지
+#  ② top100 고유공대 수: 야수 802·징벌 790·잠행 776 — 상위권 채용폭은 근딜도 넓음 → 배제 수준은 아님
+#  ③ 인벤 공격대 모집글 315건 실측: 원딜 명시 14 vs 근딜 3 (4.7배), 죽기 8(근딜 유일 콕집힘),
+#     증강 12(최다)·정술 6·흑마 5·도적 5·징벌 3·전사 1, 사냥꾼/암사/풍운/야성/고양 0
+#  ④ 컴프 가이드: 원딜 7~8 vs 근딜 5~6 표준, 러스트/브레즈/낙인·손길 보유자 우선
+# 검증 결과: 가설 부분 지지 — 근딜 천대 맞지만 실체는 '클래스 내 1황 스펙 쏠림'
+#  (원딜도 화염 72·황폐 137·비전 221은 전체 최하위). 죽기 예외=부정만, 전사 예외=유틸 기반,
+#  가설에 없던 근딜 예외 징벌·잠행 발견. 점수 미반영 참고 컬럼.
+PUG_WELCOME: dict[tuple[str, str], tuple[int, str]] = {
+    # 5 = 최우선 모심 (캡 도달 + 유틸/실측 모집 신호)
+    ("Death Knight", "Unholy"): (5, "모집단 캡 2000 + S티어 딜 + 대마법지대·그립·브레즈. 인벤 '죽딜 구인' 8건 — 근딜 유일 콕집힘"),
+    ("Paladin", "Retribution"): (5, "캡 2000 + top100 공대 790(전체 2위) — 가설에 없던 근딜 예외. 중재·축복 유틸. 인벤 3건"),
+    ("Rogue", "Subtlety"): (5, "캡 2000 + top100 776(전체 3위) — 도적 자리 독점 근딜 예외. 인벤 '도적' 5건"),
+    ("Demon Hunter", "Devourer"): (5, "캡 2000 + 25야드 유사원거리로 근딜 페널티 회피하는 S티어 신스펙"),
+    ("Hunter", "Beast Mastery"): (5, "캡 2000 + top100 공대 802 전체 1위 + 러스트. 본캐 — 원딜로서 무난히 환영"),
+    ("Hunter", "Marksmanship"): (5, "캡 2000 원딜 + 러스트 — 감점 신호 없음"),
+    ("Mage", "Frost"): (5, "캡 2000 + '가장 신뢰성 높은 캐스터' + 러스트 — 마법사 자리 독점"),
+    ("Priest", "Shadow"): (5, "캡 2000 + 마력주입(가속20%) 유틸 — 원딜 상위권"),
+    ("Shaman", "Elemental"): (5, "캡 2000 + 러스트. 인벤 '정술' 명시 모집 6건 — 원딜 중 최다 콕집힘"),
+    ("Druid", "Balance"): (5, "캡 2000 + 브레즈·야생의 징표 컴프 가치"),
+    ("Warlock", "Demonology"): (5, "캡 2000 + 영웅 1주차 전체딜 1위 + 브레즈·관문. 인벤 '흑마' 5건"),
+    ("Evoker", "Augmentation"): (5, "인벤 명시 모집 12건 최다(버퍼 별격) — '버스트 비협조' 이론 감점을 실측이 뒤집음"),
+    # 4 = 환영
+    ("Warrior", "Arms"): (4, "모집단 1704(캡 미달 중 1위) + 전투의 외침 — 단 인벤 명시 모집은 1건뿐(유틸 기반 채용)"),
+    ("Warrior", "Fury"): (4, "모집단 1523 + top100 770(전체 5위) + 전투의 외침·재집결의 함성"),
+    ("Warlock", "Destruction"): (4, "캡 2000이나 top100 하위 4위(631) — 상위권 벤치 신호로 한 단계 감점"),
+    # 3 = 무난
+    ("Death Knight", "Frost"): (3, "모집단 406 저인기지만 브레즈·대마법지대·자힐 유틸 보정 — 죽기 인기는 부정에 쏠림"),
+    ("Monk", "Windwalker"): (3, "모집단 805 + 신비한 손길 디버프 유틸 가점. 인벤 명시 0건"),
+    ("Demon Hunter", "Havoc"): (3, "모집단 595 중하위 — 혼돈의 낙인은 캡 찍은 포식이 대체 가능"),
+    ("Hunter", "Survival"): (3, "모집단 432 저인기 vs top100 775(전체 4위) 신호 상충 + 러스트 — 중간"),
+    # 2 = 찬밥
+    ("Rogue", "Assassination"): (2, "모집단 253 근딜 최하위권 + 막보 랭크 9명 — 도적 인기가 잠행에 쏠림"),
+    ("Rogue", "Outlaw"): (2, "모집단 249 — 잠행의 하위 호환 취급"),
+    ("Druid", "Feral"): (2, "모집단 305 하위권, 브레즈는 조화·죽기·흑마가 대체. 인벤 0건"),
+    ("Shaman", "Enhancement"): (2, "모집단 299 하위권 — 러스트는 캡 스펙들이 넘쳐 가점 무효. 인벤 0건"),
+    ("Warlock", "Affliction"): (2, "모집단 238 — 원딜인데 전체 최하위권, 흑마 인기가 악마·파괴에 쏠림"),
+    # 1 = 기피 (원딜이어도 기피 — '원딜이면 무조건 인기'는 아님의 증거)
+    ("Mage", "Arcane"): (1, "모집단 221 + top100 하위 2위 + 벨로렌 18명·막보 3명 랭크 — 양 데이터 모두 천대"),
+    ("Mage", "Fire"): (1, "모집단 72 전체 꼴찌 + top100 꼴찌 — 소수 고인물만 남은 사실상 멸종 스펙"),
+    ("Evoker", "Devastation"): (1, "모집단 137(전체 26위) + top100 하위 5위 — 너프 후 추락, 러스트도 대체됨"),
 }
 
 

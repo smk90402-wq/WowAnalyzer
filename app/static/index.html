@@ -15,6 +15,7 @@
       <button class="tab" data-tab="comparison">비교 분석</button>
       <button class="tab" data-tab="meta">메타 분석</button>
       <button class="tab" data-tab="rotation">딜사이클</button>
+      <button class="tab" data-tab="stats">스탯</button>
     </nav>
     <div class="meta" id="meta">로딩…</div>
     <div class="auth-info" id="auth-info">
@@ -214,6 +215,7 @@
               <th class="right info" data-sort="mplus_tier" data-tip="실전 쐐기(M+) 메타 강도 (S~D). ★파스와 무관★. 최신 유튜브 M+ 콤프/티어 종합. 냉기죽기(레이드S↔쐐기D)·비전 등은 레이드와 크게 갈림 — 셀 호버. 클릭=정렬(S→D)">쐐기<br>티어</th>
               <th class="right info" data-sort="tuning" data-tip="최근 튜닝 추세 (↑↑강버프~↓↓강너프). ★공식 블리자드 핫픽스 시계열★ (pre-raid→5/5→5/28 신화後). 티어=현재강도 / 이건=추세. ↑=버프받는중(상승세), ↓=너프중(하락세). 셀 호버=수치. 클릭=정렬">최근<br>튜닝</th>
               <th class="right info mute" data-sort="pop_favor" data-tip="인구 파스유리도 (0~100). ★점수 미반영·참고용★. 인구 많을수록 '깔아주는' 평균이하 플레이어 많아 median 파스 따기 쉬움. ⚠단 99파스(상위1%) 추구자한텐 무의미 — 깔아주는 뉴비는 median에만 도움. WCL 모집단(2000=상위인기 캡). 셀 호버=실인구. 클릭=정렬">인구<br>유리</th>
+              <th class="right info" data-sort="pug" data-tip="막공 환영도 (1기피~5최우선 모심). ★점수 미반영·레이드 가기 쉬운 정도★. 신화 표본 4종 합성: WCL 신화 모집단(근딜 평균 967 vs 원딜 1,436) + top100 고유공대 수 + 인벤 공격대 모집글 315건 실측(원딜 14 vs 근딜 3, 죽기 8건 콕집힘) + 컴프가이드 유틸(러스트/브레즈/낙인). 근딜 천대 실체='클래스 내 1황 스펙 쏠림' — 원딜도 화염·황폐·비전은 기피. 셀 호버=근거. 클릭=정렬">막공<br>환영</th>
               <th class="right info" data-sort="burden" data-tip="특임/유틸 부담 (1낮음~5높음). ★파스 불리 요인★ — 상위경쟁자는 로그몰아주기로 특임 면제받지만 일반유저는 강제 기믹/특임을 본인이 맡아 그시간 딜손실. 차단·해제·키팅·외생기 강제 많은 직업일수록 부담↑=파스/일관성 불리. ★기믹/유틸 지식 큐레이션★. 셀 호버=근거. 클릭=정렬">특임<br>부담</th>
               <th class="right info" data-sort="aoe_ratio" data-tip="광딜 프로필 = 쫄파이보스 / 단일보스 DPS 비율. 높을수록 다타겟 특화. ★참고용★ — 파스엔 무관(정규화), 실전 킬 기여도/레이드 적합 지표. 클릭=정렬">광딜<br>프로필</th>
               <th class="right info" data-sort="skill_ceiling" data-tip="점수뽑기 스킬천장 (1쉬움~5매우어려움). 로그 통계로 안 잡히는 최적화 난이도(붕괴하는별 윈도우 등). ★가이드/아키타입 추정, 주관적★ — 점수 미반영. 셀에 마우스=근거. 클릭=정렬">스킬<br>천장</th>
@@ -222,7 +224,7 @@
               <th class="right mute" data-sort="cleave_med" data-tip="광딜 4보스(바엘고어/한밤의도래/빛눈먼선봉대/우주의왕관) median raw DPS. 참고용. 클릭=정렬">쫄파이<br>DPS</th>
             </tr>
           </thead>
-          <tbody id="meta-body"><tr><td colspan="18" class="empty">로딩…</td></tr></tbody>
+          <tbody id="meta-body"><tr><td colspan="19" class="empty">로딩…</td></tr></tbody>
         </table>
       </div>
     </section>
@@ -254,6 +256,30 @@
       <span class="rot-hint">일반=가이드 베이스 / 보스별=top100 실측 역산</span>
     </section>
     <div id="rot-body" class="rot-body"><div class="empty">로딩…</div></div>
+  </main>
+
+  <!-- ── 스탯 (보스별 스탯 분포) ─────────────────────────── -->
+  <main class="tab-pane" data-pane="stats" id="pane-stats">
+    <section class="rot-controls">
+      <label>클래스
+        <select id="stat-class"></select>
+      </label>
+      <label>전문화
+        <select id="stat-spec"></select>
+      </label>
+      <label>보스
+        <select id="stat-boss"></select>
+      </label>
+      <span class="rot-hint">★풀버프 스냅샷 기준 = 인게임 음식·영약 켠 캐릭창과 동일 → 절대 목표치로 바로 사용 가능★ (%버프·전투물약은 제외됨). 1~20 평균=최상위 목표스탯</span>
+    </section>
+    <div id="stat-body" class="rot-body"><div class="empty">로딩…</div></div>
+    <!-- 캐릭터 장비창 모달 -->
+    <div id="gear-modal">
+      <div class="gear-modal-card">
+        <button class="gm-close" title="닫기 (Esc)">✕</button>
+        <div id="gear-modal-body"></div>
+      </div>
+    </div>
   </main>
 
   <script src="/static/main.js"></script>

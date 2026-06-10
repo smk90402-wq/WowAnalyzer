@@ -62,7 +62,7 @@ async function loadSpecMeta(force) {
     renderSpecMeta(j.rows || []);
     _metaLoaded = true;
   } catch (e) {
-    body.innerHTML = `<tr><td colspan="18" class="empty">로드 실패: ${esc(e.message)}</td></tr>`;
+    body.innerHTML = `<tr><td colspan="19" class="empty">로드 실패: ${esc(e.message)}</td></tr>`;
   }
 }
 
@@ -98,6 +98,7 @@ function renderSpecMeta(rows) {
       ${tierCell(r.mplus_tier)}
       <td class="right num ${tuneCls(r.tuning)}" title="${esc(r.tuning_note || '')}">${r.tuning || '-'}</td>
       <td class="right num ${r.pop_favor >= 70 ? 'good' : (r.pop_favor != null && r.pop_favor < 35 ? 'bad' : 'mute')}" title="실제 모집단 ~${r.pop_avg != null ? Number(r.pop_avg).toLocaleString() : '?'}명">${r.pop_favor != null ? Math.round(r.pop_favor) : '-'}</td>
+      <td class="right num ${r.pug >= 4 ? 'good' : (r.pug && r.pug <= 2 ? 'bad' : 'mute')}" title="${esc(r.pug_note || '')}">${r.pug || '-'}</td>
       <td class="right num ${r.burden >= 4 ? 'bad' : (r.burden && r.burden <= 2 ? 'good' : 'mute')}" title="${esc(r.burden_note || '')}">${r.burden || '-'}</td>
       <td class="right num ${aoeHi ? 'good' : 'mute'}">${r.aoe_ratio != null ? fmt(r.aoe_ratio) : '-'}</td>
       <td class="right num ${scCls}" title="${esc(r.skill_reason || '')}">${scTxt}</td>
@@ -186,6 +187,11 @@ function specTraits(r) {
     out.push({ tone: '',
       text: `인구 <b>~${r.pop_avg != null ? Number(r.pop_avg).toLocaleString() : '?'}명</b> ${many ? '(많음 — median 파스엔 유리)' : (few ? '(적음 — 고인물풀)' : '(중간)')} <span class="sm-muted">점수 미반영·1%추구자엔 무의미</span>` });
   }
+  if (r.pug) {
+    const PUG_LBL = { 5: '최우선 모심', 4: '환영', 3: '무난', 2: '찬밥', 1: '기피' };
+    out.push({ tone: r.pug >= 4 ? 'good' : (r.pug <= 2 ? 'bad' : ''),
+      text: `막공 환영도 <b>${r.pug}/5 ${PUG_LBL[r.pug] || ''}</b> <span class="sm-muted">(신화 모집단+top100 공대수+인벤 모집글 315건+컴프 유틸 합성)</span> — ${esc(r.pug_note || '')}` });
+  }
   if (r.burden) {
     const hi = r.burden >= 4, lo = r.burden <= 2;
     out.push({ tone: lo ? 'good' : (hi ? 'bad' : ''),
@@ -215,6 +221,7 @@ function openSpecModal(idx) {
     cell('쐐기 티어', r.mplus_tier || '-'),
     cell('최근 튜닝', r.tuning || '-'),
     cell('인구', r.pop_avg != null ? '~' + Number(r.pop_avg).toLocaleString() : '-'),
+    cell('막공 환영', r.pug ? r.pug + '/5' : '-'),
     cell('특임 부담', r.burden ? r.burden + '/5' : '-'),
     cell('광딜 프로필', _fmtN(r.aoe_ratio)),
     cell('스킬천장', r.skill_ceiling ? r.skill_ceiling + ' ' + (r.skill_label || '') : '-'),
@@ -327,6 +334,173 @@ function renderRotBoss() {
   }).join('');
   $('#rot-body').innerHTML = `<div class="bc-note">⚠ top100 실측 역산. 블러드는 펫블러드(야수)외엔 외부주술사라 받은판만 집계(커버리지 표기). 물약 추적 희박=참고.</div><div class="bc-grid">${cards}</div>`;
 }
+// ── 스탯 (보스별 스탯 분포) ─────────────────────────────────────────
+let _statData = null;
+const _statSel = { cls: null, spec: null, boss: null };
+async function loadStats() {
+  if (_statData) { renderStatControls(); return; }
+  $('#stat-body').innerHTML = '<div class="empty">로딩…</div>';
+  try {
+    const r = await fetch('/api/boss-stats');
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    _statData = (await r.json()).data || {};
+    renderStatControls();
+  } catch (e) {
+    $('#stat-body').innerHTML = `<div class="empty">로드 실패: ${esc(e.message)}</div>`;
+  }
+}
+function renderStatControls() {
+  // 키 'Class|Spec' → 클래스/전문화 목록
+  const keys = Object.keys(_statData);
+  const classes = [...new Set(keys.map(k => k.split('|')[0]))];
+  const clsKrMap = { Hunter: '사냥꾼', Warrior: '전사', Mage: '마법사', Rogue: '도적', Priest: '사제',
+    Warlock: '흑마법사', Druid: '드루이드', Paladin: '성기사', 'Death Knight': '죽음의 기사',
+    'Demon Hunter': '악마사냥꾼', Monk: '수도사', Shaman: '주술사', Evoker: '기원사' };
+  if (!_statSel.cls || !classes.includes(_statSel.cls)) _statSel.cls = classes[0];
+  const specs = keys.filter(k => k.startsWith(_statSel.cls + '|')).map(k => k.split('|')[1]);
+  if (!_statSel.spec || !specs.includes(_statSel.spec)) _statSel.spec = specs[0];
+  const bosses = _statData[`${_statSel.cls}|${_statSel.spec}`] || {};
+  const bossIds = Object.keys(bosses);
+  if (!_statSel.boss || !bossIds.includes(_statSel.boss)) _statSel.boss = bossIds[0];
+  const opt = (v, label, sel) => `<option value="${esc(v)}" ${v === sel ? 'selected' : ''}>${esc(label)}</option>`;
+  $('#stat-class').innerHTML = classes.map(c => opt(c, clsKrMap[c] || c, _statSel.cls)).join('');
+  $('#stat-spec').innerHTML = specs.map(s => opt(s, _specKrStat(s) || s, _statSel.spec)).join('');
+  $('#stat-boss').innerHTML = bossIds.map(b => opt(b, bosses[b].boss_kr, _statSel.boss)).join('');
+  renderStatBody();
+}
+function _specKrStat(spec) {
+  const m = {
+    'Beast Mastery': '야수', 'Marksmanship': '사격', 'Survival': '생존',
+    'Arms': '무기', 'Fury': '분노', 'Frost': '냉기', 'Unholy': '부정',
+    'Feral': '야성', 'Balance': '조화', 'Havoc': '파멸', 'Devourer': '포식',
+    'Windwalker': '풍운', 'Retribution': '징벌', 'Shadow': '암흑',
+    'Assassination': '암살', 'Outlaw': '무법', 'Subtlety': '잠행',
+    'Elemental': '정기', 'Enhancement': '고양', 'Affliction': '고통',
+    'Demonology': '악마', 'Destruction': '파괴', 'Fire': '화염', 'Arcane': '비전',
+    'Devastation': '황폐', 'Augmentation': '증강',
+  };
+  return m[spec] || spec;
+}
+function renderStatBody() {
+  const d = (_statData[`${_statSel.cls}|${_statSel.spec}`] || {})[_statSel.boss];
+  if (!d) { $('#stat-body').innerHTML = '<div class="empty">데이터 없음</div>'; return; }
+  const STATS = ['특화', '치명', '가속', '유연'];
+  // 비중 막대 (% 기준 너비)
+  const bar = (p) => `<div class="st-bar">${STATS.map(s =>
+    `<span class="st-seg seg-${s}" style="width:${p[s] || 0}%" title="${s} ${p[s] || 0}%">${(p[s] || 0) >= 10 ? p[s] + '%' : ''}</span>`).join('')}</div>`;
+  // 스탯 셀: raw 수치 + 실효%(DR) 병기
+  const statCell = (raw, eff) => raw == null ? '<td class="num">-</td>'
+    : `<td class="num st-cell" title="실효 ${eff != null ? eff + '%' : '?'} (점감 적용)">${raw}<span class="st-eff">${eff != null ? eff + '%' : ''}</span></td>`;
+  const buildBadge = (b) => b ? `<span class="bc-build ${b === '광' ? 'aoe' : 'st'}">${esc(b)}</span>` : '';
+  const eff = (r) => r.eff || {};
+  const topRows = (d.top || []).map(r => {
+    const E = eff(r);
+    return `<tr class="st-row" data-ref='${JSON.stringify(r.ref)}' title="클릭 = 장비창">
+      <td class="mute num">${r.rank}</td>
+      <td class="num">${r.dps.toLocaleString()}</td>
+      <td>${buildBadge(r.build)}</td>
+      ${statCell(r.stats['특화'], E['특화'])}
+      ${statCell(r.stats['치명'], E['치명'])}
+      ${statCell(r.stats['가속'], E['가속'])}
+      ${statCell(r.stats['유연'], E['유연'])}
+      <td class="st-bar-cell">${bar(r.pct)}</td>
+    </tr>`;
+  }).join('');
+  // 평균 카드 렌더 (top_avg / rest_avg 공용)
+  const avgCards = (blocks) => (blocks || []).map(b => {
+    const E = b.eff || {};
+    const num = (s) => `${s} <b>${b.stats[s]}</b><span class="st-eff">${E[s] != null ? E[s] + '%' : ''}</span>`;
+    return `<div class="st-avg-card">
+      <div class="st-avg-head">${buildBadge(d.has_build ? b.label : null)} ${esc(b.label)} 평균 <span class="bc-mute">(${b.n}명, ilvl ${b.ilvl})</span></div>
+      <div class="st-avg-nums">${STATS.map(num).join(' · ')}</div>
+      ${bar(b.pct)}
+    </div>`;
+  }).join('');
+  const topAvg = avgCards(d.top_avg);
+  const restAvg = avgCards(d.rest_avg);
+  $('#stat-body').innerHTML = `
+    <div class="st-section-label">🎯 1~20등 평균 = 목표 스탯 ${d.has_build ? '(빌드별 광/단일)' : ''} <span class="bc-mute">— 풀버프 기준, 인게임 음식·영약 켜고 맞추면 됨</span></div>
+    <div class="st-avg-grid">${topAvg || '<div class="sm-empty">데이터 없음</div>'}</div>
+    <div class="st-section-label">1~20등 개별 <span class="bc-mute">— 수치 + 실효%(점감반영). 행 클릭=장비창</span></div>
+    <div class="table-wrap st-table-wrap">
+      <table class="st-table">
+        <thead><tr><th>#</th><th>DPS</th><th>빌드</th><th>특화</th><th>치명</th><th>가속</th><th>유연</th><th>비중</th></tr></thead>
+        <tbody>${topRows}</tbody>
+      </table>
+    </div>
+    <div class="st-section-label">21~100등 평균</div>
+    <div class="st-avg-grid">${restAvg || '<div class="sm-empty">평균 데이터 없음</div>'}</div>`;
+}
+
+// 장비창 모달 — 기존 /api/character (gear enrichment 재사용)
+const _SLOT_ORDER = ['머리','목','어깨','등','가슴','손목','손','허리','다리','발','반지','반지','장신구','장신구','주무기','보조장비'];
+async function openGearModal(ref) {
+  const m = $('#gear-modal');
+  m.classList.add('show');
+  $('#gear-modal-body').innerHTML = '<div class="empty">장비 로딩…</div>';
+  // 경량 gear 엔드포인트 (player_fight 캐시에서 gear 만 — events 안 건드려 즉시)
+  const gearUrl = `/api/gear/${encodeURIComponent(ref.rid)}/${ref.fid}/${encodeURIComponent(ref.char)}`;
+  try {
+    const r = await fetch(gearUrl);
+    if (r.ok) { renderGear(await r.json(), ref.char); return; }
+    if (r.status !== 404) throw new Error(`HTTP ${r.status}`);
+    // 캐시 미스 → character_detail 로 WCL 페치 (느림)
+    const fullUrl = `/api/character/${encodeURIComponent(ref.rid)}/${ref.fid}/${encodeURIComponent(ref.char)}`;
+    $('#gear-modal-body').innerHTML =
+      `<div class="empty">이 캐릭 장비는 캐시에 없습니다.<br>
+       <button class="gm-fetch-btn">WCL에서 불러오기 (~8초)</button></div>`;
+    $('#gear-modal-body .gm-fetch-btn').addEventListener('click', async () => {
+      $('#gear-modal-body').innerHTML = '<div class="empty">WCL 페치 중… (~8초)</div>';
+      try {
+        const r2 = await fetch(fullUrl);
+        if (!r2.ok) throw new Error(`HTTP ${r2.status}`);
+        renderGear(await r2.json(), ref.char);
+      } catch (e) {
+        $('#gear-modal-body').innerHTML = `<div class="empty">페치 실패: ${esc(e.message)}</div>`;
+      }
+    });
+  } catch (e) {
+    $('#gear-modal-body').innerHTML = `<div class="empty">로드 실패: ${esc(e.message)}</div>`;
+  }
+}
+function renderGear(data, charName) {
+  const gear = (data.gear || []).filter(g => g.id && g.id !== 0);  // 빈 슬롯 제외
+  const qcls = (q) => 'q' + (q || 'common');
+  const ICON = (i) => `https://wow.zamimg.com/images/wow/icons/medium/${esc(i)}.jpg`;
+  const items = gear.map(g => {
+    // wowhead 툴팁 — 아이템 풀스탯 + 마부 + 보석 (data-wowhead 속성)
+    const wh = `item=${g.id}&domain=ko`
+      + (g.ench ? `&ench=${g.ench}` : '')
+      + ((g.gems || []).length ? `&gems=${g.gems.map(x => x.id).join(':')}` : '');
+    // 보석: 아이콘 + 이름
+    const gems = (g.gems || []).map(gm =>
+      gm.icon ? `<img class="gm-gem-icon" src="${ICON(gm.icon)}" title="${esc(gm.name_ko || gm.id)}" onerror="this.style.display='none'">`
+              : `<span class="gm-gem" title="보석 ${gm.id}"></span>`).join('');
+    // 마부: ID 표기 (wowhead 툴팁에서 이름 확인)
+    const ench = g.ench ? `<span class="gm-ench" title="마부 (툴팁 참고)">마부</span>` : '';
+    return `<a class="gm-item ${qcls(g.quality)}" href="https://www.wowhead.com/ko/item=${g.id}" target="_blank" data-wowhead="${wh}" rel="noopener">
+      ${g.icon ? `<img class="gm-icon" src="${ICON(g.icon)}" onerror="this.style.visibility='hidden'">` : '<span class="gm-icon gm-noicon"></span>'}
+      <div class="gm-info">
+        <div class="gm-slot">${esc(g.slot_kr || '')}</div>
+        <div class="gm-name">${esc(g.name_ko || ('#' + (g.id || '')))} <span class="gm-ilvl">${g.ilvl || ''}</span></div>
+        <div class="gm-extra">${ench}${gems}</div>
+      </div>
+    </a>`;
+  }).join('');
+  $('#gear-modal-body').innerHTML = `
+    <div class="gm-head">${esc(charName)} <span class="bc-mute">장비 (${gear.length}부위)</span></div>
+    <div class="gm-grid">${items || '<div class="empty">장비 데이터 없음</div>'}</div>
+    <div class="sm-foot">아이템에 마우스 = wowhead 툴팁(풀스탯·마부·보석명). 클릭 = wowhead. 보석 아이콘=호버시 이름.</div>`;
+  // wowhead 파워 툴팁 스크립트 (없으면 1회 로드)
+  if (!window.$WowheadPower) {
+    const s = document.createElement('script');
+    s.src = 'https://wow.zamimg.com/widgets/power.js';
+    document.head.appendChild(s);
+  } else if (window.$WowheadPower.refreshLinks) {
+    window.$WowheadPower.refreshLinks();
+  }
+}
+
 function renderRotBody() {
   const spec = _rotData[_rotSel.cls].specs[_rotSel.spec];
   const build = spec.builds[_rotSel.build];
@@ -619,6 +793,7 @@ function switchTab(tab) {
               : (tab === 'comparison') ? 'comparison'
               : (tab === 'meta') ? 'meta'
               : (tab === 'rotation') ? 'rotation'
+              : (tab === 'stats') ? 'stats'
               : 'ranking';
   document.querySelector(`#pane-${paneId}`).classList.add('active');
 }
@@ -635,6 +810,8 @@ function bind() {
       loadSpecMeta();
     } else if (tab === 'rotation') {
       loadRotation();
+    } else if (tab === 'stats') {
+      loadStats();
     }
   });
 
@@ -648,6 +825,27 @@ function bind() {
   $('#rot-build').addEventListener('change', e => {
     _rotSel.build = e.target.value;
     if (_rotSel.mode === 'boss') renderRotBoss(); else renderRotBody();
+  });
+  // 스탯 탭 콤보박스
+  $('#stat-class').addEventListener('change', e => {
+    _statSel.cls = e.target.value; _statSel.spec = null; _statSel.boss = null; renderStatControls();
+  });
+  $('#stat-spec').addEventListener('change', e => {
+    _statSel.spec = e.target.value; _statSel.boss = null; renderStatControls();
+  });
+  $('#stat-boss').addEventListener('change', e => {
+    _statSel.boss = e.target.value; renderStatBody();
+  });
+  // 스탯 행 클릭 → 장비창
+  $('#stat-body').addEventListener('click', e => {
+    const tr = e.target.closest('tr.st-row');
+    if (!tr || !tr.dataset.ref) return;
+    try { openGearModal(JSON.parse(tr.dataset.ref)); } catch (_) {}
+  });
+  // 장비창 닫기
+  const gm = $('#gear-modal');
+  if (gm) gm.addEventListener('click', e => {
+    if (e.target === gm || e.target.closest('.gm-close')) gm.classList.remove('show');
   });
   // 일반/보스별 모드 토글
   document.querySelector('.rot-mode')?.addEventListener('click', e => {
@@ -723,7 +921,7 @@ function bind() {
     if (e.target === sm || e.target.closest('.sm-close')) closeSpecModal();
   });
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeSpecModal();
+    if (e.key === 'Escape') { closeSpecModal(); $('#gear-modal')?.classList.remove('show'); }
   });
 
   // 빌드 패널 위임 — 매 row 클릭마다 재렌더 → 위임 패턴 필수

@@ -163,10 +163,17 @@ class V2Data:
         self._cache_pi = self.data_dir / "v2_cache_pi_received.json"
         self.meta = _load_json(self._cache_meta)
         self.pfight = _load_json(self._cache_pfight)
-        self.events = _load_json(self._cache_events)
+        self._events = None   # lazy: events 캐시는 거대(수백MB) → 처음 쓸 때만 로딩
         self.damage = _load_json(self._cache_damage)
         self.prepull = _load_json(self._cache_prepull)
         self.pi_received = _load_json(self._cache_pi)
+
+    @property
+    def events(self) -> dict:
+        """events 캐시 lazy-load — gear/장비창 등 events 불필요한 경로는 안 건드림."""
+        if self._events is None:
+            self._events = _load_json(self._cache_events)
+        return self._events
 
     # ── 보관 ──────────────────────────────────────────────────────────────
     def flush(self) -> None:
