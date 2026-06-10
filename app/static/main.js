@@ -98,7 +98,7 @@ function renderSpecMeta(rows) {
       ${tierCell(r.mplus_tier)}
       <td class="right num ${tuneCls(r.tuning)}" title="${esc(r.tuning_note || '')}">${r.tuning || '-'}</td>
       <td class="right num ${r.pop_favor >= 70 ? 'good' : (r.pop_favor != null && r.pop_favor < 35 ? 'bad' : 'mute')}" title="실제 모집단 ~${r.pop_avg != null ? Number(r.pop_avg).toLocaleString() : '?'}명">${r.pop_favor != null ? Math.round(r.pop_favor) : '-'}</td>
-      <td class="right num ${r.pug >= 4 ? 'good' : (r.pug && r.pug <= 2 ? 'bad' : 'mute')}" title="${esc(r.pug_note || '')}">${r.pug || '-'}</td>
+      <td class="right num ${r.pug >= 4 ? 'good' : (r.pug && r.pug <= 2 ? 'bad' : 'mute')}" title="${r.pug_emp != null ? `취업률 ${Number(r.pug_emp).toFixed(2)}${r.pug_emp_capped ? '(공급캡→실제↓)' : ''} · 공대당 ${r.pug_to}자리 · 채용 ${r.pug_present}% — ` : ''}${esc(r.pug_note || '')}">${r.pug || '-'}</td>
       <td class="right num ${r.burden >= 4 ? 'bad' : (r.burden && r.burden <= 2 ? 'good' : 'mute')}" title="${esc(r.burden_note || '')}">${r.burden || '-'}</td>
       <td class="right num ${aoeHi ? 'good' : 'mute'}">${r.aoe_ratio != null ? fmt(r.aoe_ratio) : '-'}</td>
       <td class="right num ${scCls}" title="${esc(r.skill_reason || '')}">${scTxt}</td>
@@ -189,8 +189,11 @@ function specTraits(r) {
   }
   if (r.pug) {
     const PUG_LBL = { 5: '최우선 모심', 4: '환영', 3: '무난', 2: '찬밥', 1: '기피' };
+    const emp = r.pug_emp != null
+      ? ` · 취업률 <b>${Number(r.pug_emp).toFixed(2)}</b>${r.pug_emp_capped ? '<span class="sm-muted">(공급 캡 → 실제는 더 낮음)</span>' : ''} · 공대당 <b>${r.pug_to}</b>자리 · 채용률 ${r.pug_present}%`
+      : '';
     out.push({ tone: r.pug >= 4 ? 'good' : (r.pug <= 2 ? 'bad' : ''),
-      text: `막공 환영도 <b>${r.pug}/5 ${PUG_LBL[r.pug] || ''}</b> <span class="sm-muted">(신화 모집단+top100 공대수+인벤 모집글 315건+컴프 유틸 합성)</span> — ${esc(r.pug_note || '')}` });
+      text: `막공 환영도 <b>${r.pug}/5 ${PUG_LBL[r.pug] || ''}</b>${emp} <span class="sm-muted">(KR 실측: 취업률=신화유니크÷영웅풀, 자리=킬공대 1,316개 로스터)</span> — ${esc(r.pug_note || '')}` });
   }
   if (r.burden) {
     const hi = r.burden >= 4, lo = r.burden <= 2;
@@ -807,10 +810,13 @@ function bind() {
     if (tab === 'heroic' || tab === 'mythic') {
       loadRankings(tab);
     } else if (tab === 'meta') {
+      $('#meta').textContent = '표본: 신화 top100 (PI·로테·일관성 전부 mythic)';
       loadSpecMeta();
     } else if (tab === 'rotation') {
+      $('#meta').textContent = '표본: 신화 top100';
       loadRotation();
     } else if (tab === 'stats') {
+      $('#meta').textContent = '표본: 신화 top100';
       loadStats();
     }
   });

@@ -16,4 +16,4 @@
 - [V2 only — V1 removed](project_v2_only.md) — V1 fully deleted 2026-05-18. All fetchers use V2 GraphQL. Only rankings CSV stays; other data on-demand JSON cache.
 - [Cache pipeline](project_cache_pipeline.md) — V2 cache JSON only. backfill_v2 → gui (V2Data dict lookup). SQLite/migrate fully removed 2026-05-18.
 - [Visual talent tree](project_talent_tree_visual.md) — Replace talent_table with WCL "최상위 100 분리" style visual tree (class/spec/hero + trinkets/embellishments). Blizzard talent-tree endpoint has full data.
-- [막공 환영도 지표](project_pug_welcome.md) — PUG_WELCOME(1~5) 메타탭 컬럼. 신화 모집단+top100 공대수+인벤 모집글 315건+컴프가이드 합성. 근딜천대 가설 부분지지 — 실체는 1황 스펙 쏠림.
+- [막공 환영도 지표 v2](project_pug_welcome.md) — KR 취업 시장 실측(취업률=신화/영웅풀, 공대 1,316 로스터 TO). ★교정: "많이 보임≠TO" — 개체수 지표는 수요/공급 혼동 (징벌 5→2 사례). 클래스 보유율 동학 포함.
