@@ -235,7 +235,7 @@ function openSpecModal(idx) {
   // ── 우측 패널: 스펙 설명 / 로테이션 / 꿀팁 ──
   const tips = Array.isArray(r.guide_tips) ? r.guide_tips : [];
   const tipsHtml = tips.length ? tips.map(tp => {
-    const body = esc(tp.d || '').replace(/\n/g, '<br>');
+    const body = wsify(esc(tp.d || '')).replace(/\n/g, '<br>');
     const src = tp.src ? `<div class="sm-tip-src">— ${esc(tp.src)}</div>` : '';
     const sc = tp.scope || '공용';
     const scCls = sc === '쐐기' ? 'mplus' : (sc === '레이드' ? 'raid' : 'both');
@@ -244,9 +244,9 @@ function openSpecModal(idx) {
   }).join('') : `<div class="sm-empty">아직 꿀팁 없음 — 영상/가이드 찾으면 추가됨</div>`;
   const rightHtml = `
     <div class="sm-sec-label">스펙 설명</div>
-    <div class="sm-guide-desc">${r.guide_desc ? esc(r.guide_desc) : '<span class="sm-empty">설명 미작성</span>'}</div>
+    <div class="sm-guide-desc">${r.guide_desc ? wsify(esc(r.guide_desc)) : '<span class="sm-empty">설명 미작성</span>'}</div>
     <div class="sm-sec-label">로테이션</div>
-    <div class="sm-guide-rot">${r.guide_rotation ? esc(r.guide_rotation) : '<span class="sm-empty">로테 미작성</span>'}</div>
+    <div class="sm-guide-rot">${r.guide_rotation ? wsify(esc(r.guide_rotation)) : '<span class="sm-empty">로테 미작성</span>'}</div>
     <div class="sm-sec-label">꿀팁 ${tips.length ? '(' + tips.length + ')' : ''}</div>
     <div class="sm-tips">${tipsHtml}</div>`;
 
@@ -267,8 +267,47 @@ function openSpecModal(idx) {
     </div>
     <div class="sm-foot">난이도·스킬천장·꿀팁 = 유튜브(12.0.5)/가이드 큐레이션 · 레이드/쐐기 티어 = 순수 성능(파스 무관) · PI독립·일관성·광딜·인구 = 로그 데이터</div>`;
   $('#spec-modal').classList.add('show');
+  whEnsure();  // 스킬명 마우스오버 툴팁
 }
 function closeSpecModal() { $('#spec-modal').classList.remove('show'); }
+
+// ── 스킬명 → 아이콘 + wowhead 마우스오버 툴팁 ──────────────────────────
+let _spellMap = null, _spellNames = null;
+async function ensureSpellMap() {
+  if (_spellMap) return;
+  try {
+    const r = await fetch('/api/spell-map');
+    _spellMap = (await r.json()).map || {};
+    _spellNames = Object.keys(_spellMap).sort((a, b) => b.length - a.length); // 긴 이름 우선
+  } catch (e) { _spellMap = {}; _spellNames = []; }
+}
+function whEnsure() {
+  // wowhead 파워 툴팁 스크립트 1회 로드 / 동적 추가 링크 재스캔
+  if (!window.$WowheadPower) {
+    if (document.getElementById('wh-power-js')) return;
+    const s = document.createElement('script');
+    s.id = 'wh-power-js';
+    s.src = 'https://wow.zamimg.com/widgets/power.js';
+    document.head.appendChild(s);
+  } else if (window.$WowheadPower.refreshLinks) window.$WowheadPower.refreshLinks();
+}
+function wsify(escText) {
+  // esc() 처리된 평문에서 스킬명을 아이콘+툴팁 링크로 치환.
+  // 토큰 치환(긴 이름 → N) 후 일괄 전개 — 짧은 이름이 긴 이름 내부를 재치환하는 것 방지.
+  if (!_spellNames || !_spellNames.length || !escText) return escText;
+  const toks = [];
+  let out = escText;
+  for (const n of _spellNames) {
+    if (out.indexOf(n) === -1) continue;
+    toks.push(n);
+    out = out.split(n).join('' + (toks.length - 1) + '');
+  }
+  return out.replace(/(\d+)/g, (_, i) => {
+    const n = toks[+i], s = _spellMap[n];
+    const ic = s.icon ? `<img class="ws-ic" src="https://wow.zamimg.com/images/wow/icons/small/${s.icon}.jpg" onerror="this.remove()">` : '';
+    return `<a class="ws" href="https://www.wowhead.com/ko/spell=${s.id}" target="_blank" rel="noopener" data-wowhead="spell=${s.id}&domain=ko">${ic}${n}</a>`;
+  });
+}
 
 // ── 딜사이클 (로테이션 베이스) ─────────────────────────────────────────
 let _rotData = null, _bossCycle = null;
@@ -312,8 +351,8 @@ function renderRotBoss() {
   }
   // 킬타임 순 정렬
   const cards = Object.entries(bosses).sort((a, b) => a[1].kill_s - b[1].kill_s).map(([eid, d]) => {
-    const opener = (d.opener || []).map(o => `<span class="bc-skill">${esc(o.skill)}</span>`).join('<span class="bc-arrow">→</span>');
-    const cds = (d.cooldowns || []).map(c => `${esc(c.skill)} <b>${c.first_s}s</b>·${c.count}회`).join(' / ');
+    const opener = (d.opener || []).map(o => `<span class="bc-skill">${wsify(esc(o.skill))}</span>`).join('<span class="bc-arrow">→</span>');
+    const cds = (d.cooldowns || []).map(c => `${wsify(esc(c.skill))} <b>${c.first_s}s</b>·${c.count}회`).join(' / ');
     let boxHtml = '';
     if (d.box) {
       const b = d.box;
@@ -336,6 +375,7 @@ function renderRotBoss() {
     </div>`;
   }).join('');
   $('#rot-body').innerHTML = `<div class="bc-note">⚠ top100 실측 역산. 블러드는 펫블러드(야수)외엔 외부주술사라 받은판만 집계(커버리지 표기). 물약 추적 희박=참고.</div><div class="bc-grid">${cards}</div>`;
+  whEnsure();
 }
 // ── 스탯 (보스별 스탯 분포) ─────────────────────────────────────────
 let _statData = null;
@@ -509,19 +549,20 @@ function renderRotBody() {
   const build = spec.builds[_rotSel.build];
   if (!build) { $('#rot-body').innerHTML = '<div class="empty">빌드 없음</div>'; return; }
   const list = (arr) => arr && arr.length
-    ? `<ol class="rot-list">${arr.map(x => `<li>${esc(x)}</li>`).join('')}</ol>`
+    ? `<ol class="rot-list">${arr.map(x => `<li>${wsify(esc(x))}</li>`).join('')}</ol>`
     : '<div class="sm-empty">데이터 없음</div>';
   $('#rot-body').innerHTML = `
     <div class="rot-meta">
-      <div class="rot-summary">${esc(spec.summary || '')}</div>
-      ${spec.stat ? `<div class="rot-stat"><b>스탯</b> ${esc(spec.stat)}</div>` : ''}
-      ${build.hero_note ? `<div class="rot-hero"><b>${esc(_rotSel.build)}</b> ${esc(build.hero_note)}</div>` : ''}
+      <div class="rot-summary">${wsify(esc(spec.summary || ''))}</div>
+      ${spec.stat ? `<div class="rot-stat"><b>스탯</b> ${wsify(esc(spec.stat))}</div>` : ''}
+      ${build.hero_note ? `<div class="rot-hero"><b>${esc(_rotSel.build)}</b> ${wsify(esc(build.hero_note))}</div>` : ''}
     </div>
     <div class="rot-cols">
       <div class="rot-col"><div class="rot-col-h single">단일 우선순위</div>${list(build.single)}</div>
       <div class="rot-col"><div class="rot-col-h aoe">광역 우선순위</div>${list(build.aoe)}</div>
       <div class="rot-col"><div class="rot-col-h opener">오프너</div>${list(build.opener)}</div>
     </div>`;
+  whEnsure();
 }
 
 // ── 데이터 로드 ──────────────────────────────────────────────────────────
@@ -1516,6 +1557,7 @@ function loadAuthInfo() {
 // ── 부트 ────────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
   bind();
+  ensureSpellMap();  // 스킬명 아이콘+툴팁 매핑 선로딩
   bindComparison();
   bindTimelineSync();
   loadAuthInfo();

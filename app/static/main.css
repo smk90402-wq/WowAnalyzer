@@ -803,3 +803,9 @@ body {
 .wh-spell{white-space:nowrap;text-decoration:none;color:#a8d08d}
 .wh-spell:hover span{text-decoration:underline}
 .wh-ico{width:17px;height:17px;vertical-align:-3px;border-radius:3px;margin-right:3px}
+
+/* 스킬명 아이콘 + wowhead 마우스오버 툴팁 */
+.ws{display:inline-flex;align-items:center;gap:3px;color:#e3c06f;text-decoration:none;border-bottom:1px dotted #8a7339;line-height:1.25}
+.ws:hover{color:#ffd98a;border-bottom-color:#c9a14d}
+.ws-ic{width:16px;height:16px;border-radius:3px;flex:none}
+.bc-skill .ws{border-bottom:none}
