@@ -43,6 +43,7 @@ SPECS = [
     ("Warlock/Demonology",     720, 266),   # Warlock 흑마법사 tree=720, Demo spec=266
     ("Druid/Balance",          793, 102),   # Druid tree=793, Balance spec=102
     ("Hunter/Beast Mastery",   774, 253),
+    ("Hunter/Marksmanship",    774, 254),   # 어둠순찰자 서브빌드 노드 매핑용 (2026-06-11)
     ("Warrior/Arms",           850, 71),
     ("Warrior/Fury",           850, 72),
     # Monk 추가 (인사이더 등 사용자 캐릭) — Brewmaster 268 / Windwalker 269 / Mistweaver 270.
