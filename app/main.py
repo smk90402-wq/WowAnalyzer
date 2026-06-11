@@ -305,6 +305,33 @@ def _spellify(obj):
     return _SPELL_TOKEN.sub(rep, obj)
 
 
+_SPELL_MAP_CACHE: str | None = None
+
+
+@app.get("/api/spell-map")
+def spell_map() -> Response:
+    """한글 스킬명 → {id, icon} 맵 — 프런트 wsify()(스킬명 자동 아이콘+호버툴팁) 용.
+
+    main.js ensureSpellMap() 이 기대하는 형태: {"map": {이름: {id, icon(.jpg 제외)}}}.
+    같은 이름 여러 ID(랭크/변형)면 먼저 나온 것 유지. 1글자 이름은 오매칭 노이즈라 제외.
+    """
+    global _SPELL_MAP_CACHE
+    if _SPELL_MAP_CACHE is None:
+        m: dict[str, dict] = {}
+        for sid, v in _spell_db().items():
+            if not isinstance(v, dict):
+                continue
+            name = (v.get("name_ko") or "").strip()
+            if len(name) < 2 or name in m:
+                continue
+            try:
+                m[name] = {"id": int(sid), "icon": (v.get("icon") or "").replace(".jpg", "")}
+            except ValueError:
+                continue
+        _SPELL_MAP_CACHE = json.dumps({"map": m}, ensure_ascii=False)
+    return Response(content=_SPELL_MAP_CACHE, media_type="application/json")
+
+
 _STAT_DR_CACHE: dict | None = None
 
 
