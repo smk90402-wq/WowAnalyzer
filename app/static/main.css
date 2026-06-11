@@ -798,3 +798,8 @@ body {
 ::-webkit-scrollbar-track { background: var(--bg-0); }
 ::-webkit-scrollbar-thumb { background: var(--bg-2); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--border); }
+
+/* 스펠 토큰 (아이콘+호버 툴팁) */
+.wh-spell{white-space:nowrap;text-decoration:none;color:#a8d08d}
+.wh-spell:hover span{text-decoration:underline}
+.wh-ico{width:17px;height:17px;vertical-align:-3px;border-radius:3px;margin-right:3px}

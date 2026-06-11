@@ -16,6 +16,7 @@ import sys
 from pathlib import Path
 
 import json
+import re
 
 import pandas as pd
 from fastapi import Depends, FastAPI, HTTPException, Request
@@ -240,7 +241,7 @@ def spec_meta() -> Response:
         df["pop_avg"] = None
         df["pop_favor"] = None
     # 스펙 가이드(설명/로테/꿀팁) inject — 팝업 우측 패널용
-    guide = _spec_guide()
+    guide = _spellify(_spec_guide())
     df["guide_desc"] = df.apply(
         lambda r: (guide.get(f'{r["class"]}|{r["spec"]}') or {}).get("desc", ""), axis=1)
     df["guide_rotation"] = df.apply(
@@ -271,8 +272,37 @@ def rotation_data() -> Response:
     p = DATA_DIR / "rotation_data.json"
     if not p.exists():
         raise HTTPException(404, "rotation_data.json 없음")
-    return Response(content=p.read_text(encoding="utf-8"),
+    data = _spellify(json.loads(p.read_text(encoding="utf-8")))
+    return Response(content=json.dumps(data, ensure_ascii=False),
                     media_type="application/json")
+
+
+_SPELL_TOKEN = re.compile(r"\{\{s:(\d+)(?::([^}]+))?\}\}")
+
+def _spellify(obj):
+    """{{s:ID}} / {{s:ID:표시명}} → 아이콘+한글명+wowhead 호버 툴팁 anchor (spell_db 기반).
+
+    스펙 팝업/딜사이클 텍스트에서 스킬·패시브·버프를 텍스트 대신 아이콘+마우스오버로
+    보여주기 위한 서버측 확장 (사용자 요청 2026-06-11). 프런트는 innerHTML 렌더라 그대로 작동,
+    툴팁은 index.html 의 wowhead power.js 가 처리.
+    """
+    if isinstance(obj, dict):
+        return {k: _spellify(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_spellify(x) for x in obj]
+    if not isinstance(obj, str):
+        return obj
+    db = _spell_db()
+    def rep(m):
+        sid, label = m.group(1), m.group(2)
+        v = db.get(sid) or {}
+        name = label or v.get("name_ko") or f"#{sid}"
+        icon = (v.get("icon") or "inv_misc_questionmark.jpg").replace(".jpg", "")
+        return (f'<a class="wh-spell" href="https://ko.wowhead.com/spell={sid}" '
+                f'data-wowhead="spell={sid}&domain=ko" target="_blank" rel="noopener">'
+                f'<img class="wh-ico" src="https://wow.zamimg.com/images/wow/icons/small/{icon}.jpg" '
+                f'alt="" loading="lazy"><span>{name}</span></a>')
+    return _SPELL_TOKEN.sub(rep, obj)
 
 
 _STAT_DR_CACHE: dict | None = None
