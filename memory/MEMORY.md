@@ -17,3 +17,4 @@
 - [Cache pipeline](project_cache_pipeline.md) — V2 cache JSON only. backfill_v2 → gui (V2Data dict lookup). SQLite/migrate fully removed 2026-05-18.
 - [Visual talent tree](project_talent_tree_visual.md) — Replace talent_table with WCL "최상위 100 분리" style visual tree (class/spec/hero + trinkets/embellishments). Blizzard talent-tree endpoint has full data.
 - [막공 환영도 지표 v2](project_pug_welcome.md) — KR 취업 시장 실측(취업률=신화/영웅풀, 공대 1,316 로스터 TO). ★교정: "많이 보임≠TO" — 개체수 지표는 수요/공급 혼동 (징벌 5→2 사례). 클래스 보유율 동학 포함.
+- [분석 설명 엄밀성](feedback_analysis_rigor.md) — 조어(톱백 등) 금지. WCL cast≠버튼(광포한 야수=패시브 프록). 메커니즘 주장은 대조군 분리실험 후. 3건 모두 사용자에게 지적당함.
