@@ -355,6 +355,20 @@
       "files": [
         "data/spec_meta_ranking.csv"
       ]
+    },
+    {
+      "ts": "2026-06-11T22:50:18",
+      "host": "SmkDesktop",
+      "action": "fetch_talent_trees",
+      "params": {
+        "specs_requested": 9
+      },
+      "result": {
+        "specs_built": 9
+      },
+      "files": [
+        "data/talent_trees.json"
+      ]
     }
   ]
 }

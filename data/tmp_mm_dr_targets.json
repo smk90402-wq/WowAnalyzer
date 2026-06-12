@@ -1,0 +1,1250 @@
+[
+ {
+  "boss": "Vorasius",
+  "build": "DR",
+  "char": "陈年风褛",
+  "rank": 1,
+  "total": 29676820,
+  "targets": [
+   {
+    "name": "Vorasius",
+    "pct": 91.3
+   },
+   {
+    "name": "Blistercreep",
+    "pct": 8.7
+   }
+  ]
+ },
+ {
+  "boss": "Vorasius",
+  "build": "DR",
+  "char": "Solduck",
+  "rank": 2,
+  "total": 39387921,
+  "targets": [
+   {
+    "name": "Vorasius",
+    "pct": 91.7
+   },
+   {
+    "name": "Blistercreep",
+    "pct": 8.3
+   }
+  ]
+ },
+ {
+  "boss": "Vorasius",
+  "build": "DR",
+  "char": "냥에카",
+  "rank": 3,
+  "total": 37030383,
+  "targets": [
+   {
+    "name": "Vorasius",
+    "pct": 85.4
+   },
+   {
+    "name": "Blistercreep",
+    "pct": 14.6
+   }
+  ]
+ },
+ {
+  "boss": "Vorasius",
+  "build": "DR",
+  "char": "주학몬",
+  "rank": 4,
+  "total": 37293998,
+  "targets": [
+   {
+    "name": "Vorasius",
+    "pct": 96.8
+   },
+   {
+    "name": "Blistercreep",
+    "pct": 3.2
+   }
+  ]
+ },
+ {
+  "boss": "Vorasius",
+  "build": "DR",
+  "char": "냥냥에카",
+  "rank": 5,
+  "total": 37203017,
+  "targets": [
+   {
+    "name": "Vorasius",
+    "pct": 90.7
+   },
+   {
+    "name": "Blistercreep",
+    "pct": 9.3
+   }
+  ]
+ },
+ {
+  "boss": "Vorasius",
+  "build": "DR",
+  "char": "Mortälity",
+  "rank": 6,
+  "total": 37577613,
+  "targets": [
+   {
+    "name": "Vorasius",
+    "pct": 87.4
+   },
+   {
+    "name": "Blistercreep",
+    "pct": 12.6
+   }
+  ]
+ },
+ {
+  "boss": "Vorasius",
+  "build": "DR",
+  "char": "파개왕태우스",
+  "rank": 7,
+  "total": 35932665,
+  "targets": [
+   {
+    "name": "Vorasius",
+    "pct": 88.8
+   },
+   {
+    "name": "Blistercreep",
+    "pct": 11.2
+   }
+  ]
+ },
+ {
+  "boss": "Vorasius",
+  "build": "DR",
+  "char": "Varàs",
+  "rank": 8,
+  "total": 38715644,
+  "targets": [
+   {
+    "name": "Vorasius",
+    "pct": 96.5
+   },
+   {
+    "name": "Blistercreep",
+    "pct": 3.5
+   }
+  ]
+ },
+ {
+  "boss": "Chimaerus, the Undreamt God",
+  "build": "DR",
+  "char": "或昱或愚",
+  "rank": 1,
+  "total": 21657530,
+  "targets": [
+   {
+    "name": "Chimaerus",
+    "pct": 92.1
+   },
+   {
+    "name": "Swarming Shade",
+    "pct": 5.4
+   },
+   {
+    "name": "Colossal Horror",
+    "pct": 2.5
+   }
+  ]
+ },
+ {
+  "boss": "Chimaerus, the Undreamt God",
+  "build": "DR",
+  "char": "陈年风褛",
+  "rank": 2,
+  "total": 24790016,
+  "targets": [
+   {
+    "name": "Chimaerus",
+    "pct": 82.1
+   },
+   {
+    "name": "Swarming Shade",
+    "pct": 14.6
+   },
+   {
+    "name": "Colossal Horror",
+    "pct": 3.2
+   }
+  ]
+ },
+ {
+  "boss": "Chimaerus, the Undreamt God",
+  "build": "DR",
+  "char": "Hopobopo",
+  "rank": 3,
+  "total": 23066233,
+  "targets": [
+   {
+    "name": "Chimaerus",
+    "pct": 79.8
+   },
+   {
+    "name": "Swarming Shade",
+    "pct": 18.9
+   },
+   {
+    "name": "Colossal Horror",
+    "pct": 1.3
+   }
+  ]
+ },
+ {
+  "boss": "Chimaerus, the Undreamt God",
+  "build": "DR",
+  "char": "Airponchik",
+  "rank": 4,
+  "total": 23287478,
+  "targets": [
+   {
+    "name": "Chimaerus",
+    "pct": 80.6
+   },
+   {
+    "name": "Swarming Shade",
+    "pct": 15.6
+   },
+   {
+    "name": "Colossal Horror",
+    "pct": 3.8
+   }
+  ]
+ },
+ {
+  "boss": "Chimaerus, the Undreamt God",
+  "build": "DR",
+  "char": "정유미최진이",
+  "rank": 5,
+  "total": 31888819,
+  "targets": [
+   {
+    "name": "Chimaerus",
+    "pct": 60.9
+   },
+   {
+    "name": "Swarming Shade",
+    "pct": 18.7
+   },
+   {
+    "name": "Haunting Essence",
+    "pct": 13.3
+   },
+   {
+    "name": "Colossal Horror",
+    "pct": 7.1
+   }
+  ]
+ },
+ {
+  "boss": "Chimaerus, the Undreamt God",
+  "build": "DR",
+  "char": "丶依枪穿云",
+  "rank": 6,
+  "total": 22819343,
+  "targets": [
+   {
+    "name": "Chimaerus",
+    "pct": 84.7
+   },
+   {
+    "name": "Swarming Shade",
+    "pct": 11.9
+   },
+   {
+    "name": "Colossal Horror",
+    "pct": 3.3
+   }
+  ]
+ },
+ {
+  "boss": "Chimaerus, the Undreamt God",
+  "build": "DR",
+  "char": "파강마",
+  "rank": 8,
+  "total": 39102071,
+  "targets": [
+   {
+    "name": "Chimaerus",
+    "pct": 72.3
+   },
+   {
+    "name": "Haunting Essence",
+    "pct": 10.5
+   },
+   {
+    "name": "Colossal Horror",
+    "pct": 9.6
+   },
+   {
+    "name": "Swarming Shade",
+    "pct": 7.6
+   }
+  ]
+ },
+ {
+  "boss": "Chimaerus, the Undreamt God",
+  "build": "DR",
+  "char": "파개왕태우스",
+  "rank": 10,
+  "total": 38343636,
+  "targets": [
+   {
+    "name": "Chimaerus",
+    "pct": 73.2
+   },
+   {
+    "name": "Swarming Shade",
+    "pct": 9.4
+   },
+   {
+    "name": "Colossal Horror",
+    "pct": 8.9
+   },
+   {
+    "name": "Haunting Essence",
+    "pct": 8.5
+   }
+  ]
+ },
+ {
+  "boss": "Chimaerus, the Undreamt God",
+  "build": "SEN",
+  "char": "코륨화살",
+  "rank": 7,
+  "total": 34413058,
+  "targets": [
+   {
+    "name": "Chimaerus",
+    "pct": 57.2
+   },
+   {
+    "name": "Swarming Shade",
+    "pct": 15.3
+   },
+   {
+    "name": "Colossal Horror",
+    "pct": 14.2
+   },
+   {
+    "name": "Haunting Essence",
+    "pct": 13.3
+   }
+  ]
+ },
+ {
+  "boss": "Chimaerus, the Undreamt God",
+  "build": "SEN",
+  "char": "转九",
+  "rank": 9,
+  "total": 36193796,
+  "targets": [
+   {
+    "name": "Chimaerus",
+    "pct": 49.0
+   },
+   {
+    "name": "Swarming Shade",
+    "pct": 20.5
+   },
+   {
+    "name": "Colossal Horror",
+    "pct": 15.3
+   },
+   {
+    "name": "Haunting Essence",
+    "pct": 15.3
+   }
+  ]
+ },
+ {
+  "boss": "Chimaerus, the Undreamt God",
+  "build": "SEN",
+  "char": "Ratatouille",
+  "rank": 18,
+  "total": 44693507,
+  "targets": [
+   {
+    "name": "Chimaerus",
+    "pct": 40.3
+   },
+   {
+    "name": "Colossal Horror",
+    "pct": 22.0
+   },
+   {
+    "name": "Haunting Essence",
+    "pct": 19.7
+   },
+   {
+    "name": "Swarming Shade",
+    "pct": 18.1
+   }
+  ]
+ },
+ {
+  "boss": "Chimaerus, the Undreamt God",
+  "build": "SEN",
+  "char": "양혐",
+  "rank": 22,
+  "total": 31833092,
+  "targets": [
+   {
+    "name": "Chimaerus",
+    "pct": 55.3
+   },
+   {
+    "name": "Colossal Horror",
+    "pct": 16.3
+   },
+   {
+    "name": "Swarming Shade",
+    "pct": 14.5
+   },
+   {
+    "name": "Haunting Essence",
+    "pct": 13.9
+   }
+  ]
+ },
+ {
+  "boss": "Chimaerus, the Undreamt God",
+  "build": "SEN",
+  "char": "转十二",
+  "rank": 24,
+  "total": 36771969,
+  "targets": [
+   {
+    "name": "Chimaerus",
+    "pct": 52.7
+   },
+   {
+    "name": "Swarming Shade",
+    "pct": 18.9
+   },
+   {
+    "name": "Haunting Essence",
+    "pct": 14.3
+   },
+   {
+    "name": "Colossal Horror",
+    "pct": 14.1
+   }
+  ]
+ },
+ {
+  "boss": "Chimaerus, the Undreamt God",
+  "build": "SEN",
+  "char": "命終紸錠",
+  "rank": 25,
+  "total": 47902691,
+  "targets": [
+   {
+    "name": "Chimaerus",
+    "pct": 59.5
+   },
+   {
+    "name": "Swarming Shade",
+    "pct": 20.5
+   },
+   {
+    "name": "Haunting Essence",
+    "pct": 10.1
+   },
+   {
+    "name": "Colossal Horror",
+    "pct": 10.0
+   }
+  ]
+ },
+ {
+  "boss": "Chimaerus, the Undreamt God",
+  "build": "SEN",
+  "char": "艾琳灬风信子",
+  "rank": 28,
+  "total": 48662173,
+  "targets": [
+   {
+    "name": "Chimaerus",
+    "pct": 45.8
+   },
+   {
+    "name": "Swarming Shade",
+    "pct": 24.3
+   },
+   {
+    "name": "Colossal Horror",
+    "pct": 17.0
+   },
+   {
+    "name": "Haunting Essence",
+    "pct": 12.9
+   }
+  ]
+ },
+ {
+  "boss": "Chimaerus, the Undreamt God",
+  "build": "SEN",
+  "char": "不语道人",
+  "rank": 30,
+  "total": 46909388,
+  "targets": [
+   {
+    "name": "Chimaerus",
+    "pct": 64.0
+   },
+   {
+    "name": "Colossal Horror",
+    "pct": 16.7
+   },
+   {
+    "name": "Swarming Shade",
+    "pct": 10.7
+   },
+   {
+    "name": "Haunting Essence",
+    "pct": 8.7
+   }
+  ]
+ },
+ {
+  "boss": "Midnight Falls",
+  "build": "DR",
+  "char": "냥에카",
+  "rank": 1,
+  "total": 163906007,
+  "targets": [
+   {
+    "name": "L'ura",
+    "pct": 89.8
+   },
+   {
+    "name": "Midnight Crystal",
+    "pct": 10.2
+   },
+   {
+    "name": "Termination Matrix",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Midnight Falls",
+  "build": "DR",
+  "char": "파개왕태우스",
+  "rank": 2,
+  "total": 153320754,
+  "targets": [
+   {
+    "name": "L'ura",
+    "pct": 90.4
+   },
+   {
+    "name": "Midnight Crystal",
+    "pct": 9.6
+   },
+   {
+    "name": "Termination Matrix",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Midnight Falls",
+  "build": "DR",
+  "char": "로저브라운",
+  "rank": 3,
+  "total": 161078139,
+  "targets": [
+   {
+    "name": "L'ura",
+    "pct": 91.7
+   },
+   {
+    "name": "Midnight Crystal",
+    "pct": 8.3
+   },
+   {
+    "name": "Termination Matrix",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Midnight Falls",
+  "build": "DR",
+  "char": "주학몬",
+  "rank": 4,
+  "total": 159627980,
+  "targets": [
+   {
+    "name": "L'ura",
+    "pct": 90.7
+   },
+   {
+    "name": "Midnight Crystal",
+    "pct": 9.3
+   },
+   {
+    "name": "Termination Matrix",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Midnight Falls",
+  "build": "DR",
+  "char": "Taewoos",
+  "rank": 5,
+  "total": 149748272,
+  "targets": [
+   {
+    "name": "L'ura",
+    "pct": 90.9
+   },
+   {
+    "name": "Midnight Crystal",
+    "pct": 9.1
+   },
+   {
+    "name": "Termination Matrix",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Midnight Falls",
+  "build": "DR",
+  "char": "Членвнутри",
+  "rank": 7,
+  "total": 140896128,
+  "targets": [
+   {
+    "name": "L'ura",
+    "pct": 89.5
+   },
+   {
+    "name": "Midnight Crystal",
+    "pct": 10.5
+   },
+   {
+    "name": "Termination Matrix",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Midnight Falls",
+  "build": "DR",
+  "char": "龍酒",
+  "rank": 9,
+  "total": 152763756,
+  "targets": [
+   {
+    "name": "L'ura",
+    "pct": 90.7
+   },
+   {
+    "name": "Midnight Crystal",
+    "pct": 9.3
+   },
+   {
+    "name": "Termination Matrix",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Midnight Falls",
+  "build": "DR",
+  "char": "Banshers",
+  "rank": 12,
+  "total": 150980565,
+  "targets": [
+   {
+    "name": "L'ura",
+    "pct": 91.6
+   },
+   {
+    "name": "Midnight Crystal",
+    "pct": 8.4
+   },
+   {
+    "name": "Termination Matrix",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Midnight Falls",
+  "build": "SEN",
+  "char": "Geethdwarf",
+  "rank": 6,
+  "total": 156769794,
+  "targets": [
+   {
+    "name": "L'ura",
+    "pct": 88.8
+   },
+   {
+    "name": "Midnight Crystal",
+    "pct": 11.2
+   },
+   {
+    "name": "Termination Matrix",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Midnight Falls",
+  "build": "SEN",
+  "char": "Grebet",
+  "rank": 8,
+  "total": 136726061,
+  "targets": [
+   {
+    "name": "L'ura",
+    "pct": 88.3
+   },
+   {
+    "name": "Midnight Crystal",
+    "pct": 11.7
+   },
+   {
+    "name": "Termination Matrix",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Midnight Falls",
+  "build": "SEN",
+  "char": "陈年风褛",
+  "rank": 10,
+  "total": 146552363,
+  "targets": [
+   {
+    "name": "L'ura",
+    "pct": 89.0
+   },
+   {
+    "name": "Midnight Crystal",
+    "pct": 11.0
+   },
+   {
+    "name": "Termination Matrix",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Midnight Falls",
+  "build": "SEN",
+  "char": "来感觉了吗",
+  "rank": 11,
+  "total": 140886079,
+  "targets": [
+   {
+    "name": "L'ura",
+    "pct": 90.9
+   },
+   {
+    "name": "Midnight Crystal",
+    "pct": 9.1
+   },
+   {
+    "name": "Termination Matrix",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Midnight Falls",
+  "build": "SEN",
+  "char": "Bîstand",
+  "rank": 13,
+  "total": 141877291,
+  "targets": [
+   {
+    "name": "L'ura",
+    "pct": 88.2
+   },
+   {
+    "name": "Midnight Crystal",
+    "pct": 11.8
+   },
+   {
+    "name": "Termination Matrix",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Midnight Falls",
+  "build": "SEN",
+  "char": "Diddy",
+  "rank": 16,
+  "total": 133801183,
+  "targets": [
+   {
+    "name": "L'ura",
+    "pct": 89.5
+   },
+   {
+    "name": "Midnight Crystal",
+    "pct": 10.5
+   },
+   {
+    "name": "Termination Matrix",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Midnight Falls",
+  "build": "SEN",
+  "char": "诗忆丶",
+  "rank": 17,
+  "total": 151356211,
+  "targets": [
+   {
+    "name": "L'ura",
+    "pct": 88.4
+   },
+   {
+    "name": "Midnight Crystal",
+    "pct": 11.6
+   },
+   {
+    "name": "Termination Matrix",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Midnight Falls",
+  "build": "SEN",
+  "char": "Snowhuntr",
+  "rank": 19,
+  "total": 138106499,
+  "targets": [
+   {
+    "name": "L'ura",
+    "pct": 89.3
+   },
+   {
+    "name": "Midnight Crystal",
+    "pct": 10.7
+   },
+   {
+    "name": "Termination Matrix",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "build": "DR",
+  "char": "파개왕태우스",
+  "rank": 1,
+  "total": 41955783,
+  "targets": [
+   {
+    "name": "Fallen-King Salhadaar",
+    "pct": 83.1
+   },
+   {
+    "name": "Enduring Void",
+    "pct": 13.7
+   },
+   {
+    "name": "Concentrated Void",
+    "pct": 3.2
+   },
+   {
+    "name": "Fractured Image",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "build": "DR",
+  "char": "Taewoos",
+  "rank": 3,
+  "total": 44467922,
+  "targets": [
+   {
+    "name": "Fallen-King Salhadaar",
+    "pct": 84.6
+   },
+   {
+    "name": "Enduring Void",
+    "pct": 11.8
+   },
+   {
+    "name": "Concentrated Void",
+    "pct": 3.5
+   },
+   {
+    "name": "Fractured Image",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "build": "DR",
+  "char": "奇怪的队友",
+  "rank": 8,
+  "total": 58864895,
+  "targets": [
+   {
+    "name": "Fallen-King Salhadaar",
+    "pct": 57.9
+   },
+   {
+    "name": "Enduring Void",
+    "pct": 31.7
+   },
+   {
+    "name": "Concentrated Void",
+    "pct": 10.4
+   },
+   {
+    "name": "Fractured Image",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "build": "DR",
+  "char": "로저브라운",
+  "rank": 17,
+  "total": 42168009,
+  "targets": [
+   {
+    "name": "Fallen-King Salhadaar",
+    "pct": 81.6
+   },
+   {
+    "name": "Enduring Void",
+    "pct": 14.2
+   },
+   {
+    "name": "Concentrated Void",
+    "pct": 4.2
+   },
+   {
+    "name": "Fractured Image",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "build": "DR",
+  "char": "Zlex",
+  "rank": 19,
+  "total": 41544169,
+  "targets": [
+   {
+    "name": "Fallen-King Salhadaar",
+    "pct": 65.9
+   },
+   {
+    "name": "Enduring Void",
+    "pct": 27.6
+   },
+   {
+    "name": "Concentrated Void",
+    "pct": 6.5
+   }
+  ]
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "build": "DR",
+  "char": "我看看谁犯病",
+  "rank": 21,
+  "total": 45316629,
+  "targets": [
+   {
+    "name": "Fallen-King Salhadaar",
+    "pct": 72.5
+   },
+   {
+    "name": "Enduring Void",
+    "pct": 22.9
+   },
+   {
+    "name": "Concentrated Void",
+    "pct": 4.7
+   },
+   {
+    "name": "Fractured Image",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "build": "DR",
+  "char": "Geethdwarf",
+  "rank": 25,
+  "total": 44859471,
+  "targets": [
+   {
+    "name": "Fallen-King Salhadaar",
+    "pct": 75.2
+   },
+   {
+    "name": "Enduring Void",
+    "pct": 18.0
+   },
+   {
+    "name": "Concentrated Void",
+    "pct": 6.8
+   },
+   {
+    "name": "Fractured Image",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "build": "DR",
+  "char": "파강마",
+  "rank": 27,
+  "total": 37201824,
+  "targets": [
+   {
+    "name": "Fallen-King Salhadaar",
+    "pct": 75.4
+   },
+   {
+    "name": "Enduring Void",
+    "pct": 21.2
+   },
+   {
+    "name": "Concentrated Void",
+    "pct": 3.4
+   },
+   {
+    "name": "Fractured Image",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "build": "SEN",
+  "char": "米咕咕饲养员",
+  "rank": 2,
+  "total": 47207724,
+  "targets": [
+   {
+    "name": "Fallen-King Salhadaar",
+    "pct": 77.8
+   },
+   {
+    "name": "Enduring Void",
+    "pct": 16.8
+   },
+   {
+    "name": "Concentrated Void",
+    "pct": 5.4
+   },
+   {
+    "name": "Fractured Image",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "build": "SEN",
+  "char": "Snoopyx",
+  "rank": 4,
+  "total": 44658513,
+  "targets": [
+   {
+    "name": "Fallen-King Salhadaar",
+    "pct": 69.0
+   },
+   {
+    "name": "Enduring Void",
+    "pct": 20.4
+   },
+   {
+    "name": "Concentrated Void",
+    "pct": 10.7
+   },
+   {
+    "name": "Fractured Image",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "build": "SEN",
+  "char": "就这个吧",
+  "rank": 5,
+  "total": 46517520,
+  "targets": [
+   {
+    "name": "Fallen-King Salhadaar",
+    "pct": 60.5
+   },
+   {
+    "name": "Enduring Void",
+    "pct": 32.2
+   },
+   {
+    "name": "Concentrated Void",
+    "pct": 7.3
+   },
+   {
+    "name": "Fractured Image",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "build": "SEN",
+  "char": "주학몬",
+  "rank": 6,
+  "total": 46794873,
+  "targets": [
+   {
+    "name": "Fallen-King Salhadaar",
+    "pct": 67.7
+   },
+   {
+    "name": "Enduring Void",
+    "pct": 22.0
+   },
+   {
+    "name": "Concentrated Void",
+    "pct": 10.3
+   },
+   {
+    "name": "Fractured Image",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "build": "SEN",
+  "char": "雪人丷",
+  "rank": 7,
+  "total": 45367671,
+  "targets": [
+   {
+    "name": "Fallen-King Salhadaar",
+    "pct": 67.4
+   },
+   {
+    "name": "Enduring Void",
+    "pct": 22.7
+   },
+   {
+    "name": "Concentrated Void",
+    "pct": 9.9
+   },
+   {
+    "name": "Fractured Image",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "build": "SEN",
+  "char": "돈내고똥먹기",
+  "rank": 9,
+  "total": 34243285,
+  "targets": [
+   {
+    "name": "Fallen-King Salhadaar",
+    "pct": 69.1
+   },
+   {
+    "name": "Enduring Void",
+    "pct": 18.8
+   },
+   {
+    "name": "Concentrated Void",
+    "pct": 12.1
+   },
+   {
+    "name": "Fractured Image",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "build": "SEN",
+  "char": "Vayenhnt",
+  "rank": 10,
+  "total": 35682030,
+  "targets": [
+   {
+    "name": "Fallen-King Salhadaar",
+    "pct": 72.5
+   },
+   {
+    "name": "Enduring Void",
+    "pct": 15.3
+   },
+   {
+    "name": "Concentrated Void",
+    "pct": 12.1
+   },
+   {
+    "name": "Fractured Image",
+    "pct": 0.0
+   }
+  ]
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "build": "SEN",
+  "char": "等一生都等",
+  "rank": 11,
+  "total": 48782848,
+  "targets": [
+   {
+    "name": "Fallen-King Salhadaar",
+    "pct": 64.0
+   },
+   {
+    "name": "Enduring Void",
+    "pct": 24.4
+   },
+   {
+    "name": "Concentrated Void",
+    "pct": 11.6
+   },
+   {
+    "name": "Fractured Image",
+    "pct": 0.0
+   }
+  ]
+ }
+]

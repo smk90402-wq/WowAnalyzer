@@ -51,6 +51,15 @@ manifest 의 pfight_keys / events_keys 중 **등록 캐릭** (data/user_characte
 - `sync_cache_from_manifest.py` — manifest 보고 등록 캐릭의 누락 페치 자동
 - 또는 .exe UI 에 "캐시 동기화" 버튼
 
+## 2026-06-12 확장 — make_cache_manifest.py (재사용 생성 스크립트)
+
+매니페스트 생성이 인라인뿐이어서 `make_cache_manifest.py` 신설 (캐시 변경 후 커밋 전에 실행).
+구조 확장: `pi_fight_keys`·`kr_roster_keys` 추가 + **`uncommitted_large_files`**(커밋 안 하는 대용량의
+재생성 명령 명시 — kr_mythic_rankings 18MB는 `fetch_kr_pug_market.py`, tmp_mm_events 25MB는
+`analyze_mm_dr_cycle.py`, 전부 캐시 재개형) + `committed_results`(pull만 하면 되는 결과물 목록).
+동기화 계약: **결과물·코드 = git / 재생성 가능 캐시 = manifest에 명령 명시**. 사용자 지시(2026-06-12):
+"어떤 PC에는 데이터 있고 어떤 PC에는 없고 이런 일 없게" — 새 캐시 만들면 반드시 manifest에 등록할 것.
+
 ---
 
 ## update_log.json — 데이터 갱신 history (PC 간 sync)
