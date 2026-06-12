@@ -291,16 +291,33 @@ function whEnsure() {
     document.head.appendChild(s);
   } else if (window.$WowheadPower.refreshLinks) window.$WowheadPower.refreshLinks();
 }
+// 산문과 충돌하는 일반 단어 — 스펠DB에 단독 이름으로 존재해도 링크 금지
+// (전체 스킬명은 긴 이름 우선 매칭이라 영향 없음. '속사포' 같은 합성어는 한글 경계 규칙이 막음)
+const WS_BLOCK = new Set(['사격', '강화', '폭발', '질주', '회복', '재생', '어둠', '격노', '집중', '표식']);
+const _wsHangul = (c) => c >= '가' && c <= '힣';
 function wsify(escText) {
   // esc() 처리된 평문에서 스킬명을 아이콘+툴팁 링크로 치환.
-  // 토큰 치환(긴 이름 → N) 후 일괄 전개 — 짧은 이름이 긴 이름 내부를 재치환하는 것 방지.
+  // 토큰 치환(긴 이름 우선) 후 일괄 전개 — 짧은 이름이 긴 이름 내부를 재치환하는 것 방지.
+  // 한글 경계: 매칭 앞뒤가 한글 음절이면 단어 일부라 치환 안 함 (정규식 대신 수동 스캔 — 이스케이프 불필요).
   if (!_spellNames || !_spellNames.length || !escText) return escText;
   const toks = [];
   let out = escText;
   for (const n of _spellNames) {
-    if (out.indexOf(n) === -1) continue;
-    toks.push(n);
-    out = out.split(n).join('' + (toks.length - 1) + '');
+    if (WS_BLOCK.has(n) || out.indexOf(n) === -1) continue;
+    let res = '', pos = 0, hit = false;
+    for (let k = out.indexOf(n, pos); k !== -1; k = out.indexOf(n, pos)) {
+      const pre = k > 0 ? out[k - 1] : '';
+      const post = k + n.length < out.length ? out[k + n.length] : '';
+      if (!_wsHangul(pre) && !_wsHangul(post)) {
+        res += out.slice(pos, k) + '' + toks.length + '';
+        hit = true;
+      } else {
+        res += out.slice(pos, k + n.length);
+      }
+      pos = k + n.length;
+    }
+    res += out.slice(pos);
+    if (hit) { toks.push(n); out = res; }
   }
   return out.replace(/(\d+)/g, (_, i) => {
     const n = toks[+i], s = _spellMap[n];
