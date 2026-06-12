@@ -22,3 +22,12 @@ metadata:
    — 혼입은 리포트 레벨 actors 열거 때만 주의★
 
 4. 기타: V1/V2 모두 업로드 API 없음. events 쿼리에 fight의 startTime/endTime 안 넣으면 로그 첫 200ms만 잡힘(우리는 이미 준수).
+
+2025-10~11 분량 추가 (사용자 2차 수집):
+5. **인기 탤런트 빌드 API 없음** (emallson "not at this time"): Archon 보스별 인기빌드도, WCL 랭킹 페이지의
+   탤런트 집계도 API 미제공 — top100 개별 fight 쿼리 + 탤런트 추출이 유일한 방법.
+   ★우리 파이프라인(랭킹 CSV → player_fight nodes → 빌드 분류)이 정답이었다는 공식 확인★
+6. **NPC 정밀 HP = events에 `includeResources: true`** (emallson): 피해 이벤트에 대상 hitPoints/maxHitPoints
+   실림 (resourceActor=2=대상. 이벤트당 한 액터만, 전부 실리진 않음). 대략값이면 resources graph.
+   → 처형/오프닝 구간을 시간 프록시 대신 실제 보스 체력 80%/20% 시점으로 정밀 분석 가능 (2026-06-12 검증·적용).
+7. 길드 "raid teams"는 API상 별도 길드 취급, tags≠teams (문서가 구식), 부모-자식 관계 미노출.
