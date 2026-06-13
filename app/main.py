@@ -313,21 +313,42 @@ def spell_map() -> Response:
     """한글 스킬명 → {id, icon} 맵 — 프런트 wsify()(스킬명 자동 아이콘+호버툴팁) 용.
 
     main.js ensureSpellMap() 이 기대하는 형태: {"map": {이름: {id, icon(.jpg 제외)}}}.
-    같은 이름 여러 ID(랭크/변형)면 먼저 나온 것 유지. 1글자 이름은 오매칭 노이즈라 제외.
+    같은 이름 여러 ID(랭크/변형)면 먼저 나온 것 유지. 짧은 단어 이름은 오매칭 노이즈라
+    자동매핑에서 제외하고, 검증된 ID는 아래 override 로만 매핑.
     """
     global _SPELL_MAP_CACHE
     if _SPELL_MAP_CACHE is None:
+        db = _spell_db()
         m: dict[str, dict] = {}
-        for sid, v in _spell_db().items():
+        for sid, v in db.items():
             if not isinstance(v, dict):
                 continue
             name = (v.get("name_ko") or "").strip()
-            if len(name) < 2 or name in m:
+            if not name or name in m:
                 continue
+            if len(name) < 4 and " " not in name:
+                continue  # 짧은 단어 자동매핑 제외 (곰·제압 등 오탐 — override 로만)
             try:
                 m[name] = {"id": int(sid), "icon": (v.get("icon") or "").replace(".jpg", "")}
             except ValueError:
                 continue
+        # 2026-06-11 세션에서 로그/특성트리로 검증된 ID (분석: analyze_bm_addwave*/mm_sentinel)
+        override = {
+            "쇄도": 1258344, "유혈": 1272099, "난타": 1264359,
+            "마구잡이 난타": 1264359, "야수의 격노": 19574, "살상 명령": 34026,
+            "날카로운 사격": 217200, "코브라 사격": 193455,
+            "광포한 야수": 1283818, "무리의 지도자의 포효": 471876,
+            "야수의 회전베기": 115939, "자연의 동맹": 1273043,
+            "조준 사격": 19434, "신비한 사격": 185358, "고정 사격": 56641,
+            "속사": 257044, "정밀 사격": 260242, "교묘한 사격": 257622,
+            "연발 공격": 260243, "일제 사격": 257620, "폭발 사격": 212431,
+            "달빛 회전 표창": 1264949, "정조준": 288613, "검은 화살": 466930,
+            "달의 폭풍": 1253732, "배수의 진": 450373,
+        }
+        for n, sid in override.items():
+            ic = ((db.get(str(sid)) or {}).get("icon")
+                  or (m.get(n) or {}).get("icon") or "").replace(".jpg", "")
+            m[n] = {"id": sid, "icon": ic}
         _SPELL_MAP_CACHE = json.dumps({"map": m}, ensure_ascii=False)
     return Response(content=_SPELL_MAP_CACHE, media_type="application/json")
 
