@@ -8,6 +8,7 @@ type: feedback
 - **한밤 = Midnight expansion** (WoW expansion after The War Within, released ~2025/2026).
 - **꿈의 균열 = zone 46 (raid name)**. 보스 별칭이 아니라 **레이드 자체의 한국 클라 이름** ("Crack of Dreams" / "Rift of Dreams"). WCL 의 zone 46 "VS / DR / MQD" 와 매핑.
 - **꿈결을 벗어난 신 카이메루스 = Chimaerus, the Undreamt God** (encounter_id 3306). 이 보스가 특정 시전 시 1조/2조 갈라짐 → 딜사이클 분기 추론 필요. 9보스 중 유일.
+- **칠흑의 힘 = Ebon Might** (증강 기원사 핵심 능동 버프기, spell **395152**, 아이콘 spell_sarkareth, 10초/쿨30초, 아군 주능력치+치명타, 영상 전체가 이 운영법). **"흑요석의 힘" 아님** — 흑요석(obsidian)은 다른 단어. 증강 흑요석 계열(흑요석 비늘=Obsidian Scales 등)은 방어/패시브라 헷갈림 주의. (2026-06-13 Claude가 "흑요석의 힘"으로 오역 → 사용자 "패시브 오라 아니냐" 의심 → Wowhead/나무위키로 정정. Ebon=칠흑.)
 - **번역 출처 규칙 — 영어 → 한글 추측 금지**. 직역하지 말고:
   1. 사용자가 도감/인게임 스크린샷 주면 그게 1순위 권위 (틀린 데 지적당한 적 많음)
   2. WoWhead 한국어 (`/ko/`) — 스펠/아이템에 한해 일반적으로 정확
