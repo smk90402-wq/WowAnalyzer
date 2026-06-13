@@ -1313,6 +1313,15 @@ function renderAugFeedback(d) {
   return `<div class="fb-kpis">${kpis}</div>${viol}${noteHdr}<div class="fb-notes">${notes}</div>`;
 }
 
+// ── 비교 화면 단독 HTML 내보내기 (줌/툴팁 유지, 오프라인 전송용) ──────────
+function exportComparison() {
+  const t = compState.top || {}, b = compState.bottom || {};
+  if (!t.rid || !t.fid || !t.char) { alert('위 row 에 캐릭터를 먼저 선택하세요.'); return; }
+  const p = new URLSearchParams({ top_rid: t.rid, top_fid: t.fid, top_char: t.char });
+  if (b.rid && b.fid && b.char) { p.set('bot_rid', b.rid); p.set('bot_fid', b.fid); p.set('bot_char', b.char); }
+  window.open('/api/export/comparison?' + p.toString(), '_blank');
+}
+
 function applyBuffVisibility() {
   const chk = document.getElementById('comp-buff-chk');
   if (!chk) return;

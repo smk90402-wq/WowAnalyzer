@@ -1015,6 +1015,111 @@ def aug_feedback_api(rid: str, fid: int, char: str) -> JSONResponse:
     return JSONResponse(res)
 
 
+_EXPORT_CSS = """
+body{margin:0;background:#1a1614;color:#f5f0e8;font-family:'Pretendard','Segoe UI',sans-serif;font-size:12px}
+.exp-row{border-bottom:2px solid #3a322c}
+.exp-h{padding:8px 12px;background:#2a231e;font-weight:600;color:#e8b96f}
+.exp-tl{width:100%;height:48vh;border:0;background:#1a1614;display:block}
+.fb-kpis{display:flex;flex-wrap:wrap;gap:6px;padding:6px 12px}
+.fb-kpi{background:#2a231e;border:1px solid #3a322c;border-radius:3px;padding:2px 7px;color:#a39c8e}
+.fb-kpi b{color:#f5f0e8;margin-left:3px}
+.fb-kpi.good{border-color:#3a7d44}.fb-kpi.good b{color:#6fcf7f}
+.fb-kpi.warn{border-color:#8a7a2e}.fb-kpi.warn b{color:#e2c14e}
+.fb-kpi.bad{border-color:#8a3030}.fb-kpi.bad b{color:#e06c6c}
+.fb-viol{padding:2px 12px 6px}.fb-viol>b{margin-right:6px}.fb-viol.ok{color:#6fcf7f}
+.fb-v{padding-left:8px;border-left:2px solid #e06c6c;color:#a39c8e;margin:2px 0}
+.exp-foot{padding:8px 12px;color:#7a7268;font-size:11px}
+"""
+
+_EXPORT_SYNC = ("<script>const F=[...document.querySelectorAll('iframe.exp-tl')];"
+                "window.addEventListener('message',e=>{const d=e.data;"
+                "if(!d||d.type!=='tlsync')return;F.forEach(f=>{if(f.contentWindow!==e.source)"
+                "{try{f.contentWindow.postMessage({type:'tlapply',pps:d.pps,panX:d.panX,panY:d.panY},'*')}catch(_){}}});"
+                "});</script>")
+
+
+def _fb_panel_html(fb: dict | None) -> str:
+    """내보내기용 — aug_feedback 결과를 패널 HTML 로 (증강 아니면 빈 문자열)."""
+    if not fb or not fb.get("is_aug"):
+        return ""
+    import html as _h
+    k = fb.get("kpis", {})
+    up = k.get("ebon_uptime_pct", 0)
+    up_tone = "good" if up >= 90 else ("warn" if up >= 80 else "bad")
+    br = k.get("breath_casts", 0); bra = k.get("breath_after_ebon", 0)
+    br_tone = "good" if (br and bra == br) else ("bad" if br else "")
+    chips = (
+        f'<span class="fb-kpi {up_tone}">칠흑 유지 <b>{up}%</b></span>'
+        f'<span class="fb-kpi">칠흑 <b>{k.get("ebon_casts", 0)}</b></span>'
+        f'<span class="fb-kpi">예지 <b>{k.get("prescience_casts", 0)}</b></span>'
+        f'<span class="fb-kpi {br_tone}">영겁 칠흑직후 <b>{bra}/{br}</b></span>'
+        f'<span class="fb-kpi">필러 <b>{round(k.get("filler_ratio", 0) * 100)}%</b></span>'
+        f'<span class="fb-kpi">부양 <b>{k.get("hover_casts", 0)}</b> 유지 {k.get("hover_uptime_pct", 0)}%</span>'
+    )
+    vs = fb.get("violations") or []
+    if vs:
+        viol = ('<div class="fb-viol"><b>개선점 %d건</b>' % len(vs)) + "".join(
+            f'<div class="fb-v">{v.get("ts_rel")}s · {_h.escape(str(v.get("label", "")))} — '
+            f'{_h.escape(str(v.get("why", "")))}</div>' for v in vs) + "</div>"
+    else:
+        viol = '<div class="fb-viol ok">자동 점검 위반 없음 ✓</div>'
+    return f'<div class="fb-kpis">{chips}</div>{viol}'
+
+
+@app.get("/api/export/comparison", response_class=HTMLResponse)
+def export_comparison(top_rid: str, top_fid: int, top_char: str,
+                      bot_rid: str = "", bot_fid: int = 0, bot_char: str = "") -> HTMLResponse:
+    """현재 비교 화면을 단독 HTML 한 파일로 — 줌/팬/툴팁 유지(오프라인), 아이콘만 인터넷."""
+    import html as _h
+    v2 = _v2()
+
+    def bundle(label: str, rid: str, fid: int, char: str) -> str:
+        key = f"{rid}:{fid}:{char}"
+        if key not in v2.pfight:
+            try:
+                v2.player_fight(rid, fid, char)
+            except Exception:
+                pass
+        ev = v2.events_for(rid, fid, char) or {}
+        casts = ev.get("casts") or []
+        buffs = ev.get("buffs") or []
+        pf = v2.pfight.get(key) or {}
+        meta = v2.meta.get(rid) or {}
+        fw: list = []
+        for f in meta.get("fights") or []:
+            if f.get("id") == fid:
+                fw = [f.get("startTime"), f.get("endTime")]
+                break
+        flag_casts: dict = {}
+        fb = None
+        if len(fw) == 2 and fw[0] is not None and fw[1] is not None:
+            fb = aug_feedback.compute(casts, buffs, pf.get("gear") or [], fw[0], fw[1])
+            for v in fb.get("violations") or []:
+                if v.get("ts_ms") is not None and v.get("sid") is not None:
+                    flag_casts[(int(v["sid"]), int(v["ts_ms"]))] = v.get("why", "")
+        src = pf.get("sourceID") if isinstance(pf.get("sourceID"), int) else None
+        tl = tl_render.render_html(char=char, casts=casts, buffs=buffs, fight_window=fw,
+                                   spell_db=_spell_db(), char_source_id=src,
+                                   orientation="h", flag_casts=flag_casts)
+        srcdoc = _h.escape(tl, quote=True)
+        return (f'<section class="exp-row"><div class="exp-h">{_h.escape(label)} · '
+                f'{_h.escape(char)} · {_h.escape(rid)} · fight {fid}</div>'
+                f'{_fb_panel_html(fb)}'
+                f'<iframe class="exp-tl" srcdoc="{srcdoc}"></iframe></section>')
+
+    blocks = [bundle("▲ 위", top_rid, top_fid, top_char)]
+    if bot_rid and bot_char:
+        blocks.append(bundle("▼ 아래", bot_rid, bot_fid, bot_char))
+    page = (f'<!doctype html><html lang="ko"><head><meta charset="utf-8">'
+            f'<title>WoW 로그 비교 — {_h.escape(top_char)}</title>'
+            f'<style>{_EXPORT_CSS}</style></head><body>{"".join(blocks)}'
+            f'<div class="exp-foot">WoW 한밤 레이드 로그 분석기 — 내보내기. '
+            f'더블클릭으로 열람(줌/팬/툴팁 동작). 아이콘·wowhead 툴팁은 인터넷 필요.</div>'
+            f'{_EXPORT_SYNC}</body></html>')
+    return HTMLResponse(page, headers={
+        "Content-Disposition": 'attachment; filename="wowlog_comparison.html"'})
+
+
 # ── 특성 트리 HTML (iframe srcdoc embed) ───────────────────────────────────
 _talent_trees_cache: dict | None = None
 
