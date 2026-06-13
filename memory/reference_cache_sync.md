@@ -60,6 +60,18 @@ manifest 의 pfight_keys / events_keys 중 **등록 캐릭** (data/user_characte
 동기화 계약: **결과물·코드 = git / 재생성 가능 캐시 = manifest에 명령 명시**. 사용자 지시(2026-06-12):
 "어떤 PC에는 데이터 있고 어떤 PC에는 없고 이런 일 없게" — 새 캐시 만들면 반드시 manifest에 등록할 것.
 
+## 2026-06-13 단일 소스화 (중요 — 매니페스트 덮어쓰기 사고 방지)
+
+문제였던 것: 앱 atexit `_save_cache_manifest`(main.py)가 **스트립본**(pfight/events/meta만)을 써서,
+standalone `make_cache_manifest.py`로 만든 리치 매니페스트(pi_fight·kr_roster·uncommitted_large_files·
+committed_results)를 앱 한 번 돌리면 날려버렸음. 다른 PC가 그 스트립본을 커밋→pull하면 재생성 명령 소실.
+
+해결: `make_cache_manifest.build_manifest(data_dir)/write_manifest(data_dir)` 함수화 → main.py atexit이
+이걸 호출(동일 리치 구조). DATA 경로는 frozen 인식(exe 옆 data 정션 vs 프로젝트 루트). atexit 등록 순서도
+교정(LIFO라 manifest 먼저 register → flush 가 먼저 실행, 디스크 최신화 후 manifest 읽음).
+→ 앱 종료든 수동 실행이든 **항상 같은 완전한 매니페스트**. 새 캐시는 make_cache_manifest.py 두 블록
+(uncommitted_large_files / committed_results)에만 추가하면 양쪽 자동 반영.
+
 ---
 
 ## update_log.json — 데이터 갱신 history (PC 간 sync)

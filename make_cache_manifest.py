@@ -11,11 +11,15 @@ from pathlib import Path
 try: sys.stdout.reconfigure(encoding="utf-8")
 except Exception: pass
 
-DATA = Path(__file__).parent / "data"
+# frozen exe 에선 exe 옆 data 정션, 아니면 프로젝트 루트 data (main.py DATA_DIR 와 동일 규칙)
+if getattr(sys, "frozen", False):
+    DATA = Path(sys.executable).parent / "data"
+else:
+    DATA = Path(__file__).parent / "data"
 
 
-def keys_of(fname):
-    p = DATA / fname
+def keys_of(fname, data_dir=None):
+    p = (data_dir or DATA) / fname
     if not p.exists():
         return []
     try:
@@ -24,15 +28,17 @@ def keys_of(fname):
         return []
 
 
-def main():
+def build_manifest(data_dir=None) -> dict:
+    """디스크의 캐시 파일을 읽어 매니페스트 dict 생성 — 앱 atexit/standalone 공용 단일 소스."""
+    dd = data_dir or DATA
     m = {
         "generated_at": time.time(),
         "host": socket.gethostname(),
-        "pfight_keys": keys_of("v2_cache_player_fight.json"),
-        "events_keys": keys_of("v2_cache_events.json"),
-        "report_meta_rids": keys_of("v2_cache_report_meta.json"),
-        "pi_fight_keys": keys_of("v2_cache_pi_fight.json"),
-        "kr_roster_keys": keys_of("v2_cache_kr_roster.json"),
+        "pfight_keys": keys_of("v2_cache_player_fight.json", dd),
+        "events_keys": keys_of("v2_cache_events.json", dd),
+        "report_meta_rids": keys_of("v2_cache_report_meta.json", dd),
+        "pi_fight_keys": keys_of("v2_cache_pi_fight.json", dd),
+        "kr_roster_keys": keys_of("v2_cache_kr_roster.json", dd),
         # 커밋 안 하는 대용량 파일 — 다른 PC에서 아래 명령으로 재생성 (전부 캐시 재개형이라 안전)
         "uncommitted_large_files": {
             "kr_mythic_rankings.json": {
@@ -60,7 +66,19 @@ def main():
             "tmp_mm_situations.json", "tmp_mm_hp_windows.json",
         ],
     }
-    (DATA / "cache_manifest.json").write_text(json.dumps(m, ensure_ascii=False), encoding="utf-8")
+    return m
+
+
+def write_manifest(data_dir=None) -> dict:
+    """build_manifest() → data/cache_manifest.json 저장. 앱 atexit·standalone 공용."""
+    dd = data_dir or DATA
+    m = build_manifest(dd)
+    (dd / "cache_manifest.json").write_text(json.dumps(m, ensure_ascii=False), encoding="utf-8")
+    return m
+
+
+def main():
+    m = write_manifest()
     print(f"매니페스트 갱신: pfight {len(m['pfight_keys'])} · events {len(m['events_keys'])} · "
           f"meta {len(m['report_meta_rids'])} · pi {len(m['pi_fight_keys'])} · kr_roster {len(m['kr_roster_keys'])}")
 

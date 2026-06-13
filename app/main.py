@@ -129,8 +129,9 @@ def _v2() -> V2Data:
         _v2_inst = V2Data(data_dir=DATA_DIR)
         # FastAPI 핸들러가 캐시를 변경해도 디스크에 저장되지 않으면 .exe 재시작 시 손실.
         # atexit 으로 우아한 종료 시 flush. pywebview 윈도우 닫기 → 메인 스레드 종료 시 호출됨.
-        atexit.register(_v2_inst.flush)
+        # LIFO 실행: manifest 먼저 register → flush 가 먼저 실행되어 디스크 최신화 후 manifest 가 읽음.
         atexit.register(_save_cache_manifest)
+        atexit.register(_v2_inst.flush)
     return _v2_inst
 
 
@@ -139,25 +140,16 @@ def _v2() -> V2Data:
 # git 트래킹되어 다른 PC 에서 pull 받음. 그 PC 가 manifest 보고
 # 본인 PC 의 캐시와 diff 비교 → 누락된 키 자동 페치 가능.
 def _save_cache_manifest() -> None:
+    # flush 가 먼저 실행돼 디스크가 최신화된 뒤, make_cache_manifest 의 단일 소스로 리치 매니페스트
+    # (pi_fight·kr_roster·uncommitted_large_files·committed_results 포함) 생성 — 스트립본 덮어쓰기 방지.
     if _v2_inst is None:
         return
     try:
-        manifest = {
-            "generated_at": __import__("time").time(),
-            "host": __import__("socket").gethostname(),
-            "pfight_keys": sorted(k for k, v in _v2_inst.pfight.items()
-                                  if isinstance(v, dict)),
-            "events_keys": sorted(k for k, v in _v2_inst.events.items()
-                                  if isinstance(v, dict)),
-            "report_meta_rids": sorted(_v2_inst.meta.keys()),
-        }
-        path = DATA_DIR / "cache_manifest.json"
-        path.write_text(
-            json.dumps(manifest, ensure_ascii=False, indent=2),
-            encoding="utf-8")
-        log.info("cache_manifest 저장: pfight=%d events=%d meta=%d",
-                 len(manifest["pfight_keys"]), len(manifest["events_keys"]),
-                 len(manifest["report_meta_rids"]))
+        from make_cache_manifest import write_manifest
+        m = write_manifest(DATA_DIR)
+        log.info("cache_manifest 저장: pfight=%d events=%d meta=%d kr_roster=%d",
+                 len(m["pfight_keys"]), len(m["events_keys"]),
+                 len(m["report_meta_rids"]), len(m["kr_roster_keys"]))
     except Exception as e:
         log.warning("cache_manifest 저장 실패: %s", e)
 
