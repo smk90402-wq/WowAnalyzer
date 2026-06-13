@@ -49,3 +49,8 @@ python -m PyInstaller --noconfirm --windowed --name LogAnalyze ^
 **예외:**
 - 사용자가 명시적으로 "이번 turn 은 빌드 스킵" 이라고 말하면 스킵
 - 빌드가 5분 넘게 걸리는 비정상 상황은 한 번만 더 시도, 계속 실패하면 보고하고 다음 turn 으로 넘김
+
+**2026-06-13 — 빌드 자동화(Stop 훅)**: 이 프로젝트 `.claude/settings.json` 에 Stop 훅 추가 →
+매 턴 끝에 하네스가 `build.bat` 자동 실행 (`cmd /c "...build.bat < nul"`, shell=powershell, timeout 300s).
+**훅이 설정된 PC 에선 모델이 수동 빌드 불필요** (중복 빌드·dist 충돌 방지). `.claude/` 는 gitignore 라
+훅은 PC 별 로컬 — 다른 PC 로 sync 안 되니, 훅 없는 PC 에선 위 규칙대로 수동 빌드 유지.
