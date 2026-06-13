@@ -20,5 +20,5 @@
 - [분석 설명 엄밀성](feedback_analysis_rigor.md) — 조어(톱백 등) 금지. WCL cast≠버튼(광포한 야수=패시브 프록). 메커니즘 주장은 대조군 분리실험 후. 3건 모두 사용자에게 지적당함.
 - [PS 한글 매칭 함정](reference_ps_korean_match.md) — PowerShell 5.1 Invoke-WebRequest는 한글 응답 깨뜨림 → frozen exe 검증은 ASCII 마커나 python urllib로.
 - [WCL API 디스코드 너겟](reference_wcl_api_discord.md) — 필터 파라미터는 OR 결합(교집합=단일 filterExpression), fightIDs가 encounterID 필터보다 싸고 정확, 비참가자 혼입은 리포트 레벨만(우리 fight 로스터는 깨끗 검증).
-- [증강 비교 피드백 설계](project_aug_feedback.md) — 비교탭 1등대비 빨강 피드백 + 버프 가시성(세로스크롤+희귀접기) + 캐릭터 필터 통합 설계. 핵심기 spell ID·규칙표·아키텍처. 코어 app/aug_feedback.py 구현·검증 완료(4260f72), UI 연결 남음.
+- [증강 비교 피드백 설계](project_aug_feedback.md) — 비교탭 증강 피드백. **v1 구현 완료**: 코어(aug_feedback.py)+/api/aug-feedback+row별 패널(KPI·개선점·교육노트)+타임라인 셀 빨강마킹(timeline.py flag_casts)+증강 스킬명복구(EVOKER_KR)+비증강 숨김(is_aug)+캐릭터 필터(friendlyPlayers). 핵심기 spell ID는 설계서. **남은 것**: 버프 세로스크롤·희귀접기①, 1등 cross-row diff, 보스순회⑥(기원리셋 캐시 1판뿐→추가 페치).
 - [사내망 웹 배포](project_lan_deploy.md) — 피드백 기능 후: uvicorn 0.0.0.0 바인딩+방화벽+고정포트로 LAN 내 http://IP:포트 접속. 헤드리스 모드 권장. 공개 인터넷 아님.
