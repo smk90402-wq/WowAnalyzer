@@ -8,6 +8,7 @@
 - [Rate limit policy](feedback_rate_limit.md) — When WCL 429 hits, wait it out (even 1hr). Don't throttle, don't reorganize. Throughput > limit avoidance.
 - [Autonomy mode](feedback_autonomy.md) — Don't ask for next step. Run obvious follow-ups; ask only for data-loss / preference / ambiguity.
 - [데이터 직접 분석](feedback_use_project_data.md) — 리포트ID·아이템명 등 retrievable 데이터는 사용자에게 묻지 말고 grep/캐시/WCL페치로 직접 찾아 분석. 세션 2회 지적("니가 알아서 찾아").
+- [BM 장신구·스탯 분석](reference_bm_trinket_analysis.md) — 랭킹CSV→player_fight 레시피, 상자 발동버프=383781, 보스별 꽁지깃 치명(cleave)/특화(단일) 결론(2026-06-13).
 - [Status report](feedback_status_report.md) — Every response ends with a standard "## 상태" block (this-turn done / background / build). NEVER include "next autonomous work" line.
 - [Auto-commit](feedback_auto_commit.md) — Auto commit + push at end of every response with code changes. User works across multiple PCs via git pull.
 - [API references](reference_apis.md) — WCL V2 reference code at `~/Downloads/warcraftlog-api-v2-master`; Blizzard docs at community.developer.battle.net. Check first when stuck on query shape.
