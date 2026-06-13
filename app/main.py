@@ -73,12 +73,25 @@ app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 # ── 인증 게이트 (2026-06-13 재활성 — 공개 배포용 단일 공유계정 rtv) ───────────
 # 로그인 없이 통과: 로그인 페이지/정적/로그인 API/헬스. 그 외 전부 차단.
 _AUTH_OPEN = {"/login", "/auth/login", "/auth/logout", "/api/ping", "/favicon.ico"}
+# 개인 모드(serve.py 가 127.0.0.1 바인딩으로 띄우면 WCL_TRUSTED_LOCAL=1)에서 로컬 접속은 로그인 면제.
+# ★보안★: --host 0.0.0.0 (LAN/공개 배포) 면 serve.py 가 플래그를 안 켜므로, loopback 으로
+#   프록시되는 공개 터널 트래픽도 인증을 거침. loopback이라고 무조건 면제하지 않는 이유.
+_LOOPBACK = {"127.0.0.1", "::1", "localhost"}
+
+
+def _trusted_local(request: Request) -> bool:
+    import os
+    return (os.environ.get("WCL_TRUSTED_LOCAL") == "1"
+            and request.client is not None
+            and request.client.host in _LOOPBACK)
 
 
 @app.middleware("http")
 async def auth_gate(request: Request, call_next):
     path = request.url.path
     if path in _AUTH_OPEN or path.startswith("/static/"):
+        return await call_next(request)
+    if _trusted_local(request):
         return await call_next(request)
     if not auth.current_user(request):
         if path.startswith("/api/") or path.startswith("/auth/"):

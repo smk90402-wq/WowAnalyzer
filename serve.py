@@ -120,6 +120,15 @@ def main() -> None:
                     help="윈도우 안 띄움 — curl 로 /api/* 테스트할 때")
     args = ap.parse_args()
 
+    # 개인 모드(loopback 바인딩)에서만 로컬 접속 로그인 면제 플래그 ON.
+    # --host 0.0.0.0 등 외부 배포면 끄둔 채로 둬서 인증 유지 (공개 터널 노출 방어).
+    if args.host in ("127.0.0.1", "localhost", "::1"):
+        os.environ["WCL_TRUSTED_LOCAL"] = "1"
+        log.info("개인 모드 — 로컬(127.0.0.1) 접속 로그인 면제")
+    else:
+        os.environ.pop("WCL_TRUSTED_LOCAL", None)
+        log.info("배포 모드(host=%s) — 전체 인증 적용", args.host)
+
     if args.api_only:
         log.info("API only — pywebview 안 띄움. http://%s:%d/api/ping", args.host, args.port)
         uvicorn.run(fastapi_app, host=args.host, port=args.port, log_level="info")
