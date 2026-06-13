@@ -22,7 +22,22 @@ def _strip_html(s: str) -> str:
     return _HTML_WHITESPACE_RE.sub(" ", plain).strip()
 
 
+# 증강 기원사 핵심기 — spell_db name_ko 가 mojibake 라 공식 한글명 override (Wowhead 검증)
+EVOKER_KR = {
+    395152: "칠흑의 힘", 409311: "예지", 410089: "예지",
+    442204: "영겁의 숨결", 403631: "영겁의 숨결",
+    357208: "불의 숨결", 382266: "불의 숨결",
+    396286: "격변", 395160: "분출", 438588: "분출",
+    361469: "살아있는 불꽃", 361509: "살아있는 불꽃",
+    370553: "전세역전", 404977: "시간 도약", 362969: "하늘빛 일격",
+    360827: "끓어오르는 비늘", 358267: "부유",
+}
+
+
 def _resolve_name(spell_id: int, spell_db: dict) -> tuple[str, str]:
+    ov = EVOKER_KR.get(spell_id)
+    if ov:
+        return ov, ""
     meta = spell_db.get(str(spell_id), {})
     name_ko = (meta.get("name_ko") or "").strip()
     name_en = (meta.get("name_en") or "").strip()
@@ -265,7 +280,7 @@ ZOOM_JS = """
 
 
 def _cast_row_html(sid: int, lane_pos: int, t_rel: float, dur_s: float,
-                   spell_db: dict, is_v: bool) -> str:
+                   spell_db: dict, is_v: bool, flag_why: str = "") -> str:
     meta = spell_db.get(str(sid), {})
     icon = meta.get("icon") or ""
     # buff_html 과 동일 — wowhead raw HTML 의 nested <div> 가 outer 닫는
@@ -287,13 +302,19 @@ def _cast_row_html(sid: int, lane_pos: int, t_rel: float, dur_s: float,
     bar_html = ""
     if dur_s > 0.05:
         bar_html = f'<div class="cast-bar" style="--d:{dur_s:.4f}"></div>'
+    flag_cls = " flagged" if flag_why else ""
+    flag_style = (";outline:2px solid #ff5a5a;outline-offset:1px;border-radius:4px"
+                  if flag_why else "")
+    flag_tip = (f'<div class="tflag" style="color:#ff7a7a;font-weight:600;margin:2px 0">'
+                f'⚠ {_html_escape(flag_why)}</div>' if flag_why else "")
     return (
-        f'<div class="cast pos-t" style="--t:{t_rel:.4f};{cross}">'
+        f'<div class="cast pos-t{flag_cls}" style="--t:{t_rel:.4f};{cross}{flag_style}">'
         f'{bar_html}'
         f'<img src="{icon_url}" alt="">'
         f'<div class="tip">'
         f'<div class="tname">{_html_escape(title)}</div>'
         f'{subtitle}'
+        f'{flag_tip}'
         f'<div class="tbody">{tip_body}</div>'
         f'</div></div>'
     )
@@ -352,7 +373,7 @@ SHOW_EXTERNAL_BUFFS = {
 
 def render_html(*, char: str, casts: list, buffs: list, fight_window: list,
                 spell_db: dict, char_source_id: int | None = None,
-                orientation: str = "h") -> str:
+                orientation: str = "h", flag_casts: dict | None = None) -> str:
     """Full HTML document — 가로 (h) / 세로 (v) 타임라인.
 
     char_source_id 가 주어지면 외부 버프 필터링:
@@ -447,12 +468,14 @@ def render_html(*, char: str, casts: list, buffs: list, fight_window: list,
     buffs_lane_span = max(len(buff_lane), 1) * BUFF_LANE_PX + 8
 
     # ── HTML 빌드 ─────────────────────────────────────────────────────
+    flag_casts = flag_casts or {}
     cast_html_parts: list[str] = []
     for s_ts, e_ts, sid in cast_intervals:
         t_rel = max((s_ts - start_ms) / 1000.0, 0)
         dur_s = max((e_ts - s_ts) / 1000.0, 0)
         lane_pos = cast_lane.get(sid, 0) * CAST_ROW_H
-        cast_html_parts.append(_cast_row_html(sid, lane_pos, t_rel, dur_s, spell_db, is_v))
+        why = flag_casts.get((sid, e_ts), "")
+        cast_html_parts.append(_cast_row_html(sid, lane_pos, t_rel, dur_s, spell_db, is_v, why))
 
     buff_html_parts: list[str] = []
     for sid, t_start, t_end in intervals:

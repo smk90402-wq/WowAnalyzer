@@ -975,11 +975,18 @@ def timeline_html(rid: str, fid: int, char: str, orientation: str = "h") -> str:
         if f.get("id") == fid:
             fw = [f.get("startTime"), f.get("endTime")]
             break
+    # 증강 피드백 위반 → 해당 cast 셀 빨강 마킹
+    flag_casts: dict = {}
+    if len(fw) == 2 and fw[0] is not None and fw[1] is not None:
+        fb = aug_feedback.compute(casts, buffs, pf.get("gear") or [], fw[0], fw[1])
+        for v in fb.get("violations") or []:
+            if v.get("ts_ms") is not None and v.get("sid") is not None:
+                flag_casts[(int(v["sid"]), int(v["ts_ms"]))] = v.get("why", "")
     return tl_render.render_html(
         char=char, casts=casts, buffs=buffs,
         fight_window=fw, spell_db=_spell_db(),
         char_source_id=char_src,
-        orientation=orientation,
+        orientation=orientation, flag_casts=flag_casts,
     )
 
 

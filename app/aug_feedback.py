@@ -90,6 +90,7 @@ def compute(casts, buffs, gear, start_ms, end_ms):
         else:
             violations.append({
                 "ts_rel": round((t - start_ms) / 1000.0, 1),
+                "ts_ms": int(t),
                 "kind": "red", "sid": sid, "label": "영겁의 숨결",
                 "why": "칠흑의 힘 직후에 쓰지 않음 — 복제 버프가 칠흑과 함께 연장되지 못해 손해. 칠흑→영겁 순서.",
                 "ref": VID_ROTATION,
@@ -115,6 +116,7 @@ def compute(casts, buffs, gear, start_ms, end_ms):
     ]
 
     return {
+        "is_aug": bool(ebon_casts or presc_casts or breath_casts),
         "duration_s": round(dur_s, 1),
         "kpis": {
             "ebon_uptime_pct": round(100.0 * ebon_up_ms / span, 1),

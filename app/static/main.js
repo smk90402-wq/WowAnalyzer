@@ -1282,7 +1282,9 @@ async function loadAugFeedback(row, rid, fid, char) {
   try {
     const r = await fetch(`/api/aug-feedback/${encodeURIComponent(rid)}/${fid}/${encodeURIComponent(char)}`);
     if (!r.ok) throw new Error('HTTP ' + r.status);
-    box.innerHTML = renderAugFeedback(await r.json());
+    const d = await r.json();
+    if (!d.is_aug) { box.style.display = 'none'; box.innerHTML = ''; return; }  // 증강 아니면 패널 숨김
+    box.innerHTML = renderAugFeedback(d);
   } catch (e) {
     box.innerHTML = `<span class="fb-err">피드백 실패: ${esc(e.message)}</span>`;
   }
