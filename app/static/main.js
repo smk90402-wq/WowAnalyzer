@@ -1270,6 +1270,43 @@ async function compPlayerClick(row, tr) {
   const tl = document.getElementById(`row-tl-${row}`);
   tl.src = `/api/timeline/${encodeURIComponent(rid)}/${fid}/${encodeURIComponent(char)}`;
   tl.onload = () => applyBuffVisibility();
+  loadAugFeedback(row, rid, fid, char);
+}
+
+// ── 증강 피드백 패널 (비교탭 row 별) ──────────────────────────────────────
+async function loadAugFeedback(row, rid, fid, char) {
+  const box = document.querySelector(`[data-row-fb="${row}"]`);
+  if (!box) return;
+  box.style.display = '';
+  box.innerHTML = '<span class="fb-load">피드백 분석 중…</span>';
+  try {
+    const r = await fetch(`/api/aug-feedback/${encodeURIComponent(rid)}/${fid}/${encodeURIComponent(char)}`);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    box.innerHTML = renderAugFeedback(await r.json());
+  } catch (e) {
+    box.innerHTML = `<span class="fb-err">피드백 실패: ${esc(e.message)}</span>`;
+  }
+}
+
+function renderAugFeedback(d) {
+  const k = d.kpis || {};
+  const upTone = k.ebon_uptime_pct >= 90 ? 'good' : (k.ebon_uptime_pct >= 80 ? 'warn' : 'bad');
+  const brTone = k.breath_casts ? (k.breath_after_ebon === k.breath_casts ? 'good' : 'bad') : '';
+  const kpis = [
+    `<span class="fb-kpi ${upTone}">칠흑 유지율 <b>${k.ebon_uptime_pct}%</b><i>목표 90%+</i></span>`,
+    `<span class="fb-kpi">칠흑 시전 <b>${k.ebon_casts}</b></span>`,
+    `<span class="fb-kpi">예지 <b>${k.prescience_casts}</b><i>${k.prescience_per_min}/분</i></span>`,
+    `<span class="fb-kpi ${brTone}">영겁 칠흑직후 <b>${k.breath_after_ebon}/${k.breath_casts}</b></span>`,
+    `<span class="fb-kpi">필러 <b>${Math.round((k.filler_ratio || 0) * 100)}%</b></span>`,
+  ].join('');
+  const vs = d.violations || [];
+  const viol = vs.length
+    ? `<div class="fb-viol"><b>개선점 ${vs.length}건</b>` + vs.map(v =>
+        `<div class="fb-v ${esc(v.kind)}"><span class="fb-vt">${v.ts_rel}s · ${esc(v.label)}</span> ${esc(v.why)} <a href="${esc(v.ref)}" target="_blank" rel="noopener">영상</a></div>`).join('') + '</div>'
+    : '<div class="fb-viol ok">자동 점검 위반 없음 ✓</div>';
+  const notes = (d.notes || []).map(n =>
+    `<details class="fb-note"><summary>${esc(n.title)}</summary><div>${esc(n.body)}</div></details>`).join('');
+  return `<div class="fb-kpis">${kpis}</div>${viol}<div class="fb-notes">${notes}</div>`;
 }
 
 function applyBuffVisibility() {

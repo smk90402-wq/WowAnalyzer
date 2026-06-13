@@ -45,6 +45,7 @@ from wcl_v2_data import V2Data
 
 from app import talent_tree as tt_render
 from app import timeline as tl_render
+from app import aug_feedback
 
 log = logging.getLogger("app.main")
 
@@ -980,6 +981,31 @@ def timeline_html(rid: str, fid: int, char: str, orientation: str = "h") -> str:
         char_source_id=char_src,
         orientation=orientation,
     )
+
+
+@app.get("/api/aug-feedback/{rid}/{fid}/{char}")
+def aug_feedback_api(rid: str, fid: int, char: str) -> JSONResponse:
+    """증강 기원사 피드백 — KPI(칠흑 유지율·예지·영겁순서…)+위반+교육노트. timeline 과 동일 캐시."""
+    v2 = _v2()
+    pfight_key = f"{rid}:{fid}:{char}"
+    if pfight_key not in v2.pfight:
+        try:
+            v2.player_fight(rid, fid, char)
+        except Exception as e:
+            raise HTTPException(502, f"player_fight 실패: {e}")
+    ev = v2.events_for(rid, fid, char) or {}
+    pf = v2.pfight.get(pfight_key) or {}
+    meta = v2.meta.get(rid) or {}
+    start_ms = end_ms = None
+    for f in meta.get("fights") or []:
+        if f.get("id") == fid:
+            start_ms, end_ms = f.get("startTime"), f.get("endTime")
+            break
+    if start_ms is None or end_ms is None:
+        raise HTTPException(404, "fight window 없음")
+    res = aug_feedback.compute(ev.get("casts") or [], ev.get("buffs") or [],
+                               pf.get("gear") or [], start_ms, end_ms)
+    return JSONResponse(res)
 
 
 # ── 특성 트리 HTML (iframe srcdoc embed) ───────────────────────────────────

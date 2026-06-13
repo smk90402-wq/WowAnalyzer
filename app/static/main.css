@@ -89,6 +89,36 @@ body {
 .row-player-table tr.selected td { background: var(--row-selected); }
 .row-tl { width: 100%; height: 100%; border: none; background: var(--bg-0); }
 
+/* ── 증강 피드백 패널 (비교탭 row 별) ── */
+.aug-fb:empty { display: none; }
+.aug-fb {
+  padding: 5px 12px; background: var(--bg-1);
+  border-bottom: 1px solid var(--border);
+  font-size: 11px; max-height: 34%; overflow-y: auto;
+}
+.aug-fb .fb-load { color: var(--text-mute); }
+.aug-fb .fb-err { color: #e06c6c; }
+.fb-kpis { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+.fb-kpi {
+  background: var(--bg-2); border: 1px solid var(--border); border-radius: 3px;
+  padding: 2px 7px; color: var(--text-mute); white-space: nowrap;
+}
+.fb-kpi b { color: var(--text); font-size: 12px; margin-left: 3px; }
+.fb-kpi i { font-style: normal; margin-left: 4px; opacity: .7; font-size: 10px; }
+.fb-kpi.good { border-color: #3a7d44; } .fb-kpi.good b { color: #6fcf7f; }
+.fb-kpi.warn { border-color: #8a7a2e; } .fb-kpi.warn b { color: #e2c14e; }
+.fb-kpi.bad  { border-color: #8a3030; } .fb-kpi.bad  b { color: #e06c6c; }
+.fb-viol { margin: 3px 0; }
+.fb-viol > b { color: var(--text); margin-right: 6px; }
+.fb-viol.ok { color: #6fcf7f; }
+.fb-v { margin: 2px 0; padding-left: 8px; border-left: 2px solid #e06c6c; color: var(--text-mute); }
+.fb-v .fb-vt { color: var(--text); font-weight: 600; margin-right: 4px; }
+.fb-v a { color: var(--accent); }
+.fb-notes { margin-top: 3px; display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.fb-note { font-size: 10.5px; }
+.fb-note summary { color: var(--text-mute); cursor: pointer; }
+.fb-note > div { color: var(--text-mute); margin: 2px 0 0 10px; max-width: 520px; line-height: 1.4; }
+
 /* 사이드바 */
 .sb-section { margin-bottom: 14px; }
 .sb-head {
