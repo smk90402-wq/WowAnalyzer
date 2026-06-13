@@ -20,7 +20,7 @@ import re
 
 import pandas as pd
 from fastapi import Depends, FastAPI, HTTPException, Request
-from fastapi.responses import HTMLResponse, JSONResponse, Response
+from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -67,20 +67,57 @@ auth.init(DATA_DIR)  # users.db / auth_secret 은 그대로 둬도 무관
 
 app = FastAPI(title="WowAnalyzer API", version="0.1.0")
 
-# auth_gate 미들웨어 비활성화 — 모든 /api/* 가 인증 없이 통과.
-# /auth/login, /auth/me 도 사용 안 함 (frontend 가 호출 안 함).
-
 # static 파일 마운트 (Week 2 에서 HTML/CSS/JS 추가)
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+# ── 인증 게이트 (2026-06-13 재활성 — 공개 배포용 단일 공유계정 rtv) ───────────
+# 로그인 없이 통과: 로그인 페이지/정적/로그인 API/헬스. 그 외 전부 차단.
+_AUTH_OPEN = {"/login", "/auth/login", "/auth/logout", "/api/ping", "/favicon.ico"}
+
+
+@app.middleware("http")
+async def auth_gate(request: Request, call_next):
+    path = request.url.path
+    if path in _AUTH_OPEN or path.startswith("/static/"):
+        return await call_next(request)
+    if not auth.current_user(request):
+        if path.startswith("/api/") or path.startswith("/auth/"):
+            return JSONResponse({"detail": "로그인 필요"}, status_code=401)
+        return RedirectResponse("/login", status_code=302)
+    return await call_next(request)
 
 
 @app.get("/", response_class=HTMLResponse)
 def index() -> str:
-    """루트 — SPA shell 바로 서빙 (인증 비활성)."""
+    """루트 — SPA shell 서빙 (미인증 시 auth_gate 가 /login 으로 리다이렉트)."""
     idx = STATIC_DIR / "index.html"
     if idx.exists():
         return idx.read_text(encoding="utf-8")
     return "<h1>index.html missing</h1>"
+
+
+@app.get("/login", response_class=HTMLResponse)
+def login_page() -> str:
+    p = STATIC_DIR / "login.html"
+    return p.read_text(encoding="utf-8") if p.exists() else "<h1>login.html missing</h1>"
+
+
+@app.post("/auth/login")
+async def auth_login(request: Request) -> Response:
+    data = await request.json()
+    user = auth.verify_login((data.get("username") or "").strip(), data.get("password") or "")
+    if not user:
+        return PlainTextResponse("아이디 또는 비밀번호가 틀렸습니다", status_code=401)
+    resp = JSONResponse({"ok": True})
+    auth.set_session(resp, user)
+    return resp
+
+
+@app.post("/auth/logout")
+def auth_logout() -> Response:
+    resp = RedirectResponse("/", status_code=302)
+    auth.clear_session(resp)
+    return resp
 
 # V2Data 싱글톤 — 첫 요청 때 lazy 초기화 (API 키 / 캐시 로드)
 _v2_inst: V2Data | None = None
