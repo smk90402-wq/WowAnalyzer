@@ -1300,6 +1300,7 @@ function renderAugFeedback(d) {
     `<span class="fb-kpi">예지 <b>${k.prescience_casts}</b><i>${k.prescience_per_min}/분</i></span>`,
     `<span class="fb-kpi ${brTone}">영겁 칠흑직후 <b>${k.breath_after_ebon}/${k.breath_casts}</b></span>`,
     `<span class="fb-kpi">필러 <b>${Math.round((k.filler_ratio || 0) * 100)}%</b></span>`,
+    `<span class="fb-kpi">부양 <b>${k.hover_casts}</b><i>유지 ${k.hover_uptime_pct}%</i></span>`,
   ].join('');
   const vs = d.violations || [];
   const viol = vs.length
@@ -1308,7 +1309,8 @@ function renderAugFeedback(d) {
     : '<div class="fb-viol ok">자동 점검 위반 없음 ✓</div>';
   const notes = (d.notes || []).map(n =>
     `<details class="fb-note"><summary>${esc(n.title)}</summary><div>${esc(n.body)}</div></details>`).join('');
-  return `<div class="fb-kpis">${kpis}</div>${viol}<div class="fb-notes">${notes}</div>`;
+  const noteHdr = notes ? '<div class="fb-note-hdr" style="margin-top:5px;color:var(--text-mute);font-size:10px;opacity:.85">📘 알아둘 점 — 자동 판정 불가(칠흑 유지와 무관한 참고 개념)</div>' : '';
+  return `<div class="fb-kpis">${kpis}</div>${viol}${noteHdr}<div class="fb-notes">${notes}</div>`;
 }
 
 function applyBuffVisibility() {

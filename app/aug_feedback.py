@@ -18,6 +18,7 @@ LIVING_FLAME = {361469, 361509}     # 살아있는 불꽃
 AZURE_STRIKE = {362969}             # 하늘빛 일격
 TIP_THE_SCALES = {370553}           # 전세역전
 TIME_SKIP = {404977}                # 시간 도약
+HOVER = {358267, 374227}            # 부양 (이동 중 시전)
 
 TRINKET_SLOTS = (12, 13)
 
@@ -35,11 +36,11 @@ def _casts_of(casts, ids):
     return out
 
 
-def _ebon_uptime_ms(buffs, start_ms, end_ms):
-    """칠흑의 힘(395152) 활성 구간 union 길이(ms). prepull 활성/끝까지 미제거 clamp."""
+def _buff_uptime_ms(buffs, ids, start_ms, end_ms):
+    """주어진 buff id 집합의 활성 구간 union 길이(ms). prepull 활성/끝까지 미제거 clamp."""
     pts = []
     for b in buffs:
-        if len(b) < 3 or int(b[1] or 0) != EBON_MIGHT:
+        if len(b) < 3 or int(b[1] or 0) not in ids:
             continue
         typ = b[2]
         if typ == "applybuff":
@@ -73,8 +74,10 @@ def compute(casts, buffs, gear, start_ms, end_ms):
     span = max(end_ms - start_ms, 1)
     dur_s = span / 1000.0
 
-    ebon_up_ms = _ebon_uptime_ms(buffs, start_ms, end_ms)
+    ebon_up_ms = _buff_uptime_ms(buffs, {EBON_MIGHT}, start_ms, end_ms)
     ebon_casts = _casts_of(casts, {EBON_MIGHT})
+    hover_up_ms = _buff_uptime_ms(buffs, HOVER, start_ms, end_ms)
+    hover_casts = _casts_of(casts, HOVER)
 
     presc_casts = _casts_of(casts, PRESCIENCE_CAST)
 
@@ -127,6 +130,8 @@ def compute(casts, buffs, gear, start_ms, end_ms):
             "breath_after_ebon": breath_after_ebon,
             "filler_ratio": round(filler / len(all_cast), 2) if all_cast else 0.0,
             "total_casts": len(all_cast),
+            "hover_casts": len(hover_casts),
+            "hover_uptime_pct": round(100.0 * hover_up_ms / span, 1),
         },
         "violations": violations,
         "trinkets": trinkets,

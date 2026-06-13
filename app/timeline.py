@@ -5,6 +5,7 @@ gui.py 는 그대로 유지 (마이그레이션 중 병행 운영). 추후 cutov
 from __future__ import annotations
 
 import re
+from collections import Counter
 
 _HTML_TAG_RE = re.compile(r"<[^>]+>")
 _HTML_WHITESPACE_RE = re.compile(r"\s+")
@@ -30,7 +31,7 @@ EVOKER_KR = {
     396286: "격변", 395160: "분출", 438588: "분출",
     361469: "살아있는 불꽃", 361509: "살아있는 불꽃",
     370553: "전세역전", 404977: "시간 도약", 362969: "하늘빛 일격",
-    360827: "끓어오르는 비늘", 358267: "부유",
+    360827: "끓어오르는 비늘", 358267: "부양", 374227: "부양",
 }
 
 
@@ -73,7 +74,7 @@ body {
     font-size: 11px; margin: 0; padding: 0;
     --pps: 160;
 }
-body.horizontal { overflow-x: auto; overflow-y: visible; padding-top: 0; --cast-offset: 0px; }
+body.horizontal { overflow-x: auto; overflow-y: auto; padding-top: 0; --cast-offset: 0px; }
 body.vertical   { overflow-x: visible; overflow-y: auto; padding-left: 0; --cast-offset: 0px; }
 body.hide-buffs .buffs, body.hide-buffs .buff-label { display: none !important; }
 body.horizontal .pos-t { left: calc(var(--cast-offset, 0px) + var(--t) * var(--pps) * 1px); }
@@ -164,7 +165,7 @@ ZOOM_JS = """
   const tl = document.querySelector('.timeline');
   if (!tl) return;
 
-  body.style.overflow = 'hidden';
+  body.style.overflowX = 'hidden';  // 세로는 native 스크롤 허용 (버프 잘림 방지)
   tl.style.transformOrigin = '0 0';
   tl.style.willChange = 'transform';
 
@@ -439,9 +440,10 @@ def render_html(*, char: str, casts: list, buffs: list, fight_window: list,
         m = spell_db.get(str(sid), {})
         return bool(m.get("name_ko") or m.get("name_en"))
 
+    cast_count = Counter(sid for _s, _e, sid in cast_intervals)
     cast_sids_sorted = sorted(
         first_cast_ts.keys(),
-        key=lambda s: (0 if _cast_has_name(s) else 1, first_cast_ts[s], s),
+        key=lambda s: (0 if _cast_has_name(s) else 1, -cast_count[s], first_cast_ts[s]),
     )
     cast_lane: dict[int, int] = {sid: i for i, sid in enumerate(cast_sids_sorted)}
     casts_lane_span = max(len(cast_lane), 1) * CAST_ROW_H
