@@ -91,9 +91,9 @@ log.info("=" * 60)
 DEFAULT_PORT = 9876  # 충돌 방지 — 다른 dev server 와 안 겹치는 포트
 
 
-def _start_uvicorn(port: int) -> threading.Thread:
+def _start_uvicorn(host: str, port: int) -> threading.Thread:
     """별도 데몬 스레드로 uvicorn 실행. pywebview 메인 스레드 가로채는 거 회피."""
-    cfg = uvicorn.Config(fastapi_app, host="127.0.0.1", port=port, log_level="warning")
+    cfg = uvicorn.Config(fastapi_app, host=host, port=port, log_level="warning")
     server = uvicorn.Server(cfg)
 
     t = threading.Thread(target=server.run, daemon=True, name="uvicorn")
@@ -114,17 +114,19 @@ def _start_uvicorn(port: int) -> threading.Thread:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--port", type=int, default=DEFAULT_PORT)
+    ap.add_argument("--host", default="127.0.0.1",
+                    help="바인딩 주소. 0.0.0.0 = 사내망(LAN) 다른 PC 접속 허용")
     ap.add_argument("--api-only", action="store_true",
                     help="윈도우 안 띄움 — curl 로 /api/* 테스트할 때")
     args = ap.parse_args()
 
     if args.api_only:
-        log.info("API only — pywebview 안 띄움. http://127.0.0.1:%d/api/ping", args.port)
-        uvicorn.run(fastapi_app, host="127.0.0.1", port=args.port, log_level="info")
+        log.info("API only — pywebview 안 띄움. http://%s:%d/api/ping", args.host, args.port)
+        uvicorn.run(fastapi_app, host=args.host, port=args.port, log_level="info")
         return
 
     # 백그라운드로 uvicorn → pywebview 메인 스레드
-    _start_uvicorn(args.port)
+    _start_uvicorn(args.host, args.port)
 
     import webview
     log.info("pywebview 윈도우 열기")
