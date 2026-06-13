@@ -1239,10 +1239,15 @@ function populateCompFights(row, preferFid) {
 function compFightChange(row) {
   const sel = compSel(row, 'fight');
   if (!sel.value) return;
-  compState[row].fid = parseInt(sel.value, 10);
+  const fid = parseInt(sel.value, 10);
+  compState[row].fid = fid;
   const m = compState[row].meta || {};
   const actors = m.actors || {};
-  const names = Object.keys(actors).sort((a, b) => a.localeCompare(b, 'ko'));
+  const f = (m.fights || []).find(x => x.id === fid);
+  const fp = new Set(f && f.friendlyPlayers ? f.friendlyPlayers : []);
+  let names = Object.keys(actors);
+  if (fp.size) names = names.filter(nm => fp.has(actors[nm]));  // 그 fight 참가자만 (신화 20인)
+  names.sort((a, b) => a.localeCompare(b, 'ko'));
   const tbody = compSel(row, 'pbody');
   tbody.innerHTML = names.map(nm => `
     <tr data-name="${esc(nm)}"><td>${esc(nm)}</td></tr>

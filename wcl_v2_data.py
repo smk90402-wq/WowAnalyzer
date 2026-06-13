@@ -38,7 +38,7 @@ query($code: String!) {
   reportData {
     report(code: $code) {
       fights(killType: Encounters) {
-        id startTime endTime encounterID difficulty kill name
+        id startTime endTime encounterID difficulty kill name friendlyPlayers
       }
       masterData(translate: true) {
         actors(type: "Player") {
@@ -332,7 +332,13 @@ class V2Data:
         """{fights: [{id, startTime, endTime, encounterID, difficulty}],
             actors: {name: sourceID}}"""
         if rid in self.meta:
-            return self.meta[rid]
+            cached = self.meta[rid]
+            if cached is None:
+                return None                        # 이전 페치 실패 — 재시도 안 함
+            fl = cached.get("fights") if isinstance(cached, dict) else None
+            # friendlyPlayers 보유(최신) or fights 없는 정상 캐시면 그대로, 아니면 재페치
+            if not fl or all(isinstance(f, dict) and "friendlyPlayers" in f for f in fl):
+                return cached
         try:
             d = self.cli.query(Q_REPORT_META, {"code": rid})
         except Exception as e:
@@ -356,6 +362,7 @@ class V2Data:
                 "difficulty": f.get("difficulty"),
                 "kill": f.get("kill"),
                 "name": f.get("name"),
+                "friendlyPlayers": f.get("friendlyPlayers") or [],
             } for f in fights],
             "actors": actors_map,
         }
