@@ -225,6 +225,11 @@ def rankings(difficulty: str) -> Response:
     return Response(content=payload, media_type="application/json")
 
 
+# 막공 환영도 점수 가중치 — 한밤 KR 구인난 반영. 0=미반영(파스만), 1=환영도만.
+# 0.35 = 파스 0.65 / 막공환영 0.35 (구인난 심해 진입가치 substantial하나 파스가 여전히 주축).
+PUG_SCORE_W = 0.35
+
+
 # ── 스펙 메타 종합 (4차원 분석 표) ─────────────────────────────────────────
 @app.get("/api/spec-meta")
 def spec_meta() -> Response:
@@ -233,8 +238,7 @@ def spec_meta() -> Response:
     if not p.exists():
         raise HTTPException(404, "spec_meta_ranking.csv 없음 — run_full_analysis.py 실행 필요")
     df = pd.read_csv(p)  # spec_meta_ranking.csv 에 ease(커뮤니티)·rot_rank·로그메트릭 이미 포함
-    df = df.sort_values("score", ascending=False).reset_index(drop=True)
-    df.insert(0, "rank", df.index + 1)
+    df = df.reset_index(drop=True)  # 정렬·rank 는 pug 가중 블렌딩 후 (아래)
     df["class_kr"] = df["class"].map(CLASS_KR).fillna(df["class"])
     df["spec_kr"] = df["spec"].map(SPEC_KR).fillna(df["spec"])
     # 스킬천장 (가이드/아키타입 추정) inject
@@ -269,6 +273,14 @@ def spec_meta() -> Response:
     else:
         df["pug_emp"] = None; df["pug_emp_capped"] = None
         df["pug_to"] = None; df["pug_present"] = None
+    # ── 막공 환영도 점수 가중 반영 (2026-06 사용자 요청 — 한밤 KR 구인난 심함) ──
+    # 기존 종합은 '파스 잘 뽑기 쉬움'만 측정. 구인난 환경에선 '공대 진입 가능성'도 실질 가치라
+    # pug(1~5)를 0~1로 정규화해 가중 블렌딩. 파스 점수는 score_parse 로 보존(팝업 표기).
+    df["score_parse"] = df["score"]
+    _pugn = ((df["pug"].fillna(3) - 1) / 4).clip(0, 1)   # 1→0, 3→0.5, 5→1
+    df["score"] = (df["score_parse"] * (1 - PUG_SCORE_W) + _pugn * PUG_SCORE_W).round(4)
+    df = df.sort_values("score", ascending=False).reset_index(drop=True)
+    df.insert(0, "rank", df.index + 1)
     # 모집단(인구) → 파스 유리도 inject. 인구↑=깔아주는 뉴비 많아 평균이상 실력자 고파스 쉬움.
     # (WCL ranking 은 page20=2000 에서 하드캡 → 2000=상위인기, <2000=정확 인구.)
     pop_path = DATA_DIR / "spec_population.csv"
@@ -291,7 +303,7 @@ def spec_meta() -> Response:
         lambda r: (guide.get(f'{r["class"]}|{r["spec"]}') or {}).get("rotation", ""), axis=1)
     df["guide_tips"] = df.apply(
         lambda r: (guide.get(f'{r["class"]}|{r["spec"]}') or {}).get("tips", []), axis=1)
-    keep = ["rank", "kr", "class", "spec", "class_kr", "spec_kr", "score",
+    keep = ["rank", "kr", "class", "spec", "class_kr", "spec_kr", "score", "score_parse",
             "ease", "rot_rank", "pi_indep", "uplift_pct", "pi_rate_pct", "consistency",
             "raid_tier", "mplus_tier", "meta_note", "tuning", "tuning_note",
             "burden", "burden_note", "pug", "pug_note",

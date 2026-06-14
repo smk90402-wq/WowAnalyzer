@@ -88,7 +88,7 @@ function renderSpecMeta(rows) {
     <tr class="meta-row" data-idx="${i}" title="클릭 = 특징 팝업">
       <td class="mute num">${r.rank}</td>
       <td>${esc(r.kr || (r.class_kr + ' ' + r.spec_kr))}</td>
-      <td class="right num strong">${fmt(r.score, 3)}</td>
+      <td class="right num strong" title="${r.score_parse != null ? `파스력 ${fmt(r.score_parse,3)} × 0.65 + 막공환영 ${r.pug || '-'}/5 × 0.35` : ''}">${fmt(r.score, 3)}</td>
       <td class="right num">${fmt(r.ease)}</td>
       <td class="right mute num">${r.rot_rank != null ? Math.round(r.rot_rank) : '-'}</td>
       <td class="right num ${piHi ? 'good' : ''}">${fmt(r.pi_indep)}</td>
@@ -160,10 +160,14 @@ function specTraits(r) {
   out.push({ tone: rank <= 11 ? 'good' : (rank >= 18 ? 'bad' : ''),
     text: `딜사이클 <b>${_diffLabel(rank)}</b> (난이도 #${rank != null ? Math.round(rank) : '?'}/27)` });
   const sc = r.score;
-  const pt = sc >= 0.85 ? '파스 매우 잘 뽑힘' : (sc >= 0.70 ? '파스 잘 뽑히는 편'
-    : (sc >= 0.50 ? '파스 보통' : '파스 까다로움'));
+  const pt = sc >= 0.85 ? '막공 종합 최상' : (sc >= 0.70 ? '막공 종합 우수'
+    : (sc >= 0.50 ? '막공 종합 보통' : '막공 종합 낮음'));
+  const sp = r.score_parse;
+  const brk = sp != null
+    ? ` <span class="sm-muted">= 파스력 ${_fmtN(sp, 3)}×0.65 + 막공환영 ${r.pug || '-'}/5×0.35 (구인난 가중)</span>`
+    : '';
   out.push({ tone: sc >= 0.70 ? 'good' : (sc < 0.50 ? 'bad' : ''),
-    text: `<b>${pt}</b> (종합 ${_fmtN(sc, 3)} · ${r.rank}위)` });
+    text: `<b>${pt}</b> (종합 ${_fmtN(sc, 3)} · ${r.rank}위)${brk}` });
   if (r.pi_indep != null) {
     const dep = r.uplift_pct != null && r.uplift_pct >= 3;
     out.push({ tone: dep ? 'bad' : 'good', text: dep
