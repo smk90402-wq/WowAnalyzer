@@ -18,7 +18,7 @@
 - [V2 only — V1 removed](project_v2_only.md) — V1 fully deleted 2026-05-18. All fetchers use V2 GraphQL. Only rankings CSV stays; other data on-demand JSON cache.
 - [Cache pipeline](project_cache_pipeline.md) — V2 cache JSON only. backfill_v2 → gui (V2Data dict lookup). SQLite/migrate fully removed 2026-05-18.
 - [Visual talent tree](project_talent_tree_visual.md) — Replace talent_table with WCL "최상위 100 분리" style visual tree (class/spec/hero + trinkets/embellishments). Blizzard talent-tree endpoint has full data.
-- [막공 환영도 지표 v2](project_pug_welcome.md) — KR 취업 시장 실측(취업률=신화/영웅풀, 공대 1,316 로스터 TO). ★교정: "많이 보임≠TO" — 개체수 지표는 수요/공급 혼동 (징벌 5→2 사례). 클래스 보유율 동학 포함.
+- [막공 환영도 지표 v3](project_pug_welcome.md) — ★구인 시장 기반★ (인벤 공격대_구인 본문 138 정독). 정공 로스터≠막공 구인시장 (사용자 교정). 냉법 5→4(공급과잉)·황폐 1→4(희소+콕집어). 파티찾기는 본문 탐독+중복제거 필수.
 - [분석 설명 엄밀성](feedback_analysis_rigor.md) — 조어(톱백 등) 금지. WCL cast≠버튼(광포한 야수=패시브 프록). 메커니즘 주장은 대조군 분리실험 후. 3건 모두 사용자에게 지적당함.
 - [PS 한글 매칭 함정](reference_ps_korean_match.md) — PowerShell 5.1 Invoke-WebRequest는 한글 응답 깨뜨림 → frozen exe 검증은 ASCII 마커나 python urllib로.
 - [WCL API 디스코드 너겟](reference_wcl_api_discord.md) — 필터 파라미터는 OR 결합(교집합=단일 filterExpression), fightIDs가 encounterID 필터보다 싸고 정확, 비참가자 혼입은 리포트 레벨만(우리 fight 로스터는 깨끗 검증).
