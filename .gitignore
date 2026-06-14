@@ -60,3 +60,4 @@ logs/
 Thumbs.db
 
 data/transcripts/
+data/tmp_demo_transcripts.json
