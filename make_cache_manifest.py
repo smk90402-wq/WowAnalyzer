@@ -67,7 +67,7 @@ def build_manifest(data_dir=None) -> dict:
             "kr_pug_market.json", "kr_heroic_pop.json", "pug_demand_inven.json", "pug_welcome_analysis.json",
             "boss_stats.json", "stat_dr.json", "talent_trees.json", "rotation_data.json", "spec_guide.json",
             "tmp_mm_builds.csv", "tmp_mm_cycle.json", "tmp_mm_dr_targets.json",
-            "tmp_mm_situations.json", "tmp_mm_hp_windows.json", "tmp_caster_cycle.json",
+            "tmp_mm_situations.json", "tmp_mm_hp_windows.json", "tmp_caster_cycle.json", "tmp_demo_deep.json",
         ],
     }
     return m
