@@ -582,6 +582,7 @@ function renderRotBody() {
       <div class="rot-col"><div class="rot-col-h single">단일 우선순위</div>${list(build.single)}</div>
       <div class="rot-col"><div class="rot-col-h aoe">광역 우선순위</div>${list(build.aoe)}</div>
       <div class="rot-col"><div class="rot-col-h opener">오프너</div>${list(build.opener)}</div>
+      ${build.util && build.util.length ? `<div class="rot-col"><div class="rot-col-h util">유틸·생존 (눌러야 할 것)</div>${list(build.util)}</div>` : ''}
     </div>`;
   whEnsure();
 }

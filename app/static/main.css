@@ -573,7 +573,7 @@ body {
 .rot-stat, .rot-hero { font-size: 12px; line-height: 1.5; color: #d8cdbf;
   background: var(--bg-0); border-radius: 6px; padding: 7px 10px; margin-top: 6px; }
 .rot-stat b, .rot-hero b { color: #e3c889; }
-.rot-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.rot-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 16px; }
 @media (max-width: 900px) { .rot-cols { grid-template-columns: 1fr; } }
 .rot-col { background: var(--bg-1); border-radius: 8px; padding: 12px 14px;
   border: 1px solid rgba(120,100,80,0.18); }
@@ -582,6 +582,7 @@ body {
 .rot-col-h.single { color: #9bc0e8; border-color: rgba(111,147,192,0.4); }
 .rot-col-h.aoe { color: #e09a87; border-color: rgba(204,107,90,0.4); }
 .rot-col-h.opener { color: #9bd49b; border-color: rgba(111,174,111,0.4); }
+.rot-col-h.util { color: #d9b85c; border-color: rgba(200,170,80,0.4); }
 .rot-list { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
 .rot-list li { font-size: 12.5px; line-height: 1.45; color: var(--text); padding-left: 3px; }
 .rot-list li::marker { color: var(--text-mute); font-size: 11px; }

@@ -12844,5 +12844,9326 @@
    ],
    "has_build": false
   }
+ },
+ "Shaman|Elemental": {
+  "3176": {
+   "boss_kr": "Imperator Averzian",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 174738,
+     "ilvl": 290,
+     "char": "Leresham",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1291,
+      "치명": 963,
+      "가속": 298,
+      "유연": 121
+     },
+     "pct": {
+      "특화": 48,
+      "치명": 36,
+      "가속": 11,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "Q8fBVxC1ZYj7nFPW",
+      "fid": 11,
+      "char": "Leresham"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 172657,
+     "ilvl": 289,
+     "char": "Ghostsham",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1087,
+      "치명": 1163,
+      "가속": 366,
+      "유연": 52
+     },
+     "pct": {
+      "특화": 41,
+      "치명": 44,
+      "가속": 14,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "LkRbVZHrNFy3x4AQ",
+      "fid": 9,
+      "char": "Ghostsham"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 168356,
+     "ilvl": 289,
+     "char": "Crockito",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1000,
+      "치명": 1234,
+      "가속": 362,
+      "유연": 69
+     },
+     "pct": {
+      "특화": 38,
+      "치명": 46,
+      "가속": 14,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "fn6c4dpHkWRPDMxh",
+      "fid": 13,
+      "char": "Crockito"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 168031,
+     "ilvl": 290,
+     "char": "Tarrackk",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1043,
+      "치명": 878,
+      "가속": 685,
+      "유연": 68
+     },
+     "pct": {
+      "특화": 39,
+      "치명": 33,
+      "가속": 26,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "XjLYVrNdvf7PAqh6",
+      "fid": 46,
+      "char": "Tarrackk"
+     }
+    },
+    {
+     "rank": 5,
+     "dps": 167204,
+     "ilvl": 289,
+     "char": "Zynehs",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1021,
+      "치명": 854,
+      "가속": 572,
+      "유연": 186
+     },
+     "pct": {
+      "특화": 39,
+      "치명": 32,
+      "가속": 22,
+      "유연": 7
+     },
+     "ref": {
+      "rid": "6vVkNtGH7XbC8TBM",
+      "fid": 14,
+      "char": "Zynehs"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 166440,
+     "ilvl": 289,
+     "char": "岑夢澤",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1061,
+      "치명": 791,
+      "가속": 774,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 40,
+      "치명": 30,
+      "가속": 29,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "hdKN3qpC8Ytaz1VB",
+      "fid": 7,
+      "char": "岑夢澤"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 164745,
+     "ilvl": 289,
+     "char": "Brothan",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1217,
+      "치명": 856,
+      "가속": 480,
+      "유연": 124
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 32,
+      "가속": 18,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "8bg2Mh4jFRCtkzZd",
+      "fid": 7,
+      "char": "Brothan"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 164380,
+     "ilvl": 290,
+     "char": "Käris",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 987,
+      "치명": 1035,
+      "가속": 533,
+      "유연": 105
+     },
+     "pct": {
+      "특화": 37,
+      "치명": 39,
+      "가속": 20,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "pMVNxAramT6Wkn1F",
+      "fid": 39,
+      "char": "Käris"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 164119,
+     "ilvl": 290,
+     "char": "Draft",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1397,
+      "치명": 834,
+      "가속": 354,
+      "유연": 121
+     },
+     "pct": {
+      "특화": 52,
+      "치명": 31,
+      "가속": 13,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "wjrbYFXWRN1P4gKB",
+      "fid": 23,
+      "char": "Draft"
+     }
+    },
+    {
+     "rank": 10,
+     "dps": 163994,
+     "ilvl": 290,
+     "char": "Vayensh",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1060,
+      "치명": 848,
+      "가속": 566,
+      "유연": 186
+     },
+     "pct": {
+      "특화": 40,
+      "치명": 32,
+      "가속": 21,
+      "유연": 7
+     },
+     "ref": {
+      "rid": "Mw3DyQnNzHCXaP8h",
+      "fid": 12,
+      "char": "Vayensh"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 163968,
+     "ilvl": 289,
+     "char": "죄성합니다",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1310,
+      "치명": 890,
+      "가속": 447,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 49,
+      "치명": 34,
+      "가속": 17,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "DykBLjpWn24wGCN7",
+      "fid": 7,
+      "char": "죄성합니다"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 163601,
+     "ilvl": 289,
+     "char": "Djfroosh",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1278,
+      "치명": 975,
+      "가속": 333,
+      "유연": 76
+     },
+     "pct": {
+      "특화": 48,
+      "치명": 37,
+      "가속": 13,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "v42dykWX3hQgP1aD",
+      "fid": 11,
+      "char": "Djfroosh"
+     }
+    },
+    {
+     "rank": 13,
+     "dps": 163106,
+     "ilvl": 288,
+     "char": "丶电音丶",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1162,
+      "치명": 796,
+      "가속": 622,
+      "유연": 53
+     },
+     "pct": {
+      "특화": 44,
+      "치명": 30,
+      "가속": 24,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "CmVtZaL69q2YhTBK",
+      "fid": 10,
+      "char": "丶电音丶"
+     }
+    },
+    {
+     "rank": 14,
+     "dps": 163072,
+     "ilvl": 289,
+     "char": "Nxck",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1234,
+      "치명": 963,
+      "가속": 389,
+      "유연": 60
+     },
+     "pct": {
+      "특화": 47,
+      "치명": 36,
+      "가속": 15,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "qXwM8PdZ1t74xTY6",
+      "fid": 6,
+      "char": "Nxck"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 162740,
+     "ilvl": 289,
+     "char": "Chewham",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 802,
+      "치명": 1120,
+      "가속": 566,
+      "유연": 53
+     },
+     "pct": {
+      "특화": 32,
+      "치명": 44,
+      "가속": 22,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "qT2ZXjDBt9hrWgRM",
+      "fid": 2,
+      "char": "Chewham"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 162109,
+     "ilvl": 284,
+     "char": "电力抢修",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1038,
+      "치명": 973,
+      "가속": 534,
+      "유연": 53
+     },
+     "pct": {
+      "특화": 40,
+      "치명": 37,
+      "가속": 21,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "nXrDxjZ9fcPFpJ3M",
+      "fid": 9,
+      "char": "电力抢修"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 161881,
+     "ilvl": 282,
+     "char": "元素冲击",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1141,
+      "치명": 876,
+      "가속": 473,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 46,
+      "치명": 35,
+      "가속": 19,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "XhJkGQDPjCc1wmLn",
+      "fid": 10,
+      "char": "元素冲击"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 161567,
+     "ilvl": 289,
+     "char": "Torbentosse",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1011,
+      "치명": 910,
+      "가속": 626,
+      "유연": 151
+     },
+     "pct": {
+      "특화": 37,
+      "치명": 34,
+      "가속": 23,
+      "유연": 6
+     },
+     "ref": {
+      "rid": "F4T1M8gGLkdC379A",
+      "fid": 10,
+      "char": "Torbentosse"
+     }
+    },
+    {
+     "rank": 19,
+     "dps": 161142,
+     "ilvl": 290,
+     "char": "今晚吃什么呢",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 922,
+      "치명": 1161,
+      "가속": 356,
+      "유연": 213
+     },
+     "pct": {
+      "특화": 35,
+      "치명": 44,
+      "가속": 13,
+      "유연": 8
+     },
+     "ref": {
+      "rid": "bKCnHYDr7jBxtVvq",
+      "fid": 7,
+      "char": "今晚吃什么呢"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 161126,
+     "ilvl": 290,
+     "char": "펩시부먹민초진순",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1025,
+      "치명": 1215,
+      "가속": 343,
+      "유연": 68
+     },
+     "pct": {
+      "특화": 39,
+      "치명": 46,
+      "가속": 13,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "yMPwJ1fZQYHC6tTR",
+      "fid": 9,
+      "char": "펩시부먹민초진순"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 20,
+     "stats": {
+      "특화": 1060,
+      "치명": 936,
+      "가속": 476,
+      "유연": 68
+     },
+     "pct": {
+      "특화": 42,
+      "치명": 37,
+      "가속": 19,
+      "유연": 3
+     },
+     "ilvl": 289
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 13,
+     "stats": {
+      "특화": 1203,
+      "치명": 941,
+      "가속": 405,
+      "유연": 60
+     },
+     "pct": {
+      "특화": 46,
+      "치명": 36,
+      "가속": 16,
+      "유연": 2
+     },
+     "ilvl": 289
+    }
+   ],
+   "has_build": false
+  },
+  "3177": {
+   "boss_kr": "Vorasius",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 166599,
+     "ilvl": 290,
+     "char": "安和昴",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1229,
+      "치명": 1038,
+      "가속": 337,
+      "유연": 69
+     },
+     "pct": {
+      "특화": 46,
+      "치명": 39,
+      "가속": 13,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "tpfhbzZ8d2gaKxjm",
+      "fid": 11,
+      "char": "安和昴"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 162509,
+     "ilvl": 290,
+     "char": "Tunaken",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1012,
+      "치명": 963,
+      "가속": 634,
+      "유연": 121
+     },
+     "pct": {
+      "특화": 37,
+      "치명": 35,
+      "가속": 23,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "F63q1M9DxjtpPyNH",
+      "fid": 15,
+      "char": "Tunaken"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 161301,
+     "ilvl": 290,
+     "char": "Bilboi",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 960,
+      "치명": 983,
+      "가속": 657,
+      "유연": 52
+     },
+     "pct": {
+      "특화": 36,
+      "치명": 37,
+      "가속": 25,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "w18YgT24jbWrGJky",
+      "fid": 16,
+      "char": "Bilboi"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 156942,
+     "ilvl": 290,
+     "char": "Plebmental",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1386,
+      "치명": 929,
+      "가속": 376,
+      "유연": 16
+     },
+     "pct": {
+      "특화": 51,
+      "치명": 34,
+      "가속": 14,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "b6CFH9WTdhK13QJv",
+      "fid": 15,
+      "char": "Plebmental"
+     }
+    },
+    {
+     "rank": 5,
+     "dps": 155238,
+     "ilvl": 290,
+     "char": "Loloup",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1291,
+      "치명": 1052,
+      "가속": 286,
+      "유연": 53
+     },
+     "pct": {
+      "특화": 48,
+      "치명": 39,
+      "가속": 11,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "Q79kaYwx3J4bvgVc",
+      "fid": 11,
+      "char": "Loloup"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 154984,
+     "ilvl": 290,
+     "char": "특화싸개",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 961,
+      "치명": 1160,
+      "가속": 523,
+      "유연": 16
+     },
+     "pct": {
+      "특화": 36,
+      "치명": 44,
+      "가속": 20,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "h7q3GWB9PzLt2nxC",
+      "fid": 4,
+      "char": "특화싸개"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 154726,
+     "ilvl": 290,
+     "char": "Амани",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 942,
+      "치명": 881,
+      "가속": 722,
+      "유연": 178
+     },
+     "pct": {
+      "특화": 35,
+      "치명": 32,
+      "가속": 27,
+      "유연": 7
+     },
+     "ref": {
+      "rid": "vjr3XhfG71AYLkMz",
+      "fid": 13,
+      "char": "Амани"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 153812,
+     "ilvl": 290,
+     "char": "Hilaboom",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1389,
+      "치명": 809,
+      "가속": 387,
+      "유연": 121
+     },
+     "pct": {
+      "특화": 51,
+      "치명": 30,
+      "가속": 14,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "Xj4V7HKkhmPMnxv1",
+      "fid": 6,
+      "char": "Hilaboom"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 153622,
+     "ilvl": 289,
+     "char": "Catfishcraig",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1330,
+      "치명": 852,
+      "가속": 1298,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 38,
+      "치명": 24,
+      "가속": 37,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "yR12KrGnfwWQbPAc",
+      "fid": 28,
+      "char": "Catfishcraig"
+     }
+    },
+    {
+     "rank": 10,
+     "dps": 153211,
+     "ilvl": 290,
+     "char": "Furassh",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1023,
+      "치명": 830,
+      "가속": 756,
+      "유연": 52
+     },
+     "pct": {
+      "특화": 38,
+      "치명": 31,
+      "가속": 28,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "X1wKcfrtJ9zv4Bnb",
+      "fid": 15,
+      "char": "Furassh"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 151941,
+     "ilvl": 288,
+     "char": "Ikkui",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 922,
+      "치명": 1051,
+      "가속": 538,
+      "유연": 112
+     },
+     "pct": {
+      "특화": 35,
+      "치명": 40,
+      "가속": 21,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "6fvzXg8R9h2bAqc3",
+      "fid": 59,
+      "char": "Ikkui"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 151826,
+     "ilvl": 289,
+     "char": "Shammeta",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1170,
+      "치명": 1027,
+      "가속": 315,
+      "유연": 165
+     },
+     "pct": {
+      "특화": 44,
+      "치명": 38,
+      "가속": 12,
+      "유연": 6
+     },
+     "ref": {
+      "rid": "AtZHY1RFrBy9C3QN",
+      "fid": 7,
+      "char": "Shammeta"
+     }
+    },
+    {
+     "rank": 13,
+     "dps": 151162,
+     "ilvl": 290,
+     "char": "Sheffy",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1328,
+      "치명": 807,
+      "가속": 439,
+      "유연": 133
+     },
+     "pct": {
+      "특화": 49,
+      "치명": 30,
+      "가속": 16,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "2N7n3qpK4rXQMPGt",
+      "fid": 30,
+      "char": "Sheffy"
+     }
+    },
+    {
+     "rank": 14,
+     "dps": 151122,
+     "ilvl": 289,
+     "char": "운은진짜하",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1242,
+      "치명": 842,
+      "가속": 600,
+      "유연": 98
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 30,
+      "가속": 22,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "btKcPhnMTWrR8y6m",
+      "fid": 14,
+      "char": "운은진짜하"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 149967,
+     "ilvl": 290,
+     "char": "Tifasthighs",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1210,
+      "치명": 742,
+      "가속": 617,
+      "유연": 101
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 28,
+      "가속": 23,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "Dg6RY34pwrHmfG1a",
+      "fid": 15,
+      "char": "Tifasthighs"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 149268,
+     "ilvl": 290,
+     "char": "쿠우술",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1255,
+      "치명": 869,
+      "가속": 460,
+      "유연": 68
+     },
+     "pct": {
+      "특화": 47,
+      "치명": 33,
+      "가속": 17,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "jp1anVq7xDyH8Tw4",
+      "fid": 15,
+      "char": "쿠우술"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 149233,
+     "ilvl": 289,
+     "char": "로로",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1208,
+      "치명": 713,
+      "가속": 678,
+      "유연": 68
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 27,
+      "가속": 25,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "NJbZMBRXW4DLjzVY",
+      "fid": 19,
+      "char": "로로"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 148578,
+     "ilvl": 290,
+     "char": "Bondd",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 981,
+      "치명": 867,
+      "가속": 689,
+      "유연": 193
+     },
+     "pct": {
+      "특화": 36,
+      "치명": 32,
+      "가속": 25,
+      "유연": 7
+     },
+     "ref": {
+      "rid": "YaQ2JXMKxy3Z6HBm",
+      "fid": 12,
+      "char": "Bondd"
+     }
+    },
+    {
+     "rank": 19,
+     "dps": 148522,
+     "ilvl": 290,
+     "char": "Zorthar",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 995,
+      "치명": 1198,
+      "가속": 352,
+      "유연": 137
+     },
+     "pct": {
+      "특화": 37,
+      "치명": 45,
+      "가속": 13,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "zQN9W4dypKAvw2Pc",
+      "fid": 38,
+      "char": "Zorthar"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 147948,
+     "ilvl": 290,
+     "char": "Blubby",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1356,
+      "치명": 814,
+      "가속": 406,
+      "유연": 98
+     },
+     "pct": {
+      "특화": 51,
+      "치명": 30,
+      "가속": 15,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "dP6hXxnc79RHQyZF",
+      "fid": 64,
+      "char": "Blubby"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 20,
+     "stats": {
+      "특화": 1209,
+      "치명": 875,
+      "가속": 530,
+      "유연": 98
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 32,
+      "가속": 20,
+      "유연": 4
+     },
+     "ilvl": 290
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 13,
+     "stats": {
+      "특화": 1176,
+      "치명": 997,
+      "가속": 401,
+      "유연": 69
+     },
+     "pct": {
+      "특화": 44,
+      "치명": 38,
+      "가속": 15,
+      "유연": 3
+     },
+     "ilvl": 290
+    }
+   ],
+   "has_build": false
+  },
+  "3178": {
+   "boss_kr": "Vaelgor & Ezzorak",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 189488,
+     "ilvl": 288,
+     "char": "银行保洁",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1063,
+      "치명": 1015,
+      "가속": 472,
+      "유연": 69
+     },
+     "pct": {
+      "특화": 41,
+      "치명": 39,
+      "가속": 18,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "wacm4F3zPp2jXdQb",
+      "fid": 27,
+      "char": "银行保洁"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 188985,
+     "ilvl": 290,
+     "char": "Hesitant",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1294,
+      "치명": 1031,
+      "가속": 333,
+      "유연": 16
+     },
+     "pct": {
+      "특화": 48,
+      "치명": 39,
+      "가속": 12,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "NxjmYADWCH7PZhct",
+      "fid": 25,
+      "char": "Hesitant"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 187559,
+     "ilvl": 290,
+     "char": "啦咔呢咻",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1184,
+      "치명": 932,
+      "가속": 417,
+      "유연": 117
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 35,
+      "가속": 16,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "gxfcJXV6pyBL423n",
+      "fid": 20,
+      "char": "啦咔呢咻"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 186621,
+     "ilvl": 289,
+     "char": "Bluesham",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1198,
+      "치명": 779,
+      "가속": 504,
+      "유연": 117
+     },
+     "pct": {
+      "특화": 46,
+      "치명": 30,
+      "가속": 19,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "av6N3RhgdYX218ZM",
+      "fid": 31,
+      "char": "Bluesham"
+     }
+    },
+    {
+     "rank": 5,
+     "dps": 186078,
+     "ilvl": 290,
+     "char": "Bondd",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 981,
+      "치명": 867,
+      "가속": 689,
+      "유연": 193
+     },
+     "pct": {
+      "특화": 36,
+      "치명": 32,
+      "가속": 25,
+      "유연": 7
+     },
+     "ref": {
+      "rid": "YaQ2JXMKxy3Z6HBm",
+      "fid": 20,
+      "char": "Bondd"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 185346,
+     "ilvl": 290,
+     "char": "Leresham",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1291,
+      "치명": 963,
+      "가속": 298,
+      "유연": 121
+     },
+     "pct": {
+      "특화": 48,
+      "치명": 36,
+      "가속": 11,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "Q8fBVxC1ZYj7nFPW",
+      "fid": 28,
+      "char": "Leresham"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 184587,
+     "ilvl": 289,
+     "char": "Cloudshaman",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1020,
+      "치명": 1020,
+      "가속": 536,
+      "유연": 52
+     },
+     "pct": {
+      "특화": 39,
+      "치명": 39,
+      "가속": 20,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "DNMKrTb3yFRQzA7v",
+      "fid": 23,
+      "char": "Cloudshaman"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 183566,
+     "ilvl": 290,
+     "char": "今晚吃什么呢",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 965,
+      "치명": 1178,
+      "가속": 356,
+      "유연": 153
+     },
+     "pct": {
+      "특화": 36,
+      "치명": 44,
+      "가속": 13,
+      "유연": 6
+     },
+     "ref": {
+      "rid": "PYMD6vC2nTbxGyVz",
+      "fid": 5,
+      "char": "今晚吃什么呢"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 180912,
+     "ilvl": 290,
+     "char": "느긋한쿠키",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1245,
+      "치명": 939,
+      "가속": 479,
+      "유연": 14
+     },
+     "pct": {
+      "특화": 47,
+      "치명": 35,
+      "가속": 18,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "pdyYbvzVJQx2D8Pk",
+      "fid": 33,
+      "char": "느긋한쿠키"
+     }
+    },
+    {
+     "rank": 10,
+     "dps": 180795,
+     "ilvl": 288,
+     "char": "대지방벽토템",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1270,
+      "치명": 780,
+      "가속": 517,
+      "유연": 52
+     },
+     "pct": {
+      "특화": 48,
+      "치명": 30,
+      "가속": 20,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "NWK1aPkMr2GRJDLt",
+      "fid": 30,
+      "char": "대지방벽토템"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 180647,
+     "ilvl": 289,
+     "char": "白笔一文字丶",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1087,
+      "치명": 891,
+      "가속": 493,
+      "유연": 137
+     },
+     "pct": {
+      "특화": 42,
+      "치명": 34,
+      "가속": 19,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "cBAMDzY4yPZFx2fX",
+      "fid": 1,
+      "char": "白笔一文字丶"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 179498,
+     "ilvl": 288,
+     "char": "Sendkneepics",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1151,
+      "치명": 1010,
+      "가속": 417,
+      "유연": 81
+     },
+     "pct": {
+      "특화": 43,
+      "치명": 38,
+      "가속": 16,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "wNk83ZVzp2Jnv4fM",
+      "fid": 20,
+      "char": "Sendkneepics"
+     }
+    },
+    {
+     "rank": 13,
+     "dps": 179467,
+     "ilvl": 285,
+     "char": "Shamaray",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1302,
+      "치명": 835,
+      "가속": 481,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 50,
+      "치명": 32,
+      "가속": 18,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "vYp9BFKZ1J2wtQWk",
+      "fid": 37,
+      "char": "Shamaray"
+     }
+    },
+    {
+     "rank": 14,
+     "dps": 179247,
+     "ilvl": 289,
+     "char": "五龙转灭丶",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 987,
+      "치명": 923,
+      "가속": 568,
+      "유연": 137
+     },
+     "pct": {
+      "특화": 38,
+      "치명": 35,
+      "가속": 22,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "cBAMDzY4yPZFx2fX",
+      "fid": 60,
+      "char": "五龙转灭丶"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 178346,
+     "ilvl": 289,
+     "char": "Secro",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 871,
+      "치명": 1030,
+      "가속": 653,
+      "유연": 143
+     },
+     "pct": {
+      "특화": 32,
+      "치명": 38,
+      "가속": 24,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "BpV82Y9XhnvwzJCA",
+      "fid": 5,
+      "char": "Secro"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 178326,
+     "ilvl": 289,
+     "char": "Ikkui",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 913,
+      "치명": 1066,
+      "가속": 538,
+      "유연": 112
+     },
+     "pct": {
+      "특화": 35,
+      "치명": 41,
+      "가속": 20,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "Wr6VtHgfBj3CK4Qb",
+      "fid": 66,
+      "char": "Ikkui"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 178271,
+     "ilvl": 290,
+     "char": "Nozg",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1190,
+      "치명": 991,
+      "가속": 421,
+      "유연": 68
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 37,
+      "가속": 16,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "9NBD3v2kVwrytzMW",
+      "fid": 45,
+      "char": "Nozg"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 178232,
+     "ilvl": 289,
+     "char": "Nisphael",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1292,
+      "치명": 907,
+      "가속": 340,
+      "유연": 68
+     },
+     "pct": {
+      "특화": 50,
+      "치명": 35,
+      "가속": 13,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "pZtx8WJM2zmPdBRq",
+      "fid": 9,
+      "char": "Nisphael"
+     }
+    },
+    {
+     "rank": 19,
+     "dps": 177779,
+     "ilvl": 287,
+     "char": "皆丶尽",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1045,
+      "치명": 959,
+      "가속": 513,
+      "유연": 50
+     },
+     "pct": {
+      "특화": 41,
+      "치명": 37,
+      "가속": 20,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "rZx9BjdmabTX7hQg",
+      "fid": 143,
+      "char": "皆丶尽"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 177504,
+     "ilvl": 289,
+     "char": "Жораменталь",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1117,
+      "치명": 972,
+      "가속": 543,
+      "유연": 16
+     },
+     "pct": {
+      "특화": 42,
+      "치명": 37,
+      "가속": 21,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "Jy2chBM6rXkvL3Kx",
+      "fid": 87,
+      "char": "Жораменталь"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 20,
+     "stats": {
+      "특화": 1134,
+      "치명": 961,
+      "가속": 487,
+      "유연": 75
+     },
+     "pct": {
+      "특화": 43,
+      "치명": 36,
+      "가속": 18,
+      "유연": 3
+     },
+     "ilvl": 289
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 13,
+     "stats": {
+      "특화": 1027,
+      "치명": 996,
+      "가속": 520,
+      "유연": 54
+     },
+     "pct": {
+      "특화": 40,
+      "치명": 38,
+      "가속": 20,
+      "유연": 2
+     },
+     "ilvl": 287
+    }
+   ],
+   "has_build": false
+  },
+  "3179": {
+   "boss_kr": "Fallen-King Salhadaar",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 175683,
+     "ilvl": 290,
+     "char": "Tarrackk",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1043,
+      "치명": 878,
+      "가속": 685,
+      "유연": 68
+     },
+     "pct": {
+      "특화": 39,
+      "치명": 33,
+      "가속": 26,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "kn2adq1gFBRMCA6L",
+      "fid": 26,
+      "char": "Tarrackk"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 171696,
+     "ilvl": 290,
+     "char": "Nerdshockz",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 953,
+      "치명": 1127,
+      "가속": 556,
+      "유연": 69
+     },
+     "pct": {
+      "특화": 35,
+      "치명": 42,
+      "가속": 21,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "9C2fMx6ctyXBYRkj",
+      "fid": 7,
+      "char": "Nerdshockz"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 169561,
+     "ilvl": 290,
+     "char": "Tunaken",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1012,
+      "치명": 963,
+      "가속": 634,
+      "유연": 121
+     },
+     "pct": {
+      "특화": 37,
+      "치명": 35,
+      "가속": 23,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "P3gD9RZ6AHbcqJmB",
+      "fid": 21,
+      "char": "Tunaken"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 166254,
+     "ilvl": 289,
+     "char": "Torbentosse",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 985,
+      "치명": 969,
+      "가속": 593,
+      "유연": 151
+     },
+     "pct": {
+      "특화": 37,
+      "치명": 36,
+      "가속": 22,
+      "유연": 6
+     },
+     "ref": {
+      "rid": "WaZmBfdwQGLDPMc9",
+      "fid": 23,
+      "char": "Torbentosse"
+     }
+    },
+    {
+     "rank": 5,
+     "dps": 166006,
+     "ilvl": 290,
+     "char": "Hilaboom",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1389,
+      "치명": 809,
+      "가속": 387,
+      "유연": 121
+     },
+     "pct": {
+      "특화": 51,
+      "치명": 30,
+      "가속": 14,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "Xj4V7HKkhmPMnxv1",
+      "fid": 8,
+      "char": "Hilaboom"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 165702,
+     "ilvl": 290,
+     "char": "Prívatesham",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1234,
+      "치명": 993,
+      "가속": 387,
+      "유연": 52
+     },
+     "pct": {
+      "특화": 46,
+      "치명": 37,
+      "가속": 15,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "vx86DhNPt4CGyfnR",
+      "fid": 20,
+      "char": "Prívatesham"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 163844,
+     "ilvl": 288,
+     "char": "卤蛋跑得快",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1282,
+      "치명": 974,
+      "가속": 401,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 48,
+      "치명": 37,
+      "가속": 15,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "7GzTcVWKk4YbyQ9N",
+      "fid": 18,
+      "char": "卤蛋跑得快"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 163672,
+     "ilvl": 288,
+     "char": "触電灬",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1020,
+      "치명": 864,
+      "가속": 701,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 39,
+      "치명": 33,
+      "가속": 27,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "PL3ZbWKhkytpQ8vm",
+      "fid": 12,
+      "char": "触電灬"
+     }
+    },
+    {
+     "rank": 10,
+     "dps": 163397,
+     "ilvl": 289,
+     "char": "Worty",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1380,
+      "치명": 709,
+      "가속": 541,
+      "유연": 16
+     },
+     "pct": {
+      "특화": 52,
+      "치명": 27,
+      "가속": 20,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "tjDdqLhcvbAy2pnX",
+      "fid": 8,
+      "char": "Worty"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 163013,
+     "ilvl": 290,
+     "char": "Wexixaxa",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 813,
+      "치명": 1022,
+      "가속": 601,
+      "유연": 160
+     },
+     "pct": {
+      "특화": 31,
+      "치명": 39,
+      "가속": 23,
+      "유연": 6
+     },
+     "ref": {
+      "rid": "XqcdWGpPJBrL1F2z",
+      "fid": 26,
+      "char": "Wexixaxa"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 162647,
+     "ilvl": 288,
+     "char": "Zacsham",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1120,
+      "치명": 944,
+      "가속": 524,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 43,
+      "치명": 36,
+      "가속": 20,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "Y6GWPBLQkA4yCgn8",
+      "fid": 31,
+      "char": "Zacsham"
+     }
+    },
+    {
+     "rank": 13,
+     "dps": 162551,
+     "ilvl": 282,
+     "char": "今晚吃什么呢",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 972,
+      "치명": 1020,
+      "가속": 394,
+      "유연": 184
+     },
+     "pct": {
+      "특화": 38,
+      "치명": 40,
+      "가속": 15,
+      "유연": 7
+     },
+     "ref": {
+      "rid": "wBzpJqymnTkd76cL",
+      "fid": 15,
+      "char": "今晚吃什么呢"
+     }
+    },
+    {
+     "rank": 14,
+     "dps": 162172,
+     "ilvl": 290,
+     "char": "Leresham",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1291,
+      "치명": 963,
+      "가속": 298,
+      "유연": 121
+     },
+     "pct": {
+      "특화": 48,
+      "치명": 36,
+      "가속": 11,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "Q8fBVxC1ZYj7nFPW",
+      "fid": 24,
+      "char": "Leresham"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 161776,
+     "ilvl": 290,
+     "char": "Iroo",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1236,
+      "치명": 872,
+      "가속": 461,
+      "유연": 112
+     },
+     "pct": {
+      "특화": 46,
+      "치명": 33,
+      "가속": 17,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "3yPGTqLDV6MhwxJr",
+      "fid": 4,
+      "char": "Iroo"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 161763,
+     "ilvl": 288,
+     "char": "Sayrahs",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1196,
+      "치명": 890,
+      "가속": 453,
+      "유연": 133
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 33,
+      "가속": 17,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "bVXYJRTydhAL23ma",
+      "fid": 17,
+      "char": "Sayrahs"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 161587,
+     "ilvl": 289,
+     "char": "Zynehs",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1021,
+      "치명": 854,
+      "가속": 572,
+      "유연": 186
+     },
+     "pct": {
+      "특화": 39,
+      "치명": 32,
+      "가속": 22,
+      "유연": 7
+     },
+     "ref": {
+      "rid": "Q2wRkJPy4Lx9M7ZF",
+      "fid": 29,
+      "char": "Zynehs"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 161583,
+     "ilvl": 289,
+     "char": "Bluesham",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1198,
+      "치명": 779,
+      "가속": 1339,
+      "유연": 117
+     },
+     "pct": {
+      "특화": 35,
+      "치명": 23,
+      "가속": 39,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "2WF3gamchYL9fXwG",
+      "fid": 22,
+      "char": "Bluesham"
+     }
+    },
+    {
+     "rank": 19,
+     "dps": 160556,
+     "ilvl": 286,
+     "char": "铄铄",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1056,
+      "치명": 1051,
+      "가속": 387,
+      "유연": 53
+     },
+     "pct": {
+      "특화": 41,
+      "치명": 41,
+      "가속": 15,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "natKjJBFHTrP14GW",
+      "fid": 27,
+      "char": "铄铄"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 160323,
+     "ilvl": 289,
+     "char": "Käris",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 978,
+      "치명": 1031,
+      "가속": 533,
+      "유연": 105
+     },
+     "pct": {
+      "특화": 37,
+      "치명": 39,
+      "가속": 20,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "kDf1jTV7GdvJPw9Q",
+      "fid": 14,
+      "char": "Käris"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 19,
+     "stats": {
+      "특화": 1056,
+      "치명": 963,
+      "가속": 533,
+      "유연": 112
+     },
+     "pct": {
+      "특화": 40,
+      "치명": 36,
+      "가속": 20,
+      "유연": 4
+     },
+     "ilvl": 289
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 13,
+     "stats": {
+      "특화": 1153,
+      "치명": 851,
+      "가속": 442,
+      "유연": 98
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 33,
+      "가속": 17,
+      "유연": 4
+     },
+     "ilvl": 290
+    }
+   ],
+   "has_build": false
+  },
+  "3180": {
+   "boss_kr": "Lightblinded Vanguard",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 198448,
+     "ilvl": 290,
+     "char": "Tunaken",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1012,
+      "치명": 963,
+      "가속": 634,
+      "유연": 121
+     },
+     "pct": {
+      "특화": 37,
+      "치명": 35,
+      "가속": 23,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "F63q1M9DxjtpPyNH",
+      "fid": 31,
+      "char": "Tunaken"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 197687,
+     "ilvl": 289,
+     "char": "Crockito",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1000,
+      "치명": 1234,
+      "가속": 362,
+      "유연": 69
+     },
+     "pct": {
+      "특화": 38,
+      "치명": 46,
+      "가속": 14,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "b93PQy7XwLDfpV2J",
+      "fid": 37,
+      "char": "Crockito"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 196995,
+     "ilvl": 290,
+     "char": "Shwan",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1326,
+      "치명": 925,
+      "가속": 370,
+      "유연": 108
+     },
+     "pct": {
+      "특화": 49,
+      "치명": 34,
+      "가속": 14,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "P36vXapTCxQVMd1J",
+      "fid": 131,
+      "char": "Shwan"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 196594,
+     "ilvl": 290,
+     "char": "Tarrackk",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1043,
+      "치명": 878,
+      "가속": 685,
+      "유연": 68
+     },
+     "pct": {
+      "특화": 39,
+      "치명": 33,
+      "가속": 26,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "VDkTvx8ZQqC2Kmjp",
+      "fid": 40,
+      "char": "Tarrackk"
+     }
+    },
+    {
+     "rank": 5,
+     "dps": 196257,
+     "ilvl": 288,
+     "char": "Ninjashuie",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 700,
+      "치명": 1324,
+      "가속": 405,
+      "유연": 201
+     },
+     "pct": {
+      "특화": 27,
+      "치명": 50,
+      "가속": 15,
+      "유연": 8
+     },
+     "ref": {
+      "rid": "xTfg9cdzHQADCYXF",
+      "fid": 32,
+      "char": "Ninjashuie"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 195245,
+     "ilvl": 290,
+     "char": "Bondd",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 981,
+      "치명": 867,
+      "가속": 689,
+      "유연": 193
+     },
+     "pct": {
+      "특화": 36,
+      "치명": 32,
+      "가속": 25,
+      "유연": 7
+     },
+     "ref": {
+      "rid": "YaQ2JXMKxy3Z6HBm",
+      "fid": 24,
+      "char": "Bondd"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 192652,
+     "ilvl": 290,
+     "char": "Wenlo",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1026,
+      "치명": 1178,
+      "가속": 418,
+      "유연": 52
+     },
+     "pct": {
+      "특화": 38,
+      "치명": 44,
+      "가속": 16,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "Vd9qcPRhn68kJvL7",
+      "fid": 10,
+      "char": "Wenlo"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 191570,
+     "ilvl": 290,
+     "char": "Toastie",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1429,
+      "치명": 836,
+      "가속": 285,
+      "유연": 113
+     },
+     "pct": {
+      "특화": 54,
+      "치명": 31,
+      "가속": 11,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "mNWK4yLhvznAGBwD",
+      "fid": 10,
+      "char": "Toastie"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 190804,
+     "ilvl": 287,
+     "char": "你在叫锤子",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1020,
+      "치명": 917,
+      "가속": 522,
+      "유연": 118
+     },
+     "pct": {
+      "특화": 40,
+      "치명": 36,
+      "가속": 20,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "1NdkHRwvWB8K7MgQ",
+      "fid": 73,
+      "char": "你在叫锤子"
+     }
+    },
+    {
+     "rank": 10,
+     "dps": 190524,
+     "ilvl": 290,
+     "char": "Аманиальт",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 922,
+      "치명": 634,
+      "가속": 1132,
+      "유연": 84
+     },
+     "pct": {
+      "특화": 33,
+      "치명": 23,
+      "가속": 41,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "mQkJF4zVCwTZj1Lt",
+      "fid": 31,
+      "char": "Аманиальт"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 189985,
+     "ilvl": 290,
+     "char": "Mdaismtt",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1108,
+      "치명": 967,
+      "가속": 505,
+      "유연": 118
+     },
+     "pct": {
+      "특화": 41,
+      "치명": 36,
+      "가속": 19,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "6Yhzmbg1y9qTV43d",
+      "fid": 12,
+      "char": "Mdaismtt"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 188451,
+     "ilvl": 290,
+     "char": "Plebmental",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1386,
+      "치명": 929,
+      "가속": 376,
+      "유연": 16
+     },
+     "pct": {
+      "특화": 51,
+      "치명": 34,
+      "가속": 14,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "YvmJ23hWwkLFCMAz",
+      "fid": 26,
+      "char": "Plebmental"
+     }
+    },
+    {
+     "rank": 13,
+     "dps": 187826,
+     "ilvl": 288,
+     "char": "十四灰",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 953,
+      "치명": 1061,
+      "가속": 479,
+      "유연": 53
+     },
+     "pct": {
+      "특화": 37,
+      "치명": 42,
+      "가속": 19,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "wZDCPRpkfx3Htn6F",
+      "fid": 27,
+      "char": "十四灰"
+     }
+    },
+    {
+     "rank": 14,
+     "dps": 187142,
+     "ilvl": 289,
+     "char": "Qrankx",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1268,
+      "치명": 941,
+      "가속": 405,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 47,
+      "치명": 35,
+      "가속": 15,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "DkK81JLHZMwCdGTr",
+      "fid": 65,
+      "char": "Qrankx"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 186876,
+     "ilvl": 290,
+     "char": "Catfishcraig",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 999,
+      "치명": 1203,
+      "가속": 407,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 37,
+      "치명": 45,
+      "가속": 15,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "GAhn93p7CfxkQb2X",
+      "fid": 64,
+      "char": "Catfishcraig"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 186721,
+     "ilvl": 288,
+     "char": "Trueno",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1159,
+      "치명": 861,
+      "가속": 500,
+      "유연": 54
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 33,
+      "가속": 19,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "Pvf9hwtkm1X3HGB6",
+      "fid": 27,
+      "char": "Trueno"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 185969,
+     "ilvl": 287,
+     "char": "Mtrueno",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1240,
+      "치명": 778,
+      "가속": 434,
+      "유연": 80
+     },
+     "pct": {
+      "특화": 49,
+      "치명": 31,
+      "가속": 17,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "Pvf9hwtkm1X3HGB6",
+      "fid": 56,
+      "char": "Mtrueno"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 185869,
+     "ilvl": 289,
+     "char": "로로",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1208,
+      "치명": 713,
+      "가속": 678,
+      "유연": 68
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 27,
+      "가속": 25,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "YxvH7gqbkKPWXBRF",
+      "fid": 37,
+      "char": "로로"
+     }
+    },
+    {
+     "rank": 19,
+     "dps": 185447,
+     "ilvl": 288,
+     "char": "神奇的宫闕",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1050,
+      "치명": 995,
+      "가속": 411,
+      "유연": 113
+     },
+     "pct": {
+      "특화": 41,
+      "치명": 39,
+      "가속": 16,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "mVwYCgMR6dacKPBz",
+      "fid": 5,
+      "char": "神奇的宫闕"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 185258,
+     "ilvl": 290,
+     "char": "Waidden",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1154,
+      "치명": 983,
+      "가속": 492,
+      "유연": 53
+     },
+     "pct": {
+      "특화": 43,
+      "치명": 37,
+      "가속": 18,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "dVBLmMxhwXWfrkcD",
+      "fid": 33,
+      "char": "Waidden"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 20,
+     "stats": {
+      "특화": 1046,
+      "치명": 935,
+      "가속": 456,
+      "유연": 74
+     },
+     "pct": {
+      "특화": 42,
+      "치명": 37,
+      "가속": 18,
+      "유연": 3
+     },
+     "ilvl": 290
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 13,
+     "stats": {
+      "특화": 1101,
+      "치명": 925,
+      "가속": 473,
+      "유연": 113
+     },
+     "pct": {
+      "특화": 42,
+      "치명": 35,
+      "가속": 18,
+      "유연": 4
+     },
+     "ilvl": 289
+    }
+   ],
+   "has_build": false
+  },
+  "3181": {
+   "boss_kr": "Crown of the Cosmos",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 217920,
+     "ilvl": 286,
+     "char": "可爱一",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1007,
+      "치명": 1002,
+      "가속": 496,
+      "유연": 62
+     },
+     "pct": {
+      "특화": 39,
+      "치명": 39,
+      "가속": 19,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "bmf9wCRdVNvrkgQG",
+      "fid": 35,
+      "char": "可爱一"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 214706,
+     "ilvl": 290,
+     "char": "디스커버리",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1259,
+      "치명": 941,
+      "가속": 407,
+      "유연": 68
+     },
+     "pct": {
+      "특화": 47,
+      "치명": 35,
+      "가속": 15,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "ayDcW1ZGgP4JNBRf",
+      "fid": 31,
+      "char": "디스커버리"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 213738,
+     "ilvl": 290,
+     "char": "Leresham",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1291,
+      "치명": 963,
+      "가속": 298,
+      "유연": 121
+     },
+     "pct": {
+      "특화": 48,
+      "치명": 36,
+      "가속": 11,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "Q8fBVxC1ZYj7nFPW",
+      "fid": 37,
+      "char": "Leresham"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 213660,
+     "ilvl": 283,
+     "char": "특화싸개",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 840,
+      "치명": 1075,
+      "가속": 616,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 33,
+      "치명": 42,
+      "가속": 24,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "TFXp4CkLyd6gQfn2",
+      "fid": 53,
+      "char": "특화싸개"
+     }
+    },
+    {
+     "rank": 5,
+     "dps": 212572,
+     "ilvl": 290,
+     "char": "Bondd",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 981,
+      "치명": 867,
+      "가속": 689,
+      "유연": 193
+     },
+     "pct": {
+      "특화": 36,
+      "치명": 32,
+      "가속": 25,
+      "유연": 7
+     },
+     "ref": {
+      "rid": "YaQ2JXMKxy3Z6HBm",
+      "fid": 27,
+      "char": "Bondd"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 211824,
+     "ilvl": 283,
+     "char": "心脏麻痹",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1093,
+      "치명": 827,
+      "가속": 526,
+      "유연": 101
+     },
+     "pct": {
+      "특화": 43,
+      "치명": 32,
+      "가속": 21,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "APHkpqraQgTdwJXv",
+      "fid": 127,
+      "char": "心脏麻痹"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 211211,
+     "ilvl": 290,
+     "char": "Mdaismtt",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1108,
+      "치명": 967,
+      "가속": 505,
+      "유연": 118
+     },
+     "pct": {
+      "특화": 41,
+      "치명": 36,
+      "가속": 19,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "6Yhzmbg1y9qTV43d",
+      "fid": 14,
+      "char": "Mdaismtt"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 210742,
+     "ilvl": 286,
+     "char": "专注集中丶丶",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1187,
+      "치명": 883,
+      "가속": 402,
+      "유연": 100
+     },
+     "pct": {
+      "특화": 46,
+      "치명": 34,
+      "가속": 16,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "t1yvn4PJCHQhLTDK",
+      "fid": 20,
+      "char": "专注集中丶丶"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 210101,
+     "ilvl": 286,
+     "char": "电表倒转",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1083,
+      "치명": 1053,
+      "가속": 430,
+      "유연": 53
+     },
+     "pct": {
+      "특화": 41,
+      "치명": 40,
+      "가속": 16,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "x8aTQw139MN6RHFd",
+      "fid": 9,
+      "char": "电表倒转"
+     }
+    },
+    {
+     "rank": 10,
+     "dps": 209323,
+     "ilvl": 289,
+     "char": "陈炸三儿",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1051,
+      "치명": 1123,
+      "가속": 371,
+      "유연": 95
+     },
+     "pct": {
+      "특화": 40,
+      "치명": 43,
+      "가속": 14,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "XA89qCtY3fVwckvB",
+      "fid": 65,
+      "char": "陈炸三儿"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 207239,
+     "ilvl": 287,
+     "char": "专注集中丶",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1147,
+      "치명": 933,
+      "가속": 401,
+      "유연": 50
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 37,
+      "가속": 16,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "Df3J7qYQB2nCwRzt",
+      "fid": 197,
+      "char": "专注集中丶"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 207071,
+     "ilvl": 284,
+     "char": "可爱七",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 995,
+      "치명": 982,
+      "가속": 562,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 39,
+      "치명": 39,
+      "가속": 22,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "7XPT1fLDKh4mHbzt",
+      "fid": 32,
+      "char": "可爱七"
+     }
+    },
+    {
+     "rank": 13,
+     "dps": 206195,
+     "ilvl": 285,
+     "char": "Nickshockz",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1235,
+      "치명": 953,
+      "가속": 366,
+      "유연": 50
+     },
+     "pct": {
+      "특화": 47,
+      "치명": 37,
+      "가속": 14,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "TXQPWRVKYavbCn2Z",
+      "fid": 34,
+      "char": "Nickshockz"
+     }
+    },
+    {
+     "rank": 14,
+     "dps": 205648,
+     "ilvl": 289,
+     "char": "Sendkneepics",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1159,
+      "치명": 1011,
+      "가속": 417,
+      "유연": 81
+     },
+     "pct": {
+      "특화": 43,
+      "치명": 38,
+      "가속": 16,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "wNk83ZVzp2Jnv4fM",
+      "fid": 25,
+      "char": "Sendkneepics"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 205492,
+     "ilvl": 282,
+     "char": "운은진짜하",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1035,
+      "치명": 956,
+      "가속": 439,
+      "유연": 81
+     },
+     "pct": {
+      "특화": 41,
+      "치명": 38,
+      "가속": 17,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "wv3cmGzCx8ZYK2VQ",
+      "fid": 16,
+      "char": "운은진짜하"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 205180,
+     "ilvl": 290,
+     "char": "今晚吃什么呢",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 965,
+      "치명": 1178,
+      "가속": 356,
+      "유연": 153
+     },
+     "pct": {
+      "특화": 36,
+      "치명": 44,
+      "가속": 13,
+      "유연": 6
+     },
+     "ref": {
+      "rid": "PYMD6vC2nTbxGyVz",
+      "fid": 7,
+      "char": "今晚吃什么呢"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 204618,
+     "ilvl": 290,
+     "char": "Beefytauren",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1129,
+      "치명": 976,
+      "가속": 554,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 42,
+      "치명": 37,
+      "가속": 21,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "x7YGDyWzRPAgctfH",
+      "fid": 32,
+      "char": "Beefytauren"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 203460,
+     "ilvl": 281,
+     "char": "Gfjiu",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1032,
+      "치명": 835,
+      "가속": 524,
+      "유연": 93
+     },
+     "pct": {
+      "특화": 42,
+      "치명": 34,
+      "가속": 21,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "aQ2vYKWb8tD16hkd",
+      "fid": 28,
+      "char": "Gfjiu"
+     }
+    },
+    {
+     "rank": 19,
+     "dps": 203418,
+     "ilvl": 287,
+     "char": "Rainsong",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1118,
+      "치명": 998,
+      "가속": 391,
+      "유연": 53
+     },
+     "pct": {
+      "특화": 44,
+      "치명": 39,
+      "가속": 15,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "YHPqLFkRrmzawKX1",
+      "fid": 31,
+      "char": "Rainsong"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 203217,
+     "ilvl": 283,
+     "char": "可爱三",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 925,
+      "치명": 871,
+      "가속": 436,
+      "유연": 146
+     },
+     "pct": {
+      "특화": 39,
+      "치명": 37,
+      "가속": 18,
+      "유연": 6
+     },
+     "ref": {
+      "rid": "DvZzJAqKwmFcjrpk",
+      "fid": 35,
+      "char": "可爱三"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 20,
+     "stats": {
+      "특화": 1088,
+      "치명": 965,
+      "가속": 433,
+      "유연": 81
+     },
+     "pct": {
+      "특화": 42,
+      "치명": 38,
+      "가속": 17,
+      "유연": 3
+     },
+     "ilvl": 286
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 14,
+     "stats": {
+      "특화": 1115,
+      "치명": 860,
+      "가속": 450,
+      "유연": 76
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 34,
+      "가속": 18,
+      "유연": 3
+     },
+     "ilvl": 288
+    }
+   ],
+   "has_build": false
+  },
+  "3182": {
+   "boss_kr": "Belo'ren, Child of Al'ar",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 147125,
+     "ilvl": 290,
+     "char": "Leresham",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1291,
+      "치명": 963,
+      "가속": 298,
+      "유연": 121
+     },
+     "pct": {
+      "특화": 48,
+      "치명": 36,
+      "가속": 11,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "Q8fBVxC1ZYj7nFPW",
+      "fid": 42,
+      "char": "Leresham"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 141304,
+     "ilvl": 290,
+     "char": "Fidraulis",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1071,
+      "치명": 1159,
+      "가속": 417,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 40,
+      "치명": 44,
+      "가속": 16,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "m9CMGDKkcAdhQP4Y",
+      "fid": 11,
+      "char": "Fidraulis"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 140836,
+     "ilvl": 289,
+     "char": "Linkenic",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 987,
+      "치명": 989,
+      "가속": 627,
+      "유연": 16
+     },
+     "pct": {
+      "특화": 38,
+      "치명": 38,
+      "가속": 24,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "FgdxvcbQyB63Xq18",
+      "fid": 1,
+      "char": "Linkenic"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 139140,
+     "ilvl": 290,
+     "char": "Bondd",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1057,
+      "치명": 787,
+      "가속": 753,
+      "유연": 133
+     },
+     "pct": {
+      "특화": 39,
+      "치명": 29,
+      "가속": 28,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "zNDrXGvC6Bn9b37y",
+      "fid": 2,
+      "char": "Bondd"
+     }
+    },
+    {
+     "rank": 5,
+     "dps": 137430,
+     "ilvl": 290,
+     "char": "Sheffy",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1316,
+      "치명": 872,
+      "가속": 386,
+      "유연": 133
+     },
+     "pct": {
+      "특화": 49,
+      "치명": 32,
+      "가속": 14,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "wHyCJVKLP36pBAGQ",
+      "fid": 31,
+      "char": "Sheffy"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 137190,
+     "ilvl": 288,
+     "char": "Lukamodric",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 876,
+      "치명": 1062,
+      "가속": 638,
+      "유연": 118
+     },
+     "pct": {
+      "특화": 33,
+      "치명": 39,
+      "가속": 24,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "hn9A3WDTcBHrxfQ2",
+      "fid": 4,
+      "char": "Lukamodric"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 137029,
+     "ilvl": 290,
+     "char": "伊瑞尔萌",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1061,
+      "치명": 980,
+      "가속": 541,
+      "유연": 53
+     },
+     "pct": {
+      "특화": 40,
+      "치명": 37,
+      "가속": 21,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "JkxQ3CnDLKAZa7gd",
+      "fid": 30,
+      "char": "伊瑞尔萌"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 136906,
+     "ilvl": 290,
+     "char": "呱呱萨",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 895,
+      "치명": 1285,
+      "가속": 438,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 33,
+      "치명": 48,
+      "가속": 16,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "KZ14G2PyhJNtCrFn",
+      "fid": 28,
+      "char": "呱呱萨"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 136730,
+     "ilvl": 290,
+     "char": "Tifasthighs",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1210,
+      "치명": 739,
+      "가속": 614,
+      "유연": 101
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 28,
+      "가속": 23,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "v8KVdRZNQGWM1an4",
+      "fid": 19,
+      "char": "Tifasthighs"
+     }
+    },
+    {
+     "rank": 10,
+     "dps": 136334,
+     "ilvl": 289,
+     "char": "운은진짜하",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1249,
+      "치명": 858,
+      "가속": 442,
+      "유연": 256
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 31,
+      "가속": 16,
+      "유연": 9
+     },
+     "ref": {
+      "rid": "3AaW2YZC1pkJcdtV",
+      "fid": 9,
+      "char": "운은진짜하"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 136005,
+     "ilvl": 286,
+     "char": "Gfoo",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 981,
+      "치명": 915,
+      "가속": 620,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 38,
+      "치명": 35,
+      "가속": 24,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "gqnck1QMwNdJptfV",
+      "fid": 5,
+      "char": "Gfoo"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 135798,
+     "ilvl": 290,
+     "char": "Inmyblue",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1097,
+      "치명": 999,
+      "가속": 542,
+      "유연": 68
+     },
+     "pct": {
+      "특화": 41,
+      "치명": 37,
+      "가속": 20,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "hZ1bB3M9jqPmwcnd",
+      "fid": 98,
+      "char": "Inmyblue"
+     }
+    },
+    {
+     "rank": 13,
+     "dps": 134469,
+     "ilvl": 287,
+     "char": "Gfcz",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1108,
+      "치명": 1055,
+      "가속": 444,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 43,
+      "치명": 40,
+      "가속": 17,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "R2bCD69KwXvGPYjZ",
+      "fid": 5,
+      "char": "Gfcz"
+     }
+    },
+    {
+     "rank": 14,
+     "dps": 134179,
+     "ilvl": 289,
+     "char": "Torbentosse",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 985,
+      "치명": 910,
+      "가속": 622,
+      "유연": 151
+     },
+     "pct": {
+      "특화": 37,
+      "치명": 34,
+      "가속": 23,
+      "유연": 6
+     },
+     "ref": {
+      "rid": "tqD1cHKfyX96LAnY",
+      "fid": 54,
+      "char": "Torbentosse"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 133960,
+     "ilvl": 287,
+     "char": "Gfrn",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 970,
+      "치명": 1167,
+      "가속": 307,
+      "유연": 171
+     },
+     "pct": {
+      "특화": 37,
+      "치명": 45,
+      "가속": 12,
+      "유연": 7
+     },
+     "ref": {
+      "rid": "Gzp73yfr19wdCXP4",
+      "fid": 2,
+      "char": "Gfrn"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 132984,
+     "ilvl": 285,
+     "char": "Gfzx",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 925,
+      "치명": 1058,
+      "가속": 452,
+      "유연": 118
+     },
+     "pct": {
+      "특화": 36,
+      "치명": 41,
+      "가속": 18,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "LfyV9rMJNR7mhTpc",
+      "fid": 4,
+      "char": "Gfzx"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 131754,
+     "ilvl": 289,
+     "char": "光影无情",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1080,
+      "치명": 1032,
+      "가속": 350,
+      "유연": 118
+     },
+     "pct": {
+      "특화": 42,
+      "치명": 40,
+      "가속": 14,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "3ZXBy8brQhHnJND1",
+      "fid": 15,
+      "char": "光影无情"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 131723,
+     "ilvl": 283,
+     "char": "Chilldrills",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1204,
+      "치명": 850,
+      "가속": 473,
+      "유연": 47
+     },
+     "pct": {
+      "특화": 47,
+      "치명": 33,
+      "가속": 18,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "Q692L3y1chZzgHWY",
+      "fid": 21,
+      "char": "Chilldrills"
+     }
+    },
+    {
+     "rank": 19,
+     "dps": 131158,
+     "ilvl": 290,
+     "char": "더엉",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1326,
+      "치명": 939,
+      "가속": 348,
+      "유연": 52
+     },
+     "pct": {
+      "특화": 50,
+      "치명": 35,
+      "가속": 13,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "MrdKPzhZ3tncwvNg",
+      "fid": 61,
+      "char": "더엉"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 131049,
+     "ilvl": 288,
+     "char": "Wonstein",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1367,
+      "치명": 901,
+      "가속": 330,
+      "유연": 16
+     },
+     "pct": {
+      "특화": 52,
+      "치명": 34,
+      "가속": 13,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "2QnND9xjhXfALy4c",
+      "fid": 19,
+      "char": "Wonstein"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 20,
+     "stats": {
+      "특화": 1076,
+      "치명": 972,
+      "가속": 448,
+      "유연": 84
+     },
+     "pct": {
+      "특화": 42,
+      "치명": 38,
+      "가속": 17,
+      "유연": 3
+     },
+     "ilvl": 289
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 13,
+     "stats": {
+      "특화": 1181,
+      "치명": 959,
+      "가속": 412,
+      "유연": 58
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 37,
+      "가속": 16,
+      "유연": 2
+     },
+     "ilvl": 288
+    }
+   ],
+   "has_build": false
+  },
+  "3183": {
+   "boss_kr": "Midnight Falls",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 266842,
+     "ilvl": 289,
+     "char": "Gfco",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1250,
+      "치명": 959,
+      "가속": 405,
+      "유연": 53
+     },
+     "pct": {
+      "특화": 47,
+      "치명": 36,
+      "가속": 15,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "n1TLH3xKQ976rRc4",
+      "fid": 7,
+      "char": "Gfco"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 252697,
+     "ilvl": 290,
+     "char": "Bondd",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1036,
+      "치명": 877,
+      "가속": 689,
+      "유연": 128
+     },
+     "pct": {
+      "특화": 38,
+      "치명": 32,
+      "가속": 25,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "YaQ2JXMKxy3Z6HBm",
+      "fid": 46,
+      "char": "Bondd"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 252345,
+     "ilvl": 286,
+     "char": "Gfez",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1087,
+      "치명": 1041,
+      "가속": 401,
+      "유연": 118
+     },
+     "pct": {
+      "특화": 41,
+      "치명": 39,
+      "가속": 15,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "PwG4J1k6yndFqpxA",
+      "fid": 5,
+      "char": "Gfez"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 246457,
+     "ilvl": 289,
+     "char": "可爱二",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1287,
+      "치명": 848,
+      "가속": 441,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 49,
+      "치명": 32,
+      "가속": 17,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "3zhmL6K4WanQGP8t",
+      "fid": 12,
+      "char": "可爱二"
+     }
+    },
+    {
+     "rank": 5,
+     "dps": 240992,
+     "ilvl": 289,
+     "char": "十六灰",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1087,
+      "치명": 971,
+      "가속": 531,
+      "유연": 53
+     },
+     "pct": {
+      "특화": 41,
+      "치명": 37,
+      "가속": 20,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "AKjJhvByZLW39dxH",
+      "fid": 1,
+      "char": "十六灰"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 240816,
+     "ilvl": 290,
+     "char": "Mdaismtt",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1069,
+      "치명": 1055,
+      "가속": 457,
+      "유연": 118
+     },
+     "pct": {
+      "특화": 40,
+      "치명": 39,
+      "가속": 17,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "6Yhzmbg1y9qTV43d",
+      "fid": 26,
+      "char": "Mdaismtt"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 240358,
+     "ilvl": 289,
+     "char": "Iroo",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1236,
+      "치명": 872,
+      "가속": 461,
+      "유연": 112
+     },
+     "pct": {
+      "특화": 46,
+      "치명": 33,
+      "가속": 17,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "y26qpwNrVPDvJR9x",
+      "fid": 42,
+      "char": "Iroo"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 240216,
+     "ilvl": 289,
+     "char": "科长一号",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 964,
+      "치명": 908,
+      "가속": 632,
+      "유연": 84
+     },
+     "pct": {
+      "특화": 37,
+      "치명": 35,
+      "가속": 24,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "aTq9wBzmnKFbf84L",
+      "fid": 8,
+      "char": "科长一号"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 239225,
+     "ilvl": 288,
+     "char": "可爱心呐",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1229,
+      "치명": 871,
+      "가속": 487,
+      "유연": 53
+     },
+     "pct": {
+      "특화": 47,
+      "치명": 33,
+      "가속": 18,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "237YHbxJ4tkCdgDz",
+      "fid": 15,
+      "char": "可爱心呐"
+     }
+    },
+    {
+     "rank": 10,
+     "dps": 237547,
+     "ilvl": 290,
+     "char": "可爱心心",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1123,
+      "치명": 847,
+      "가속": 518,
+      "유연": 118
+     },
+     "pct": {
+      "특화": 43,
+      "치명": 33,
+      "가속": 20,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "zgxhbCBpVAJ42MXQ",
+      "fid": 18,
+      "char": "可爱心心"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 236846,
+     "ilvl": 290,
+     "char": "Zorthar",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1016,
+      "치명": 1198,
+      "가속": 354,
+      "유연": 130
+     },
+     "pct": {
+      "특화": 38,
+      "치명": 44,
+      "가속": 13,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "YgmxbXhcPLD3dzGn",
+      "fid": 48,
+      "char": "Zorthar"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 235822,
+     "ilvl": 290,
+     "char": "Leresham",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1291,
+      "치명": 963,
+      "가속": 298,
+      "유연": 121
+     },
+     "pct": {
+      "특화": 48,
+      "치명": 36,
+      "가속": 11,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "Q8fBVxC1ZYj7nFPW",
+      "fid": 51,
+      "char": "Leresham"
+     }
+    },
+    {
+     "rank": 13,
+     "dps": 234718,
+     "ilvl": 289,
+     "char": "迅猛龙先森",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1137,
+      "치명": 954,
+      "가속": 366,
+      "유연": 109
+     },
+     "pct": {
+      "특화": 44,
+      "치명": 37,
+      "가속": 14,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "hkdYBv82QFzxJDCj",
+      "fid": 18,
+      "char": "迅猛龙先森"
+     }
+    },
+    {
+     "rank": 14,
+     "dps": 234350,
+     "ilvl": 289,
+     "char": "十灰",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1168,
+      "치명": 1105,
+      "가속": 317,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 43,
+      "가속": 12,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "JWC21c6TrZbz7wHL",
+      "fid": 1,
+      "char": "十灰"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 234257,
+     "ilvl": 287,
+     "char": "梨花白",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1078,
+      "치명": 1041,
+      "가속": 494,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 41,
+      "치명": 40,
+      "가속": 19,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "tNmT2dWZfXG7w3Hg",
+      "fid": 14,
+      "char": "梨花白"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 234208,
+     "ilvl": 290,
+     "char": "Catfishcraig",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 999,
+      "치명": 1203,
+      "가속": 407,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 37,
+      "치명": 45,
+      "가속": 15,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "ptDwmhY1v2yAPj4a",
+      "fid": 33,
+      "char": "Catfishcraig"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 233165,
+     "ilvl": 289,
+     "char": "可爱心阿",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1201,
+      "치명": 893,
+      "가속": 451,
+      "유연": 53
+     },
+     "pct": {
+      "특화": 46,
+      "치명": 34,
+      "가속": 17,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "DVFLtzyp6Gdc97hM",
+      "fid": 12,
+      "char": "可爱心阿"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 232280,
+     "ilvl": 288,
+     "char": "可爱心耶",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1262,
+      "치명": 857,
+      "가속": 418,
+      "유연": 50
+     },
+     "pct": {
+      "특화": 49,
+      "치명": 33,
+      "가속": 16,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "MbjmtTn9pPBCKg4h",
+      "fid": 13,
+      "char": "可爱心耶"
+     }
+    },
+    {
+     "rank": 19,
+     "dps": 231568,
+     "ilvl": 288,
+     "char": "可爱心呢",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1036,
+      "치명": 972,
+      "가속": 453,
+      "유연": 118
+     },
+     "pct": {
+      "특화": 40,
+      "치명": 38,
+      "가속": 18,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "zYqKtDG18Qcnb79g",
+      "fid": 10,
+      "char": "可爱心呢"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 231084,
+     "ilvl": 288,
+     "char": "Sheffy",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1169,
+      "치명": 878,
+      "가속": 501,
+      "유연": 141
+     },
+     "pct": {
+      "특화": 43,
+      "치명": 33,
+      "가속": 19,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "gPy9CFJVtAMQwb4c",
+      "fid": 18,
+      "char": "Sheffy"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 20,
+     "stats": {
+      "특화": 1130,
+      "치명": 956,
+      "가속": 452,
+      "유연": 96
+     },
+     "pct": {
+      "특화": 43,
+      "치명": 36,
+      "가속": 17,
+      "유연": 4
+     },
+     "ilvl": 289
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 12,
+     "stats": {
+      "특화": 1138,
+      "치명": 964,
+      "가속": 466,
+      "유연": 69
+     },
+     "pct": {
+      "특화": 43,
+      "치명": 37,
+      "가속": 18,
+      "유연": 3
+     },
+     "ilvl": 289
+    }
+   ],
+   "has_build": false
+  },
+  "3306": {
+   "boss_kr": "Chimaerus, the Undreamt God",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 173868,
+     "ilvl": 290,
+     "char": "淡写淡洐",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1375,
+      "치명": 907,
+      "가속": 308,
+      "유연": 83
+     },
+     "pct": {
+      "특화": 51,
+      "치명": 34,
+      "가속": 12,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "KYgxXBGbtZLrfH27",
+      "fid": 8,
+      "char": "淡写淡洐"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 167802,
+     "ilvl": 290,
+     "char": "Criiks",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1454,
+      "치명": 840,
+      "가속": 376,
+      "유연": 16
+     },
+     "pct": {
+      "특화": 54,
+      "치명": 31,
+      "가속": 14,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "JWQPf9cTNkdn4Gqx",
+      "fid": 30,
+      "char": "Criiks"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 167338,
+     "ilvl": 290,
+     "char": "Kennyg",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1393,
+      "치명": 814,
+      "가속": 374,
+      "유연": 126
+     },
+     "pct": {
+      "특화": 51,
+      "치명": 30,
+      "가속": 14,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "wb9PxDanr8dvBXQY",
+      "fid": 3,
+      "char": "Kennyg"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 167228,
+     "ilvl": 290,
+     "char": "Qog",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 939,
+      "치명": 1000,
+      "가속": 638,
+      "유연": 98
+     },
+     "pct": {
+      "특화": 35,
+      "치명": 37,
+      "가속": 24,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "qNF8m9VQrvpRHYL4",
+      "fid": 7,
+      "char": "Qog"
+     }
+    },
+    {
+     "rank": 5,
+     "dps": 165296,
+     "ilvl": 290,
+     "char": "Swayde",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1284,
+      "치명": 1044,
+      "가속": 317,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 49,
+      "치명": 39,
+      "가속": 12,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "PyJX17LgMBaCmwv9",
+      "fid": 4,
+      "char": "Swayde"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 165273,
+     "ilvl": 289,
+     "char": "Gozi",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1024,
+      "치명": 941,
+      "가속": 537,
+      "유연": 118
+     },
+     "pct": {
+      "특화": 39,
+      "치명": 36,
+      "가속": 20,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "NBmXCwZfML1PT38c",
+      "fid": 34,
+      "char": "Gozi"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 164960,
+     "ilvl": 289,
+     "char": "聚光灯往这打",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1220,
+      "치명": 1047,
+      "가속": 356,
+      "유연": 21
+     },
+     "pct": {
+      "특화": 46,
+      "치명": 40,
+      "가속": 13,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "fJD7T4Fh3AQWC6Z9",
+      "fid": 2,
+      "char": "聚光灯往这打"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 163445,
+     "ilvl": 289,
+     "char": "李逵",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1115,
+      "치명": 1036,
+      "가속": 275,
+      "유연": 164
+     },
+     "pct": {
+      "특화": 43,
+      "치명": 40,
+      "가속": 11,
+      "유연": 6
+     },
+     "ref": {
+      "rid": "2akAZbPFBHzq1h3L",
+      "fid": 6,
+      "char": "李逵"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 163378,
+     "ilvl": 290,
+     "char": "펩시부먹민초진순",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 878,
+      "치명": 1293,
+      "가속": 421,
+      "유연": 68
+     },
+     "pct": {
+      "특화": 33,
+      "치명": 49,
+      "가속": 16,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "yMPwJ1fZQYHC6tTR",
+      "fid": 37,
+      "char": "펩시부먹민초진순"
+     }
+    },
+    {
+     "rank": 10,
+     "dps": 161117,
+     "ilvl": 289,
+     "char": "短尾犬",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1150,
+      "치명": 896,
+      "가속": 461,
+      "유연": 105
+     },
+     "pct": {
+      "특화": 44,
+      "치명": 34,
+      "가속": 18,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "DnmpFNyqjc4Zt3WQ",
+      "fid": 4,
+      "char": "短尾犬"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 160696,
+     "ilvl": 290,
+     "char": "Tarrackk",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1043,
+      "치명": 878,
+      "가속": 685,
+      "유연": 68
+     },
+     "pct": {
+      "특화": 39,
+      "치명": 33,
+      "가속": 26,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "v2Xy3gBjh7YbzpkM",
+      "fid": 9,
+      "char": "Tarrackk"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 158991,
+     "ilvl": 290,
+     "char": "Tunaken",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1012,
+      "치명": 963,
+      "가속": 634,
+      "유연": 121
+     },
+     "pct": {
+      "특화": 37,
+      "치명": 35,
+      "가속": 23,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "tPCXcAd6Jkmry3NL",
+      "fid": 3,
+      "char": "Tunaken"
+     }
+    },
+    {
+     "rank": 13,
+     "dps": 158948,
+     "ilvl": 289,
+     "char": "炸毛喵喵",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1078,
+      "치명": 901,
+      "가속": 721,
+      "유연": 1
+     },
+     "pct": {
+      "특화": 40,
+      "치명": 33,
+      "가속": 27,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "vAKgHaVW7zmMTYcP",
+      "fid": 1,
+      "char": "炸毛喵喵"
+     }
+    },
+    {
+     "rank": 14,
+     "dps": 157814,
+     "ilvl": 289,
+     "char": "狼之笑",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1057,
+      "치명": 1008,
+      "가속": 479,
+      "유연": 53
+     },
+     "pct": {
+      "특화": 41,
+      "치명": 39,
+      "가속": 18,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "JGXPpfyYFkH9mVnW",
+      "fid": 41,
+      "char": "狼之笑"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 157741,
+     "ilvl": 290,
+     "char": "Trbbstd",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1205,
+      "치명": 1024,
+      "가속": 282,
+      "유연": 195
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 38,
+      "가속": 10,
+      "유연": 7
+     },
+     "ref": {
+      "rid": "9AvWYqdKm4PQk3TN",
+      "fid": 65,
+      "char": "Trbbstd"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 157138,
+     "ilvl": 290,
+     "char": "Venaro",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 900,
+      "치명": 1140,
+      "가속": 421,
+      "유연": 223
+     },
+     "pct": {
+      "특화": 34,
+      "치명": 42,
+      "가속": 16,
+      "유연": 8
+     },
+     "ref": {
+      "rid": "T9xYKtXzk6VLwCZ7",
+      "fid": 62,
+      "char": "Venaro"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 157079,
+     "ilvl": 290,
+     "char": "今晚吃什么呢",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 922,
+      "치명": 1161,
+      "가속": 356,
+      "유연": 213
+     },
+     "pct": {
+      "특화": 35,
+      "치명": 44,
+      "가속": 13,
+      "유연": 8
+     },
+     "ref": {
+      "rid": "dMZ36GcKyA8PLBWQ",
+      "fid": 2,
+      "char": "今晚吃什么呢"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 157072,
+     "ilvl": 290,
+     "char": "庄方宜丶",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 949,
+      "치명": 1057,
+      "가속": 577,
+      "유연": 53
+     },
+     "pct": {
+      "특화": 36,
+      "치명": 40,
+      "가속": 22,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "fVnwvdWk81chBg6C",
+      "fid": 12,
+      "char": "庄方宜丶"
+     }
+    },
+    {
+     "rank": 19,
+     "dps": 156804,
+     "ilvl": 288,
+     "char": "Cnorg",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1366,
+      "치명": 708,
+      "가속": 433,
+      "유연": 204
+     },
+     "pct": {
+      "특화": 50,
+      "치명": 26,
+      "가속": 16,
+      "유연": 8
+     },
+     "ref": {
+      "rid": "KmZABvD9NqPQHt1r",
+      "fid": 32,
+      "char": "Cnorg"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 156312,
+     "ilvl": 290,
+     "char": "Shwan",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 1326,
+      "치명": 925,
+      "가속": 370,
+      "유연": 108
+     },
+     "pct": {
+      "특화": 49,
+      "치명": 34,
+      "가속": 14,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "P36vXapTCxQVMd1J",
+      "fid": 102,
+      "char": "Shwan"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 20,
+     "stats": {
+      "특화": 1096,
+      "치명": 982,
+      "가속": 421,
+      "유연": 102
+     },
+     "pct": {
+      "특화": 42,
+      "치명": 38,
+      "가속": 16,
+      "유연": 4
+     },
+     "ilvl": 290
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 14,
+     "stats": {
+      "특화": 1195,
+      "치명": 948,
+      "가속": 474,
+      "유연": 59
+     },
+     "pct": {
+      "특화": 45,
+      "치명": 35,
+      "가속": 18,
+      "유연": 2
+     },
+     "ilvl": 289
+    }
+   ],
+   "has_build": false
+  }
+ },
+ "Warlock|Demonology": {
+  "3176": {
+   "boss_kr": "Imperator Averzian",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 176685,
+     "ilvl": 283,
+     "char": "快龙侠",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 360,
+      "치명": 1229,
+      "가속": 825,
+      "유연": 104
+     },
+     "pct": {
+      "특화": 14,
+      "치명": 49,
+      "가속": 33,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "wdtfq9R3xpvM8BD7",
+      "fid": 19,
+      "char": "快龙侠"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 175204,
+     "ilvl": 290,
+     "char": "Appleless",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 564,
+      "치명": 1256,
+      "가속": 861,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 47,
+      "가속": 32,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "wYg91vP6cAKaZpQn",
+      "fid": 9,
+      "char": "Appleless"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 172795,
+     "ilvl": 290,
+     "char": "이소리미티드",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 628,
+      "치명": 1298,
+      "가속": 756,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 48,
+      "가속": 28,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "bhVzxNGQ4DmtAdKZ",
+      "fid": 8,
+      "char": "이소리미티드"
+     }
+    },
+    {
+     "rank": 5,
+     "dps": 167316,
+     "ilvl": 289,
+     "char": "流口水的痴呆",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 539,
+      "치명": 1301,
+      "가속": 789,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 49,
+      "가속": 30,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "3yzHAxtVwK2ZPNTJ",
+      "fid": 7,
+      "char": "流口水的痴呆"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 166939,
+     "ilvl": 289,
+     "char": "Ryuuju",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 542,
+      "치명": 1161,
+      "가속": 872,
+      "유연": 32
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 45,
+      "가속": 33,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "LaRbnfZKV2w7pP8k",
+      "fid": 113,
+      "char": "Ryuuju"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 166821,
+     "ilvl": 288,
+     "char": "Grosuwl",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 555,
+      "치명": 1171,
+      "가속": 826,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 22,
+      "치명": 46,
+      "가속": 32,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "fwzxNyPp76aABbjW",
+      "fid": 7,
+      "char": "Grosuwl"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 165946,
+     "ilvl": 287,
+     "char": "Майкиварлок",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 415,
+      "치명": 1470,
+      "가속": 647,
+      "유연": 97
+     },
+     "pct": {
+      "특화": 16,
+      "치명": 56,
+      "가속": 25,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "vxDtq4VnBmgbFa3k",
+      "fid": 2,
+      "char": "Майкиварлок"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 165891,
+     "ilvl": 290,
+     "char": "Crîtneyfears",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 735,
+      "치명": 1118,
+      "가속": 790,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 28,
+      "치명": 42,
+      "가속": 30,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "xY2P6wXHDjN9Mt83",
+      "fid": 12,
+      "char": "Crîtneyfears"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 164420,
+     "ilvl": 287,
+     "char": "是梦里吖",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 527,
+      "치명": 1347,
+      "가속": 814,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 50,
+      "가속": 30,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "4azBLHXjk1YFQyTd",
+      "fid": 2,
+      "char": "是梦里吖"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 164146,
+     "ilvl": 280,
+     "char": "魏武帝七",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 384,
+      "치명": 1164,
+      "가속": 863,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 16,
+      "치명": 48,
+      "가속": 36,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "CpyNmK3Zj1XLwdtM",
+      "fid": 6,
+      "char": "魏武帝七"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 163282,
+     "ilvl": 290,
+     "char": "豪豬吉列姆",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 623,
+      "치명": 1247,
+      "가속": 811,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 47,
+      "가속": 30,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "vq9JgFk184Q3mpCd",
+      "fid": 38,
+      "char": "豪豬吉列姆"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 162935,
+     "ilvl": 290,
+     "char": "Fadedghost",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 687,
+      "치명": 1142,
+      "가속": 775,
+      "유연": 97
+     },
+     "pct": {
+      "특화": 25,
+      "치명": 42,
+      "가속": 29,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "QCjKpkJ8wcdYrNmW",
+      "fid": 11,
+      "char": "Fadedghost"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 162934,
+     "ilvl": 290,
+     "char": "엄준식흑마",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 662,
+      "치명": 1164,
+      "가속": 854,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 25,
+      "치명": 43,
+      "가속": 32,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "bhVzxNGQ4DmtAdKZ",
+      "fid": 8,
+      "char": "엄준식흑마"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 162688,
+     "ilvl": 289,
+     "char": "Samsaras",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 565,
+      "치명": 1045,
+      "가속": 938,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 22,
+      "치명": 41,
+      "가속": 37,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "D9kCcp3QfWGm4F2v",
+      "fid": 73,
+      "char": "Samsaras"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 162304,
+     "ilvl": 285,
+     "char": "女且",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 568,
+      "치명": 1057,
+      "가속": 904,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 22,
+      "치명": 42,
+      "가속": 36,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "PtAN6dfchXFJ7gvH",
+      "fid": 24,
+      "char": "女且"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 15,
+     "stats": {
+      "특화": 564,
+      "치명": 1171,
+      "가속": 825,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 22,
+      "치명": 46,
+      "가속": 32,
+      "유연": 0
+     },
+     "ilvl": 289
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 13,
+     "stats": {
+      "특화": 529,
+      "치명": 1213,
+      "가속": 885,
+      "유연": 32
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 46,
+      "가속": 33,
+      "유연": 1
+     },
+     "ilvl": 289
+    }
+   ],
+   "has_build": false
+  },
+  "3177": {
+   "boss_kr": "Vorasius",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 137915,
+     "ilvl": 283,
+     "char": "快龙侠",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 360,
+      "치명": 1245,
+      "가속": 832,
+      "유연": 104
+     },
+     "pct": {
+      "특화": 14,
+      "치명": 49,
+      "가속": 33,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "Jg2bvj7YRLxa1znH",
+      "fid": 21,
+      "char": "快龙侠"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 134979,
+     "ilvl": 290,
+     "char": "Tulparlock",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 612,
+      "치명": 1211,
+      "가속": 858,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 45,
+      "가속": 32,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "MqhTyXd6B9Q4Vv2a",
+      "fid": 87,
+      "char": "Tulparlock"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 131988,
+     "ilvl": 290,
+     "char": "Kellso",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 621,
+      "치명": 1279,
+      "가속": 781,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 48,
+      "가속": 29,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "KMmjtdzwR2aHfZWq",
+      "fid": 4,
+      "char": "Kellso"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 129726,
+     "ilvl": 290,
+     "char": "Voidzone",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 544,
+      "치명": 1130,
+      "가속": 873,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 43,
+      "가속": 33,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "kJP6rFcabgV942AT",
+      "fid": 62,
+      "char": "Voidzone"
+     }
+    },
+    {
+     "rank": 5,
+     "dps": 129522,
+     "ilvl": 290,
+     "char": "Bryon",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 676,
+      "치명": 1041,
+      "가속": 874,
+      "유연": 110
+     },
+     "pct": {
+      "특화": 25,
+      "치명": 39,
+      "가속": 32,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "zQN9W4dypKAvw2Pc",
+      "fid": 38,
+      "char": "Bryon"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 128301,
+     "ilvl": 290,
+     "char": "纱菱羽翼",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 536,
+      "치명": 1272,
+      "가속": 838,
+      "유연": 36
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 47,
+      "가속": 31,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "Hk9fcQFzMtq1P2nW",
+      "fid": 41,
+      "char": "纱菱羽翼"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 128179,
+     "ilvl": 289,
+     "char": "Fearfrasse",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 744,
+      "치명": 1411,
+      "가속": 517,
+      "유연": 1
+     },
+     "pct": {
+      "특화": 28,
+      "치명": 53,
+      "가속": 19,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "7FKYA2CQhyzkDWjM",
+      "fid": 11,
+      "char": "Fearfrasse"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 128116,
+     "ilvl": 290,
+     "char": "얇은피교자만두",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 568,
+      "치명": 1355,
+      "가속": 757,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 51,
+      "가속": 28,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "aXH3nC8JAqMcz9mf",
+      "fid": 15,
+      "char": "얇은피교자만두"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 127533,
+     "ilvl": 290,
+     "char": "Bakkalmualim",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 560,
+      "치명": 1519,
+      "가속": 535,
+      "유연": 45
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 57,
+      "가속": 20,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "D39WbmVr1dxZhyvt",
+      "fid": 14,
+      "char": "Bakkalmualim"
+     }
+    },
+    {
+     "rank": 10,
+     "dps": 127015,
+     "ilvl": 289,
+     "char": "Daddyss",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 538,
+      "치명": 1234,
+      "가속": 820,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 48,
+      "가속": 32,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "ndqbNkM46QXjtxpH",
+      "fid": 73,
+      "char": "Daddyss"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 126931,
+     "ilvl": 290,
+     "char": "Robinwl",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 501,
+      "치명": 1281,
+      "가속": 831,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 19,
+      "치명": 48,
+      "가속": 31,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "yG6mH37tZdR8cnCB",
+      "fid": 11,
+      "char": "Robinwl"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 126727,
+     "ilvl": 290,
+     "char": "Azerostar",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 584,
+      "치명": 1318,
+      "가속": 800,
+      "유연": 33
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 48,
+      "가속": 29,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "vhCqAQf8NBrTWdZ4",
+      "fid": 28,
+      "char": "Azerostar"
+     }
+    },
+    {
+     "rank": 13,
+     "dps": 126661,
+     "ilvl": 289,
+     "char": "Insatiate",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 678,
+      "치명": 1110,
+      "가속": 815,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 26,
+      "치명": 42,
+      "가속": 31,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "jfKY4cynN9HtkQVM",
+      "fid": 11,
+      "char": "Insatiate"
+     }
+    },
+    {
+     "rank": 14,
+     "dps": 126642,
+     "ilvl": 290,
+     "char": "洗脑侦探翡翠",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 514,
+      "치명": 1256,
+      "가속": 912,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 19,
+      "치명": 47,
+      "가속": 34,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "BWTFpCZz2NKPvX34",
+      "fid": 6,
+      "char": "洗脑侦探翡翠"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 126556,
+     "ilvl": 290,
+     "char": "Scorpylock",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 539,
+      "치명": 1159,
+      "가속": 854,
+      "유연": 107
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 44,
+      "가속": 32,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "yNmwCD3M46WgLpVb",
+      "fid": 25,
+      "char": "Scorpylock"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 126401,
+     "ilvl": 289,
+     "char": "Xmás",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 376,
+      "치명": 1420,
+      "가속": 789,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 14,
+      "치명": 54,
+      "가속": 30,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "da7mF6YRP9CG4ADg",
+      "fid": 19,
+      "char": "Xmás"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 126371,
+     "ilvl": 290,
+     "char": "Terondashi",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 718,
+      "치명": 1208,
+      "가속": 714,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 27,
+      "치명": 45,
+      "가속": 27,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "3FzvM4yJCVpWmxnD",
+      "fid": 14,
+      "char": "Terondashi"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 126296,
+     "ilvl": 290,
+     "char": "Poneybøy",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 648,
+      "치명": 1196,
+      "가속": 804,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 45,
+      "가속": 30,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "Y6GWPBLQkA4yCgn8",
+      "fid": 25,
+      "char": "Poneybøy"
+     }
+    },
+    {
+     "rank": 19,
+     "dps": 126168,
+     "ilvl": 290,
+     "char": "장빵이",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 655,
+      "치명": 1097,
+      "가속": 888,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 41,
+      "가속": 33,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "1QyYXxMh8aNRGAjf",
+      "fid": 17,
+      "char": "장빵이"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 126130,
+     "ilvl": 289,
+     "char": "阿花",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 606,
+      "치명": 1283,
+      "가속": 753,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 49,
+      "가속": 29,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "gPYmbCAa4Xv3W7kd",
+      "fid": 16,
+      "char": "阿花"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 20,
+     "stats": {
+      "특화": 576,
+      "치명": 1250,
+      "가속": 818,
+      "유연": 39
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 47,
+      "가속": 30,
+      "유연": 1
+     },
+     "ilvl": 290
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 19,
+     "stats": {
+      "특화": 539,
+      "치명": 1232,
+      "가속": 808,
+      "유연": 32
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 47,
+      "가속": 31,
+      "유연": 1
+     },
+     "ilvl": 289
+    }
+   ],
+   "has_build": false
+  },
+  "3178": {
+   "boss_kr": "Vaelgor & Ezzorak",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 270989,
+     "ilvl": 283,
+     "char": "快龙侠",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 360,
+      "치명": 1245,
+      "가속": 832,
+      "유연": 104
+     },
+     "pct": {
+      "특화": 14,
+      "치명": 49,
+      "가속": 33,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "Jg2bvj7YRLxa1znH",
+      "fid": 39,
+      "char": "快龙侠"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 234795,
+     "ilvl": 287,
+     "char": "Lockorcdva",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 599,
+      "치명": 1267,
+      "가속": 610,
+      "유연": 107
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 49,
+      "가속": 24,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "bMA7RYZfztPQBCHq",
+      "fid": 26,
+      "char": "Lockorcdva"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 234229,
+     "ilvl": 283,
+     "char": "Robinlock",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 461,
+      "치명": 1183,
+      "가속": 856,
+      "유연": 76
+     },
+     "pct": {
+      "특화": 18,
+      "치명": 46,
+      "가속": 33,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "PY6JvDwLrchWaHZG",
+      "fid": 29,
+      "char": "Robinlock"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 232178,
+     "ilvl": 290,
+     "char": "你们的大爷",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 546,
+      "치명": 1285,
+      "가속": 820,
+      "유연": 32
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 48,
+      "가속": 31,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "VN6k1tvWFRpjGHQx",
+      "fid": 34,
+      "char": "你们的大爷"
+     }
+    },
+    {
+     "rank": 5,
+     "dps": 231022,
+     "ilvl": 285,
+     "char": "Gbayang",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 292,
+      "치명": 1282,
+      "가속": 884,
+      "유연": 63
+     },
+     "pct": {
+      "특화": 12,
+      "치명": 51,
+      "가속": 35,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "Kfxm8aLQntJYBGXz",
+      "fid": 134,
+      "char": "Gbayang"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 230376,
+     "ilvl": 284,
+     "char": "西贝尔",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 327,
+      "치명": 1267,
+      "가속": 819,
+      "유연": 104
+     },
+     "pct": {
+      "특화": 13,
+      "치명": 50,
+      "가속": 33,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "cQmNV32rXqC9Tw7D",
+      "fid": 6,
+      "char": "西贝尔"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 229915,
+     "ilvl": 283,
+     "char": "顾灬俊皓",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 531,
+      "치명": 1149,
+      "가속": 915,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 44,
+      "가속": 35,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "Lpx1Dyr7MkbR96WF",
+      "fid": 106,
+      "char": "顾灬俊皓"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 229670,
+     "ilvl": 288,
+     "char": "大秀哥术",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 557,
+      "치명": 1212,
+      "가속": 823,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 47,
+      "가속": 32,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "9MVFAHPXyLdQbC84",
+      "fid": 29,
+      "char": "大秀哥术"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 228851,
+     "ilvl": 290,
+     "char": "灰色原本哀殇",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 387,
+      "치명": 1512,
+      "가속": 783,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 14,
+      "치명": 56,
+      "가속": 29,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "BJ6TmtCwhyPMb3k2",
+      "fid": 2,
+      "char": "灰色原本哀殇"
+     }
+    },
+    {
+     "rank": 10,
+     "dps": 228596,
+     "ilvl": 285,
+     "char": "Freeweiøss",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 466,
+      "치명": 1206,
+      "가속": 830,
+      "유연": 39
+     },
+     "pct": {
+      "특화": 18,
+      "치명": 47,
+      "가속": 33,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "PWnA7Q1RJz4qfDmx",
+      "fid": 28,
+      "char": "Freeweiøss"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 228553,
+     "ilvl": 287,
+     "char": "不反核",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 421,
+      "치명": 1380,
+      "가속": 746,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 17,
+      "치명": 54,
+      "가속": 29,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "6V719ZDFwNknKm2B",
+      "fid": 6,
+      "char": "不反核"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 225597,
+     "ilvl": 284,
+     "char": "鱼飞",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 605,
+      "치명": 1099,
+      "가속": 794,
+      "유연": 14
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 44,
+      "가속": 32,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "p2gJ6L3xzwkBDPCa",
+      "fid": 33,
+      "char": "鱼飞"
+     }
+    },
+    {
+     "rank": 13,
+     "dps": 225307,
+     "ilvl": 289,
+     "char": "流口水的痴呆",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 539,
+      "치명": 1301,
+      "가속": 789,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 49,
+      "가속": 30,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "TYk2pvfZ3wrNJ9Kg",
+      "fid": 28,
+      "char": "流口水的痴呆"
+     }
+    },
+    {
+     "rank": 14,
+     "dps": 225042,
+     "ilvl": 290,
+     "char": "可惡的菜菜",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 535,
+      "치명": 1290,
+      "가속": 801,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 49,
+      "가속": 31,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "zPhNjck8XRFCtrqY",
+      "fid": 35,
+      "char": "可惡的菜菜"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 224167,
+     "ilvl": 288,
+     "char": "小树可是真菜",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 519,
+      "치명": 1283,
+      "가속": 762,
+      "유연": 34
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 49,
+      "가속": 29,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "q7ZMjpQ8XPy9zfDg",
+      "fid": 39,
+      "char": "小树可是真菜"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 224094,
+     "ilvl": 282,
+     "char": "浅浅的观察",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 418,
+      "치명": 1314,
+      "가속": 646,
+      "유연": 134
+     },
+     "pct": {
+      "특화": 17,
+      "치명": 52,
+      "가속": 26,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "qLjRzWCJbhX7wYcg",
+      "fid": 16,
+      "char": "浅浅的观察"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 223446,
+     "ilvl": 286,
+     "char": "慕言汐",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 438,
+      "치명": 1256,
+      "가속": 833,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 17,
+      "치명": 50,
+      "가속": 33,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "QZgKhyzBWJvpn86V",
+      "fid": 97,
+      "char": "慕言汐"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 223412,
+     "ilvl": 285,
+     "char": "乔奇",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 530,
+      "치명": 1195,
+      "가속": 857,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 46,
+      "가속": 33,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "QWLT1AnjrfhtKCD6",
+      "fid": 23,
+      "char": "乔奇"
+     }
+    },
+    {
+     "rank": 19,
+     "dps": 223077,
+     "ilvl": 285,
+     "char": "Fisko",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 573,
+      "치명": 1248,
+      "가속": 852,
+      "유연": 16
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 46,
+      "가속": 32,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "L1F8vDH4PTXn7f6t",
+      "fid": 32,
+      "char": "Fisko"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 222890,
+     "ilvl": 281,
+     "char": "蓝田日暖玉生",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 589,
+      "치명": 1019,
+      "가속": 809,
+      "유연": 48
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 41,
+      "가속": 33,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "YMJH4Lc9gPaNr6kq",
+      "fid": 1,
+      "char": "蓝田日暖玉生"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 20,
+     "stats": {
+      "특화": 524,
+      "치명": 1262,
+      "가속": 820,
+      "유연": 33
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 48,
+      "가속": 31,
+      "유연": 1
+     },
+     "ilvl": 285
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 36,
+     "stats": {
+      "특화": 527,
+      "치명": 1200,
+      "가속": 831,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 47,
+      "가속": 32,
+      "유연": 0
+     },
+     "ilvl": 284
+    }
+   ],
+   "has_build": false
+  },
+  "3179": {
+   "boss_kr": "Fallen-King Salhadaar",
+   "top": [
+    {
+     "rank": 2,
+     "dps": 174689,
+     "ilvl": 288,
+     "char": "Meowkat",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 428,
+      "치명": 1391,
+      "가속": 763,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 16,
+      "치명": 53,
+      "가속": 29,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "1xVR6mfJF3A7XjcC",
+      "fid": 16,
+      "char": "Meowkat"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 172597,
+     "ilvl": 286,
+     "char": "魅魔饲养员",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 484,
+      "치명": 1255,
+      "가속": 754,
+      "유연": 113
+     },
+     "pct": {
+      "특화": 19,
+      "치명": 48,
+      "가속": 29,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "VJqp2zZN6k4WGQYL",
+      "fid": 3,
+      "char": "魅魔饲养员"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 170183,
+     "ilvl": 290,
+     "char": "Helelock",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 704,
+      "치명": 621,
+      "가속": 1012,
+      "유연": 267
+     },
+     "pct": {
+      "특화": 27,
+      "치명": 24,
+      "가속": 39,
+      "유연": 10
+     },
+     "ref": {
+      "rid": "6DtqHB2CQpbAgjn4",
+      "fid": 26,
+      "char": "Helelock"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 169076,
+     "ilvl": 290,
+     "char": "古爾登",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 456,
+      "치명": 1351,
+      "가속": 764,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 17,
+      "치명": 52,
+      "가속": 29,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "9qR6YvzTFVQrCjWA",
+      "fid": 19,
+      "char": "古爾登"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 167010,
+     "ilvl": 289,
+     "char": "Mingeleven",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 610,
+      "치명": 1114,
+      "가속": 850,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 43,
+      "가속": 33,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "Fh4xBf6wdWbpvY3K",
+      "fid": 21,
+      "char": "Mingeleven"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 166119,
+     "ilvl": 290,
+     "char": "따가운압정",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 499,
+      "치명": 1411,
+      "가속": 729,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 19,
+      "치명": 53,
+      "가속": 27,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "DQznx9NphAdLmM7K",
+      "fid": 67,
+      "char": "따가운압정"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 166057,
+     "ilvl": 286,
+     "char": "梦龑",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 331,
+      "치명": 1335,
+      "가속": 823,
+      "유연": 58
+     },
+     "pct": {
+      "특화": 13,
+      "치명": 52,
+      "가속": 32,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "tKhmbpFBCXYMR7yT",
+      "fid": 1,
+      "char": "梦龑"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 163898,
+     "ilvl": 281,
+     "char": "Archaelon",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 551,
+      "치명": 1064,
+      "가속": 764,
+      "유연": 106
+     },
+     "pct": {
+      "특화": 22,
+      "치명": 43,
+      "가속": 31,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "Fpyw9czhkWVrdYaq",
+      "fid": 22,
+      "char": "Archaelon"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 163265,
+     "ilvl": 290,
+     "char": "Terondashi",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 718,
+      "치명": 1208,
+      "가속": 714,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 27,
+      "치명": 45,
+      "가속": 27,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "P36vXapTCxQVMd1J",
+      "fid": 119,
+      "char": "Terondashi"
+     }
+    },
+    {
+     "rank": 13,
+     "dps": 162952,
+     "ilvl": 290,
+     "char": "小皇",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 614,
+      "치명": 1214,
+      "가속": 831,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 46,
+      "가속": 31,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "v4Yr3QaWjAdLVzBN",
+      "fid": 15,
+      "char": "小皇"
+     }
+    },
+    {
+     "rank": 14,
+     "dps": 162442,
+     "ilvl": 290,
+     "char": "Dealcut",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 612,
+      "치명": 1224,
+      "가속": 846,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 46,
+      "가속": 32,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "wnxd2TVKyQr91Mt4",
+      "fid": 31,
+      "char": "Dealcut"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 161939,
+     "ilvl": 289,
+     "char": "숑이베리",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 498,
+      "치명": 1219,
+      "가속": 771,
+      "유연": 107
+     },
+     "pct": {
+      "특화": 19,
+      "치명": 47,
+      "가속": 30,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "4tQkgHRjZM8m7WPA",
+      "fid": 9,
+      "char": "숑이베리"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 160157,
+     "ilvl": 289,
+     "char": "Kiralock",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 612,
+      "치명": 1064,
+      "가속": 870,
+      "유연": 77
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 41,
+      "가속": 33,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "9vfZx1j8JYqz3MKT",
+      "fid": 16,
+      "char": "Kiralock"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 160105,
+     "ilvl": 290,
+     "char": "Aleff",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 549,
+      "치명": 1316,
+      "가속": 808,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 49,
+      "가속": 30,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "pCqyhVvP2c46BFWN",
+      "fid": 27,
+      "char": "Aleff"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 159984,
+     "ilvl": 288,
+     "char": "风丶逍遥",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 509,
+      "치명": 1104,
+      "가속": 868,
+      "유연": 104
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 43,
+      "가속": 34,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "F8PZf36KDazL1xy4",
+      "fid": 44,
+      "char": "风丶逍遥"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 15,
+     "stats": {
+      "특화": 549,
+      "치명": 1219,
+      "가속": 808,
+      "유연": 58
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 46,
+      "가속": 31,
+      "유연": 2
+     },
+     "ilvl": 289
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 9,
+     "stats": {
+      "특화": 513,
+      "치명": 1192,
+      "가속": 842,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 47,
+      "가속": 33,
+      "유연": 0
+     },
+     "ilvl": 289
+    }
+   ],
+   "has_build": false
+  },
+  "3180": {
+   "boss_kr": "Lightblinded Vanguard",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 244008,
+     "ilvl": 290,
+     "char": "닭콤",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 845,
+      "치명": 1042,
+      "가속": 793,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 32,
+      "치명": 39,
+      "가속": 30,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "34wxrRFBtnDZJVkA",
+      "fid": 38,
+      "char": "닭콤"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 241418,
+     "ilvl": 290,
+     "char": "Kellso",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 621,
+      "치명": 1279,
+      "가속": 781,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 48,
+      "가속": 29,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "KMmjtdzwR2aHfZWq",
+      "fid": 6,
+      "char": "Kellso"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 239160,
+     "ilvl": 290,
+     "char": "Fergaz",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 774,
+      "치명": 1359,
+      "가속": 473,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 29,
+      "치명": 51,
+      "가속": 18,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "FKAWJCGjVavzxbf7",
+      "fid": 12,
+      "char": "Fergaz"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 235091,
+     "ilvl": 290,
+     "char": "游荡小鬼",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 604,
+      "치명": 1242,
+      "가속": 702,
+      "유연": 64
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 48,
+      "가속": 27,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "MNpDFB1anGqVd8QW",
+      "fid": 24,
+      "char": "游荡小鬼"
+     }
+    },
+    {
+     "rank": 5,
+     "dps": 232769,
+     "ilvl": 290,
+     "char": "小树可是真菜",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 505,
+      "치명": 1322,
+      "가속": 832,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 19,
+      "치명": 50,
+      "가속": 31,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "wj17YTPJtXVp9DB6",
+      "fid": 30,
+      "char": "小树可是真菜"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 229160,
+     "ilvl": 287,
+     "char": "梦总丶",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 593,
+      "치명": 1083,
+      "가속": 891,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 42,
+      "가속": 35,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "nRvQgbh1dkFrcLyZ",
+      "fid": 36,
+      "char": "梦总丶"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 229117,
+     "ilvl": 288,
+     "char": "司幼幽",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 610,
+      "치명": 1102,
+      "가속": 851,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 43,
+      "가속": 33,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "QZgKhyzBWJvpn86V",
+      "fid": 35,
+      "char": "司幼幽"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 228209,
+     "ilvl": 290,
+     "char": "流口水的痴呆",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 511,
+      "치명": 1338,
+      "가속": 833,
+      "유연": 1
+     },
+     "pct": {
+      "특화": 19,
+      "치명": 50,
+      "가속": 31,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "Drgh3JzWTRmc2nLy",
+      "fid": 23,
+      "char": "流口水的痴呆"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 226695,
+     "ilvl": 289,
+     "char": "Lockorcdva",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 636,
+      "치명": 1345,
+      "가속": 542,
+      "유연": 107
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 51,
+      "가속": 21,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "7pyxACDLW269XqNZ",
+      "fid": 12,
+      "char": "Lockorcdva"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 226464,
+     "ilvl": 285,
+     "char": "利维亚的白狼",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 404,
+      "치명": 1138,
+      "가속": 864,
+      "유연": 142
+     },
+     "pct": {
+      "특화": 16,
+      "치명": 45,
+      "가속": 34,
+      "유연": 6
+     },
+     "ref": {
+      "rid": "ZzbvM324jP9VJFTG",
+      "fid": 10,
+      "char": "利维亚的白狼"
+     }
+    },
+    {
+     "rank": 13,
+     "dps": 226342,
+     "ilvl": 287,
+     "char": "小朋友们",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 287,
+      "치명": 1353,
+      "가속": 851,
+      "유연": 102
+     },
+     "pct": {
+      "특화": 11,
+      "치명": 52,
+      "가속": 33,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "XbVm6yAtNWMhn17H",
+      "fid": 134,
+      "char": "小朋友们"
+     }
+    },
+    {
+     "rank": 14,
+     "dps": 225967,
+     "ilvl": 290,
+     "char": "聖白樹",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 649,
+      "치명": 1279,
+      "가속": 752,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 48,
+      "가속": 28,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "d7y8hBmCn2N9cQbk",
+      "fid": 30,
+      "char": "聖白樹"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 225595,
+     "ilvl": 289,
+     "char": "Maxlock",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 777,
+      "치명": 1097,
+      "가속": 816,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 29,
+      "치명": 41,
+      "가속": 30,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "tkQCaFXBvwgYbAJK",
+      "fid": 25,
+      "char": "Maxlock"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 225287,
+     "ilvl": 290,
+     "char": "닥꼼",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 646,
+      "치명": 1246,
+      "가속": 700,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 47,
+      "가속": 26,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "aXH3nC8JAqMcz9mf",
+      "fid": 33,
+      "char": "닥꼼"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 225247,
+     "ilvl": 290,
+     "char": "冻水消痕",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 606,
+      "치명": 1286,
+      "가속": 766,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 48,
+      "가속": 29,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "vBjZYb2JxMKmfHQk",
+      "fid": 4,
+      "char": "冻水消痕"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 224895,
+     "ilvl": 290,
+     "char": "닭콤이",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 628,
+      "치명": 1174,
+      "가속": 669,
+      "유연": 107
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 46,
+      "가속": 26,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "2TZ37NY6GJPbfLCB",
+      "fid": 37,
+      "char": "닭콤이"
+     }
+    },
+    {
+     "rank": 19,
+     "dps": 224656,
+     "ilvl": 290,
+     "char": "Fenth",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 538,
+      "치명": 1253,
+      "가속": 754,
+      "유연": 113
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 47,
+      "가속": 28,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "pNrMqy49gt7KkDQW",
+      "fid": 27,
+      "char": "Fenth"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 224454,
+     "ilvl": 289,
+     "char": "慕芊芊",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 541,
+      "치명": 1121,
+      "가속": 890,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 44,
+      "가속": 35,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "TC1F7kn2vzG9XdKf",
+      "fid": 194,
+      "char": "慕芊芊"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 18,
+     "stats": {
+      "특화": 608,
+      "치명": 1250,
+      "가속": 787,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 47,
+      "가속": 30,
+      "유연": 0
+     },
+     "ilvl": 290
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 13,
+     "stats": {
+      "특화": 514,
+      "치명": 1231,
+      "가속": 825,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 47,
+      "가속": 32,
+      "유연": 2
+     },
+     "ilvl": 290
+    }
+   ],
+   "has_build": false
+  },
+  "3181": {
+   "boss_kr": "Crown of the Cosmos",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 217021,
+     "ilvl": 290,
+     "char": "닭꼼",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 782,
+      "치명": 1172,
+      "가속": 723,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 29,
+      "치명": 44,
+      "가속": 27,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "pX29FW7vdx34bGwY",
+      "fid": 25,
+      "char": "닭꼼"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 213048,
+     "ilvl": 290,
+     "char": "Kellso",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 621,
+      "치명": 1279,
+      "가속": 781,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 48,
+      "가속": 29,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "KMmjtdzwR2aHfZWq",
+      "fid": 8,
+      "char": "Kellso"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 210327,
+     "ilvl": 290,
+     "char": "따가운압정",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 499,
+      "치명": 1411,
+      "가속": 729,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 19,
+      "치명": 53,
+      "가속": 27,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "aCKzMkVpQ6fPGNZ4",
+      "fid": 67,
+      "char": "따가운압정"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 209561,
+     "ilvl": 287,
+     "char": "恶魔一号",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 420,
+      "치명": 1413,
+      "가속": 660,
+      "유연": 81
+     },
+     "pct": {
+      "특화": 16,
+      "치명": 55,
+      "가속": 26,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "3TbmVfzPLXncagC6",
+      "fid": 33,
+      "char": "恶魔一号"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 206669,
+     "ilvl": 286,
+     "char": "Mingfour",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 584,
+      "치명": 1166,
+      "가속": 820,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 45,
+      "가속": 32,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "FP6qLjHNcGTdbzZM",
+      "fid": 1,
+      "char": "Mingfour"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 206378,
+     "ilvl": 283,
+     "char": "无上元始天尊",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 765,
+      "치명": 856,
+      "가속": 775,
+      "유연": 77
+     },
+     "pct": {
+      "특화": 31,
+      "치명": 35,
+      "가속": 31,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "GjDyg4BZKQ7xwrp2",
+      "fid": 27,
+      "char": "无上元始天尊"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 205552,
+     "ilvl": 289,
+     "char": "Kyo",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 439,
+      "치명": 1169,
+      "가속": 840,
+      "유연": 182
+     },
+     "pct": {
+      "특화": 17,
+      "치명": 44,
+      "가속": 32,
+      "유연": 7
+     },
+     "ref": {
+      "rid": "xdZ1b8TmpgNcrVnz",
+      "fid": 174,
+      "char": "Kyo"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 204276,
+     "ilvl": 290,
+     "char": "小树可是真菜",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 498,
+      "치명": 1306,
+      "가속": 832,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 19,
+      "치명": 50,
+      "가속": 32,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "1DjmCLM8Z6JaKPBN",
+      "fid": 2,
+      "char": "小树可是真菜"
+     }
+    },
+    {
+     "rank": 10,
+     "dps": 203650,
+     "ilvl": 290,
+     "char": "Shóutlock",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 649,
+      "치명": 1160,
+      "가속": 848,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 44,
+      "가속": 32,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "QrHhYcdpVN7mnvkT",
+      "fid": 32,
+      "char": "Shóutlock"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 202725,
+     "ilvl": 290,
+     "char": "Lamair",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 636,
+      "치명": 1113,
+      "가속": 839,
+      "유연": 61
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 42,
+      "가속": 32,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "PbKwdtx9zjvHpXNk",
+      "fid": 11,
+      "char": "Lamair"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 202058,
+     "ilvl": 289,
+     "char": "Mingthirteen",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 540,
+      "치명": 1194,
+      "가속": 846,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 46,
+      "가속": 33,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "QJrw8kK7fmTqAWB3",
+      "fid": 137,
+      "char": "Mingthirteen"
+     }
+    },
+    {
+     "rank": 13,
+     "dps": 201984,
+     "ilvl": 289,
+     "char": "丶无之",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 668,
+      "치명": 1276,
+      "가속": 740,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 25,
+      "치명": 48,
+      "가속": 28,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "WhQB3GqK9Zx4Mvd2",
+      "fid": 16,
+      "char": "丶无之"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 201012,
+     "ilvl": 289,
+     "char": "Ödeñford",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 532,
+      "치명": 1465,
+      "가속": 623,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 56,
+      "가속": 24,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "bgPn2xF9H4NKfrAQ",
+      "fid": 22,
+      "char": "Ödeñford"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 201011,
+     "ilvl": 290,
+     "char": "流口水的痴呆",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 511,
+      "치명": 1338,
+      "가속": 833,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 19,
+      "치명": 50,
+      "가속": 31,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "LWx3wMTzbJ7nXjg8",
+      "fid": 33,
+      "char": "流口水的痴呆"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 200949,
+     "ilvl": 290,
+     "char": "淡写淡行",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 693,
+      "치명": 1132,
+      "가속": 810,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 26,
+      "치명": 43,
+      "가속": 31,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "T81Vct3KFzNyRqJW",
+      "fid": 48,
+      "char": "淡写淡行"
+     }
+    },
+    {
+     "rank": 19,
+     "dps": 200157,
+     "ilvl": 290,
+     "char": "Poneybøy",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 648,
+      "치명": 1196,
+      "가속": 804,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 45,
+      "가속": 30,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "Y6GWPBLQkA4yCgn8",
+      "fid": 44,
+      "char": "Poneybøy"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 200134,
+     "ilvl": 288,
+     "char": "机智的呆呆兽",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 550,
+      "치명": 1206,
+      "가속": 830,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 46,
+      "가속": 32,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "xdZ1b8TmpgNcrVnz",
+      "fid": 113,
+      "char": "机智的呆呆兽"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 17,
+     "stats": {
+      "특화": 584,
+      "치명": 1196,
+      "가속": 810,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 46,
+      "가속": 31,
+      "유연": 0
+     },
+     "ilvl": 290
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 13,
+     "stats": {
+      "특화": 575,
+      "치명": 1145,
+      "가속": 827,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 22,
+      "치명": 44,
+      "가속": 32,
+      "유연": 2
+     },
+     "ilvl": 289
+    }
+   ],
+   "has_build": false
+  },
+  "3182": {
+   "boss_kr": "Belo'ren, Child of Al'ar",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 161608,
+     "ilvl": 290,
+     "char": "닥꼼",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 684,
+      "치명": 1239,
+      "가속": 604,
+      "유연": 107
+     },
+     "pct": {
+      "특화": 26,
+      "치명": 47,
+      "가속": 23,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "62YjXbBcNW8fwQ71",
+      "fid": 49,
+      "char": "닥꼼"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 161545,
+     "ilvl": 290,
+     "char": "鲁拉",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 600,
+      "치명": 1118,
+      "가속": 908,
+      "유연": 48
+     },
+     "pct": {
+      "특화": 22,
+      "치명": 42,
+      "가속": 34,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "Pa8J7rQm9gbwLqW2",
+      "fid": 22,
+      "char": "鲁拉"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 155755,
+     "ilvl": 290,
+     "char": "灰色原本哀殇",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 387,
+      "치명": 1512,
+      "가속": 783,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 14,
+      "치명": 56,
+      "가속": 29,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "DwX9zjtAmd17GVYR",
+      "fid": 1,
+      "char": "灰色原本哀殇"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 153980,
+     "ilvl": 287,
+     "char": "大眠兔丷",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 652,
+      "치명": 1184,
+      "가속": 756,
+      "유연": 39
+     },
+     "pct": {
+      "특화": 25,
+      "치명": 45,
+      "가속": 29,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "qWwCmJQVGfdBvFc9",
+      "fid": 1,
+      "char": "大眠兔丷"
+     }
+    },
+    {
+     "rank": 5,
+     "dps": 152284,
+     "ilvl": 287,
+     "char": "杰尼龟龟大王",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 748,
+      "치명": 1055,
+      "가속": 784,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 28,
+      "치명": 40,
+      "가속": 30,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "gC92mABjdtZH7kzc",
+      "fid": 1,
+      "char": "杰尼龟龟大王"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 152045,
+     "ilvl": 287,
+     "char": "小眠兔的丷丷",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 553,
+      "치명": 1195,
+      "가속": 900,
+      "유연": 1
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 45,
+      "가속": 34,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "qab9WTgAkYLXQrwJ",
+      "fid": 1,
+      "char": "小眠兔的丷丷"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 151118,
+     "ilvl": 290,
+     "char": "燃灵焰火",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 609,
+      "치명": 1208,
+      "가속": 795,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 46,
+      "가속": 30,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "9ZkKxjdfNXHPhA2V",
+      "fid": 6,
+      "char": "燃灵焰火"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 150801,
+     "ilvl": 288,
+     "char": "灰原十三",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 706,
+      "치명": 987,
+      "가속": 881,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 27,
+      "치명": 38,
+      "가속": 34,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "wfrPMLCyB27zaG3J",
+      "fid": 6,
+      "char": "灰原十三"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 150733,
+     "ilvl": 287,
+     "char": "赵毛子",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 711,
+      "치명": 1040,
+      "가속": 793,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 28,
+      "치명": 41,
+      "가속": 31,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "Kb7w6Jry2zfmaYTN",
+      "fid": 10,
+      "char": "赵毛子"
+     }
+    },
+    {
+     "rank": 10,
+     "dps": 150540,
+     "ilvl": 290,
+     "char": "黏黏最美丽",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 389,
+      "치명": 1368,
+      "가속": 837,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 15,
+      "치명": 51,
+      "가속": 31,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "C4BymGDaXk8JwtnR",
+      "fid": 32,
+      "char": "黏黏最美丽"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 150501,
+     "ilvl": 288,
+     "char": "琳娜贝兔",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 367,
+      "치명": 1252,
+      "가속": 935,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 14,
+      "치명": 48,
+      "가속": 36,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "6HyRK3c9Gp8dzbYm",
+      "fid": 1,
+      "char": "琳娜贝兔"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 149895,
+     "ilvl": 287,
+     "char": "灰原二",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 586,
+      "치명": 1031,
+      "가속": 900,
+      "유연": 39
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 40,
+      "가속": 35,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "pZCF74y3jfYJgtvA",
+      "fid": 25,
+      "char": "灰原二"
+     }
+    },
+    {
+     "rank": 14,
+     "dps": 148960,
+     "ilvl": 287,
+     "char": "熟食二十号",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 610,
+      "치명": 1058,
+      "가속": 920,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 41,
+      "가속": 36,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "2TpK6kA7rWxnchYb",
+      "fid": 19,
+      "char": "熟食二十号"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 148814,
+     "ilvl": 290,
+     "char": "Shóutlock",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 545,
+      "치명": 1117,
+      "가속": 964,
+      "유연": 32
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 42,
+      "가속": 36,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "1ht2Kz3jv9CAJwLk",
+      "fid": 45,
+      "char": "Shóutlock"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 148347,
+     "ilvl": 290,
+     "char": "얇은피교자만두",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 568,
+      "치명": 1355,
+      "가속": 757,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 51,
+      "가속": 28,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "aXH3nC8JAqMcz9mf",
+      "fid": 43,
+      "char": "얇은피교자만두"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 148313,
+     "ilvl": 290,
+     "char": "Lucasaurus",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 797,
+      "치명": 1171,
+      "가속": 750,
+      "유연": 43
+     },
+     "pct": {
+      "특화": 29,
+      "치명": 42,
+      "가속": 27,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "p6HK42zq37FfPvma",
+      "fid": 26,
+      "char": "Lucasaurus"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 148286,
+     "ilvl": 289,
+     "char": "砚书",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 808,
+      "치명": 977,
+      "가속": 828,
+      "유연": 104
+     },
+     "pct": {
+      "특화": 30,
+      "치명": 36,
+      "가속": 30,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "wZDCPRpkfx3Htn6F",
+      "fid": 37,
+      "char": "砚书"
+     }
+    },
+    {
+     "rank": 19,
+     "dps": 147946,
+     "ilvl": 290,
+     "char": "Peemfan",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 443,
+      "치명": 1301,
+      "가속": 829,
+      "유연": 107
+     },
+     "pct": {
+      "특화": 17,
+      "치명": 49,
+      "가속": 31,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "VLK8WNzTRAbvd2hF",
+      "fid": 20,
+      "char": "Peemfan"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 147015,
+     "ilvl": 290,
+     "char": "닭콤",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 448,
+      "치명": 1316,
+      "가속": 808,
+      "유연": 110
+     },
+     "pct": {
+      "특화": 17,
+      "치명": 49,
+      "가속": 30,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "1WqM3Z8Rywfz6n4B",
+      "fid": 60,
+      "char": "닭콤"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 19,
+     "stats": {
+      "특화": 600,
+      "치명": 1184,
+      "가속": 828,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 45,
+      "가속": 31,
+      "유연": 2
+     },
+     "ilvl": 290
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 11,
+     "stats": {
+      "특화": 542,
+      "치명": 1245,
+      "가속": 794,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 47,
+      "가속": 30,
+      "유연": 2
+     },
+     "ilvl": 289
+    }
+   ],
+   "has_build": false
+  },
+  "3183": {
+   "boss_kr": "Midnight Falls",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 229154,
+     "ilvl": 290,
+     "char": "流口水的痴呆",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 511,
+      "치명": 1338,
+      "가속": 833,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 19,
+      "치명": 50,
+      "가속": 31,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "q9zG4fAKYDdX3pHJ",
+      "fid": 5,
+      "char": "流口水的痴呆"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 216509,
+     "ilvl": 290,
+     "char": "进击的岑某",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 732,
+      "치명": 975,
+      "가속": 917,
+      "유연": 32
+     },
+     "pct": {
+      "특화": 28,
+      "치명": 37,
+      "가속": 35,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "kP1FHYJ2acwW63Nv",
+      "fid": 40,
+      "char": "进击的岑某"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 216301,
+     "ilvl": 288,
+     "char": "Tensix",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 552,
+      "치명": 1000,
+      "가속": 980,
+      "유연": 74
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 38,
+      "가속": 38,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "HX6nZkDTGgz147Ky",
+      "fid": 2,
+      "char": "Tensix"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 215398,
+     "ilvl": 290,
+     "char": "嘤嘤蘑菇",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 515,
+      "치명": 1291,
+      "가속": 789,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 19,
+      "치명": 49,
+      "가속": 30,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "K36JpdWZ8Q12cb79",
+      "fid": 32,
+      "char": "嘤嘤蘑菇"
+     }
+    },
+    {
+     "rank": 5,
+     "dps": 215103,
+     "ilvl": 286,
+     "char": "Qiaoqisix",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 619,
+      "치명": 967,
+      "가속": 1072,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 36,
+      "가속": 40,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "tA9VTDRbHPJxcGk2",
+      "fid": 44,
+      "char": "Qiaoqisix"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 215067,
+     "ilvl": 290,
+     "char": "鲁拉",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 600,
+      "치명": 1118,
+      "가속": 908,
+      "유연": 48
+     },
+     "pct": {
+      "특화": 22,
+      "치명": 42,
+      "가속": 34,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "Pa8J7rQm9gbwLqW2",
+      "fid": 28,
+      "char": "鲁拉"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 214579,
+     "ilvl": 290,
+     "char": "红哥们皮皮",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 637,
+      "치명": 1176,
+      "가속": 816,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 45,
+      "가속": 31,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "yjaP9YVRNCTBGJcv",
+      "fid": 39,
+      "char": "红哥们皮皮"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 213766,
+     "ilvl": 286,
+     "char": "元始大天尊",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 520,
+      "치명": 1118,
+      "가속": 935,
+      "유연": 32
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 43,
+      "가속": 36,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "RALYX4GDMwZQ9k3d",
+      "fid": 9,
+      "char": "元始大天尊"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 213755,
+     "ilvl": 288,
+     "char": "心灵大天尊",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 457,
+      "치명": 1165,
+      "가속": 856,
+      "유연": 91
+     },
+     "pct": {
+      "특화": 18,
+      "치명": 45,
+      "가속": 33,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "D6gJL294MPKWTQAq",
+      "fid": 29,
+      "char": "心灵大天尊"
+     }
+    },
+    {
+     "rank": 10,
+     "dps": 213102,
+     "ilvl": 290,
+     "char": "灰色原本哀殇",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 387,
+      "치명": 1512,
+      "가속": 783,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 14,
+      "치명": 56,
+      "가속": 29,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "DwX9zjtAmd17GVYR",
+      "fid": 2,
+      "char": "灰色原本哀殇"
+     }
+    },
+    {
+     "rank": 11,
+     "dps": 212827,
+     "ilvl": 290,
+     "char": "흑마하늘이",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 549,
+      "치명": 1215,
+      "가속": 803,
+      "유연": 107
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 45,
+      "가속": 30,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "k32wT7BZ1XvgyK6W",
+      "fid": 50,
+      "char": "흑마하늘이"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 212771,
+     "ilvl": 289,
+     "char": "溪扬",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 640,
+      "치명": 1154,
+      "가속": 840,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 44,
+      "가속": 32,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "HLKw3VGM7tAy84Xa",
+      "fid": 9,
+      "char": "溪扬"
+     }
+    },
+    {
+     "rank": 13,
+     "dps": 211814,
+     "ilvl": 286,
+     "char": "Tenfour",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 382,
+      "치명": 1190,
+      "가속": 890,
+      "유연": 142
+     },
+     "pct": {
+      "특화": 15,
+      "치명": 46,
+      "가속": 34,
+      "유연": 5
+     },
+     "ref": {
+      "rid": "1hMDpmZdznCv4bH3",
+      "fid": 1,
+      "char": "Tenfour"
+     }
+    },
+    {
+     "rank": 14,
+     "dps": 211679,
+     "ilvl": 290,
+     "char": "공장제어불가",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 609,
+      "치명": 1205,
+      "가속": 814,
+      "유연": 73
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 45,
+      "가속": 30,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "4pHmMRhJVFr6T7kL",
+      "fid": 41,
+      "char": "공장제어불가"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 211293,
+     "ilvl": 289,
+     "char": "Phycookie",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 653,
+      "치명": 1070,
+      "가속": 883,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 25,
+      "치명": 40,
+      "가속": 33,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "qwV2WK7ZrdkDyPTj",
+      "fid": 36,
+      "char": "Phycookie"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 211235,
+     "ilvl": 288,
+     "char": "锅仔三号",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 490,
+      "치명": 1158,
+      "가속": 905,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 19,
+      "치명": 44,
+      "가속": 35,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "3tkagfjA94rdCH8n",
+      "fid": 10,
+      "char": "锅仔三号"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 211006,
+     "ilvl": 287,
+     "char": "赵毛子",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 711,
+      "치명": 1040,
+      "가속": 793,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 28,
+      "치명": 41,
+      "가속": 31,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "Kb7w6Jry2zfmaYTN",
+      "fid": 20,
+      "char": "赵毛子"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 210655,
+     "ilvl": 290,
+     "char": "기린목베개",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 438,
+      "치명": 1352,
+      "가속": 739,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 17,
+      "치명": 52,
+      "가속": 28,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "YtCq6FKfDvWyH7dx",
+      "fid": 53,
+      "char": "기린목베개"
+     }
+    },
+    {
+     "rank": 19,
+     "dps": 210318,
+     "ilvl": 288,
+     "char": "Xgdnmd",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 503,
+      "치명": 1161,
+      "가속": 868,
+      "유연": 39
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 45,
+      "가속": 34,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "djTmGCNX1F9AZz32",
+      "fid": 1,
+      "char": "Xgdnmd"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 210241,
+     "ilvl": 290,
+     "char": "극세사이불",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 566,
+      "치명": 1212,
+      "가속": 798,
+      "유연": 107
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 45,
+      "가속": 30,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "2vbrjTay9c6RCmGA",
+      "fid": 47,
+      "char": "극세사이불"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 20,
+     "stats": {
+      "특화": 550,
+      "치명": 1163,
+      "가속": 848,
+      "유연": 45
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 45,
+      "가속": 33,
+      "유연": 2
+     },
+     "ilvl": 290
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 13,
+     "stats": {
+      "특화": 632,
+      "치명": 1137,
+      "가속": 857,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 42,
+      "가속": 32,
+      "유연": 2
+     },
+     "ilvl": 288
+    }
+   ],
+   "has_build": false
+  },
+  "3306": {
+   "boss_kr": "Chimaerus, the Undreamt God",
+   "top": [
+    {
+     "rank": 1,
+     "dps": 166236,
+     "ilvl": 288,
+     "char": "Onother",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 377,
+      "치명": 1238,
+      "가속": 752,
+      "유연": 50
+     },
+     "pct": {
+      "특화": 16,
+      "치명": 51,
+      "가속": 31,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "6t8nx3bvWJcfBLXC",
+      "fid": 5,
+      "char": "Onother"
+     }
+    },
+    {
+     "rank": 2,
+     "dps": 161252,
+     "ilvl": 290,
+     "char": "美鸡味腿",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 741,
+      "치명": 1254,
+      "가속": 711,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 27,
+      "치명": 46,
+      "가속": 26,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "bhMwGD2LNRYjfTH4",
+      "fid": 35,
+      "char": "美鸡味腿"
+     }
+    },
+    {
+     "rank": 3,
+     "dps": 160161,
+     "ilvl": 290,
+     "char": "你们的大爷",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 546,
+      "치명": 1290,
+      "가속": 847,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 48,
+      "가속": 32,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "VN6k1tvWFRpjGHQx",
+      "fid": 42,
+      "char": "你们的大爷"
+     }
+    },
+    {
+     "rank": 4,
+     "dps": 158682,
+     "ilvl": 290,
+     "char": "寒冬將至丶",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 568,
+      "치명": 1207,
+      "가속": 793,
+      "유연": 90
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 45,
+      "가속": 30,
+      "유연": 3
+     },
+     "ref": {
+      "rid": "M2qYD3KnvXdrxwaH",
+      "fid": 14,
+      "char": "寒冬將至丶"
+     }
+    },
+    {
+     "rank": 6,
+     "dps": 156223,
+     "ilvl": 290,
+     "char": "鲤纱",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 634,
+      "치명": 1178,
+      "가속": 861,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 44,
+      "가속": 32,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "M2qYD3KnvXdrxwaH",
+      "fid": 14,
+      "char": "鲤纱"
+     }
+    },
+    {
+     "rank": 7,
+     "dps": 155320,
+     "ilvl": 289,
+     "char": "Fearfrasse",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 744,
+      "치명": 1411,
+      "가속": 517,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 28,
+      "치명": 53,
+      "가속": 19,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "RF8jWJ4yvQ7N9PDG",
+      "fid": 16,
+      "char": "Fearfrasse"
+     }
+    },
+    {
+     "rank": 8,
+     "dps": 155313,
+     "ilvl": 290,
+     "char": "無忌哥哥",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 675,
+      "치명": 1164,
+      "가속": 842,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 25,
+      "치명": 43,
+      "가속": 31,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "tKg8JYTprRcfHm6W",
+      "fid": 4,
+      "char": "無忌哥哥"
+     }
+    },
+    {
+     "rank": 9,
+     "dps": 154671,
+     "ilvl": 289,
+     "char": "丷清渊",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 763,
+      "치명": 1001,
+      "가속": 787,
+      "유연": 65
+     },
+     "pct": {
+      "특화": 29,
+      "치명": 38,
+      "가속": 30,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "WZCNhDA9J1y6a4Tx",
+      "fid": 3,
+      "char": "丷清渊"
+     }
+    },
+    {
+     "rank": 10,
+     "dps": 154488,
+     "ilvl": 290,
+     "char": "Hierolock",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 720,
+      "치명": 1210,
+      "가속": 709,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 27,
+      "치명": 45,
+      "가속": 26,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "9AvWYqdKm4PQk3TN",
+      "fid": 65,
+      "char": "Hierolock"
+     }
+    },
+    {
+     "rank": 12,
+     "dps": 153943,
+     "ilvl": 290,
+     "char": "Barbecuesorc",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 628,
+      "치명": 1193,
+      "가속": 808,
+      "유연": 42
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 45,
+      "가속": 30,
+      "유연": 2
+     },
+     "ref": {
+      "rid": "KmZABvD9NqPQHt1r",
+      "fid": 32,
+      "char": "Barbecuesorc"
+     }
+    },
+    {
+     "rank": 13,
+     "dps": 153482,
+     "ilvl": 289,
+     "char": "Azerostar",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 564,
+      "치명": 1318,
+      "가속": 789,
+      "유연": 33
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 49,
+      "가속": 29,
+      "유연": 1
+     },
+     "ref": {
+      "rid": "K2FtbChvVqMng1TP",
+      "fid": 1,
+      "char": "Azerostar"
+     }
+    },
+    {
+     "rank": 14,
+     "dps": 153363,
+     "ilvl": 289,
+     "char": "Chaesy",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 633,
+      "치명": 1009,
+      "가속": 892,
+      "유연": 107
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 38,
+      "가속": 34,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "9AvWYqdKm4PQk3TN",
+      "fid": 65,
+      "char": "Chaesy"
+     }
+    },
+    {
+     "rank": 15,
+     "dps": 153234,
+     "ilvl": 290,
+     "char": "미친킹코브라",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 542,
+      "치명": 1361,
+      "가속": 746,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 20,
+      "치명": 51,
+      "가속": 28,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "34wxrRFBtnDZJVkA",
+      "fid": 1,
+      "char": "미친킹코브라"
+     }
+    },
+    {
+     "rank": 16,
+     "dps": 152944,
+     "ilvl": 290,
+     "char": "李腊梅",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 697,
+      "치명": 1208,
+      "가속": 821,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 26,
+      "치명": 44,
+      "가속": 30,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "Nfa1wdCytTqA2jKk",
+      "fid": 6,
+      "char": "李腊梅"
+     }
+    },
+    {
+     "rank": 17,
+     "dps": 152628,
+     "ilvl": 289,
+     "char": "黑化灵魂",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 582,
+      "치명": 1226,
+      "가속": 836,
+      "유연": 0
+     },
+     "pct": {
+      "특화": 22,
+      "치명": 46,
+      "가속": 32,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "6kfNCBrGJp2zL8jh",
+      "fid": 25,
+      "char": "黑化灵魂"
+     }
+    },
+    {
+     "rank": 18,
+     "dps": 152508,
+     "ilvl": 289,
+     "char": "Rawwarlock",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 553,
+      "치명": 1287,
+      "가속": 669,
+      "유연": 97
+     },
+     "pct": {
+      "특화": 21,
+      "치명": 49,
+      "가속": 26,
+      "유연": 4
+     },
+     "ref": {
+      "rid": "z3nrx2Q4mH8TKV17",
+      "fid": 7,
+      "char": "Rawwarlock"
+     }
+    },
+    {
+     "rank": 19,
+     "dps": 152414,
+     "ilvl": 290,
+     "char": "Felhunter",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 619,
+      "치명": 1100,
+      "가속": 931,
+      "유연": 7
+     },
+     "pct": {
+      "특화": 23,
+      "치명": 41,
+      "가속": 35,
+      "유연": 0
+     },
+     "ref": {
+      "rid": "JdbAzHPT1kCNg2j4",
+      "fid": 85,
+      "char": "Felhunter"
+     }
+    },
+    {
+     "rank": 20,
+     "dps": 152036,
+     "ilvl": 290,
+     "char": "Neftiwl",
+     "build": null,
+     "is_aoe": null,
+     "stats": {
+      "특화": 469,
+      "치명": 1251,
+      "가속": 715,
+      "유연": 247
+     },
+     "pct": {
+      "특화": 17,
+      "치명": 47,
+      "가속": 27,
+      "유연": 9
+     },
+     "ref": {
+      "rid": "3zx9CF1TvX2kyNhf",
+      "fid": 5,
+      "char": "Neftiwl"
+     }
+    }
+   ],
+   "top_avg": [
+    {
+     "label": "전체",
+     "n": 18,
+     "stats": {
+      "특화": 624,
+      "치명": 1218,
+      "가속": 791,
+      "유연": 20
+     },
+     "pct": {
+      "특화": 24,
+      "치명": 46,
+      "가속": 30,
+      "유연": 1
+     },
+     "ilvl": 290
+    }
+   ],
+   "rest_avg": [
+    {
+     "label": "전체",
+     "n": 11,
+     "stats": {
+      "특화": 506,
+      "치명": 1218,
+      "가속": 840,
+      "유연": 36
+     },
+     "pct": {
+      "특화": 19,
+      "치명": 47,
+      "가속": 32,
+      "유연": 1
+     },
+     "ilvl": 289
+    }
+   ],
+   "has_build": false
+  }
  }
 }

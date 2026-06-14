@@ -25,6 +25,8 @@ SPEC_BUILD = {
     ("Hunter", "Beast Mastery"): (102341, "광", "단일"),   # 회전베기(마구잡이 난타)
     ("Hunter", "Marksmanship"): (None, None, None),
     ("Hunter", "Survival"): (None, None, None),
+    ("Shaman", "Elemental"): (None, None, None),           # 정기 — 빌드 구분 없이 전체
+    ("Warlock", "Demonology"): (None, None, None),         # 악마
 }
 
 

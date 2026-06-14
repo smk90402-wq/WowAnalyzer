@@ -53,6 +53,10 @@ def build_manifest(data_dir=None) -> dict:
                 "desc": "MM 433명 캐스트/버프 추출본 (어둠순찰자 분석용)",
                 "regen": "python analyze_mm_dr_cycle.py  # v2_cache_events.json 에서 추출, 1~3분",
             },
+            "tmp_caster_events.json": {
+                "desc": "정기·악마 상위 표본 캐스트/버프 추출본 (딜사이클 버튼·유틸 분석용)",
+                "regen": "python analyze_caster_cycle.py  # v2_cache_events.json 에서 추출, 1~3분",
+            },
             "v2_cache_events.json / v2_cache_player_fight.json / v2_cache_report_meta.json / v2_cache_pi_fight.json": {
                 "desc": "WCL 원시 캐시 (LFS 트래킹, push 회피 정책)",
                 "regen": "backfill_v2.py / fetch_pi_all.py — 위 *_keys 목록과 대조해 부족분만",
@@ -63,7 +67,7 @@ def build_manifest(data_dir=None) -> dict:
             "kr_pug_market.json", "kr_heroic_pop.json", "pug_demand_inven.json", "pug_welcome_analysis.json",
             "boss_stats.json", "stat_dr.json", "talent_trees.json", "rotation_data.json", "spec_guide.json",
             "tmp_mm_builds.csv", "tmp_mm_cycle.json", "tmp_mm_dr_targets.json",
-            "tmp_mm_situations.json", "tmp_mm_hp_windows.json",
+            "tmp_mm_situations.json", "tmp_mm_hp_windows.json", "tmp_caster_cycle.json",
         ],
     }
     return m
