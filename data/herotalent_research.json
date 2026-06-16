@@ -1,0 +1,395 @@
+{
+ "variants": [
+  {
+   "key": "냉기 법사 — 주문투척사(Spellslinger)",
+   "data": {
+    "summary": "냉기 법사 주문투척사(Spellslinger): 도트·디버프윈도우 정렬이 전혀 없는 '프록 반응형' 스펙. 대부분 즉시시전이라 이동 자유도가 매우 높고, 핵심은 정신 분열(Brain Freeze)/서리 손가락(Fingers of Frost) 프록을 굴리며 '서리(Freezing) 6중첩' 산탄(Shatter)으로 화살촉(Splinter)을 자동 생성하는 것. 손맛 난이도는 중하 — 야수냥꾼 본캐가 갈아타기에 매우 편하고 설계형 부담이 적음. 단, 빙하 가시(Glacial Spike) 시점·프록 과중첩 방지는 신경 써야 진성 1% 파스가 나온다.",
+    "single": [
+     "혜성 폭풍(Comet Storm) — 쿨마다 우선",
+     "정신 분열(Brain Freeze) 프록 시 서리 작렬(Flurry) — 단 열 공허(Thermal Void) 미발동 시 우선",
+     "서리 손가락(Fingers of Frost) 2중첩 시 얼음 화살(Ice Lance)",
+     "서리 구슬(Frozen Orb) — 쿨마다",
+     "빙하 가시(Glacial Spike) — 가능할 때",
+     "얼음 화살(Ice Lance) — 대상 서리(Freezing) 6중첩 이상 또는 서리 손가락 보유 시 (산탄=화살촉 생성 핵심)",
+     "서리 광선(Ray of Frost) — 서리 중첩 빌더, 우선순위 하단",
+     "정신 분열 없는 잉여 서리 작렬(Flurry) 차지 소비",
+     "서리 화살(Frostbolt) — 필러(프록·고드름 생성용)"
+    ],
+    "aoe": [
+     "혜성 폭풍(Comet Storm) — 쿨마다",
+     "서리비(Freezing Rain) 발동 시 눈보라(Blizzard) — 최우선으로 끼워넣기",
+     "정신 분열 프록 서리 작렬(Flurry)",
+     "서리 구슬(Frozen Orb) — 쿨마다 (광역 산탄 핵심)",
+     "얼음 화살(Ice Lance) — 서리 6중첩↑ / 서리 손가락 소비",
+     "빙하 가시(Glacial Spike) — 가능할 때",
+     "냉기 회오리(Cone of Cold)·얼음 회오리(Ice Nova) 광역 추가",
+     "5+ 대상에서 즉시시전 위주 눈보라(Blizzard)",
+     "주문투척사는 분열 산탄(Splitting Ice/Fractured Frost)으로 광역 화살촉이 다수 대상에 자동 분산 — 별도 타겟 전환 부담 적음"
+    ],
+    "opener": [
+     "서리 화살(Frostbolt) 사전 시전(precast)",
+     "물약 + 발동형 장신구 사용",
+     "서리 광선(Ray of Frost)로 서리 중첩 선축적",
+     "이후 우선순위대로 — 정신 분열 있으면(열 공허 미발동 시) 서리 작렬, 서리 손가락은 항상 소비해 과중첩 방지"
+    ],
+    "util": [
+     "차단: 반대 주문(Counterspell)",
+     "이속/이동: 어른거리기(Shimmer, 2차지 순간이동)·점멸(Blink) — 시전 도중에도 이동 가능, 사실상 즉시기 위주라 이동 자유도 최상",
+     "생존: 얼음 방패(Ice Block, 무적)·얼음 보호막(Ice Barrier)·강화된 얼음 보호막(물리 10% 감소)·상급 투명화(Greater Invisibility, 위협↓+피해감소)",
+     "유틸/외생: 시간 변환(Alter Time, 재배치·체력 되돌림)·환영 복제(Mirror Image, 위협 감소·약한 생존)",
+     "냉각: 얼음 회오리(Ice Nova)·서리 작렬(Flurry)로 결빙 → 산탄 누킹 (그룹 군중제어 보조)"
+    ],
+    "stat": "실측 상위파스 기준 특화(Mastery) > 치명(Crit) > 가속(Haste) > 유연(Versatility, 사실상 0). 이유 — 특화는 결빙/산탄(Freeze·Shatter) 계열(서리 구슬·눈보라·얼음 화살) 피해를 직접 증폭해 산탄 빌드의 주력 데미지원이라 가중치 1위(murlok 상위 50인 49%). 치명은 산탄(Shatter)이 치명타 확률 +50%를 받아 시너지가 커 2위(29%). 가속은 서리 화살 회전·서리 중첩 생성·쿨 회전을 빨라지게 해 3위(19%)지만 특화/치명 대비 후순위. 유연은 순수 딜증/생존이라 최하위. ★주의: Icy-Veins는 특화≈치명을 거의 동급으로, Maxroll은 가속을 더 높게 적기도 함 — 셋이 미묘히 갈리니 본인 장비로 심크(simc) 돌려 가중치 확정 권장(어떤 스탯도 하드 몰빵은 비권장, 수확체감 존재).",
+    "tips": [
+     "★설계형(도트 유지·디버프 윈도우 정렬) 요소 사실상 없음 — 유지할 도트 0개, 정렬할 디버프 윈도우 0개. 정신 분열/서리 손가락 프록에 반응하는 순수 '프록 반응형'",
+     "유일한 '설계' 요소는 ①서리(Freezing) 6중첩 도달 후 얼음 화살로 산탄(Shatter)해 화살촉 생성, ②빙하 가시(Glacial Spike) 준비 시점 챙기기 — 윈도우 정렬이라기보단 자원 게이지 관리에 가까움",
+     "프록 과중첩(overcap) 방지가 1% 파스의 핵심: 정신 분열·서리 손가락은 즉시 소비. 서리 광선 2차지는 장신구 발동·취약 페이즈에 맞춰 풀링",
+     "12.0 리워크로 상징적 냉기(Icy Veins) 쿨기가 삭제되고 서리 광선(Ray of Frost, 2차지 서리 빌더)으로 대체됨 — TWW식 '냉정 후 폭딜 윈도우'가 약화돼 더 평탄·반응형이 됨",
+     "야수냥꾼 본캐 관점: 핵심 버튼 ~8개에 즉시기 비중 높고 도트·디버프 관리가 없어 손 부담이 매우 낮은 편. 설계형을 피하려는 요구에 잘 맞음"
+    ],
+    "buttons": "핵심 버튼 약 8개(서리 화살·서리 작렬·얼음 화살·서리 구슬·빙하 가시·서리 광선·눈보라·혜성 폭풍). 프록/윈도우 의존도: 프록 의존 높음(정신 분열·서리 손가락 반응형) / 윈도우·도트 의존 매우 낮음(유지 도트 0, 정렬 디버프 0). 설계형 점수 낮음 — 자원(서리 중첩) 관리 + 산탄 타이밍 정도만 존재해 '설계형 적은 직업'을 찾는 조건에 부합.",
+    "sources": [
+     "https://www.icy-veins.com/wow/frost-mage-pve-dps-rotation-cooldowns-abilities",
+     "https://www.icy-veins.com/wow/frost-mage-pve-dps-stat-priority",
+     "https://www.icy-veins.com/wow/frost-mage-pve-dps-spec-builds-talents",
+     "https://www.icy-veins.com/wow/frost-mage-pve-dps-easy-mode",
+     "https://maxroll.gg/wow/class-guides/frost-mage-raid-guide",
+     "https://murlok.io/mage/frost/spellslinger/m+",
+     "https://www.method.gg/guides/frost-mage/playstyle-and-rotation"
+    ]
+   }
+  },
+  {
+   "key": "냉기 법사 — 서리화염(Frostfire)",
+   "data": {
+    "summary": "서리화염(Frostfire) 냉기 법사 = 프록 반응형 캐스터. 설계형 요소(도트 유지·디버프 윈도우 수동 정렬)는 사실상 없음 — 야수 사냥꾼만큼 손 편하진 않지만(프록 3종+동결 중첩 관리 필요), '윈도우를 직접 짜 맞추는' 설계 부담은 낮은 편. 단 12.0.5 현재 Spellslinger가 대부분 콘텐츠에서 명확히 우위 — Frostfire는 광역 버스트가 전부 앞에 몰리는(front-loaded) 변형이라 빠른 처치/야외 위주. 단일은 Spellslinger 대비 손해. 손맛: 중상(프록 놓치면 손실, 동결 중첩 과중첩 주의가 핵심 난이도).",
+    "single": [
+     "서리화염 작렬(Frostfire Bolt)이 서리 화살(Frostbolt)을 대체하는 기본 필러 — 이걸로 동결(Freezing) 중첩과 고드름 쌓음",
+     "쇄도(Flurry)를 쿨마다 — ★핵심 규칙: 반드시 쇄도를 얼음창살(Ice Lance)보다 먼저★ (쇄도가 산산조각(Shatter)/겨울의 한기 중첩을 발라 얼음창살이 증폭 소모)",
+     "혜성 폭풍(Comet Storm) — 사용 가능 시 (Frostfire는 서리 작렬 광선(Ray of Frost) → 혜성 폭풍으로 이어지는 윈도우)",
+     "얼어붙은 구슬(Frozen Orb) — 쿨마다",
+     "빙하 가시(Glacial Spike) — 버튼에 불 들어오면(서리화염 작렬 버튼이 빙하 가시로 바뀜) 즉시",
+     "얼음창살(Ice Lance) — 서리의 손가락(Fingers of Frost) 프록 시 또는 동결 중첩 10+ 일 때 (★Frostfire는 10중첩, Spellslinger는 6중첩에서 발동 — Frostfire가 더 묵직한 버스트★)",
+     "서리 작렬 광선(Ray of Frost) 후 이어지는 혜성 폭풍 소화",
+     "남는 GCD = 서리화염 작렬(Frostfire Bolt) 필러",
+     "서리화염 강화(Frostfire Empowerment) 프록(10% 확률) 뜨면 다음 서리화염 작렬이 즉발+60% 증뎀+주변 폭발 — 반응해서 소모 (놓치지 않게 주시, 단 도트 유지/윈도우 정렬은 아님)"
+    ],
+    "aoe": [
+     "광역 로테는 단일과 거의 동일 + 폭풍한설(Blizzard) 추가 (Frost는 2타겟 클리브까지 단일 로테 유지, 3타겟+부터 광역 전환 — 갈라지는 얼음/Splitting Ice 덕)",
+     "혜성 폭풍(Comet Storm) — 뭉친 팩에 최우선 (Frostfire 등온핵/Isothermic Core: 혜성 폭풍이 유성(Meteor) 동반 소환 → 화염 피해가 동결 중첩 산산조각)",
+     "쇄도(Flurry) → 얼어붙은 구슬(Frozen Orb) → 빙하 가시(Glacial Spike) → 폭풍한설(Blizzard) → 얼음창살(서리의 손가락 or 동결 10+) → 서리 작렬 광선 → 서리화염 작렬 필러",
+     "Frostfire의 정체성 = 광역 버스트가 앞으로 몰림(front-loaded) — 즉발 강화 프록 폭발 + 유성으로 단타 광역 폭딜. 빠른 처치/야외 효율적, 지속 광역은 약함"
+    ],
+    "opener": [
+     "서리 화살/서리화염 작렬(Frostfire Bolt) 선캐스트",
+     "물약 + 장신구 발동",
+     "서리 작렬 광선(Ray of Frost) → 이어지는 혜성 폭풍",
+     "이후 단일 우선순위대로 진행",
+     "★주의: 12.0(Midnight)에서 전투 밖 고드름·빙하 가시 생성이 삭제됨 → 오프너가 크게 바뀜(예전처럼 빙하 가시 선충전 불가, 전투 시작 후 쌓아야 함)★"
+    ],
+    "util": [
+     "차단: 반사주문(Counterspell) — 쿨 25초로 증가(예전보다 길어짐), 캐스터 차단 중 사거리는 평범",
+     "이속/기동: 점멸(Blink, 15초), 일렁임(Shimmer, 30초 1충전 — 사실상 서리 작렬 광선 캐스트용으로 아껴 씀), 얼음 부유(Ice Floes, Midnight에서 패시브화), 시간 왜곡(Alter Time, 재배치/방어 겸용)",
+     "생존: 얼음 보호막(Ice Barrier, 30초 — Midnight에서 강화되어 더 강한 방어기), 얼음 방패(Ice Block) 완전 면역 + 냉기(Ice Cold)로 이동가능 70% 감쇄 6초, 상급 투명화(Greater Invisibility, 더는 피해감소 없음 — 기믹 회피용)",
+     "외생기/공대 유틸: 시간 왜곡(Time Warp, 블러드), 신비한 지능(Arcane Intellect), 저주 해제(Remove Curse), 주문 도둑(Spellsteal), 변이(Polymorph), 군중제어·AoE 정지(Mass Slow/Ring), 군중 투명화(Mass Invisibility)",
+     "★주의: 집단 보호막(Mass Barrier)은 Midnight 전환에서 삭제됨★"
+    ],
+    "stat": "지능 > 특화(Mastery) > 치명타(Crit) > 가속(Haste) > 유연(Vers). 다만 모든 가이드가 '아이템 레벨이 우선, 스탯 우선순위는 출발점일 뿐 장비 따라 변동, 심크 권장'이라 명시. 특화 우선 이유: 산산조각/얼음창살 증폭 피해 스케일링 핵심. 치명타가 가속 위인 건 동결 중첩 빌드 특성상 캐스트 속도 이득이 제한적이기 때문. Frostfire vs Spellslinger 간 2차스탯 우선순위는 의미있게 갈리지 않음(가이드들 공통). 3차: 회피(광역 피해 감소)·흡혈(자가 피해원이라 유효)·이동속도(니치) 가치 있음.",
+    "tips": [
+     "★설계형 여부(핵심 비교축): Frostfire는 '프록 반응형'으로 ★유지해야 할 도트(DoT) 없음, 수동으로 맞춰야 할 디버프 윈도우 정렬 없음★. 산산조각/겨울의 한기 중첩은 쇄도→얼음창살 순서만 지키면 자동으로 정렬됨(스크립트 짜듯 시간 맞출 필요 없음). 야수 사냥꾼의 단순함보다는 한 단계 위지만, 흑마/암사제식 도트 설계나 격노 윈도우식 정렬 부담은 없음.",
+     "진짜 난이도는 '프록·자원 관리': 서리의 손가락·서리화염 강화 프록을 놓치지 않고, 동결(Freezing) 중첩을 과중첩(낭비)하지 않게 얼음창살로 소모하는 것. 가이드 표현: '동결 중첩 과중첩과 프록 낭비 없이 로테 유지가 매우 중요'.",
+     "절대 규칙 1개만 외우면 됨: ★쇄도(Flurry)를 항상 얼음창살(Ice Lance)보다 먼저★ (반대로 하면 증폭 손실).",
+     "Frostfire 동결 발동 임계치가 10중첩(Spellslinger 6중첩)이라 얼음창살이 덜 자주·더 묵직하게 — 버스트가 더 몰리는 체감.",
+     "★빌드 선택 주의: 12.0.5 현재 Spellslinger가 대부분 콘텐츠에서 명확히 우위. Frostfire는 혜성 폭풍에 묶여 있고 Thermal Void/Glaciate 캡스톤 대비 지속딜 손해. Frostfire를 굳이 쓸 이유는 광역 앞몰이 버스트(빠른 처치 구간·야외)뿐★ — 한국 막공 상위 1% 파스 지향이면 단일/지속 위주 보스에선 Spellslinger 권장.",
+     "Frostfire 강화 프록은 '주시'만 하면 됨 — 즉발이라 이동 중 끼워넣기 좋음(기동성 보조), 별도 윈도우 정렬 불필요."
+    ],
+    "buttons": "핵심 버튼 약 7~8개(서리화염 작렬·쇄도·얼음창살·얼어붙은 구슬·빙하 가시·서리 작렬 광선·혜성 폭풍 + 광역 시 폭풍한설). 프록/윈도우 의존도: 중(★설계형 아님★). 프록 3종(서리의 손가락·서리화염 강화·쇄도 발동 계열)과 동결 중첩 관리에 반응하는 '프록 반응형'이며, 유지할 도트나 수동 정렬 디버프 윈도우는 없음 — 쇄도→얼음창살 순서만 지키면 산산조각 윈도우가 자동 정렬됨. 야수 사냥꾼보다 약간 손이 가지만 도트 설계·윈도우 짜맞추기 부담은 낮은 편.",
+    "sources": [
+     "https://www.icy-veins.com/wow/frost-mage-pve-dps-easy-mode",
+     "https://www.icy-veins.com/wow/frost-mage-pve-dps-spec-builds-talents",
+     "https://www.icy-veins.com/wow/frost-mage-pve-dps-guide",
+     "https://www.method.gg/guides/frost-mage/talents",
+     "https://www.method.gg/guides/frost-mage/playstyle-and-rotation",
+     "https://maxroll.gg/wow/class-guides/frost-mage-raid-guide",
+     "https://www.wowhead.com/guide/classes/mage/frost/rotation-cooldowns-pve-dps"
+    ]
+   }
+  },
+  {
+   "key": "무기 전사 — 거신(Colossus)",
+   "data": {
+    "summary": "무기 전사-거신(Colossus)은 한밤 12.0.5에서 '쉬운 직업이지만 손맛 굵은' 버스트 윈도우 스펙. 야수 본캐 유저 기준 손은 편한 편(자동공격으로 분노 자동수급, 핵심 버튼 8~10개)이지만, 거인의 강타(Colossus Smash) 디버프 창에 대격변(Demolish)+칼날폭풍을 정렬하는 '윈도우 설계형' 요소가 명확히 존재. 야수보다 약간 더 설계형이나, 도트는 분쇄(Rend) 하나뿐이라 '도트 멀티유지 노가다'는 없음. 난이도 체감 중하(★★☆), 손맛은 거인의 강타→대격변 채널링이 묵직.",
+    "single": [
+     "분쇄(Rend) — 5초 미만 남으면 갱신, 도트 유지 (1개라 부담 적음)",
+     "투신(Avatar) — 쿨마다",
+     "파쇄자(Ravager) — 거인의 강타 직전 시전",
+     "대격변(Demolish) — ★거인의 강타 디버프 창 안에서★ (충돌 위력=Colossal Might 풀스택일 때)",
+     "칼날폭풍(Bladestorm) — 윈도우 안에서",
+     "영웅의 일격(Heroic Strike) — 분노 덤프",
+     "필사의 일격(Mortal Strike) — 쿨마다 (거신 핵심 우선순위)",
+     "제압(Overpower) — 택티션 프록 소모",
+     "마무리 일격(Execute) — 급살(Sudden Death) 프록 시 / 처형 구간",
+     "격돌(Slam) — 필러"
+    ],
+    "aoe": [
+     "분쇄(Rend) — 디버프 적용",
+     "파쇄자(Ravager) — 거인의 강타 직전",
+     "투신(Avatar) — 거인의 강타와 함께/직전",
+     "거인의 강타(Colossus Smash)",
+     "휩쓸기 일격(Sweeping Strikes) — 충전 유지 (광역의 핵심, 다른 스킬이 2번째 대상 타격)",
+     "칼날폭풍(Bladestorm)",
+     "마무리 일격(Execute) — 급살 프록 / 처형 구간",
+     "대격변(Demolish) — 거인의 강타 창 안에서",
+     "회전베기(Cleave) — 쿨마다 (광역 우선순위 높음)",
+     "제압(Overpower)",
+     "필사의 일격(Mortal Strike)"
+    ],
+    "opener": [
+     "돌진(Charge)",
+     "분쇄(Rend)",
+     "파쇄자(Ravager)",
+     "투신(Avatar)",
+     "거인의 강타(Colossus Smash)",
+     "칼날폭풍(Bladestorm)",
+     "회전베기(Cleave) ×3 — 충돌 위력(Colossal Might) 적재",
+     "필사의 일격(Mortal Strike)",
+     "대격변(Demolish) — 충돌 위력 풀스택(10)에서 시전"
+    ],
+    "util": [
+     "차단: 들이치기(Pummel) — 근접 차단 / 폭풍 망치(Storm Bolt) — 기절+원거리 차단 겸용 / (탤런트)투창의 명수=투척 무기(Wrecking Throw)가 장쿨 원거리 침묵",
+     "이속: 돌진(Charge) 갭클로저, 영웅의 도약(Heroic Leap) — 우수한 기동성, 가로막기(Intervene) — 아군 위치로 이동",
+     "생존: 칼춤(Die by the Sword) — 무기 막기 방어(단시간 탱킹 가능), 방어 태세(Defensive Stance) — 게임 내 가장 안정적인 피해감소 중 하나, 주문 반사(Spell Reflection) — 일부 효과 면역",
+     "자힐: 임박한 승리/연전연승(Impending Victory/Victory Rush)",
+     "외생기(레이드): 재집결의 함성(Rallying Cry) — 한밤에서 상향(파티 광역 생존기), 전투의 외침(Battle Shout) — 공격력 버프(전사 레이드 자리 보장)"
+    ],
+    "stat": "치명타(Crit) > 가속(Haste) > 특화(Mastery) > 유연성(Versatility). 거신/학살자 동일. 이유 — 치명타: 피해 2배+자동공격 분노수급 10%↑, 가시(Impale) 탤런트로 치명 배율 추가 증폭. 가속: 필사의 일격·해골분쇄·회전베기 등 쿨감소 + 분쇄/깊은 상처 도트 가속. 특화: 깊은 상처(Deep Wounds) 디버프 증폭(광역에서 회전베기로 가치↑). 유연성: 평딜+피감(장비/장신구 따라 변동). 체감상 치명/가속 충분히 쌓은 뒤 보석·마부로 특화/유연성 보강이 흔함 — 반드시 본인 캐릭 심크 권장(고렙 구간 감쇠로 가중치 변동).",
+    "tips": [
+     "★설계형 여부(핵심 비교축): 거신은 '윈도우 정렬 설계형'이 명확히 존재 — 파쇄자→투신→거인의 강타로 충돌 위력(Colossal Might)을 쌓고 디버프 창 안에서 대격변+칼날폭풍을 터뜨리는 짧고 잦은 버스트 윈도우 중심. 야수 사냥꾼보다 '약간 더' 설계형.",
+     "단, 도트는 분쇄(Rend) 1개뿐 — 도트 멀티유지·재배치 노가다는 없음(8초 도트, 5초 미만 갱신). '도트 정렬' 부담은 최소.",
+     "반응형(프록) 요소: 급살(Sudden Death)=무료/강화 마무리 일격, 택티션(Tactician)=모든 로테 스킬에서 제압 프록. 분노 고갈/제압 충전 오버캡만 관리하면 됨.",
+     "Icy-Veins 평가: 무기 전사 자체는 '매우 단순하고 직관적인 스펙' — 분노가 자동공격으로 수동 수급돼 자원관리 부담 적음. 거신은 그중 윈도우 정렬만 추가된 형태.",
+     "거신 vs 학살자: 거신=단일 버스트 윈도우형(거인의 강타 정렬), 학살자=더 프록 반응형이라 약간 더 단순. 광역은 거신 우위, 단일은 학살자가 근소 우위지만 한밤 시즌1에서 격차 매우 좁아짐.",
+     "Dominance of the Colossus 탤런트: 대격변 쿨을 2초→5초 감소시켜 단일 딜과 윈도우 회전율을 크게 올려줌(거신 단일 핵심).",
+     "대격변(Demolish)은 채널링 — 이동 중 끊기면 손해. 거인의 강타 창과 정렬해 멈춰서 박는 타이밍이 손맛+딜의 핵심.",
+     "한밤 시즌1 변경: 전투의 대가(Master of Warfare)가 거인의 강타 쿨감소→피해량 증폭으로 변경. 티어셋은 거인의 강타 강화형이라 로테 변화 없이 필사의 일격·회전베기만 쿨마다 쓰면 약 +8% 유지."
+    ],
+    "buttons": "핵심 액티브 버튼 약 8~10개(돌진/분쇄/투신/파쇄자/거인의 강타/대격변/회전베기/필사의 일격/제압/마무리 일격). ★윈도우 의존도: 중간★ — 거인의 강타(Colossus Smash) 디버프 창에 대격변+칼날폭풍+투신을 정렬하는 '버스트 윈도우 설계형'이 명확히 존재(야수 사냥꾼보다 약간 더 설계형). 단 도트는 분쇄 1개뿐이라 '도트 멀티유지' 설계 부담은 없고, 분노 자동수급+급살/택티션 프록 반응이 섞여 전체적으로는 '설계형+반응형 혼합, 중하 난이도'.",
+    "sources": [
+     "https://www.icy-veins.com/wow/arms-warrior-pve-dps-guide",
+     "https://www.icy-veins.com/wow/arms-warrior-pve-dps-rotation-cooldowns-abilities",
+     "https://www.icy-veins.com/wow/arms-warrior-pve-dps-stat-priority",
+     "https://www.method.gg/guides/arms-warrior/talents",
+     "https://www.wowhead.com/guide/classes/warrior/arms/rotation-cooldowns-pve-dps",
+     "https://www.wowhead.com/guide/classes/warrior/arms/midnight-season-1"
+    ]
+   }
+  },
+  {
+   "key": "무기 전사 — 학살자(Slayer)",
+   "data": {
+    "summary": "무기 전사 학살자(Slayer)는 거인의 강타(Colossus Smash) 디버프 윈도우 안에 버스트를 욱여넣되, 처형 분노(Sudden Death) 프록을 추적해 마무리 일격(Execute)→칼날폭풍(Bladestorm) 쿨감 루프를 돌리는 '반(半)설계형' 빌드. 도트는 분쇄(Rend) 하나만 유지(약설계), 진짜 손맛 부담은 거인의강타 윈도우 정렬 + 처형분노 프록 트래킹에 있음. 야수냥꾼 대비 도트/윈도우 정렬이 분명히 더 많아 '손 편한 무설계'는 아니지만, 12.0.5에서 콜로서스보다 단일 강하고 처형 페이즈가 직관적이라 설계형 직업 중에선 중간 난이도. 손맛은 처형 프록 터질 때 폭발하는 쾌감형이고, 실수 포인트는 분노 오버캡과 처형분노 2중첩 오버캡.",
+    "single": [
+     "분쇄(Rend) 5초 미만 시 갱신 — 유일한 도트, 출혈 마스터리 증폭 기반",
+     "전쟁기수(Avatar) 쿨마다",
+     "거인의 강타(Colossus Smash) 윈도우 — 강타 직전 분쇄자(Ravager) 정렬",
+     "거인의 강타 윈도우 안에서 철거(Demolish) 사용",
+     "칼날폭풍(Bladestorm) — 주요 쿨다운, 처형분노 소모로 쿨 단축",
+     "필사의 일격(Mortal Strike) 쿨마다 유지",
+     "마무리 일격(Execute) — 처형 분노(Sudden Death) 프록 시 (학살자 핵심)",
+     "제압(Overpower)으로 빈 GCD 채우고 필사의 일격 강화"
+    ],
+    "aoe": [
+     "3+ 타겟에서 휩쓸기 일격(Sweeping Strikes)으로 광역 확산 — 이때 단일기가 보조 타겟에도 적용",
+     "회전 베기(Cleave)가 주력 딜 — 분쇄(Rend) 디버프를 다수에 도포",
+     "분쇄자(Ravager) + 거인의 강타 → 칼날폭풍(Bladestorm) 광역 폭딜 정렬",
+     "철거(Demolish)를 거인의 강타 윈도우에 배치 (단일과 동일 윈도우 정렬)",
+     "광역에선 마무리 일격(Execute) 페이즈 비중 줄고 회전 베기 중심으로 전환",
+     "참고: 학살자는 광역이 약점 — 광역 비중 크면 콜로서스가 우위"
+    ],
+    "opener": [
+     "돌진(Charge)으로 진입",
+     "전쟁기수(Avatar) 발동",
+     "분쇄(Rend) 도포 — 출혈 디버프 먼저 깔기",
+     "분쇄자(Ravager) — 거인의 강타 직전 배치",
+     "거인의 강타(Colossus Smash) — 방어구 무시 윈도우 오픈",
+     "칼날폭풍(Bladestorm) 투입",
+     "필사의 일격(Mortal Strike)",
+     "철거(Demolish)로 윈도우 내 폭딜 마무리, 이후 처형분노 프록 마무리 일격 소모"
+    ],
+    "util": [
+     "차단: 분쇄의 일격(Pummel) — 최상급 인터럽트, 짧은 쿨",
+     "기절/저지: 폭풍망치(Storm Bolt) — 주 스턴기 / 충격파(Shockwave) 광역 스턴",
+     "이속/기동: 영웅의 도약(Heroic Leap) — 즉발 점프, 위험지대 회피·경로 단축 / 돌진(Charge) 갭클로저",
+     "생존(자버프): 검에 의한 죽음(Die by the Sword) — 막기/무기막기 폭증으로 근접 대부분 무효화 / 방어 태세(Defensive Stance) 상시 감쇄",
+     "외생기(파티): 결의의 외침(Rallying Cry) — 공대 임시 생명력 버프",
+     "추가 CC: 위협의 외침(Intimidating Shout) 공포, 무장 해제(Disarm)"
+    ],
+    "stat": "치명타(Critical Strike) > 가속(Haste) > 특화(Mastery) > 유연성(Versatility) (주스탯 힘은 항상 최우선, 아이템 레벨 우선). 치명: 데미지 2배 + 임페일(Impale) 같은 특성으로 치명 배수 강화, 자동공격 치명 시 분노 생성 10% 증가(분노 수급 보조). 가속: 회전기 쿨 감소 + 공속 증가로 거인의 강타 같은 버프 윈도우 안에 GCD를 더 욱여넣음(분노 관리/앵거 매니지먼트 시너지). 특화: 깊은 상처(Deep Wounds) 디버프 증폭 — 필사의 일격·거인의 강타·칼날폭풍·회전 베기·분쇄자 데미지 상승. 유연성: 평딜 + 절반치 피감(범용). 단, 감쇠(DR) 때문에 순위는 유동적이라 본인 장비로 심크 권장.",
+    "tips": [
+     "설계형 여부 = 중간(반설계형): 도트는 분쇄(Rend) 1개만 유지(약함), 진짜 부담은 ★거인의 강타(Colossus Smash) 디버프 윈도우 정렬 + ★처형 분노(Sudden Death) 프록 추적 2가지",
+     "야수 사냥꾼 대비: 분명히 더 설계형 — 윈도우 정렬(분쇄자→거인의강타→칼날폭풍 묶음)과 프록 트래킹이 추가됨. '무설계 손 편함'을 원하면 학살자는 약간 부담될 수 있음",
+     "처형 분노(Sudden Death)는 2중첩까지 쌓임 → 즉시 안 써도 되지만 오버캡 금지가 핵심 실수 포인트",
+     "학살자 고유: 학살자의 일격(Slayer's Strike) 3회마다 처형 분노 자동 프록(Imminent Demise), 처형 분노 소모 시 처형자(Executioner) 중첩만큼 칼날폭풍 쿨 단축 — 이 루프가 손맛의 핵심",
+     "분노 오버캡 주의: 분노가 자동공격 기반이라 평타 끊기면 수급 막힘, GCD를 제압(Overpower)/필사의 일격으로 채워 오버캡 방지",
+     "12.0.5 메타: 콜로서스(Colossus)와의 단일 격차가 역대 가장 좁아짐 — 단일은 여전히 학살자 우위지만 광역은 콜로서스가 우위라 컨텐츠별 선택지",
+     "야만적 단련(Barbaric Training)은 단일 컨텐츠에서 보통 가장 먼저 빼는 특성(소폭 손실)"
+    ],
+    "buttons": "핵심 로테이션 버튼 약 8~10개(돌진/분쇄/전쟁기수/분쇄자/거인의 강타/칼날폭풍/필사의 일격/철거/제압/마무리 일격). 프록·윈도우 의존도는 '중간(반설계형)': 도트 유지는 분쇄(Rend) 1개로 약하지만, ★거인의 강타(Colossus Smash) 디버프 윈도우에 분쇄자→칼날폭풍→철거를 정렬하는 '윈도우 정렬'과 ★처형 분노(Sudden Death) 2중첩 프록 추적이라는 2개의 설계형 요소가 명확히 존재. 순수 무설계 직업(예: 야수 냥꾼)보다는 설계 부담이 크고, 도트 다중 유지형 설계 직업보다는 가벼움.",
+    "sources": [
+     "https://www.icy-veins.com/wow/arms-warrior-pve-dps-guide",
+     "https://www.icy-veins.com/wow/arms-warrior-pve-dps-rotation-cooldowns-abilities",
+     "https://www.icy-veins.com/wow/arms-warrior-pve-dps-stat-priority",
+     "https://www.icy-veins.com/wow/arms-warrior-pve-dps-spec-builds-talents",
+     "https://maxroll.gg/wow/class-guides/arms-warrior-raid-guide",
+     "https://maxroll.gg/wow/class-guides/arms-warrior-mythic-plus-guide",
+     "https://www.method.gg/guides/arms-warrior/talents",
+     "https://boostmatch.gg/blog/wow/articles/wow-midnight-arms-warrior-guide"
+    ]
+   }
+  },
+  {
+   "key": "분노 전사 — 산왕(Mountain Thane)",
+   "data": {
+    "summary": "분노 전사 — 산왕(Mountain Thane): 천둥소리(천둥강타)를 중심으로 격노만 굴려주면 되는, 분노 영웅특성 중 가장 손 편하고 설계형 부담이 거의 0에 가까운 변형. 야수 사냥꾼처럼 도트유지·디버프윈도우 정렬이 사실상 없음. 단일은 학살자(Slayer)와 거의 동급, 광역/쫄은 산왕이 우위라 막공+미식+ 둘 다 무난. 난이도: 쉬움(Icy-Veins가 'Easy Mode' 추천 영웅특성으로 직접 지정). 손맛: 격노 유지하며 분쇄(Rampage)·피의 갈증·천둥강타를 빠르게 돌리는 속도감 있는 루프. 산왕은 '확정적(deterministic)'이라 파스 안정성↑.",
+    "single": [
+     "회전베기(Whirlwind) — '향상된 회전베기' 버프 없을 때만 (= 분쇄피해/찢기 자동 적용용, 오프너·버프 떨어졌을 때만)",
+     "오딘의 격노(Odyn's Fury) — 쿨마다",
+     "투신(Avatar) — 쿨마다",
+     "무모함(Recklessness) — 쿨마다",
+     "번개 작렬(Thunder Blast) — 충전 2개일 때 우선 소모",
+     "천둥 강타(Thunder Clap) — '향상된 회전베기' 버프 없을 때 (산왕은 회전베기 자리를 천둥강타가 대체)",
+     "분쇄(Rampage) — 분노 100 초과거나 격노(Enrage) 곧 만료될 때",
+     "피의 갈증(Bloodthirst) — 격노 트리거 핵심",
+     "처형(Execute) — '급사(Sudden Death)' 프록 시",
+     "광란의 강타(Raging Blow) — 다른 거 없을 때 필러"
+    ],
+    "aoe": [
+     "천둥 강타(Thunder Clap) — 광역 핵심. 투신 중 천둥강타 쿨이 대폭 감소해 도배 가능",
+     "번개 작렬(Thunder Blast) — 천둥강타를 가끔 대체(충전/프록 시 우선)",
+     "분쇄(Rampage) — 분노 100 초과거나 격노 곧 만료될 때 (광역에서도 격노 유지 핵심)",
+     "피의 갈증(Bloodthirst) — 격노 유지 + 번개 효과 트리거",
+     "회전베기(Whirlwind) — 빈 GCD 채우는 필러",
+     "비고: 산왕은 학살자와 달리 회전베기 대신 천둥강타가 주 광역기. '향상된 회전베기' 버프는 천둥강타가 자동 갱신해 따로 관리 부담 없음"
+    ],
+    "opener": [
+     "돌진(Charge)로 진입",
+     "회전베기(Whirlwind) — '향상된 회전베기/찢기' 적용",
+     "오딘의 격노(Odyn's Fury)",
+     "무모함(Recklessness)",
+     "투신(Avatar)",
+     "번개 작렬(Thunder Blast)",
+     "분쇄(Rampage)",
+     "이후 단일 우선순위로 전환 (피의 갈증→천둥강타/번개작렬→분쇄 유지)"
+    ],
+    "util": [
+     "차단: 들이치기(Pummel) — 근접 차단+해당 계열 침묵. 분노의 유일 하드 차단",
+     "이속/기동: 돌진(Charge), 영웅의 도약(Heroic Leap), 도약 보폭(Bounding Stride, 특성 이속), 가로막기(Intervene, 아군에게 이동+보호)",
+     "생존(자힐/감쇄): 격노의 재생력(Enraged Regeneration 자힐), 칼로 받아치기(Die by the Sword 감쇄+무기막기), 쓰라린 면역(Bitter Immunity), 주문 반사(Spell Reflection)",
+     "외생기/공대유틸: 재집결의 외침(Rallying Cry — 공대 생존 외생기, 소규모서 보너스↑), 천둥의 포효(Thunderous Roar — 광역 딜+유틸), 꿰뚫는 울부짖음(Piercing Howl 광역 둔화/짧은 아군 이속), 위협의 외침(Intimidating Shout 공포)",
+     "비고: 미드나잇서 기절 면역 제거 + 처형의 투척(Wrecking Throw)으로 원거리 침묵 추가됐으나, 전사 유틸은 전통적으로 평범한 편"
+    ],
+    "stat": "[\"우선순위: 특화(Mastery) > 가속(Haste) > 유연성(Versatility) > 치명타(Crit). 단, 아이템레벨(힘) 최우선.\", \"특화(속박 풀린 분노/Unshackled Fury): 격노(Enrage) 활성 중 모든 피해를 증가 — 분노는 격노 상시 유지가 기본이라 사실상 상시 적용되는 메인 증뎀 스탯이라 1순위.\", \"가속: GCD·자동공격 간격 단축, 피의 갈증/광란의 강타 등 쿨감 + 분노 생성↑로 격노 유지가 쉬워짐(하드캡 없음). 산왕은 천둥강타 쿨에도 영향이라 특히 가치 있음.\", \"유연성: 딜 평증 + 받는 피해 절반 감소, 감쇠(DR) 거의 없어 안정적.\", \"치명타: 분노는 아펜과 달리 치명 시 추가 분노 생성이 없어 가장 약함.\", \"감쇠 팁: 특화·가속은 고렙장비서 감쇠가 가파르므로 보석/마부는 유연성·치명으로 빼는 경우 흔함. 산왕/학살자 스탯 우선순위 동일.\"]",
+    "tips": [
+     "★설계형 요소 거의 없음★ — 도트(찢기/Rend) 수동 유지 불필요(천둥강타·향상된 회전베기가 자동 적용), 디버프 윈도우 정렬 불필요. 격노(Enrage) 상시 유지만이 유일한 '관리' 포인트고, 그것도 분쇄(Rampage)를 분노 100 근처/격노 만료 직전에 눌러주면 자동으로 굴러감. 야수 사냥꾼 본캐 유저가 찾던 '손 편한 비설계형'에 정확히 부합.",
+     "산왕은 '확정적(deterministic)' 회전 — 학살자(Slayer)가 프록(급사·돌발) 반응형인 것과 달리, 산왕은 천둥강타 중심 고정 우선순위라 RNG 의존이 적고 파스 재현성이 높음.",
+     "버스트 윈도우: 투신(Avatar)+무모함(Recklessness)+오딘의 격노를 함께 쿨마다 정렬하는 것이 거의 유일한 '윈도우' 요소 — 단순 쿨 동시 사용이라 도트 스냅샷 같은 복잡한 정렬은 아님.",
+     "번개 작렬(Thunder Blast)은 충전 2개 차면 흘리지 말고 소모(단일에선 2충전 우선, 광역에선 천둥강타로 대체). 충전 관리가 산왕의 유일한 가벼운 자원 추적 포인트.",
+     "투신 중에는 천둥강타 쿨이 크게 줄어드니 광역/쫄 구간에서 투신을 쫄 타이밍에 맞추면 천둥강타 도배로 폭딜.",
+     "단일 파스 노릴 거면 학살자가 미세하게 위지만, 산왕도 '거의 동일한 단일 성능'으로 평가 — 손 편함 우선이면 산왕으로 막공 상위 파스 충분히 가능. 광역/미식+는 산왕이 우위라 범용성도 좋음.",
+     "Icy-Veins가 산왕을 'Easy Mode' 추천 영웅특성으로 직접 지정 — 가장 단순한 회전·특성·스탯이라는 공식 평가."
+    ],
+    "buttons": "\"핵심 버튼 약 8개 (천둥강타, 피의갈증, 번개작렬, 분쇄, 처형, 투신, 무모함, 오딘의격노) + 필러로 회전베기·광란의강타. 프록/윈도우 의존도: 낮음(설계형 아님). 도트 수동유지 X, 디버프윈도우 정렬 X, 프록 반응 최소(번개작렬 충전·급사 처형 정도). 유일한 상시 관리 요소는 격노(Enrage) 유지뿐이며 이마저도 분쇄를 분노 100 근처에 눌러주면 자동 해결. 버스트는 투신·무모함·오딘의격노 동시 정렬(단순 쿨 맞춤).\"",
+    "sources": [
+     "Icy-Veins — Fury Warrior Rotation, Cooldowns, Abilities (12.0.7): https://www.icy-veins.com/wow/fury-warrior-pve-dps-rotation-cooldowns-abilities",
+     "Icy-Veins — Fury Warrior Spec, Builds, Talents (12.0.5): https://www.icy-veins.com/wow/fury-warrior-pve-dps-spec-builds-talents",
+     "Icy-Veins — Fury Warrior Easy Mode (12.0.5): https://www.icy-veins.com/wow/fury-warrior-pve-dps-easy-mode",
+     "Icy-Veins — Fury Warrior Stat Priority (12.0.7): https://www.icy-veins.com/wow/fury-warrior-pve-dps-stat-priority",
+     "Icy-Veins — Fury Warrior DPS Guide / Utility (12.0.7): https://www.icy-veins.com/wow/fury-warrior-pve-dps-guide",
+     "Wowhead — Fury Warrior Stat Priority (Midnight): https://www.wowhead.com/guide/classes/warrior/fury/stat-priority-pve-dps",
+     "Murlok.io — Mountain Thane Fury M+ (Midnight S1): https://murlok.io/warrior/fury/mountain-thane/m+",
+     "로컬 캐시(참고, TWW 빌드코드 — 12.0 검증 안됨): C:\\Users\\smk90\\OneDrive\\바탕 화면\\LogAnalyze\\data\\wowhead_builds.json (Warrior/Fury, mountain-thane 항목)"
+    ]
+   }
+  },
+  {
+   "key": "분노 전사 — 학살자(Slayer)",
+   "data": {
+    "summary": "분노 전사 학살자(Slayer)는 격노(Enrage)를 깔고 분노를 쌓아 분쇄로 쏟아내는 '반응형 흐름' 딜러. 설계형(도트유지·디버프윈도우 정렬) 요소가 거의 없는 대표적 비(非)설계형 직업이라 야수냥꾼처럼 손 편한 우선순위 플레이를 원하는 유저에 적합. 다만 APM(분당 입력)이 게임 내 최상위권이라 '손이 바쁜' 손맛 — 어렵진 않지만 키 입력량 자체는 많음. 난이도: 입문/유지 쉬움(★★☆☆☆), 1% 파스용 최적화는 별개. 학살자는 처형(Execute)·칼날폭풍(Bladestorm)·급살(Sudden Death) 프록 중심 = 단일/우선순위딜 강함, 산악 영웅(Mountain Thane) 대비 천둥벼락(Thunder)·피의 갈증 의존이 적음.",
+    "single": [
+     "격노(Recklessness)·투신(Avatar) 쿨마다(버스트 필요시)",
+     "오딘의 분노(Odyn's Fury) 쿨마다",
+     "분쇄(Rampage) — 분노 100+ 또는 격노(Enrage)가 꺼지기 직전일 때 (분노 소비+격노 유지가 최우선 코어)",
+     "처형(Execute) — 급살(Sudden Death) 프록 또는 처형 구간(대상 20% 이하)일 때",
+     "천둥작렬(Thunder Blast) 2중첩 시",
+     "피의 갈증(Bloodthirst) 쿨마다 (격노 중 피의 욕조 Bloodbath로 변신)",
+     "쇄도하는 일격(Crushing Blow)/광포한 일격(Raging Blow) — 채우기",
+     "렌드(Rend) — 디버프 없거나 5초 미만일 때 1회 갱신 (최하위 우선순위, 유지 부담 거의 없음)",
+     "천둥벼락(Thunder Clap) — 그 외 아무것도 없을 때"
+    ],
+    "aoe": [
+     "오딘의 분노(Odyn's Fury) 쿨마다",
+     "천둥작렬(Thunder Blast) — 프록/중첩 시",
+     "천둥벼락(Thunder Clap) — 대상 6+일 때",
+     "분쇄(Rampage) — 분노 110+ (격노 유지)",
+     "칼날폭풍(Bladestorm) — 학살자 핵심 광역 (Unrelenting Onslaught로 데미지 20%↑, 급살로 쿨 단축)",
+     "처형(Execute) — 급살(Sudden Death) 프록 중 (Reap the Storm로 광역 폭발)",
+     "피의 욕조(Bloodbath)",
+     "소용돌이(Whirlwind) — 채우기 (개선된 소용돌이로 렌드 자동 전파 → 광역 렌드 유지 부담 0)"
+    ],
+    "opener": [
+     "돌진(Charge)으로 진입",
+     "오딘의 분노(Odyn's Fury)",
+     "격노(Recklessness)",
+     "투신(Avatar)",
+     "렌드(Rend) 1회 부착 (오프너에서 한 번만, 이후 거의 자동/저빈도)",
+     "분쇄(Rampage)",
+     "칼날폭풍(Bladestorm)",
+     "분쇄(Rampage)",
+     "오딘의 분노(Odyn's Fury) — 가속/쿨감으로 재사용",
+     "분쇄(Rampage) → 천둥작렬(Thunder Blast) → 피의 욕조(Bloodbath)로 우선순위 진입",
+     "※ 가이드별 미세차이 있음(피의 갈증 선행 등). 핵심: 돌진→대형쿨(오분/격노/투신) 정렬→렌드 1회→분쇄로 격노 점화 후 흐름 진입"
+    ],
+    "util": [
+     "차단: 마무리 일격(Pummel) — 단일 차단기",
+     "이속/기동: 돌진(Charge), 영웅의 도약(Heroic Leap), 가로막기(Intervene), 도약 보폭(Bounding Stride) 특성 — 전사 기동성 최상위권",
+     "생존(자힐): 격노의 재생력(Enraged Regeneration), 칼날 폭풍 방어/검에는 검 죽음(Die by the Sword) — 무기 막기+자힐",
+     "마법 대응: 주문 반사(Spell Reflection)",
+     "분노/디버프 해제·격노 발동: 광폭화(Berserker Rage)",
+     "외생기/공대유틸: 결집의 함성(Rallying Cry) — 공대 광역 피해감소(Midnight서 소규모 콘텐츠 강화), 전투의 외침(Battle Shout) 공력 버프",
+     "종족 무관 추가: 돌껍질(Stoneform) 등 — 전사는 짧은 방어/자힐 쿨이 여러 개라 레이드 생존력 매우 우수"
+    ],
+    "stat": "우선순위: 특화(Mastery) ≥ 가속(Haste) > 치명타(Critical Strike) ≈ 유연성(Versatility). 이유 — 특화 '족쇄 풀린 분노(Unshackled Fury)'가 격노(Enrage) 중 모든 피해를 증폭하는데 격노 유지율이 매우 높아 사실상 상시 적용 = 최고 가치. 가속은 글쿨/평타/쿨다운을 압축해 APM과 분노 생성·대형쿨 회전을 늘림(분노 흐름 직업이라 체감 큼). 치명타는 분노가 치명타로 추가 생성되지 않아 타 직업 대비 낮은 편(단, 학살자 처형자 중첩이 치명/치피를 올려 단일 비중은 다소 올라감). 유연성은 피증+피감(절반)으로 안정적이나 보통 최하위. 주의: 모두 수확체감(특화/치 10%DR≈1380, 가속 10%DR≈1320, 유연 10%DR≈1620) → 정답은 캐릭터 직접 심크. 입문용 단순 우선순위는 특화>가속>치명>유연.",
+    "tips": [
+     "★설계형 거의 없음★ — 도트 유지·디버프 윈도우 정렬 같은 '설계형' 요소가 야수냥꾼만큼이나 적은 직업. 핵심은 '격노(Enrage)를 끊기지 않게 분쇄(Rampage)로 항상 점화'하는 반응형 우선순위. 야수냥꾼 본캐 유저에게 손맛 전환 매우 자연스러움",
+     "렌드(Rend)는 '윈도우 도트'가 아님 — 우선순위 최하위에 1번 부착하고 떨어지면 갱신하는 수준. 광역에선 개선된 소용돌이(Improved Whirlwind)로 자동 전파되어 유지 부담 0. 12.0.5에서 의도적으로 '더 수동적이지 않게(passive)' 변경됨",
+     "유일하게 반응할 프록은 급살(Sudden Death)=공짜/강화 처형, 천둥작렬(Thunder Blast) 중첩 — 둘 다 떴을 때 누르는 '반응형'이지 미리 정렬하는 '윈도우'가 아님",
+     "급살(Sudden Death) 소비 시 처형자(Executioner) 중첩 수만큼 칼날폭풍(Bladestorm) 쿨 단축 → 처형↔칼날폭풍이 서로 굴러가는 게 학살자 핵심 시너지",
+     "주의점: 분노 130(또는 110) 넘겨 낭비(rage cap)하지 말 것, 격노(Enrage) 끊기지 말 것 — 이 두 가지만 지키면 파스 80%+는 쉽게 나옴",
+     "체감 난이도의 본질은 '어려움'이 아니라 'APM이 높음(게임 내 최상위 입력량)'. 손이 한가하진 않지만 머리 쓸 일은 적은 손맛",
+     "산악 영웅(Mountain Thane)과 차이: 학살자=처형/칼날폭풍/급살 프록 강화 → 단일·우선순위딜·쉬운 클리브에 강함(레이드 선호). 산악 영웅=천둥벼락/피의 갈증 천둥 시너지 중심이라 광역·쫄 구간 색깔이 다름. 12.0.5서 산악 영웅 너프(제안)는 롤백, 학살자는 렌드 패시브화+칼날폭풍 비중↑ 조정"
+    ],
+    "buttons": "핵심 버튼 ~9~12개(분쇄·피의갈증·처형·광포한일격/쇄도하는일격·천둥작렬·소용돌이/천둥벼락 + 대형쿨 오딘의분노·격노·투신·칼날폭풍 + 저빈도 렌드). 게임 내 최상위권 APM(고입력)이지만 프록/윈도우 의존도는 낮음. 도트유지·디버프윈도우 정렬 같은 '설계형' 요소 거의 없음 — 급살(Sudden Death)/천둥작렬 프록에 '반응'할 뿐 사전 정렬 불필요. 종합: 설계형이 아니라 '격노 유지 중심 반응형 흐름' 직업 (★설계형 의존도 낮음, 야수냥꾼과 결 비슷★).",
+    "sources": [
+     "https://www.icy-veins.com/wow/fury-warrior-pve-dps-rotation-cooldowns-abilities",
+     "https://www.icy-veins.com/wow/fury-warrior-pve-dps-spec-builds-talents",
+     "https://www.icy-veins.com/wow/fury-warrior-pve-dps-stat-priority",
+     "https://www.icy-veins.com/wow/fury-warrior-pve-dps-easy-mode",
+     "https://www.icy-veins.com/wow/fury-warrior-pve-dps-guide",
+     "https://www.method.gg/guides/fury-warrior/playstyle-and-rotation",
+     "https://maxroll.gg/wow/class-guides/fury-warrior-raid-guide"
+    ]
+   }
+  }
+ ],
+ "synthesis": {
+  "report": "# 수석 분석 — 냉법 vs 무기전사 vs 분노전사 (영웅특성 6변형), 야수냥 본캐 \"손 편함·설계형 최소\" 기준\n\n전제: 한밤(Midnight) 12.0.5 / 단일 파스 지향 / 본캐=야수 사냥꾼(도트 0·디버프 윈도우 0의 프록 반응형) → 그 손맛에 가까울수록 가점.\n\n---\n\n## ① 스펙별 단일 파스 메타: 두 영웅특성 중 무엇이 추천인가\n\n| 스펙 | 영특 A | 영특 B | 단일 파스 추천 | 근거 |\n|---|---|---|---|---|\n| 냉기 법사 | 주문투척사(Spellslinger) | 서리화염(Frostfire) | **Spellslinger** (명확) | 12.0.5 현재 Spellslinger가 대부분 콘텐츠에서 우위. Frostfire는 광역 버스트가 앞으로 몰리는(front-loaded) 변형이라 빠른 처치·야외 위주, 단일/지속에선 Spellslinger 대비 손해. 단일 보스면 Spellslinger 강제. |\n| 무기 전사 | 거신(Colossus) | 학살자(Slayer) | **학살자**(근소 우위) | 단일은 학살자가 여전히 근소 우위(처형↔칼날폭풍 쿨감 루프). 단 12.0.5에서 거신과의 단일 격차가 역대 가장 좁아짐 — 광역 비중 크면 거신 선택. 순수 단일 파스만 보면 학살자. |\n| 분노 전사 | 산왕(Mountain Thane) | 학살자(Slayer) | **학살자**(미세 우위) / **산왕**(거의 동급) | 단일은 학살자가 미세하게 위. 다만 산왕도 \"거의 동일한 단일 성능\"으로 평가되고 '확정적(deterministic)' 회전이라 파스 재현성이 더 높음. 1% 파스 절대치는 학살자, 안정적 파스 뽑기는 산왕. |\n\n핵심: 단일 파스 절대 상한선만 보면 냉법=Spellslinger, 무기=학살자, 분노=학살자. 단 분노 두 영특은 단일 차이가 \"미세\"해서 실질 동급으로 봐도 무방.\n\n---\n\n## ② 손 편함·설계형 부담 비교 (낮을수록 야수냥에 가까움)\n\n설계형 = \"유지해야 할 도트\" + \"수동으로 맞추는 디버프 윈도우\". 6변형 모두 유지 도트는 0~1개로 가벼운 편이며, 진짜 차이는 '윈도우 정렬' 유무와 APM·프록 트래킹 부담에서 갈린다.\n\n순위(설계형 부담 적은 순):\n\n1. **분노-산왕**: 설계형 거의 0. 유지 도트 0(찢기는 천둥강타가 자동 적용), 디버프 윈도우 정렬 0. 격노(Enrage)만 분쇄로 유지하면 자동으로 굴러감. 확정적 회전이라 RNG 의존도 최저. Icy-Veins가 'Easy Mode' 영특으로 직접 지정. **6개 중 야수냥에 가장 가까움.**\n2. **냉법-Spellslinger**: 유지 도트 0, 정렬 디버프 0의 순수 프록 반응형. 즉시시전 비중이 높아 이동 자유도 최상. '설계'라 부를 건 서리 6중첩 후 산탄·빙하 가시 시점뿐 — 윈도우 정렬보다 자원 관리에 가까움. 프록 과중첩 방지가 유일한 신경 포인트.\n3. **분노-학살자**: 설계형은 거의 없으나 손이 가장 바쁨. 도트는 찢기 1개(최하위·자동 전파), 윈도우 정렬 없음. 다만 게임 내 최상위권 APM(입력량 많음) + 급살/천둥작렬 프록 반응·분노 오버캡 관리. '머리'는 안 쓰지만 '손'이 바쁜 손맛.\n4. **냉법-Frostfire**: 유지 도트 0, 정렬 디버프 0이지만 프록 3종(서리의 손가락·서리화염 강화·쇄도) + 동결 10중첩 과중첩 관리로 Spellslinger보다 한 단계 위. 절대 규칙은 \"쇄도→얼음창살 순서\" 하나. 설계형은 아니나 프록 관리 난이도 중상.\n5. **무기-거신**: '윈도우 정렬 설계형'이 명확히 존재. 파쇄자→투신→거인의 강타로 충돌 위력 쌓고 디버프 창 안에서 대격변(채널링)+칼날폭풍 정렬. 도트는 분쇄 1개라 가볍지만, 거인의 강타 윈도우 정렬 + 대격변 채널 타이밍이 진짜 부담.\n6. **무기-학살자**: 반(半)설계형 중 가장 무거움. 거인의 강타 윈도우 정렬 + 처형 분노(2중첩) 프록 트래킹 2개의 설계형 요소가 동시 존재. 도트는 분쇄 1개로 가벼우나, \"윈도우 짜맞추기 + 프록 추적\"이 야수냥의 무설계 손맛에서 가장 멀다.\n\n클래스 단위 요약: 분노 전사 = 두 영특 모두 비설계형(산왕이 더 쉬움) / 냉기 법사 = 두 영특 모두 비설계형 프록 반응형(Spellslinger가 더 쉬움) / 무기 전사 = 두 영특 모두 거인의 강타 윈도우 정렬 설계형이 끼어 있어 셋 중 가장 설계 부담 큼.\n\n---\n\n## ③ 야수냥 본캐 추천 순위 (손 편함·설계형 최소 + 단일 파스 가능성 종합)\n\n1위 **분노-산왕** — 설계형 부담 6개 중 최저(도트 0·윈도우 0, 격노 유지만), 확정적 회전으로 파스 재현성 높음, 단일도 학살자와 거의 동급에 광역·범용성까지 우위. '손 편하고 설계형 적은' 요구에 가장 정확히 부합. (단일 절대 상한은 학살자에 미세하게 밀리지만 그 차이가 작아 손 편함 우선이면 압도적 추천)\n\n2위 **냉법-Spellslinger** — 순수 프록 반응형, 유지 도트·정렬 디버프 0, 즉시기 위주라 이동 자유도 최상. 단일 파스 메타도 명확(Frostfire 압도). 근접→원거리 캐스터 전환이라는 포지션 변화만 감수하면 손 편함은 최상급. 야수냥과 같은 '원거리'를 유지하고 싶다면 1순위로 올려도 좋음.\n\n3위 **분노-학살자** — 설계형(도트·윈도우)은 거의 없어 머리 부담은 낮지만, 최상위권 APM으로 '손이 바쁜' 점이 감점. 단일 파스 절대치는 분노 1위. 손가락 회전이 빠른 걸 즐기면 1~2위와 바꿔도 됨.\n\n4위 **냉법-Frostfire** — 비설계형이지만 프록 3종+동결 과중첩 관리로 Spellslinger보다 손이 더 가고, 결정적으로 단일 파스에서 Spellslinger에 밀려 굳이 단일용으로 고를 이유가 약함(앞몰이 광역·빠른 처치 전용).\n\n5위 **무기-거신** — 거인의 강타 윈도우 정렬 + 대격변 채널 타이밍이라는 명확한 설계형 요소 존재. 야수냥의 무설계 손맛에서 멀어짐. 단일 파스는 학살자에 근소 열세(광역은 우위).\n\n6위 **무기-학살자** — 단일 파스 절대치는 무기 1위지만, 거인의 강타 윈도우 정렬 + 처형 분노 프록 트래킹 2중 설계형으로 6개 중 설계 부담 최대. '손 편하고 설계형 적은' 기준과 가장 배치되어 본 요구에는 최하위.\n\n한 줄 결론: 본캐(야수냥)와 같은 원거리·무설계를 원하면 **냉법-Spellslinger**, 근접 전환이 괜찮고 가장 손 편한 비설계를 원하면 **분노-산왕** — 이 둘이 사실상 공동 1순위. 단일 파스 절대치까지 욕심내면 분노-학살자/무기-학살자가 위지만 손 부담(APM·윈도우 정렬)을 그만큼 더 진다.\n\n---\n\n## 출처 (변형별 큐레이션, 6변형 JSON 기준)\n- 냉법 Spellslinger: icy-veins.com/wow/frost-mage-pve-dps-rotation-cooldowns-abilities, .../stat-priority, .../easy-mode, maxroll.gg/wow/class-guides/frost-mage-raid-guide, murlok.io/mage/frost/spellslinger/m+, method.gg/guides/frost-mage/playstyle-and-rotation\n- 냉법 Frostfire: icy-veins.com/wow/frost-mage-pve-dps-easy-mode, .../spec-builds-talents, .../guide, method.gg/guides/frost-mage/talents·playstyle-and-rotation, maxroll.gg/wow/class-guides/frost-mage-raid-guide, wowhead.com/guide/classes/mage/frost/rotation-cooldowns-pve-dps\n- 무기 거신: icy-veins.com/wow/arms-warrior-pve-dps-guide·rotation-cooldowns-abilities·stat-priority, method.gg/guides/arms-warrior/talents, wowhead.com/guide/classes/warrior/arms/rotation-cooldowns-pve-dps·midnight-season-1\n- 무기 학살자: icy-veins.com/wow/arms-warrior-pve-dps-guide·rotation·stat·spec-builds-talents, maxroll.gg/wow/class-guides/arms-warrior-raid-guide·mythic-plus-guide, method.gg/guides/arms-warrior/talents, boostmatch.gg/blog/wow/articles/wow-midnight-arms-warrior-guide\n- 분노 산왕: icy-veins.com/wow/fury-warrior-pve-dps-rotation·spec-builds-talents·easy-mode·stat-priority·guide, wowhead.com/guide/classes/warrior/fury/stat-priority-pve-dps, murlok.io/warrior/fury/mountain-thane/m+\n- 분노 학살자: icy-veins.com/wow/fury-warrior-pve-dps-rotation·spec-builds-talents·stat-priority·easy-mode·guide, method.gg/guides/fury-warrior/playstyle-and-rotation, maxroll.gg/wow/class-guides/fury-warrior-raid-guide\n\n주의: 출처는 12.0.5 한밤 기준 가이드. 스탯·세부 수치는 장비별 변동 — 1% 파스 확정은 본인 캐릭 심크(simc) 권장(6변형 모두 공통 명시). 로컬 캐시 wowhead_builds.json의 빌드코드는 TWW(11.x) 기준이라 12.0 미검증 — 인게임 가이드 우선.",
+  "recommend_rank": [
+   "분노 전사 — 산왕(Mountain Thane)",
+   "냉기 법사 — 주문투척사(Spellslinger)",
+   "분노 전사 — 학살자(Slayer)",
+   "냉기 법사 — 서리화염(Frostfire)",
+   "무기 전사 — 거신(Colossus)",
+   "무기 전사 — 학살자(Slayer)"
+  ]
+ }
+}
