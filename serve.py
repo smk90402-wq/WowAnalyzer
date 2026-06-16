@@ -139,11 +139,32 @@ def main() -> None:
 
     import webview
     log.info("pywebview 윈도우 열기")
+
+    # 창을 화면 가운데로. 화면 크기는 pywebview screens(DPI 정확) → ctypes 폴백.
+    win_w, win_h = 2200, 1280
+    sw = sh = 0
+    try:
+        scr = webview.screens[0]
+        sw, sh = int(scr.width), int(scr.height)
+    except Exception:
+        try:
+            import ctypes
+            u = ctypes.windll.user32
+            sw, sh = u.GetSystemMetrics(0), u.GetSystemMetrics(1)
+        except Exception:
+            sw = sh = 0
+    kw = {"min_size": (1400, 860)}
+    if sw > 0 and sh > 0:
+        win_w = min(win_w, sw - 80)            # 화면보다 크면 맞춰 축소
+        win_h = min(win_h, sh - 100)
+        kw["x"] = max(0, (sw - win_w) // 2)    # 가운데 정렬
+        kw["y"] = max(0, (sh - win_h) // 2)
+        kw["min_size"] = (min(1400, win_w), min(860, win_h))
     webview.create_window(
         "WoW 한밤 레이드 로그 분석기 (web)",
         url=f"http://127.0.0.1:{args.port}/",
-        width=2200, height=1280,
-        min_size=(1400, 860),
+        width=win_w, height=win_h,
+        **kw,
     )
     webview.start()  # 블로킹
 

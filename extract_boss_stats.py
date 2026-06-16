@@ -27,6 +27,9 @@ SPEC_BUILD = {
     ("Hunter", "Survival"): (None, None, None),
     ("Shaman", "Elemental"): (None, None, None),           # 정기 — 빌드 구분 없이 전체
     ("Warlock", "Demonology"): (None, None, None),         # 악마
+    ("Mage", "Frost"): (None, None, None),                 # 냉법
+    ("Warrior", "Arms"): (None, None, None),               # 무기
+    ("Warrior", "Fury"): (None, None, None),               # 분노
 }
 
 

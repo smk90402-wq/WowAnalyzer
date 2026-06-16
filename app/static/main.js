@@ -577,6 +577,7 @@ function renderRotBody() {
       <div class="rot-summary">${wsify(esc(spec.summary || ''))}</div>
       ${spec.stat ? `<div class="rot-stat"><b>스탯</b> ${wsify(esc(spec.stat))}</div>` : ''}
       ${build.hero_note ? `<div class="rot-hero"><b>${esc(_rotSel.build)}</b> ${wsify(esc(build.hero_note))}</div>` : ''}
+      ${(_rotSel.cls === 'Warrior' && _rotSel.spec === 'Fury') ? `<button id="rot-game-btn" style="margin-top:10px;cursor:pointer;background:#9a6b16;border:1px solid #b6831f;color:#ffe9b8;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600">🎮 딜사이클 연습 미니게임 — ${esc(_rotSel.build)} (프록 우선순위 50문제)</button>` : ''}
     </div>
     <div class="rot-cols">
       <div class="rot-col"><div class="rot-col-h single">단일 우선순위</div>${list(build.single)}</div>
@@ -584,6 +585,8 @@ function renderRotBody() {
       <div class="rot-col"><div class="rot-col-h opener">오프너</div>${list(build.opener)}</div>
       ${build.util && build.util.length ? `<div class="rot-col"><div class="rot-col-h util">유틸·생존 (눌러야 할 것)</div>${list(build.util)}</div>` : ''}
     </div>`;
+  const gb = $('#rot-game-btn');
+  if (gb) gb.onclick = () => openRotGame(_rotSel.cls, _rotSel.spec, _rotSel.build);
   whEnsure();
 }
 

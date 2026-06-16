@@ -61,3 +61,5 @@ Thumbs.db
 
 data/transcripts/
 data/tmp_demo_transcripts.json
+data/tmp_*
+data/icons_med/
