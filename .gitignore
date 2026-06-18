@@ -59,7 +59,9 @@ logs/
 .DS_Store
 Thumbs.db
 
-data/transcripts/
+data/transcripts/*
+!data/transcripts/
+!data/transcripts/official_*.txt
 data/tmp_demo_transcripts.json
 data/tmp_*
 data/icons_med/

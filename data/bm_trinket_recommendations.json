@@ -19,7 +19,8 @@
         "url": "https://www.youtube.com/watch?v=8mgZ5oOaKdI",
         "title": "새 공격대에서 쏟아지는 298 장비! | #이번주의와우",
         "author_name": "월드 오브 워크래프트",
-        "status": "metadata verified via YouTube oEmbed; transcript fetch blocked by HTTP 429"
+        "status": "metadata verified via YouTube oEmbed; transcript fetched via Korean auto captions",
+        "transcript_path": "data/transcripts/official_youtube_1207_gear_overview.txt"
       }
     ]
   },
