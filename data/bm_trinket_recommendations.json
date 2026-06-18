@@ -1,0 +1,1085 @@
+{
+  "_meta": {
+    "generated_at": "2026-06-18T15:45:07",
+    "zone_id": 46,
+    "zone": "VS / DR / MQD",
+    "difficulty": "mythic",
+    "partition": 3,
+    "partition_name": "12.0.7",
+    "topn": 40,
+    "top_band": 25,
+    "notes": [
+      "DPS 보정값은 ilvl과 전투시간 선형효과를 제거한 잔차 평균입니다.",
+      "상자 이벤트는 top-band 상자 착용자만 대상으로 실제 cast 383781을 확인합니다.",
+      "기본 추천은 99 확률 관점이라 평균 DPS보다 상위권 채택률과 사용 난이도를 더 크게 봅니다."
+    ]
+  },
+  "Hunter|Beast Mastery": {
+    "3176": {
+      "encounter_id": "3176",
+      "boss": "전제군주 아베르지안",
+      "encounter_name": "Imperator Averzian",
+      "rankings_n": 40,
+      "pack_leader_n": 12,
+      "hero_counts": {
+        "PackLeader": 12
+      },
+      "failures": 0,
+      "cache_hits": 0,
+      "live_fetches": 12,
+      "skipped_uncached": 28,
+      "top_n": 12,
+      "top_kill_s": 219.2,
+      "top_ilvl": 290.2,
+      "top_stats": {
+        "crit": 905.0,
+        "haste": 705.1,
+        "mastery": 1446.4
+      },
+      "top_items": [
+        [
+          "상자",
+          11
+        ],
+        [
+          "알른 응시",
+          11
+        ],
+        [
+          "태양섬광 분광경",
+          1
+        ],
+        [
+          "특화 꽁지깃",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "상자": 92,
+        "알른 응시": 92,
+        "???? ???": 8,
+        "특화 꽁지깃": 8
+      },
+      "top_combos": [
+        {
+          "combo": "상자 + 알른 응시",
+          "n": 10,
+          "pct": 83
+        },
+        {
+          "combo": "태양섬광 분광경 + 상자",
+          "n": 1,
+          "pct": 8
+        },
+        {
+          "combo": "알른 응시 + 특화 꽁지깃",
+          "n": 1,
+          "pct": 8
+        }
+      ],
+      "groups": {
+        "box": {
+          "n": 11,
+          "pct": 92,
+          "avg_rank": 6.2,
+          "avg_dps": 142870.0,
+          "avg_adjusted_dps": 375.9,
+          "others_adjusted_dps": null
+        },
+        "crit_plume": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": 0.0
+        },
+        "mastery_plume": {
+          "n": 1,
+          "pct": 8,
+          "avg_rank": 10.0,
+          "avg_dps": 139407.8,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": 375.9
+        },
+        "aln_gaze": {
+          "n": 11,
+          "pct": 92,
+          "avg_rank": 6.8,
+          "avg_dps": 142208.1,
+          "avg_adjusted_dps": -391.3,
+          "others_adjusted_dps": null
+        },
+        "cosmic_wrap": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": 0.0
+        }
+      },
+      "box_events": {
+        "box_wearers_checked": 11,
+        "event_rows": 6,
+        "cache_hits": 0,
+        "live_fetches": 6,
+        "skipped_uncached": 5,
+        "used": 6,
+        "opener_pct": 50,
+        "first_s_median": 62.7,
+        "count_median": 2.0,
+        "event_coverage_pct": 55,
+        "used_pct_checked": 100
+      },
+      "recommendation": {
+        "pick": "상자 + 알른 응시",
+        "risk_profile": "고점, 타이밍 관리",
+        "reason": "최신 상위 표본은 상자+알른이 우세하지만 첫 사용이 늦거나 갈리는 보스입니다. 오프닝 고정이 아니라 패턴 중 빈 시간에 상자를 넣는 계획이 필요합니다.",
+        "box_adjusted_delta": null
+      }
+    },
+    "3177": {
+      "encounter_id": "3177",
+      "boss": "보라시우스",
+      "encounter_name": "Vorasius",
+      "rankings_n": 40,
+      "pack_leader_n": 12,
+      "hero_counts": {
+        "PackLeader": 12
+      },
+      "failures": 0,
+      "cache_hits": 0,
+      "live_fetches": 12,
+      "skipped_uncached": 28,
+      "top_n": 12,
+      "top_kill_s": 204.5,
+      "top_ilvl": 290.3,
+      "top_stats": {
+        "crit": 727.9,
+        "haste": 802.9,
+        "mastery": 1439.8
+      },
+      "top_items": [
+        [
+          "알른 응시",
+          11
+        ],
+        [
+          "상자",
+          11
+        ],
+        [
+          "특화 꽁지깃",
+          2
+        ]
+      ],
+      "top_item_pct": {
+        "알른 응시": 92,
+        "상자": 92,
+        "특화 꽁지깃": 17
+      },
+      "top_combos": [
+        {
+          "combo": "상자 + 알른 응시",
+          "n": 10,
+          "pct": 83
+        },
+        {
+          "combo": "상자 + 특화 꽁지깃",
+          "n": 1,
+          "pct": 8
+        },
+        {
+          "combo": "알른 응시 + 특화 꽁지깃",
+          "n": 1,
+          "pct": 8
+        }
+      ],
+      "groups": {
+        "box": {
+          "n": 11,
+          "pct": 92,
+          "avg_rank": 6.0,
+          "avg_dps": 143603.8,
+          "avg_adjusted_dps": 255.2,
+          "others_adjusted_dps": null
+        },
+        "crit_plume": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": 0.0
+        },
+        "mastery_plume": {
+          "n": 2,
+          "pct": 17,
+          "avg_rank": 8.0,
+          "avg_dps": 142071.2,
+          "avg_adjusted_dps": -957.6,
+          "others_adjusted_dps": 191.5
+        },
+        "aln_gaze": {
+          "n": 11,
+          "pct": 92,
+          "avg_rank": 6.7,
+          "avg_dps": 143237.7,
+          "avg_adjusted_dps": -81.0,
+          "others_adjusted_dps": null
+        },
+        "cosmic_wrap": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": 0.0
+        }
+      },
+      "box_events": {
+        "box_wearers_checked": 11,
+        "event_rows": 6,
+        "cache_hits": 0,
+        "live_fetches": 6,
+        "skipped_uncached": 5,
+        "used": 6,
+        "opener_pct": 83,
+        "first_s_median": 0.8,
+        "count_median": 2.0,
+        "event_coverage_pct": 55,
+        "used_pct_checked": 100
+      },
+      "recommendation": {
+        "pick": "상자 + 알른 응시",
+        "risk_profile": "숙련자 고점",
+        "reason": "보라시우스는 순수 단일에 가깝고 상자 top-band 채택률/오프닝 사용률이 높아 네가 이미 99를 찍은 세팅과 맞습니다.",
+        "box_adjusted_delta": null
+      }
+    },
+    "3178": {
+      "encounter_id": "3178",
+      "boss": "바엘고어와 에조라크",
+      "encounter_name": "Vaelgor & Ezzorak",
+      "rankings_n": 40,
+      "pack_leader_n": 12,
+      "hero_counts": {
+        "PackLeader": 12
+      },
+      "failures": 0,
+      "cache_hits": 0,
+      "live_fetches": 12,
+      "skipped_uncached": 28,
+      "top_n": 12,
+      "top_kill_s": 341.3,
+      "top_ilvl": 290.1,
+      "top_stats": {
+        "crit": 875.2,
+        "haste": 677.1,
+        "mastery": 1238.3
+      },
+      "top_items": [
+        [
+          "알른 응시",
+          12
+        ],
+        [
+          "상자",
+          10
+        ],
+        [
+          "특화 꽁지깃",
+          2
+        ]
+      ],
+      "top_item_pct": {
+        "상자": 83,
+        "알른 응시": 100,
+        "특화 꽁지깃": 17
+      },
+      "top_combos": [
+        {
+          "combo": "상자 + 알른 응시",
+          "n": 10,
+          "pct": 83
+        },
+        {
+          "combo": "알른 응시 + 특화 꽁지깃",
+          "n": 2,
+          "pct": 17
+        }
+      ],
+      "groups": {
+        "box": {
+          "n": 10,
+          "pct": 83,
+          "avg_rank": 5.8,
+          "avg_dps": 206309.1,
+          "avg_adjusted_dps": 1451.8,
+          "others_adjusted_dps": -7259.2
+        },
+        "crit_plume": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": -0.0
+        },
+        "mastery_plume": {
+          "n": 2,
+          "pct": 17,
+          "avg_rank": 10.0,
+          "avg_dps": 197458.8,
+          "avg_adjusted_dps": -7259.2,
+          "others_adjusted_dps": 1451.8
+        },
+        "aln_gaze": {
+          "n": 12,
+          "pct": 100,
+          "avg_rank": 6.5,
+          "avg_dps": 204834.1,
+          "avg_adjusted_dps": -0.0,
+          "others_adjusted_dps": null
+        },
+        "cosmic_wrap": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": -0.0
+        }
+      },
+      "box_events": {
+        "box_wearers_checked": 10,
+        "event_rows": 6,
+        "cache_hits": 0,
+        "live_fetches": 6,
+        "skipped_uncached": 4,
+        "used": 6,
+        "opener_pct": 83,
+        "first_s_median": 0.4,
+        "count_median": 2.5,
+        "event_coverage_pct": 60,
+        "used_pct_checked": 100
+      },
+      "recommendation": {
+        "pick": "상자 + 알른 응시",
+        "risk_profile": "고점 우선",
+        "reason": "최신 상위 표본의 상자+알른 채택률과 실제 사용률이 높습니다. 상자를 안정적으로 누를 수 있으면 99 고점 세팅으로 보는 게 맞습니다.",
+        "box_adjusted_delta": 8711.0
+      }
+    },
+    "3179": {
+      "encounter_id": "3179",
+      "boss": "몰락왕 살라다르",
+      "encounter_name": "Fallen-King Salhadaar",
+      "rankings_n": 40,
+      "pack_leader_n": 12,
+      "hero_counts": {
+        "PackLeader": 12
+      },
+      "failures": 0,
+      "cache_hits": 0,
+      "live_fetches": 12,
+      "skipped_uncached": 28,
+      "top_n": 12,
+      "top_kill_s": 205.1,
+      "top_ilvl": 290.6,
+      "top_stats": {
+        "crit": 877.2,
+        "haste": 729.3,
+        "mastery": 1382.5
+      },
+      "top_items": [
+        [
+          "알른 응시",
+          12
+        ],
+        [
+          "상자",
+          10
+        ],
+        [
+          "특화 꽁지깃",
+          2
+        ]
+      ],
+      "top_item_pct": {
+        "상자": 83,
+        "알른 응시": 100,
+        "특화 꽁지깃": 17
+      },
+      "top_combos": [
+        {
+          "combo": "상자 + 알른 응시",
+          "n": 10,
+          "pct": 83
+        },
+        {
+          "combo": "알른 응시 + 특화 꽁지깃",
+          "n": 2,
+          "pct": 17
+        }
+      ],
+      "groups": {
+        "box": {
+          "n": 10,
+          "pct": 83,
+          "avg_rank": 6.2,
+          "avg_dps": 142230.1,
+          "avg_adjusted_dps": 119.5,
+          "others_adjusted_dps": -597.5
+        },
+        "crit_plume": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": -0.0
+        },
+        "mastery_plume": {
+          "n": 2,
+          "pct": 17,
+          "avg_rank": 8.0,
+          "avg_dps": 142344.4,
+          "avg_adjusted_dps": -597.5,
+          "others_adjusted_dps": 119.5
+        },
+        "aln_gaze": {
+          "n": 12,
+          "pct": 100,
+          "avg_rank": 6.5,
+          "avg_dps": 142249.1,
+          "avg_adjusted_dps": -0.0,
+          "others_adjusted_dps": null
+        },
+        "cosmic_wrap": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": -0.0
+        }
+      },
+      "box_events": {
+        "box_wearers_checked": 10,
+        "event_rows": 6,
+        "cache_hits": 0,
+        "live_fetches": 6,
+        "skipped_uncached": 4,
+        "used": 6,
+        "opener_pct": 50,
+        "first_s_median": 65.6,
+        "count_median": 1.5,
+        "event_coverage_pct": 60,
+        "used_pct_checked": 100
+      },
+      "recommendation": {
+        "pick": "상자 + 알른 응시",
+        "risk_profile": "고점, 타이밍 관리",
+        "reason": "최신 상위 표본은 상자+알른이 우세하지만 첫 사용이 늦거나 갈리는 보스입니다. 오프닝 고정이 아니라 패턴 중 빈 시간에 상자를 넣는 계획이 필요합니다.",
+        "box_adjusted_delta": 717.0
+      }
+    },
+    "3180": {
+      "encounter_id": "3180",
+      "boss": "빛눈먼 선봉대",
+      "encounter_name": "Lightblinded Vanguard",
+      "rankings_n": 40,
+      "pack_leader_n": 12,
+      "hero_counts": {
+        "PackLeader": 12
+      },
+      "failures": 0,
+      "cache_hits": 0,
+      "live_fetches": 12,
+      "skipped_uncached": 28,
+      "top_n": 12,
+      "top_kill_s": 359.2,
+      "top_ilvl": 290.2,
+      "top_stats": {
+        "crit": 1127.9,
+        "haste": 468.1,
+        "mastery": 1324.2
+      },
+      "top_items": [
+        [
+          "알른 응시",
+          11
+        ],
+        [
+          "상자",
+          11
+        ],
+        [
+          "치명 꽁지깃",
+          1
+        ],
+        [
+          "특화 꽁지깃",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "알른 응시": 92,
+        "상자": 92,
+        "치명 꽁지깃": 8,
+        "특화 꽁지깃": 8
+      },
+      "top_combos": [
+        {
+          "combo": "상자 + 알른 응시",
+          "n": 10,
+          "pct": 83
+        },
+        {
+          "combo": "상자 + 치명 꽁지깃",
+          "n": 1,
+          "pct": 8
+        },
+        {
+          "combo": "알른 응시 + 특화 꽁지깃",
+          "n": 1,
+          "pct": 8
+        }
+      ],
+      "groups": {
+        "box": {
+          "n": 11,
+          "pct": 92,
+          "avg_rank": 6.0,
+          "avg_dps": 185562.7,
+          "avg_adjusted_dps": 463.2,
+          "others_adjusted_dps": null
+        },
+        "crit_plume": {
+          "n": 1,
+          "pct": 8,
+          "avg_rank": 4.0,
+          "avg_dps": 188042.2,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": -228.1
+        },
+        "mastery_plume": {
+          "n": 1,
+          "pct": 8,
+          "avg_rank": 12.0,
+          "avg_dps": 179823.3,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": 463.2
+        },
+        "aln_gaze": {
+          "n": 11,
+          "pct": 92,
+          "avg_rank": 6.7,
+          "avg_dps": 184815.5,
+          "avg_adjusted_dps": -228.1,
+          "others_adjusted_dps": null
+        },
+        "cosmic_wrap": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": 0.0
+        }
+      },
+      "box_events": {
+        "box_wearers_checked": 11,
+        "event_rows": 6,
+        "cache_hits": 0,
+        "live_fetches": 6,
+        "skipped_uncached": 5,
+        "used": 6,
+        "opener_pct": 50,
+        "first_s_median": 61.5,
+        "count_median": 2.5,
+        "event_coverage_pct": 55,
+        "used_pct_checked": 100
+      },
+      "recommendation": {
+        "pick": "상자 + 알른 응시, 실패가 잦으면 치명 꽁지깃",
+        "risk_profile": "고점/안정 분기",
+        "reason": "빛눈먼 선봉대 상위권은 상자+알른이 기본이지만, 피할 패턴 때문에 상자를 늦추거나 놓치면 손실이 큽니다. 상자를 안정적으로 누르면 상자, 자주 밀리면 치명 꽁지깃이 99 확률을 더 올립니다.",
+        "box_adjusted_delta": null
+      }
+    },
+    "3181": {
+      "encounter_id": "3181",
+      "boss": "우주의 왕관",
+      "encounter_name": "Crown of the Cosmos",
+      "rankings_n": 40,
+      "pack_leader_n": 12,
+      "hero_counts": {
+        "PackLeader": 12
+      },
+      "failures": 0,
+      "cache_hits": 0,
+      "live_fetches": 12,
+      "skipped_uncached": 28,
+      "top_n": 12,
+      "top_kill_s": 490.3,
+      "top_ilvl": 290.5,
+      "top_stats": {
+        "crit": 799.9,
+        "haste": 656.2,
+        "mastery": 1231.9
+      },
+      "top_items": [
+        [
+          "알른 응시",
+          12
+        ],
+        [
+          "상자",
+          11
+        ],
+        [
+          "특화 꽁지깃",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "상자": 92,
+        "알른 응시": 100,
+        "특화 꽁지깃": 8
+      },
+      "top_combos": [
+        {
+          "combo": "상자 + 알른 응시",
+          "n": 11,
+          "pct": 92
+        },
+        {
+          "combo": "알른 응시 + 특화 꽁지깃",
+          "n": 1,
+          "pct": 8
+        }
+      ],
+      "groups": {
+        "box": {
+          "n": 11,
+          "pct": 92,
+          "avg_rank": 6.5,
+          "avg_dps": 92929.6,
+          "avg_adjusted_dps": 72.2,
+          "others_adjusted_dps": null
+        },
+        "crit_plume": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": -0.0
+        },
+        "mastery_plume": {
+          "n": 1,
+          "pct": 8,
+          "avg_rank": 6.0,
+          "avg_dps": 92392.1,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": 72.2
+        },
+        "aln_gaze": {
+          "n": 12,
+          "pct": 100,
+          "avg_rank": 6.5,
+          "avg_dps": 92884.8,
+          "avg_adjusted_dps": -0.0,
+          "others_adjusted_dps": null
+        },
+        "cosmic_wrap": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": -0.0
+        }
+      },
+      "box_events": {
+        "box_wearers_checked": 11,
+        "event_rows": 6,
+        "cache_hits": 0,
+        "live_fetches": 6,
+        "skipped_uncached": 5,
+        "used": 6,
+        "opener_pct": 50,
+        "first_s_median": 7.9,
+        "count_median": 4.0,
+        "event_coverage_pct": 55,
+        "used_pct_checked": 100
+      },
+      "recommendation": {
+        "pick": "상자 + 알른 응시",
+        "risk_profile": "고점, 타이밍 관리",
+        "reason": "최신 상위 표본은 상자+알른이 우세하지만 첫 사용이 늦거나 갈리는 보스입니다. 오프닝 고정이 아니라 패턴 중 빈 시간에 상자를 넣는 계획이 필요합니다.",
+        "box_adjusted_delta": null
+      }
+    },
+    "3182": {
+      "encounter_id": "3182",
+      "boss": "벨로렌",
+      "encounter_name": "Belo'ren, Child of Al'ar",
+      "rankings_n": 40,
+      "pack_leader_n": 12,
+      "hero_counts": {
+        "PackLeader": 12
+      },
+      "failures": 0,
+      "cache_hits": 0,
+      "live_fetches": 12,
+      "skipped_uncached": 28,
+      "top_n": 12,
+      "top_kill_s": 266.0,
+      "top_ilvl": 290.0,
+      "top_stats": {
+        "crit": 800.2,
+        "haste": 811.2,
+        "mastery": 1373.8
+      },
+      "top_items": [
+        [
+          "알른 응시",
+          12
+        ],
+        [
+          "특화 꽁지깃",
+          7
+        ],
+        [
+          "상자",
+          5
+        ]
+      ],
+      "top_item_pct": {
+        "특화 꽁지깃": 58,
+        "알른 응시": 100,
+        "상자": 42
+      },
+      "top_combos": [
+        {
+          "combo": "알른 응시 + 특화 꽁지깃",
+          "n": 7,
+          "pct": 58
+        },
+        {
+          "combo": "상자 + 알른 응시",
+          "n": 5,
+          "pct": 42
+        }
+      ],
+      "groups": {
+        "box": {
+          "n": 5,
+          "pct": 42,
+          "avg_rank": 6.0,
+          "avg_dps": 131297.4,
+          "avg_adjusted_dps": 627.8,
+          "others_adjusted_dps": -448.4
+        },
+        "crit_plume": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": -0.0
+        },
+        "mastery_plume": {
+          "n": 7,
+          "pct": 58,
+          "avg_rank": 6.9,
+          "avg_dps": 130148.1,
+          "avg_adjusted_dps": -448.4,
+          "others_adjusted_dps": 627.8
+        },
+        "aln_gaze": {
+          "n": 12,
+          "pct": 100,
+          "avg_rank": 6.5,
+          "avg_dps": 130627.0,
+          "avg_adjusted_dps": -0.0,
+          "others_adjusted_dps": null
+        },
+        "cosmic_wrap": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": -0.0
+        }
+      },
+      "box_events": {
+        "box_wearers_checked": 5,
+        "event_rows": 5,
+        "cache_hits": 0,
+        "live_fetches": 5,
+        "skipped_uncached": 0,
+        "used": 5,
+        "opener_pct": 0,
+        "first_s_median": 109.0,
+        "count_median": 2.0,
+        "event_coverage_pct": 100,
+        "used_pct_checked": 100
+      },
+      "recommendation": {
+        "pick": "특화 꽁지깃 + 알른 응시",
+        "risk_profile": "안정 99",
+        "reason": "벨로렌은 최신 상위 표본에서 특화 꽁지깃 채택이 상자보다 높습니다. 상자 타이밍을 강제로 만들기보다 지속 단일값을 가져가는 쪽이 99 확률에 안정적입니다.",
+        "box_adjusted_delta": 1076.2
+      }
+    },
+    "3183": {
+      "encounter_id": "3183",
+      "boss": "한밤의 도래",
+      "encounter_name": "Midnight Falls",
+      "rankings_n": 40,
+      "pack_leader_n": 12,
+      "hero_counts": {
+        "PackLeader": 12
+      },
+      "failures": 0,
+      "cache_hits": 0,
+      "live_fetches": 12,
+      "skipped_uncached": 28,
+      "top_n": 12,
+      "top_kill_s": 541.8,
+      "top_ilvl": 290.4,
+      "top_stats": {
+        "crit": 796.2,
+        "haste": 772.8,
+        "mastery": 1162.2
+      },
+      "top_items": [
+        [
+          "알른 응시",
+          11
+        ],
+        [
+          "상자",
+          9
+        ],
+        [
+          "특화 꽁지깃",
+          4
+        ]
+      ],
+      "top_item_pct": {
+        "알른 응시": 92,
+        "상자": 75,
+        "특화 꽁지깃": 33
+      },
+      "top_combos": [
+        {
+          "combo": "상자 + 알른 응시",
+          "n": 8,
+          "pct": 67
+        },
+        {
+          "combo": "알른 응시 + 특화 꽁지깃",
+          "n": 3,
+          "pct": 25
+        },
+        {
+          "combo": "상자 + 특화 꽁지깃",
+          "n": 1,
+          "pct": 8
+        }
+      ],
+      "groups": {
+        "box": {
+          "n": 9,
+          "pct": 75,
+          "avg_rank": 6.3,
+          "avg_dps": 154817.0,
+          "avg_adjusted_dps": 154.1,
+          "others_adjusted_dps": -462.4
+        },
+        "crit_plume": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": -0.0
+        },
+        "mastery_plume": {
+          "n": 4,
+          "pct": 33,
+          "avg_rank": 6.8,
+          "avg_dps": 154247.3,
+          "avg_adjusted_dps": -286.6,
+          "others_adjusted_dps": 143.3
+        },
+        "aln_gaze": {
+          "n": 11,
+          "pct": 92,
+          "avg_rank": 6.5,
+          "avg_dps": 154689.1,
+          "avg_adjusted_dps": -21.9,
+          "others_adjusted_dps": null
+        },
+        "cosmic_wrap": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": -0.0
+        }
+      },
+      "box_events": {
+        "box_wearers_checked": 9,
+        "event_rows": 6,
+        "cache_hits": 0,
+        "live_fetches": 6,
+        "skipped_uncached": 3,
+        "used": 6,
+        "opener_pct": 50,
+        "first_s_median": 10.2,
+        "count_median": 5.0,
+        "event_coverage_pct": 67,
+        "used_pct_checked": 100
+      },
+      "recommendation": {
+        "pick": "상자 + 알른 응시",
+        "risk_profile": "고점, 타이밍 관리",
+        "reason": "최신 상위 표본은 상자+알른이 우세하지만 첫 사용이 늦거나 갈리는 보스입니다. 오프닝 고정이 아니라 패턴 중 빈 시간에 상자를 넣는 계획이 필요합니다.",
+        "box_adjusted_delta": 616.5
+      }
+    },
+    "3306": {
+      "encounter_id": "3306",
+      "boss": "카이메루스",
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rankings_n": 40,
+      "pack_leader_n": 11,
+      "hero_counts": {
+        "PackLeader": 11
+      },
+      "failures": 1,
+      "cache_hits": 0,
+      "live_fetches": 12,
+      "skipped_uncached": 28,
+      "top_n": 11,
+      "top_kill_s": 143.6,
+      "top_ilvl": 290.2,
+      "top_stats": {
+        "crit": 744.2,
+        "haste": 782.6,
+        "mastery": 1339.8
+      },
+      "top_items": [
+        [
+          "상자",
+          11
+        ],
+        [
+          "알른 응시",
+          9
+        ],
+        [
+          "태양섬광 분광경",
+          1
+        ],
+        [
+          "바람의 심장",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "알른 응시": 82,
+        "상자": 100,
+        "???? ???": 9,
+        "??? ??": 9
+      },
+      "top_combos": [
+        {
+          "combo": "상자 + 알른 응시",
+          "n": 9,
+          "pct": 82
+        },
+        {
+          "combo": "태양섬광 분광경 + 상자",
+          "n": 1,
+          "pct": 9
+        },
+        {
+          "combo": "바람의 심장 + 상자",
+          "n": 1,
+          "pct": 9
+        }
+      ],
+      "groups": {
+        "box": {
+          "n": 11,
+          "pct": 100,
+          "avg_rank": 6.5,
+          "avg_dps": 148505.8,
+          "avg_adjusted_dps": 0.0,
+          "others_adjusted_dps": null
+        },
+        "crit_plume": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": 0.0
+        },
+        "mastery_plume": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": 0.0
+        },
+        "aln_gaze": {
+          "n": 9,
+          "pct": 82,
+          "avg_rank": 7.3,
+          "avg_dps": 148123.1,
+          "avg_adjusted_dps": -282.8,
+          "others_adjusted_dps": 1272.5
+        },
+        "cosmic_wrap": {
+          "n": 0,
+          "pct": 0,
+          "avg_rank": null,
+          "avg_dps": null,
+          "avg_adjusted_dps": null,
+          "others_adjusted_dps": 0.0
+        }
+      },
+      "box_events": {
+        "box_wearers_checked": 11,
+        "event_rows": 6,
+        "cache_hits": 0,
+        "live_fetches": 6,
+        "skipped_uncached": 5,
+        "used": 6,
+        "opener_pct": 50,
+        "first_s_median": 8.7,
+        "count_median": 1.5,
+        "event_coverage_pct": 55,
+        "used_pct_checked": 100
+      },
+      "recommendation": {
+        "pick": "상자 + 알른 응시",
+        "risk_profile": "고점, 타이밍 관리",
+        "reason": "최신 상위 표본은 상자+알른이 우세하지만 첫 사용이 늦거나 갈리는 보스입니다. 오프닝 고정이 아니라 패턴 중 빈 시간에 상자를 넣는 계획이 필요합니다.",
+        "box_adjusted_delta": null
+      }
+    }
+  }
+}

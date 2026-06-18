@@ -501,6 +501,70 @@ function renderSelectedStatRecommendation(d) {
     <div class="st-rec-note bc-mute">${esc(r.adjustment || '')}</div>
   </div>`;
 }
+function _trinketComboText(combos) {
+  return (combos || []).slice(0, 2).map(c => `${c.combo} ${c.pct}%`).join(' / ') || '-';
+}
+function _boxEventText(box) {
+  if (!box) return '-';
+  const parts = [];
+  if (box.event_coverage_pct != null) parts.push(`확인 ${box.event_coverage_pct}%`);
+  if (box.used_pct_checked != null) parts.push(`사용 ${box.used_pct_checked}%`);
+  if (box.opener_pct != null) parts.push(`오프닝 ${box.opener_pct}%`);
+  if (box.first_s_median != null) parts.push(`첫사용 ${box.first_s_median}s`);
+  if (box.count_median != null) parts.push(`중앙 ${box.count_median}회`);
+  return parts.join(' · ') || '-';
+}
+function renderBossTrinketRecommendationTable() {
+  const bosses = _statData[`${_statSel.cls}|${_statSel.spec}`] || {};
+  const rows = Object.entries(bosses)
+    .filter(([, b]) => b.trinket_recommendation)
+    .map(([eid, b]) => {
+      const t = b.trinket_recommendation || {};
+      const r = t.recommendation || {};
+      return `<tr>
+        <td>${esc(b.boss_kr || t.boss || eid)}</td>
+        <td>${esc(r.pick || '-')}</td>
+        <td>${esc(_trinketComboText(t.top_combos))}</td>
+        <td class="num">${t.pack_leader_n || '-'}/${t.rankings_n || '-'}</td>
+        <td>${esc(_boxEventText(t.box_events))}</td>
+        <td>${esc(r.risk_profile || '-')}</td>
+      </tr>`;
+    }).join('');
+  if (!rows) return '';
+  return `<div class="st-section-label">보스별 장신구 추천 <span class="bc-mute">BM 무리의 인도자 · WCL 최신 파티션 top 표본</span></div>
+    <div class="table-wrap st-rec-wrap">
+      <table class="st-table st-rec-table st-trinket-table">
+        <thead><tr><th>보스</th><th>추천</th><th>상위 조합</th><th>무리 표본</th><th>상자 로그</th><th>판단</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+function renderSelectedTrinketRecommendation(d) {
+  const t = d.trinket_recommendation;
+  if (!t) return '';
+  const r = t.recommendation || {};
+  const g = t.groups || {};
+  const box = g.box || {};
+  const mastery = g.mastery_plume || {};
+  const crit = g.crit_plume || {};
+  return `<div class="st-rec-card st-trinket-card">
+    <div class="st-rec-head">
+      <span>${esc(d.boss_kr || t.boss)} 장신구 추천</span>
+      <span class="st-rec-conf">${esc(r.risk_profile || '판단 보류')} · n=${t.pack_leader_n || '-'}</span>
+    </div>
+    <div class="st-rec-grid">
+      <div><span class="bc-mute">추천 세팅</span><b>${esc(r.pick || '-')}</b></div>
+      <div><span class="bc-mute">상위 조합</span><b>${esc(_trinketComboText(t.top_combos))}</b></div>
+      <div><span class="bc-mute">상자 채택</span><b>${box.pct != null ? box.pct + '%' : '-'}</b></div>
+      <div><span class="bc-mute">상자 사용</span><b>${esc(_boxEventText(t.box_events))}</b></div>
+      <div><span class="bc-mute">특화 꽁지깃</span><b>${mastery.pct != null ? mastery.pct + '%' : '-'}</b></div>
+      <div><span class="bc-mute">치명 꽁지깃</span><b>${crit.pct != null ? crit.pct + '%' : '-'}</b></div>
+      <div><span class="bc-mute">상위 킬타임</span><b>${t.top_kill_s != null ? t.top_kill_s + 's' : '-'}</b></div>
+      <div><span class="bc-mute">상위 ilvl</span><b>${t.top_ilvl != null ? t.top_ilvl : '-'}</b></div>
+    </div>
+    <div class="st-rec-note">${esc(r.reason || '')}</div>
+  </div>`;
+}
 function renderStatBody() {
   const d = (_statData[`${_statSel.cls}|${_statSel.spec}`] || {})[_statSel.boss];
   if (!d) { $('#stat-body').innerHTML = '<div class="empty">데이터 없음</div>'; return; }
@@ -539,6 +603,8 @@ function renderStatBody() {
   const topAvg = avgCards(d.top_avg);
   const restAvg = avgCards(d.rest_avg);
   $('#stat-body').innerHTML = `
+    ${renderBossTrinketRecommendationTable()}
+    ${renderSelectedTrinketRecommendation(d)}
     ${renderBossStatRecommendationTable()}
     ${renderSelectedStatRecommendation(d)}
     <div class="st-section-label">🎯 1~20등 평균 = 목표 스탯 ${d.has_build ? '(빌드별 광/단일)' : ''} <span class="bc-mute">— 풀버프 기준, 인게임 음식·영약 켜고 맞추면 됨</span></div>

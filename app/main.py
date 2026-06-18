@@ -467,6 +467,8 @@ def boss_stats() -> Response:
     data = _json.loads(p.read_text(encoding="utf-8"))
     rec_p = DATA_DIR / "bm_stat_recommendations.json"
     recs = _json.loads(rec_p.read_text(encoding="utf-8")) if rec_p.exists() else {}
+    trinket_rec_p = DATA_DIR / "bm_trinket_recommendations.json"
+    trinket_recs = _json.loads(trinket_rec_p.read_text(encoding="utf-8")) if trinket_rec_p.exists() else {}
     STATS = ["특화", "치명", "가속", "유연"]
 
     def add_eff(stats: dict) -> dict:
@@ -484,6 +486,9 @@ def boss_stats() -> Response:
             rec = (recs.get(spec_key) or {}).get(str(eid))
             if rec:
                 d["recommendation"] = rec
+            trinket_rec = (trinket_recs.get(spec_key) or {}).get(str(eid))
+            if trinket_rec:
+                d["trinket_recommendation"] = trinket_rec
     return Response(content=_json.dumps({"data": data}, ensure_ascii=False),
                     media_type="application/json")
 

@@ -386,6 +386,22 @@
         "data/item_db.json",
         "data/spell_db.json"
       ]
+    },
+    {
+      "ts": "2026-06-18T15:48:46",
+      "host": "RTVMKSEO",
+      "action": "analyze_bm_trinket_recommendations",
+      "params": {
+        "topn": 40,
+        "top_band": 25,
+        "partition": 3
+      },
+      "result": {
+        "bosses": 9
+      },
+      "files": [
+        "C:/Users/MKSEORTV/Desktop/WowAnalyzer/data/bm_trinket_recommendations.json"
+      ]
     }
   ]
 }

@@ -632,6 +632,7 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .st-section-label:first-child { margin-top: 0; }
 .st-rec-wrap { max-height: none; margin-bottom: 12px; }
 .st-table.st-rec-table { min-width: 860px; }
+.st-table.st-trinket-table { min-width: 980px; }
 .st-table.st-rec-table th,
 .st-table.st-rec-table td { text-align: left; white-space: nowrap; }
 .st-table.st-rec-table th:nth-child(n+4),
