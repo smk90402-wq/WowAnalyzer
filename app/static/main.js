@@ -6,6 +6,13 @@
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
 
+function wowIconUrl(icon, size = 'medium') {
+  const raw = String(icon || '').trim().toLowerCase();
+  if (!raw) return '';
+  const file = /\.(jpg|png|gif)$/i.test(raw) ? raw : `${raw}.jpg`;
+  return `https://wow.zamimg.com/images/wow/icons/${size}/${encodeURIComponent(file)}`;
+}
+
 // 인증 비활성화 — 401 redirect 핸들러 제거. (사용자 요청: 일단 롤백)
 
 // ── 프론트엔드 로그 → 백엔드 (사용자 디버깅용) ──────────────────────────
@@ -581,7 +588,6 @@ async function openGearModal(ref) {
 function renderGear(data, charName) {
   const gear = (data.gear || []).filter(g => g.id && g.id !== 0);  // 빈 슬롯 제외
   const qcls = (q) => 'q' + (q || 'common');
-  const ICON = (i) => `https://wow.zamimg.com/images/wow/icons/medium/${esc(i)}.jpg`;
   const items = gear.map(g => {
     // wowhead 툴팁 — 아이템 풀스탯 + 마부 + 보석 (data-wowhead 속성)
     const wh = `item=${g.id}&domain=ko`
@@ -589,15 +595,15 @@ function renderGear(data, charName) {
       + ((g.gems || []).length ? `&gems=${g.gems.map(x => x.id).join(':')}` : '');
     // 보석: 아이콘 + 이름
     const gems = (g.gems || []).map(gm =>
-      gm.icon ? `<img class="gm-gem-icon" src="${ICON(gm.icon)}" title="${esc(gm.name_ko || gm.id)}" onerror="this.style.display='none'">`
+      gm.icon ? `<img class="gm-gem-icon" src="${wowIconUrl(gm.icon)}" title="${esc(gm.name_ko || gm.id)}" onerror="this.style.display='none'">`
               : `<span class="gm-gem" title="보석 ${gm.id}"></span>`).join('');
     // 마부: ID 표기 (wowhead 툴팁에서 이름 확인)
     const ench = g.ench ? `<span class="gm-ench" title="마부 (툴팁 참고)">마부</span>` : '';
     return `<a class="gm-item ${qcls(g.quality)}" href="https://www.wowhead.com/ko/item=${g.id}" target="_blank" data-wowhead="${wh}" rel="noopener">
-      ${g.icon ? `<img class="gm-icon" src="${ICON(g.icon)}" onerror="this.style.visibility='hidden'">` : '<span class="gm-icon gm-noicon"></span>'}
+      ${wowIconUrl(g.icon) ? `<img class="gm-icon" src="${wowIconUrl(g.icon)}" onerror="this.style.visibility='hidden'">` : '<span class="gm-icon gm-noicon"></span>'}
       <div class="gm-info">
         <div class="gm-slot">${esc(g.slot_kr || '')}</div>
-        <div class="gm-name">${esc(g.name_ko || ('#' + (g.id || '')))} <span class="gm-ilvl">${g.ilvl || ''}</span></div>
+        <div class="gm-name">${esc(g.name_ko || g.name_wcl || ('#' + (g.id || '')))} <span class="gm-ilvl">${g.ilvl || ''}</span></div>
         <div class="gm-extra">${ench}${gems}</div>
       </div>
     </a>`;
@@ -836,9 +842,7 @@ function renderPrepull(prepull) {
     <h3>전투 직전 버프 (${prepull.length})</h3>
     <ul class="prepull-list">
       ${prepull.map(p => {
-        const iconUrl = p.icon
-          ? `https://wow.zamimg.com/images/wow/icons/medium/${p.icon}`
-          : 'https://wow.zamimg.com/images/wow/icons/medium/inv_misc_questionmark.jpg';
+        const iconUrl = wowIconUrl(p.icon) || 'https://wow.zamimg.com/images/wow/icons/medium/inv_misc_questionmark.jpg';
         return `
           <li class="prepull-item">
             <img class="picon" src="${iconUrl}" alt="">
@@ -857,11 +861,9 @@ const QUALITY_COLOR = {
 };
 
 function gearItemHtml(g) {
-  const name = g.name_ko || `#${g.id ?? '?'}`;
+  const name = g.name_ko || g.name_wcl || `#${g.id ?? '?'}`;
   const color = QUALITY_COLOR[(g.quality || '').toUpperCase()] || 'var(--text)';
-  const iconUrl = g.icon
-    ? `https://wow.zamimg.com/images/wow/icons/medium/${g.icon}`
-    : '';
+  const iconUrl = wowIconUrl(g.icon);
   // wowhead 링크 — 호버 시 wowhead 가 native 툴팁 띄움 (외부 인터넷 필요)
   const wh = g.id
     ? `https://www.wowhead.com/item=${g.id}?ilvl=${g.ilvl ?? ''}`

@@ -369,6 +369,23 @@
       "files": [
         "data/talent_trees.json"
       ]
+    },
+    {
+      "ts": "2026-06-18T15:10:23",
+      "host": "RTVMKSEO",
+      "action": "enrich_kr",
+      "params": {
+        "missing_items": 23,
+        "missing_spells": 0
+      },
+      "result": {
+        "item_db": 971,
+        "spell_db": 5917
+      },
+      "files": [
+        "data/item_db.json",
+        "data/spell_db.json"
+      ]
     }
   ]
 }

@@ -19,6 +19,7 @@
 """
 from __future__ import annotations
 import json, sys, time
+import argparse
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -144,6 +145,12 @@ def fetch_item(cli: Blizzard, iid: int) -> dict:
     return {"name_ko": name, "icon": icon, "ilvl": ilvl, "quality": quality}
 
 
+def _item_needs_refresh(entry: dict | None) -> bool:
+    if not isinstance(entry, dict) or entry.get("miss"):
+        return True
+    return not (entry.get("name_ko") and entry.get("icon") and entry.get("quality"))
+
+
 def fetch_spell(cli: Blizzard, sid: int) -> dict:
     """spell id → {name_ko, icon, description_ko, src}.
 
@@ -173,6 +180,11 @@ def fetch_spell(cli: Blizzard, sid: int) -> dict:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--items-only", action="store_true",
+                        help="refresh item_db only; skip spell_db enrichment")
+    args = parser.parse_args()
+
     pf = json.loads(PFIGHT.read_text(encoding="utf-8"))
     spell_db = json.loads(SPELL_DB.read_text(encoding="utf-8")) if SPELL_DB.exists() else {}
     item_db = json.loads(ITEM_DB.read_text(encoding="utf-8")) if ITEM_DB.exists() else {}
@@ -183,7 +195,25 @@ def main() -> None:
 
     # ID 수집
     item_ids: set[int] = set()
+    item_seen: dict[int, dict] = {}
     ench_ids: set[int] = set()
+
+    def remember_item(iid, *, name: str = "", ilvl=None, slot=None, bonus=None) -> None:
+        if not isinstance(iid, int) or iid <= 0:
+            return
+        item_ids.add(iid)
+        seen = item_seen.setdefault(iid, {"seen_slots": set(), "seen_bonus_ids": set()})
+        if name and not seen.get("name_wcl"):
+            seen["name_wcl"] = str(name).strip()
+        if isinstance(ilvl, (int, float)):
+            seen["max_seen_ilvl"] = max(int(ilvl), int(seen.get("max_seen_ilvl") or 0))
+        if isinstance(slot, int):
+            seen["seen_slots"].add(slot)
+        if isinstance(bonus, list):
+            for bid in bonus:
+                if isinstance(bid, int):
+                    seen["seen_bonus_ids"].add(bid)
+
     for v in pf.values():
         if not isinstance(v, dict):
             continue
@@ -191,12 +221,18 @@ def main() -> None:
             if not isinstance(g, dict):
                 continue
             if isinstance(g.get("id"), int):
-                item_ids.add(g["id"])
+                remember_item(
+                    g["id"],
+                    name=g.get("name") or "",
+                    ilvl=g.get("ilvl"),
+                    slot=g.get("slot"),
+                    bonus=g.get("bonus") or [],
+                )
             if isinstance(g.get("ench"), int):
                 ench_ids.add(g["ench"])
             for x in g.get("gems") or []:
                 if isinstance(x, int):
-                    item_ids.add(x)
+                    remember_item(x)
 
     dmg_spell_ids: set[int] = set()
     for entries in damage.values():
@@ -276,11 +312,36 @@ def main() -> None:
           f"talent_opts={len(talent_spell_ids)}")
 
     # 빠진 거만
-    missing_items = sorted(i for i in item_ids if str(i) not in item_db or item_db[str(i)].get("miss"))
+    item_seen_changed = False
+    for iid, seen in item_seen.items():
+        key = str(iid)
+        entry = item_db.get(key)
+        if not isinstance(entry, dict):
+            entry = {}
+        before = dict(entry)
+        name_wcl = (seen.get("name_wcl") or "").strip()
+        if name_wcl and not entry.get("name_wcl"):
+            entry["name_wcl"] = name_wcl
+        max_seen = seen.get("max_seen_ilvl")
+        if isinstance(max_seen, int) and max_seen > int(entry.get("max_seen_ilvl") or 0):
+            entry["max_seen_ilvl"] = max_seen
+        slots = sorted(seen.get("seen_slots") or [])
+        if slots and entry.get("seen_slots") != slots:
+            entry["seen_slots"] = slots
+        bonus_ids = sorted(seen.get("seen_bonus_ids") or [])
+        if bonus_ids and entry.get("seen_bonus_ids") != bonus_ids:
+            entry["seen_bonus_ids"] = bonus_ids
+        if entry != before:
+            item_db[key] = entry
+            item_seen_changed = True
+
+    missing_items = sorted(i for i in item_ids if _item_needs_refresh(item_db.get(str(i))))
     missing_spells = sorted(
         s for s in spell_ids
         if str(s) not in spell_db or not spell_db[str(s)].get("name_ko") or spell_db[str(s)].get("miss")
     )
+    if args.items_only:
+        missing_spells = []
 
     print(f"items: {len(item_ids)} unique, {len(missing_items)} 페치 필요")
     print(f"spells (enchant+damage): {len(spell_ids)} unique, {len(missing_spells)} 페치 필요")
@@ -306,10 +367,17 @@ def main() -> None:
                     ok += 1
                 else:
                     miss += 1
-                item_db[str(iid)] = entry
+                existing = item_db.get(str(iid), {})
+                if isinstance(existing, dict):
+                    existing.update(entry)
+                    item_db[str(iid)] = existing
+                else:
+                    item_db[str(iid)] = entry
                 if done % 100 == 0:
                     print(f"  {done}/{len(missing_items)}  ok={ok}  miss={miss}")
         print(f"  완료 ({time.time()-t0:.1f}s) — ok={ok} miss={miss}")
+        ITEM_DB.write_text(json.dumps(item_db, ensure_ascii=False), encoding="utf-8")
+    elif item_seen_changed:
         ITEM_DB.write_text(json.dumps(item_db, ensure_ascii=False), encoding="utf-8")
 
     # ── 스펠 병렬 페치 ──────────────────────────────────────────────────────

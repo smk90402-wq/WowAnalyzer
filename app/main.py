@@ -546,12 +546,14 @@ def gear_only(rid: str, fid: int, char: str) -> JSONResponse:
         gems = []
         for gem_id in (g.get("gems") or []):
             gm = item_db.get(str(gem_id), {})
-            gems.append({"id": gem_id, "name_ko": gm.get("name_ko") or "",
+            gems.append({"id": gem_id, "name_ko": _item_display_name(gm),
                          "icon": gm.get("icon") or ""})
         gear.append({
             "slot": slot, "slot_kr": SLOT_KR.get(slot, f"슬롯 #{slot}"), "id": iid,
-            "name_ko": meta.get("name_ko") or "", "icon": meta.get("icon") or "",
-            "quality": meta.get("quality") or "", "ilvl": g.get("ilvl") or meta.get("ilvl"),
+            "name_ko": _item_display_name(meta, g), "name_wcl": _clean_text(g.get("name")),
+            "icon": meta.get("icon") or "", "quality": meta.get("quality") or "",
+            "ilvl": g.get("ilvl") or meta.get("ilvl"), "base_ilvl": meta.get("ilvl"),
+            "max_seen_ilvl": meta.get("max_seen_ilvl"), "bonus": g.get("bonus") or [],
             "gems": gems, "ench": g.get("ench"),
         })
     gear.sort(key=lambda g: (g["slot"] if g["slot"] >= 0 else 999))
@@ -595,10 +597,14 @@ def character_detail(rid: str, fid: int, char: str, cache_only: int = 0) -> JSON
             "slot": slot,
             "slot_kr": SLOT_KR.get(slot, f"슬롯 #{slot}"),
             "id": iid,
-            "name_ko": meta.get("name_ko") or "",
+            "name_ko": _item_display_name(meta, g),
+            "name_wcl": _clean_text(g.get("name")),
             "icon": meta.get("icon") or "",
             "quality": meta.get("quality") or "",
             "ilvl": g.get("ilvl") or meta.get("ilvl"),
+            "base_ilvl": meta.get("ilvl"),
+            "max_seen_ilvl": meta.get("max_seen_ilvl"),
+            "bonus": g.get("bonus") or [],
             "gems": g.get("gems") or [],
             "ench": g.get("ench"),
         })
@@ -724,6 +730,21 @@ def _item_db() -> dict:
         else:
             _item_db_cache = {}
     return _item_db_cache
+
+
+def _clean_text(value) -> str:
+    return value.strip() if isinstance(value, str) else ""
+
+
+def _item_display_name(meta: dict | None, gear: dict | None = None) -> str:
+    if isinstance(meta, dict):
+        for key in ("name_ko", "name", "name_wcl"):
+            val = _clean_text(meta.get(key))
+            if val:
+                return val
+    if isinstance(gear, dict):
+        return _clean_text(gear.get("name"))
+    return ""
 
 
 # ── 한글 / rating 매핑 ─────────────────────────────────────────────────────
