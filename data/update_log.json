@@ -598,6 +598,31 @@
         "data/spec_meta_ranking.csv",
         "data/cache_manifest.json"
       ]
+    },
+    {
+      "ts": "2026-06-18T20:59:22",
+      "host": "RTVMKSEO",
+      "action": "prefetch_bm_trinket_deep_cache_partial",
+      "params": {
+        "player_topn": 100,
+        "deep_topn": 25,
+        "windows": "initial top2 smoke only; broad pass interrupted by user",
+        "reason": "BM trinket deep analysis cache before leaving office"
+      },
+      "result": {
+        "bm_top100_player_fight_cached": "740/900",
+        "deep_rows_cached": "197/225",
+        "full_ability_rows": 197,
+        "full_target_rows": 197,
+        "window_rows": 18,
+        "status": "partial_saved"
+      },
+      "files": [
+        "data/v2_cache_player_fight.json",
+        "data/v2_cache_damage.json",
+        "data/bm_trinket_deep_cache.json",
+        "prefetch_bm_trinket_deep_cache.py"
+      ]
     }
   ]
 }
