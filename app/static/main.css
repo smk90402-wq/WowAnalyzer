@@ -620,6 +620,23 @@ body {
 .st-section-label { font-size: 12px; font-weight: 700; color: #c8a560; margin: 14px 0 8px;
   text-transform: uppercase; letter-spacing: 0.03em; }
 .st-section-label:first-child { margin-top: 0; }
+.st-rec-wrap { max-height: none; margin-bottom: 12px; }
+.st-table.st-rec-table th,
+.st-table.st-rec-table td { text-align: left; }
+.st-table.st-rec-table th:nth-child(n+4),
+.st-table.st-rec-table td:nth-child(n+4) { text-align: right; }
+.st-rec-card { background: var(--bg-1); border: 1px solid rgba(120,100,80,0.22);
+  border-radius: 8px; padding: 12px 14px; margin-bottom: 12px; }
+.st-rec-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline;
+  font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 9px; flex-wrap: wrap; }
+.st-rec-conf { color: var(--text-mute); font-size: 11px; font-weight: 500; }
+.st-rec-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.st-rec-grid div { background: var(--bg-0); border-radius: 6px; padding: 8px 9px; min-width: 0; }
+.st-rec-grid span { display: block; font-size: 10.5px; margin-bottom: 3px; }
+.st-rec-grid b { display: block; font-size: 12px; color: #e3c889; line-height: 1.35; overflow-wrap: anywhere; }
+.st-rec-note { margin-top: 8px; color: var(--text); font-size: 12px; line-height: 1.55; }
+@media (max-width: 980px) { .st-rec-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .st-rec-grid { grid-template-columns: 1fr; } }
 .st-table { width: 100%; border-collapse: collapse; font-size: 12px; }
 .st-table thead th { position: sticky; top: 0; background: var(--bg-1); color: var(--text-mute);
   font-weight: 600; text-align: right; padding: 6px 9px; border-bottom: 1px solid rgba(120,100,80,0.3); }

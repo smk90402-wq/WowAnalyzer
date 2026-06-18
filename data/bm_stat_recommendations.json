@@ -1,0 +1,298 @@
+{
+  "_meta": {
+    "generated_at": "2026-06-18T14:42:31",
+    "source": "data\\rankings_zone46_mythic_dps_top100.csv",
+    "topn": 40,
+    "spec": "Hunter|Beast Mastery"
+  },
+  "Hunter|Beast Mastery": {
+    "3176": {
+      "sample_n": 36,
+      "hero_counts": {
+        "PackLeader": 36
+      },
+      "mean": {
+        "crit": 1228,
+        "haste": 424,
+        "mastery": 1183,
+        "vers": 46
+      },
+      "crit_mastery_pct": 103.8,
+      "haste_crit_pct": 34.5,
+      "raw_corr": {
+        "crit": 0.264,
+        "haste": -0.029,
+        "mastery": 0.01,
+        "vers": -0.057
+      },
+      "adjusted_corr": {
+        "crit": 0.157,
+        "haste": 0.088,
+        "mastery": 0.018,
+        "vers": 0.073
+      },
+      "adjustment": "DPS에서 ilvl과 전투시간의 선형 효과를 제거한 잔차 기준",
+      "shape": "특화+치명",
+      "plume": "치명 꽁지깃",
+      "profile": "광/쫄 비중 높음",
+      "confidence": "높음",
+      "basis": "상위 36개 Pack Leader 표본 평균: 특화 1183, 치명 1228, 가속 424 (치/특 103.8%). 보정 후 상관: 치명 +0.16, 가속 +0.09, 특화 +0.02."
+    },
+    "3177": {
+      "sample_n": 40,
+      "hero_counts": {
+        "PackLeader": 40
+      },
+      "mean": {
+        "crit": 819,
+        "haste": 743,
+        "mastery": 1277,
+        "vers": 81
+      },
+      "crit_mastery_pct": 64.1,
+      "haste_crit_pct": 90.7,
+      "raw_corr": {
+        "crit": 0.087,
+        "haste": 0.032,
+        "mastery": -0.265,
+        "vers": 0.017
+      },
+      "adjusted_corr": {
+        "crit": 0.088,
+        "haste": 0.027,
+        "mastery": -0.266,
+        "vers": 0.021
+      },
+      "adjustment": "DPS에서 ilvl과 전투시간의 선형 효과를 제거한 잔차 기준",
+      "shape": "특화 중심, 치/가 균형",
+      "plume": "특화 꽁지깃",
+      "profile": "단일·펫딜 비중 높음",
+      "confidence": "높음",
+      "basis": "상위 40개 Pack Leader 표본 평균: 특화 1277, 치명 819, 가속 743 (치/특 64.1%). 보정 후 상관: 치명 +0.09, 가속 +0.03, 특화 -0.27."
+    },
+    "3178": {
+      "sample_n": 26,
+      "hero_counts": {
+        "PackLeader": 26
+      },
+      "mean": {
+        "crit": 1173,
+        "haste": 447,
+        "mastery": 1157,
+        "vers": 47
+      },
+      "crit_mastery_pct": 101.4,
+      "haste_crit_pct": 38.1,
+      "raw_corr": {
+        "crit": 0.187,
+        "haste": 0.081,
+        "mastery": -0.261,
+        "vers": -0.441
+      },
+      "adjusted_corr": {
+        "crit": 0.138,
+        "haste": 0.106,
+        "mastery": -0.243,
+        "vers": -0.472
+      },
+      "adjustment": "DPS에서 ilvl과 전투시간의 선형 효과를 제거한 잔차 기준",
+      "shape": "특화+치명",
+      "plume": "치명 꽁지깃",
+      "profile": "광/쫄 비중 높음",
+      "confidence": "높음",
+      "basis": "상위 26개 Pack Leader 표본 평균: 특화 1157, 치명 1173, 가속 447 (치/특 101.4%). 보정 후 상관: 치명 +0.14, 가속 +0.11, 특화 -0.24."
+    },
+    "3179": {
+      "sample_n": 27,
+      "hero_counts": {
+        "PackLeader": 27
+      },
+      "mean": {
+        "crit": 1062,
+        "haste": 550,
+        "mastery": 1265,
+        "vers": 71
+      },
+      "crit_mastery_pct": 84.0,
+      "haste_crit_pct": 51.8,
+      "raw_corr": {
+        "crit": -0.133,
+        "haste": 0.199,
+        "mastery": 0.124,
+        "vers": 0.324
+      },
+      "adjusted_corr": {
+        "crit": -0.249,
+        "haste": 0.348,
+        "mastery": 0.214,
+        "vers": 0.328
+      },
+      "adjustment": "DPS에서 ilvl과 전투시간의 선형 효과를 제거한 잔차 기준",
+      "shape": "특화+가속",
+      "plume": "특화 꽁지깃",
+      "profile": "혼합형",
+      "confidence": "높음",
+      "basis": "상위 27개 Pack Leader 표본 평균: 특화 1265, 치명 1062, 가속 550 (치/특 84.0%). 보정 후 상관: 치명 -0.25, 가속 +0.35, 특화 +0.21."
+    },
+    "3180": {
+      "sample_n": 34,
+      "hero_counts": {
+        "PackLeader": 34
+      },
+      "mean": {
+        "crit": 1168,
+        "haste": 463,
+        "mastery": 1227,
+        "vers": 64
+      },
+      "crit_mastery_pct": 95.2,
+      "haste_crit_pct": 39.6,
+      "raw_corr": {
+        "crit": 0.371,
+        "haste": -0.225,
+        "mastery": 0.243,
+        "vers": 0.293
+      },
+      "adjusted_corr": {
+        "crit": 0.307,
+        "haste": -0.139,
+        "mastery": 0.184,
+        "vers": 0.36
+      },
+      "adjustment": "DPS에서 ilvl과 전투시간의 선형 효과를 제거한 잔차 기준",
+      "shape": "특화+치명",
+      "plume": "치명 꽁지깃",
+      "profile": "광/쫄 비중 높음",
+      "confidence": "높음",
+      "basis": "상위 34개 Pack Leader 표본 평균: 특화 1227, 치명 1168, 가속 463 (치/특 95.2%). 보정 후 상관: 치명 +0.31, 가속 -0.14, 특화 +0.18."
+    },
+    "3181": {
+      "sample_n": 38,
+      "hero_counts": {
+        "PackLeader": 38
+      },
+      "mean": {
+        "crit": 829,
+        "haste": 698,
+        "mastery": 1113,
+        "vers": 53
+      },
+      "crit_mastery_pct": 74.5,
+      "haste_crit_pct": 84.2,
+      "raw_corr": {
+        "crit": -0.316,
+        "haste": 0.237,
+        "mastery": 0.24,
+        "vers": 0.477
+      },
+      "adjusted_corr": {
+        "crit": -0.21,
+        "haste": 0.086,
+        "mastery": 0.299,
+        "vers": 0.321
+      },
+      "adjustment": "DPS에서 ilvl과 전투시간의 선형 효과를 제거한 잔차 기준",
+      "shape": "특화+가속",
+      "plume": "특화 꽁지깃",
+      "profile": "단일·펫딜 비중 높음",
+      "confidence": "높음",
+      "basis": "상위 38개 Pack Leader 표본 평균: 특화 1113, 치명 829, 가속 698 (치/특 74.5%). 보정 후 상관: 치명 -0.21, 가속 +0.09, 특화 +0.30."
+    },
+    "3182": {
+      "sample_n": 37,
+      "hero_counts": {
+        "PackLeader": 37
+      },
+      "mean": {
+        "crit": 844,
+        "haste": 716,
+        "mastery": 1551,
+        "vers": 89
+      },
+      "crit_mastery_pct": 54.4,
+      "haste_crit_pct": 84.8,
+      "raw_corr": {
+        "crit": -0.204,
+        "haste": 0.056,
+        "mastery": -0.217,
+        "vers": -0.103
+      },
+      "adjusted_corr": {
+        "crit": -0.11,
+        "haste": -0.016,
+        "mastery": -0.149,
+        "vers": -0.173
+      },
+      "adjustment": "DPS에서 ilvl과 전투시간의 선형 효과를 제거한 잔차 기준",
+      "shape": "특화+가속",
+      "plume": "특화 꽁지깃",
+      "profile": "단일·펫딜 비중 높음",
+      "confidence": "보통",
+      "basis": "상위 37개 Pack Leader 표본 평균: 특화 1551, 치명 844, 가속 716 (치/특 54.4%). 보정 후 상관: 치명 -0.11, 가속 -0.02, 특화 -0.15."
+    },
+    "3183": {
+      "sample_n": 36,
+      "hero_counts": {
+        "PackLeader": 36
+      },
+      "mean": {
+        "crit": 882,
+        "haste": 706,
+        "mastery": 1125,
+        "vers": 70
+      },
+      "crit_mastery_pct": 78.4,
+      "haste_crit_pct": 80.0,
+      "raw_corr": {
+        "crit": -0.161,
+        "haste": 0.208,
+        "mastery": 0.283,
+        "vers": -0.127
+      },
+      "adjusted_corr": {
+        "crit": -0.054,
+        "haste": 0.097,
+        "mastery": 0.258,
+        "vers": -0.28
+      },
+      "adjustment": "DPS에서 ilvl과 전투시간의 선형 효과를 제거한 잔차 기준",
+      "shape": "특화+가속",
+      "plume": "특화 꽁지깃",
+      "profile": "혼합형",
+      "confidence": "높음",
+      "basis": "상위 36개 Pack Leader 표본 평균: 특화 1125, 치명 882, 가속 706 (치/특 78.4%). 보정 후 상관: 치명 -0.05, 가속 +0.10, 특화 +0.26."
+    },
+    "3306": {
+      "sample_n": 37,
+      "hero_counts": {
+        "PackLeader": 37
+      },
+      "mean": {
+        "crit": 1145,
+        "haste": 438,
+        "mastery": 1333,
+        "vers": 44
+      },
+      "crit_mastery_pct": 85.9,
+      "haste_crit_pct": 38.3,
+      "raw_corr": {
+        "crit": 0.112,
+        "haste": -0.192,
+        "mastery": 0.026,
+        "vers": 0.013
+      },
+      "adjusted_corr": {
+        "crit": 0.029,
+        "haste": -0.133,
+        "mastery": 0.103,
+        "vers": 0.061
+      },
+      "adjustment": "DPS에서 ilvl과 전투시간의 선형 효과를 제거한 잔차 기준",
+      "shape": "특화+치명",
+      "plume": "보유템 우선",
+      "profile": "혼합형",
+      "confidence": "높음",
+      "basis": "상위 37개 Pack Leader 표본 평균: 특화 1333, 치명 1145, 가속 438 (치/특 85.9%). 보정 후 상관: 치명 +0.03, 가속 -0.13, 특화 +0.10."
+    }
+  }
+}

@@ -445,6 +445,55 @@ function _specKrStat(spec) {
   };
   return m[spec] || spec;
 }
+function _statCorrText(corr) {
+  const fmt = (v) => v == null || Number.isNaN(Number(v)) ? '-' : `${Number(v) >= 0 ? '+' : ''}${Number(v).toFixed(2)}`;
+  corr = corr || {};
+  return `치명 ${fmt(corr.crit)} · 가속 ${fmt(corr.haste)} · 특화 ${fmt(corr.mastery)}`;
+}
+function renderBossStatRecommendationTable() {
+  const bosses = _statData[`${_statSel.cls}|${_statSel.spec}`] || {};
+  const rows = Object.entries(bosses)
+    .filter(([, b]) => b.recommendation)
+    .map(([eid, b]) => {
+      const r = b.recommendation || {};
+      const m = r.mean || {};
+      return `<tr>
+        <td>${esc(b.boss_kr || eid)}</td>
+        <td>${esc(r.shape || '-')}</td>
+        <td>${esc(r.plume || '-')}</td>
+        <td class="num">${r.crit_mastery_pct != null ? r.crit_mastery_pct + '%' : '-'}</td>
+        <td class="num">${m.mastery || '-'} / ${m.crit || '-'} / ${m.haste || '-'}</td>
+        <td>${esc(_statCorrText(r.adjusted_corr))}</td>
+        <td>${esc(r.profile || '-')}</td>
+      </tr>`;
+    }).join('');
+  if (!rows) return '';
+  return `<div class="st-section-label">보스별 권장 스탯 형태 <span class="bc-mute">— BM 무리 인도자, ilvl·전투시간 보정 포함</span></div>
+    <div class="table-wrap st-rec-wrap">
+      <table class="st-table st-rec-table">
+        <thead><tr><th>보스</th><th>권장 형태</th><th>꽁지깃</th><th>치/특</th><th>특/치/가 평균</th><th>보정 후 상관</th><th>성격</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+function renderSelectedStatRecommendation(d) {
+  const r = d.recommendation;
+  if (!r) return '';
+  return `<div class="st-rec-card">
+    <div class="st-rec-head">
+      <span>${esc(d.boss_kr)} 권장</span>
+      <span class="st-rec-conf">신뢰도 ${esc(r.confidence || '보통')} · n=${r.sample_n || '-'}</span>
+    </div>
+    <div class="st-rec-grid">
+      <div><span class="bc-mute">스탯 형태</span><b>${esc(r.shape || '-')}</b></div>
+      <div><span class="bc-mute">꽁지깃</span><b>${esc(r.plume || '-')}</b></div>
+      <div><span class="bc-mute">보스 성격</span><b>${esc(r.profile || '-')}</b></div>
+      <div><span class="bc-mute">동일 ilvl 보정</span><b>${esc(_statCorrText(r.adjusted_corr))}</b></div>
+    </div>
+    <div class="st-rec-note">${esc(r.basis || '')}</div>
+    <div class="st-rec-note bc-mute">${esc(r.adjustment || '')}</div>
+  </div>`;
+}
 function renderStatBody() {
   const d = (_statData[`${_statSel.cls}|${_statSel.spec}`] || {})[_statSel.boss];
   if (!d) { $('#stat-body').innerHTML = '<div class="empty">데이터 없음</div>'; return; }
@@ -483,6 +532,8 @@ function renderStatBody() {
   const topAvg = avgCards(d.top_avg);
   const restAvg = avgCards(d.rest_avg);
   $('#stat-body').innerHTML = `
+    ${renderBossStatRecommendationTable()}
+    ${renderSelectedStatRecommendation(d)}
     <div class="st-section-label">🎯 1~20등 평균 = 목표 스탯 ${d.has_build ? '(빌드별 광/단일)' : ''} <span class="bc-mute">— 풀버프 기준, 인게임 음식·영약 켜고 맞추면 됨</span></div>
     <div class="st-avg-grid">${topAvg || '<div class="sm-empty">데이터 없음</div>'}</div>
     <div class="st-section-label">1~20등 개별 <span class="bc-mute">— 수치 + 실효%(점감반영). 행 클릭=장비창</span></div>

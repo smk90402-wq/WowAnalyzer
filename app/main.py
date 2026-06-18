@@ -465,6 +465,8 @@ def boss_stats() -> Response:
         raise HTTPException(404, "boss_stats.json 없음 — extract_boss_stats.py 실행 필요")
     import json as _json
     data = _json.loads(p.read_text(encoding="utf-8"))
+    rec_p = DATA_DIR / "bm_stat_recommendations.json"
+    recs = _json.loads(rec_p.read_text(encoding="utf-8")) if rec_p.exists() else {}
     STATS = ["특화", "치명", "가속", "유연"]
 
     def add_eff(stats: dict) -> dict:
@@ -479,6 +481,9 @@ def boss_stats() -> Response:
                 blk["eff"] = add_eff(blk.get("stats", {}))
             for blk in (d.get("rest_avg") or []):
                 blk["eff"] = add_eff(blk.get("stats", {}))
+            rec = (recs.get(spec_key) or {}).get(str(eid))
+            if rec:
+                d["recommendation"] = rec
     return Response(content=_json.dumps({"data": data}, ensure_ascii=False),
                     media_type="application/json")
 
