@@ -419,6 +419,185 @@
         "data/official_sources.json",
         "data/bm_trinket_recommendations.json"
       ]
+    },
+    {
+      "ts": "2026-06-18T16:07:07",
+      "host": "RTVMKSEO",
+      "action": "fetch_rankings_v2",
+      "params": {
+        "difficulty": 5,
+        "label": "mythic",
+        "zone": 46,
+        "top_n": 100,
+        "partition": 3
+      },
+      "result": {
+        "rows": 18830,
+        "api_pts": 246.4
+      },
+      "files": [
+        "data/rankings_zone46_mythic_dps_top100.csv"
+      ]
+    },
+    {
+      "ts": "2026-06-18T16:10:36",
+      "host": "RTVMKSEO",
+      "action": "fetch_rankings_v2",
+      "params": {
+        "difficulty": 4,
+        "label": "heroic",
+        "zone": 46,
+        "top_n": 100,
+        "partition": 3
+      },
+      "result": {
+        "rows": 21828,
+        "api_pts": 246.4
+      },
+      "files": [
+        "data/rankings_zone46_heroic_dps_top100.csv"
+      ]
+    },
+    {
+      "ts": "2026-06-18T17:55:52",
+      "host": "RTVMKSEO",
+      "action": "backfill_v2",
+      "params": {
+        "limit": null,
+        "processed": 1500,
+        "scanned": 2739,
+        "missing_only": true,
+        "max_new": 1500,
+        "pf_all": true,
+        "no_events": true
+      },
+      "result": {
+        "pf_new": 1476,
+        "pf_fail": 24,
+        "ev_new": 0,
+        "ev_fail": 0,
+        "ev_skip": 1500,
+        "rate_end": 3558.09
+      },
+      "files": [
+        "data/v2_cache_player_fight.json",
+        "data/v2_cache_events.json"
+      ]
+    },
+    {
+      "ts": "2026-06-18T18:23:19",
+      "host": "RTVMKSEO",
+      "action": "backfill_v2",
+      "params": {
+        "limit": null,
+        "processed": 1336,
+        "scanned": 4050,
+        "missing_only": true,
+        "max_new": 1500,
+        "pf_all": true,
+        "no_events": true
+      },
+      "result": {
+        "pf_new": 1302,
+        "pf_fail": 34,
+        "ev_new": 0,
+        "ev_fail": 0,
+        "ev_skip": 1336,
+        "rate_end": 390
+      },
+      "files": [
+        "data/v2_cache_player_fight.json",
+        "data/v2_cache_events.json"
+      ]
+    },
+    {
+      "ts": "2026-06-18T18:49:43",
+      "host": "RTVMKSEO",
+      "action": "backfill_hunter_dealcycle_events",
+      "params": {
+        "top_per_boss": 25,
+        "specs": [
+          "Beast Mastery",
+          "Marksmanship",
+          "Survival"
+        ]
+      },
+      "result": {
+        "coverage": {
+          "Beast Mastery": "224/225",
+          "Marksmanship": "207/212",
+          "Survival": "225/225"
+        }
+      },
+      "files": [
+        "data/v2_cache_player_fight.json",
+        "data/v2_cache_events.json"
+      ]
+    },
+    {
+      "ts": "2026-06-18T18:53:04",
+      "host": "RTVMKSEO",
+      "action": "analyze_spec_meta",
+      "params": {
+        "weights": {
+          "ease": 0.45,
+          "pi_indep": 0.35,
+          "consistency": 0.2,
+          "cleave_parse": 0.0
+        }
+      },
+      "result": {
+        "specs": 27,
+        "top": "사냥 야수"
+      },
+      "files": [
+        "data/spec_meta_ranking.csv"
+      ]
+    },
+    {
+      "ts": "2026-06-18T18:55:48",
+      "host": "RTVMKSEO",
+      "action": "analyze_bm_trinket_recommendations",
+      "params": {
+        "topn": 40,
+        "top_band": 25,
+        "partition": 3
+      },
+      "result": {
+        "bosses": 9
+      },
+      "files": [
+        "C:/Users/MKSEORTV/Desktop/WowAnalyzer/data/bm_trinket_recommendations.json"
+      ]
+    },
+    {
+      "ts": "2026-06-18T18:56:49",
+      "host": "RTVMKSEO",
+      "action": "refresh_rankings_and_derived_data",
+      "params": {
+        "partition": "12.0.7",
+        "rankings": [
+          "mythic",
+          "heroic"
+        ],
+        "pf_all_per_spec": 150,
+        "hunter_dealcycle_top_per_boss": 25
+      },
+      "result": {
+        "pfight_manifest": 12874,
+        "events_manifest": 6304,
+        "meta_manifest": 3935
+      },
+      "files": [
+        "data/rankings_zone46_mythic_dps_top100.csv",
+        "data/rankings_zone46_heroic_dps_top100.csv",
+        "data/boss_stats.json",
+        "data/boss_dealcycle.json",
+        "data/bm_stat_recommendations.json",
+        "data/bm_trinket_recommendations.json",
+        "data/spec_meta_ranking.csv",
+        "data/cache_manifest.json"
+      ]
     }
   ]
 }

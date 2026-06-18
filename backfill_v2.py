@@ -25,12 +25,16 @@ from wcl_v2_data import V2Data
 
 DATA = Path(__file__).parent / "data"
 CSV = DATA / "rankings_zone46_mythic_dps_top100.csv"
+PRINT_EVERY = 25
+FLUSH_EVERY = 250
 
 # 풀 데이터 (talents + gear + casts + buffs)
 PRIMARY_TARGETS = {
     ("Warlock", "Demonology"),
     ("Druid",   "Balance"),
     ("Hunter",  "Beast Mastery"),
+    ("Hunter",  "Marksmanship"),
+    ("Hunter",  "Survival"),
     ("Warrior", "Arms"),
     ("Warrior", "Fury"),
 }
@@ -39,18 +43,18 @@ TREE_COMP_TARGETS = {
     ("Warlock", "Affliction"),
     ("Warlock", "Destruction"),
     ("Druid",   "Feral"),
-    ("Hunter",  "Marksmanship"),
-    ("Hunter",  "Survival"),
 }
 TARGETS = PRIMARY_TARGETS | TREE_COMP_TARGETS
 
 
 def main(limit: int | None = None, all_specs: bool = False,
-         per_spec: int | None = None) -> None:
+         per_spec: int | None = None, missing_only: bool = False,
+         max_new: int | None = None, pf_all: bool = False,
+         no_events: bool = False) -> None:
     df = pd.read_csv(CSV)
     df["report_id"] = df["report_id"].astype(str)
     df["fight_id"] = df["fight_id"].astype(int)
-    if all_specs:
+    if all_specs or pf_all:
         # 전 스펙 — 로테 난이도용 casts 필요. events 도 전원 페치.
         sub = df.copy()
     else:
@@ -71,9 +75,22 @@ def main(limit: int | None = None, all_specs: bool = False,
 
     pf_new = pf_fail = 0
     ev_new = ev_fail = ev_skip = 0
-    for i, (_, row) in enumerate(sub.iterrows(), 1):
+    scanned = work = 0
+    for _, row in sub.iterrows():
+        scanned += 1
         rid = row["report_id"]; fid = int(row["fight_id"]); char = row["character"]
         cls = row["class"]; spec = row["spec"]
+        pf_key = f"{rid}:{fid}:{char}"
+        needs_events = (not no_events) and (all_specs or (cls, spec) in PRIMARY_TARGETS)
+        cached_pf = d.pfight.get(pf_key)
+        if missing_only and isinstance(cached_pf, dict):
+            sid = cached_pf.get("sourceID")
+            ev_key = f"{rid}:{fid}:{sid}" if sid is not None else None
+            if not needs_events or (ev_key and ev_key in d.events):
+                continue
+        if max_new is not None and work >= max_new:
+            break
+        work += 1
         # playerDetails (talents + gear) — 항상
         pf = d.player_fight(rid, fid, char)
         if pf:
@@ -82,7 +99,7 @@ def main(limit: int | None = None, all_specs: bool = False,
             pf_fail += 1
 
         # events (casts + buffs) — all_specs 면 전원, 아니면 primary 만
-        if all_specs or (cls, spec) in PRIMARY_TARGETS:
+        if needs_events:
             ev = d.events_for(rid, fid, char)
             if ev:
                 ev_new += 1
@@ -91,10 +108,11 @@ def main(limit: int | None = None, all_specs: bool = False,
         else:
             ev_skip += 1
 
-        if i % 25 == 0:
+        if work % FLUSH_EVERY == 0:
             d.flush()
+        if work % PRINT_EVERY == 0:
             rate = d.cli.points_left() or {}
-            print(f"  {i}/{len(sub)}  pf={pf_new}/{pf_fail}f  ev={ev_new}/{ev_fail}f/skip{ev_skip}  "
+            print(f"  scanned={scanned}/{len(sub)} work={work}  pf={pf_new}/{pf_fail}f  ev={ev_new}/{ev_fail}f/skip{ev_skip}  "
                   f"rate={rate.get('pointsSpentThisHour', '?'):.1f}/{rate.get('limitPerHour', '?')}")
         time.sleep(0.05)
 
@@ -108,7 +126,9 @@ def main(limit: int | None = None, all_specs: bool = False,
         from update_log import record
         record(
             action="backfill_v2",
-            params={"limit": limit, "processed": len(sub)},
+            params={"limit": limit, "processed": work, "scanned": scanned,
+                    "missing_only": missing_only, "max_new": max_new,
+                    "pf_all": pf_all, "no_events": no_events},
             result={"pf_new": pf_new, "pf_fail": pf_fail,
                     "ev_new": ev_new, "ev_fail": ev_fail, "ev_skip": ev_skip,
                     "rate_end": rate.get("pointsSpentThisHour") if rate else None},
@@ -126,6 +146,8 @@ if __name__ == "__main__":
     #   python backfill_v2.py --all --per-spec 150  # 스펙당 상위 150
     #   python backfill_v2.py 200        # 앞 200행만 (파일럿)
     lim = None; all_specs = False; per_spec = None
+    missing_only = False; max_new = None
+    pf_all = False; no_events = False
     args = sys.argv[1:]; i = 0
     while i < len(args):
         a = args[i]
@@ -133,6 +155,16 @@ if __name__ == "__main__":
             all_specs = True; i += 1
         elif a == "--per-spec":
             per_spec = int(args[i + 1]); i += 2
+        elif a == "--missing-only":
+            missing_only = True; i += 1
+        elif a == "--max-new":
+            max_new = int(args[i + 1]); i += 2
+        elif a == "--pf-all":
+            pf_all = True; i += 1
+        elif a == "--no-events":
+            no_events = True; i += 1
         else:
             lim = int(a); i += 1
-    main(lim, all_specs=all_specs, per_spec=per_spec)
+    main(lim, all_specs=all_specs, per_spec=per_spec,
+         missing_only=missing_only, max_new=max_new,
+         pf_all=pf_all, no_events=no_events)

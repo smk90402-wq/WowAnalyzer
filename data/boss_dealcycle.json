@@ -3,7 +3,7 @@
   "3176": {
    "boss_kr": "Imperator Averzian",
    "n": 25,
-   "kill_s": 290,
+   "kill_s": 220,
    "opener": [
     {
      "skill": "알게타르 수수께끼"
@@ -30,92 +30,23 @@
      "skill": "살상 명령"
     }
    ],
-   "opener_match": 43,
+   "opener_match": 60,
    "box": {
-    "used": 24,
-    "opener_pct": 71,
-    "delayed_first_s": 130,
+    "used": 23,
+    "opener_pct": 70,
+    "delayed_first_s": 137,
     "delayed_n": 7
    },
    "cooldowns": [
     {
      "skill": "야수의 격노",
      "first_s": 2,
-     "count": 9
+     "count": 7
     }
    ],
    "lust": {
-    "cover": "22/25",
-    "first_s": 3
-   },
-   "potion": {
-    "cover": "10/25",
-    "first_s": 34
-   },
-   "buff_uptime": [
-    {
-     "buff": "무리의 지도자의 포효",
-     "pct": 90
-    },
-    {
-     "buff": "자연의 동맹",
-     "pct": 56
-    }
-   ],
-   "build": {
-    "aoe_label": "마구잡이 난타(광)",
-    "st_label": "단일",
-    "aoe_pct": 96,
-    "pick": "마구잡이 난타(광)"
-   }
-  },
-  "3177": {
-   "boss_kr": "Vorasius",
-   "n": 25,
-   "kill_s": 224,
-   "opener": [
-    {
-     "skill": "알게타르 수수께끼"
-    },
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "야수의 격노"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "살상 명령"
-    }
-   ],
-   "opener_match": 62,
-   "box": {
-    "used": 23,
-    "opener_pct": 91,
-    "delayed_first_s": 124,
-    "delayed_n": 2
-   },
-   "cooldowns": [
-    {
-     "skill": "야수의 격노",
-     "first_s": 3,
-     "count": 8
-    }
-   ],
-   "lust": {
-    "cover": "19/25",
-    "first_s": 3
+    "cover": "14/25",
+    "first_s": 2
    },
    "potion": {
     "cover": "3/25",
@@ -128,7 +59,76 @@
     },
     {
      "buff": "자연의 동맹",
-     "pct": 63
+     "pct": 61
+    }
+   ],
+   "build": {
+    "aoe_label": "마구잡이 난타(광)",
+    "st_label": "단일",
+    "aoe_pct": 48,
+    "pick": "혼재"
+   }
+  },
+  "3177": {
+   "boss_kr": "Vorasius",
+   "n": 25,
+   "kill_s": 204,
+   "opener": [
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "야수의 격노"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "살상 명령"
+    }
+   ],
+   "opener_match": 59,
+   "box": {
+    "used": 23,
+    "opener_pct": 74,
+    "delayed_first_s": 125,
+    "delayed_n": 6
+   },
+   "cooldowns": [
+    {
+     "skill": "야수의 격노",
+     "first_s": 3,
+     "count": 7
+    }
+   ],
+   "lust": {
+    "cover": "17/25",
+    "first_s": 3
+   },
+   "potion": {
+    "cover": "4/25",
+    "first_s": 1
+   },
+   "buff_uptime": [
+    {
+     "buff": "무리의 지도자의 포효",
+     "pct": 91
+    },
+    {
+     "buff": "자연의 동맹",
+     "pct": 62
     }
    ],
    "build": {
@@ -141,7 +141,7 @@
   "3178": {
    "boss_kr": "Vaelgor & Ezzorak",
    "n": 25,
-   "kill_s": 414,
+   "kill_s": 351,
    "opener": [
     {
      "skill": "날카로운 사격"
@@ -168,36 +168,36 @@
      "skill": "날카로운 사격"
     }
    ],
-   "opener_match": 54,
+   "opener_match": 52,
    "box": {
     "used": 22,
-    "opener_pct": 55,
-    "delayed_first_s": 37,
-    "delayed_n": 10
+    "opener_pct": 59,
+    "delayed_first_s": 135,
+    "delayed_n": 9
    },
    "cooldowns": [
     {
      "skill": "야수의 격노",
-     "first_s": 4,
-     "count": 12
+     "first_s": 3,
+     "count": 11
     }
    ],
    "lust": {
-    "cover": "16/25",
-    "first_s": 4
+    "cover": "13/25",
+    "first_s": 3
    },
    "potion": {
-    "cover": "3/25",
-    "first_s": 1
+    "cover": "1/25",
+    "first_s": 3
    },
    "buff_uptime": [
     {
      "buff": "무리의 지도자의 포효",
-     "pct": 91
+     "pct": 90
     },
     {
      "buff": "자연의 동맹",
-     "pct": 55
+     "pct": 56
     }
    ],
    "build": {
@@ -210,7 +210,346 @@
   "3179": {
    "boss_kr": "Fallen-King Salhadaar",
    "n": 25,
-   "kill_s": 327,
+   "kill_s": 201,
+   "opener": [
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "야수의 격노"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "살상 명령"
+    }
+   ],
+   "opener_match": 55,
+   "box": {
+    "used": 22,
+    "opener_pct": 64,
+    "delayed_first_s": 127,
+    "delayed_n": 8
+   },
+   "cooldowns": [
+    {
+     "skill": "야수의 격노",
+     "first_s": 3,
+     "count": 7
+    }
+   ],
+   "lust": {
+    "cover": "15/25",
+    "first_s": 2
+   },
+   "potion": {
+    "cover": "1/25",
+    "first_s": 1
+   },
+   "buff_uptime": [
+    {
+     "buff": "무리의 지도자의 포효",
+     "pct": 90
+    },
+    {
+     "buff": "자연의 동맹",
+     "pct": 62
+    }
+   ],
+   "build": {
+    "aoe_label": "마구잡이 난타(광)",
+    "st_label": "단일",
+    "aoe_pct": 8,
+    "pick": "단일"
+   }
+  },
+  "3180": {
+   "boss_kr": "Lightblinded Vanguard",
+   "n": 25,
+   "kill_s": 362,
+   "opener": [
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "마구잡이 난타"
+    },
+    {
+     "skill": "야수의 격노"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "날카로운 사격"
+    }
+   ],
+   "opener_match": 52,
+   "box": {
+    "used": 23,
+    "opener_pct": 74,
+    "delayed_first_s": 126,
+    "delayed_n": 6
+   },
+   "cooldowns": [
+    {
+     "skill": "야수의 격노",
+     "first_s": 3,
+     "count": 12
+    }
+   ],
+   "lust": {
+    "cover": "19/25",
+    "first_s": 3
+   },
+   "potion": {
+    "cover": "2/25",
+    "first_s": 1
+   },
+   "buff_uptime": [
+    {
+     "buff": "무리의 지도자의 포효",
+     "pct": 91
+    },
+    {
+     "buff": "자연의 동맹",
+     "pct": 52
+    }
+   ],
+   "build": {
+    "aoe_label": "마구잡이 난타(광)",
+    "st_label": "단일",
+    "aoe_pct": 100,
+    "pick": "마구잡이 난타(광)"
+   }
+  },
+  "3181": {
+   "boss_kr": "Crown of the Cosmos",
+   "n": 25,
+   "kill_s": 493,
+   "opener": [
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "코브라 사격"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "코브라 사격"
+    },
+    {
+     "skill": "코브라 사격"
+    }
+   ],
+   "opener_match": 47,
+   "box": {
+    "used": 21,
+    "opener_pct": 24,
+    "delayed_first_s": 25,
+    "delayed_n": 16
+   },
+   "cooldowns": [
+    {
+     "skill": "야수의 격노",
+     "first_s": 4,
+     "count": 14
+    }
+   ],
+   "lust": {
+    "cover": "17/25",
+    "first_s": 4
+   },
+   "potion": {
+    "cover": "2/25",
+    "first_s": 179
+   },
+   "buff_uptime": [
+    {
+     "buff": "무리의 지도자의 포효",
+     "pct": 85
+    },
+    {
+     "buff": "자연의 동맹",
+     "pct": 59
+    }
+   ],
+   "build": {
+    "aoe_label": "마구잡이 난타(광)",
+    "st_label": "단일",
+    "aoe_pct": 0,
+    "pick": "단일"
+   }
+  },
+  "3182": {
+   "boss_kr": "Belo'ren, Child of Al'ar",
+   "n": 25,
+   "kill_s": 269,
+   "opener": [
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "야수의 격노"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "코브라 사격"
+    },
+    {
+     "skill": "살상 명령"
+    }
+   ],
+   "opener_match": 50,
+   "box": {
+    "used": 13,
+    "opener_pct": 8,
+    "delayed_first_s": 109,
+    "delayed_n": 12
+   },
+   "cooldowns": [
+    {
+     "skill": "야수의 격노",
+     "first_s": 2,
+     "count": 9
+    }
+   ],
+   "lust": {
+    "cover": "17/25",
+    "first_s": 2
+   },
+   "potion": null,
+   "buff_uptime": [
+    {
+     "buff": "무리의 지도자의 포효",
+     "pct": 89
+    },
+    {
+     "buff": "자연의 동맹",
+     "pct": 60
+    }
+   ],
+   "build": {
+    "aoe_label": "마구잡이 난타(광)",
+    "st_label": "단일",
+    "aoe_pct": 0,
+    "pick": "단일"
+   }
+  },
+  "3183": {
+   "boss_kr": "Midnight Falls",
+   "n": 25,
+   "kill_s": 538,
+   "opener": [
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "날카로운 사격"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "코브라 사격"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "코브라 사격"
+    },
+    {
+     "skill": "코브라 사격"
+    }
+   ],
+   "opener_match": 52,
+   "box": {
+    "used": 19,
+    "opener_pct": 32,
+    "delayed_first_s": 11,
+    "delayed_n": 13
+   },
+   "cooldowns": [
+    {
+     "skill": "야수의 격노",
+     "first_s": 13,
+     "count": 17
+    }
+   ],
+   "lust": {
+    "cover": "9/25",
+    "first_s": 14
+   },
+   "potion": null,
+   "buff_uptime": [
+    {
+     "buff": "무리의 지도자의 포효",
+     "pct": 90
+    },
+    {
+     "buff": "자연의 동맹",
+     "pct": 62
+    }
+   ],
+   "build": {
+    "aoe_label": "마구잡이 난타(광)",
+    "st_label": "단일",
+    "aoe_pct": 0,
+    "pick": "단일"
+   }
+  },
+  "3306": {
+   "boss_kr": "Chimaerus, the Undreamt God",
+   "n": 24,
+   "kill_s": 144,
    "opener": [
     {
      "skill": "날카로운 사격"
@@ -239,306 +578,30 @@
    ],
    "opener_match": 53,
    "box": {
-    "used": 24,
-    "opener_pct": 79,
-    "delayed_first_s": 137,
-    "delayed_n": 5
-   },
-   "cooldowns": [
-    {
-     "skill": "야수의 격노",
-     "first_s": 3,
-     "count": 10
-    }
-   ],
-   "lust": {
-    "cover": "11/25",
-    "first_s": 3
-   },
-   "potion": {
-    "cover": "8/25",
-    "first_s": 1
-   },
-   "buff_uptime": [
-    {
-     "buff": "무리의 지도자의 포효",
-     "pct": 90
-    },
-    {
-     "buff": "자연의 동맹",
-     "pct": 56
-    }
-   ],
-   "build": {
-    "aoe_label": "마구잡이 난타(광)",
-    "st_label": "단일",
-    "aoe_pct": 84,
-    "pick": "마구잡이 난타(광)"
-   }
-  },
-  "3180": {
-   "boss_kr": "Lightblinded Vanguard",
-   "n": 25,
-   "kill_s": 407,
-   "opener": [
-    {
-     "skill": "알게타르 수수께끼"
-    },
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "야수의 격노"
-    },
-    {
-     "skill": "마구잡이 난타"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "살상 명령"
-    }
-   ],
-   "opener_match": 50,
-   "box": {
-    "used": 24,
-    "opener_pct": 75,
-    "delayed_first_s": 124,
-    "delayed_n": 6
-   },
-   "cooldowns": [
-    {
-     "skill": "야수의 격노",
-     "first_s": 4,
-     "count": 13
-    }
-   ],
-   "lust": {
-    "cover": "21/25",
-    "first_s": 4
-   },
-   "potion": {
-    "cover": "3/25",
-    "first_s": 6
-   },
-   "buff_uptime": [
-    {
-     "buff": "무리의 지도자의 포효",
-     "pct": 90
-    },
-    {
-     "buff": "자연의 동맹",
-     "pct": 53
-    }
-   ],
-   "build": {
-    "aoe_label": "마구잡이 난타(광)",
-    "st_label": "단일",
-    "aoe_pct": 96,
-    "pick": "마구잡이 난타(광)"
-   }
-  },
-  "3181": {
-   "boss_kr": "Crown of the Cosmos",
-   "n": 25,
-   "kill_s": 483,
-   "opener": [
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "야수의 격노"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "코브라 사격"
-    }
-   ],
-   "opener_match": 46,
-   "box": {
-    "used": 22,
-    "opener_pct": 0,
-    "delayed_first_s": 27,
-    "delayed_n": 22
-   },
-   "cooldowns": [
-    {
-     "skill": "야수의 격노",
-     "first_s": 20,
-     "count": 14
-    }
-   ],
-   "lust": {
-    "cover": "13/25",
-    "first_s": 5
-   },
-   "potion": {
-    "cover": "7/25",
-    "first_s": 60
-   },
-   "buff_uptime": [
-    {
-     "buff": "무리의 지도자의 포효",
-     "pct": 86
-    },
-    {
-     "buff": "자연의 동맹",
-     "pct": 62
-    }
-   ],
-   "build": {
-    "aoe_label": "마구잡이 난타(광)",
-    "st_label": "단일",
-    "aoe_pct": 0,
-    "pick": "단일"
-   }
-  },
-  "3182": {
-   "boss_kr": "Belo'ren, Child of Al'ar",
-   "n": 25,
-   "kill_s": 306,
-   "opener": [
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "야수의 격노"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "코브라 사격"
-    },
-    {
-     "skill": "살상 명령"
-    }
-   ],
-   "opener_match": 56,
-   "box": {
     "used": 23,
-    "opener_pct": 30,
-    "delayed_first_s": 120,
-    "delayed_n": 16
+    "opener_pct": 57,
+    "delayed_first_s": 122,
+    "delayed_n": 10
    },
    "cooldowns": [
     {
      "skill": "야수의 격노",
-     "first_s": 3,
-     "count": 10
+     "first_s": 2,
+     "count": 5
     }
    ],
    "lust": {
-    "cover": "15/25",
+    "cover": "18/24",
     "first_s": 3
    },
    "potion": {
-    "cover": "2/25",
-    "first_s": 117
+    "cover": "5/24",
+    "first_s": 2
    },
    "buff_uptime": [
     {
      "buff": "무리의 지도자의 포효",
-     "pct": 88
-    },
-    {
-     "buff": "자연의 동맹",
-     "pct": 60
-    }
-   ],
-   "build": {
-    "aoe_label": "마구잡이 난타(광)",
-    "st_label": "단일",
-    "aoe_pct": 4,
-    "pick": "단일"
-   }
-  },
-  "3183": {
-   "boss_kr": "Midnight Falls",
-   "n": 25,
-   "kill_s": 547,
-   "opener": [
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "코브라 사격"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "코브라 사격"
-    },
-    {
-     "skill": "살상 명령"
-    }
-   ],
-   "opener_match": 66,
-   "box": {
-    "used": 20,
-    "opener_pct": 45,
-    "delayed_first_s": 12,
-    "delayed_n": 11
-   },
-   "cooldowns": [
-    {
-     "skill": "야수의 격노",
-     "first_s": 13,
-     "count": 18
-    }
-   ],
-   "lust": {
-    "cover": "14/25",
-    "first_s": 13
-   },
-   "potion": {
-    "cover": "2/25",
-    "first_s": 74
-   },
-   "buff_uptime": [
-    {
-     "buff": "무리의 지도자의 포효",
-     "pct": 90
+     "pct": 91
     },
     {
      "buff": "자연의 동맹",
@@ -548,85 +611,16 @@
    "build": {
     "aoe_label": "마구잡이 난타(광)",
     "st_label": "단일",
-    "aoe_pct": 0,
+    "aoe_pct": 12,
     "pick": "단일"
-   }
-  },
-  "3306": {
-   "boss_kr": "Chimaerus, the Undreamt God",
-   "n": 25,
-   "kill_s": 358,
-   "opener": [
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "야수의 격노"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "날카로운 사격"
-    },
-    {
-     "skill": "살상 명령"
-    }
-   ],
-   "opener_match": 56,
-   "box": {
-    "used": 22,
-    "opener_pct": 50,
-    "delayed_first_s": 123,
-    "delayed_n": 11
-   },
-   "cooldowns": [
-    {
-     "skill": "야수의 격노",
-     "first_s": 3,
-     "count": 11
-    }
-   ],
-   "lust": {
-    "cover": "21/25",
-    "first_s": 3
-   },
-   "potion": {
-    "cover": "3/25",
-    "first_s": 7
-   },
-   "buff_uptime": [
-    {
-     "buff": "무리의 지도자의 포효",
-     "pct": 90
-    },
-    {
-     "buff": "자연의 동맹",
-     "pct": 53
-    }
-   ],
-   "build": {
-    "aoe_label": "마구잡이 난타(광)",
-    "st_label": "단일",
-    "aoe_pct": 84,
-    "pick": "마구잡이 난타(광)"
    }
   }
  },
  "Hunter|Marksmanship": {
   "3176": {
    "boss_kr": "Imperator Averzian",
-   "n": 24,
-   "kill_s": 274,
+   "n": 23,
+   "kill_s": 216,
    "opener": [
     {
      "skill": "조준 사격"
@@ -638,7 +632,7 @@
      "skill": "속사"
     },
     {
-     "skill": "정조준"
+     "skill": "신비한 사격"
     },
     {
      "skill": "조준 사격"
@@ -647,45 +641,48 @@
      "skill": "조준 사격"
     },
     {
-     "skill": "달빛 회전 표창"
+     "skill": "조준 사격"
     },
     {
-     "skill": "조준 사격"
+     "skill": "신비한 사격"
     }
    ],
-   "opener_match": 45,
+   "opener_match": 43,
    "box": {
-    "used": 21,
-    "opener_pct": 52,
-    "delayed_first_s": 130,
-    "delayed_n": 10
+    "used": 20,
+    "opener_pct": 75,
+    "delayed_first_s": 134,
+    "delayed_n": 5
    },
    "cooldowns": [
     {
      "skill": "정조준",
      "first_s": 4,
-     "count": 3
+     "count": 2
     },
     {
      "skill": "검은 화살",
      "first_s": 1,
-     "count": 32
+     "count": 30
     }
    ],
-   "lust": null,
+   "lust": {
+    "cover": "1/23",
+    "first_s": 4
+   },
    "potion": null,
    "buff_uptime": [
     {
      "buff": "교묘한 사격",
-     "pct": 10
+     "pct": 11
     }
    ],
    "build": null
   },
   "3177": {
    "boss_kr": "Vorasius",
-   "n": 25,
-   "kill_s": 270,
+   "n": 24,
+   "kill_s": 216,
    "opener": [
     {
      "skill": "조준 사격"
@@ -706,54 +703,54 @@
      "skill": "조준 사격"
     },
     {
-     "skill": "고정 사격"
+     "skill": "조준 사격"
     },
     {
-     "skill": "조준 사격"
+     "skill": "울부짖는 화살"
     }
    ],
-   "opener_match": 53,
+   "opener_match": 51,
    "box": {
-    "used": 25,
-    "opener_pct": 32,
-    "delayed_first_s": 123,
-    "delayed_n": 17
+    "used": 21,
+    "opener_pct": 52,
+    "delayed_first_s": 124,
+    "delayed_n": 10
    },
    "cooldowns": [
     {
      "skill": "정조준",
-     "first_s": 4,
-     "count": 3
+     "first_s": 5,
+     "count": 2
     },
     {
      "skill": "검은 화살",
      "first_s": 1,
-     "count": 37
+     "count": 31
     }
    ],
-   "lust": {
-    "cover": "1/25",
-    "first_s": 0
+   "lust": null,
+   "potion": {
+    "cover": "1/24",
+    "first_s": 2
    },
-   "potion": null,
    "buff_uptime": [
     {
      "buff": "교묘한 사격",
-     "pct": 11
+     "pct": 12
     }
    ],
    "build": null
   },
   "3178": {
    "boss_kr": "Vaelgor & Ezzorak",
-   "n": 24,
-   "kill_s": 391,
+   "n": 25,
+   "kill_s": 361,
    "opener": [
     {
      "skill": "조준 사격"
     },
     {
-     "skill": "알게타르 수수께끼"
+     "skill": "속사"
     },
     {
      "skill": "신비한 사격"
@@ -765,7 +762,7 @@
      "skill": "조준 사격"
     },
     {
-     "skill": "조준 사격"
+     "skill": "연발 공격"
     },
     {
      "skill": "조준 사격"
@@ -774,11 +771,11 @@
      "skill": "조준 사격"
     }
    ],
-   "opener_match": 53,
+   "opener_match": 52,
    "box": {
-    "used": 24,
-    "opener_pct": 92,
-    "delayed_first_s": 93,
+    "used": 19,
+    "opener_pct": 89,
+    "delayed_first_s": 101,
     "delayed_n": 2
    },
    "cooldowns": [
@@ -789,69 +786,7 @@
     }
    ],
    "lust": {
-    "cover": "1/24",
-    "first_s": 1
-   },
-   "potion": null,
-   "buff_uptime": [
-    {
-     "buff": "교묘한 사격",
-     "pct": 10
-    }
-   ],
-   "build": null
-  },
-  "3179": {
-   "boss_kr": "Fallen-King Salhadaar",
-   "n": 24,
-   "kill_s": 277,
-   "opener": [
-    {
-     "skill": "조준 사격"
-    },
-    {
-     "skill": "알게타르 수수께끼"
-    },
-    {
-     "skill": "신비한 사격"
-    },
-    {
-     "skill": "조준 사격"
-    },
-    {
-     "skill": "조준 사격"
-    },
-    {
-     "skill": "조준 사격"
-    },
-    {
-     "skill": "달빛 회전 표창"
-    },
-    {
-     "skill": "조준 사격"
-    }
-   ],
-   "opener_match": 43,
-   "box": {
-    "used": 22,
-    "opener_pct": 59,
-    "delayed_first_s": 125,
-    "delayed_n": 9
-   },
-   "cooldowns": [
-    {
-     "skill": "정조준",
-     "first_s": 5,
-     "count": 3
-    },
-    {
-     "skill": "검은 화살",
-     "first_s": 1,
-     "count": 38
-    }
-   ],
-   "lust": {
-    "cover": "1/24",
+    "cover": "1/25",
     "first_s": 1
    },
    "potion": null,
@@ -863,10 +798,75 @@
    ],
    "build": null
   },
+  "3179": {
+   "boss_kr": "Fallen-King Salhadaar",
+   "n": 24,
+   "kill_s": 211,
+   "opener": [
+    {
+     "skill": "조준 사격"
+    },
+    {
+     "skill": "알게타르 수수께끼"
+    },
+    {
+     "skill": "속사"
+    },
+    {
+     "skill": "검은 화살"
+    },
+    {
+     "skill": "조준 사격"
+    },
+    {
+     "skill": "조준 사격"
+    },
+    {
+     "skill": "폭발 사격"
+    },
+    {
+     "skill": "조준 사격"
+    }
+   ],
+   "opener_match": 46,
+   "box": {
+    "used": 23,
+    "opener_pct": 61,
+    "delayed_first_s": 133,
+    "delayed_n": 9
+   },
+   "cooldowns": [
+    {
+     "skill": "정조준",
+     "first_s": 5,
+     "count": 2
+    },
+    {
+     "skill": "검은 화살",
+     "first_s": 1,
+     "count": 27
+    }
+   ],
+   "lust": {
+    "cover": "1/24",
+    "first_s": 15
+   },
+   "potion": {
+    "cover": "1/24",
+    "first_s": 4
+   },
+   "buff_uptime": [
+    {
+     "buff": "교묘한 사격",
+     "pct": 11
+    }
+   ],
+   "build": null
+  },
   "3180": {
    "boss_kr": "Lightblinded Vanguard",
    "n": 25,
-   "kill_s": 407,
+   "kill_s": 354,
    "opener": [
     {
      "skill": "조준 사격"
@@ -893,21 +893,24 @@
      "skill": "조준 사격"
     }
    ],
-   "opener_match": 62,
+   "opener_match": 56,
    "box": {
-    "used": 25,
-    "opener_pct": 88,
-    "delayed_first_s": 120,
-    "delayed_n": 3
+    "used": 23,
+    "opener_pct": 78,
+    "delayed_first_s": 123,
+    "delayed_n": 5
    },
    "cooldowns": [
     {
      "skill": "정조준",
      "first_s": 5,
-     "count": 4
+     "count": 3
     }
    ],
-   "lust": null,
+   "lust": {
+    "cover": "3/25",
+    "first_s": 0
+   },
    "potion": null,
    "buff_uptime": [
     {
@@ -919,7 +922,7 @@
   },
   "3181": {
    "boss_kr": "Crown of the Cosmos",
-   "n": 25,
+   "n": 24,
    "kill_s": 488,
    "opener": [
     {
@@ -941,40 +944,43 @@
      "skill": "고정 사격"
     },
     {
-     "skill": "고정 사격"
+     "skill": "조준 사격"
     },
     {
      "skill": "조준 사격"
     }
    ],
-   "opener_match": 54,
+   "opener_match": 53,
    "box": {
-    "used": 25,
-    "opener_pct": 0,
-    "delayed_first_s": 42,
-    "delayed_n": 25
+    "used": 23,
+    "opener_pct": 4,
+    "delayed_first_s": 24,
+    "delayed_n": 22
    },
    "cooldowns": [
     {
      "skill": "정조준",
-     "first_s": 42,
+     "first_s": 25,
      "count": 4
     },
     {
      "skill": "검은 화살",
      "first_s": 1,
-     "count": 55
+     "count": 54
     }
    ],
    "lust": {
-    "cover": "2/25",
-    "first_s": 271
+    "cover": "1/24",
+    "first_s": 339
    },
-   "potion": null,
+   "potion": {
+    "cover": "1/24",
+    "first_s": 125
+   },
    "buff_uptime": [
     {
      "buff": "교묘한 사격",
-     "pct": 11
+     "pct": 10
     }
    ],
    "build": null
@@ -982,45 +988,50 @@
   "3182": {
    "boss_kr": "Belo'ren, Child of Al'ar",
    "n": 25,
-   "kill_s": 323,
+   "kill_s": 311,
    "opener": [
     {
+     "skill": "속사"
+    },
+    {
+     "skill": "정조준"
+    },
+    {
+     "skill": "조준 사격"
+    },
+    {
+     "skill": "조준 사격"
+    },
+    {
+     "skill": "조준 사격"
+    },
+    {
      "skill": "신비한 사격"
     },
     {
      "skill": "조준 사격"
     },
     {
-     "skill": "조준 사격"
-    },
-    {
-     "skill": "달빛 회전 표창"
-    },
-    {
-     "skill": "조준 사격"
-    },
-    {
      "skill": "신비한 사격"
-    },
-    {
-     "skill": "조준 사격"
-    },
-    {
-     "skill": "조준 사격"
     }
    ],
-   "opener_match": 44,
+   "opener_match": 40,
    "box": {
-    "used": 24,
-    "opener_pct": 25,
-    "delayed_first_s": 122,
+    "used": 23,
+    "opener_pct": 22,
+    "delayed_first_s": 121,
     "delayed_n": 18
    },
    "cooldowns": [
     {
      "skill": "정조준",
-     "first_s": 2,
+     "first_s": 3,
      "count": 3
+    },
+    {
+     "skill": "검은 화살",
+     "first_s": 2,
+     "count": 36
     }
    ],
    "lust": null,
@@ -1035,70 +1046,8 @@
   },
   "3183": {
    "boss_kr": "Midnight Falls",
-   "n": 25,
-   "kill_s": 548,
-   "opener": [
-    {
-     "skill": "조준 사격"
-    },
-    {
-     "skill": "조준 사격"
-    },
-    {
-     "skill": "알게타르 수수께끼"
-    },
-    {
-     "skill": "신비한 사격"
-    },
-    {
-     "skill": "정조준"
-    },
-    {
-     "skill": "조준 사격"
-    },
-    {
-     "skill": "연발 공격"
-    },
-    {
-     "skill": "조준 사격"
-    }
-   ],
-   "opener_match": 49,
-   "box": {
-    "used": 25,
-    "opener_pct": 96,
-    "delayed_first_s": 128,
-    "delayed_n": 1
-   },
-   "cooldowns": [
-    {
-     "skill": "정조준",
-     "first_s": 9,
-     "count": 5
-    },
-    {
-     "skill": "검은 화살",
-     "first_s": 1,
-     "count": 76
-    }
-   ],
-   "lust": {
-    "cover": "4/25",
-    "first_s": 367
-   },
-   "potion": null,
-   "buff_uptime": [
-    {
-     "buff": "교묘한 사격",
-     "pct": 10
-    }
-   ],
-   "build": null
-  },
-  "3306": {
-   "boss_kr": "Chimaerus, the Undreamt God",
-   "n": 25,
-   "kill_s": 308,
+   "n": 12,
+   "kill_s": 531,
    "opener": [
     {
      "skill": "조준 사격"
@@ -1113,46 +1062,108 @@
      "skill": "조준 사격"
     },
     {
-     "skill": "조준 사격"
+     "skill": "반격의 사격"
     },
     {
-     "skill": "울부짖는 화살"
+     "skill": "알게타르 수수께끼"
     },
     {
-     "skill": "조준 사격"
+     "skill": "연발 공격"
     },
     {
      "skill": "조준 사격"
     }
    ],
-   "opener_match": 48,
+   "opener_match": 40,
    "box": {
-    "used": 23,
-    "opener_pct": 61,
-    "delayed_first_s": 127,
-    "delayed_n": 9
+    "used": 12,
+    "opener_pct": 92,
+    "delayed_first_s": 11,
+    "delayed_n": 1
    },
    "cooldowns": [
     {
      "skill": "정조준",
-     "first_s": 4,
-     "count": 3
+     "first_s": 8,
+     "count": 5
     },
     {
      "skill": "검은 화살",
      "first_s": 1,
-     "count": 38
+     "count": 70
     }
    ],
    "lust": {
-    "cover": "4/25",
-    "first_s": 0
+    "cover": "3/12",
+    "first_s": 366
    },
    "potion": null,
    "buff_uptime": [
     {
      "buff": "교묘한 사격",
-     "pct": 10
+     "pct": 11
+    }
+   ],
+   "build": null
+  },
+  "3306": {
+   "boss_kr": "Chimaerus, the Undreamt God",
+   "n": 25,
+   "kill_s": 146,
+   "opener": [
+    {
+     "skill": "조준 사격"
+    },
+    {
+     "skill": "연발 공격"
+    },
+    {
+     "skill": "속사"
+    },
+    {
+     "skill": "검은 화살"
+    },
+    {
+     "skill": "조준 사격"
+    },
+    {
+     "skill": "조준 사격"
+    },
+    {
+     "skill": "검은 화살"
+    },
+    {
+     "skill": "폭발 사격"
+    }
+   ],
+   "opener_match": 45,
+   "box": {
+    "used": 25,
+    "opener_pct": 48,
+    "delayed_first_s": 123,
+    "delayed_n": 13
+   },
+   "cooldowns": [
+    {
+     "skill": "정조준",
+     "first_s": 5,
+     "count": 2
+    },
+    {
+     "skill": "검은 화살",
+     "first_s": 1,
+     "count": 21
+    }
+   ],
+   "lust": {
+    "cover": "1/25",
+    "first_s": 2
+   },
+   "potion": null,
+   "buff_uptime": [
+    {
+     "buff": "교묘한 사격",
+     "pct": 12
     }
    ],
    "build": null
@@ -1162,7 +1173,58 @@
   "3176": {
    "boss_kr": "Imperator Averzian",
    "n": 25,
-   "kill_s": 277,
+   "kill_s": 199,
+   "opener": [
+    {
+     "skill": "알게타르 수수께끼"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "제압"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "붐스틱"
+    },
+    {
+     "skill": "야생불 폭탄"
+    },
+    {
+     "skill": "야생불 폭탄"
+    },
+    {
+     "skill": "살상 명령"
+    }
+   ],
+   "opener_match": 41,
+   "box": {
+    "used": 23,
+    "opener_pct": 52,
+    "delayed_first_s": 135,
+    "delayed_n": 11
+   },
+   "cooldowns": [],
+   "lust": null,
+   "potion": {
+    "cover": "1/25",
+    "first_s": 4
+   },
+   "buff_uptime": [
+    {
+     "buff": "살쾡이의 격노",
+     "pct": 46
+    }
+   ],
+   "build": null
+  },
+  "3177": {
+   "boss_kr": "Vorasius",
+   "n": 25,
+   "kill_s": 208,
    "opener": [
     {
      "skill": "알게타르 수수께끼"
@@ -1178,6 +1240,159 @@
     },
     {
      "skill": "야생불 폭탄"
+    },
+    {
+     "skill": "랩터의 일격"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "랩터의 휩쓸기"
+    }
+   ],
+   "opener_match": 38,
+   "box": {
+    "used": 20,
+    "opener_pct": 70,
+    "delayed_first_s": 124,
+    "delayed_n": 6
+   },
+   "cooldowns": [],
+   "lust": null,
+   "potion": {
+    "cover": "1/25",
+    "first_s": 2
+   },
+   "buff_uptime": [
+    {
+     "buff": "살쾡이의 격노",
+     "pct": 44
+    }
+   ],
+   "build": null
+  },
+  "3178": {
+   "boss_kr": "Vaelgor & Ezzorak",
+   "n": 25,
+   "kill_s": 365,
+   "opener": [
+    {
+     "skill": "알게타르 수수께끼"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "제압"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "붐스틱"
+    },
+    {
+     "skill": "야생불 폭탄"
+    },
+    {
+     "skill": "야생불 폭탄"
+    },
+    {
+     "skill": "살상 명령"
+    }
+   ],
+   "opener_match": 46,
+   "box": {
+    "used": 22,
+    "opener_pct": 55,
+    "delayed_first_s": 170,
+    "delayed_n": 10
+   },
+   "cooldowns": [],
+   "lust": null,
+   "potion": {
+    "cover": "3/25",
+    "first_s": 1
+   },
+   "buff_uptime": [
+    {
+     "buff": "살쾡이의 격노",
+     "pct": 46
+    }
+   ],
+   "build": null
+  },
+  "3179": {
+   "boss_kr": "Fallen-King Salhadaar",
+   "n": 25,
+   "kill_s": 233,
+   "opener": [
+    {
+     "skill": "알게타르 수수께끼"
+    },
+    {
+     "skill": "제압"
+    },
+    {
+     "skill": "붐스틱"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "야생불 폭탄"
+    },
+    {
+     "skill": "야생불 폭탄"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "랩터의 일격"
+    }
+   ],
+   "opener_match": 38,
+   "box": {
+    "used": 23,
+    "opener_pct": 57,
+    "delayed_first_s": 131,
+    "delayed_n": 10
+   },
+   "cooldowns": [],
+   "lust": null,
+   "potion": {
+    "cover": "4/25",
+    "first_s": 2
+   },
+   "buff_uptime": [
+    {
+     "buff": "살쾡이의 격노",
+     "pct": 47
+    }
+   ],
+   "build": null
+  },
+  "3180": {
+   "boss_kr": "Lightblinded Vanguard",
+   "n": 25,
+   "kill_s": 353,
+   "opener": [
+    {
+     "skill": "알게타르 수수께끼"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "제압"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "붐스틱"
     },
     {
      "skill": "야생불 폭탄"
@@ -1191,225 +1406,21 @@
    ],
    "opener_match": 42,
    "box": {
-    "used": 24,
-    "opener_pct": 54,
-    "delayed_first_s": 134,
-    "delayed_n": 11
+    "used": 19,
+    "opener_pct": 79,
+    "delayed_first_s": 123,
+    "delayed_n": 4
    },
    "cooldowns": [],
    "lust": null,
    "potion": {
-    "cover": "2/25",
+    "cover": "5/25",
     "first_s": 1
    },
    "buff_uptime": [
     {
      "buff": "살쾡이의 격노",
-     "pct": 47
-    }
-   ],
-   "build": null
-  },
-  "3177": {
-   "boss_kr": "Vorasius",
-   "n": 25,
-   "kill_s": 228,
-   "opener": [
-    {
-     "skill": "알게타르 수수께끼"
-    },
-    {
-     "skill": "제압"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "붐스틱"
-    },
-    {
-     "skill": "야생불 폭탄"
-    },
-    {
-     "skill": "랩터의 일격"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "랩터의 휩쓸기"
-    }
-   ],
-   "opener_match": 40,
-   "box": {
-    "used": 25,
-    "opener_pct": 76,
-    "delayed_first_s": 128,
-    "delayed_n": 6
-   },
-   "cooldowns": [],
-   "lust": null,
-   "potion": {
-    "cover": "2/25",
-    "first_s": 159
-   },
-   "buff_uptime": [
-    {
-     "buff": "살쾡이의 격노",
-     "pct": 43
-    }
-   ],
-   "build": null
-  },
-  "3178": {
-   "boss_kr": "Vaelgor & Ezzorak",
-   "n": 23,
-   "kill_s": 386,
-   "opener": [
-    {
-     "skill": "알게타르 수수께끼"
-    },
-    {
-     "skill": "야생불 폭탄"
-    },
-    {
-     "skill": "제압"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "붐스틱"
-    },
-    {
-     "skill": "야생불 폭탄"
-    },
-    {
-     "skill": "야생불 폭탄"
-    },
-    {
-     "skill": "살상 명령"
-    }
-   ],
-   "opener_match": 36,
-   "box": {
-    "used": 22,
-    "opener_pct": 77,
-    "delayed_first_s": 167,
-    "delayed_n": 5
-   },
-   "cooldowns": [],
-   "lust": null,
-   "potion": {
-    "cover": "3/23",
-    "first_s": 37
-   },
-   "buff_uptime": [
-    {
-     "buff": "살쾡이의 격노",
-     "pct": 47
-    }
-   ],
-   "build": null
-  },
-  "3179": {
-   "boss_kr": "Fallen-King Salhadaar",
-   "n": 24,
-   "kill_s": 315,
-   "opener": [
-    {
-     "skill": "알게타르 수수께끼"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "제압"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "붐스틱"
-    },
-    {
-     "skill": "야생불 폭탄"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "랩터의 일격"
-    }
-   ],
-   "opener_match": 41,
-   "box": {
-    "used": 24,
-    "opener_pct": 62,
-    "delayed_first_s": 132,
-    "delayed_n": 9
-   },
-   "cooldowns": [],
-   "lust": null,
-   "potion": {
-    "cover": "6/24",
-    "first_s": 2
-   },
-   "buff_uptime": [
-    {
-     "buff": "살쾡이의 격노",
-     "pct": 45
-    }
-   ],
-   "build": null
-  },
-  "3180": {
-   "boss_kr": "Lightblinded Vanguard",
-   "n": 24,
-   "kill_s": 403,
-   "opener": [
-    {
-     "skill": "알게타르 수수께끼"
-    },
-    {
-     "skill": "야생불 폭탄"
-    },
-    {
-     "skill": "제압"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "붐스틱"
-    },
-    {
-     "skill": "야생불 폭탄"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "랩터의 일격"
-    }
-   ],
-   "opener_match": 49,
-   "box": {
-    "used": 23,
-    "opener_pct": 78,
-    "delayed_first_s": 122,
-    "delayed_n": 5
-   },
-   "cooldowns": [],
-   "lust": null,
-   "potion": {
-    "cover": "3/24",
-    "first_s": 2
-   },
-   "buff_uptime": [
-    {
-     "buff": "살쾡이의 격노",
-     "pct": 45
+     "pct": 44
     }
    ],
    "build": null
@@ -1417,74 +1428,8 @@
   "3181": {
    "boss_kr": "Crown of the Cosmos",
    "n": 25,
-   "kill_s": 488,
+   "kill_s": 484,
    "opener": [
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "야생불 폭탄"
-    },
-    {
-     "skill": "랩터의 일격"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "붐스틱"
-    },
-    {
-     "skill": "야생불 폭탄"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "랩터의 휩쓸기"
-    }
-   ],
-   "opener_match": 38,
-   "box": {
-    "used": 22,
-    "opener_pct": 5,
-    "delayed_first_s": 26,
-    "delayed_n": 21
-   },
-   "cooldowns": [],
-   "lust": null,
-   "potion": {
-    "cover": "2/25",
-    "first_s": 137
-   },
-   "buff_uptime": [
-    {
-     "buff": "살쾡이의 격노",
-     "pct": 42
-    }
-   ],
-   "build": null
-  },
-  "3182": {
-   "boss_kr": "Belo'ren, Child of Al'ar",
-   "n": 25,
-   "kill_s": 317,
-   "opener": [
-    {
-     "skill": "알게타르 수수께끼"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "제압"
-    },
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "붐스틱"
-    },
     {
      "skill": "야생불 폭탄"
     },
@@ -1493,50 +1438,14 @@
     },
     {
      "skill": "랩터의 일격"
-    }
-   ],
-   "opener_match": 38,
-   "box": {
-    "used": 25,
-    "opener_pct": 16,
-    "delayed_first_s": 124,
-    "delayed_n": 21
-   },
-   "cooldowns": [],
-   "lust": null,
-   "potion": {
-    "cover": "2/25",
-    "first_s": 116
-   },
-   "buff_uptime": [
-    {
-     "buff": "살쾡이의 격노",
-     "pct": 45
-    }
-   ],
-   "build": null
-  },
-  "3183": {
-   "boss_kr": "Midnight Falls",
-   "n": 25,
-   "kill_s": 537,
-   "opener": [
-    {
-     "skill": "살상 명령"
-    },
-    {
-     "skill": "야생불 폭탄"
-    },
-    {
-     "skill": "랩터의 일격"
-    },
-    {
-     "skill": "살상 명령"
     },
     {
      "skill": "랩터의 휩쓸기"
     },
     {
+     "skill": "살상 명령"
+    },
+    {
      "skill": "야생불 폭탄"
     },
     {
@@ -1546,18 +1455,18 @@
      "skill": "랩터의 일격"
     }
    ],
-   "opener_match": 40,
+   "opener_match": 42,
    "box": {
     "used": 21,
-    "opener_pct": 67,
-    "delayed_first_s": 12,
-    "delayed_n": 7
+    "opener_pct": 14,
+    "delayed_first_s": 22,
+    "delayed_n": 18
    },
    "cooldowns": [],
    "lust": null,
    "potion": {
-    "cover": "1/25",
-    "first_s": 11
+    "cover": "6/25",
+    "first_s": 99
    },
    "buff_uptime": [
     {
@@ -1567,19 +1476,19 @@
    ],
    "build": null
   },
-  "3306": {
-   "boss_kr": "Chimaerus, the Undreamt God",
+  "3182": {
+   "boss_kr": "Belo'ren, Child of Al'ar",
    "n": 25,
-   "kill_s": 357,
+   "kill_s": 286,
    "opener": [
     {
      "skill": "살상 명령"
     },
     {
-     "skill": "야생불 폭탄"
+     "skill": "랩터의 일격"
     },
     {
-     "skill": "랩터의 일격"
+     "skill": "야생불 폭탄"
     },
     {
      "skill": "살상 명령"
@@ -1601,19 +1510,121 @@
    "box": {
     "used": 24,
     "opener_pct": 12,
-    "delayed_first_s": 24,
+    "delayed_first_s": 83,
     "delayed_n": 21
    },
    "cooldowns": [],
    "lust": null,
    "potion": {
-    "cover": "4/25",
-    "first_s": 16
+    "cover": "2/25",
+    "first_s": 166
    },
    "buff_uptime": [
     {
      "buff": "살쾡이의 격노",
-     "pct": 43
+     "pct": 41
+    }
+   ],
+   "build": null
+  },
+  "3183": {
+   "boss_kr": "Midnight Falls",
+   "n": 25,
+   "kill_s": 531,
+   "opener": [
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "야생불 폭탄"
+    },
+    {
+     "skill": "랩터의 일격"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "랩터의 휩쓸기"
+    },
+    {
+     "skill": "랩터의 일격"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "랩터의 휩쓸기"
+    }
+   ],
+   "opener_match": 46,
+   "box": {
+    "used": 17,
+    "opener_pct": 41,
+    "delayed_first_s": 12,
+    "delayed_n": 10
+   },
+   "cooldowns": [],
+   "lust": null,
+   "potion": {
+    "cover": "3/25",
+    "first_s": 7
+   },
+   "buff_uptime": [
+    {
+     "buff": "살쾡이의 격노",
+     "pct": 44
+    }
+   ],
+   "build": null
+  },
+  "3306": {
+   "boss_kr": "Chimaerus, the Undreamt God",
+   "n": 25,
+   "kill_s": 145,
+   "opener": [
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "붐스틱"
+    },
+    {
+     "skill": "야생불 폭탄"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "랩터의 일격"
+    },
+    {
+     "skill": "랩터의 휩쓸기"
+    },
+    {
+     "skill": "살상 명령"
+    },
+    {
+     "skill": "랩터의 일격"
+    }
+   ],
+   "opener_match": 38,
+   "box": {
+    "used": 24,
+    "opener_pct": 21,
+    "delayed_first_s": 28,
+    "delayed_n": 19
+   },
+   "cooldowns": [],
+   "lust": null,
+   "potion": {
+    "cover": "2/25",
+    "first_s": 2
+   },
+   "buff_uptime": [
+    {
+     "buff": "살쾡이의 격노",
+     "pct": 47
     }
    ],
    "build": null

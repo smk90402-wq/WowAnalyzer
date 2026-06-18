@@ -20,6 +20,7 @@ from __future__ import annotations
 import json
 import logging
 import sys
+import time
 from pathlib import Path
 
 from wcl_v2 import WCLV2
@@ -142,7 +143,19 @@ def _load_json(p: Path) -> dict:
 
 def _save_json(p: Path, obj) -> None:
     p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(obj, ensure_ascii=False), encoding="utf-8")
+    payload = json.dumps(obj, ensure_ascii=False)
+    tmp = p.with_name(f"{p.name}.tmp")
+    last_exc: Exception | None = None
+    for _ in range(5):
+        try:
+            tmp.write_text(payload, encoding="utf-8")
+            tmp.replace(p)
+            return
+        except OSError as exc:
+            last_exc = exc
+            time.sleep(0.25)
+    if last_exc:
+        raise last_exc
 
 
 class V2Data:
@@ -179,7 +192,8 @@ class V2Data:
     def flush(self) -> None:
         _save_json(self._cache_meta, self.meta)
         _save_json(self._cache_pfight, self.pfight)
-        _save_json(self._cache_events, self.events)
+        if self._events is not None:
+            _save_json(self._cache_events, self._events)
         _save_json(self._cache_damage, self.damage)
         _save_json(self._cache_prepull, self.prepull)
         _save_json(self._cache_pi, self.pi_received)

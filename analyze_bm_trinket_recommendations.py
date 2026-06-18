@@ -432,6 +432,15 @@ def main() -> None:
                 "상자 이벤트는 top-band 상자 착용자만 대상으로 실제 cast 383781을 확인합니다.",
                 "기본 추천은 99 확률 관점이라 평균 DPS보다 상위권 채택률과 사용 난이도를 더 크게 봅니다.",
             ],
+            "sources": [
+                {
+                    "key": "official_youtube_1207_gear_overview",
+                    "url": "https://www.youtube.com/watch?v=8mgZ5oOaKdI",
+                    "title": "새 공격대에서 쏟아지는 298 장비! | #이번주의와우",
+                    "author_name": "월드 오브 워크래프트",
+                    "status": "metadata verified via YouTube oEmbed; transcript fetch blocked by HTTP 429",
+                }
+            ],
         },
         "Hunter|Beast Mastery": {},
     }
