@@ -1,0 +1,19 @@
+{
+  "sources": [
+    {
+      "key": "official_youtube_1207_gear_overview",
+      "patch": "12.0.7",
+      "type": "youtube",
+      "url": "https://www.youtube.com/watch?v=8mgZ5oOaKdI",
+      "original_url": "https://youtube.com/watch?v=8mgZ5oOaKdI&source_ve_path=MjM4NTE&embeds_referring_euri=https%3A%2F%2Fwww.inven.co.kr%2F",
+      "title": "새 공격대에서 쏟아지는 298 장비! | #이번주의와우",
+      "author_name": "월드 오브 워크래프트",
+      "author_url": "https://www.youtube.com/@WorldofWarcraftKR",
+      "provider_name": "YouTube",
+      "thumbnail_url": "https://i.ytimg.com/vi/8mgZ5oOaKdI/hqdefault.jpg",
+      "verified_by": "youtube_oembed",
+      "transcript_status": "yt-dlp subtitle fetch failed with HTTP 429 on 2026-06-18",
+      "notes": "12.0.7 신규 공격대와 298 장비 확인용 공식 참고 영상. 자막 전문은 저장하지 못했으므로 세부 수치 판단에는 WCL/Blizzard/Wowhead 데이터와 교차 확인 필요."
+    }
+  ]
+}

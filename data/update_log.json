@@ -402,6 +402,23 @@
       "files": [
         "C:/Users/MKSEORTV/Desktop/WowAnalyzer/data/bm_trinket_recommendations.json"
       ]
+    },
+    {
+      "ts": "2026-06-18T15:59:27",
+      "host": "RTVMKSEO",
+      "action": "add_official_1207_youtube_source",
+      "params": {
+        "video_id": "8mgZ5oOaKdI",
+        "patch": "12.0.7"
+      },
+      "result": {
+        "transcript": "blocked_http_429",
+        "metadata": "youtube_oembed"
+      },
+      "files": [
+        "data/official_sources.json",
+        "data/bm_trinket_recommendations.json"
+      ]
     }
   ]
 }
