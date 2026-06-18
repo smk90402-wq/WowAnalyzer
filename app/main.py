@@ -454,6 +454,68 @@ def stat_dr() -> Response:
                     media_type="application/json")
 
 
+def _resolve_data_path(path_text: str | None) -> Path | None:
+    if not path_text:
+        return None
+    p = Path(path_text)
+    if p.is_absolute():
+        return p
+    parts = p.parts
+    if parts and parts[0] == "data":
+        return DATA_DIR.joinpath(*parts[1:])
+    return DATA_DIR / p
+
+
+def _official_source_takeaways(src: dict, transcript: str) -> list[str]:
+    if src.get("key") == "official_youtube_1207_gear_overview":
+        return [
+            "12.0.7 적용 주간에 신규 공격대 진균나락과 옴니움 장서 시스템이 열림.",
+            "진균나락 드롭 장비는 영웅 285, 신화 298까지 확인되어 이후 WCL 표본의 ilvl 상향을 감안해야 함.",
+            "장신구/스탯 추천은 최신 파티션 로그를 우선하되, 신규 장비 혼입 때문에 ilvl·전투시간 보정값과 함께 해석.",
+        ]
+    if not transcript:
+        return []
+    sentences = [s.strip() for s in re.split(r"(?<=[.!?。])\s+", transcript) if s.strip()]
+    return sentences[:3]
+
+
+def _load_official_sources(meta_sources: list[dict] | None) -> list[dict]:
+    p = DATA_DIR / "official_sources.json"
+    if not p.exists():
+        return []
+    wanted = {s.get("key") for s in (meta_sources or []) if isinstance(s, dict) and s.get("key")}
+    try:
+        payload = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    out: list[dict] = []
+    for src in payload.get("sources", []):
+        if not isinstance(src, dict):
+            continue
+        if wanted and src.get("key") not in wanted:
+            continue
+        transcript = ""
+        transcript_path = _resolve_data_path(src.get("transcript_path"))
+        if transcript_path and transcript_path.exists():
+            transcript = transcript_path.read_text(encoding="utf-8").strip()
+        item = {
+            "key": src.get("key"),
+            "patch": src.get("patch"),
+            "type": src.get("type"),
+            "title": src.get("title"),
+            "author_name": src.get("author_name"),
+            "url": src.get("url"),
+            "transcript_status": src.get("transcript_status"),
+            "transcript_path": src.get("transcript_path"),
+            "transcript_chars": len(transcript),
+            "takeaways": _official_source_takeaways(src, transcript),
+        }
+        if transcript:
+            item["transcript_excerpt"] = transcript[:360] + ("…" if len(transcript) > 360 else "")
+        out.append(item)
+    return out
+
+
 @app.get("/api/boss-stats")
 def boss_stats() -> Response:
     """data/boss_stats.json — 보스별 스탯 분포 (top1~20 개별 + 21~100 평균).
@@ -469,6 +531,7 @@ def boss_stats() -> Response:
     recs = _json.loads(rec_p.read_text(encoding="utf-8")) if rec_p.exists() else {}
     trinket_rec_p = DATA_DIR / "bm_trinket_recommendations.json"
     trinket_recs = _json.loads(trinket_rec_p.read_text(encoding="utf-8")) if trinket_rec_p.exists() else {}
+    trinket_meta = trinket_recs.get("_meta", {}) if isinstance(trinket_recs, dict) else {}
     STATS = ["특화", "치명", "가속", "유연"]
 
     def add_eff(stats: dict) -> dict:
@@ -489,7 +552,12 @@ def boss_stats() -> Response:
             trinket_rec = (trinket_recs.get(spec_key) or {}).get(str(eid))
             if trinket_rec:
                 d["trinket_recommendation"] = trinket_rec
-    return Response(content=_json.dumps({"data": data}, ensure_ascii=False),
+    meta = {
+        "stat_recommendations": recs.get("_meta", {}) if isinstance(recs, dict) else {},
+        "trinket_recommendations": trinket_meta,
+        "official_sources": _load_official_sources(trinket_meta.get("sources", [])),
+    }
+    return Response(content=_json.dumps({"data": data, "meta": meta}, ensure_ascii=False),
                     media_type="application/json")
 
 

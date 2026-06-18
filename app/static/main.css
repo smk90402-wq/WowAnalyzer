@@ -630,6 +630,21 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .st-section-label { font-size: 12.5px; font-weight: 800; color: #e3c889; margin: 16px 0 9px;
   text-transform: uppercase; letter-spacing: 0.03em; }
 .st-section-label:first-child { margin-top: 0; }
+.st-source-card { background: var(--bg-1); border: 1px solid var(--border-soft);
+  border-radius: 8px; padding: 14px 16px; margin-bottom: 16px; }
+.st-source-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline;
+  color: var(--text); font-size: 14px; font-weight: 800; margin-bottom: 10px; flex-wrap: wrap; }
+.st-source-head b { color: #e3c889; font-size: 12px; }
+.st-source-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+.st-source-item { background: var(--bg-0); border-radius: 6px; padding: 10px 11px; min-width: 0; }
+.st-source-title { display: flex; justify-content: space-between; gap: 8px; align-items: baseline;
+  color: var(--text); font-size: 12.5px; font-weight: 700; margin-bottom: 5px; flex-wrap: wrap; }
+.st-source-title a { color: #e3c889; text-decoration: none; overflow-wrap: anywhere; }
+.st-source-title a:hover { text-decoration: underline; }
+.st-source-title span { color: var(--text-mute); font-size: 11px; font-weight: 500; }
+.st-source-meta { color: var(--text-mute); font-size: 11px; margin-bottom: 7px; }
+.st-source-item ul { margin: 0; padding-left: 17px; color: var(--text); font-size: 12px; line-height: 1.55; }
+.st-source-item li + li { margin-top: 3px; }
 .st-rec-wrap { max-height: none; margin-bottom: 12px; }
 .st-table.st-rec-table { min-width: 860px; }
 .st-table.st-trinket-table { min-width: 980px; }
@@ -647,7 +662,10 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .st-rec-grid span { display: block; font-size: 10.5px; margin-bottom: 3px; }
 .st-rec-grid b { display: block; font-size: 12.5px; color: #e3c889; line-height: 1.35; overflow-wrap: anywhere; }
 .st-rec-note { margin-top: 9px; color: var(--text); font-size: 12.5px; line-height: 1.6; }
-@media (max-width: 980px) { .st-rec-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 980px) {
+  .st-source-grid { grid-template-columns: 1fr; }
+  .st-rec-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 @media (max-width: 560px) { .st-rec-grid { grid-template-columns: 1fr; } }
 .st-table { width: 100%; min-width: 720px; border-collapse: collapse; font-size: 12.5px; }
 .st-table thead th { position: sticky; top: 0; background: var(--bg-1); color: var(--text-mute);

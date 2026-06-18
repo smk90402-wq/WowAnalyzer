@@ -407,6 +407,7 @@ function renderRotBoss() {
 }
 // ── 스탯 (보스별 스탯 분포) ─────────────────────────────────────────
 let _statData = null;
+let _statMeta = null;
 const _statSel = { cls: null, spec: null, boss: null };
 async function loadStats() {
   if (_statData) { renderStatControls(); return; }
@@ -414,7 +415,9 @@ async function loadStats() {
   try {
     const r = await fetch('/api/boss-stats');
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    _statData = (await r.json()).data || {};
+    const payload = await r.json();
+    _statData = payload.data || {};
+    _statMeta = payload.meta || {};
     renderStatControls();
   } catch (e) {
     $('#stat-body').innerHTML = `<div class="empty">로드 실패: ${esc(e.message)}</div>`;
@@ -565,6 +568,44 @@ function renderSelectedTrinketRecommendation(d) {
     <div class="st-rec-note">${esc(r.reason || '')}</div>
   </div>`;
 }
+function renderOfficialSourceBrief() {
+  const meta = _statMeta || {};
+  const tr = meta.trinket_recommendations || {};
+  const sources = meta.official_sources || [];
+  if (!sources.length && !tr.partition_name) return '';
+  const srcHtml = sources.map(s => {
+    const takeaways = (s.takeaways || []).map(t => `<li>${esc(t)}</li>`).join('');
+    const transcript = s.transcript_chars
+      ? `자막 ${Number(s.transcript_chars).toLocaleString()}자 확보`
+      : esc(s.transcript_status || '자막 없음');
+    return `<div class="st-source-item">
+      <div class="st-source-title">
+        <a href="${esc(s.url || '#')}" target="_blank" rel="noreferrer">${esc(s.title || s.key || '공식 출처')}</a>
+        <span>${esc(s.author_name || '')}</span>
+      </div>
+      <div class="st-source-meta">${esc(s.patch || tr.partition_name || '')} · ${transcript}</div>
+      ${takeaways ? `<ul>${takeaways}</ul>` : ''}
+    </div>`;
+  }).join('');
+  const notes = (tr.notes || []).slice(0, 3).map(n => `<li>${esc(n)}</li>`).join('');
+  return `<section class="st-source-card">
+    <div class="st-source-head">
+      <span>12.0.7 공식 근거 반영</span>
+      <b>${esc(tr.partition_name || '최신 파티션')}</b>
+    </div>
+    <div class="st-source-grid">
+      ${srcHtml || '<div class="st-source-item"><div class="st-source-meta">공식 출처 메타 없음</div></div>'}
+      <div class="st-source-item">
+        <div class="st-source-title"><span>분석 적용 방식</span></div>
+        <ul>
+          <li>WCL 최신 파티션 표본을 기준으로 보스별 스탯/장신구 추천을 계산합니다.</li>
+          <li>신규 298 장비가 로그에 섞이므로 ilvl·킬타임 보정값을 함께 봅니다.</li>
+          ${notes}
+        </ul>
+      </div>
+    </div>
+  </section>`;
+}
 function renderStatBody() {
   const d = (_statData[`${_statSel.cls}|${_statSel.spec}`] || {})[_statSel.boss];
   if (!d) { $('#stat-body').innerHTML = '<div class="empty">데이터 없음</div>'; return; }
@@ -603,6 +644,7 @@ function renderStatBody() {
   const topAvg = avgCards(d.top_avg);
   const restAvg = avgCards(d.rest_avg);
   $('#stat-body').innerHTML = `
+    ${renderOfficialSourceBrief()}
     ${renderBossTrinketRecommendationTable()}
     ${renderSelectedTrinketRecommendation(d)}
     ${renderBossStatRecommendationTable()}
