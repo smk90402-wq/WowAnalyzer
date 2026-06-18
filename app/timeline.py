@@ -69,9 +69,9 @@ def _compute_buff_intervals(events: list) -> tuple[list, dict]:
 
 TIMELINE_CSS = """
 body {
-    background: #1a1614; color: #f5f0e8;
+    background: #111318; color: #f4f6fb;
     font-family: 'Pretendard Variable', 'Pretendard', 'Segoe UI', sans-serif;
-    font-size: 11px; margin: 0; padding: 0;
+    font-size: 12px; line-height: 1.45; margin: 0; padding: 0;
     --pps: 160;
 }
 body.horizontal { overflow-x: auto; overflow-y: auto; padding-top: 0; --cast-offset: 0px; }
@@ -83,46 +83,46 @@ body.horizontal .size-w { width:  max(8px, calc(var(--w) * var(--pps) * 1px)); }
 body.vertical   .size-w { height: max(8px, calc(var(--w) * var(--pps) * 1px)); }
 body.horizontal .span-d { width:  calc(var(--cast-offset, 0px) + var(--d) * var(--pps) * 1px); }
 body.vertical   .span-d { height: calc(var(--d) * var(--pps) * 1px); }
-.wrap { padding: 4px 8px; }
-.empty { color: #a39c8e; text-align: center; padding: 80px 16px;
-    background: #221d1a; border: 1px dashed #3a322c; border-radius: 6px; }
-.hdr { color: #d97757; font-size: 11px; font-weight: 600;
-    margin-bottom: 2px; padding-bottom: 2px; border-bottom: 1px solid #3a322c; }
+.wrap { padding: 6px 10px; }
+.empty { color: #b7bfcc; text-align: center; padding: 80px 16px;
+    background: #181b22; border: 1px dashed #39414f; border-radius: 6px; }
+.hdr { color: #f0b35f; font-size: 12px; font-weight: 700;
+    margin-bottom: 4px; padding-bottom: 4px; border-bottom: 1px solid #39414f; }
 .timeline { position: relative; }
-.lane-label { color: #a39c8e; font-size: 10px; padding: 1px 6px;
-    background: #221d1a; border-radius: 3px; margin: 4px 0 2px 0; display: inline-block; }
+.lane-label { color: #b7bfcc; font-size: 10.5px; padding: 2px 7px;
+    background: #181b22; border-radius: 5px; margin: 5px 0 3px 0; display: inline-block; }
 .tick { position: absolute; color: transparent; }
-.horizontal .axis  { position: relative; height: 20px; border-bottom: 1px solid #4a4039; margin-bottom: 2px; }
-.horizontal .tick.label { color: #a39c8e; font-size: 10px; width: auto; background: none;
+.horizontal .axis  { position: relative; height: 22px; border-bottom: 1px solid #39414f; margin-bottom: 3px; }
+.horizontal .tick.label { color: #b7bfcc; font-size: 10.5px; width: auto; background: none;
     padding-left: 4px; line-height: 20px; top: 0; height: 20px; }
-.vertical .axis  { position: absolute; left: 0; top: 0; width: 32px; border-right: 1px solid #3a322c; }
+.vertical .axis  { position: absolute; left: 0; top: 0; width: 32px; border-right: 1px solid #39414f; }
 .vertical .tick.label { left: 0; width: 22px; height: auto; background: none;
-    color: #a39c8e; font-size: 10px; text-align: right; padding-right: 4px; }
+    color: #b7bfcc; font-size: 10.5px; text-align: right; padding-right: 4px; }
 .grid { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 0; }
-.horizontal .gline { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(245, 240, 232, 0.15); }
-.vertical .gline { position: absolute; left: 0; right: 0; height: 1px; background: rgba(245, 240, 232, 0.15); }
+.horizontal .gline { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(244, 246, 251, 0.13); }
+.vertical .gline { position: absolute; left: 0; right: 0; height: 1px; background: rgba(244, 246, 251, 0.13); }
 .casts, .buffs { position: relative; }
-.horizontal .casts { height: 32px; margin-bottom: 4px; }
-.horizontal .buffs { background: rgba(31, 26, 23, 0.45); border-radius: 4px; padding: 4px 0; }
+.horizontal .casts { height: 34px; margin-bottom: 5px; }
+.horizontal .buffs { background: rgba(24, 27, 34, 0.65); border-radius: 6px; padding: 5px 0; }
 .vertical .lanes { position: absolute; left: 36px; top: 0; right: 0; }
 .vertical .lanes-buffs { left: auto; right: 0; }
-.cast { position: absolute; width: 28px; height: 28px; z-index: 2; }
-.cast img { width: 28px; height: 28px; display: block;
-    border: 1px solid #4a4039; border-radius: 4px; box-sizing: border-box;
+.cast { position: absolute; width: 30px; height: 30px; z-index: 2; }
+.cast img { width: 30px; height: 30px; display: block;
+    border: 1px solid #39414f; border-radius: 5px; box-sizing: border-box;
     position: relative; z-index: 2; }
-.cast:hover img { border-color: #d97757; }
+.cast:hover img { border-color: #f0b35f; }
 .cast:hover { z-index: 10; }
-.horizontal .cast-bar { position: absolute; top: 4px; left: 14px; height: 20px;
+.horizontal .cast-bar { position: absolute; top: 5px; left: 15px; height: 20px;
     width: calc(var(--d) * var(--pps) * 1px);
-    background: linear-gradient(to right, rgba(217,119,87,0.55) 0%, rgba(217,119,87,0.25) 60%, rgba(217,119,87,0.10) 100%);
+    background: linear-gradient(to right, rgba(240,179,95,0.55) 0%, rgba(240,179,95,0.25) 60%, rgba(240,179,95,0.10) 100%);
     border-radius: 0 3px 3px 0; z-index: 1; pointer-events: none; }
 .buff { position: absolute; padding: 0;
-    background: #3a322c; border: 1px solid #4a4039; color: #f5f0e8;
-    border-radius: 3px; font-size: 11px; box-sizing: border-box; }
+    background: #232832; border: 1px solid #39414f; color: #f4f6fb;
+    border-radius: 5px; font-size: 11.5px; box-sizing: border-box; }
 /* overflow: hidden 제거 — .tip 이 .buff 박스 밖 (bottom: 22px) 으로 확장되는데
    클리핑되어 안 보였음. label .blbl 은 자체 ellipsis 가지므로 .buff 의
    overflow:hidden 없어도 OK. */
-.buff:hover { border-color: #d97757; z-index: 5; }
+.buff:hover { border-color: #f0b35f; z-index: 5; }
 .horizontal .buff { height: 24px; line-height: 24px; }
 .vertical .buff { width: 28px; }
 .buff img.bicon { width: 20px; height: 20px; vertical-align: middle; border-radius: 3px; }
@@ -132,19 +132,19 @@ body.vertical   .span-d { height: calc(var(--d) * var(--pps) * 1px); }
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .horizontal .buff .blbl { max-width: calc(100% - 30px); }
 .vertical .buff .blbl { display: none; }
-.tip { display: none; position: absolute; background: #15110f; color: #f5f0e8;
-    border: 1px solid #4a4039; border-radius: 6px; padding: 10px 12px;
+.tip { display: none; position: absolute; background: #0f1217; color: #f4f6fb;
+    border: 1px solid #39414f; border-radius: 6px; padding: 11px 13px;
     min-width: 280px; max-width: 460px; box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-    z-index: 99999; pointer-events: none; font-size: 11px;
+    z-index: 99999; pointer-events: none; font-size: 12px;
     max-height: 60vh; overflow-y: auto; }
 .cast:hover .tip, .buff:hover .tip { display: block; }
 .horizontal .cast .tip { bottom: 34px; left: -8px; }
 .horizontal .buff .tip { bottom: 22px; left: 0; }
 .vertical .cast .tip { left: 34px; top: -8px; }
 .vertical .buff .tip { left: 28px; top: 0; }
-.tip .tname { color: #d97757; font-size: 12px; font-weight: 600; margin-bottom: 4px; }
-.tip .ten { color: #a39c8e; font-style: italic; font-size: 10px; margin-bottom: 6px; }
-.tip .tbody table { font-size: 11px; }
+.tip .tname { color: #f0b35f; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.tip .ten { color: #b7bfcc; font-style: italic; font-size: 11px; margin-bottom: 6px; }
+.tip .tbody table { font-size: 12px; }
 html { overflow: visible; }
 .wrap, .timeline, .casts, .buffs, .lanes { overflow: visible; }
 """

@@ -9,37 +9,36 @@
            height: 100vh; grid-template-rows: none; }
     .login-card {
       background: var(--bg-1); border: 1px solid var(--border);
-      border-radius: 6px; padding: 32px 36px;
+      border-radius: 8px; padding: 34px 38px;
       min-width: 320px; max-width: 380px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.5);
     }
     .login-card h1 {
-      color: var(--accent); font-size: 14pt; font-weight: 600;
+      color: var(--accent); font-size: 19px; font-weight: 800;
       margin: 0 0 6px 0;
     }
-    .login-card .sub { color: var(--text-mute); font-size: 11px; margin-bottom: 24px; }
-    .login-card label { display: block; color: var(--text-mute); font-size: 11px;
-                        margin-top: 12px; margin-bottom: 4px; }
+    .login-card .sub { color: var(--text-mute); font-size: 12px; margin-bottom: 24px; }
+    .login-card label { display: block; color: var(--text-mute); font-size: 12px;
+                        margin-top: 14px; margin-bottom: 5px; }
     .login-card input {
       width: 100%; background: var(--bg-2); color: var(--text);
-      border: 1px solid var(--border); border-radius: 3px;
-      padding: 8px 10px; font-family: inherit; font-size: 12px;
+      border: 1px solid var(--border); border-radius: 6px;
+      padding: 9px 11px; font-size: 13px;
       box-sizing: border-box;
     }
-    .login-card input:focus { outline: 1px solid var(--accent); }
     .login-card button {
       width: 100%; margin-top: 18px;
-      background: var(--accent-dim); color: var(--text);
-      border: 1px solid var(--accent); border-radius: 3px;
-      padding: 9px; cursor: pointer; font-family: inherit; font-size: 12px;
+      background: var(--accent); color: var(--accent-ink);
+      border: 1px solid var(--accent); border-radius: 6px;
+      padding: 10px; cursor: pointer; font-size: 13px; font-weight: 800;
     }
-    .login-card button:hover { background: var(--accent); }
+    .login-card button:hover { filter: brightness(1.08); }
     .login-card .err {
-      color: #d97757; font-size: 11px; margin-top: 12px;
+      color: #ff8f73; font-size: 12px; margin-top: 12px;
       min-height: 16px; text-align: center;
     }
     .login-card .hint {
-      color: var(--text-dim); font-size: 10px; margin-top: 20px;
+      color: var(--text-dim); font-size: 11px; margin-top: 20px;
       text-align: center; padding-top: 16px;
       border-top: 1px solid var(--border);
     }
