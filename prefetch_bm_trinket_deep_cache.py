@@ -100,8 +100,18 @@ def load_json(path: Path, default: Any) -> Any:
 def save_json(path: Path, obj: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_name(path.name + ".tmp")
-    tmp.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    tmp.replace(path)
+    payload = json.dumps(obj, ensure_ascii=False, indent=2) + "\n"
+    last_exc: Exception | None = None
+    for _ in range(10):
+        try:
+            tmp.write_text(payload, encoding="utf-8")
+            tmp.replace(path)
+            return
+        except OSError as exc:
+            last_exc = exc
+            time.sleep(0.5)
+    if last_exc:
+        raise last_exc
 
 
 def compact_entries(table_payload: Any, limit: int = 80) -> list[dict[str, Any]]:
@@ -327,10 +337,10 @@ def main() -> None:
                 live_deep += 1
                 cache_row["full_target"] = query_table(v2, Q_DAMAGE_TARGET, rid, fight_start, fight_end, sid)
 
-            boxes, bws = event_times(v2, rid, fid, char, fight_start)
-            cache_row["box_times_s"] = [round(x, 3) for x in boxes]
-            cache_row["bw_times_s"] = [round(x, 3) for x in bws]
             if not args.no_windows:
+                boxes, bws = event_times(v2, rid, fid, char, fight_start)
+                cache_row["box_times_s"] = [round(x, 3) for x in boxes]
+                cache_row["bw_times_s"] = [round(x, 3) for x in bws]
                 for n, t in enumerate(boxes[:max(0, args.max_box_windows)], 1):
                     live_deep += 1 if add_window(cache_row, f"box_{n}", t, fight_start, fight_end, window_ms, v2, rid, sid) else 0
                 for n, t in enumerate(bws[:max(0, args.max_bw_windows)], 1):

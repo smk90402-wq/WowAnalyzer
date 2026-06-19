@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "generated_at": "2026-06-18T20:49:11",
+    "generated_at": "2026-06-18T23:57:57",
     "source": "data\\rankings_zone46_mythic_dps_top100.csv",
     "player_topn": 100,
     "deep_topn": 25,
@@ -45399,6 +45399,3961 @@
         482.523,
         512.701,
         543.212
+      ]
+    },
+    "V8C13w29jYcqd6xb:14:Skudde": {
+      "report_id": "V8C13w29jYcqd6xb",
+      "fight_id": 14,
+      "character": "Skudde",
+      "source_id": 14,
+      "encounter_id": 3183,
+      "encounter_name": "Midnight Falls",
+      "rank": 21,
+      "dps": 149596.88054854,
+      "item_level": 289.0,
+      "duration_s": 517.591,
+      "trinkets": [
+        193701,
+        249343
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 40,
+        "Agility": 2086,
+        "Mastery": 1132,
+        "Crit": 733,
+        "Item Level": 289,
+        "Stamina": 23448,
+        "Avoidance": 201,
+        "Haste": 735,
+        "Versatility": 104,
+        "Leech": 265
+      },
+      "full_ability": [
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 2963428,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 1198175,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 2874156,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 10388155,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 3897733,
+          "icon": ""
+        },
+        {
+          "guid": 1281579,
+          "name": "Twilight Barrage",
+          "total": 322756,
+          "icon": ""
+        },
+        {
+          "guid": 219199,
+          "name": "Dire Beast",
+          "total": 5133296,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 722003,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 4456027,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 2836556,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Grong der Zurückgekehrte",
+          "total": 7708370,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 5641027,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 15550429,
+          "icon": ""
+        },
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 182452,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 4265463,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 9289973,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 240391,
+          "name": "L'ura",
+          "total": 71308357,
+          "type": "Boss",
+          "icon": "custom-icon-spell_holy_elunesgrace.jpg"
+        },
+        {
+          "guid": 250615,
+          "name": "Midnight Crystal",
+          "total": 6121642,
+          "type": "NPC",
+          "icon": "NPC"
+        }
+      ]
+    },
+    "QBGTZVJ6dfAMFbYL:27:Alltheshots": {
+      "report_id": "QBGTZVJ6dfAMFbYL",
+      "fight_id": 27,
+      "character": "Alltheshots",
+      "source_id": 19,
+      "encounter_id": 3183,
+      "encounter_name": "Midnight Falls",
+      "rank": 22,
+      "dps": 149538.19799102,
+      "item_level": 290.0,
+      "duration_s": 513.993,
+      "trinkets": [
+        249343,
+        193701
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 55,
+        "Agility": 2086,
+        "Mastery": 884,
+        "Crit": 901,
+        "Item Level": 290,
+        "Stamina": 23606,
+        "Avoidance": 0,
+        "Haste": 757,
+        "Versatility": 176,
+        "Leech": 249
+      },
+      "full_ability": [
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 186561,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 1236996,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 814266,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 10224383,
+          "icon": ""
+        },
+        {
+          "guid": 1281579,
+          "name": "Twilight Barrage",
+          "total": 473309,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 2719297,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 10259602,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 4247192,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 2079585,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 5697048,
+          "icon": ""
+        },
+        {
+          "guid": 459560,
+          "name": "Laceration",
+          "total": 139280,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "HarvyBirbman",
+          "total": 7700290,
+          "icon": ""
+        },
+        {
+          "guid": 204526,
+          "name": "Dire Beast",
+          "total": 5183204,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 2906015,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 4139867,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 16143901,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 2710791,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 240391,
+          "name": "L'ura",
+          "total": 43938691,
+          "type": "Boss",
+          "icon": "custom-icon-spell_holy_elunesgrace.jpg"
+        },
+        {
+          "guid": 250615,
+          "name": "Midnight Crystal",
+          "total": 5755206,
+          "type": "NPC",
+          "icon": "NPC"
+        },
+        {
+          "guid": 257959,
+          "name": "L'ura",
+          "total": 27167690,
+          "type": "Boss",
+          "icon": "custom-icon-inv_cosmicvoid_buff.jpg"
+        }
+      ]
+    },
+    "yWvT3mjwHxdgKNrp:43:Lysaraa": {
+      "report_id": "yWvT3mjwHxdgKNrp",
+      "fight_id": 43,
+      "character": "Lysaraa",
+      "source_id": 422,
+      "encounter_id": 3183,
+      "encounter_name": "Midnight Falls",
+      "rank": 23,
+      "dps": 149499.61017843,
+      "item_level": 293.0,
+      "duration_s": 538.708,
+      "trinkets": [
+        249343,
+        249806
+      ],
+      "combo": "ALN_MASTERY_PLUME",
+      "stats": {
+        "Speed": 65,
+        "Agility": 2113,
+        "Mastery": 1397,
+        "Crit": 777,
+        "Item Level": 293,
+        "Stamina": 24252,
+        "Avoidance": 37,
+        "Haste": 797,
+        "Versatility": 0,
+        "Leech": 83
+      },
+      "full_ability": [
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 299934,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 826628,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Burp",
+          "total": 8214722,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 11090148,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 4260398,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 4300121,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 2691065,
+          "icon": ""
+        },
+        {
+          "guid": 459560,
+          "name": "Laceration",
+          "total": 146684,
+          "icon": ""
+        },
+        {
+          "guid": 1285138,
+          "name": "Sporecaller's Blooming Loop",
+          "total": 25642,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 4020586,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 3016975,
+          "icon": ""
+        },
+        {
+          "guid": 219199,
+          "name": "Dire Beast",
+          "total": 5734720,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 2776392,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 9749107,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 5876127,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 15923385,
+          "icon": ""
+        },
+        {
+          "guid": 1285139,
+          "name": "Rotmire's Sporeheart",
+          "total": 217202,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 1366800,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 250615,
+          "name": "Midnight Crystal",
+          "total": 5509091,
+          "type": "NPC",
+          "icon": "NPC"
+        },
+        {
+          "guid": 257959,
+          "name": "L'ura",
+          "total": 12,
+          "type": "Boss",
+          "icon": "custom-icon-inv_cosmicvoid_buff.jpg"
+        },
+        {
+          "guid": 240391,
+          "name": "L'ura",
+          "total": 75027533,
+          "type": "Boss",
+          "icon": "custom-icon-spell_holy_elunesgrace.jpg"
+        }
+      ]
+    },
+    "JQmxgzZ2379BwMH1:49:Астрочка": {
+      "report_id": "JQmxgzZ2379BwMH1",
+      "fight_id": 49,
+      "character": "Астрочка",
+      "source_id": 62,
+      "encounter_id": 3183,
+      "encounter_name": "Midnight Falls",
+      "rank": 24,
+      "dps": 149462.44265334,
+      "item_level": 290.0,
+      "duration_s": 517.249,
+      "trinkets": [
+        249343,
+        193701
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 0,
+        "Agility": 2088,
+        "Mastery": 1265,
+        "Crit": 461,
+        "Item Level": 290,
+        "Stamina": 23602,
+        "Avoidance": 220,
+        "Haste": 797,
+        "Versatility": 155,
+        "Leech": 129
+      },
+      "full_ability": [
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 2588334,
+          "icon": ""
+        },
+        {
+          "guid": 204526,
+          "name": "Dire Beast",
+          "total": 5108152,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 739227,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 9200686,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 3985420,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 2960495,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Волк",
+          "total": 8800177,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 3409143,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 3588354,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 6405549,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 1375413,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 10371059,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 3915380,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 14861910,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 240391,
+          "name": "L'ura",
+          "total": 42792228,
+          "type": "Boss",
+          "icon": "custom-icon-spell_holy_elunesgrace.jpg"
+        },
+        {
+          "guid": 250615,
+          "name": "Midnight Crystal",
+          "total": 6600745,
+          "type": "NPC",
+          "icon": "custom-icon-inv_ability_spellslingermage_splintersblue.jpg"
+        },
+        {
+          "guid": 257959,
+          "name": "L'ura",
+          "total": 27916326,
+          "type": "Boss",
+          "icon": "custom-icon-inv_cosmicvoid_buff.jpg"
+        }
+      ]
+    },
+    "VwBgxtHR7cay6jXk:16:Hawkeh": {
+      "report_id": "VwBgxtHR7cay6jXk",
+      "fight_id": 16,
+      "character": "Hawkeh",
+      "source_id": 226,
+      "encounter_id": 3183,
+      "encounter_name": "Midnight Falls",
+      "rank": 25,
+      "dps": 149460.94029984,
+      "item_level": 291.0,
+      "duration_s": 535.744,
+      "trinkets": [
+        249343,
+        193701
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 0,
+        "Agility": 2116,
+        "Mastery": 1168,
+        "Crit": 713,
+        "Item Level": 291,
+        "Stamina": 23723,
+        "Avoidance": 167,
+        "Haste": 779,
+        "Versatility": 93,
+        "Leech": 0
+      },
+      "full_ability": [
+        {
+          "guid": 883,
+          "name": "Umoraki",
+          "total": 8601312,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 2729918,
+          "icon": ""
+        },
+        {
+          "guid": 1285139,
+          "name": "Rotmire's Sporeheart",
+          "total": 20104,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 5755573,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 16149981,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 10932728,
+          "icon": ""
+        },
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 192418,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 3532510,
+          "icon": ""
+        },
+        {
+          "guid": 204526,
+          "name": "Dire Beast",
+          "total": 5827064,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 835562,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 3231837,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 4202593,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 3334583,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 3542630,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 9752478,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 1431511,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 250615,
+          "name": "Midnight Crystal",
+          "total": 7513100,
+          "type": "NPC",
+          "icon": "custom-icon-ability_monk_chiwave.jpg"
+        },
+        {
+          "guid": 240391,
+          "name": "L'ura",
+          "total": 42313379,
+          "type": "Boss",
+          "icon": "custom-icon-spell_holy_elunesgrace.jpg"
+        },
+        {
+          "guid": 257959,
+          "name": "L'ura",
+          "total": 30246323,
+          "type": "Boss",
+          "icon": "custom-icon-inv_cosmicvoid_buff.jpg"
+        }
+      ]
+    },
+    "rqfxCcbHFkzXWyD1:6:Spankk": {
+      "report_id": "rqfxCcbHFkzXWyD1",
+      "fight_id": 6,
+      "character": "Spankk",
+      "source_id": 177,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 3,
+      "dps": 149938.94716555,
+      "item_level": 289.0,
+      "duration_s": 145.284,
+      "trinkets": [
+        193701,
+        250256
+      ],
+      "combo": "BOX_OTHER",
+      "stats": {
+        "Speed": 178,
+        "Agility": 2254,
+        "Mastery": 1124,
+        "Crit": 613,
+        "Item Level": 289,
+        "Stamina": 23296,
+        "Avoidance": 167,
+        "Haste": 756,
+        "Versatility": 52,
+        "Leech": 40
+      },
+      "full_ability": [
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 1651066,
+          "icon": ""
+        },
+        {
+          "guid": 459560,
+          "name": "Laceration",
+          "total": 462708,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 3199050,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 1900433,
+          "icon": ""
+        },
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 55006,
+          "icon": ""
+        },
+        {
+          "guid": 389448,
+          "name": "Kill Cleave",
+          "total": 678636,
+          "icon": ""
+        },
+        {
+          "guid": 16827,
+          "name": "Claw",
+          "total": 412046,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 1811732,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 359683,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 3878677,
+          "icon": ""
+        },
+        {
+          "guid": 118459,
+          "name": "Beast Cleave",
+          "total": 1413433,
+          "icon": ""
+        },
+        {
+          "guid": 1264355,
+          "name": "Wild Thrash",
+          "total": 485286,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 1579583,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 855573,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 2165330,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 652317,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 223171,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 5296304,
+          "type": "NPC",
+          "icon": "custom-icon-ability_golemthunderclap.jpg"
+        },
+        {
+          "guid": 248319,
+          "name": "Swarming Shade",
+          "total": 5597537,
+          "type": "NPC",
+          "icon": "custom-icon-ability_warlock_fireandbrimstonegreen.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 10889889,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        }
+      ]
+    },
+    "LwkWJrvZ1tVQh4cY:8:Beastcleaves": {
+      "report_id": "LwkWJrvZ1tVQh4cY",
+      "fight_id": 8,
+      "character": "Beastcleaves",
+      "source_id": 125,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 4,
+      "dps": 149037.23928451,
+      "item_level": 293.0,
+      "duration_s": 148.15,
+      "trinkets": [
+        193701,
+        249343
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 65,
+        "Agility": 2888,
+        "Mastery": 1074,
+        "Crit": 909,
+        "Item Level": 293,
+        "Stamina": 24253,
+        "Avoidance": 56,
+        "Haste": 787,
+        "Versatility": 0,
+        "Leech": 74
+      },
+      "full_ability": [
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 628279,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 3763271,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 1034516,
+          "icon": ""
+        },
+        {
+          "guid": 1285138,
+          "name": "Sporecaller's Blooming Loop",
+          "total": 20773,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 239692,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 639786,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2950517,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 413584,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 413690,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4797996,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 890419,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1758001,
+          "icon": ""
+        },
+        {
+          "guid": 1285139,
+          "name": "Rotmire's Sporeheart",
+          "total": 26912,
+          "icon": ""
+        },
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 62715,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Hyena",
+          "total": 2301760,
+          "icon": ""
+        },
+        {
+          "guid": 219199,
+          "name": "Dire Beast",
+          "total": 1534416,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 603540,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 248319,
+          "name": "Swarming Shade",
+          "total": 281908,
+          "type": "NPC",
+          "icon": "custom-icon-ability_warlock_fireandbrimstonegreen.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 21460947,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        },
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 337012,
+          "type": "NPC",
+          "icon": "custom-icon-ability_golemthunderclap.jpg"
+        }
+      ]
+    },
+    "jpRArbVtL4X71YK3:15:Alexshots": {
+      "report_id": "jpRArbVtL4X71YK3",
+      "fight_id": 15,
+      "character": "Alexshots",
+      "source_id": 11,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 5,
+      "dps": 148434.78472459,
+      "item_level": 291.0,
+      "duration_s": 143.839,
+      "trinkets": [
+        193701,
+        249343
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 0,
+        "Agility": 2082,
+        "Mastery": 1930,
+        "Crit": 546,
+        "Item Level": 291,
+        "Stamina": 23722,
+        "Avoidance": 111,
+        "Haste": 903,
+        "Versatility": 258,
+        "Leech": 123
+      },
+      "full_ability": [
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 1572983,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 358447,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 630597,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 621075,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1703174,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 988517,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Dog",
+          "total": 2264291,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 3338911,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 520315,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 5139877,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 232233,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 630290,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 819572,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2530429,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 416308,
+          "type": "NPC",
+          "icon": "custom-icon-ability_druid_challangingroar.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 20934403,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        }
+      ]
+    },
+    "W9rXGAzkP7n8btL2:15:Nickoo": {
+      "report_id": "W9rXGAzkP7n8btL2",
+      "fight_id": 15,
+      "character": "Nickoo",
+      "source_id": 207,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 6,
+      "dps": 148072.89503088,
+      "item_level": 287.0,
+      "duration_s": 145.881,
+      "trinkets": [
+        193701,
+        249343
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 49,
+        "Agility": 2718,
+        "Mastery": 1919,
+        "Crit": 988,
+        "Item Level": 287,
+        "Stamina": 22967,
+        "Avoidance": 189,
+        "Haste": 517,
+        "Versatility": 126,
+        "Leech": 107
+      },
+      "full_ability": [
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4046922,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 1052216,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 2983078,
+          "icon": ""
+        },
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 1444905,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 904630,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 808855,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 397831,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 202639,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 1208913,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2395056,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1686499,
+          "icon": ""
+        },
+        {
+          "guid": 459560,
+          "name": "Laceration",
+          "total": 54001,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 1061982,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 871248,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Magria",
+          "total": 2482247,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 248319,
+          "name": "Swarming Shade",
+          "total": 2029050,
+          "type": "NPC",
+          "icon": "custom-icon-ability_warlock_fireandbrimstonegreen.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 15468149,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        },
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 4103823,
+          "type": "NPC",
+          "icon": "custom-icon-ability_druid_challangingroar.jpg"
+        }
+      ]
+    },
+    "2LNZP7HRQ6z1kTBw:4:Kymnr": {
+      "report_id": "2LNZP7HRQ6z1kTBw",
+      "fight_id": 4,
+      "character": "Kymnr",
+      "source_id": 55,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 8,
+      "dps": 147004.41867095,
+      "item_level": 290.0,
+      "duration_s": 133.298,
+      "trinkets": [
+        193701,
+        249343
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 0,
+        "Agility": 2119,
+        "Mastery": 1120,
+        "Crit": 523,
+        "Item Level": 290,
+        "Stamina": 23601,
+        "Avoidance": 167,
+        "Haste": 1055,
+        "Versatility": 52,
+        "Leech": 0
+      },
+      "full_ability": [
+        {
+          "guid": 883,
+          "name": "Banjo",
+          "total": 1951608,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 223536,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 975614,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 370148,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 660833,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 560208,
+          "icon": ""
+        },
+        {
+          "guid": 459560,
+          "name": "Laceration",
+          "total": 25627,
+          "icon": ""
+        },
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 1342819,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 2836239,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 654143,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2521997,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4719435,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1543524,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 694503,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 515161,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 19326700,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        },
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 268695,
+          "type": "NPC",
+          "icon": "custom-icon-ability_golemthunderclap.jpg"
+        }
+      ]
+    },
+    "PQrYZnFft4AjpVhL:11:Odweleye": {
+      "report_id": "PQrYZnFft4AjpVhL",
+      "fight_id": 11,
+      "character": "Odweleye",
+      "source_id": 24,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 9,
+      "dps": 146844.84566508,
+      "item_level": 291.0,
+      "duration_s": 144.005,
+      "trinkets": [
+        249343,
+        193701
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 74,
+        "Agility": 2115,
+        "Mastery": 1005,
+        "Crit": 610,
+        "Item Level": 291,
+        "Stamina": 23602,
+        "Avoidance": 56,
+        "Haste": 1021,
+        "Versatility": 88,
+        "Leech": 55
+      },
+      "full_ability": [
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 3515189,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4938484,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 976170,
+          "icon": ""
+        },
+        {
+          "guid": 1285138,
+          "name": "Sporecaller's Blooming Loop",
+          "total": 25426,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 854897,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 411172,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 671552,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 587266,
+          "icon": ""
+        },
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 56049,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Sul'raka",
+          "total": 2067667,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 548022,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 563086,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1649895,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 227759,
+          "icon": ""
+        },
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 1353185,
+          "icon": ""
+        },
+        {
+          "guid": 459560,
+          "name": "Laceration",
+          "total": 38122,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2662451,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 248319,
+          "name": "Swarming Shade",
+          "total": 63714,
+          "type": "NPC",
+          "icon": "custom-icon-ability_warlock_fireandbrimstonegreen.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 20986599,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        },
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 96079,
+          "type": "NPC",
+          "icon": "custom-icon-ability_golemthunderclap.jpg"
+        }
+      ]
+    },
+    "HYbd3jxaw2VFmkAJ:3:Relaxhontas": {
+      "report_id": "HYbd3jxaw2VFmkAJ",
+      "fight_id": 3,
+      "character": "Relaxhontas",
+      "source_id": 21,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 10,
+      "dps": 146782.24484815,
+      "item_level": 291.0,
+      "duration_s": 143.395,
+      "trinkets": [
+        193701,
+        249343
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 0,
+        "Agility": 2103,
+        "Mastery": 1281,
+        "Crit": 570,
+        "Item Level": 291,
+        "Stamina": 23674,
+        "Avoidance": 0,
+        "Haste": 827,
+        "Versatility": 68,
+        "Leech": 249
+      },
+      "full_ability": [
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4670359,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 238288,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 652139,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 3471389,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "LikestoNut",
+          "total": 2311837,
+          "icon": ""
+        },
+        {
+          "guid": 1285138,
+          "name": "Sporecaller's Blooming Loop",
+          "total": 7153,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 420954,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 553730,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 747498,
+          "icon": ""
+        },
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 59371,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1794764,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 445064,
+          "icon": ""
+        },
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 1480858,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2707524,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 660504,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 826408,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 1527786,
+          "type": "NPC",
+          "icon": "custom-icon-ability_golemthunderclap.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 19510360,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        },
+        {
+          "guid": 248319,
+          "name": "Swarming Shade",
+          "total": 9694,
+          "type": "NPC",
+          "icon": "custom-icon-ability_warlock_fireandbrimstonegreen.jpg"
+        }
+      ]
+    },
+    "VDHFbkLWxQ7jvwRg:4:Shred": {
+      "report_id": "VDHFbkLWxQ7jvwRg",
+      "fight_id": 4,
+      "character": "Shred",
+      "source_id": 6,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 11,
+      "dps": 146720.19947338,
+      "item_level": 290.0,
+      "duration_s": 143.177,
+      "trinkets": [
+        193701,
+        249343
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 0,
+        "Agility": 2106,
+        "Mastery": 1000,
+        "Crit": 836,
+        "Item Level": 290,
+        "Stamina": 23602,
+        "Avoidance": 123,
+        "Haste": 772,
+        "Versatility": 107,
+        "Leech": 71
+      },
+      "full_ability": [
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 62701,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 613784,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 251390,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 247386,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 223259,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2547720,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4845576,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Call Pet 1",
+          "total": 3624405,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 577662,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 3225714,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 809890,
+          "icon": ""
+        },
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 1499233,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 852053,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 1203162,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 423023,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 20610928,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        },
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 396030,
+          "type": "NPC",
+          "icon": "custom-icon-ability_golemthunderclap.jpg"
+        }
+      ]
+    },
+    "1jGMW8dZCrKvB36P:11:Shóot": {
+      "report_id": "1jGMW8dZCrKvB36P",
+      "fight_id": 11,
+      "character": "Shóot",
+      "source_id": 14,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 12,
+      "dps": 146471.79388727,
+      "item_level": 290.0,
+      "duration_s": 130.22,
+      "trinkets": [
+        193701,
+        249343
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 0,
+        "Agility": 2095,
+        "Mastery": 2205,
+        "Crit": 602,
+        "Item Level": 290,
+        "Stamina": 23602,
+        "Avoidance": 167,
+        "Haste": 760,
+        "Versatility": 84,
+        "Leech": 0
+      },
+      "full_ability": [
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 618161,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4180977,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2282500,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 1079460,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 206568,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1548362,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 534146,
+          "icon": ""
+        },
+        {
+          "guid": 304051,
+          "name": "Dire Beast",
+          "total": 1422972,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 2856288,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 691800,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 335881,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 717304,
+          "icon": ""
+        },
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 49471,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Gib the Banana-Hoarder",
+          "total": 1986484,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 563183,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 347861,
+          "type": "NPC",
+          "icon": "custom-icon-ability_druid_challangingroar.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 18725696,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        }
+      ]
+    },
+    "MWxthzNTrcmCwRy4:79:Garnetqq": {
+      "report_id": "MWxthzNTrcmCwRy4",
+      "fight_id": 79,
+      "character": "Garnetqq",
+      "source_id": 1139,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 13,
+      "dps": 145679.40811123,
+      "item_level": 290.0,
+      "duration_s": 137.661,
+      "trinkets": [
+        249343,
+        193701
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 52,
+        "Agility": 2078,
+        "Mastery": 2161,
+        "Crit": 650,
+        "Item Level": 290,
+        "Stamina": 22479,
+        "Avoidance": 220,
+        "Haste": 774,
+        "Versatility": 68,
+        "Leech": 107
+      },
+      "full_ability": [
+        {
+          "guid": 883,
+          "name": "Aqiri",
+          "total": 2087840,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4918613,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 426305,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 557956,
+          "icon": ""
+        },
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 1349416,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 691789,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 525298,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 621266,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 198383,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2428255,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1736280,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 3198994,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 749231,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 564747,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 103965,
+          "type": "NPC",
+          "icon": "custom-icon-ability_golemthunderclap.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 19950408,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        }
+      ]
+    },
+    "LZNpzyqGWVFgaH3T:26:Scampen": {
+      "report_id": "LZNpzyqGWVFgaH3T",
+      "fight_id": 26,
+      "character": "Scampen",
+      "source_id": 9,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 14,
+      "dps": 145560.88355356,
+      "item_level": 290.0,
+      "duration_s": 136.449,
+      "trinkets": [
+        193701,
+        249343
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 118,
+        "Agility": 2095,
+        "Mastery": 2060,
+        "Crit": 546,
+        "Item Level": 290,
+        "Stamina": 23634,
+        "Avoidance": 19,
+        "Haste": 1031,
+        "Versatility": 14,
+        "Leech": 55
+      },
+      "full_ability": [
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 562333,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 649629,
+          "icon": ""
+        },
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 1650261,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 3300994,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 600019,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1535197,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 1086296,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2074840,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 458316,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 410498,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4448631,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Stan",
+          "total": 2025410,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 797120,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 205982,
+          "icon": ""
+        },
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 56111,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 19774258,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        },
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 87379,
+          "type": "NPC",
+          "icon": "custom-icon-ability_golemthunderclap.jpg"
+        }
+      ]
+    },
+    "Htxd8km3fcQPD7aK:12:Nawys": {
+      "report_id": "Htxd8km3fcQPD7aK",
+      "fight_id": 12,
+      "character": "Nawys",
+      "source_id": 7,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 15,
+      "dps": 144691.69594032,
+      "item_level": 290.0,
+      "duration_s": 138.065,
+      "trinkets": [
+        249343,
+        193701
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 0,
+        "Agility": 2743,
+        "Mastery": 1892,
+        "Crit": 1084,
+        "Item Level": 290,
+        "Stamina": 23480,
+        "Avoidance": 275,
+        "Haste": 540,
+        "Versatility": 52,
+        "Leech": 40
+      },
+      "full_ability": [
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 643826,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4423692,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 634015,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Myonix",
+          "total": 2063001,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 222643,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 524071,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 394213,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 3080399,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 634544,
+          "icon": ""
+        },
+        {
+          "guid": 459560,
+          "name": "Laceration",
+          "total": 62747,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2326583,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 900858,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1596743,
+          "icon": ""
+        },
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 1460958,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 952415,
+          "icon": ""
+        },
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 56151,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 129137,
+          "type": "NPC",
+          "icon": "custom-icon-ability_golemthunderclap.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 19847722,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        }
+      ]
+    },
+    "P6AJQbyBn8K9XtTD:7:安心吖": {
+      "report_id": "P6AJQbyBn8K9XtTD",
+      "fight_id": 7,
+      "character": "安心吖",
+      "source_id": 15,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 16,
+      "dps": 144553.69026221,
+      "item_level": 290.0,
+      "duration_s": 145.762,
+      "trinkets": [
+        193701,
+        252420
+      ],
+      "combo": "BOX_OTHER",
+      "stats": {
+        "Speed": 0,
+        "Agility": 2237,
+        "Mastery": 1692,
+        "Crit": 1434,
+        "Item Level": 290,
+        "Stamina": 22507,
+        "Avoidance": 167,
+        "Haste": 303,
+        "Versatility": 0,
+        "Leech": 0
+      },
+      "full_ability": [
+        {
+          "guid": 118459,
+          "name": "Beast Cleave",
+          "total": 781489,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 290957,
+          "icon": ""
+        },
+        {
+          "guid": 1252389,
+          "name": "Prismatic Focusing Iris",
+          "total": 148410,
+          "icon": ""
+        },
+        {
+          "guid": 1241784,
+          "name": "Halazzi's Claws",
+          "total": 84497,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 1037264,
+          "icon": ""
+        },
+        {
+          "guid": 459560,
+          "name": "Laceration",
+          "total": 609018,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 817426,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 1304524,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 4984068,
+          "icon": ""
+        },
+        {
+          "guid": 389448,
+          "name": "Kill Cleave",
+          "total": 160500,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 231869,
+          "icon": ""
+        },
+        {
+          "guid": 219199,
+          "name": "Dire Beast",
+          "total": 159588,
+          "icon": ""
+        },
+        {
+          "guid": 1264355,
+          "name": "Wild Thrash",
+          "total": 212624,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Call Pet 1",
+          "total": 4654147,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 3377415,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 705141,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 784170,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 315019,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 412309,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 248319,
+          "name": "Swarming Shade",
+          "total": 2647038,
+          "type": "NPC",
+          "icon": "custom-icon-ability_warlock_fireandbrimstonegreen.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 14513266,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        },
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 3910131,
+          "type": "NPC",
+          "icon": "custom-icon-ability_golemthunderclap.jpg"
+        }
+      ]
+    },
+    "aGW9Rf3AQjgTVbCK:40:Mcbang": {
+      "report_id": "aGW9Rf3AQjgTVbCK",
+      "fight_id": 40,
+      "character": "Mcbang",
+      "source_id": 772,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 17,
+      "dps": 144188.29245251,
+      "item_level": 291.0,
+      "duration_s": 148.195,
+      "trinkets": [
+        193701,
+        249343
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 15,
+        "Agility": 2150,
+        "Mastery": 1041,
+        "Crit": 757,
+        "Item Level": 291,
+        "Stamina": 23778,
+        "Avoidance": 19,
+        "Haste": 822,
+        "Versatility": 88,
+        "Leech": 295
+      },
+      "full_ability": [
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 394330,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 3132687,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 657316,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 819601,
+          "icon": ""
+        },
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 1631433,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 667822,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1774256,
+          "icon": ""
+        },
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 92172,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4827020,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2851127,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 691718,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 499086,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 231036,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 848888,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Tussinwulf",
+          "total": 2249492,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 623368,
+          "type": "NPC",
+          "icon": "custom-icon-ability_golemthunderclap.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 20744616,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        }
+      ]
+    },
+    "9yhXBTVc1JKkCmQL:18:Narioa": {
+      "report_id": "9yhXBTVc1JKkCmQL",
+      "fight_id": 18,
+      "character": "Narioa",
+      "source_id": 476,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 18,
+      "dps": 144122.68822296,
+      "item_level": 293.0,
+      "duration_s": 147.83,
+      "trinkets": [
+        193701,
+        249343
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 74,
+        "Agility": 2150,
+        "Mastery": 2131,
+        "Crit": 865,
+        "Item Level": 293,
+        "Stamina": 24152,
+        "Avoidance": 148,
+        "Haste": 652,
+        "Versatility": 0,
+        "Leech": 28
+      },
+      "full_ability": [
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 636197,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4599522,
+          "icon": ""
+        },
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 1452008,
+          "icon": ""
+        },
+        {
+          "guid": 1285139,
+          "name": "Rotmire's Sporeheart",
+          "total": 13998,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1696563,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 975228,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Fenryr",
+          "total": 2236166,
+          "icon": ""
+        },
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 59397,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 914059,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 830253,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 3187684,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 840746,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 573576,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 365545,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 199215,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2725500,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 544410,
+          "type": "NPC",
+          "icon": "custom-icon-ability_druid_challangingroar.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 20083719,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        },
+        {
+          "guid": 248319,
+          "name": "Swarming Shade",
+          "total": 677528,
+          "type": "NPC",
+          "icon": "custom-icon-ability_warlock_fireandbrimstonegreen.jpg"
+        }
+      ]
+    },
+    "TQ1CH3dhyMLXxvBa:10:Neoiehunt": {
+      "report_id": "TQ1CH3dhyMLXxvBa",
+      "fight_id": 10,
+      "character": "Neoiehunt",
+      "source_id": 11,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 19,
+      "dps": 143817.04117635,
+      "item_level": 291.0,
+      "duration_s": 143.699,
+      "trinkets": [
+        249343,
+        193701
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 194,
+        "Agility": 2108,
+        "Mastery": 1096,
+        "Crit": 870,
+        "Item Level": 291,
+        "Stamina": 23768,
+        "Avoidance": 19,
+        "Haste": 724,
+        "Versatility": 53,
+        "Leech": 261
+      },
+      "full_ability": [
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1602563,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 208466,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Speedy",
+          "total": 2139508,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 600250,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4713779,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 389220,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2767721,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 3022063,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 651073,
+          "icon": ""
+        },
+        {
+          "guid": 459560,
+          "name": "Laceration",
+          "total": 54583,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 1234952,
+          "icon": ""
+        },
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 69268,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 602932,
+          "icon": ""
+        },
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 1309182,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 539719,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 761086,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 10874,
+          "type": "NPC",
+          "icon": "custom-icon-ability_golemthunderclap.jpg"
+        },
+        {
+          "guid": 248319,
+          "name": "Swarming Shade",
+          "total": 62299,
+          "type": "NPC",
+          "icon": "custom-icon-ability_warlock_fireandbrimstonegreen.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 20593192,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        }
+      ]
+    },
+    "ahnJTXD6yf3wk9FK:3:Maxîmumblack": {
+      "report_id": "ahnJTXD6yf3wk9FK",
+      "fight_id": 3,
+      "character": "Maxîmumblack",
+      "source_id": 24,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 20,
+      "dps": 143765.6750281,
+      "item_level": 290.0,
+      "duration_s": 141.483,
+      "trinkets": [
+        193701,
+        249343
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 0,
+        "Agility": 2106,
+        "Mastery": 1223,
+        "Crit": 691,
+        "Item Level": 290,
+        "Stamina": 22578,
+        "Avoidance": 19,
+        "Haste": 735,
+        "Versatility": 108,
+        "Leech": 221
+      },
+      "full_ability": [
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 59384,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1729003,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 662554,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 522994,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Sul'raka",
+          "total": 2232432,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 1053830,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 2855872,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 520407,
+          "icon": ""
+        },
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 1469811,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 221305,
+          "icon": ""
+        },
+        {
+          "guid": 459560,
+          "name": "Laceration",
+          "total": 27870,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 639886,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2569648,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4738064,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 608668,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 428671,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 91198,
+          "type": "NPC",
+          "icon": "custom-icon-ability_golemthunderclap.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 20249201,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        }
+      ]
+    },
+    "wTR9gyKWf6d73zbJ:1:Kalazar": {
+      "report_id": "wTR9gyKWf6d73zbJ",
+      "fight_id": 1,
+      "character": "Kalazar",
+      "source_id": 19,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 21,
+      "dps": 143534.27300314,
+      "item_level": 291.0,
+      "duration_s": 145.654,
+      "trinkets": [
+        249806,
+        249343
+      ],
+      "combo": "ALN_MASTERY_PLUME",
+      "stats": {
+        "Speed": 126,
+        "Agility": 2161,
+        "Mastery": 1556,
+        "Crit": 580,
+        "Item Level": 291,
+        "Stamina": 23923,
+        "Avoidance": 167,
+        "Haste": 866,
+        "Versatility": 52,
+        "Leech": 247
+      },
+      "full_ability": [
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 934142,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 683931,
+          "icon": ""
+        },
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 59317,
+          "icon": ""
+        },
+        {
+          "guid": 304051,
+          "name": "Dire Beast",
+          "total": 1321683,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 560828,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Mandu",
+          "total": 2381473,
+          "icon": ""
+        },
+        {
+          "guid": 459560,
+          "name": "Laceration",
+          "total": 45808,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 2892530,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 1041416,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1728965,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 797982,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4312137,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 226578,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 869179,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 396541,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2653831,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 248319,
+          "name": "Swarming Shade",
+          "total": 1230082,
+          "type": "NPC",
+          "icon": "custom-icon-ability_warlock_fireandbrimstonegreen.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 19535778,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        },
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 140481,
+          "type": "NPC",
+          "icon": "custom-icon-ability_golemthunderclap.jpg"
+        }
+      ]
+    },
+    "zZwTr14kNQ9BWPLa:33:Weenusmobile": {
+      "report_id": "zZwTr14kNQ9BWPLa",
+      "fight_id": 33,
+      "character": "Weenusmobile",
+      "source_id": 47,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 22,
+      "dps": 143148.0,
+      "item_level": 291.0,
+      "duration_s": 146.5,
+      "trinkets": [
+        249343,
+        193701
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 87,
+        "Agility": 2088,
+        "Mastery": 1183,
+        "Crit": 662,
+        "Item Level": 291,
+        "Stamina": 23723,
+        "Avoidance": 19,
+        "Haste": 727,
+        "Versatility": 155,
+        "Leech": 53
+      },
+      "full_ability": [
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 426421,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 724896,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 687393,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1772298,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 503463,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 3275146,
+          "icon": ""
+        },
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 1526967,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 604353,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 1066906,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 605256,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4439838,
+          "icon": ""
+        },
+        {
+          "guid": 1285139,
+          "name": "Rotmire's Sporeheart",
+          "total": 26728,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "WeenusPinch",
+          "total": 2151172,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2796511,
+          "icon": ""
+        },
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 59387,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 182594,
+          "icon": ""
+        },
+        {
+          "guid": 1281579,
+          "name": "Twilight Barrage",
+          "total": 121853,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 338692,
+          "type": "NPC",
+          "icon": "custom-icon-ability_golemthunderclap.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 20632490,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        }
+      ]
+    },
+    "6pqY9FabCyh1Tm7K:26:Exxzh": {
+      "report_id": "6pqY9FabCyh1Tm7K",
+      "fight_id": 26,
+      "character": "Exxzh",
+      "source_id": 938,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 23,
+      "dps": 143111.060028,
+      "item_level": 290.0,
+      "duration_s": 145.732,
+      "trinkets": [
+        193701,
+        249343
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 0,
+        "Agility": 2112,
+        "Mastery": 1239,
+        "Crit": 932,
+        "Item Level": 290,
+        "Stamina": 23488,
+        "Avoidance": 148,
+        "Haste": 424,
+        "Versatility": 110,
+        "Leech": 68
+      },
+      "full_ability": [
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 398961,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 1415264,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 515829,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 225629,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 851504,
+          "icon": ""
+        },
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 82479,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1766640,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4085372,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 618333,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 763130,
+          "icon": ""
+        },
+        {
+          "guid": 459560,
+          "name": "Laceration",
+          "total": 29292,
+          "icon": ""
+        },
+        {
+          "guid": 304051,
+          "name": "Dire Beast",
+          "total": 1315110,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Whiptail",
+          "total": 2313331,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 629254,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 2982478,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2863255,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 842831,
+          "type": "NPC",
+          "icon": "custom-icon-ability_druid_challangingroar.jpg"
+        },
+        {
+          "guid": 248319,
+          "name": "Swarming Shade",
+          "total": 699930,
+          "type": "NPC",
+          "icon": "custom-icon-ability_warlock_fireandbrimstonegreen.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 19313100,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        }
+      ]
+    },
+    "XhDZvWGdM7t69PwN:11:Terrapher": {
+      "report_id": "XhDZvWGdM7t69PwN",
+      "fight_id": 11,
+      "character": "Terrapher",
+      "source_id": 23,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 24,
+      "dps": 142459.5986814,
+      "item_level": 290.0,
+      "duration_s": 142.879,
+      "trinkets": [
+        249343,
+        193701
+      ],
+      "combo": "ALN_BOX",
+      "stats": {
+        "Speed": 52,
+        "Agility": 2110,
+        "Mastery": 995,
+        "Crit": 723,
+        "Item Level": 290,
+        "Stamina": 23663,
+        "Avoidance": 167,
+        "Haste": 737,
+        "Versatility": 256,
+        "Leech": 0
+      },
+      "full_ability": [
+        {
+          "guid": 883,
+          "name": "Boilem",
+          "total": 2211224,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2637477,
+          "icon": ""
+        },
+        {
+          "guid": 1302265,
+          "name": "Omnium Folio",
+          "total": 56022,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1669561,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 3095921,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 730245,
+          "icon": ""
+        },
+        {
+          "guid": 1281579,
+          "name": "Twilight Barrage",
+          "total": 55216,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 650437,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 462189,
+          "icon": ""
+        },
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 1248723,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 204628,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 338854,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 557887,
+          "icon": ""
+        },
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 1220379,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4546260,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 669462,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 248319,
+          "name": "Swarming Shade",
+          "total": 333564,
+          "type": "NPC",
+          "icon": "custom-icon-ability_warlock_fireandbrimstonegreen.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 17755504,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        },
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 2265417,
+          "type": "NPC",
+          "icon": "custom-icon-ability_golemthunderclap.jpg"
+        }
+      ]
+    },
+    "W9rXGAzkP7n8btL2:15:Greengeesus": {
+      "report_id": "W9rXGAzkP7n8btL2",
+      "fight_id": 15,
+      "character": "Greengeesus",
+      "source_id": 274,
+      "encounter_id": 3306,
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rank": 25,
+      "dps": 142381.94144542,
+      "item_level": 290.0,
+      "duration_s": 145.881,
+      "trinkets": [
+        252420,
+        193701
+      ],
+      "combo": "BOX_OTHER",
+      "stats": {
+        "Speed": 0,
+        "Agility": 2811,
+        "Mastery": 2004,
+        "Crit": 1173,
+        "Item Level": 290,
+        "Stamina": 23455,
+        "Avoidance": 167,
+        "Haste": 304,
+        "Versatility": 52,
+        "Leech": 0
+      },
+      "full_ability": [
+        {
+          "guid": 471938,
+          "name": "Boar Charge",
+          "total": 1075704,
+          "icon": ""
+        },
+        {
+          "guid": 344572,
+          "name": "Bestial Wrath",
+          "total": 631832,
+          "icon": ""
+        },
+        {
+          "guid": 34026,
+          "name": "Kill Command",
+          "total": 3075681,
+          "icon": ""
+        },
+        {
+          "guid": 1,
+          "name": "Melee",
+          "total": 394952,
+          "icon": ""
+        },
+        {
+          "guid": 193455,
+          "name": "Cobra Shot",
+          "total": 2960728,
+          "icon": ""
+        },
+        {
+          "guid": 883,
+          "name": "Khsklunker",
+          "total": 2338164,
+          "icon": ""
+        },
+        {
+          "guid": 75,
+          "name": "Auto Shot",
+          "total": 212193,
+          "icon": ""
+        },
+        {
+          "guid": 201754,
+          "name": "Stomp",
+          "total": 656357,
+          "icon": ""
+        },
+        {
+          "guid": 459560,
+          "name": "Laceration",
+          "total": 19697,
+          "icon": ""
+        },
+        {
+          "guid": 459730,
+          "name": "Huntmaster's Call",
+          "total": 502321,
+          "icon": ""
+        },
+        {
+          "guid": 1283817,
+          "name": "Dire Beast",
+          "total": 1424299,
+          "icon": ""
+        },
+        {
+          "guid": 217200,
+          "name": "Barbed Shot",
+          "total": 4503441,
+          "icon": ""
+        },
+        {
+          "guid": 201594,
+          "name": "Stampede",
+          "total": 830179,
+          "icon": ""
+        },
+        {
+          "guid": 321538,
+          "name": "Bloodshed",
+          "total": 1670487,
+          "icon": ""
+        },
+        {
+          "guid": 471990,
+          "name": "Bear Summon (Howl of the Pack Leader)",
+          "total": 474785,
+          "icon": ""
+        }
+      ],
+      "full_target": [
+        {
+          "guid": 249341,
+          "name": "Colossal Horror",
+          "total": 1471430,
+          "type": "NPC",
+          "icon": "custom-icon-ability_druid_challangingroar.jpg"
+        },
+        {
+          "guid": 245569,
+          "name": "Chimaerus",
+          "total": 19059915,
+          "type": "Boss",
+          "icon": "custom-icon-spell_deathknight_gnaw_ghoul.jpg"
+        },
+        {
+          "guid": 248319,
+          "name": "Swarming Shade",
+          "total": 239475,
+          "type": "NPC",
+          "icon": "custom-icon-ability_warlock_fireandbrimstonegreen.jpg"
+        }
       ]
     }
   }
