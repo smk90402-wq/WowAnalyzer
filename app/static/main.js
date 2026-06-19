@@ -306,6 +306,20 @@ function whEnsure() {
 // (전체 스킬명은 긴 이름 우선 매칭이라 영향 없음. '속사포' 같은 합성어는 한글 경계 규칙이 막음)
 const WS_BLOCK = new Set(['사격', '강화', '폭발', '질주', '회복', '재생', '어둠', '격노', '집중', '표식']);
 const _wsHangul = (c) => c >= '가' && c <= '힣';
+const WS_PARTICLES = [
+  '으로부터', '이라면', '에서는', '에서', '으로', '부터', '까지', '처럼',
+  '마다', '보다', '조차', '라도', '이면', '이고', '은', '는', '이', '가',
+  '을', '를', '에', '와', '과', '도', '만', '로',
+];
+function _wsParticleLen(text, idx) {
+  for (const p of WS_PARTICLES) {
+    if (text.startsWith(p, idx)) {
+      const next = text[idx + p.length] || '';
+      if (!_wsHangul(next)) return p.length;
+    }
+  }
+  return 0;
+}
 function wsify(escText) {
   // esc() 처리된 평문에서 스킬명을 아이콘+툴팁 링크로 치환.
   // 토큰 치환(긴 이름 우선) 후 일괄 전개 — 짧은 이름이 긴 이름 내부를 재치환하는 것 방지.
@@ -319,7 +333,8 @@ function wsify(escText) {
     for (let k = out.indexOf(n, pos); k !== -1; k = out.indexOf(n, pos)) {
       const pre = k > 0 ? out[k - 1] : '';
       const post = k + n.length < out.length ? out[k + n.length] : '';
-      if (!_wsHangul(pre) && !_wsHangul(post)) {
+      const postOk = !_wsHangul(post) || _wsParticleLen(out, k + n.length);
+      if (!_wsHangul(pre) && postOk) {
         res += out.slice(pos, k) + '' + toks.length + '';
         hit = true;
       } else {
@@ -354,6 +369,23 @@ async function loadRotation() {
   }
 }
 function _rotClasses() { return Object.keys(_rotData).filter(k => !k.startsWith('_')); }
+function rotGameSupported() {
+  return typeof window.openRotGame === 'function'
+    && typeof window.rotGameSupports === 'function'
+    && window.rotGameSupports(_rotSel.cls, _rotSel.spec, _rotSel.build);
+}
+function updateRotGameButton() {
+  const btn = $('#rot-game-control-btn');
+  if (!btn) return;
+  const supported = rotGameSupported();
+  btn.style.display = supported ? '' : 'none';
+  btn.textContent = supported
+    ? `딜사이클 문제풀이 — ${_rotSel.build}`
+    : '딜사이클 문제풀이';
+  btn.onclick = supported
+    ? () => openRotGame(_rotSel.cls, _rotSel.spec, _rotSel.build)
+    : null;
+}
 function renderRotControls() {
   const classes = _rotClasses();
   if (!_rotSel.cls || !classes.includes(_rotSel.cls)) _rotSel.cls = classes[0];
@@ -367,6 +399,7 @@ function renderRotControls() {
   $('#rot-class').innerHTML = classes.map(c => opt(c, _rotData[c].kr || c, _rotSel.cls)).join('');
   $('#rot-spec').innerHTML = specs.map(s => opt(s, clsObj.specs[s].kr || s, _rotSel.spec)).join('');
   $('#rot-build').innerHTML = builds.map(b => opt(b, b, _rotSel.build)).join('');
+  updateRotGameButton();
   if (_rotSel.mode === 'boss') renderRotBoss(); else renderRotBody();
 }
 
@@ -734,6 +767,7 @@ function renderRotBody() {
   const spec = _rotData[_rotSel.cls].specs[_rotSel.spec];
   const build = spec.builds[_rotSel.build];
   if (!build) { $('#rot-body').innerHTML = '<div class="empty">빌드 없음</div>'; return; }
+  const hasGame = rotGameSupported();
   const list = (arr) => arr && arr.length
     ? `<ol class="rot-list">${arr.map(x => `<li>${wsify(esc(x))}</li>`).join('')}</ol>`
     : '<div class="sm-empty">데이터 없음</div>';
@@ -742,7 +776,7 @@ function renderRotBody() {
       <div class="rot-summary">${wsify(esc(spec.summary || ''))}</div>
       ${spec.stat ? `<div class="rot-stat"><b>스탯</b> ${wsify(esc(spec.stat))}</div>` : ''}
       ${build.hero_note ? `<div class="rot-hero"><b>${esc(_rotSel.build)}</b> ${wsify(esc(build.hero_note))}</div>` : ''}
-      ${(_rotSel.cls === 'Warrior' && _rotSel.spec === 'Fury') ? `<button id="rot-game-btn" style="margin-top:10px;cursor:pointer;background:#9a6b16;border:1px solid #b6831f;color:#ffe9b8;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600">🎮 딜사이클 연습 미니게임 — ${esc(_rotSel.build)} (프록 우선순위 50문제)</button>` : ''}
+      ${hasGame ? `<button id="rot-game-btn" class="rot-game-btn" style="margin-top:10px">딜사이클 문제풀이 — ${esc(_rotSel.build)} (단일특/광특 50문제)</button>` : ''}
     </div>
     <div class="rot-cols">
       <div class="rot-col"><div class="rot-col-h single">단일 우선순위</div>${list(build.single)}</div>
@@ -1057,6 +1091,7 @@ function bind() {
   });
   $('#rot-build').addEventListener('change', e => {
     _rotSel.build = e.target.value;
+    updateRotGameButton();
     if (_rotSel.mode === 'boss') renderRotBoss(); else renderRotBody();
   });
   // 스탯 탭 콤보박스
@@ -1086,6 +1121,7 @@ function bind() {
     if (!btn) return;
     _rotSel.mode = btn.dataset.mode;
     $$('.rot-mode-btn').forEach(b => b.classList.toggle('active', b === btn));
+    updateRotGameButton();
     if (_rotSel.mode === 'boss') renderRotBoss(); else renderRotBody();
   });
 

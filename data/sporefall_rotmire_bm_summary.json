@@ -1,0 +1,533 @@
+{
+  "_meta": {
+    "generated_at": "2026-06-19T14:25:17",
+    "source": "Warcraft Logs v2 API characterRankings + playerDetails(includeCombatantInfo:true)",
+    "zone_id": 50,
+    "zone_name": "Sporefall",
+    "encounter_id": 3159,
+    "encounter_name": "Rotmire",
+    "partition": 1,
+    "partition_name": "12.0.7",
+    "class": "Hunter",
+    "spec": "BeastMastery",
+    "top_n_per_difficulty": 100,
+    "difficulties": [
+      "mythic"
+    ],
+    "haste_rating_per_1pct": 44.0,
+    "haste_target_pct": 17.0,
+    "haste_target_rating": 748,
+    "aoe_node_id": 102341,
+    "aoe_node_name": "야수의 회전베기"
+  },
+  "summary_by_difficulty": {
+    "mythic": {
+      "all": {
+        "n": 99,
+        "aoe_n": 99,
+        "haste_pct_mean": 7.79,
+        "haste_pct_median": 7.5,
+        "haste_pct_p25": 5.73,
+        "haste_pct_p75": 9.01,
+        "haste_pct_min": 0.36,
+        "haste_pct_max": 24.02,
+        "haste_rating_median": 330,
+        "gte_17pct_n": 1,
+        "gte_17pct_rate": 1.0,
+        "top20_haste_pct_median": 7.83,
+        "top20_gte_17pct_rate": 0.0,
+        "top50_haste_pct_median": 7.83,
+        "top50_gte_17pct_rate": 2.0,
+        "haste_raw_dps_corr": 0.015,
+        "haste_residual_corr_ilvl_duration": 0.034
+      },
+      "aoe_build": {
+        "n": 99,
+        "aoe_n": 99,
+        "haste_pct_mean": 7.79,
+        "haste_pct_median": 7.5,
+        "haste_pct_p25": 5.73,
+        "haste_pct_p75": 9.01,
+        "haste_pct_min": 0.36,
+        "haste_pct_max": 24.02,
+        "haste_rating_median": 330,
+        "gte_17pct_n": 1,
+        "gte_17pct_rate": 1.0,
+        "top20_haste_pct_median": 7.83,
+        "top20_gte_17pct_rate": 0.0,
+        "top50_haste_pct_median": 7.83,
+        "top50_gte_17pct_rate": 2.0,
+        "haste_raw_dps_corr": 0.015,
+        "haste_residual_corr_ilvl_duration": 0.034
+      }
+    }
+  },
+  "talent_node_counts": {
+    "mythic": [
+      [
+        110428,
+        297
+      ],
+      [
+        94962,
+        99
+      ],
+      [
+        94966,
+        99
+      ],
+      [
+        94967,
+        99
+      ],
+      [
+        94969,
+        99
+      ],
+      [
+        94972,
+        99
+      ],
+      [
+        94984,
+        99
+      ],
+      [
+        94985,
+        99
+      ],
+      [
+        94988,
+        99
+      ],
+      [
+        94992,
+        99
+      ],
+      [
+        99832,
+        99
+      ],
+      [
+        94979,
+        99
+      ],
+      [
+        102292,
+        99
+      ],
+      [
+        102336,
+        99
+      ],
+      [
+        102338,
+        99
+      ],
+      [
+        102339,
+        99
+      ],
+      [
+        102340,
+        99
+      ],
+      [
+        102341,
+        99
+      ],
+      [
+        102342,
+        99
+      ],
+      [
+        102343,
+        99
+      ],
+      [
+        102346,
+        99
+      ],
+      [
+        102347,
+        99
+      ],
+      [
+        102353,
+        99
+      ],
+      [
+        102354,
+        99
+      ],
+      [
+        102355,
+        99
+      ],
+      [
+        102356,
+        99
+      ],
+      [
+        102357,
+        99
+      ],
+      [
+        102358,
+        99
+      ],
+      [
+        102359,
+        99
+      ],
+      [
+        102362,
+        99
+      ]
+    ]
+  },
+  "misses": [],
+  "top20": {
+    "mythic": [
+      {
+        "rank": 1,
+        "character": "Zacían",
+        "server": "Sargeras",
+        "region": "US",
+        "dps": 196991.79157911,
+        "ilvl": 290,
+        "haste": 465,
+        "haste_pct": 10.57,
+        "crit": 1111,
+        "mastery": 1001,
+        "vers": 140,
+        "aoe_build": true,
+        "report_id": "3tGa2PWKr41DfLXg",
+        "fight_id": 11
+      },
+      {
+        "rank": 2,
+        "character": "尚巴徥",
+        "server": "格瑞姆巴托",
+        "region": "CN",
+        "dps": 191250.7734269,
+        "ilvl": 291,
+        "haste": 242,
+        "haste_pct": 5.5,
+        "crit": 1237,
+        "mastery": 1243,
+        "vers": 0,
+        "aoe_build": true,
+        "report_id": "hprH8KX2DaPGtzMj",
+        "fight_id": 37
+      },
+      {
+        "rank": 3,
+        "character": "最耀的光",
+        "server": "血色十字军",
+        "region": "CN",
+        "dps": 189230.01177138,
+        "ilvl": 290,
+        "haste": 457,
+        "haste_pct": 10.39,
+        "crit": 1138,
+        "mastery": 1132,
+        "vers": 0,
+        "aoe_build": true,
+        "report_id": "XfaLvDxzP2FJR9b3",
+        "fight_id": 101
+      },
+      {
+        "rank": 4,
+        "character": "哈哈丶帅猎猎",
+        "server": "无尽之海",
+        "region": "CN",
+        "dps": 185559.75895828,
+        "ilvl": 290,
+        "haste": 299,
+        "haste_pct": 6.8,
+        "crit": 1410,
+        "mastery": 1089,
+        "vers": 101,
+        "aoe_build": true,
+        "report_id": "17dhwQkDCfT9vynL",
+        "fight_id": 104
+      },
+      {
+        "rank": 5,
+        "character": "야수투배럭",
+        "server": "아즈샤라",
+        "region": "KR",
+        "dps": 185554.81291386,
+        "ilvl": 290,
+        "haste": 424,
+        "haste_pct": 9.64,
+        "crit": 1420,
+        "mastery": 1580,
+        "vers": 190,
+        "aoe_build": true,
+        "report_id": "Mtn1KxgLqCh69PwR",
+        "fight_id": 5
+      },
+      {
+        "rank": 6,
+        "character": "冰肠肥糖",
+        "server": "血色十字军",
+        "region": "CN",
+        "dps": 183966.56888628,
+        "ilvl": 292,
+        "haste": 266,
+        "haste_pct": 6.05,
+        "crit": 1200,
+        "mastery": 2094,
+        "vers": 101,
+        "aoe_build": true,
+        "report_id": "Xqg9C3TvY4z72Jja",
+        "fight_id": 1
+      },
+      {
+        "rank": 7,
+        "character": "冰龟罗克",
+        "server": "格雷迈恩",
+        "region": "CN",
+        "dps": 183633.78129554,
+        "ilvl": 291,
+        "haste": 379,
+        "haste_pct": 8.61,
+        "crit": 1404,
+        "mastery": 1854,
+        "vers": 0,
+        "aoe_build": true,
+        "report_id": "vgWNn1L9DAw68GKx",
+        "fight_id": 22
+      },
+      {
+        "rank": 8,
+        "character": "摸不到",
+        "server": "血色十字军",
+        "region": "CN",
+        "dps": 183539.60761671,
+        "ilvl": 290,
+        "haste": 400,
+        "haste_pct": 9.09,
+        "crit": 1386,
+        "mastery": 1082,
+        "vers": 16,
+        "aoe_build": true,
+        "report_id": "4JRMW8PZAjHK6nvw",
+        "fight_id": 9
+      },
+      {
+        "rank": 9,
+        "character": "明天晴天丶",
+        "server": "白银之手",
+        "region": "CN",
+        "dps": 182690.59025956,
+        "ilvl": 291,
+        "haste": 347,
+        "haste_pct": 7.89,
+        "crit": 1204,
+        "mastery": 2145,
+        "vers": 0,
+        "aoe_build": true,
+        "report_id": "21FKkJncZAMVTPz7",
+        "fight_id": 25
+      },
+      {
+        "rank": 10,
+        "character": "尐红手",
+        "server": "白银之手",
+        "region": "CN",
+        "dps": 182369.1052248,
+        "ilvl": 290,
+        "haste": 252,
+        "haste_pct": 5.73,
+        "crit": 1336,
+        "mastery": 1012,
+        "vers": 101,
+        "aoe_build": true,
+        "report_id": "dKYQc2vxA1q4wVhX",
+        "fight_id": 13
+      },
+      {
+        "rank": 11,
+        "character": "酷林",
+        "server": "无尽之海",
+        "region": "CN",
+        "dps": 181391.88348951,
+        "ilvl": 291,
+        "haste": 365,
+        "haste_pct": 8.3,
+        "crit": 1499,
+        "mastery": 712,
+        "vers": 117,
+        "aoe_build": true,
+        "report_id": "tfA7jcMGgbRXzLdp",
+        "fight_id": 1
+      },
+      {
+        "rank": 12,
+        "character": "老坏丶",
+        "server": "凤凰之神",
+        "region": "CN",
+        "dps": 181160.09322445,
+        "ilvl": 290,
+        "haste": 342,
+        "haste_pct": 7.77,
+        "crit": 1335,
+        "mastery": 3672,
+        "vers": -231,
+        "aoe_build": true,
+        "report_id": "nyhN8fgALwCKPRX2",
+        "fight_id": 13
+      },
+      {
+        "rank": 13,
+        "character": "小媔面",
+        "server": "海克泰尔",
+        "region": "CN",
+        "dps": 180878.40191283,
+        "ilvl": 289,
+        "haste": 164,
+        "haste_pct": 3.73,
+        "crit": 1421,
+        "mastery": 1396,
+        "vers": 0,
+        "aoe_build": true,
+        "report_id": "b28Mrpnyz3djwRBN",
+        "fight_id": 29
+      },
+      {
+        "rank": 14,
+        "character": "淸風伴酒行",
+        "server": "死亡之翼",
+        "region": "CN",
+        "dps": 180633.37140185,
+        "ilvl": 291,
+        "haste": 252,
+        "haste_pct": 5.73,
+        "crit": 1285,
+        "mastery": 1189,
+        "vers": 0,
+        "aoe_build": true,
+        "report_id": "zxp2vHJfQPcXBMAh",
+        "fight_id": 40
+      },
+      {
+        "rank": 15,
+        "character": "神殺枪",
+        "server": "凤凰之神",
+        "region": "CN",
+        "dps": 179142.84355525,
+        "ilvl": 291,
+        "haste": 314,
+        "haste_pct": 7.14,
+        "crit": 1126,
+        "mastery": 2064,
+        "vers": 117,
+        "aoe_build": true,
+        "report_id": "WqxfG3zAHJKL9m6c",
+        "fight_id": 40
+      },
+      {
+        "rank": 16,
+        "character": "扳機",
+        "server": "死亡之翼",
+        "region": "CN",
+        "dps": 178915.2916787,
+        "ilvl": 289,
+        "haste": 349,
+        "haste_pct": 7.93,
+        "crit": 1207,
+        "mastery": 1419,
+        "vers": 16,
+        "aoe_build": true,
+        "report_id": "rDYjy928bRGQcFLC",
+        "fight_id": 20
+      },
+      {
+        "rank": 17,
+        "character": "小红手星星",
+        "server": "白银之手",
+        "region": "CN",
+        "dps": 178735.03346314,
+        "ilvl": 290,
+        "haste": 252,
+        "haste_pct": 5.73,
+        "crit": 1246,
+        "mastery": 2122,
+        "vers": 0,
+        "aoe_build": true,
+        "report_id": "xybNHdMtvrQzwKkZ",
+        "fight_id": 11
+      },
+      {
+        "rank": 18,
+        "character": "Monesy",
+        "server": "熊猫酒仙",
+        "region": "CN",
+        "dps": 178434.89346689,
+        "ilvl": 290,
+        "haste": 290,
+        "haste_pct": 6.59,
+        "crit": 1242,
+        "mastery": 1165,
+        "vers": 0,
+        "aoe_build": true,
+        "report_id": "RCrD97vnafMPXTQp",
+        "fight_id": 11
+      },
+      {
+        "rank": 19,
+        "character": "Baitofu",
+        "server": "白银之手",
+        "region": "CN",
+        "dps": 178358.11387377,
+        "ilvl": 290,
+        "haste": 357,
+        "haste_pct": 8.11,
+        "crit": 1240,
+        "mastery": 1978,
+        "vers": 52,
+        "aoe_build": true,
+        "report_id": "QkdFG9mTWrXwnqA3",
+        "fight_id": 6
+      },
+      {
+        "rank": 20,
+        "character": "Greedx",
+        "server": "Sanguino",
+        "region": "EU",
+        "dps": 178289.86524344,
+        "ilvl": 289,
+        "haste": 484,
+        "haste_pct": 11.0,
+        "crit": 870,
+        "mastery": 1248,
+        "vers": 52,
+        "aoe_build": true,
+        "report_id": "Q7m1qw2z8GnjyLbr",
+        "fight_id": 5
+      }
+    ]
+  },
+  "files": [
+    "data/sporefall_rotmire_bm_rankings.csv",
+    "data/sporefall_rotmire_bm_summary.json"
+  ],
+  "haste_secondary_share_summary": {
+    "mythic": {
+      "n": 99,
+      "haste_secondary_share_mean": 10.75,
+      "haste_secondary_share_median": 10.01,
+      "haste_secondary_share_p25": 8.3,
+      "haste_secondary_share_p75": 12.42,
+      "gte_17pct_secondary_share_n": 8,
+      "gte_17pct_secondary_share_rate": 8.1,
+      "top20_haste_secondary_share_median": 10.08,
+      "top20_gte_17pct_secondary_share_rate": 10.0,
+      "top50_haste_secondary_share_median": 10.73,
+      "top50_gte_17pct_secondary_share_rate": 10.0
+    }
+  }
+}

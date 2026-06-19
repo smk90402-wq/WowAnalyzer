@@ -578,37 +578,53 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   border: 1px solid var(--border, #3a322c); border-radius: 6px; padding: 6px 10px;
   font-size: 13px; min-width: 140px; min-height: 34px; }
 .rot-hint { margin-left: auto; font-size: 11.5px; color: var(--text-mute); font-style: italic; max-width: 720px; line-height: 1.45; }
-.rot-meta { margin-bottom: 14px; }
-.rot-summary { font-size: 13.5px; line-height: 1.5; color: var(--text); margin-bottom: 8px; }
-.rot-stat, .rot-hero { font-size: 12px; line-height: 1.5; color: #d8cdbf;
-  background: var(--bg-0); border-radius: 6px; padding: 7px 10px; margin-top: 6px; }
+.rot-meta { margin-bottom: 18px; }
+.rot-summary { font-size: 13.5px; line-height: 1.68; color: var(--text); margin-bottom: 10px; }
+.rot-stat, .rot-hero { font-size: 12.5px; line-height: 1.65; color: #d8cdbf;
+  background: var(--bg-0); border-radius: 6px; padding: 9px 12px; margin-top: 8px; }
 .rot-stat b, .rot-hero b { color: #e3c889; }
-.rot-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 16px; }
+.rot-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
 @media (max-width: 900px) { .rot-cols { grid-template-columns: 1fr; } }
-.rot-col { background: var(--bg-1); border-radius: 8px; padding: 14px 16px;
+.rot-col { background: var(--bg-1); border-radius: 8px; padding: 16px 18px;
   border: 1px solid rgba(120,100,80,0.18); }
-.rot-col-h { font-size: 13px; font-weight: 700; margin-bottom: 9px; padding-bottom: 7px;
+.rot-col-h { font-size: 13.5px; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px;
   border-bottom: 2px solid; }
 .rot-col-h.single { color: #9bc0e8; border-color: rgba(111,147,192,0.4); }
 .rot-col-h.aoe { color: #e09a87; border-color: rgba(204,107,90,0.4); }
 .rot-col-h.opener { color: #9bd49b; border-color: rgba(111,174,111,0.4); }
 .rot-col-h.util { color: #d9b85c; border-color: rgba(200,170,80,0.4); }
-.rot-list { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
-.rot-list li { font-size: 12.5px; line-height: 1.45; color: var(--text); padding-left: 3px; }
-.rot-list li::marker { color: var(--text-mute); font-size: 11px; }
+.rot-list { margin: 0; padding-left: 24px; display: flex; flex-direction: column; gap: 9px; }
+.rot-list li { font-size: 13px; line-height: 1.68; color: var(--text); padding: 6px 8px 6px 4px; }
+.rot-list li::marker { color: var(--text-mute); font-size: 12px; }
 /* 일반/보스별 토글 */
 .rot-mode { display: inline-flex; gap: 0; border: 1px solid var(--border, #3a322c);
   border-radius: 6px; overflow: hidden; }
 .rot-mode-btn { background: var(--bg-1); color: var(--text-mute); border: none;
   padding: 7px 12px; font-size: 12px; cursor: pointer; }
 .rot-mode-btn.active { background: var(--accent, #c8a560); color: #1a1510; font-weight: 700; }
+.rot-game-btn {
+  cursor: pointer;
+  background: #9a6b16;
+  border: 1px solid #b6831f;
+  color: #ffe9b8;
+  border-radius: 7px;
+  padding: 8px 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+  min-height: 34px;
+  box-shadow: 0 0 10px rgba(244,197,66,.18);
+}
+.rot-game-btn:hover {
+  border-color: #f0c85c;
+  box-shadow: 0 0 14px rgba(244,197,66,.32);
+}
 /* 보스별 실측 카드 */
-.bc-note { font-size: 11.5px; color: #e3c889; background: rgba(240,179,95,0.09);
-  border-radius: 6px; padding: 9px 12px; margin-bottom: 12px; line-height: 1.55; }
+.bc-note { font-size: 12px; color: #e3c889; background: rgba(240,179,95,0.09);
+  border-radius: 6px; padding: 10px 13px; margin-bottom: 14px; line-height: 1.65; }
 .bc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 @media (max-width: 880px) { .bc-grid { grid-template-columns: 1fr; } }
 .bc-card { background: var(--bg-1); border: 1px solid var(--border-soft);
-  border-radius: 8px; padding: 13px 15px; }
+  border-radius: 8px; padding: 15px 17px; }
 .bc-head { display: flex; align-items: baseline; gap: 9px; margin-bottom: 9px;
   padding-bottom: 8px; border-bottom: 1px solid rgba(120,100,80,0.2); flex-wrap: wrap; }
 .bc-boss { font-size: 14px; font-weight: 700; color: var(--accent); }
@@ -616,11 +632,12 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .bc-build { font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 8px; margin-left: auto; }
 .bc-build.aoe { background: rgba(204,107,90,0.2); color: #e09a87; }
 .bc-build.st { background: rgba(111,147,192,0.2); color: #9bc0e8; }
-.bc-row { display: flex; gap: 9px; margin-bottom: 7px; font-size: 12.5px; line-height: 1.55; align-items: baseline; }
-.bc-label { font-size: 11px; color: var(--text-mute); min-width: 60px; flex-shrink: 0; }
-.bc-opener { display: flex; flex-wrap: wrap; gap: 3px; align-items: center; }
-.bc-skill { background: var(--bg-0); border-radius: 5px; padding: 2px 7px; font-size: 12px; color: var(--text); }
-.bc-arrow { color: var(--text-mute); font-size: 10px; }
+.bc-row { display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 11px; margin-bottom: 10px; font-size: 13px; line-height: 1.65; align-items: start; }
+.bc-row > div:last-child { min-width: 0; }
+.bc-label { font-size: 11.5px; color: var(--text-mute); padding-top: 2px; }
+.bc-opener { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+.bc-skill { background: var(--bg-0); border-radius: 5px; padding: 4px 8px; font-size: 13px; line-height: 1.45; color: var(--text); }
+.bc-arrow { color: var(--text-mute); font-size: 11px; line-height: 1.6; }
 .bc-mute { color: var(--text-mute); }
 .bc-row b { color: #e3c889; }
 .bc-match { font-size: 9.5px; color: var(--text-mute); font-weight: 400; }
@@ -897,12 +914,12 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 ::-webkit-scrollbar-thumb:hover { background: var(--border); }
 
 /* 스펠 토큰 (아이콘+호버 툴팁) */
-.wh-spell{white-space:nowrap;text-decoration:none;color:#a8d08d}
+.wh-spell{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;text-decoration:none;color:#a8d08d;font-size:inherit;line-height:inherit;vertical-align:-3px}
 .wh-spell:hover span{text-decoration:underline}
-.wh-ico{width:17px;height:17px;vertical-align:-3px;border-radius:3px;margin-right:3px}
+.wh-ico{width:1.25em;height:1.25em;vertical-align:-.24em;border-radius:3px;margin-right:3px}
 
 /* 스킬명 아이콘 + wowhead 마우스오버 툴팁 */
-.ws{display:inline-flex;align-items:center;gap:3px;color:#e3c06f;text-decoration:none;border-bottom:1px dotted #8a7339;line-height:1.25}
+.ws{display:inline-flex;align-items:center;gap:4px;color:#e3c06f;text-decoration:none;border-bottom:1px dotted #8a7339;font-size:inherit;line-height:inherit;font-weight:700;white-space:nowrap;vertical-align:-3px}
 .ws:hover{color:#ffd98a;border-bottom-color:#c9a14d}
-.ws-ic{width:16px;height:16px;border-radius:3px;flex:none}
+.ws-ic{width:1.2em;height:1.2em;border-radius:3px;flex:none}
 .bc-skill .ws{border-bottom:none}

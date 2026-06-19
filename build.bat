@@ -1,13 +1,15 @@
 @echo off
+setlocal
 chcp 65001 >nul
 cd /d "%~dp0"
-echo === LogAnalyze .exe 빌드 시작 (slim — serve.py + FastAPI + pywebview) ===
+
+set "DIST_DIR=dist\LogAnalyze"
+
+echo === LogAnalyze exe build start ===
 echo.
 
-rem 기존 실행 인스턴스 종료 (PyInstaller .exe 덮어쓰기 차단 회피)
 taskkill /F /IM LogAnalyze.exe >nul 2>&1
 
-rem slim 빌드 — PyQt5/torch/scipy/matplotlib exclude (Looking-for-libs 행 회피)
 python -m PyInstaller --noconfirm --windowed --name LogAnalyze ^
     --add-data "app/static;app/static" ^
     --collect-submodules uvicorn ^
@@ -26,45 +28,65 @@ python -m PyInstaller --noconfirm --windowed --name LogAnalyze ^
 
 if errorlevel 1 (
     echo.
-    echo *** 빌드 실패 — 위 메시지 확인 ***
-    pause
+    echo *** Build failed. Check the messages above. ***
     exit /b 1
 )
 
-rem data junction 자동 보정 — frozen exe 가 mkdir 로 빈 data 만들면 junction 깨짐
-rem  → junction 이 아니고 비어있으면 삭제 후 mklink 재생성
-call :ensure_data_junction
-goto :after_data
+call :ensure_data_junction || exit /b 1
+call :copy_runtime_files || exit /b 1
+
+echo.
+echo === Build complete ===
+echo exe: %DIST_DIR%\LogAnalyze.exe
+echo.
+exit /b 0
 
 :ensure_data_junction
-fsutil reparsepoint query "dist\LogAnalyze\data" >nul 2>&1
-if not errorlevel 1 goto :eof
-rem junction 아님. frozen exe 가 부팅 때 auth_secret/users.db 만들어 빈 junction 을
-rem 일반폴더로 덮은 경우가 흔함 → 이 둘은 원본 data 에도 있어 안전 삭제.
-rem 그 외 파일이 있으면 진짜 데이터일 수 있어 보존(경고).
-if exist "dist\LogAnalyze\data\*" (
-    for %%F in ("dist\LogAnalyze\data\*") do (
+fsutil reparsepoint query "%DIST_DIR%\data" >nul 2>&1
+if not errorlevel 1 exit /b 0
+
+if exist "%DIST_DIR%\data\*" (
+    for %%F in ("%DIST_DIR%\data\*") do (
         if /I not "%%~nxF"=="auth_secret" if /I not "%%~nxF"=="users.db" (
-            echo *** WARN: dist\LogAnalyze\data 에 예상밖 파일 %%~nxF - 수동 정리 필요
-            goto :eof
+            echo *** WARN: unexpected file in %DIST_DIR%\data: %%~nxF
+            echo Clean it manually before recreating the data junction.
+            exit /b 1
         )
     )
 )
-if exist "dist\LogAnalyze\data" rmdir /s /q "dist\LogAnalyze\data" 2>nul
-mklink /J "dist\LogAnalyze\data" "%~dp0data" >nul
-echo data junction 재생성됨 (auth 임시파일 정리 포함)
-goto :eof
 
-:after_data
-if not exist "dist\LogAnalyze\.env" (
+if exist "%DIST_DIR%\data" rmdir /s /q "%DIST_DIR%\data" 2>nul
+mklink /J "%DIST_DIR%\data" "%~dp0data" >nul
+if errorlevel 1 (
+    echo *** Failed to create data junction: %DIST_DIR%\data
+    exit /b 1
+)
+echo data junction ready
+exit /b 0
+
+:copy_runtime_files
+if not exist "%DIST_DIR%" (
+    echo *** Missing dist folder: %DIST_DIR%
+    exit /b 1
+)
+
+if not exist "%DIST_DIR%\.env" (
     if exist ".env" (
-        copy ".env" "dist\LogAnalyze\.env" >nul
-        echo .env 복사됨
+        copy ".env" "%DIST_DIR%\.env" >nul
+        if errorlevel 1 exit /b 1
+        echo .env copied
     )
 )
 
-echo.
-echo === 빌드 완료 ===
-echo 실행파일: dist\LogAnalyze\LogAnalyze.exe
-echo.
-pause
+if exist "packaging\dist_server\OpenServer.bat" (
+    copy /Y "packaging\dist_server\OpenServer.bat" "%DIST_DIR%\OpenServer.bat" >nul
+    if errorlevel 1 exit /b 1
+)
+
+if exist "packaging\dist_server\CloseServer.bat" (
+    copy /Y "packaging\dist_server\CloseServer.bat" "%DIST_DIR%\CloseServer.bat" >nul
+    if errorlevel 1 exit /b 1
+)
+
+echo runtime files copied
+exit /b 0
