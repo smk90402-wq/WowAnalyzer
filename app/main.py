@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import atexit
 import logging
+import math
 import sys
 from pathlib import Path
 
@@ -20,7 +21,7 @@ import re
 
 import pandas as pd
 from fastapi import Depends, FastAPI, HTTPException, Request
-from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse, RedirectResponse, Response
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTextResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -46,6 +47,7 @@ from wcl_v2_data import V2Data
 from app import talent_tree as tt_render
 from app import timeline as tl_render
 from app import aug_feedback
+from app import local_replay
 
 log = logging.getLogger("app.main")
 
@@ -230,7 +232,7 @@ def rankings(difficulty: str) -> Response:
 PUG_SCORE_W = 0.35
 
 
-# ── 스펙 메타 종합 (4차원 분석 표) ─────────────────────────────────────────
+# ── 스펙 메타 종합 (5차원 분석 표) ─────────────────────────────────────────
 @app.get("/api/spec-meta")
 def spec_meta() -> Response:
     """run_full_analysis 산출 spec_meta_ranking.csv + 로테 raw 메트릭 → JSON 표."""
@@ -253,7 +255,8 @@ def spec_meta() -> Response:
     df["meta_note"] = df.apply(lambda r: META_NOTE.get((r["class"], r["spec"]), ""), axis=1)
     df["tuning"] = df.apply(lambda r: TUNING.get((r["class"], r["spec"]), ("", ""))[0], axis=1)
     df["tuning_note"] = df.apply(lambda r: TUNING.get((r["class"], r["spec"]), ("", ""))[1], axis=1)
-    # 특임/유틸 부담 (1낮음~5높음, 높을수록 파스 불리) inject
+    # 특임/유틸 부담 (1낮음~5높음). 점수 미반영 운영 리스크.
+    # 딜 천장은 딜 스킬·쿨기·자원 최적화 중심으로 보고, 유틸은 별도 참고 컬럼으로만 노출.
     df["burden"] = df.apply(lambda r: UTILITY_BURDEN.get((r["class"], r["spec"]), (0, ""))[0], axis=1)
     df["burden_note"] = df.apply(lambda r: UTILITY_BURDEN.get((r["class"], r["spec"]), (0, ""))[1], axis=1)
     # 막공 환영도 (1기피~5최우선) inject — KR 취업 시장 실측 합성
@@ -287,7 +290,23 @@ def spec_meta() -> Response:
     if pop_path.exists():
         pop = pd.read_csv(pop_path)
         col = "pop_real" if "pop_real" in pop.columns else "pop_avg"
-        pop = pop[["class", "spec", col, "pop_favor"]].rename(columns={col: "pop_avg"})
+        pop_cols = ["class", "spec", col]
+        if "pop_favor" in pop.columns:
+            pop_cols.append("pop_favor")
+        pop = pop[pop_cols].rename(columns={col: "pop_avg"})
+        if "pop_favor" not in pop.columns:
+            vals = pd.to_numeric(pop["pop_avg"], errors="coerce")
+            positive = vals[vals > 0]
+            if len(positive) and float(positive.max()) > float(positive.min()) > 0:
+                lo = float(positive.min())
+                hi = float(positive.max())
+                denom = math.log(hi / lo)
+                pop["pop_favor"] = vals.apply(
+                    lambda v: round(max(0, min(100, 100 * math.log(max(float(v), lo) / lo) / denom)), 1)
+                    if pd.notna(v) and float(v) > 0 else None
+                )
+            else:
+                pop["pop_favor"] = None
         # WCL CamelCase → CSV 공백형 정규화 후 머지
         pop["spec"] = pop["spec"].replace({"BeastMastery": "Beast Mastery"})
         pop["class"] = pop["class"].replace({"DemonHunter": "Demon Hunter", "DeathKnight": "Death Knight"})
@@ -304,7 +323,8 @@ def spec_meta() -> Response:
     df["guide_tips"] = df.apply(
         lambda r: (guide.get(f'{r["class"]}|{r["spec"]}') or {}).get("tips", []), axis=1)
     keep = ["rank", "kr", "class", "spec", "class_kr", "spec_kr", "score", "score_parse",
-            "ease", "rot_rank", "pi_indep", "uplift_pct", "pi_rate_pct", "consistency",
+            "ease", "rot_rank", "reactive_stability", "reactive_note",
+            "pi_indep", "uplift_pct", "pi_rate_pct", "consistency",
             "raid_tier", "mplus_tier", "meta_note", "tuning", "tuning_note",
             "burden", "burden_note", "pug", "pug_note",
             "pug_emp", "pug_emp_capped", "pug_to", "pug_present", "pop_avg", "pop_favor",
@@ -897,31 +917,31 @@ SPEC_KR: dict[str, str] = {
     "Destruction": "파괴", "Arms": "무기", "Fury": "분노",
 }
 
-# 점수뽑기 스킬천장 (1=쉬움 ~ 5=매우어려움) — 로그 통계로 안 잡히는 최적화 난이도.
+# 점수뽑기 딜 스킬천장 (1=쉬움 ~ 5=매우어려움) — 로그 통계로 안 잡히는 딜 최적화 난이도.
 # 출처: 클래스 아키타입/커뮤니티 통념 + 사용자 제보(포식). **주관적 추정** (한밤 전용
 # 가이드 미존재). 로테 난이도와 별개 — "이 스펙으로 고파스 뽑기가 얼마나 까다롭나".
 SKILL_CEILING: dict[tuple[str, str], tuple[int, str]] = {
     ("Mage", "Frost"): (1, "정형적·변동 작음, 안정적으로 고파스"),
-    ("Mage", "Fire"): (4, "연소 윈도우 + 점화 RNG로 변동 큼"),
+    ("Mage", "Fire"): (4, "로테 버튼은 적지만 발화/즉발 연쇄가 빠르고 반응형"),
     ("Mage", "Arcane"): (4, "마나/소각 페이즈 관리가 빡셈"),
     ("Warlock", "Demonology"): (2, "폭정 정렬만 맞추면 안정적"),
     ("Warlock", "Affliction"): (3, "다중 도트 갱신·악의의 마법 타이밍"),
     ("Warlock", "Destruction"): (2, "불씨 관리, 비교적 관대"),
-    ("Demon Hunter", "Devourer"): (4, "붕괴하는 별 버스트 5~6회 + 기력관리 (사용자 제보)"),
+    ("Demon Hunter", "Devourer"): (2, "4버튼급 builder-spender, 메타/붕괴하는 별만 주의"),
     ("Demon Hunter", "Havoc"): (3, "탈태 윈도우 관리"),
     ("Druid", "Balance"): (3, "천체 에너지·일식 관리"),
-    ("Druid", "Feral"): (5, "출혈 스냅샷·기력·도트 관리, 최상위 천장"),
+    ("Druid", "Feral"): (4, "혈발톱 제거로 완화됐지만 Tiger's Fury 스냅샷·기력·도트 관리 남음"),
     ("Hunter", "Beast Mastery"): (1, "이동 중 시전, 매우 관대"),
-    ("Hunter", "Marksmanship"): (3, "정밀 사격·트릭샷 타이밍"),
-    ("Hunter", "Survival"): (4, "근접 냥꾼, 복잡한 우선순위"),
+    ("Hunter", "Marksmanship"): (2, "조준/속사 쿨 유지와 정밀 사격 소비 중심, 매우 단순"),
+    ("Hunter", "Survival"): (2, "근접이지만 우선순위가 정형적, 폭탄/쿨 정렬만 주의"),
     ("Monk", "Windwalker"): (4, "복잡한 우선순위·기 관리"),
     ("Paladin", "Retribution"): (2, "비교적 정형적"),
     ("Priest", "Shadow"): (4, "도트·정신력 관리"),
-    ("Rogue", "Assassination"): (3, "출혈·기력 관리"),
+    ("Rogue", "Assassination"): (2, "Crimson Tempest 개편으로 도트 확산과 소비 우선순위가 쉬워짐"),
     ("Rogue", "Outlaw"): (4, "한 방의 멋 굴림·즉흥 대응"),
-    ("Rogue", "Subtlety"): (5, "그림자 춤 윈도우·심포니, 최난도"),
+    ("Rogue", "Subtlety"): (2, "한밤 구조 단순화, 짧은 창 운용은 있으나 우선순위 명확"),
     ("Shaman", "Elemental"): (3, "소용돌이·정기 관리"),
-    ("Shaman", "Enhancement"): (4, "소용돌이·복잡한 우선순위"),
+    ("Shaman", "Enhancement"): (3, "버튼 가지치기로 완화, 영웅특에 따라 중간~어려움"),
     ("Evoker", "Augmentation"): (5, "지원 스펙·흑요석 정렬, 매우 복잡"),
     ("Evoker", "Devastation"): (3, "정수 관리"),
     ("Warrior", "Arms"): (3, "거인의 강타 윈도우 정렬"),
@@ -1003,19 +1023,21 @@ META_NOTE: dict[tuple[str, str], str] = {
     ("Warlock", "Destruction"): "레이드 강함↔쐐기 F(실측 24위) — 단일 약함",
     ("Druid", "Balance"): "쐐기 F(실측 27위 최하위, mythicstats)",
     ("Evoker", "Devastation"): "쐐기 F(실측 26위) — 너프 후 추락",
-    ("Hunter", "Beast Mastery"): "본인 본캐 — 레이드 B/쐐기 C(실측 13위). 단일 약함. 무빙자유라 특임차출 많음(파스 불리요인)",
+    ("Hunter", "Beast Mastery"): "본인 본캐 — 레이드 B/쐐기 C(실측 13위). 단일 약함. 무빙자유라 특임차출 운영 리스크 있음",
 }
 
-# ── 특임/유틸 부담 (1낮음 ~ 5높음) — **파스 불리 요인** ──────────────────────
+# ── 특임/유틸 부담 (1낮음 ~ 5높음) — **점수 미반영 운영 리스크** ───────────────
+# 딜 천장은 딜 스킬·쿨기·자원 최적화 중심으로 본다. 유틸 부담은 차단/해제/외생기/기믹
+# 때문에 시선이 분산되거나 글쿨 손실이 생길 수 있는 별도 참고 지표다.
 # 사용자 통찰: 상위 경쟁자는 '로그 몰아주기'(클리어팟이 특정 1명에게 딜 몰아주고 특임 면제)
-# 가능하나, 일반 유저는 강제 특임을 본인이 맡음 → 그 시간 딜 손실 = 파스/일관성 직격.
+# 가능하나, 일반 유저는 강제 특임을 본인이 맡는 일이 많다.
 # ★사용자 교정(중요)★: "이동 자유=편함"이 아니라 **"이동 자유=특임 차출 1순위"**.
 #   무빙 자유로운 직업(특히 캐스팅없는 야냥)은 레이드가 "네가 가서 처리해"로 구슬소각·미끼·
 #   원거리기믹·키팅을 다 떠맡김 (벨로렌 거북상 구슬특임이 정확한 예). → 부담 높음.
 #   캐스터/터렛형(고정딜)이 오히려 "나 캐스팅중이라 못 감"으로 특임 빠지기 쉬움 = 부담 낮음.
 # 부담 요소: 이동기믹 셔틀·소각/미끼·키팅·차단·해제·외생기 강제. 무빙+생존기 좋을수록 차출↑.
 UTILITY_BURDEN: dict[tuple[str, str], tuple[int, str]] = {
-    # 부담 낮음 (고정 캐스터·터렛형 — "캐스팅중"으로 특임 빠지기 쉬움 → 파스 유리)
+    # 부담 낮음 (고정 캐스터·터렛형 — "캐스팅중"으로 특임 빠지기 쉬움 → 운영 리스크 낮음)
     ("Warlock", "Destruction"): (2, "고정 캐스터, 관문 외엔 셔틀 차출 적음"),
     ("Warlock", "Demonology"): (2, "셋업형 고정딜, 특임 빠지기 쉬움"),
     ("Warlock", "Affliction"): (2, "도트 깔고 고정 — 자리 이탈 손해라 특임 면제 경향"),
@@ -1034,7 +1056,7 @@ UTILITY_BURDEN: dict[tuple[str, str], tuple[int, str]] = {
     ("Rogue", "Subtlety"): (3, "차단·기절·산개 셔틀"),
     ("Shaman", "Elemental"): (3, "정화·토템·이동기믹 차출"),
     ("Demon Hunter", "Devourer"): (3, "낙인·차단 관여 (메타 유지 묶임은 완화)"),
-    # 높음 (무빙 자유·생존기 좋음 → 레이드가 이동기믹/소각/미끼/키팅 다 떠맡김 = 파스 불리)
+    # 높음 (무빙 자유·생존기 좋음 → 레이드가 이동기믹/소각/미끼/키팅을 맡기기 쉬움)
     ("Hunter", "Beast Mastery"): (4, "★캐스팅0·100% 이동딜 = 레이드 이동기믹/구슬소각/미끼 차출 1순위 (벨로렌 거북상 구슬특임이 예). 본인 지적 반영 — 무빙자유=특임자석"),
     ("Hunter", "Survival"): (4, "근접+높은 기동, 미끼·차단·기믹 차출 잦음"),
     ("Demon Hunter", "Havoc"): (4, "최고 기동성 — 혼돈낙인·대규모차단·산개 단골 차출"),
@@ -1043,8 +1065,8 @@ UTILITY_BURDEN: dict[tuple[str, str], tuple[int, str]] = {
     ("Druid", "Balance"): (4, "이동캐스팅+군중제어·미끼·키팅·전투부활 강제"),
     ("Druid", "Feral"): (4, "고기동 근접 — 키팅·미끼·전투부활·산개 단골"),
     ("Shaman", "Enhancement"): (4, "토템셔틀·대규모해제·키팅 차출 잦음"),
-    ("Paladin", "Retribution"): (4, "축복(보호/희생)·외생기·해제 강제 — 유틸왕이라 딜 양보 잦음"),
-    ("Evoker", "Augmentation"): (5, "버퍼라 본인딜<남딜 — 파스 개념 자체가 불리 (지원특화)"),
+    ("Paladin", "Retribution"): (4, "축복(보호/희생)·외생기·해제 강제 — 딜천장보다 운영 중 시선분산이 잦음"),
+    ("Evoker", "Augmentation"): (5, "버퍼라 본인딜보다 파티 기여 해석이 중요 — 개인 로그 해석이 특수함"),
 }
 
 # ── 막공 환영도 (1기피 ~ 5최우선) — 구인 시장 기반 (v3) ────────────────────
@@ -1660,3 +1682,30 @@ def character_reports(name: str, server: str, region: str = "kr",
             for r in reports
         ],
     })
+
+
+@app.get("/api/local-replay/list")
+def local_replay_list(limit: int = 80) -> JSONResponse:
+    try:
+        return JSONResponse(local_replay.list_replays(limit=limit))
+    except Exception as e:
+        raise HTTPException(500, f"local replay list failed: {e}")
+
+
+@app.get("/api/local-replay/video/{replay_id}")
+def local_replay_video(replay_id: str) -> FileResponse:
+    try:
+        video = local_replay.replay_video_path(replay_id)
+    except local_replay.ReplayError as e:
+        raise HTTPException(404, str(e))
+    return FileResponse(video, media_type="video/mp4", filename=video.name, content_disposition_type="inline")
+
+
+@app.get("/api/local-replay/{replay_id}")
+def local_replay_detail(replay_id: str) -> JSONResponse:
+    try:
+        return JSONResponse(local_replay.replay_detail(replay_id))
+    except local_replay.ReplayError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        raise HTTPException(500, f"local replay detail failed: {e}")

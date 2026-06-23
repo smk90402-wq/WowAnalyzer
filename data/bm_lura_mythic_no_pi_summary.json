@@ -1,0 +1,352 @@
+{
+  "generated_at": "2026-06-23T00:15:48",
+  "source": "Warcraft Logs V2 API",
+  "zone_id": 46,
+  "zone_name": "VS / DR / MQD",
+  "encounter_id": 3183,
+  "encounter_name": "Midnight Falls",
+  "difficulty": "mythic",
+  "partition": {
+    "id": 3,
+    "name": "12.0.7",
+    "default": true
+  },
+  "spec": "Hunter|Beast Mastery",
+  "ranking_rows_fetched": 200,
+  "rows_with_stats": 129,
+  "pi_excluded": 29,
+  "no_pi_rows_available": 100,
+  "headline_sample": "first 100 non-PI rows in WCL ranking order",
+  "skipped": 0,
+  "errors": [],
+  "all_with_stats": {
+    "n": 129,
+    "dps": {
+      "mean": 156811.5,
+      "median": 155970.3,
+      "p25": 154350.8,
+      "p75": 158454.8,
+      "min": 153528.8,
+      "max": 167143.4
+    },
+    "ilvl": {
+      "mean": 290.4,
+      "median": 290.0,
+      "p25": 290.0,
+      "p75": 291.0,
+      "min": 289.0,
+      "max": 292.0
+    },
+    "duration_s": {
+      "mean": 558.6,
+      "median": 564.6,
+      "p25": 547.6,
+      "p75": 573.4,
+      "min": 509.5,
+      "max": 589.2
+    },
+    "crit": {
+      "mean": 832.6,
+      "median": 820.0,
+      "p25": 720.0,
+      "p75": 961.0,
+      "min": 381.0,
+      "max": 1348.0
+    },
+    "haste": {
+      "mean": 720.3,
+      "median": 729.0,
+      "p25": 636.0,
+      "p75": 790.0,
+      "min": 384.0,
+      "max": 1139.0
+    },
+    "mastery": {
+      "mean": 1277.3,
+      "median": 1280.0,
+      "p25": 1138.0,
+      "p75": 1411.0,
+      "min": 727.0,
+      "max": 1693.0
+    },
+    "vers": {
+      "mean": 36.6,
+      "median": 16.0,
+      "p25": 0.0,
+      "p75": 53.0,
+      "min": 0.0,
+      "max": 266.0
+    },
+    "mean": {
+      "crit": 832.6,
+      "haste": 720.3,
+      "mastery": 1277.3,
+      "vers": 36.6
+    },
+    "crit_mastery_pct_mean": 65.2,
+    "haste_crit_pct_mean": 86.5,
+    "raw_corr": {
+      "crit": 0.012,
+      "haste": -0.002,
+      "mastery": -0.108,
+      "vers": -0.169
+    },
+    "adjusted_corr": {
+      "crit": -0.046,
+      "haste": 0.013,
+      "mastery": -0.141,
+      "vers": -0.043
+    },
+    "hero_counts": {
+      "PackLeader": 129
+    }
+  },
+  "no_pi": {
+    "n": 100,
+    "dps": {
+      "mean": 156406.7,
+      "median": 155883.3,
+      "p25": 154333.9,
+      "p75": 157615.3,
+      "min": 153528.8,
+      "max": 165808.3
+    },
+    "ilvl": {
+      "mean": 290.3,
+      "median": 290.0,
+      "p25": 290.0,
+      "p75": 291.0,
+      "min": 289.0,
+      "max": 292.0
+    },
+    "duration_s": {
+      "mean": 560.3,
+      "median": 565.0,
+      "p25": 550.9,
+      "p75": 573.4,
+      "min": 509.6,
+      "max": 589.2
+    },
+    "crit": {
+      "mean": 843.8,
+      "median": 826.0,
+      "p25": 722.2,
+      "p75": 979.2,
+      "min": 398.0,
+      "max": 1348.0
+    },
+    "haste": {
+      "mean": 719.7,
+      "median": 729.5,
+      "p25": 626.8,
+      "p75": 791.8,
+      "min": 384.0,
+      "max": 1139.0
+    },
+    "mastery": {
+      "mean": 1290.5,
+      "median": 1296.0,
+      "p25": 1137.2,
+      "p75": 1459.8,
+      "min": 727.0,
+      "max": 1693.0
+    },
+    "vers": {
+      "mean": 37.2,
+      "median": 16.0,
+      "p25": 0.0,
+      "p75": 54.2,
+      "min": 0.0,
+      "max": 266.0
+    },
+    "mean": {
+      "crit": 843.8,
+      "haste": 719.7,
+      "mastery": 1290.5,
+      "vers": 37.2
+    },
+    "crit_mastery_pct_mean": 65.4,
+    "haste_crit_pct_mean": 85.3,
+    "raw_corr": {
+      "crit": -0.01,
+      "haste": 0.062,
+      "mastery": -0.042,
+      "vers": -0.034
+    },
+    "adjusted_corr": {
+      "crit": -0.064,
+      "haste": 0.069,
+      "mastery": -0.027,
+      "vers": 0.032
+    },
+    "hero_counts": {
+      "PackLeader": 100
+    }
+  },
+  "no_pi_top20": {
+    "n": 20,
+    "dps": {
+      "mean": 160382.6,
+      "median": 160012.6,
+      "p25": 159522.7,
+      "p75": 160921.5,
+      "min": 158494.7,
+      "max": 165808.3
+    },
+    "ilvl": {
+      "mean": 290.4,
+      "median": 290.0,
+      "p25": 290.0,
+      "p75": 291.0,
+      "min": 289.0,
+      "max": 292.0
+    },
+    "duration_s": {
+      "mean": 564.3,
+      "median": 566.0,
+      "p25": 556.2,
+      "p75": 574.4,
+      "min": 535.2,
+      "max": 579.7
+    },
+    "crit": {
+      "mean": 824.0,
+      "median": 817.0,
+      "p25": 736.8,
+      "p75": 896.5,
+      "min": 523.0,
+      "max": 1098.0
+    },
+    "haste": {
+      "mean": 752.1,
+      "median": 737.5,
+      "p25": 688.8,
+      "p75": 789.5,
+      "min": 392.0,
+      "max": 1055.0
+    },
+    "mastery": {
+      "mean": 1271.2,
+      "median": 1277.5,
+      "p25": 1125.2,
+      "p75": 1419.2,
+      "min": 1010.0,
+      "max": 1585.0
+    },
+    "vers": {
+      "mean": 35.9,
+      "median": 41.0,
+      "p25": 0.0,
+      "p75": 52.2,
+      "min": 0.0,
+      "max": 114.0
+    },
+    "mean": {
+      "crit": 824.0,
+      "haste": 752.1,
+      "mastery": 1271.2,
+      "vers": 35.9
+    },
+    "crit_mastery_pct_mean": 64.8,
+    "haste_crit_pct_mean": 91.3,
+    "raw_corr": {
+      "crit": 0.072,
+      "haste": -0.182,
+      "mastery": 0.143,
+      "vers": 0.311
+    },
+    "adjusted_corr": {
+      "crit": 0.073,
+      "haste": -0.208,
+      "mastery": 0.152,
+      "vers": 0.29
+    },
+    "hero_counts": {
+      "PackLeader": 20
+    }
+  },
+  "no_pi_top40": {
+    "n": 40,
+    "dps": {
+      "mean": 158800.7,
+      "median": 158494.6,
+      "p25": 157017.7,
+      "p75": 159922.2,
+      "min": 156519.9,
+      "max": 165808.3
+    },
+    "ilvl": {
+      "mean": 290.4,
+      "median": 290.0,
+      "p25": 290.0,
+      "p75": 291.0,
+      "min": 289.0,
+      "max": 292.0
+    },
+    "duration_s": {
+      "mean": 563.3,
+      "median": 566.0,
+      "p25": 557.0,
+      "p75": 574.4,
+      "min": 516.4,
+      "max": 589.2
+    },
+    "crit": {
+      "mean": 835.0,
+      "median": 833.5,
+      "p25": 736.8,
+      "p75": 967.8,
+      "min": 398.0,
+      "max": 1151.0
+    },
+    "haste": {
+      "mean": 735.3,
+      "median": 727.5,
+      "p25": 676.5,
+      "p75": 793.2,
+      "min": 392.0,
+      "max": 1139.0
+    },
+    "mastery": {
+      "mean": 1286.2,
+      "median": 1298.5,
+      "p25": 1135.2,
+      "p75": 1425.8,
+      "min": 967.0,
+      "max": 1628.0
+    },
+    "vers": {
+      "mean": 33.0,
+      "median": 16.0,
+      "p25": 0.0,
+      "p75": 52.2,
+      "min": 0.0,
+      "max": 114.0
+    },
+    "mean": {
+      "crit": 835.0,
+      "haste": 735.3,
+      "mastery": 1286.2,
+      "vers": 33.0
+    },
+    "crit_mastery_pct_mean": 64.9,
+    "haste_crit_pct_mean": 88.1,
+    "raw_corr": {
+      "crit": 0.064,
+      "haste": -0.018,
+      "mastery": -0.044,
+      "vers": 0.143
+    },
+    "adjusted_corr": {
+      "crit": 0.055,
+      "haste": -0.029,
+      "mastery": -0.049,
+      "vers": 0.197
+    },
+    "hero_counts": {
+      "PackLeader": 40
+    }
+  },
+  "ranking_rows_processed": 129,
+  "note": "Fetched two WCL ranking pages, then stopped detail queries after collecting 100 non-PI Beast Mastery Hunter rows in ranking order."
+}

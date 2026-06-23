@@ -55,13 +55,20 @@ const state = {
   selectedRowIdx: -1, // filtered rows 안의 인덱스
 };
 
-// ── 메타 분석 (4차원 종합 표) ────────────────────────────────────────────
+const replayState = {
+  loaded: false,
+  rows: [],
+  selectedId: null,
+  detail: null,
+};
+
+// ── 메타 분석 (5차원 종합 표) ────────────────────────────────────────────
 let _metaLoaded = false;
 let _metaRows = [];   // 팝업용 행 데이터 보관
 async function loadSpecMeta(force) {
   if (_metaLoaded && !force) return;
   const body = $('#meta-body');
-  body.innerHTML = '<tr><td colspan="18" class="empty">로딩…</td></tr>';
+  body.innerHTML = '<tr><td colspan="20" class="empty">로딩…</td></tr>';
   try {
     const r = await fetch('/api/spec-meta');
     if (!r.ok) throw new Error(`HTTP ${r.status} — run_full_analysis.py 필요할 수 있음`);
@@ -69,7 +76,7 @@ async function loadSpecMeta(force) {
     renderSpecMeta(j.rows || []);
     _metaLoaded = true;
   } catch (e) {
-    body.innerHTML = `<tr><td colspan="19" class="empty">로드 실패: ${esc(e.message)}</td></tr>`;
+    body.innerHTML = `<tr><td colspan="20" class="empty">로드 실패: ${esc(e.message)}</td></tr>`;
   }
 }
 
@@ -98,6 +105,7 @@ function renderSpecMeta(rows) {
       <td class="right num strong" title="${r.score_parse != null ? `파스력 ${fmt(r.score_parse,3)} × 0.65 + 막공환영 ${r.pug || '-'}/5 × 0.35` : ''}">${fmt(r.score, 3)}</td>
       <td class="right num">${fmt(r.ease)}</td>
       <td class="right mute num">${r.rot_rank != null ? Math.round(r.rot_rank) : '-'}</td>
+      <td class="right num ${r.reactive_stability >= 0.7 ? 'good' : (r.reactive_stability != null && r.reactive_stability < 0.4 ? 'bad' : '')}">${fmt(r.reactive_stability)}</td>
       <td class="right num ${piHi ? 'good' : ''}">${fmt(r.pi_indep)}</td>
       <td class="right num ${upDep ? 'bad' : 'mute'}">${r.uplift_pct != null ? (r.uplift_pct >= 0 ? '+' : '') + fmt(r.uplift_pct) + '%' : '-'}</td>
       <td class="right num">${fmt(r.consistency)}</td>
@@ -166,12 +174,21 @@ function specTraits(r) {
   const rank = r.rot_rank;
   out.push({ tone: rank <= 11 ? 'good' : (rank >= 18 ? 'bad' : ''),
     text: `딜사이클 <b>${_diffLabel(rank)}</b> (난이도 #${rank != null ? Math.round(rank) : '?'}/27)` });
+  if (r.reactive_stability != null) {
+    const stable = r.reactive_stability >= 0.7;
+    const swingy = r.reactive_stability < 0.4;
+    const note = r.reactive_note ? ` <span class="sm-muted">- ${esc(r.reactive_note)}</span>` : '';
+    out.push({ tone: stable ? 'good' : (swingy ? 'bad' : ''),
+      text: stable ? `우선순위/프록 분기에 <b>덜 흔들림</b> (반응 안정 ${_fmtN(r.reactive_stability)})${note}`
+        : (swingy ? `상황/프록 반응형에 <b>많이 흔들림</b> (반응 안정 ${_fmtN(r.reactive_stability)})${note}`
+          : `반응 안정성 보통 (${_fmtN(r.reactive_stability)})${note}`) });
+  }
   const sc = r.score;
   const pt = sc >= 0.85 ? '막공 종합 최상' : (sc >= 0.70 ? '막공 종합 우수'
     : (sc >= 0.50 ? '막공 종합 보통' : '막공 종합 낮음'));
   const sp = r.score_parse;
   const brk = sp != null
-    ? ` <span class="sm-muted">= 파스력 ${_fmtN(sp, 3)}×0.65 + 막공환영 ${r.pug || '-'}/5×0.35 (구인난 가중)</span>`
+    ? ` <span class="sm-muted">= 파스력 ${_fmtN(sp, 3)}×0.65 + 막공환영 ${r.pug || '-'}/5×0.35 (구인난 가중, 파스력 안에 반응 안정 15%)</span>`
     : '';
   out.push({ tone: sc >= 0.70 ? 'good' : (sc < 0.50 ? 'bad' : ''),
     text: `<b>${pt}</b> (종합 ${_fmtN(sc, 3)} · ${r.rank}위)${brk}` });
@@ -209,13 +226,13 @@ function specTraits(r) {
   if (r.burden) {
     const hi = r.burden >= 4, lo = r.burden <= 2;
     out.push({ tone: lo ? 'good' : (hi ? 'bad' : ''),
-      text: `특임/유틸 부담 <b>${r.burden}/5</b> ${hi ? '(높음 — 강제 기믹에 딜 끊김, 파스 불리)' : (lo ? '(낮음 — 순수딜 집중 가능, 파스 유리)' : '(중간)')} — ${esc(r.burden_note || '')}` });
+      text: `특임/유틸 부담 <b>${r.burden}/5</b> ${hi ? '(높음 — 딜천장보다 운영 리스크/시선분산 증가)' : (lo ? '(낮음 — 딜 스킬 운용에 집중하기 쉬움)' : '(중간)')} <span class="sm-muted">점수 미반영</span> — ${esc(r.burden_note || '')}` });
   }
   if (r.aoe_ratio != null)
     out.push({ tone: '', text: r.aoe_ratio >= 1.4 ? `<b>다타겟·쫄파이 특화</b> (광딜비 ${_fmtN(r.aoe_ratio)})`
       : (r.aoe_ratio < 1.1 ? `<b>단일 위주</b> (광딜비 ${_fmtN(r.aoe_ratio)})` : `광/단일 균형 (${_fmtN(r.aoe_ratio)})`) });
   if (r.skill_ceiling >= 4)
-    out.push({ tone: 'bad', text: `최적화 <b>스킬천장 높음</b> (${r.skill_label}) — ${esc(r.skill_reason || '')}` });
+    out.push({ tone: 'bad', text: `딜 최적화 <b>스킬천장 높음</b> (${r.skill_label}) — ${esc(r.skill_reason || '')}` });
   return out;
 }
 
@@ -228,6 +245,7 @@ function openSpecModal(idx) {
   const grid = [
     cell('로테 쉬움', _fmtN(r.ease)),
     cell('난이도 순위', r.rot_rank != null ? '#' + Math.round(r.rot_rank) : '-'),
+    cell('반응 안정', _fmtN(r.reactive_stability)),
     cell('PI 독립', _fmtN(r.pi_indep)),
     cell('PI uplift', r.uplift_pct != null ? (r.uplift_pct >= 0 ? '+' : '') + _fmtN(r.uplift_pct, 1) + '%' : '-'),
     cell('일관성', _fmtN(r.consistency)),
@@ -276,7 +294,7 @@ function openSpecModal(idx) {
       </div>
       <div class="sm-col-right">${rightHtml}</div>
     </div>
-    <div class="sm-foot">난이도·스킬천장·꿀팁 = 유튜브(12.0.5)/가이드 큐레이션 · 레이드/쐐기 티어 = 순수 성능(파스 무관) · PI독립·일관성·광딜·인구 = 로그 데이터</div>`;
+    <div class="sm-foot">난이도·딜 스킬천장·꿀팁 = 유튜브(12.0.5)/가이드 큐레이션 · 특임/유틸 부담 = 점수 미반영 운영 리스크 · 레이드/쐐기 티어 = 순수 성능(파스 무관) · PI독립·일관성·광딜·인구 = 로그 데이터</div>`;
   $('#spec-modal').classList.add('show');
   whEnsure();  // 스킬명 마우스오버 툴팁
 }
@@ -1047,6 +1065,212 @@ function esc(s) {
 }
 
 // ── 이벤트 바인딩 ───────────────────────────────────────────────────────
+// 로컬 전투로그 리플레이
+function _replayTime(sec) {
+  const v = Math.max(0, Number(sec) || 0);
+  const m = Math.floor(v / 60);
+  const s = Math.floor(v % 60);
+  const ms = Math.floor((v - Math.floor(v)) * 10);
+  return `${m}:${String(s).padStart(2, '0')}.${ms}`;
+}
+
+function _replayResult(row) {
+  if (row.result) return '<span class="rp-ok">킬</span>';
+  const pct = row.boss_percent != null ? ` · ${esc(row.boss_percent)}%` : '';
+  return `<span class="rp-wipe">전멸${pct}</span>`;
+}
+
+async function loadLocalReplays(force = false) {
+  if (replayState.loaded && !force) return;
+  const body = $('#replay-list-body');
+  const status = $('#replay-status');
+  if (!body) return;
+  body.innerHTML = '<tr><td colspan="4" class="empty">로딩…</td></tr>';
+  if (status) status.textContent = '전투로그/CCTV 스캔 중…';
+  try {
+    const r = await fetch('/api/local-replay/list');
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const j = await r.json();
+    replayState.rows = j.rows || [];
+    replayState.loaded = true;
+    renderLocalReplayList(replayState.rows);
+    const src = j.sources || {};
+    if (status) status.textContent = `${replayState.rows.length}개 캡처 · 로그 전투 ${src.encounters ?? 0}개`;
+    if (replayState.rows.length && !replayState.selectedId) {
+      selectLocalReplay(replayState.rows[0].id);
+    }
+  } catch (e) {
+    body.innerHTML = `<tr><td colspan="4" class="empty">로드 실패: ${esc(e.message)}</td></tr>`;
+    if (status) status.textContent = '로드 실패';
+  }
+}
+
+function renderLocalReplayList(rows) {
+  const body = $('#replay-list-body');
+  if (!body) return;
+  if (!rows.length) {
+    body.innerHTML = '<tr><td colspan="4" class="empty">CCTV JSON 없음</td></tr>';
+    return;
+  }
+  body.innerHTML = rows.map(row => {
+    const matched = row.log_match ? 'rp-matched' : 'rp-unmatched';
+    const active = row.id === replayState.selectedId ? 'selected' : '';
+    return `
+      <tr class="replay-row ${matched} ${active}" data-replay-id="${esc(row.id)}">
+        <td>${esc((row.start_local || '').slice(5, 16))}</td>
+        <td>
+          <b>${esc(row.encounter)}</b>
+          <span>${esc(row.player || '')}</span>
+        </td>
+        <td>${_replayResult(row)}</td>
+        <td class="right">${_replayTime(row.duration || 0)}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+async function selectLocalReplay(id) {
+  if (!id) return;
+  replayState.selectedId = id;
+  renderLocalReplayList(replayState.rows);
+  const root = $('#replay-detail');
+  if (root) root.innerHTML = '<div class="empty">상세 파싱 중…</div>';
+  try {
+    const r = await fetch(`/api/local-replay/${encodeURIComponent(id)}`);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const detail = await r.json();
+    replayState.detail = detail;
+    renderLocalReplayDetail(detail);
+  } catch (e) {
+    if (root) root.innerHTML = `<div class="empty">상세 로드 실패: ${esc(e.message)}</div>`;
+  }
+}
+
+function renderLocalReplayDetail(detail) {
+  const root = $('#replay-detail');
+  if (!root) return;
+  const cap = detail.capture || {};
+  const counts = detail.counts || {};
+  const events = detail.events || [];
+  const eventRows = events.slice(0, 900).map(ev => `
+    <button class="replay-event ${esc(ev.kind || '')}" type="button" data-replay-jump="${Number(ev.t || 0)}">
+      <span class="rt">${_replayTime(ev.t)}</span>
+      <span class="rk">${esc(ev.kind || ev.event || '')}</span>
+      <span class="rs">${esc(ev.source || '')}</span>
+      <span class="ra">${esc(ev.spell || ev.event || '')}</span>
+      <span class="rtg">${esc(ev.target || '')}</span>
+      ${ev.amount ? `<span class="rd">${Number(ev.amount).toLocaleString()}</span>` : ''}
+    </button>
+  `).join('');
+  root.classList.remove('empty');
+  root.innerHTML = `
+    <div class="replay-head">
+      <div>
+        <h2>${esc(cap.encounter || '리플레이')}</h2>
+        <div class="replay-sub">${esc(cap.start_local || '')} · ${esc(cap.difficulty || '')} · ${_replayResult(cap)}</div>
+      </div>
+      <div class="replay-kpis">
+        <span>이벤트 <b>${events.length.toLocaleString()}</b></span>
+        <span>좌표 <b>${(detail.positions || []).length.toLocaleString()}</b></span>
+        <span>전투원 <b>${(detail.actors || []).length.toLocaleString()}</b></span>
+      </div>
+    </div>
+    <div class="replay-main">
+      <div class="replay-video-wrap">
+        ${detail.video?.available
+          ? `<video id="replay-video" class="replay-video" controls preload="metadata" src="${esc(detail.video.url)}"></video>`
+          : '<div class="empty replay-no-video">영상 파일 없음</div>'}
+        <input id="replay-time" class="replay-time" type="range" min="0" max="${Number(detail.duration || cap.duration || 0)}" value="0" step="0.1">
+      </div>
+      <div class="replay-map-wrap">
+        <svg id="replay-map" class="replay-map" viewBox="0 0 1000 580" role="img"></svg>
+      </div>
+    </div>
+    <div class="replay-counts">
+      <span>캐스트 ${Number(counts.casts || 0).toLocaleString()}</span>
+      <span>디버프 ${Number(counts.debuffs || 0).toLocaleString()}</span>
+      <span>큰 피해 ${Number(counts.damage || 0).toLocaleString()}</span>
+      <span>사망 ${Number(cap.deaths || counts.deaths || 0).toLocaleString()}</span>
+      ${counts.skipped ? `<span>목록 생략 ${Number(counts.skipped).toLocaleString()}</span>` : ''}
+    </div>
+    <div id="replay-events" class="replay-events">
+      ${eventRows || '<div class="empty">표시할 이벤트 없음</div>'}
+    </div>
+  `;
+
+  const slider = $('#replay-time');
+  const video = $('#replay-video');
+  if (slider) {
+    slider.addEventListener('input', () => {
+      const t = Number(slider.value || 0);
+      if (video && Math.abs(video.currentTime - t) > 0.25) video.currentTime = t;
+      renderReplayMap(detail, t);
+    });
+  }
+  if (video && slider) {
+    video.addEventListener('timeupdate', () => {
+      const t = Number(video.currentTime || 0);
+      slider.value = String(t);
+      renderReplayMap(detail, t);
+    });
+  }
+  const evRoot = $('#replay-events');
+  if (evRoot) {
+    evRoot.addEventListener('click', e => {
+      const btn = e.target.closest('[data-replay-jump]');
+      if (!btn) return;
+      const t = Number(btn.dataset.replayJump || 0);
+      if (slider) slider.value = String(t);
+      if (video) video.currentTime = t;
+      renderReplayMap(detail, t);
+    });
+  }
+  const initialT = Number((detail.positions || [])[0]?.t || 0);
+  if (slider) slider.value = String(initialT);
+  renderReplayMap(detail, initialT);
+}
+
+function renderReplayMap(detail, t) {
+  const svg = $('#replay-map');
+  const bounds = detail?.bounds;
+  const positions = detail?.positions || [];
+  if (!svg) return;
+  if (!bounds || !positions.length) {
+    svg.innerHTML = '<text x="500" y="290" text-anchor="middle" class="replay-map-empty">좌표 없음</text>';
+    return;
+  }
+  const actors = new Map((detail.actors || []).map(a => [a.guid, a]));
+  const latest = new Map();
+  for (const pos of positions) {
+    if (Number(pos.t || 0) <= t) latest.set(pos.guid, pos);
+    else break;
+  }
+  const w = 1000, h = 580;
+  const minX = Number(bounds.min_x), maxX = Number(bounds.max_x);
+  const minY = Number(bounds.min_y), maxY = Number(bounds.max_y);
+  const sx = (x) => ((Number(x) - minX) / Math.max(1, maxX - minX)) * w;
+  const sy = (y) => h - ((Number(y) - minY) / Math.max(1, maxY - minY)) * h;
+  const dots = Array.from(latest.values()).map(pos => {
+    const guid = String(pos.guid || '');
+    const actor = actors.get(guid) || {};
+    const label = actor.name || pos.name || '';
+    const isBoss = !guid.startsWith('Player-');
+    const cls = isBoss ? 'boss' : 'player';
+    const x = sx(pos.x), y = sy(pos.y);
+    return `
+      <g class="rp-dot ${cls}">
+        <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${isBoss ? 11 : 6}"></circle>
+        <text x="${(x + 9).toFixed(1)}" y="${(y - 8).toFixed(1)}">${esc(label.split('-')[0])}</text>
+      </g>
+    `;
+  }).join('');
+  svg.innerHTML = `
+    <rect x="0" y="0" width="${w}" height="${h}" class="rp-map-bg"></rect>
+    <text x="16" y="28" class="rp-map-time">${_replayTime(t)}</text>
+    ${dots}
+  `;
+}
+
 function switchTab(tab) {
   $$('#tabs .tab').forEach(t => t.classList.remove('active'));
   $$('.tab-pane').forEach(p => p.classList.remove('active'));
@@ -1058,6 +1282,7 @@ function switchTab(tab) {
               : (tab === 'meta') ? 'meta'
               : (tab === 'rotation') ? 'rotation'
               : (tab === 'stats') ? 'stats'
+              : (tab === 'replay') ? 'replay'
               : 'ranking';
   document.querySelector(`#pane-${paneId}`).classList.add('active');
 }
@@ -1079,8 +1304,28 @@ function bind() {
     } else if (tab === 'stats') {
       $('#meta').textContent = '표본: 신화 top100';
       loadStats();
+    } else if (tab === 'replay') {
+      $('#meta').textContent = '로컬 전투로그 + WarcraftCCTV';
+      loadLocalReplays();
     }
   });
+
+  const replayRefresh = $('#replay-refresh');
+  if (replayRefresh) {
+    replayRefresh.addEventListener('click', () => {
+      replayState.loaded = false;
+      replayState.selectedId = null;
+      replayState.detail = null;
+      loadLocalReplays(true);
+    });
+  }
+  const replayList = $('#replay-list-body');
+  if (replayList) {
+    replayList.addEventListener('click', e => {
+      const tr = e.target.closest('tr[data-replay-id]');
+      if (tr) selectLocalReplay(tr.dataset.replayId);
+    });
+  }
 
   // 딜사이클 콤보박스
   $('#rot-class').addEventListener('change', e => {

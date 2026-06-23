@@ -18,6 +18,7 @@
       <button class="tab" data-tab="meta">메타 분석</button>
       <button class="tab" data-tab="rotation">딜사이클</button>
       <button class="tab" data-tab="stats">스탯</button>
+      <button class="tab" data-tab="replay">리플레이</button>
     </nav>
     <div class="meta" id="meta">로딩…</div>
     <div class="auth-info" id="auth-info">
@@ -214,9 +215,10 @@
             <tr>
               <th data-sort="rank" data-tip="종합 순위. 클릭=정렬">#</th>
               <th data-sort="kr" data-tip="클래스 / 전문화. 클릭=가나다 정렬">스펙</th>
-              <th class="right" data-sort="score" data-tip="종합 점수 = 파스력×0.65 + 막공환영×0.35. ★한밤 KR 구인난 반영 — 공대 진입 가능성을 가중★. 파스력 = 로테쉬움×0.45 + PI독립×0.35 + 일관성×0.20(파스 잘뽑기). 막공환영 = 구인 시장 수요(1~5→0~1). 셀 호버=파스력 원점수. 클릭=정렬">종합</th>
-              <th class="right" data-sort="ease" data-tip="딜사이클 난이도 (0~1, 높을수록 쉬움). ★최신 유튜브(12.0.5) 큐레이션★ — Comeback Kids/Bispril/Dal 난이도 영상 종합. 로그 APM/엔트로피는 근딜=즉시시전 편향 + 바쁨≠어려움이라 측정 불가 → 참고 컬럼 강등. 클릭=정렬">로테<br>쉬움</th>
+              <th class="right" data-sort="score" data-tip="종합 점수 = 파스력×0.65 + 막공환영×0.35. ★한밤 KR 구인난 반영 — 공대 진입 가능성을 가중★. 파스력 = 로테쉬움×0.35 + 반응안정×0.15 + PI독립×0.30 + 일관성×0.20(파스 잘뽑기). 막공환영 = 구인 시장 수요(1~5→0~1). 셀 호버=파스력 원점수. 클릭=정렬">종합</th>
+              <th class="right" data-sort="ease" data-tip="딜사이클 난이도 (0~1, 높을수록 쉬움). ★최신 유튜브(12.0.5) 큐레이션★ — Comeback Kids/Bispril/Dal 난이도 영상 종합. 로그 APM/엔트로피는 바쁨·시퀀스 다양성 편향이 있어 참고 컬럼으로 강등. 클릭=정렬">로테<br>쉬움</th>
               <th class="right mute" data-sort="rot_rank" data-tip="난이도 순위 (1=가장 쉬움 ~ 27=가장 어려움). 최신 유튜브 종합. 클릭=정렬">난이도<br>순위</th>
+              <th class="right" data-sort="reactive_stability" data-tip="반응 안정성 (0~1, 높을수록 상황/프록 분기에서 우선순위가 명확함). 전직업 아키타입 큐레이션: 고APM이어도 우선순위가 명확하면 높게, 버튼 수가 적어도 창 정렬·프록 판단이 크면 낮게 반영. ★파스력에 15% 반영★. 클릭=정렬">반응<br>안정</th>
               <th class="right" data-sort="pi_indep" data-tip="마력주입(사제 PI 버프) 독립도 (0~1). uplift가 0에 가까울수록 1.00 = PI 없이도 자기 전문화서 고파스 가능. 클릭=정렬">PI<br>독립</th>
               <th class="right" data-sort="uplift_pct" data-tip="PI uplift = 마력주입 받을 때 딜 상승%. 보스별 통제 평균. 작을수록 PI 독립. 화염 +7.5%=의존, 포식 −0.08%=완전독립. 클릭=정렬">uplift</th>
               <th class="right" data-sort="consistency" data-tip="일관성 (0~1) = 상위 파스 격차(보스별 CV) 작나 = 기믹/RNG에 딜 안 무너지나. 쫄파이 안정성도 여기 포함. 높을수록 안정적 고파스. 클릭=정렬">일관성</th>
@@ -225,15 +227,15 @@
               <th class="right info" data-sort="tuning" data-tip="최근 튜닝 추세 (↑↑강버프~↓↓강너프). ★공식 블리자드 핫픽스 시계열★ (pre-raid→5/5→5/28 신화後). 티어=현재강도 / 이건=추세. ↑=버프받는중(상승세), ↓=너프중(하락세). 셀 호버=수치. 클릭=정렬">최근<br>튜닝</th>
               <th class="right info mute" data-sort="pop_favor" data-tip="인구 파스유리도 (0~100). ★점수 미반영·참고용★. 인구 많을수록 '깔아주는' 평균이하 플레이어 많아 median 파스 따기 쉬움. ⚠단 99파스(상위1%) 추구자한텐 무의미 — 깔아주는 뉴비는 median에만 도움. WCL 모집단(2000=상위인기 캡). 셀 호버=실인구. 클릭=정렬">인구<br>유리</th>
               <th class="right info" data-sort="pug" data-tip="막공 환영도 (1기피~5최우선 모심). ★점수 미반영·구인 시장 기반★. 정공 로스터 직업분포가 아니라 '막공/신규정공이 자리 못채워 구인하는 직업'이 환영지표 (사용자 교정). 인벤 board2972 공격대_구인 본문 138개 고유 캠페인 정독 → DPS 수요 집계 (제목 '딜러 구인(세부참조)'뿐이라 본문 약어 파싱). 구인수요 사냥꾼30·증강27·정술21·흑마19·죽기18 top (용딜=증강, 죽딜=부정/냉죽 무구분). 냉법은 공급과잉이라 4로 하향, 황폐는 멸종급이라 2. 스왑힐(힐특↔딜특)12건은 하이브리드 원딜(암흑·조화)이 딜+힐 양쪽 충족=가점. 셀 호버=근거. 클릭=정렬">막공<br>환영</th>
-              <th class="right info" data-sort="burden" data-tip="특임/유틸 부담 (1낮음~5높음). ★파스 불리 요인★ — 상위경쟁자는 로그몰아주기로 특임 면제받지만 일반유저는 강제 기믹/특임을 본인이 맡아 그시간 딜손실. 차단·해제·키팅·외생기 강제 많은 직업일수록 부담↑=파스/일관성 불리. ★기믹/유틸 지식 큐레이션★. 셀 호버=근거. 클릭=정렬">특임<br>부담</th>
+              <th class="right info" data-sort="burden" data-tip="특임/유틸 부담 (1낮음~5높음). ★점수 미반영·운영 리스크★ — 딜 천장은 딜 스킬/쿨기/자원 최적화 중심으로 보고, 유틸은 강제 기믹·시선 분산·글쿨 손실 가능성만 별도 참고. 차단·해제·키팅·외생기 강제가 많은 직업일수록 반복 실전 부담↑. ★기믹/유틸 지식 큐레이션★. 셀 호버=근거. 클릭=정렬">특임<br>부담</th>
               <th class="right info" data-sort="aoe_ratio" data-tip="광딜 프로필 = 쫄파이보스 / 단일보스 DPS 비율. 높을수록 다타겟 특화. ★참고용★ — 파스엔 무관(정규화), 실전 킬 기여도/레이드 적합 지표. 클릭=정렬">광딜<br>프로필</th>
-              <th class="right info" data-sort="skill_ceiling" data-tip="점수뽑기 스킬천장 (1쉬움~5매우어려움). 로그 통계로 안 잡히는 최적화 난이도(붕괴하는별 윈도우 등). ★가이드/아키타입 추정, 주관적★ — 점수 미반영. 셀에 마우스=근거. 클릭=정렬">스킬<br>천장</th>
+              <th class="right info" data-sort="skill_ceiling" data-tip="점수뽑기 딜 스킬천장 (1쉬움~5매우어려움). 딜 스킬·쿨기·자원·버스트창 최적화 난이도 중심. 로그 통계로 안 잡히는 최적화 난이도(붕괴하는별 윈도우 등). ★가이드/아키타입 추정, 주관적★ — 점수 미반영. 셀에 마우스=근거. 클릭=정렬">스킬<br>천장</th>
               <th class="right mute" data-sort="unique_spells" data-tip="한 전투 고유 시전 스펠 종류 수 (로그). ★참고용★ — 점수 미반영. 클릭=정렬">스킬수</th>
               <th class="right mute" data-sort="apm" data-tip="분당 시전 횟수 (로그, 오프-GCD 연타 보정). ★참고용 — 점수 미반영★. 근딜=즉시시전이라 캐스터보다 구조적으로 높음(난이도 무관). 클릭=정렬">APM</th>
               <th class="right mute" data-sort="cleave_med" data-tip="광딜 4보스(바엘고어/한밤의도래/빛눈먼선봉대/우주의왕관) median raw DPS. 참고용. 클릭=정렬">쫄파이<br>DPS</th>
             </tr>
           </thead>
-          <tbody id="meta-body"><tr><td colspan="19" class="empty">로딩…</td></tr></tbody>
+          <tbody id="meta-body"><tr><td colspan="20" class="empty">로딩…</td></tr></tbody>
         </table>
       </div>
     </section>
@@ -289,6 +291,33 @@
         <button class="gm-close" title="닫기 (Esc)">✕</button>
         <div id="gear-modal-body"></div>
       </div>
+    </div>
+  </main>
+
+  <main class="tab-pane" data-pane="replay" id="pane-replay">
+    <section class="replay-toolbar">
+      <button id="replay-refresh" type="button">새로고침</button>
+      <span class="arb-status" id="replay-status"></span>
+    </section>
+    <div class="replay-grid">
+      <section class="panel replay-list-panel">
+        <h2>WarcraftCCTV 캡처</h2>
+        <div class="table-wrap">
+          <table class="replay-table">
+            <thead>
+              <tr>
+                <th>시각</th><th>보스</th><th>결과</th><th class="right">길이</th>
+              </tr>
+            </thead>
+            <tbody id="replay-list-body">
+              <tr><td colspan="4" class="empty">로딩…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section class="panel replay-detail-panel">
+        <div id="replay-detail" class="empty">캡처를 선택</div>
+      </section>
     </div>
   </main>
 
