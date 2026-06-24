@@ -623,6 +623,362 @@
         "data/bm_trinket_deep_cache.json",
         "prefetch_bm_trinket_deep_cache.py"
       ]
+    },
+    {
+      "ts": "2026-06-19T21:56:50",
+      "host": "SmkDesktop",
+      "action": "analyze_spec_meta",
+      "params": {
+        "weights": {
+          "ease": 0.35,
+          "reactive_stability": 0.15,
+          "pi_indep": 0.3,
+          "consistency": 0.2,
+          "cleave_parse": 0.0
+        }
+      },
+      "result": {
+        "specs": 27,
+        "top": "사냥 야수"
+      },
+      "files": [
+        "data/spec_meta_ranking.csv"
+      ]
+    },
+    {
+      "ts": "2026-06-19T22:33:41",
+      "host": "SmkDesktop",
+      "action": "analyze_spec_meta",
+      "params": {
+        "weights": {
+          "ease": 0.35,
+          "reactive_stability": 0.15,
+          "pi_indep": 0.3,
+          "consistency": 0.2,
+          "cleave_parse": 0.0
+        }
+      },
+      "result": {
+        "specs": 27,
+        "top": "사냥 야수"
+      },
+      "files": [
+        "data/spec_meta_ranking.csv"
+      ]
+    },
+    {
+      "ts": "2026-06-20T00:42:40",
+      "host": "SmkDesktop",
+      "action": "analyze_spec_meta",
+      "params": {
+        "weights": {
+          "ease": 0.35,
+          "reactive_stability": 0.15,
+          "pi_indep": 0.3,
+          "consistency": 0.2,
+          "cleave_parse": 0.0
+        }
+      },
+      "result": {
+        "specs": 27,
+        "top": "사냥 야수"
+      },
+      "files": [
+        "data/spec_meta_ranking.csv"
+      ]
+    },
+    {
+      "ts": "2026-06-20T00:44:46",
+      "host": "SmkDesktop",
+      "action": "recompute_parse_consistency",
+      "params": {
+        "source": "rankings_zone46_mythic_dps_top100.csv"
+      },
+      "result": {
+        "specs": 27
+      },
+      "files": [
+        "data/parse_consistency.csv"
+      ]
+    },
+    {
+      "ts": "2026-06-20T00:44:53",
+      "host": "SmkDesktop",
+      "action": "analyze_spec_meta",
+      "params": {
+        "weights": {
+          "ease": 0.35,
+          "reactive_stability": 0.15,
+          "pi_indep": 0.3,
+          "consistency": 0.2,
+          "cleave_parse": 0.0
+        }
+      },
+      "result": {
+        "specs": 27,
+        "top": "사냥 야수"
+      },
+      "files": [
+        "data/spec_meta_ranking.csv"
+      ]
+    },
+    {
+      "ts": "2026-06-20T01:25:04",
+      "host": "SmkDesktop",
+      "action": "fetch_rankings_v2",
+      "params": {
+        "difficulty": 5,
+        "label": "mythic",
+        "zone": 46,
+        "top_n": 100,
+        "partition": 3
+      },
+      "result": {
+        "rows": 21884,
+        "api_pts": 246.4
+      },
+      "files": [
+        "data/rankings_zone46_mythic_dps_top100.csv"
+      ]
+    },
+    {
+      "ts": "2026-06-20T01:27:43",
+      "host": "SmkDesktop",
+      "action": "fetch_rankings_v2",
+      "params": {
+        "difficulty": 4,
+        "label": "heroic",
+        "zone": 46,
+        "top_n": 100,
+        "partition": 3
+      },
+      "result": {
+        "rows": 23643,
+        "api_pts": 246.4
+      },
+      "files": [
+        "data/rankings_zone46_heroic_dps_top100.csv"
+      ]
+    },
+    {
+      "ts": "2026-06-20T03:25:37",
+      "host": "SmkDesktop",
+      "action": "fetch_talent_trees",
+      "params": {
+        "specs_requested": 9
+      },
+      "result": {
+        "specs_built": 9
+      },
+      "files": [
+        "data/talent_trees.json"
+      ]
+    },
+    {
+      "ts": "2026-06-20T03:27:05",
+      "host": "SmkDesktop",
+      "action": "enrich_kr",
+      "params": {
+        "missing_items": 176,
+        "missing_spells": 168
+      },
+      "result": {
+        "item_db": 1147,
+        "spell_db": 5995
+      },
+      "files": [
+        "data/item_db.json",
+        "data/spell_db.json"
+      ]
+    },
+    {
+      "ts": "2026-06-20T04:18:52",
+      "host": "SmkDesktop",
+      "action": "fetch_pi_all",
+      "params": {
+        "difficulty": 5,
+        "label": "mythic",
+        "limit": 1000
+      },
+      "result": {
+        "fights_done": 1000,
+        "fights_fail": 3,
+        "rows_matched": 15737,
+        "pi_received": 3755,
+        "points": 2262.0
+      },
+      "files": [
+        "data/rankings_zone46_mythic_dps_top100_pi.csv",
+        "data/v2_cache_pi_fight.json"
+      ]
+    },
+    {
+      "ts": "2026-06-20T04:47:26",
+      "host": "SmkDesktop",
+      "action": "fetch_pi_all",
+      "params": {
+        "difficulty": 5,
+        "label": "mythic",
+        "limit": 1000
+      },
+      "result": {
+        "fights_done": 1000,
+        "fights_fail": 0,
+        "rows_matched": 18312,
+        "pi_received": 4298,
+        "points": -1935.0
+      },
+      "files": [
+        "data/rankings_zone46_mythic_dps_top100_pi.csv",
+        "data/v2_cache_pi_fight.json"
+      ]
+    },
+    {
+      "ts": "2026-06-20T05:28:18",
+      "host": "SmkDesktop",
+      "action": "fetch_pi_all",
+      "params": {
+        "difficulty": 5,
+        "label": "mythic",
+        "limit": 1000
+      },
+      "result": {
+        "fights_done": 1000,
+        "fights_fail": 1,
+        "rows_matched": 21615,
+        "pi_received": 5139,
+        "points": -1636.0
+      },
+      "files": [
+        "data/rankings_zone46_mythic_dps_top100_pi.csv",
+        "data/v2_cache_pi_fight.json"
+      ]
+    },
+    {
+      "ts": "2026-06-20T14:24:34",
+      "host": "SmkDesktop",
+      "action": "fetch_pi_all",
+      "params": {
+        "difficulty": 5,
+        "label": "mythic",
+        "limit": null
+      },
+      "result": {
+        "fights_done": 36,
+        "fights_fail": 0,
+        "rows_matched": 21659,
+        "pi_received": 5147,
+        "points": 104.0
+      },
+      "files": [
+        "data/rankings_zone46_mythic_dps_top100_pi.csv",
+        "data/v2_cache_pi_fight.json"
+      ]
+    },
+    {
+      "ts": "2026-06-20T16:15:36",
+      "host": "SmkDesktop",
+      "action": "rotation_difficulty",
+      "params": {
+        "label": "mythic",
+        "logs_used": 496
+      },
+      "result": {
+        "specs": 27
+      },
+      "files": [
+        "data/rotation_difficulty.csv"
+      ]
+    },
+    {
+      "ts": "2026-06-20T16:15:52",
+      "host": "SmkDesktop",
+      "action": "recompute_parse_consistency",
+      "params": {
+        "source": "rankings_zone46_mythic_dps_top100.csv",
+        "partition": "12.0.7"
+      },
+      "result": {
+        "specs": 27
+      },
+      "files": [
+        "data/parse_consistency.csv"
+      ]
+    },
+    {
+      "ts": "2026-06-20T16:15:56",
+      "host": "SmkDesktop",
+      "action": "analyze_spec_meta",
+      "params": {
+        "weights": {
+          "ease": 0.35,
+          "reactive_stability": 0.15,
+          "pi_indep": 0.3,
+          "consistency": 0.2,
+          "cleave_parse": 0.0
+        }
+      },
+      "result": {
+        "specs": 27,
+        "top": "사냥 야수"
+      },
+      "files": [
+        "data/spec_meta_ranking.csv"
+      ]
+    },
+    {
+      "ts": "2026-06-20T16:20:16",
+      "host": "SmkDesktop",
+      "action": "analyze_bm_trinket_recommendations",
+      "params": {
+        "topn": 40,
+        "top_band": 25,
+        "partition": 3
+      },
+      "result": {
+        "bosses": 9
+      },
+      "files": [
+        "C:/Users/smk90/OneDrive/바탕 화면/LogAnalyze/data/bm_trinket_recommendations.json"
+      ]
+    },
+    {
+      "ts": "2026-06-20T16:49:25",
+      "host": "SmkDesktop",
+      "action": "enrich_kr",
+      "params": {
+        "missing_items": 8,
+        "missing_spells": 114
+      },
+      "result": {
+        "item_db": 1155,
+        "spell_db": 6011
+      },
+      "files": [
+        "data/item_db.json",
+        "data/spell_db.json"
+      ]
+    },
+    {
+      "ts": "2026-06-20T17:23:56",
+      "host": "SmkDesktop",
+      "action": "analyze_spec_meta",
+      "params": {
+        "weights": {
+          "ease": 0.35,
+          "reactive_stability": 0.15,
+          "pi_indep": 0.3,
+          "consistency": 0.2,
+          "cleave_parse": 0.0
+        }
+      },
+      "result": {
+        "specs": 27,
+        "top": "사냥 야수"
+      },
+      "files": [
+        "data/spec_meta_ranking.csv"
+      ]
     }
   ]
 }

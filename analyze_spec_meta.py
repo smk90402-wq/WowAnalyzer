@@ -1,12 +1,13 @@
-"""4차원 종합 스펙 평가 — 쫄파이 메타 최적 딜러.
+"""5차원 종합 스펙 평가 — 쫄파이 메타 최적 딜러.
 
 차원 (각 0~1 정규화, 높을수록 좋음):
-  1. ease         : 딜사이클 쉬움 (rotation_difficulty.csv)  — 스킬수·APM·proc
-  2. consistency  : 택틱 관대(격차 작음) (parse_consistency.csv) — 보스별 CV
-  3. pi_indep     : 마력주입 독립 (pi_impact.csv) — |uplift| 작을수록
-  4. cleave_parse : 쫄파이 파스 천장 (rankings) — 광딜 4보스 median DPS
+  1. ease               : 딜사이클 쉬움 (커뮤니티 큐레이션)
+  2. reactive_stability : 반응형/프록/상황 분기에서 우선순위가 명확함 (전직업 큐레이션)
+  3. consistency        : 택틱 관대(격차 작음) (parse_consistency.csv) — 보스별 CV
+  4. pi_indep           : 마력주입 독립 (pi_impact.csv) — |uplift| 작을수록
+  5. cleave_parse       : 쫄파이 파스 천장 (rankings) — 광딜 4보스 median DPS
 
-종합 = 4차원 가중평균. 가중치 조정 가능 (사용자 우선순위).
+종합 = 5차원 가중평균. 가중치 조정 가능 (사용자 우선순위).
 
 입력 (앞 단계 산출물):
   data/rotation_difficulty.csv  (rotation_difficulty.py)
@@ -34,11 +35,14 @@ CLEAVE_BOSSES = {3178, 3183, 3180, 3181}  # 바엘고어/에조라크, 한밤의
 
 # 가중치 (합 1) — **파스 % 관점**.
 # WCL 파스는 전문화별 백분위 정규화 → raw DPS 천장(cleave_parse)은 파스력과 무관.
-# 파스 잘 찍기 = 로테 쉬움(실수↓) + PI 독립 + consistency 위주.
-W = {"ease": 0.45, "pi_indep": 0.35, "consistency": 0.20, "cleave_parse": 0.0}
+# 파스 잘 찍기 = 로테 쉬움(실수↓) + 반응 안정성 + PI 독립 + consistency 위주.
+W = {"ease": 0.35, "reactive_stability": 0.15, "pi_indep": 0.30,
+     "consistency": 0.20, "cleave_parse": 0.0}
 
-# 딜사이클 "기본 로테" 난이도 — **최신 유튜브(12.0.5) 다중 크리에이터 종합** (로그
-# APM/엔트로피는 근딜=즉시시전 편향 + 바쁨≠어려움으로 측정 불가 판명. 2026-06 리서치).
+# 딜사이클 "기본 로테" 난이도 — **최신 유튜브(12.0.5) 다중 크리에이터 종합**.
+# 로그 APM/엔트로피를 통째 난이도로 쓰는 방식은 근딜=즉시시전 편향 + 바쁨≠어려움으로 폐기.
+# bigram entropy 도 "시퀀스 다양성"에 가까워, 징벌처럼 뜨는 버튼은 많지만 우선순위가 명확한
+# 스펙을 프록형으로 오판한다. 반응 안정성은 전직업 아키타입 큐레이션으로 분리 사용.
 # 출처: YouTube Comeback Kids(Sky) "Easiest DPS/Ranged 난이도" + Bispril "5 easiest"
 #   + Dal "easiest specs" + 멜리 fun 티어(난이도 코멘트) + aoeah/Method/Wowhead 교차.
 # 핵심 교정(밸패 후 최신): 무기전사=다수 "가장 단순한 로테"(#26→11, aoeah는 성능 착각),
@@ -51,20 +55,53 @@ W = {"ease": 0.45, "pi_indep": 0.35, "consistency": 0.20, "cleave_parse": 0.0}
 #   어렵게함"(4→18↓)·조화 "more complex going midnight"(↓22)·무법 "hardest, 과소평가
 #   했었다"(25유지)·잠행/야성/무기/냉마 쉬움 재확인. ease_curated = 1 - (rank-1)/26.
 ROTATION_RANK = {
-    ("Hunter", "Beast Mastery"): 1,     ("Paladin", "Retribution"): 2,
-    ("Warlock", "Destruction"): 3,      ("Mage", "Frost"): 4,
+    ("Hunter", "Beast Mastery"): 1,     ("Demon Hunter", "Devourer"): 2,
+    ("Paladin", "Retribution"): 3,      ("Hunter", "Marksmanship"): 4,
     ("Evoker", "Devastation"): 5,       ("Hunter", "Survival"): 6,
-    ("Rogue", "Subtlety"): 7,           ("Hunter", "Marksmanship"): 8,
-    ("Warrior", "Arms"): 9,             ("Warrior", "Fury"): 10,
-    ("Death Knight", "Frost"): 11,      ("Warlock", "Demonology"): 12,
-    ("Shaman", "Elemental"): 13,        ("Demon Hunter", "Devourer"): 14,
-    ("Death Knight", "Unholy"): 15,     ("Shaman", "Enhancement"): 16,
-    ("Rogue", "Assassination"): 17,     ("Mage", "Fire"): 18,
-    ("Druid", "Feral"): 19,             ("Priest", "Shadow"): 20,
-    ("Warlock", "Affliction"): 21,      ("Druid", "Balance"): 22,
+    ("Rogue", "Subtlety"): 7,           ("Rogue", "Assassination"): 8,
+    ("Mage", "Frost"): 9,               ("Warlock", "Destruction"): 10,
+    ("Warrior", "Arms"): 11,            ("Warrior", "Fury"): 12,
+    ("Death Knight", "Frost"): 13,      ("Warlock", "Demonology"): 14,
+    ("Shaman", "Elemental"): 15,        ("Shaman", "Enhancement"): 16,
+    ("Death Knight", "Unholy"): 17,     ("Warlock", "Affliction"): 18,
+    ("Druid", "Feral"): 19,             ("Mage", "Fire"): 20,
+    ("Druid", "Balance"): 21,           ("Priest", "Shadow"): 22,
     ("Demon Hunter", "Havoc"): 23,      ("Monk", "Windwalker"): 24,
-    ("Rogue", "Outlaw"): 25,            ("Mage", "Arcane"): 26,
+    ("Mage", "Arcane"): 25,             ("Rogue", "Outlaw"): 26,
     ("Evoker", "Augmentation"): 27,
+}
+
+# 반응 안정성: 갑자기 뜨는 버튼/프록/상황 분기가 있어도 "무엇을 눌러야 하는가"가 명확한가.
+# 1.0에 가까울수록 우선순위가 정형적이고 실전 분기에 덜 흔들린다.
+# raw bigram_entropy 는 참고 컬럼으로만 유지한다. APM/시퀀스 다양성은 난이도와 동의어가 아니다.
+REACTIVE_PROFILE = {
+    ("Hunter", "Beast Mastery"): (0.95, "고정 우선순위·이동 중 운용, 펫/패시브 프록은 버튼 판단 부담이 작음"),
+    ("Paladin", "Retribution"): (0.94, "빛나는 버튼은 많지만 소비 우선순위가 명확한 매우 쉬운 우선순위형"),
+    ("Mage", "Frost"): (0.90, "주요 프록 소비 순서가 안정적이고 실전 분기가 단순함"),
+    ("Warlock", "Destruction"): (0.86, "조각/쿨기 창은 있으나 주력 소비 판단이 비교적 고정적"),
+    ("Rogue", "Assassination"): (0.88, "Crimson Tempest 개편으로 도트 확산 부담이 줄고 소비 우선순위가 단순함"),
+    ("Rogue", "Subtlety"): (0.80, "현재 구조는 과거보다 단순, 짧은 창 운용은 있으나 우선순위가 명확함"),
+    ("Warrior", "Fury"): (0.78, "APM은 높지만 핵심 버튼 우선순위가 단순한 고속 루틴형"),
+    ("Evoker", "Devastation"): (0.82, "정수/차징 관리는 있으나 기본 우선순위가 단순함"),
+    ("Hunter", "Marksmanship"): (0.88, "조준/속사 쿨 유지와 정밀 사격 소비 중심, 프록 반응이 쉬운 편"),
+    ("Hunter", "Survival"): (0.76, "근접 우선순위와 폭탄/자원 관리는 있으나 큰 프록 혼선은 적음"),
+    ("Warrior", "Arms"): (0.76, "전술가/급살류 프록은 있으나 소비 우선순위가 비교적 명확함"),
+    ("Warlock", "Demonology"): (0.74, "악마핵/조각/쿨기 정렬이 있으나 기본 엔진은 안정적"),
+    ("Death Knight", "Frost"): (0.73, "룬마력·도살기·냉혹한 겨울류 반응은 있으나 우선순위가 정형적"),
+    ("Shaman", "Elemental"): (0.66, "소용돌이/충격/프록 소비가 있지만 큰 흐름은 안정적"),
+    ("Demon Hunter", "Devourer"): (0.90, "4버튼급 builder-spender, 메타/붕괴하는 별만 주의하면 되는 매우 쉬운 구조"),
+    ("Death Knight", "Unholy"): (0.62, "상처/질병/펫 창 관리로 상황 분기가 생기는 편"),
+    ("Warlock", "Affliction"): (0.58, "다중 도트와 조각·타이밍 관리로 실전 분기 영향이 있음"),
+    ("Druid", "Balance"): (0.54, "일월식·자원·다중 도트 창이 겹쳐 상황 판단 비중이 있음"),
+    ("Druid", "Feral"): (0.52, "출혈/기력/버프 갱신 판단이 실전에서 흔들릴 수 있음"),
+    ("Demon Hunter", "Havoc"): (0.50, "자원·이동/창 운용 요소가 있어 단순 고정 루틴은 아님"),
+    ("Mage", "Fire"): (0.48, "로테는 단순해도 발화/즉발 연쇄 반응성이 높은 편"),
+    ("Priest", "Shadow"): (0.46, "도트·광기·공허 창과 프록 소비가 겹치는 편"),
+    ("Shaman", "Enhancement"): (0.56, "버튼 가지치기로 완화, Stormbringer는 쉬우나 Totemic은 반응 분기가 남음"),
+    ("Monk", "Windwalker"): (0.42, "기/연계/쿨기 창과 우선순위 변화가 잦은 편"),
+    ("Rogue", "Outlaw"): (0.36, "높은 속도와 주사위/프록 반응으로 순간 판단 부담이 큼"),
+    ("Mage", "Arcane"): (0.34, "마나·충전·번/보존 창 판단이 파스에 크게 작용"),
+    ("Evoker", "Augmentation"): (0.30, "지원 타이밍과 파티 창 정렬 의존도가 매우 높음"),
 }
 
 SPEC_KR = {
@@ -119,6 +156,15 @@ def main() -> None:
                                "bigram_entropy", "ease"]].rename(
             columns={"ease": "ease_log"})
         base = base.merge(rot, on=["class", "spec"], how="left")
+        base["reactive_stability"] = base.apply(
+            lambda r: REACTIVE_PROFILE.get((r["class"], r["spec"]), (np.nan, ""))[0],
+            axis=1)
+        base["reactive_note"] = base.apply(
+            lambda r: REACTIVE_PROFILE.get((r["class"], r["spec"]), (np.nan, ""))[1],
+            axis=1)
+    else:
+        base["reactive_stability"] = np.nan
+        base["reactive_note"] = ""
 
     # 3. consistency
     cp = DATA / "parse_consistency.csv"
@@ -140,12 +186,13 @@ def main() -> None:
 
     # 정규화
     base["cleave_parse"] = _norm(base["cleave_med"])
-    # ease, consistency 는 이미 0~1. 결측은 중앙값으로 (편향 회피)
-    for col in ["ease", "consistency", "pi_indep"]:
+    # ease, consistency, reactive_stability 는 이미 0~1. 결측은 중앙값으로 (편향 회피)
+    for col in ["ease", "reactive_stability", "consistency", "pi_indep"]:
         base[col + "_f"] = base[col].fillna(base[col].median())
 
     base["score"] = (
         W["ease"] * base["ease_f"]
+        + W["reactive_stability"] * base["reactive_stability_f"]
         + W["consistency"] * base["consistency_f"]
         + W["pi_indep"] * base["pi_indep_f"]
         + W["cleave_parse"] * base["cleave_parse"]
@@ -155,17 +202,20 @@ def main() -> None:
         lambda r: f"{CLASS_KR.get(r['class'], r['class'])} {SPEC_KR.get(r['spec'], r['spec'])}",
         axis=1)
 
-    cols = ["kr", "score", "ease", "consistency", "pi_indep", "cleave_parse",
-            "cleave_med", "uplift_pct"]
+    cols = ["kr", "score", "ease", "reactive_stability", "reactive_note", "consistency",
+            "pi_indep", "cleave_parse", "cleave_med", "uplift_pct"]
     show = base[cols].copy()
-    for c in ["score", "ease", "consistency", "pi_indep", "cleave_parse"]:
+    for c in ["score", "ease", "reactive_stability", "consistency",
+              "pi_indep", "cleave_parse"]:
         show[c] = show[c].round(3)
     show["cleave_med"] = show["cleave_med"].round(0).astype("Int64")
 
     miss_ease = base["ease"].isna().sum()
+    miss_react = base["reactive_stability"].isna().sum()
     miss_pi = base["pi_indep"].isna().sum()
-    print(f"=== 4차원 종합 (가중치 {W}) ===")
-    print(f"(결측 중앙값 대체: ease {miss_ease}스펙, pi {miss_pi}스펙)\n")
+    print(f"=== 5차원 종합 (가중치 {W}) ===")
+    print(f"(결측 중앙값 대체: ease {miss_ease}스펙, "
+          f"reactive {miss_react}스펙, pi {miss_pi}스펙)\n")
     print(show.to_string(index=False))
 
     out = DATA / "spec_meta_ranking.csv"

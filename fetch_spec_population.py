@@ -8,7 +8,7 @@
 여러 보스 평균내서 노이즈 감소. data/spec_population.csv 저장.
 """
 from __future__ import annotations
-import sys, time
+import math, sys, time
 from pathlib import Path
 try: sys.stdout.reconfigure(encoding="utf-8")
 except Exception: pass
@@ -17,7 +17,7 @@ from wcl_v2 import WCLV2
 
 DATA = Path(__file__).parent / "data"
 DIFF = 5      # mythic
-PT = 2        # 12.0.5
+PT = 3        # 12.0.7
 # 인구 측정용 보스 3개 (초반 쉬운 보스 = 인구 많음, 대표성)
 BOSSES = [3176, 3181, 3179]   # 아베르지안, 우주의왕관, 살라다르
 MAXPAGE = 20   # WCL 하드캡: ranking 은 page20(=2000개)에서 잘림. 2000=상위인기(캡), <2000=정확.
@@ -97,6 +97,20 @@ def main():
                      "pop_avg": round(avg), "pops": ",".join(map(str, pops))})
         print(f"  {kr:<6} 평균 ~{avg:,.0f}명  ({pops})", flush=True)
     df = pd.DataFrame(rows).sort_values("pop_avg", ascending=False)
+    if not df.empty:
+        df["pop_real"] = df["pop_avg"]
+        vals = pd.to_numeric(df["pop_real"], errors="coerce")
+        positive = vals[vals > 0]
+        if len(positive) and float(positive.max()) > float(positive.min()) > 0:
+            lo = float(positive.min())
+            hi = float(positive.max())
+            denom = math.log(hi / lo)
+            df["pop_favor"] = vals.apply(
+                lambda v: round(max(0, min(100, 100 * math.log(max(float(v), lo) / lo) / denom)), 1)
+                if pd.notna(v) and float(v) > 0 else None
+            )
+        else:
+            df["pop_favor"] = None
     df.to_csv(DATA / "spec_population.csv", index=False, encoding="utf-8")
     rate1 = (cli.points_left() or {}).get("pointsSpentThisHour", 0)
     print(f"\n저장 spec_population.csv · 점수 {rate1 - rate0:.0f}")

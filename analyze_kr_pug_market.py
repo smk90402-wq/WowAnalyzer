@@ -48,6 +48,8 @@ def main():
     # ── 1) 신화 유니크 캐릭 per spec ──
     myth_chars: dict[tuple, set] = defaultdict(set)
     for key, blk in mythic.items():
+        if str(key).startswith("_"):
+            continue
         for e in blk["entries"]:
             k = norm(e["class"], e["spec"])
             myth_chars[k].add(f'{e["name"]}@{e["server"]}')
@@ -56,6 +58,8 @@ def main():
     hero_chars: dict[tuple, set] = defaultdict(set)
     hero_capped: dict[tuple, bool] = defaultdict(bool)
     for key, blk in heroic.items():
+        if str(key).startswith("_"):
+            continue
         eid, cn, sn = key.split("|")
         k = norm(cn, sn)
         hero_chars[k].update(blk["chars"])

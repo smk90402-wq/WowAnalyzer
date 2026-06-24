@@ -32,8 +32,11 @@ data/cache.db-shm
 data/icons/
 data/_json_backup/
 data/spell_db_en.json
+data/v2_cache_*.json
+data/v2_cache_*.json.tmp
+data/*.tmp
 
-# v2_cache_*.json 은 Git LFS 로 트래킹 (PC 간 sync 가능) — .gitattributes 참고
+# v2_cache_*.json are generated local caches; do not track them in Git/LFS.
 
 # PC 별 사용자 설정 (테마 등) — sync 안 함
 data/user_settings.json

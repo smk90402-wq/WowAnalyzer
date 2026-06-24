@@ -10,6 +10,8 @@ talents/gear/casts/buffs 다 가져옴. Platinum 18k pts/hr 에서
 """
 from __future__ import annotations
 
+import os
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -26,7 +28,9 @@ from wcl_v2_data import V2Data
 DATA = Path(__file__).parent / "data"
 CSV = DATA / "rankings_zone46_mythic_dps_top100.csv"
 PRINT_EVERY = 25
-FLUSH_EVERY = 250
+FLUSH_EVERY = 5000
+MIN_FREE_GB = int(os.environ.get("LOGANALYZE_MIN_FREE_GB", "50"))
+LOCK_FILE = DATA / ".backfill_v2.lock"
 
 # 풀 데이터 (talents + gear + casts + buffs)
 PRIMARY_TARGETS = {
@@ -47,10 +51,56 @@ TREE_COMP_TARGETS = {
 TARGETS = PRIMARY_TARGETS | TREE_COMP_TARGETS
 
 
+def _free_gb(path: Path) -> float:
+    usage = shutil.disk_usage(path)
+    return usage.free / (1024 ** 3)
+
+
+def _check_free_space(path: Path = DATA) -> None:
+    free = _free_gb(path)
+    if free < MIN_FREE_GB:
+        raise SystemExit(
+            f"Refusing to run: only {free:.1f}GB free under {path}. "
+            f"Need at least {MIN_FREE_GB}GB. Set LOGANALYZE_MIN_FREE_GB "
+            "if you intentionally want a different limit."
+        )
+
+
+def _acquire_lock() -> None:
+    DATA.mkdir(parents=True, exist_ok=True)
+    try:
+        fd = os.open(str(LOCK_FILE), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    except FileExistsError:
+        raise SystemExit(f"Another backfill appears to be running: {LOCK_FILE}")
+    with os.fdopen(fd, "w", encoding="utf-8") as f:
+        f.write(f"pid={os.getpid()}\nstarted={time.time()}\n")
+
+
+def _release_lock() -> None:
+    try:
+        LOCK_FILE.unlink()
+    except FileNotFoundError:
+        pass
+
+
 def main(limit: int | None = None, all_specs: bool = False,
          per_spec: int | None = None, missing_only: bool = False,
          max_new: int | None = None, pf_all: bool = False,
          no_events: bool = False) -> None:
+    _check_free_space()
+    _acquire_lock()
+    try:
+        _main(limit, all_specs=all_specs, per_spec=per_spec,
+              missing_only=missing_only, max_new=max_new,
+              pf_all=pf_all, no_events=no_events)
+    finally:
+        _release_lock()
+
+
+def _main(limit: int | None = None, all_specs: bool = False,
+          per_spec: int | None = None, missing_only: bool = False,
+          max_new: int | None = None, pf_all: bool = False,
+          no_events: bool = False) -> None:
     df = pd.read_csv(CSV)
     df["report_id"] = df["report_id"].astype(str)
     df["fight_id"] = df["fight_id"].astype(int)
@@ -115,6 +165,8 @@ def main(limit: int | None = None, all_specs: bool = False,
             print(f"  scanned={scanned}/{len(sub)} work={work}  pf={pf_new}/{pf_fail}f  ev={ev_new}/{ev_fail}f/skip{ev_skip}  "
                   f"rate={rate.get('pointsSpentThisHour', '?'):.1f}/{rate.get('limitPerHour', '?')}")
         time.sleep(0.05)
+        if work % PRINT_EVERY == 0:
+            _check_free_space()
 
     d.flush()
     rate = d.cli.points_left()

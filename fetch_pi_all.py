@@ -68,6 +68,13 @@ def _save(p: Path, obj) -> None:
     p.write_text(json.dumps(obj, ensure_ascii=False), encoding="utf-8")
 
 
+def _flush_v2_cache(d: V2Data) -> None:
+    try:
+        d.flush()
+    except Exception as e:
+        print(f"  warn: V2 cache flush skipped: {str(e)[:100]}", flush=True)
+
+
 def pi_targets_for_fight(d: V2Data, rid: str, start: float, end: float) -> list[int]:
     """fight window 동안 PI(10060) 받은 targetID 집합. apply/refresh 만."""
     targets: set[int] = set()
@@ -139,7 +146,7 @@ def main(difficulty: int = 5, limit: int | None = None) -> None:
         done += 1
         if done % 50 == 0:
             _save(PI_FIGHT_CACHE, pi_fight)
-            d.flush()  # report_meta 캐시도 저장
+            _flush_v2_cache(d)  # report_meta cache best-effort
             rate = d.cli.points_left() or {}
             spent = (rate.get("pointsSpentThisHour", 0) - rate0.get("pointsSpentThisHour", 0))
             el = time.time() - t0
@@ -150,7 +157,7 @@ def main(difficulty: int = 5, limit: int | None = None) -> None:
         time.sleep(0.03)
 
     _save(PI_FIGHT_CACHE, pi_fight)
-    d.flush()
+    _flush_v2_cache(d)
     rate1 = d.cli.points_left() or {}
     spent = (rate1.get("pointsSpentThisHour", 0) - rate0.get("pointsSpentThisHour", 0))
     el = time.time() - t0

@@ -22,7 +22,7 @@ except Exception: pass
 from wcl_v2 import WCLV2
 
 DATA = Path(__file__).parent / "data"
-PT = 2          # 12.0.5
+PT = 3          # 12.0.7
 MAXPAGE = 20    # WCL 하드캡
 
 BOSSES_MYTHIC = [3176, 3177, 3179, 3178, 3180, 3181, 3306, 3182, 3183]
@@ -53,6 +53,22 @@ Q_ROSTER = """query($code:String!,$fid:[Int]!){reportData{report(code:$code){
   guild{name}
   playerDetails(fightIDs:$fid)
 }}}"""
+
+
+def save_json(path: Path, obj) -> None:
+    payload = json.dumps(obj, ensure_ascii=False)
+    tmp = path.with_name(f"{path.name}.tmp")
+    last_exc = None
+    for _ in range(5):
+        try:
+            tmp.write_text(payload, encoding="utf-8")
+            tmp.replace(path)
+            return
+        except OSError as exc:
+            last_exc = exc
+            time.sleep(0.5)
+    if last_exc:
+        raise last_exc
 
 
 def fetch_rank_page(cli, eid, cn, sn, diff, page):
@@ -98,6 +114,8 @@ def compact(e, eid):
 def step1_mythic(cli):
     path = DATA / "kr_mythic_rankings.json"
     done = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+    if done.get("_partition") != PT:
+        done = {"_partition": PT}
     for eid in BOSSES_MYTHIC:
         for cn, sn in SPECS:
             key = f"{eid}|{cn}|{sn}"
@@ -105,7 +123,7 @@ def step1_mythic(cli):
                 continue
             entries, capped = fetch_all_pages(cli, eid, cn, sn, 5)
             done[key] = {"entries": [compact(e, eid) for e in entries], "capped": capped}
-            path.write_text(json.dumps(done, ensure_ascii=False), encoding="utf-8")
+            save_json(path, done)
         n = sum(len(v["entries"]) for k, v in done.items() if k.startswith(f"{eid}|"))
         print(f"신화 {BOSS_KR[eid]}: 누적 {n}명", flush=True)
     return done
@@ -114,6 +132,8 @@ def step1_mythic(cli):
 def step2_heroic(cli):
     path = DATA / "kr_heroic_pop.json"
     done = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+    if done.get("_partition") != PT:
+        done = {"_partition": PT}
     for eid in BOSSES_HEROIC:
         for cn, sn in SPECS:
             key = f"{eid}|{cn}|{sn}"
@@ -123,7 +143,7 @@ def step2_heroic(cli):
             # 인구만 필요 — 유니크 (name,server) + 캡 여부
             chars = sorted({f'{e.get("name")}@{(e.get("server") or {}).get("name")}' for e in entries})
             done[key] = {"n": len(chars), "chars": chars, "capped": capped}
-            path.write_text(json.dumps(done, ensure_ascii=False), encoding="utf-8")
+            save_json(path, done)
             print(f"영웅 {BOSS_KR[eid]} {sn}: {len(chars)}명{' [캡!]' if capped else ''}", flush=True)
     return done
 
@@ -137,6 +157,8 @@ def step3_rosters(cli, mythic):
     cache = json.loads(cache_p.read_text(encoding="utf-8")) if cache_p.exists() else {}
     by_boss: dict[int, set] = {}
     for key, blk in mythic.items():
+        if str(key).startswith("_"):
+            continue
         for e in blk["entries"]:
             if e["rid"] and e["fid"]:
                 by_boss.setdefault(e["boss"], set()).add((e["rid"], e["fid"]))
@@ -172,10 +194,10 @@ def step3_rosters(cli, mythic):
                 print(f"  로스터 재시도 {attempt+1} {rid}:{fid} ({str(ex)[:50]}) — {wait}s", flush=True)
                 time.sleep(wait)
         if (i + 1) % 20 == 0:
-            cache_p.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
+            save_json(cache_p, cache)
             print(f"  로스터 {i+1}/{len(todo)}", flush=True)
         time.sleep(0.05)
-    cache_p.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
+    save_json(cache_p, cache)
     return cache
 
 

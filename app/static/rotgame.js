@@ -74,8 +74,7 @@
     ],
     학살자AOEOFF: [
       { k: 'odyn', c: s => s.odynCd <= 0, w: '광특 학살자는 오딘의 격노를 쿨마다 굴려 광역 엔진을 시작합니다.' },
-      { k: 'tclap', c: s => s.targets >= 6, w: '6타겟 이상 광특에서는 천둥벼락이 단일 자원 규칙보다 앞섭니다.' },
-      { k: 'tblast', c: s => s.tbCharges > 0, w: '광특 학살자는 우레 작렬 프록/충전을 광역 우선순위에 넣습니다.' },
+      { k: 'ww', c: s => s.targets >= 6, w: '학살자 광특 6타겟 이상에서는 소용돌이로 광역 전환을 먼저 확인합니다.' },
       { k: 'bstorm', c: s => s.bsCd <= 0, w: '칼날폭풍은 학살자 광특의 핵심 광역 버튼입니다.' },
       { k: 'rampage', c: s => (!s.enraged || s.rage > 100) && s.rage >= 80, w: '비격노 또는 분노캡이면 광특에서도 광란으로 정리합니다.' },
       { k: 'execute', c: s => s.sd || s.exec, w: '급살 프록 또는 처형 구간입니다.' },
@@ -87,8 +86,7 @@
     학살자AOEON: [
       { k: 'bstorm', c: s => s.bsCd <= 0, w: '무모한 희생 광역 창에는 칼날폭풍을 먼저 씁니다.' },
       { k: 'odyn', c: s => s.odynCd <= 0, w: '오딘의 격노를 광역 버스트 창에 넣습니다.' },
-      { k: 'tclap', c: s => s.targets >= 6, w: '6타겟 이상에서는 천둥벼락이 광역 우선순위로 올라옵니다.' },
-      { k: 'tblast', c: s => s.tbCharges > 0, w: '우레 작렬 프록/충전을 소모합니다.' },
+      { k: 'ww', c: s => s.targets >= 6, w: '학살자 광특 6타겟 이상 광역 확인 버튼은 소용돌이입니다.' },
       { k: 'rampage', c: s => (!s.enraged || s.rage > 100) && s.rage >= 80, w: '비격노 또는 분노캡이면 광란입니다.' },
       { k: 'execute', c: s => s.sd || s.exec, w: '마무리 일격은 그 다음입니다.' },
       { k: 'bt', c: s => s.btCd <= 0, w: '피범벅으로 바뀐 피의 갈증을 씁니다.' },
@@ -180,7 +178,7 @@
         if (s.profile === 'aoe') {
           return s.build === '산왕'
             ? ['tclap', 'rampage', 'tblast', 'bt', 'execute', 'rblow', 'odyn']
-            : ['odyn', 'tclap', 'tblast', 'bstorm', 'rampage', 'execute', 'bt', 'rblow', 'ww'];
+            : ['odyn', 'ww', 'bstorm', 'rampage', 'execute', 'bt', 'rblow'];
         }
         return s.build === '산왕'
           ? ['rampage', 'tblast', 'bt', 'execute', 'rblow', 'odyn', 'tclap']
@@ -225,7 +223,7 @@
         if (s.sd) out.push({ ...AURA.suddenDeath, on: true, pulse: true, badge: '!' });
         if (s.exec) out.push({ ...AURA.execute, on: true, pulse: true, badge: '20' });
         if (s.profile === 'aoe') out.push({ ...AURA.targets, on: true, pulse: s.targets >= 6, badge: `${s.targets}T` });
-        if (s.build === '산왕' || s.profile === 'aoe') out.push({ ...AURA.thunder, on: s.tbCharges > 0, pulse: s.tbCharges > 0, badge: s.tbCharges || '' });
+        if (s.build === '산왕') out.push({ ...AURA.thunder, on: s.tbCharges > 0, pulse: s.tbCharges > 0, badge: s.tbCharges || '' });
         return out;
       },
       resource(s) {

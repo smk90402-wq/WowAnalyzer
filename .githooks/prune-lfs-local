@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+if ! command -v git-lfs >/dev/null 2>&1 && ! git lfs version >/dev/null 2>&1; then
+  exit 0
+fi
+
+git lfs prune --verify-remote >/dev/null 2>&1 || true
+

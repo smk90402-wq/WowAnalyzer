@@ -1,0 +1,27 @@
+#!/bin/sh
+set -eu
+
+bad_cache=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '^data/v2_cache_.*\.json$' || true)
+if [ -n "$bad_cache" ]; then
+  echo "Refusing to commit generated v2 cache files:" >&2
+  echo "$bad_cache" >&2
+  exit 1
+fi
+
+limit=$((100 * 1024 * 1024))
+bad_large=""
+for path in $(git diff --cached --name-only --diff-filter=ACMR); do
+  [ -f "$path" ] || continue
+  size=$(wc -c < "$path")
+  if [ "$size" -ge "$limit" ]; then
+    bad_large="${bad_large}${path} (${size} bytes)
+"
+  fi
+done
+
+if [ -n "$bad_large" ]; then
+  echo "Refusing to commit files >=100MB:" >&2
+  printf "%s" "$bad_large" >&2
+  echo "Use local cache/ignored data instead." >&2
+  exit 1
+fi
