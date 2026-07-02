@@ -979,6 +979,52 @@
       "files": [
         "data/spec_meta_ranking.csv"
       ]
+    },
+    {
+      "ts": "2026-07-03T00:00:31",
+      "host": "claude",
+      "action": "analyze_spec_difficulty_v2",
+      "params": {
+        "weights": {
+          "mech": 0.3,
+          "punish": 0.2,
+          "ceiling": 0.15,
+          "move": 0.15,
+          "variance": 0.1,
+          "duty": 0.1
+        }
+      },
+      "result": {
+        "specs": 27,
+        "easiest": "냉법",
+        "hardest": "화염"
+      },
+      "files": [
+        "data/spec_difficulty_v2.json"
+      ]
+    },
+    {
+      "ts": "2026-07-03T00:02:15",
+      "host": "claude",
+      "action": "analyze_spec_difficulty_v2",
+      "params": {
+        "weights": {
+          "mech": 0.3,
+          "punish": 0.2,
+          "ceiling": 0.15,
+          "move": 0.15,
+          "variance": 0.1,
+          "duty": 0.1
+        }
+      },
+      "result": {
+        "specs": 27,
+        "easiest": "냉법",
+        "hardest": "냉죽"
+      },
+      "files": [
+        "data/spec_difficulty_v2.json"
+      ]
     }
   ]
 }
