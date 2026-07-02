@@ -1,0 +1,56 @@
+{
+ "_meta": {
+  "collected": "2026-07-02",
+  "partition": 3,
+  "bosses": [
+   3181,
+   3179
+  ],
+  "difficulty": "heroic KR",
+  "note": "유니크 (name@server), 캡 없음"
+ },
+ "class_unique": {
+  "DeathKnight": 346,
+  "DemonHunter": 252,
+  "Druid": 150,
+  "Evoker": 150,
+  "Hunter": 400,
+  "Mage": 342,
+  "Monk": 92,
+  "Priest": 109,
+  "Rogue": 138,
+  "Shaman": 189,
+  "Paladin": 215,
+  "Warlock": 309,
+  "Warrior": 187
+ },
+ "spec_unique": {
+  "DeathKnight|Frost": 41,
+  "Druid|Feral": 38,
+  "DemonHunter|Havoc": 78,
+  "Evoker|Devastation": 15,
+  "Druid|Balance": 112,
+  "Hunter|Marksmanship": 68,
+  "DemonHunter|Devourer": 177,
+  "Evoker|Augmentation": 138,
+  "Hunter|Survival": 57,
+  "Mage|Arcane": 5,
+  "Mage|Fire": 27,
+  "Monk|Windwalker": 92,
+  "DeathKnight|Unholy": 308,
+  "Hunter|BeastMastery": 283,
+  "Rogue|Assassination": 16,
+  "Rogue|Outlaw": 27,
+  "Rogue|Subtlety": 98,
+  "Priest|Shadow": 109,
+  "Shaman|Enhancement": 47,
+  "Warlock|Affliction": 32,
+  "Shaman|Elemental": 143,
+  "Paladin|Retribution": 215,
+  "Warlock|Destruction": 69,
+  "Warrior|Arms": 67,
+  "Mage|Frost": 313,
+  "Warlock|Demonology": 236,
+  "Warrior|Fury": 124
+ }
+}
