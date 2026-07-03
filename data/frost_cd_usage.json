@@ -1,0 +1,620 @@
+{
+ "n_total": 302,
+ "bosses": {
+  "Imperator Averzian": {
+   "n": 35,
+   "kill_med_s": 194,
+   "orb_first_cast_med_s": 4.7,
+   "orb_casts_med_per_fight": 6,
+   "orb_eff_med": 1.48,
+   "orb_gap": {
+    "n": 198,
+    "p25": 28.5,
+    "med": 32.6,
+    "p75": 36.6,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "orb_gap_rank1_20": {
+    "n": 114,
+    "p25": 28.1,
+    "med": 32.6,
+    "p75": 35.9,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "orb_gap_rank21_100": {
+    "n": 84,
+    "p25": 29.5,
+    "med": 32.9,
+    "p75": 36.6,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "ray_gap": {
+    "n": 192,
+    "p25": 25.0,
+    "med": 37.3,
+    "p75": 43.4,
+    "즉시(<=63s)": 95,
+    "소홀드(63-75s)": 3,
+    "대홀드(>75s)": 2
+   },
+   "ray_casts_med_per_fight": 6,
+   "bliz_casts_med_per_fight": 0,
+   "flurry_per_min_med": 7.7,
+   "wave_windows_s": [],
+   "wave_windows_mmss": [],
+   "orb_on_wave_pct": 0,
+   "orb_hold_before_wave_med_s": null,
+   "bliz_hist_top": [
+    [
+     50,
+     3
+    ],
+    [
+     130,
+     3
+    ],
+    [
+     240,
+     3
+    ],
+    [
+     140,
+     1
+    ]
+   ]
+  },
+  "Chimaerus, the Undreamt God": {
+   "n": 35,
+   "kill_med_s": 146,
+   "orb_first_cast_med_s": 2.4,
+   "orb_casts_med_per_fight": 5,
+   "orb_eff_med": 1.46,
+   "orb_gap": {
+    "n": 140,
+    "p25": 26.5,
+    "med": 30.0,
+    "p75": 34.1,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "orb_gap_rank1_20": {
+    "n": 78,
+    "p25": 26.6,
+    "med": 30.0,
+    "p75": 33.6,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "orb_gap_rank21_100": {
+    "n": 62,
+    "p25": 26.5,
+    "med": 29.7,
+    "p75": 34.4,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "ray_gap": {
+    "n": 140,
+    "p25": 23.5,
+    "med": 33.3,
+    "p75": 42.7,
+    "즉시(<=63s)": 99,
+    "소홀드(63-75s)": 1,
+    "대홀드(>75s)": 0
+   },
+   "ray_casts_med_per_fight": 5,
+   "bliz_casts_med_per_fight": 0,
+   "flurry_per_min_med": 7.7,
+   "wave_windows_s": [],
+   "wave_windows_mmss": [],
+   "orb_on_wave_pct": 0,
+   "orb_hold_before_wave_med_s": null,
+   "bliz_hist_top": [
+    [
+     30,
+     1
+    ],
+    [
+     20,
+     1
+    ]
+   ]
+  },
+  "Belo'ren, Child of Al'ar": {
+   "n": 35,
+   "kill_med_s": 309,
+   "orb_first_cast_med_s": 5.9,
+   "orb_casts_med_per_fight": 9,
+   "orb_eff_med": 1.55,
+   "orb_gap": {
+    "n": 280,
+    "p25": 28.6,
+    "med": 32.8,
+    "p75": 37.3,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "orb_gap_rank1_20": {
+    "n": 156,
+    "p25": 27.8,
+    "med": 32.6,
+    "p75": 37.9,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "orb_gap_rank21_100": {
+    "n": 124,
+    "p25": 28.9,
+    "med": 32.9,
+    "p75": 36.2,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "ray_gap": {
+    "n": 249,
+    "p25": 20.1,
+    "med": 39.6,
+    "p75": 53.7,
+    "즉시(<=63s)": 88,
+    "소홀드(63-75s)": 8,
+    "대홀드(>75s)": 4
+   },
+   "ray_casts_med_per_fight": 8,
+   "bliz_casts_med_per_fight": 0,
+   "flurry_per_min_med": 7.0,
+   "wave_windows_s": [],
+   "wave_windows_mmss": [],
+   "orb_on_wave_pct": 0,
+   "orb_hold_before_wave_med_s": null,
+   "bliz_hist_top": [
+    [
+     110,
+     6
+    ],
+    [
+     100,
+     3
+    ],
+    [
+     80,
+     2
+    ]
+   ]
+  },
+  "Vorasius": {
+   "n": 33,
+   "kill_med_s": 209,
+   "orb_first_cast_med_s": 5.0,
+   "orb_casts_med_per_fight": 7,
+   "orb_eff_med": 1.57,
+   "orb_gap": {
+    "n": 202,
+    "p25": 28.6,
+    "med": 31.8,
+    "p75": 35.2,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "orb_gap_rank1_20": {
+    "n": 120,
+    "p25": 28.6,
+    "med": 32.2,
+    "p75": 35.4,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "orb_gap_rank21_100": {
+    "n": 82,
+    "p25": 28.5,
+    "med": 31.6,
+    "p75": 35.1,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "ray_gap": {
+    "n": 172,
+    "p25": 26.1,
+    "med": 38.9,
+    "p75": 49.1,
+    "즉시(<=63s)": 96,
+    "소홀드(63-75s)": 3,
+    "대홀드(>75s)": 1
+   },
+   "ray_casts_med_per_fight": 6,
+   "bliz_casts_med_per_fight": 0,
+   "flurry_per_min_med": 7.5,
+   "wave_windows_s": [],
+   "wave_windows_mmss": [],
+   "orb_on_wave_pct": 0,
+   "orb_hold_before_wave_med_s": null,
+   "bliz_hist_top": []
+  },
+  "Fallen-King Salhadaar": {
+   "n": 33,
+   "kill_med_s": 211,
+   "orb_first_cast_med_s": 4.9,
+   "orb_casts_med_per_fight": 7,
+   "orb_eff_med": 1.54,
+   "orb_gap": {
+    "n": 215,
+    "p25": 29.4,
+    "med": 33.8,
+    "p75": 37.9,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "orb_gap_rank1_20": {
+    "n": 123,
+    "p25": 30.1,
+    "med": 33.5,
+    "p75": 38.5,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "orb_gap_rank21_100": {
+    "n": 92,
+    "p25": 29.1,
+    "med": 34.5,
+    "p75": 37.8,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "ray_gap": {
+    "n": 193,
+    "p25": 29.1,
+    "med": 39.0,
+    "p75": 46.8,
+    "즉시(<=63s)": 96,
+    "소홀드(63-75s)": 4,
+    "대홀드(>75s)": 0
+   },
+   "ray_casts_med_per_fight": 6,
+   "bliz_casts_med_per_fight": 0,
+   "flurry_per_min_med": 7.7,
+   "wave_windows_s": [],
+   "wave_windows_mmss": [],
+   "orb_on_wave_pct": 0,
+   "orb_hold_before_wave_med_s": null,
+   "bliz_hist_top": [
+    [
+     140,
+     1
+    ],
+    [
+     180,
+     1
+    ],
+    [
+     190,
+     1
+    ],
+    [
+     260,
+     1
+    ],
+    [
+     300,
+     1
+    ],
+    [
+     310,
+     1
+    ],
+    [
+     130,
+     1
+    ]
+   ]
+  },
+  "Lightblinded Vanguard": {
+   "n": 33,
+   "kill_med_s": 394,
+   "orb_first_cast_med_s": 4.2,
+   "orb_casts_med_per_fight": 13,
+   "orb_eff_med": 1.71,
+   "orb_gap": {
+    "n": 378,
+    "p25": 28.5,
+    "med": 31.3,
+    "p75": 34.2,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "orb_gap_rank1_20": {
+    "n": 217,
+    "p25": 28.3,
+    "med": 31.1,
+    "p75": 34.0,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "orb_gap_rank21_100": {
+    "n": 161,
+    "p25": 28.6,
+    "med": 31.5,
+    "p75": 34.2,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "ray_gap": {
+    "n": 333,
+    "p25": 16.2,
+    "med": 41.7,
+    "p75": 49.3,
+    "즉시(<=63s)": 99,
+    "소홀드(63-75s)": 1,
+    "대홀드(>75s)": 0
+   },
+   "ray_casts_med_per_fight": 12,
+   "bliz_casts_med_per_fight": 0,
+   "flurry_per_min_med": 7.4,
+   "wave_windows_s": [],
+   "wave_windows_mmss": [],
+   "orb_on_wave_pct": 0,
+   "orb_hold_before_wave_med_s": null,
+   "bliz_hist_top": [
+    [
+     0,
+     1
+    ]
+   ]
+  },
+  "Crown of the Cosmos": {
+   "n": 33,
+   "kill_med_s": 467,
+   "orb_first_cast_med_s": 1.9,
+   "orb_casts_med_per_fight": 13,
+   "orb_eff_med": 1.47,
+   "orb_gap": {
+    "n": 389,
+    "p25": 29.6,
+    "med": 33.5,
+    "p75": 39.0,
+    "즉시(<=63s)": 92,
+    "소홀드(63-75s)": 3,
+    "대홀드(>75s)": 5
+   },
+   "orb_gap_rank1_20": {
+    "n": 221,
+    "p25": 29.5,
+    "med": 34.0,
+    "p75": 39.2,
+    "즉시(<=63s)": 91,
+    "소홀드(63-75s)": 3,
+    "대홀드(>75s)": 6
+   },
+   "orb_gap_rank21_100": {
+    "n": 168,
+    "p25": 30.0,
+    "med": 33.2,
+    "p75": 38.6,
+    "즉시(<=63s)": 92,
+    "소홀드(63-75s)": 4,
+    "대홀드(>75s)": 4
+   },
+   "ray_gap": {
+    "n": 339,
+    "p25": 20.7,
+    "med": 41.6,
+    "p75": 56.1,
+    "즉시(<=63s)": 83,
+    "소홀드(63-75s)": 7,
+    "대홀드(>75s)": 10
+   },
+   "ray_casts_med_per_fight": 11,
+   "bliz_casts_med_per_fight": 0,
+   "flurry_per_min_med": 6.6,
+   "wave_windows_s": [],
+   "wave_windows_mmss": [],
+   "orb_on_wave_pct": 0,
+   "orb_hold_before_wave_med_s": null,
+   "bliz_hist_top": [
+    [
+     120,
+     1
+    ]
+   ]
+  },
+  "Midnight Falls": {
+   "n": 33,
+   "kill_med_s": 568,
+   "orb_first_cast_med_s": 10.8,
+   "orb_casts_med_per_fight": 17,
+   "orb_eff_med": 1.7,
+   "orb_gap": {
+    "n": 538,
+    "p25": 28.5,
+    "med": 32.2,
+    "p75": 36.3,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "orb_gap_rank1_20": {
+    "n": 329,
+    "p25": 28.5,
+    "med": 32.0,
+    "p75": 36.0,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "orb_gap_rank21_100": {
+    "n": 209,
+    "p25": 28.8,
+    "med": 32.4,
+    "p75": 36.8,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "ray_gap": {
+    "n": 411,
+    "p25": 28.8,
+    "med": 43.6,
+    "p75": 52.2,
+    "즉시(<=63s)": 86,
+    "소홀드(63-75s)": 5,
+    "대홀드(>75s)": 9
+   },
+   "ray_casts_med_per_fight": 14,
+   "bliz_casts_med_per_fight": 0,
+   "flurry_per_min_med": 6.9,
+   "wave_windows_s": [],
+   "wave_windows_mmss": [],
+   "orb_on_wave_pct": 0,
+   "orb_hold_before_wave_med_s": null,
+   "bliz_hist_top": [
+    [
+     340,
+     2
+    ],
+    [
+     490,
+     1
+    ],
+    [
+     10,
+     1
+    ],
+    [
+     130,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     60,
+     1
+    ],
+    [
+     430,
+     1
+    ]
+   ]
+  },
+  "Vaelgor & Ezzorak": {
+   "n": 32,
+   "kill_med_s": 294,
+   "orb_first_cast_med_s": 5.0,
+   "orb_casts_med_per_fight": 9,
+   "orb_eff_med": 1.57,
+   "orb_gap": {
+    "n": 281,
+    "p25": 30.3,
+    "med": 33.7,
+    "p75": 38.0,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "orb_gap_rank1_20": {
+    "n": 162,
+    "p25": 30.9,
+    "med": 33.8,
+    "p75": 38.0,
+    "즉시(<=63s)": 99,
+    "소홀드(63-75s)": 1,
+    "대홀드(>75s)": 0
+   },
+   "orb_gap_rank21_100": {
+    "n": 119,
+    "p25": 29.8,
+    "med": 33.0,
+    "p75": 37.9,
+    "즉시(<=63s)": 100,
+    "소홀드(63-75s)": 0,
+    "대홀드(>75s)": 0
+   },
+   "ray_gap": {
+    "n": 266,
+    "p25": 25.8,
+    "med": 34.6,
+    "p75": 45.6,
+    "즉시(<=63s)": 90,
+    "소홀드(63-75s)": 6,
+    "대홀드(>75s)": 4
+   },
+   "ray_casts_med_per_fight": 9,
+   "bliz_casts_med_per_fight": 6,
+   "flurry_per_min_med": 7.3,
+   "wave_windows_s": [],
+   "wave_windows_mmss": [],
+   "orb_on_wave_pct": 0,
+   "orb_hold_before_wave_med_s": null,
+   "bliz_hist_top": [
+    [
+     30,
+     25
+    ],
+    [
+     200,
+     25
+    ],
+    [
+     70,
+     22
+    ],
+    [
+     240,
+     22
+    ],
+    [
+     170,
+     17
+    ],
+    [
+     280,
+     15
+    ],
+    [
+     120,
+     10
+    ],
+    [
+     300,
+     9
+    ],
+    [
+     160,
+     5
+    ],
+    [
+     370,
+     3
+    ],
+    [
+     360,
+     3
+    ],
+    [
+     80,
+     2
+    ]
+   ]
+  }
+ }
+}

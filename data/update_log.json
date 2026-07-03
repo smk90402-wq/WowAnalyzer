@@ -1246,6 +1246,20 @@
         "data/v2_cache_player_fight.json",
         "data/v2_cache_events.json"
       ]
+    },
+    {
+      "ts": "2026-07-03T22:56:40",
+      "host": "SmkDesktop",
+      "action": "fetch_talent_trees",
+      "params": {
+        "specs_requested": 10
+      },
+      "result": {
+        "specs_built": 10
+      },
+      "files": [
+        "data/talent_trees.json"
+      ]
     }
   ]
 }

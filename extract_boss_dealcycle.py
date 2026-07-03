@@ -60,6 +60,14 @@ SPEC_CONFIG = {
         "track_buffs": {259388: "창끝"},
         "build_node": None, "build_label": (None, None),
     },
+    ("Mage", "Frost"): {
+        # 캐시 교차검증(냉법 60판): 얼어붙은 구슬 577캐스트, 서리 광선 507캐스트.
+        # 얼음 핏줄(12472)은 0캐스트 — 미드나잇에서 없어짐. 빙결의 비(270232)는
+        # spell_db에 없고 60판 중 apply 10회뿐이라 추적 제외.
+        "cooldowns": {84714: "얼어붙은 구슬", 205021: "서리 광선"},
+        "track_buffs": {190446: "두뇌 빙결", 44544: "서리의 손가락"},
+        "build_node": None, "build_label": (None, None),  # 주문술사 단일빌드
+    },
 }
 
 

@@ -1102,3 +1102,12 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .fl-details { margin: 10px 0 4px; }
 .fl-details summary { cursor: pointer; font-size: 12.5px; color: var(--text-mute); padding: 6px 2px; }
 .fl-details summary:hover { color: var(--text); }
+
+/* 추적 버프 / 법사 꿀팁 섹션 */
+.fl-track-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 900px) { .fl-track-grid { grid-template-columns: 1fr; } }
+.fl-track-h { font-size: 12px; font-weight: 700; color: var(--text-soft); margin: 4px 0 6px; }
+.fl-track-item { font-size: 12.5px; line-height: 1.55; color: var(--text);
+  background: rgba(255,255,255,0.03); border-radius: 6px; padding: 8px 10px; margin-bottom: 5px; }
+.fl-track-item .fl-track-s { font-weight: 700; margin-right: 8px; }
+.fl-track-item .ws-ic { width: 20px; height: 20px; border-radius: 4px; }

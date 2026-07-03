@@ -1,0 +1,996 @@
+{
+ "meta": {
+  "n_kills": 302,
+  "bands": {
+   "rank_1_20": 174,
+   "rank_21_100": 128
+  },
+  "spells": {
+   "brain_freeze": 190446,
+   "fingers_of_frost": 44544
+  },
+  "note": "hold/spend = 프록 획득→소모(초). waste = 덮어쓰기+자연만료 / 총 획득."
+ },
+ "overall": {
+  "rank_1_20": {
+   "n_fights": 174,
+   "bf": {
+    "n_procs_used": 4668,
+    "hold_s_median": 1.28,
+    "hold_s_p75": 2.15,
+    "hold_s_p90": 3.51,
+    "used_within_3s_pct": 88.6,
+    "used_within_5s_pct": 95.7,
+    "waste_pct": 3.2,
+    "overwrites": 149,
+    "expiries": 5,
+    "gains": 4836
+   },
+   "fof": {
+    "n_charges_used": 9643,
+    "spend_s_median": 1.75,
+    "spend_s_p75": 2.56,
+    "spend_s_p90": 3.65,
+    "used_within_3s_pct": 85.0,
+    "used_within_5s_pct": 98.0,
+    "waste_pct": 3.9,
+    "munched_at_cap": 531,
+    "expired": 3,
+    "gains": 13536,
+    "twostack_s_per_min": 3.05
+   },
+   "procs_per_min": {
+    "bf": 5.34,
+    "fof": 14.94
+   }
+  },
+  "rank_21_100": {
+   "n_fights": 128,
+   "bf": {
+    "n_procs_used": 3278,
+    "hold_s_median": 1.27,
+    "hold_s_p75": 2.1,
+    "hold_s_p90": 3.1,
+    "used_within_3s_pct": 89.7,
+    "used_within_5s_pct": 95.6,
+    "waste_pct": 3.4,
+    "overwrites": 106,
+    "expiries": 8,
+    "gains": 3400
+   },
+   "fof": {
+    "n_charges_used": 6968,
+    "spend_s_median": 1.78,
+    "spend_s_p75": 2.57,
+    "spend_s_p90": 3.71,
+    "used_within_3s_pct": 83.9,
+    "used_within_5s_pct": 97.4,
+    "waste_pct": 3.8,
+    "munched_at_cap": 366,
+    "expired": 11,
+    "gains": 9828,
+    "twostack_s_per_min": 3.17
+   },
+   "procs_per_min": {
+    "bf": 5.16,
+    "fof": 14.91
+   }
+  },
+  "all": {
+   "n_fights": 302,
+   "bf": {
+    "n_procs_used": 7946,
+    "hold_s_median": 1.27,
+    "hold_s_p75": 2.12,
+    "hold_s_p90": 3.34,
+    "used_within_3s_pct": 89.1,
+    "used_within_5s_pct": 95.6,
+    "waste_pct": 3.3,
+    "overwrites": 255,
+    "expiries": 13,
+    "gains": 8236
+   },
+   "fof": {
+    "n_charges_used": 16611,
+    "spend_s_median": 1.76,
+    "spend_s_p75": 2.56,
+    "spend_s_p90": 3.67,
+    "used_within_3s_pct": 84.5,
+    "used_within_5s_pct": 97.7,
+    "waste_pct": 3.9,
+    "munched_at_cap": 897,
+    "expired": 14,
+    "gains": 23364,
+    "twostack_s_per_min": 3.1
+   },
+   "procs_per_min": {
+    "bf": 5.26,
+    "fof": 14.93
+   }
+  }
+ },
+ "per_boss": {
+  "Imperator Averzian": {
+   "all": {
+    "n_fights": 35,
+    "bf": {
+     "n_procs_used": 675,
+     "hold_s_median": 1.29,
+     "hold_s_p75": 1.94,
+     "hold_s_p90": 2.76,
+     "used_within_3s_pct": 91.0,
+     "used_within_5s_pct": 97.3,
+     "waste_pct": 2.6,
+     "overwrites": 18,
+     "expiries": 0,
+     "gains": 696
+    },
+    "fof": {
+     "n_charges_used": 1354,
+     "spend_s_median": 1.77,
+     "spend_s_p75": 2.59,
+     "spend_s_p90": 3.72,
+     "used_within_3s_pct": 83.9,
+     "used_within_5s_pct": 97.4,
+     "waste_pct": 3.9,
+     "munched_at_cap": 75,
+     "expired": 0,
+     "gains": 1941,
+     "twostack_s_per_min": 3.44
+    },
+    "procs_per_min": {
+     "bf": 5.75,
+     "fof": 16.03
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "bf": {
+     "n_procs_used": 392,
+     "hold_s_median": 1.3,
+     "hold_s_p75": 2.03,
+     "hold_s_p90": 3.44,
+     "used_within_3s_pct": 89.0,
+     "used_within_5s_pct": 97.4,
+     "waste_pct": 3.4,
+     "overwrites": 14,
+     "expiries": 0,
+     "gains": 408
+    },
+    "fof": {
+     "n_charges_used": 786,
+     "spend_s_median": 1.76,
+     "spend_s_p75": 2.57,
+     "spend_s_p90": 3.71,
+     "used_within_3s_pct": 84.9,
+     "used_within_5s_pct": 97.5,
+     "waste_pct": 4.3,
+     "munched_at_cap": 49,
+     "expired": 0,
+     "gains": 1136,
+     "twostack_s_per_min": 3.47
+    },
+    "procs_per_min": {
+     "bf": 5.88,
+     "fof": 16.36
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 15,
+    "bf": {
+     "n_procs_used": 283,
+     "hold_s_median": 1.28,
+     "hold_s_p75": 1.89,
+     "hold_s_p90": 2.56,
+     "used_within_3s_pct": 93.6,
+     "used_within_5s_pct": 97.2,
+     "waste_pct": 1.4,
+     "overwrites": 4,
+     "expiries": 0,
+     "gains": 288
+    },
+    "fof": {
+     "n_charges_used": 568,
+     "spend_s_median": 1.78,
+     "spend_s_p75": 2.6,
+     "spend_s_p90": 3.73,
+     "used_within_3s_pct": 82.6,
+     "used_within_5s_pct": 97.4,
+     "waste_pct": 3.2,
+     "munched_at_cap": 26,
+     "expired": 0,
+     "gains": 805,
+     "twostack_s_per_min": 3.39
+    },
+    "procs_per_min": {
+     "bf": 5.57,
+     "fof": 15.58
+    }
+   }
+  },
+  "Chimaerus, the Undreamt God": {
+   "all": {
+    "n_fights": 35,
+    "bf": {
+     "n_procs_used": 447,
+     "hold_s_median": 1.28,
+     "hold_s_p75": 2.08,
+     "hold_s_p90": 3.48,
+     "used_within_3s_pct": 88.8,
+     "used_within_5s_pct": 97.1,
+     "waste_pct": 2.2,
+     "overwrites": 10,
+     "expiries": 0,
+     "gains": 458
+    },
+    "fof": {
+     "n_charges_used": 955,
+     "spend_s_median": 1.83,
+     "spend_s_p75": 2.65,
+     "spend_s_p90": 3.7,
+     "used_within_3s_pct": 82.6,
+     "used_within_5s_pct": 97.4,
+     "waste_pct": 4.7,
+     "munched_at_cap": 65,
+     "expired": 0,
+     "gains": 1374,
+     "twostack_s_per_min": 3.77
+    },
+    "procs_per_min": {
+     "bf": 5.41,
+     "fof": 16.24
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "bf": {
+     "n_procs_used": 263,
+     "hold_s_median": 1.29,
+     "hold_s_p75": 1.99,
+     "hold_s_p90": 3.54,
+     "used_within_3s_pct": 88.2,
+     "used_within_5s_pct": 97.3,
+     "waste_pct": 2.2,
+     "overwrites": 6,
+     "expiries": 0,
+     "gains": 269
+    },
+    "fof": {
+     "n_charges_used": 536,
+     "spend_s_median": 1.9,
+     "spend_s_p75": 2.73,
+     "spend_s_p90": 3.79,
+     "used_within_3s_pct": 81.2,
+     "used_within_5s_pct": 97.8,
+     "waste_pct": 4.6,
+     "munched_at_cap": 36,
+     "expired": 0,
+     "gains": 787,
+     "twostack_s_per_min": 3.96
+    },
+    "procs_per_min": {
+     "bf": 5.58,
+     "fof": 16.33
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 15,
+    "bf": {
+     "n_procs_used": 184,
+     "hold_s_median": 1.26,
+     "hold_s_p75": 2.3,
+     "hold_s_p90": 3.28,
+     "used_within_3s_pct": 89.7,
+     "used_within_5s_pct": 96.7,
+     "waste_pct": 2.1,
+     "overwrites": 4,
+     "expiries": 0,
+     "gains": 189
+    },
+    "fof": {
+     "n_charges_used": 419,
+     "spend_s_median": 1.65,
+     "spend_s_p75": 2.57,
+     "spend_s_p90": 3.33,
+     "used_within_3s_pct": 84.5,
+     "used_within_5s_pct": 96.9,
+     "waste_pct": 4.9,
+     "munched_at_cap": 29,
+     "expired": 0,
+     "gains": 587,
+     "twostack_s_per_min": 3.53
+    },
+    "procs_per_min": {
+     "bf": 5.19,
+     "fof": 16.11
+    }
+   }
+  },
+  "Belo'ren, Child of Al'ar": {
+   "all": {
+    "n_fights": 35,
+    "bf": {
+     "n_procs_used": 811,
+     "hold_s_median": 1.26,
+     "hold_s_p75": 2.28,
+     "hold_s_p90": 2.79,
+     "used_within_3s_pct": 90.5,
+     "used_within_5s_pct": 96.7,
+     "waste_pct": 2.3,
+     "overwrites": 16,
+     "expiries": 3,
+     "gains": 831
+    },
+    "fof": {
+     "n_charges_used": 1766,
+     "spend_s_median": 1.82,
+     "spend_s_p75": 2.58,
+     "spend_s_p90": 3.73,
+     "used_within_3s_pct": 82.3,
+     "used_within_5s_pct": 97.7,
+     "waste_pct": 4.2,
+     "munched_at_cap": 103,
+     "expired": 1,
+     "gains": 2486,
+     "twostack_s_per_min": 3.12
+    },
+    "procs_per_min": {
+     "bf": 4.89,
+     "fof": 14.63
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "bf": {
+     "n_procs_used": 457,
+     "hold_s_median": 1.27,
+     "hold_s_p75": 2.3,
+     "hold_s_p90": 3.29,
+     "used_within_3s_pct": 89.1,
+     "used_within_5s_pct": 96.3,
+     "waste_pct": 1.3,
+     "overwrites": 5,
+     "expiries": 1,
+     "gains": 463
+    },
+    "fof": {
+     "n_charges_used": 990,
+     "spend_s_median": 1.83,
+     "spend_s_p75": 2.62,
+     "spend_s_p90": 3.76,
+     "used_within_3s_pct": 81.6,
+     "used_within_5s_pct": 97.6,
+     "waste_pct": 4.2,
+     "munched_at_cap": 58,
+     "expired": 0,
+     "gains": 1388,
+     "twostack_s_per_min": 3.31
+    },
+    "procs_per_min": {
+     "bf": 4.91,
+     "fof": 14.72
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 15,
+    "bf": {
+     "n_procs_used": 354,
+     "hold_s_median": 1.25,
+     "hold_s_p75": 2.16,
+     "hold_s_p90": 2.75,
+     "used_within_3s_pct": 92.4,
+     "used_within_5s_pct": 97.2,
+     "waste_pct": 3.5,
+     "overwrites": 11,
+     "expiries": 2,
+     "gains": 368
+    },
+    "fof": {
+     "n_charges_used": 776,
+     "spend_s_median": 1.81,
+     "spend_s_p75": 2.54,
+     "spend_s_p90": 3.7,
+     "used_within_3s_pct": 83.1,
+     "used_within_5s_pct": 97.8,
+     "waste_pct": 4.2,
+     "munched_at_cap": 45,
+     "expired": 1,
+     "gains": 1098,
+     "twostack_s_per_min": 2.88
+    },
+    "procs_per_min": {
+     "bf": 4.87,
+     "fof": 14.53
+    }
+   }
+  },
+  "Vorasius": {
+   "all": {
+    "n_fights": 33,
+    "bf": {
+     "n_procs_used": 620,
+     "hold_s_median": 1.27,
+     "hold_s_p75": 1.5,
+     "hold_s_p90": 2.47,
+     "used_within_3s_pct": 95.2,
+     "used_within_5s_pct": 98.5,
+     "waste_pct": 1.7,
+     "overwrites": 11,
+     "expiries": 0,
+     "gains": 633
+    },
+    "fof": {
+     "n_charges_used": 1309,
+     "spend_s_median": 1.68,
+     "spend_s_p75": 2.53,
+     "spend_s_p90": 3.12,
+     "used_within_3s_pct": 88.1,
+     "used_within_5s_pct": 99.2,
+     "waste_pct": 3.1,
+     "munched_at_cap": 57,
+     "expired": 0,
+     "gains": 1820,
+     "twostack_s_per_min": 2.74
+    },
+    "procs_per_min": {
+     "bf": 5.38,
+     "fof": 15.47
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 19,
+    "bf": {
+     "n_procs_used": 363,
+     "hold_s_median": 1.27,
+     "hold_s_p75": 1.49,
+     "hold_s_p90": 2.45,
+     "used_within_3s_pct": 95.6,
+     "used_within_5s_pct": 98.3,
+     "waste_pct": 2.1,
+     "overwrites": 8,
+     "expiries": 0,
+     "gains": 373
+    },
+    "fof": {
+     "n_charges_used": 771,
+     "spend_s_median": 1.71,
+     "spend_s_p75": 2.52,
+     "spend_s_p90": 3.08,
+     "used_within_3s_pct": 88.5,
+     "used_within_5s_pct": 99.7,
+     "waste_pct": 2.7,
+     "munched_at_cap": 29,
+     "expired": 0,
+     "gains": 1064,
+     "twostack_s_per_min": 2.7
+    },
+    "procs_per_min": {
+     "bf": 5.42,
+     "fof": 15.45
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 14,
+    "bf": {
+     "n_procs_used": 257,
+     "hold_s_median": 1.28,
+     "hold_s_p75": 1.51,
+     "hold_s_p90": 2.48,
+     "used_within_3s_pct": 94.6,
+     "used_within_5s_pct": 98.8,
+     "waste_pct": 1.2,
+     "overwrites": 3,
+     "expiries": 0,
+     "gains": 260
+    },
+    "fof": {
+     "n_charges_used": 538,
+     "spend_s_median": 1.56,
+     "spend_s_p75": 2.57,
+     "spend_s_p90": 3.16,
+     "used_within_3s_pct": 87.5,
+     "used_within_5s_pct": 98.5,
+     "waste_pct": 3.7,
+     "munched_at_cap": 28,
+     "expired": 0,
+     "gains": 756,
+     "twostack_s_per_min": 2.79
+    },
+    "procs_per_min": {
+     "bf": 5.33,
+     "fof": 15.51
+    }
+   }
+  },
+  "Fallen-King Salhadaar": {
+   "all": {
+    "n_fights": 33,
+    "bf": {
+     "n_procs_used": 719,
+     "hold_s_median": 1.41,
+     "hold_s_p75": 2.27,
+     "hold_s_p90": 3.26,
+     "used_within_3s_pct": 88.6,
+     "used_within_5s_pct": 95.1,
+     "waste_pct": 3.1,
+     "overwrites": 21,
+     "expiries": 2,
+     "gains": 743
+    },
+    "fof": {
+     "n_charges_used": 1433,
+     "spend_s_median": 1.74,
+     "spend_s_p75": 2.57,
+     "spend_s_p90": 3.6,
+     "used_within_3s_pct": 85.1,
+     "used_within_5s_pct": 98.4,
+     "waste_pct": 4.3,
+     "munched_at_cap": 86,
+     "expired": 0,
+     "gains": 2013,
+     "twostack_s_per_min": 3.07
+    },
+    "procs_per_min": {
+     "bf": 5.63,
+     "fof": 15.26
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 18,
+    "bf": {
+     "n_procs_used": 416,
+     "hold_s_median": 1.42,
+     "hold_s_p75": 2.25,
+     "hold_s_p90": 3.04,
+     "used_within_3s_pct": 89.9,
+     "used_within_5s_pct": 95.7,
+     "waste_pct": 3.5,
+     "overwrites": 15,
+     "expiries": 0,
+     "gains": 431
+    },
+    "fof": {
+     "n_charges_used": 805,
+     "spend_s_median": 1.74,
+     "spend_s_p75": 2.58,
+     "spend_s_p90": 3.73,
+     "used_within_3s_pct": 84.3,
+     "used_within_5s_pct": 98.0,
+     "waste_pct": 4.7,
+     "munched_at_cap": 53,
+     "expired": 0,
+     "gains": 1135,
+     "twostack_s_per_min": 3.1
+    },
+    "procs_per_min": {
+     "bf": 5.74,
+     "fof": 15.11
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 15,
+    "bf": {
+     "n_procs_used": 303,
+     "hold_s_median": 1.41,
+     "hold_s_p75": 2.28,
+     "hold_s_p90": 3.62,
+     "used_within_3s_pct": 86.8,
+     "used_within_5s_pct": 94.4,
+     "waste_pct": 2.6,
+     "overwrites": 6,
+     "expiries": 2,
+     "gains": 312
+    },
+    "fof": {
+     "n_charges_used": 628,
+     "spend_s_median": 1.73,
+     "spend_s_p75": 2.54,
+     "spend_s_p90": 3.35,
+     "used_within_3s_pct": 86.0,
+     "used_within_5s_pct": 98.9,
+     "waste_pct": 3.8,
+     "munched_at_cap": 33,
+     "expired": 0,
+     "gains": 878,
+     "twostack_s_per_min": 3.03
+    },
+    "procs_per_min": {
+     "bf": 5.49,
+     "fof": 15.46
+    }
+   }
+  },
+  "Lightblinded Vanguard": {
+   "all": {
+    "n_fights": 33,
+    "bf": {
+     "n_procs_used": 1133,
+     "hold_s_median": 1.25,
+     "hold_s_p75": 1.51,
+     "hold_s_p90": 2.54,
+     "used_within_3s_pct": 92.5,
+     "used_within_5s_pct": 98.2,
+     "waste_pct": 2.2,
+     "overwrites": 25,
+     "expiries": 0,
+     "gains": 1160
+    },
+    "fof": {
+     "n_charges_used": 2305,
+     "spend_s_median": 1.79,
+     "spend_s_p75": 2.55,
+     "spend_s_p90": 3.69,
+     "used_within_3s_pct": 84.7,
+     "used_within_5s_pct": 98.2,
+     "waste_pct": 3.9,
+     "munched_at_cap": 126,
+     "expired": 0,
+     "gains": 3256,
+     "twostack_s_per_min": 3.38
+    },
+    "procs_per_min": {
+     "bf": 5.66,
+     "fof": 15.89
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 19,
+    "bf": {
+     "n_procs_used": 654,
+     "hold_s_median": 1.25,
+     "hold_s_p75": 1.56,
+     "hold_s_p90": 2.73,
+     "used_within_3s_pct": 91.1,
+     "used_within_5s_pct": 97.7,
+     "waste_pct": 1.7,
+     "overwrites": 11,
+     "expiries": 0,
+     "gains": 666
+    },
+    "fof": {
+     "n_charges_used": 1334,
+     "spend_s_median": 1.77,
+     "spend_s_p75": 2.54,
+     "spend_s_p90": 3.56,
+     "used_within_3s_pct": 85.5,
+     "used_within_5s_pct": 98.8,
+     "waste_pct": 3.7,
+     "munched_at_cap": 69,
+     "expired": 0,
+     "gains": 1853,
+     "twostack_s_per_min": 3.2
+    },
+    "procs_per_min": {
+     "bf": 5.68,
+     "fof": 15.81
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 14,
+    "bf": {
+     "n_procs_used": 479,
+     "hold_s_median": 1.26,
+     "hold_s_p75": 1.5,
+     "hold_s_p90": 2.52,
+     "used_within_3s_pct": 94.4,
+     "used_within_5s_pct": 99.0,
+     "waste_pct": 2.8,
+     "overwrites": 14,
+     "expiries": 0,
+     "gains": 494
+    },
+    "fof": {
+     "n_charges_used": 971,
+     "spend_s_median": 1.82,
+     "spend_s_p75": 2.57,
+     "spend_s_p90": 3.77,
+     "used_within_3s_pct": 83.6,
+     "used_within_5s_pct": 97.4,
+     "waste_pct": 4.1,
+     "munched_at_cap": 57,
+     "expired": 0,
+     "gains": 1403,
+     "twostack_s_per_min": 3.62
+    },
+    "procs_per_min": {
+     "bf": 5.64,
+     "fof": 16.01
+    }
+   }
+  },
+  "Crown of the Cosmos": {
+   "all": {
+    "n_fights": 33,
+    "bf": {
+     "n_procs_used": 1170,
+     "hold_s_median": 1.28,
+     "hold_s_p75": 2.12,
+     "hold_s_p90": 2.9,
+     "used_within_3s_pct": 90.2,
+     "used_within_5s_pct": 95.8,
+     "waste_pct": 4.5,
+     "overwrites": 48,
+     "expiries": 7,
+     "gains": 1227
+    },
+    "fof": {
+     "n_charges_used": 2462,
+     "spend_s_median": 1.76,
+     "spend_s_p75": 2.57,
+     "spend_s_p90": 3.77,
+     "used_within_3s_pct": 83.9,
+     "used_within_5s_pct": 96.7,
+     "waste_pct": 4.2,
+     "munched_at_cap": 133,
+     "expired": 13,
+     "gains": 3440,
+     "twostack_s_per_min": 2.88
+    },
+    "procs_per_min": {
+     "bf": 4.79,
+     "fof": 13.43
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 19,
+    "bf": {
+     "n_procs_used": 683,
+     "hold_s_median": 1.28,
+     "hold_s_p75": 1.89,
+     "hold_s_p90": 3.01,
+     "used_within_3s_pct": 89.9,
+     "used_within_5s_pct": 95.9,
+     "waste_pct": 4.6,
+     "overwrites": 30,
+     "expiries": 3,
+     "gains": 717
+    },
+    "fof": {
+     "n_charges_used": 1414,
+     "spend_s_median": 1.72,
+     "spend_s_p75": 2.53,
+     "spend_s_p90": 3.7,
+     "used_within_3s_pct": 85.8,
+     "used_within_5s_pct": 97.1,
+     "waste_pct": 4.2,
+     "munched_at_cap": 79,
+     "expired": 3,
+     "gains": 1956,
+     "twostack_s_per_min": 2.79
+    },
+    "procs_per_min": {
+     "bf": 4.89,
+     "fof": 13.33
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 14,
+    "bf": {
+     "n_procs_used": 487,
+     "hold_s_median": 1.3,
+     "hold_s_p75": 2.32,
+     "hold_s_p90": 2.81,
+     "used_within_3s_pct": 90.6,
+     "used_within_5s_pct": 95.7,
+     "waste_pct": 4.3,
+     "overwrites": 18,
+     "expiries": 4,
+     "gains": 510
+    },
+    "fof": {
+     "n_charges_used": 1048,
+     "spend_s_median": 1.84,
+     "spend_s_p75": 2.59,
+     "spend_s_p90": 3.86,
+     "used_within_3s_pct": 81.3,
+     "used_within_5s_pct": 96.2,
+     "waste_pct": 4.3,
+     "munched_at_cap": 54,
+     "expired": 10,
+     "gains": 1484,
+     "twostack_s_per_min": 2.99
+    },
+    "procs_per_min": {
+     "bf": 4.66,
+     "fof": 13.56
+    }
+   }
+  },
+  "Midnight Falls": {
+   "all": {
+    "n_fights": 33,
+    "bf": {
+     "n_procs_used": 1506,
+     "hold_s_median": 1.27,
+     "hold_s_p75": 2.57,
+     "hold_s_p90": 4.91,
+     "used_within_3s_pct": 81.5,
+     "used_within_5s_pct": 90.3,
+     "waste_pct": 5.2,
+     "overwrites": 82,
+     "expiries": 1,
+     "gains": 1598
+    },
+    "fof": {
+     "n_charges_used": 3180,
+     "spend_s_median": 1.72,
+     "spend_s_p75": 2.54,
+     "spend_s_p90": 3.6,
+     "used_within_3s_pct": 85.3,
+     "used_within_5s_pct": 98.1,
+     "waste_pct": 3.7,
+     "munched_at_cap": 165,
+     "expired": 0,
+     "gains": 4442,
+     "twostack_s_per_min": 2.89
+    },
+    "procs_per_min": {
+     "bf": 5.17,
+     "fof": 14.38
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "bf": {
+     "n_procs_used": 933,
+     "hold_s_median": 1.28,
+     "hold_s_p75": 2.57,
+     "hold_s_p90": 4.48,
+     "used_within_3s_pct": 81.9,
+     "used_within_5s_pct": 91.0,
+     "waste_pct": 5.0,
+     "overwrites": 48,
+     "expiries": 1,
+     "gains": 989
+    },
+    "fof": {
+     "n_charges_used": 1948,
+     "spend_s_median": 1.69,
+     "spend_s_p75": 2.52,
+     "spend_s_p90": 3.58,
+     "used_within_3s_pct": 86.0,
+     "used_within_5s_pct": 98.6,
+     "waste_pct": 3.8,
+     "munched_at_cap": 103,
+     "expired": 0,
+     "gains": 2724,
+     "twostack_s_per_min": 2.73
+    },
+    "procs_per_min": {
+     "bf": 5.27,
+     "fof": 14.51
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 13,
+    "bf": {
+     "n_procs_used": 573,
+     "hold_s_median": 1.27,
+     "hold_s_p75": 2.58,
+     "hold_s_p90": 5.46,
+     "used_within_3s_pct": 81.0,
+     "used_within_5s_pct": 89.2,
+     "waste_pct": 5.6,
+     "overwrites": 34,
+     "expiries": 0,
+     "gains": 609
+    },
+    "fof": {
+     "n_charges_used": 1232,
+     "spend_s_median": 1.76,
+     "spend_s_p75": 2.56,
+     "spend_s_p90": 3.73,
+     "used_within_3s_pct": 84.3,
+     "used_within_5s_pct": 97.2,
+     "waste_pct": 3.6,
+     "munched_at_cap": 62,
+     "expired": 0,
+     "gains": 1718,
+     "twostack_s_per_min": 3.14
+    },
+    "procs_per_min": {
+     "bf": 5.03,
+     "fof": 14.19
+    }
+   }
+  },
+  "Vaelgor & Ezzorak": {
+   "all": {
+    "n_fights": 32,
+    "bf": {
+     "n_procs_used": 865,
+     "hold_s_median": 1.28,
+     "hold_s_p75": 1.99,
+     "hold_s_p90": 3.07,
+     "used_within_3s_pct": 89.6,
+     "used_within_5s_pct": 96.4,
+     "waste_pct": 2.7,
+     "overwrites": 24,
+     "expiries": 0,
+     "gains": 890
+    },
+    "fof": {
+     "n_charges_used": 1847,
+     "spend_s_median": 1.77,
+     "spend_s_p75": 2.58,
+     "spend_s_p90": 3.66,
+     "used_within_3s_pct": 84.2,
+     "used_within_5s_pct": 96.9,
+     "waste_pct": 3.4,
+     "munched_at_cap": 87,
+     "expired": 0,
+     "gains": 2592,
+     "twostack_s_per_min": 3.21
+    },
+    "procs_per_min": {
+     "bf": 5.23,
+     "fof": 15.24
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 19,
+    "bf": {
+     "n_procs_used": 507,
+     "hold_s_median": 1.28,
+     "hold_s_p75": 1.99,
+     "hold_s_p90": 3.01,
+     "used_within_3s_pct": 89.7,
+     "used_within_5s_pct": 96.4,
+     "waste_pct": 2.3,
+     "overwrites": 12,
+     "expiries": 0,
+     "gains": 520
+    },
+    "fof": {
+     "n_charges_used": 1059,
+     "spend_s_median": 1.75,
+     "spend_s_p75": 2.6,
+     "spend_s_p90": 3.67,
+     "used_within_3s_pct": 84.3,
+     "used_within_5s_pct": 96.5,
+     "waste_pct": 3.7,
+     "munched_at_cap": 55,
+     "expired": 0,
+     "gains": 1493,
+     "twostack_s_per_min": 3.13
+    },
+    "procs_per_min": {
+     "bf": 5.29,
+     "fof": 15.18
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 13,
+    "bf": {
+     "n_procs_used": 358,
+     "hold_s_median": 1.28,
+     "hold_s_p75": 1.99,
+     "hold_s_p90": 3.07,
+     "used_within_3s_pct": 89.4,
+     "used_within_5s_pct": 96.4,
+     "waste_pct": 3.2,
+     "overwrites": 12,
+     "expiries": 0,
+     "gains": 370
+    },
+    "fof": {
+     "n_charges_used": 788,
+     "spend_s_median": 1.82,
+     "spend_s_p75": 2.57,
+     "spend_s_p90": 3.56,
+     "used_within_3s_pct": 84.0,
+     "used_within_5s_pct": 97.5,
+     "waste_pct": 2.9,
+     "munched_at_cap": 32,
+     "expired": 0,
+     "gains": 1099,
+     "twostack_s_per_min": 3.32
+    },
+    "procs_per_min": {
+     "bf": 5.16,
+     "fof": 15.32
+    }
+   }
+  }
+ }
+}

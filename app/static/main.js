@@ -925,6 +925,26 @@ function renderRotBody() {
         <div class="fl-opener">${openerSteps}</div>
         ${f.opener_note ? `<div class="fl-note">${wsify(esc(f.opener_note))}</div>` : ''}
       </div>
+      ${f.tracking ? `
+      <div class="fl-sec">
+        <div class="fl-h">화면에서 볼 것 — 추적할 버프·스택</div>
+        <div class="fl-note">${esc(f.tracking.note || '')}</div>
+        <div class="fl-track-grid">
+          <div>
+            <div class="fl-track-h">항상 보이게 (딜 버튼 옆)</div>
+            ${(f.tracking.always || []).map(t => `<div class="fl-track-item"><span class="fl-track-s">${wsify(esc(t.s))}</span>${wsify(esc(t.n))}</div>`).join('')}
+          </div>
+          <div>
+            <div class="fl-track-h">상황 확인용</div>
+            ${(f.tracking.sometimes || []).map(t => `<div class="fl-track-item"><span class="fl-track-s">${wsify(esc(t.s))}</span>${wsify(esc(t.n))}</div>`).join('')}
+          </div>
+        </div>
+      </div>` : ''}
+      ${f.mage_tips && f.mage_tips.length ? `
+      <div class="fl-sec">
+        <div class="fl-h">법사라서 되는 것들 — 유틸 꿀팁 (전부 상위 로그 사용 빈도 근거)</div>
+        ${f.mage_tips.map(t => `<div class="fl-track-item"><span class="fl-track-s">${wsify(esc(t.s))}</span>${wsify(esc(t.n))}</div>`).join('')}
+      </div>` : ''}
       ${gloss ? `<div class="fl-sec"><div class="fl-h">처음 보는 말</div><div class="fl-gloss">${gloss}</div></div>` : ''}
       <details class="fl-details">
         <summary>자세한 설명 전문 (조건별 원문)</summary>

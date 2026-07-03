@@ -1,0 +1,1788 @@
+{
+ "_meta": {
+  "source": "rankings_zone46_mythic_dps_top100.csv + v2_cache_player_fight.json + events 캐시(301킬) — API 호출 없음",
+  "spec": "Mage|Frost",
+  "sample_n": 885,
+  "top_band": 20,
+  "naming_rule": "노드 이름은 이벤트 실측 증거로만 부여(추측 금지). 근거 없으면 null — node ID + 채택률로 보고.",
+  "tree_rule": "트리 구분은 화염/비전 top100 표본과의 노드 공유율로 실측 분류 (talent_trees.json 에 Mage/Frost 없음)."
+ },
+ "hero_tree": {
+  "result": "885명 전원(100%) 동일 영웅트리 — 주문술사(Spellslinger)",
+  "evidence": "쇄편폭풍(1247908) 버프 302/302 전원 관측 + 비전 법사 top100의 94%와 동일 노드 공유(화염 0%) → 주문술사(Spellslinger)",
+  "frostfire_users": 0,
+  "hero_choice_nodes": {
+   "94660": {
+    "options": [
+     {
+      "talent_id": 117263,
+      "share": 0.959
+     },
+     {
+      "talent_id": 123417,
+      "share": 0.041
+     }
+    ]
+   },
+   "94659": {
+    "options": [
+     {
+      "talent_id": 117262,
+      "share": 0.99
+     },
+     {
+      "talent_id": 123418,
+      "share": 0.01
+     }
+    ]
+   }
+  }
+ },
+ "build_uniformity": {
+  "total_nodes_seen": 88,
+  "unanimous_98pct": 67,
+  "variable_nodes": 15,
+  "comment": "빌드 뼈대는 사실상 고정 — 갈리는 건 15개 노드뿐. 100% 채택 액티브(전원 시전): 얼음 화살·얼음창·진눈깨비·얼어붙은 구슬·혹한의 쐐기·서리 광선. 혜성 폭풍은 301킬에서 시전 0회(아무도 안 씀)."
+ },
+ "variable_nodes": {
+  "62100": {
+   "name": null,
+   "name_evidence": null,
+   "tree": "직업 공용",
+   "overall_rate": 0.976,
+   "fire_share": 1.0,
+   "arcane_share": 1.0,
+   "talent_ids": [
+    80157
+   ],
+   "pooled_top20": 0.971,
+   "pooled_rest": 0.977,
+   "pooled_gap": -0.006,
+   "per_boss": {
+    "아베르지안": {
+     "rate": 0.97,
+     "top20": 0.95,
+     "rest": 0.975,
+     "gap": -0.025
+    },
+    "보라시우스": {
+     "rate": 0.949,
+     "top20": 0.947,
+     "rest": 0.949,
+     "gap": -0.002
+    },
+    "바엘고어": {
+     "rate": 0.98,
+     "top20": 1.0,
+     "rest": 0.975,
+     "gap": 0.025
+    },
+    "살라다르": {
+     "rate": 0.99,
+     "top20": 0.944,
+     "rest": 1.0,
+     "gap": -0.056
+    },
+    "선봉대": {
+     "rate": 0.98,
+     "top20": 1.0,
+     "rest": 0.975,
+     "gap": 0.025
+    },
+    "우주의 왕관": {
+     "rate": 0.979,
+     "top20": 1.0,
+     "rest": 0.974,
+     "gap": 0.026
+    },
+    "벨로렌": {
+     "rate": 0.969,
+     "top20": 0.9,
+     "rest": 0.987,
+     "gap": -0.087
+    },
+    "한밤의 도래(르우라)": {
+     "rate": 1.0,
+     "top20": 1.0,
+     "rest": 1.0,
+     "gap": 0.0
+    },
+    "카이메루스": {
+     "rate": 0.97,
+     "top20": 1.0,
+     "rest": 0.963,
+     "gap": 0.037
+    }
+   },
+   "swap_relations": [
+    {
+     "node": 62129,
+     "with_rate": 0.233,
+     "without_rate": 0.857
+    }
+   ]
+  },
+  "62124": {
+   "name": "환영 복제",
+   "name_evidence": "버프 55342 '환영 복제' — 보유자 61%가 사용, 비보유자(11명) 0%",
+   "tree": "직업 공용",
+   "overall_rate": 0.957,
+   "fire_share": 1.0,
+   "arcane_share": 0.889,
+   "talent_ids": [
+    80183
+   ],
+   "pooled_top20": 0.954,
+   "pooled_rest": 0.958,
+   "pooled_gap": -0.004,
+   "per_boss": {
+    "아베르지안": {
+     "rate": 0.93,
+     "top20": 0.9,
+     "rest": 0.938,
+     "gap": -0.038
+    },
+    "보라시우스": {
+     "rate": 0.959,
+     "top20": 1.0,
+     "rest": 0.949,
+     "gap": 0.051
+    },
+    "바엘고어": {
+     "rate": 0.959,
+     "top20": 0.947,
+     "rest": 0.962,
+     "gap": -0.015
+    },
+    "살라다르": {
+     "rate": 0.969,
+     "top20": 0.944,
+     "rest": 0.975,
+     "gap": -0.031
+    },
+    "선봉대": {
+     "rate": 0.96,
+     "top20": 1.0,
+     "rest": 0.95,
+     "gap": 0.05
+    },
+    "우주의 왕관": {
+     "rate": 0.948,
+     "top20": 1.0,
+     "rest": 0.936,
+     "gap": 0.064
+    },
+    "벨로렌": {
+     "rate": 0.979,
+     "top20": 0.9,
+     "rest": 1.0,
+     "gap": -0.1
+    },
+    "한밤의 도래(르우라)": {
+     "rate": 0.96,
+     "top20": 0.95,
+     "rest": 0.962,
+     "gap": -0.012
+    },
+    "카이메루스": {
+     "rate": 0.95,
+     "top20": 0.95,
+     "rest": 0.95,
+     "gap": 0.0
+    }
+   },
+   "swap_relations": [
+    {
+     "node": 62129,
+     "with_rate": 0.227,
+     "without_rate": 0.711
+    },
+    {
+     "node": 110079,
+     "with_rate": 0.268,
+     "without_rate": 0.711
+    },
+    {
+     "node": 108662,
+     "with_rate": 0.341,
+     "without_rate": 0.0
+    },
+    {
+     "node": 62116,
+     "with_rate": 0.749,
+     "without_rate": 1.0
+    }
+   ]
+  },
+  "62112": {
+   "name": null,
+   "name_evidence": null,
+   "tree": "직업 공용",
+   "overall_rate": 0.938,
+   "fire_share": 0.842,
+   "arcane_share": 0.972,
+   "talent_ids": [
+    80170
+   ],
+   "pooled_top20": 0.954,
+   "pooled_rest": 0.934,
+   "pooled_gap": 0.02,
+   "per_boss": {
+    "아베르지안": {
+     "rate": 0.93,
+     "top20": 0.9,
+     "rest": 0.938,
+     "gap": -0.038
+    },
+    "보라시우스": {
+     "rate": 0.949,
+     "top20": 0.947,
+     "rest": 0.949,
+     "gap": -0.002
+    },
+    "바엘고어": {
+     "rate": 0.939,
+     "top20": 1.0,
+     "rest": 0.924,
+     "gap": 0.076
+    },
+    "살라다르": {
+     "rate": 0.948,
+     "top20": 0.944,
+     "rest": 0.949,
+     "gap": -0.005
+    },
+    "선봉대": {
+     "rate": 0.929,
+     "top20": 0.895,
+     "rest": 0.938,
+     "gap": -0.043
+    },
+    "우주의 왕관": {
+     "rate": 1.0,
+     "top20": 1.0,
+     "rest": 1.0,
+     "gap": 0.0
+    },
+    "벨로렌": {
+     "rate": 0.969,
+     "top20": 0.95,
+     "rest": 0.974,
+     "gap": -0.024
+    },
+    "한밤의 도래(르우라)": {
+     "rate": 0.99,
+     "top20": 1.0,
+     "rest": 0.987,
+     "gap": 0.013
+    },
+    "카이메루스": {
+     "rate": 0.79,
+     "top20": 0.95,
+     "rest": 0.75,
+     "gap": 0.2
+    }
+   },
+   "swap_relations": [
+    {
+     "node": 110079,
+     "with_rate": 0.254,
+     "without_rate": 0.782
+    },
+    {
+     "node": 108662,
+     "with_rate": 0.3,
+     "without_rate": 0.727
+    },
+    {
+     "node": 101883,
+     "with_rate": 0.59,
+     "without_rate": 1.0
+    },
+    {
+     "node": 62116,
+     "with_rate": 0.782,
+     "without_rate": 0.418
+    },
+    {
+     "node": 62084,
+     "with_rate": 0.092,
+     "without_rate": 0.364
+    }
+   ]
+  },
+  "62091": {
+   "name": null,
+   "name_evidence": null,
+   "tree": "직업 공용",
+   "overall_rate": 0.932,
+   "fire_share": 1.0,
+   "arcane_share": 1.0,
+   "talent_ids": [
+    80147
+   ],
+   "pooled_top20": 0.931,
+   "pooled_rest": 0.932,
+   "pooled_gap": -0.001,
+   "per_boss": {
+    "아베르지안": {
+     "rate": 0.96,
+     "top20": 0.95,
+     "rest": 0.963,
+     "gap": -0.013
+    },
+    "보라시우스": {
+     "rate": 0.969,
+     "top20": 1.0,
+     "rest": 0.962,
+     "gap": 0.038
+    },
+    "바엘고어": {
+     "rate": 0.908,
+     "top20": 0.947,
+     "rest": 0.899,
+     "gap": 0.048
+    },
+    "살라다르": {
+     "rate": 0.938,
+     "top20": 0.889,
+     "rest": 0.949,
+     "gap": -0.06
+    },
+    "선봉대": {
+     "rate": 0.96,
+     "top20": 0.947,
+     "rest": 0.963,
+     "gap": -0.016
+    },
+    "우주의 왕관": {
+     "rate": 0.969,
+     "top20": 0.947,
+     "rest": 0.974,
+     "gap": -0.027
+    },
+    "벨로렌": {
+     "rate": 0.887,
+     "top20": 0.8,
+     "rest": 0.909,
+     "gap": -0.109
+    },
+    "한밤의 도래(르우라)": {
+     "rate": 0.859,
+     "top20": 0.95,
+     "rest": 0.835,
+     "gap": 0.115
+    },
+    "카이메루스": {
+     "rate": 0.94,
+     "top20": 0.95,
+     "rest": 0.938,
+     "gap": 0.012
+    }
+   },
+   "swap_relations": [
+    {
+     "node": 110080,
+     "with_rate": 0.034,
+     "without_rate": 0.45
+    },
+    {
+     "node": 62088,
+     "with_rate": 0.061,
+     "without_rate": 0.467
+    },
+    {
+     "node": 62116,
+     "with_rate": 0.785,
+     "without_rate": 0.4
+    },
+    {
+     "node": 108662,
+     "with_rate": 0.304,
+     "without_rate": 0.633
+    },
+    {
+     "node": 108659,
+     "with_rate": 0.915,
+     "without_rate": 0.6
+    }
+   ]
+  },
+  "108659": {
+   "name": null,
+   "name_evidence": null,
+   "tree": "직업 공용",
+   "overall_rate": 0.894,
+   "fire_share": 1.0,
+   "arcane_share": 0.806,
+   "talent_ids": [
+    134189
+   ],
+   "pooled_top20": 0.891,
+   "pooled_rest": 0.895,
+   "pooled_gap": -0.004,
+   "per_boss": {
+    "아베르지안": {
+     "rate": 0.9,
+     "top20": 0.95,
+     "rest": 0.887,
+     "gap": 0.063
+    },
+    "보라시우스": {
+     "rate": 0.867,
+     "top20": 0.842,
+     "rest": 0.873,
+     "gap": -0.031
+    },
+    "바엘고어": {
+     "rate": 0.867,
+     "top20": 0.895,
+     "rest": 0.861,
+     "gap": 0.034
+    },
+    "살라다르": {
+     "rate": 0.938,
+     "top20": 0.944,
+     "rest": 0.937,
+     "gap": 0.007
+    },
+    "선봉대": {
+     "rate": 0.869,
+     "top20": 0.895,
+     "rest": 0.863,
+     "gap": 0.032
+    },
+    "우주의 왕관": {
+     "rate": 0.928,
+     "top20": 0.895,
+     "rest": 0.936,
+     "gap": -0.041
+    },
+    "벨로렌": {
+     "rate": 0.938,
+     "top20": 0.8,
+     "rest": 0.974,
+     "gap": -0.174
+    },
+    "한밤의 도래(르우라)": {
+     "rate": 0.899,
+     "top20": 0.95,
+     "rest": 0.886,
+     "gap": 0.064
+    },
+    "카이메루스": {
+     "rate": 0.84,
+     "top20": 0.85,
+     "rest": 0.838,
+     "gap": 0.012
+    }
+   },
+   "swap_relations": [
+    {
+     "node": 62088,
+     "with_rate": 0.053,
+     "without_rate": 0.383
+    },
+    {
+     "node": 110080,
+     "with_rate": 0.029,
+     "without_rate": 0.34
+    },
+    {
+     "node": 62129,
+     "with_rate": 0.224,
+     "without_rate": 0.447
+    },
+    {
+     "node": 62091,
+     "with_rate": 0.954,
+     "without_rate": 0.745
+    },
+    {
+     "node": 62116,
+     "with_rate": 0.781,
+     "without_rate": 0.574
+    }
+   ]
+  },
+  "62107": {
+   "name": null,
+   "name_evidence": null,
+   "tree": "직업 공용(냉기 위주)",
+   "overall_rate": 0.846,
+   "fire_share": 0.053,
+   "arcane_share": 0.056,
+   "talent_ids": [
+    80165
+   ],
+   "pooled_top20": 0.92,
+   "pooled_rest": 0.828,
+   "pooled_gap": 0.092,
+   "per_boss": {
+    "아베르지안": {
+     "rate": 0.87,
+     "top20": 0.95,
+     "rest": 0.85,
+     "gap": 0.1
+    },
+    "보라시우스": {
+     "rate": 0.888,
+     "top20": 1.0,
+     "rest": 0.861,
+     "gap": 0.139
+    },
+    "바엘고어": {
+     "rate": 0.867,
+     "top20": 0.947,
+     "rest": 0.848,
+     "gap": 0.099
+    },
+    "살라다르": {
+     "rate": 0.794,
+     "top20": 1.0,
+     "rest": 0.747,
+     "gap": 0.253
+    },
+    "선봉대": {
+     "rate": 0.758,
+     "top20": 0.737,
+     "rest": 0.762,
+     "gap": -0.025
+    },
+    "우주의 왕관": {
+     "rate": 0.845,
+     "top20": 0.947,
+     "rest": 0.821,
+     "gap": 0.126
+    },
+    "벨로렌": {
+     "rate": 0.845,
+     "top20": 0.75,
+     "rest": 0.87,
+     "gap": -0.12
+    },
+    "한밤의 도래(르우라)": {
+     "rate": 0.919,
+     "top20": 0.95,
+     "rest": 0.911,
+     "gap": 0.039
+    },
+    "카이메루스": {
+     "rate": 0.83,
+     "top20": 1.0,
+     "rest": 0.787,
+     "gap": 0.213
+    }
+   },
+   "swap_relations": [
+    {
+     "node": 62084,
+     "with_rate": 0.056,
+     "without_rate": 0.397
+    },
+    {
+     "node": 110079,
+     "with_rate": 0.244,
+     "without_rate": 0.522
+    },
+    {
+     "node": 101883,
+     "with_rate": 0.581,
+     "without_rate": 0.809
+    }
+   ]
+  },
+  "62125": {
+   "name": null,
+   "name_evidence": null,
+   "tree": "직업 공용",
+   "overall_rate": 0.815,
+   "fire_share": 0.789,
+   "arcane_share": 0.944,
+   "talent_ids": [
+    134184
+   ],
+   "pooled_top20": 0.81,
+   "pooled_rest": 0.816,
+   "pooled_gap": -0.006,
+   "per_boss": {
+    "아베르지안": {
+     "rate": 0.83,
+     "top20": 0.9,
+     "rest": 0.812,
+     "gap": 0.088
+    },
+    "보라시우스": {
+     "rate": 0.847,
+     "top20": 0.895,
+     "rest": 0.835,
+     "gap": 0.06
+    },
+    "바엘고어": {
+     "rate": 0.806,
+     "top20": 0.895,
+     "rest": 0.785,
+     "gap": 0.11
+    },
+    "살라다르": {
+     "rate": 0.804,
+     "top20": 0.889,
+     "rest": 0.785,
+     "gap": 0.104
+    },
+    "선봉대": {
+     "rate": 0.616,
+     "top20": 0.579,
+     "rest": 0.625,
+     "gap": -0.046
+    },
+    "우주의 왕관": {
+     "rate": 0.845,
+     "top20": 0.895,
+     "rest": 0.833,
+     "gap": 0.062
+    },
+    "벨로렌": {
+     "rate": 0.794,
+     "top20": 0.55,
+     "rest": 0.857,
+     "gap": -0.307
+    },
+    "한밤의 도래(르우라)": {
+     "rate": 0.99,
+     "top20": 1.0,
+     "rest": 0.987,
+     "gap": 0.013
+    },
+    "카이메루스": {
+     "rate": 0.8,
+     "top20": 0.7,
+     "rest": 0.825,
+     "gap": -0.125
+    }
+   },
+   "swap_relations": [
+    {
+     "node": 62116,
+     "with_rate": 0.721,
+     "without_rate": 0.927
+    }
+   ]
+  },
+  "62116": {
+   "name": null,
+   "name_evidence": null,
+   "tree": "직업 공용",
+   "overall_rate": 0.759,
+   "fire_share": 0.474,
+   "arcane_share": 0.889,
+   "talent_ids": [
+    80175
+   ],
+   "pooled_top20": 0.741,
+   "pooled_rest": 0.764,
+   "pooled_gap": -0.023,
+   "per_boss": {
+    "아베르지안": {
+     "rate": 0.7,
+     "top20": 0.6,
+     "rest": 0.725,
+     "gap": -0.125
+    },
+    "보라시우스": {
+     "rate": 0.776,
+     "top20": 0.632,
+     "rest": 0.81,
+     "gap": -0.178
+    },
+    "바엘고어": {
+     "rate": 0.724,
+     "top20": 0.684,
+     "rest": 0.734,
+     "gap": -0.05
+    },
+    "살라다르": {
+     "rate": 0.784,
+     "top20": 0.722,
+     "rest": 0.797,
+     "gap": -0.075
+    },
+    "선봉대": {
+     "rate": 0.768,
+     "top20": 0.737,
+     "rest": 0.775,
+     "gap": -0.038
+    },
+    "우주의 왕관": {
+     "rate": 0.835,
+     "top20": 0.684,
+     "rest": 0.872,
+     "gap": -0.188
+    },
+    "벨로렌": {
+     "rate": 0.804,
+     "top20": 0.9,
+     "rest": 0.779,
+     "gap": 0.121
+    },
+    "한밤의 도래(르우라)": {
+     "rate": 0.707,
+     "top20": 0.85,
+     "rest": 0.671,
+     "gap": 0.179
+    },
+    "카이메루스": {
+     "rate": 0.74,
+     "top20": 0.85,
+     "rest": 0.713,
+     "gap": 0.137
+    }
+   },
+   "swap_relations": [
+    {
+     "node": 108662,
+     "with_rate": 0.113,
+     "without_rate": 1.0
+    },
+    {
+     "node": 101883,
+     "with_rate": 0.696,
+     "without_rate": 0.362
+    },
+    {
+     "node": 62129,
+     "with_rate": 0.302,
+     "without_rate": 0.075
+    }
+   ]
+  },
+  "101883": {
+   "name": null,
+   "name_evidence": null,
+   "tree": "직업 공용",
+   "overall_rate": 0.616,
+   "fire_share": 0.605,
+   "arcane_share": 0.917,
+   "talent_ids": [
+    125818,
+    125819
+   ],
+   "pooled_top20": 0.592,
+   "pooled_rest": 0.622,
+   "pooled_gap": -0.03,
+   "per_boss": {
+    "아베르지안": {
+     "rate": 0.6,
+     "top20": 0.55,
+     "rest": 0.613,
+     "gap": -0.063
+    },
+    "보라시우스": {
+     "rate": 0.592,
+     "top20": 0.526,
+     "rest": 0.608,
+     "gap": -0.082
+    },
+    "바엘고어": {
+     "rate": 0.592,
+     "top20": 0.421,
+     "rest": 0.633,
+     "gap": -0.212
+    },
+    "살라다르": {
+     "rate": 0.608,
+     "top20": 0.556,
+     "rest": 0.62,
+     "gap": -0.064
+    },
+    "선봉대": {
+     "rate": 0.566,
+     "top20": 0.474,
+     "rest": 0.588,
+     "gap": -0.114
+    },
+    "우주의 왕관": {
+     "rate": 0.649,
+     "top20": 0.474,
+     "rest": 0.692,
+     "gap": -0.218
+    },
+    "벨로렌": {
+     "rate": 0.608,
+     "top20": 0.8,
+     "rest": 0.558,
+     "gap": 0.242
+    },
+    "한밤의 도래(르우라)": {
+     "rate": 0.626,
+     "top20": 0.75,
+     "rest": 0.595,
+     "gap": 0.155
+    },
+    "카이메루스": {
+     "rate": 0.7,
+     "top20": 0.75,
+     "rest": 0.688,
+     "gap": 0.062
+    }
+   },
+   "swap_relations": [
+    {
+     "node": 108662,
+     "with_rate": 0.213,
+     "without_rate": 0.509
+    },
+    {
+     "node": 62116,
+     "with_rate": 0.859,
+     "without_rate": 0.6
+    }
+   ]
+  },
+  "108662": {
+   "name": null,
+   "name_evidence": null,
+   "tree": "직업 공용(일부 스펙만 채택)",
+   "overall_rate": 0.327,
+   "fire_share": 0.737,
+   "arcane_share": 0.167,
+   "talent_ids": [
+    134192
+   ],
+   "pooled_top20": 0.322,
+   "pooled_rest": 0.328,
+   "pooled_gap": -0.006,
+   "per_boss": {
+    "아베르지안": {
+     "rate": 0.36,
+     "top20": 0.4,
+     "rest": 0.35,
+     "gap": 0.05
+    },
+    "보라시우스": {
+     "rate": 0.286,
+     "top20": 0.421,
+     "rest": 0.253,
+     "gap": 0.168
+    },
+    "바엘고어": {
+     "rate": 0.388,
+     "top20": 0.316,
+     "rest": 0.405,
+     "gap": -0.089
+    },
+    "살라다르": {
+     "rate": 0.289,
+     "top20": 0.278,
+     "rest": 0.291,
+     "gap": -0.013
+    },
+    "선봉대": {
+     "rate": 0.505,
+     "top20": 0.684,
+     "rest": 0.463,
+     "gap": 0.221
+    },
+    "우주의 왕관": {
+     "rate": 0.206,
+     "top20": 0.368,
+     "rest": 0.167,
+     "gap": 0.201
+    },
+    "벨로렌": {
+     "rate": 0.237,
+     "top20": 0.15,
+     "rest": 0.26,
+     "gap": -0.11
+    },
+    "한밤의 도래(르우라)": {
+     "rate": 0.303,
+     "top20": 0.15,
+     "rest": 0.342,
+     "gap": -0.192
+    },
+    "카이메루스": {
+     "rate": 0.36,
+     "top20": 0.15,
+     "rest": 0.412,
+     "gap": -0.262
+    }
+   },
+   "swap_relations": [
+    {
+     "node": 62116,
+     "with_rate": 0.263,
+     "without_rate": 1.0
+    },
+    {
+     "node": 101883,
+     "with_rate": 0.401,
+     "without_rate": 0.72
+    },
+    {
+     "node": 62129,
+     "with_rate": 0.073,
+     "without_rate": 0.332
+    }
+   ]
+  },
+  "110079": {
+   "name": null,
+   "name_evidence": null,
+   "tree": "직업 공용(일부 스펙만 채택)",
+   "overall_rate": 0.287,
+   "fire_share": 0.5,
+   "arcane_share": 0.111,
+   "talent_ids": [
+    136577
+   ],
+   "pooled_top20": 0.224,
+   "pooled_rest": 0.302,
+   "pooled_gap": -0.078,
+   "per_boss": {
+    "아베르지안": {
+     "rate": 0.33,
+     "top20": 0.3,
+     "rest": 0.338,
+     "gap": -0.038
+    },
+    "보라시우스": {
+     "rate": 0.337,
+     "top20": 0.105,
+     "rest": 0.392,
+     "gap": -0.287
+    },
+    "바엘고어": {
+     "rate": 0.235,
+     "top20": 0.263,
+     "rest": 0.228,
+     "gap": 0.035
+    },
+    "살라다르": {
+     "rate": 0.34,
+     "top20": 0.222,
+     "rest": 0.367,
+     "gap": -0.145
+    },
+    "선봉대": {
+     "rate": 0.303,
+     "top20": 0.211,
+     "rest": 0.325,
+     "gap": -0.114
+    },
+    "우주의 왕관": {
+     "rate": 0.258,
+     "top20": 0.105,
+     "rest": 0.295,
+     "gap": -0.19
+    },
+    "벨로렌": {
+     "rate": 0.268,
+     "top20": 0.35,
+     "rest": 0.247,
+     "gap": 0.103
+    },
+    "한밤의 도래(르우라)": {
+     "rate": 0.131,
+     "top20": 0.05,
+     "rest": 0.152,
+     "gap": -0.102
+    },
+    "카이메루스": {
+     "rate": 0.38,
+     "top20": 0.4,
+     "rest": 0.375,
+     "gap": 0.025
+    }
+   },
+   "swap_relations": []
+  },
+  "62129": {
+   "name": null,
+   "name_evidence": null,
+   "tree": "직업 공용(냉기 위주)",
+   "overall_rate": 0.247,
+   "fire_share": 0.0,
+   "arcane_share": 0.056,
+   "talent_ids": [
+    80189
+   ],
+   "pooled_top20": 0.23,
+   "pooled_rest": 0.252,
+   "pooled_gap": -0.022,
+   "per_boss": {
+    "아베르지안": {
+     "rate": 0.28,
+     "top20": 0.25,
+     "rest": 0.287,
+     "gap": -0.037
+    },
+    "보라시우스": {
+     "rate": 0.316,
+     "top20": 0.263,
+     "rest": 0.329,
+     "gap": -0.066
+    },
+    "바엘고어": {
+     "rate": 0.173,
+     "top20": 0.158,
+     "rest": 0.177,
+     "gap": -0.019
+    },
+    "살라다르": {
+     "rate": 0.247,
+     "top20": 0.222,
+     "rest": 0.253,
+     "gap": -0.031
+    },
+    "선봉대": {
+     "rate": 0.212,
+     "top20": 0.211,
+     "rest": 0.212,
+     "gap": -0.001
+    },
+    "우주의 왕관": {
+     "rate": 0.268,
+     "top20": 0.211,
+     "rest": 0.282,
+     "gap": -0.071
+    },
+    "벨로렌": {
+     "rate": 0.309,
+     "top20": 0.55,
+     "rest": 0.247,
+     "gap": 0.303
+    },
+    "한밤의 도래(르우라)": {
+     "rate": 0.101,
+     "top20": 0.0,
+     "rest": 0.127,
+     "gap": -0.127
+    },
+    "카이메루스": {
+     "rate": 0.32,
+     "top20": 0.2,
+     "rest": 0.35,
+     "gap": -0.15
+    }
+   },
+   "swap_relations": [
+    {
+     "node": 108662,
+     "with_rate": 0.096,
+     "without_rate": 0.402
+    },
+    {
+     "node": 62116,
+     "with_rate": 0.927,
+     "without_rate": 0.704
+    }
+   ]
+  },
+  "62084": {
+   "name": null,
+   "name_evidence": null,
+   "tree": "직업 공용(냉기 위주)",
+   "overall_rate": 0.108,
+   "fire_share": 0.237,
+   "arcane_share": 0.167,
+   "talent_ids": [
+    80140
+   ],
+   "pooled_top20": 0.04,
+   "pooled_rest": 0.125,
+   "pooled_gap": -0.085,
+   "per_boss": {
+    "아베르지안": {
+     "rate": 0.09,
+     "top20": 0.0,
+     "rest": 0.113,
+     "gap": -0.113
+    },
+    "보라시우스": {
+     "rate": 0.133,
+     "top20": 0.0,
+     "rest": 0.165,
+     "gap": -0.165
+    },
+    "바엘고어": {
+     "rate": 0.082,
+     "top20": 0.0,
+     "rest": 0.101,
+     "gap": -0.101
+    },
+    "살라다르": {
+     "rate": 0.103,
+     "top20": 0.0,
+     "rest": 0.127,
+     "gap": -0.127
+    },
+    "선봉대": {
+     "rate": 0.162,
+     "top20": 0.105,
+     "rest": 0.175,
+     "gap": -0.07
+    },
+    "우주의 왕관": {
+     "rate": 0.103,
+     "top20": 0.053,
+     "rest": 0.115,
+     "gap": -0.062
+    },
+    "벨로렌": {
+     "rate": 0.124,
+     "top20": 0.15,
+     "rest": 0.117,
+     "gap": 0.033
+    },
+    "한밤의 도래(르우라)": {
+     "rate": 0.01,
+     "top20": 0.0,
+     "rest": 0.013,
+     "gap": -0.013
+    },
+    "카이메루스": {
+     "rate": 0.17,
+     "top20": 0.05,
+     "rest": 0.2,
+     "gap": -0.15
+    }
+   },
+   "swap_relations": [
+    {
+     "node": 62107,
+     "with_rate": 0.438,
+     "without_rate": 0.896
+    },
+    {
+     "node": 108662,
+     "with_rate": 0.125,
+     "without_rate": 0.351
+    },
+    {
+     "node": 62116,
+     "with_rate": 0.958,
+     "without_rate": 0.735
+    },
+    {
+     "node": 101883,
+     "with_rate": 0.812,
+     "without_rate": 0.592
+    }
+   ]
+  },
+  "62088": {
+   "name": null,
+   "name_evidence": null,
+   "tree": "직업 공용(냉기 위주)",
+   "overall_rate": 0.088,
+   "fire_share": 0.026,
+   "arcane_share": 0.0,
+   "talent_ids": [
+    80144
+   ],
+   "pooled_top20": 0.121,
+   "pooled_rest": 0.08,
+   "pooled_gap": 0.041,
+   "per_boss": {
+    "아베르지안": {
+     "rate": 0.07,
+     "top20": 0.05,
+     "rest": 0.075,
+     "gap": -0.025
+    },
+    "보라시우스": {
+     "rate": 0.071,
+     "top20": 0.158,
+     "rest": 0.051,
+     "gap": 0.107
+    },
+    "바엘고어": {
+     "rate": 0.102,
+     "top20": 0.105,
+     "rest": 0.101,
+     "gap": 0.004
+    },
+    "살라다르": {
+     "rate": 0.082,
+     "top20": 0.111,
+     "rest": 0.076,
+     "gap": 0.035
+    },
+    "선봉대": {
+     "rate": 0.051,
+     "top20": 0.053,
+     "rest": 0.05,
+     "gap": 0.003
+    },
+    "우주의 왕관": {
+     "rate": 0.082,
+     "top20": 0.105,
+     "rest": 0.077,
+     "gap": 0.028
+    },
+    "벨로렌": {
+     "rate": 0.052,
+     "top20": 0.15,
+     "rest": 0.026,
+     "gap": 0.124
+    },
+    "한밤의 도래(르우라)": {
+     "rate": 0.111,
+     "top20": 0.15,
+     "rest": 0.101,
+     "gap": 0.049
+    },
+    "카이메루스": {
+     "rate": 0.17,
+     "top20": 0.2,
+     "rest": 0.163,
+     "gap": 0.037
+    }
+   },
+   "swap_relations": [
+    {
+     "node": 108659,
+     "with_rate": 0.538,
+     "without_rate": 0.928
+    },
+    {
+     "node": 62091,
+     "with_rate": 0.641,
+     "without_rate": 0.96
+    },
+    {
+     "node": 110080,
+     "with_rate": 0.295,
+     "without_rate": 0.04
+    }
+   ]
+  },
+  "110080": {
+   "name": null,
+   "name_evidence": null,
+   "tree": "직업 공용(일부 스펙만 채택)",
+   "overall_rate": 0.062,
+   "fire_share": 0.105,
+   "arcane_share": 1.0,
+   "talent_ids": [
+    136578
+   ],
+   "pooled_top20": 0.092,
+   "pooled_rest": 0.055,
+   "pooled_gap": 0.037,
+   "per_boss": {
+    "아베르지안": {
+     "rate": 0.01,
+     "top20": 0.05,
+     "rest": 0.0,
+     "gap": 0.05
+    },
+    "보라시우스": {
+     "rate": 0.02,
+     "top20": 0.0,
+     "rest": 0.025,
+     "gap": -0.025
+    },
+    "바엘고어": {
+     "rate": 0.112,
+     "top20": 0.105,
+     "rest": 0.114,
+     "gap": -0.009
+    },
+    "살라다르": {
+     "rate": 0.062,
+     "top20": 0.111,
+     "rest": 0.051,
+     "gap": 0.06
+    },
+    "선봉대": {
+     "rate": 0.04,
+     "top20": 0.053,
+     "rest": 0.037,
+     "gap": 0.016
+    },
+    "우주의 왕관": {
+     "rate": 0.041,
+     "top20": 0.053,
+     "rest": 0.038,
+     "gap": 0.015
+    },
+    "벨로렌": {
+     "rate": 0.124,
+     "top20": 0.35,
+     "rest": 0.065,
+     "gap": 0.285
+    },
+    "한밤의 도래(르우라)": {
+     "rate": 0.091,
+     "top20": 0.05,
+     "rest": 0.101,
+     "gap": -0.051
+    },
+    "카이메루스": {
+     "rate": 0.06,
+     "top20": 0.05,
+     "rest": 0.062,
+     "gap": -0.012
+    }
+   },
+   "swap_relations": [
+    {
+     "node": 108659,
+     "with_rate": 0.418,
+     "without_rate": 0.925
+    },
+    {
+     "node": 62091,
+     "with_rate": 0.509,
+     "without_rate": 0.96
+    },
+    {
+     "node": 101883,
+     "with_rate": 0.255,
+     "without_rate": 0.64
+    },
+    {
+     "node": 62088,
+     "with_rate": 0.418,
+     "without_rate": 0.066
+    },
+    {
+     "node": 62116,
+     "with_rate": 0.491,
+     "without_rate": 0.777
+    }
+   ]
+  }
+ },
+ "per_boss_top20_vs_rest": {
+  "아베르지안": {
+   "boss_id": "3176",
+   "n_top": 20,
+   "n_rest": 80,
+   "splits": [
+    {
+     "node": 62116,
+     "name": null,
+     "tree": "직업 공용",
+     "top20_rate": 0.6,
+     "rest_rate": 0.725,
+     "gap": -0.125
+    }
+   ]
+  },
+  "보라시우스": {
+   "boss_id": "3177",
+   "n_top": 19,
+   "n_rest": 79,
+   "splits": [
+    {
+     "node": 110079,
+     "name": null,
+     "tree": "직업 공용(일부 스펙만 채택)",
+     "top20_rate": 0.105,
+     "rest_rate": 0.392,
+     "gap": -0.287
+    },
+    {
+     "node": 62116,
+     "name": null,
+     "tree": "직업 공용",
+     "top20_rate": 0.632,
+     "rest_rate": 0.81,
+     "gap": -0.178
+    },
+    {
+     "node": 108662,
+     "name": null,
+     "tree": "직업 공용(일부 스펙만 채택)",
+     "top20_rate": 0.421,
+     "rest_rate": 0.253,
+     "gap": 0.168
+    },
+    {
+     "node": 62084,
+     "name": null,
+     "tree": "직업 공용(냉기 위주)",
+     "top20_rate": 0.0,
+     "rest_rate": 0.165,
+     "gap": -0.165
+    },
+    {
+     "node": 62107,
+     "name": null,
+     "tree": "직업 공용(냉기 위주)",
+     "top20_rate": 1.0,
+     "rest_rate": 0.861,
+     "gap": 0.139
+    }
+   ]
+  },
+  "바엘고어": {
+   "boss_id": "3178",
+   "n_top": 19,
+   "n_rest": 79,
+   "splits": [
+    {
+     "node": 101883,
+     "name": null,
+     "tree": "직업 공용",
+     "top20_rate": 0.421,
+     "rest_rate": 0.633,
+     "gap": -0.212
+    }
+   ]
+  },
+  "살라다르": {
+   "boss_id": "3179",
+   "n_top": 18,
+   "n_rest": 79,
+   "splits": [
+    {
+     "node": 62107,
+     "name": null,
+     "tree": "직업 공용(냉기 위주)",
+     "top20_rate": 1.0,
+     "rest_rate": 0.747,
+     "gap": 0.253
+    },
+    {
+     "node": 110079,
+     "name": null,
+     "tree": "직업 공용(일부 스펙만 채택)",
+     "top20_rate": 0.222,
+     "rest_rate": 0.367,
+     "gap": -0.145
+    },
+    {
+     "node": 62084,
+     "name": null,
+     "tree": "직업 공용(냉기 위주)",
+     "top20_rate": 0.0,
+     "rest_rate": 0.127,
+     "gap": -0.127
+    }
+   ]
+  },
+  "선봉대": {
+   "boss_id": "3180",
+   "n_top": 19,
+   "n_rest": 80,
+   "splits": [
+    {
+     "node": 108662,
+     "name": null,
+     "tree": "직업 공용(일부 스펙만 채택)",
+     "top20_rate": 0.684,
+     "rest_rate": 0.463,
+     "gap": 0.221
+    }
+   ]
+  },
+  "우주의 왕관": {
+   "boss_id": "3181",
+   "n_top": 19,
+   "n_rest": 78,
+   "splits": [
+    {
+     "node": 101883,
+     "name": null,
+     "tree": "직업 공용",
+     "top20_rate": 0.474,
+     "rest_rate": 0.692,
+     "gap": -0.218
+    },
+    {
+     "node": 108662,
+     "name": null,
+     "tree": "직업 공용(일부 스펙만 채택)",
+     "top20_rate": 0.368,
+     "rest_rate": 0.167,
+     "gap": 0.201
+    },
+    {
+     "node": 110079,
+     "name": null,
+     "tree": "직업 공용(일부 스펙만 채택)",
+     "top20_rate": 0.105,
+     "rest_rate": 0.295,
+     "gap": -0.19
+    },
+    {
+     "node": 62116,
+     "name": null,
+     "tree": "직업 공용",
+     "top20_rate": 0.684,
+     "rest_rate": 0.872,
+     "gap": -0.188
+    },
+    {
+     "node": 62107,
+     "name": null,
+     "tree": "직업 공용(냉기 위주)",
+     "top20_rate": 0.947,
+     "rest_rate": 0.821,
+     "gap": 0.126
+    }
+   ]
+  },
+  "벨로렌": {
+   "boss_id": "3182",
+   "n_top": 20,
+   "n_rest": 77,
+   "splits": [
+    {
+     "node": 62125,
+     "name": null,
+     "tree": "직업 공용",
+     "top20_rate": 0.55,
+     "rest_rate": 0.857,
+     "gap": -0.307
+    },
+    {
+     "node": 62129,
+     "name": null,
+     "tree": "직업 공용(냉기 위주)",
+     "top20_rate": 0.55,
+     "rest_rate": 0.247,
+     "gap": 0.303
+    },
+    {
+     "node": 110080,
+     "name": null,
+     "tree": "직업 공용(일부 스펙만 채택)",
+     "top20_rate": 0.35,
+     "rest_rate": 0.065,
+     "gap": 0.285
+    },
+    {
+     "node": 101883,
+     "name": null,
+     "tree": "직업 공용",
+     "top20_rate": 0.8,
+     "rest_rate": 0.558,
+     "gap": 0.242
+    },
+    {
+     "node": 108659,
+     "name": null,
+     "tree": "직업 공용",
+     "top20_rate": 0.8,
+     "rest_rate": 0.974,
+     "gap": -0.174
+    },
+    {
+     "node": 62088,
+     "name": null,
+     "tree": "직업 공용(냉기 위주)",
+     "top20_rate": 0.15,
+     "rest_rate": 0.026,
+     "gap": 0.124
+    },
+    {
+     "node": 62116,
+     "name": null,
+     "tree": "직업 공용",
+     "top20_rate": 0.9,
+     "rest_rate": 0.779,
+     "gap": 0.121
+    },
+    {
+     "node": 62107,
+     "name": null,
+     "tree": "직업 공용(냉기 위주)",
+     "top20_rate": 0.75,
+     "rest_rate": 0.87,
+     "gap": -0.12
+    }
+   ]
+  },
+  "한밤의 도래(르우라)": {
+   "boss_id": "3183",
+   "n_top": 20,
+   "n_rest": 79,
+   "splits": [
+    {
+     "node": 108662,
+     "name": null,
+     "tree": "직업 공용(일부 스펙만 채택)",
+     "top20_rate": 0.15,
+     "rest_rate": 0.342,
+     "gap": -0.192
+    },
+    {
+     "node": 62116,
+     "name": null,
+     "tree": "직업 공용",
+     "top20_rate": 0.85,
+     "rest_rate": 0.671,
+     "gap": 0.179
+    },
+    {
+     "node": 101883,
+     "name": null,
+     "tree": "직업 공용",
+     "top20_rate": 0.75,
+     "rest_rate": 0.595,
+     "gap": 0.155
+    },
+    {
+     "node": 62129,
+     "name": null,
+     "tree": "직업 공용(냉기 위주)",
+     "top20_rate": 0.0,
+     "rest_rate": 0.127,
+     "gap": -0.127
+    }
+   ]
+  },
+  "카이메루스": {
+   "boss_id": "3306",
+   "n_top": 20,
+   "n_rest": 80,
+   "splits": [
+    {
+     "node": 108662,
+     "name": null,
+     "tree": "직업 공용(일부 스펙만 채택)",
+     "top20_rate": 0.15,
+     "rest_rate": 0.412,
+     "gap": -0.262
+    },
+    {
+     "node": 62107,
+     "name": null,
+     "tree": "직업 공용(냉기 위주)",
+     "top20_rate": 1.0,
+     "rest_rate": 0.787,
+     "gap": 0.213
+    },
+    {
+     "node": 62112,
+     "name": null,
+     "tree": "직업 공용",
+     "top20_rate": 0.95,
+     "rest_rate": 0.75,
+     "gap": 0.2
+    },
+    {
+     "node": 62129,
+     "name": null,
+     "tree": "직업 공용(냉기 위주)",
+     "top20_rate": 0.2,
+     "rest_rate": 0.35,
+     "gap": -0.15
+    },
+    {
+     "node": 62084,
+     "name": null,
+     "tree": "직업 공용(냉기 위주)",
+     "top20_rate": 0.05,
+     "rest_rate": 0.2,
+     "gap": -0.15
+    },
+    {
+     "node": 62116,
+     "name": null,
+     "tree": "직업 공용",
+     "top20_rate": 0.85,
+     "rest_rate": 0.713,
+     "gap": 0.137
+    },
+    {
+     "node": 62125,
+     "name": null,
+     "tree": "직업 공용",
+     "top20_rate": 0.7,
+     "rest_rate": 0.825,
+     "gap": -0.125
+    }
+   ]
+  }
+ },
+ "choice_nodes": {
+  "103771": {
+   "tree": "냉기 전용",
+   "picked_by": 885,
+   "name": null,
+   "options": [
+    {
+     "talent_id": 134418,
+     "share": 0.892,
+     "top20_share_within": 0.195
+    },
+    {
+     "talent_id": 128077,
+     "share": 0.108,
+     "top20_share_within": 0.208
+    }
+   ]
+  },
+  "94660": {
+   "tree": "주문술사 영웅",
+   "picked_by": 885,
+   "name": null,
+   "options": [
+    {
+     "talent_id": 117263,
+     "share": 0.959,
+     "top20_share_within": 0.198
+    },
+    {
+     "talent_id": 123417,
+     "share": 0.041,
+     "top20_share_within": 0.167
+    }
+   ]
+  },
+  "108654": {
+   "tree": "직업 공용",
+   "picked_by": 884,
+   "name": null,
+   "options": [
+    {
+     "talent_id": 134183,
+     "share": 0.906,
+     "top20_share_within": 0.197
+    },
+    {
+     "talent_id": 134182,
+     "share": 0.094,
+     "top20_share_within": 0.193
+    }
+   ]
+  },
+  "108864": {
+   "tree": "냉기 전용",
+   "picked_by": 885,
+   "name": null,
+   "options": [
+    {
+     "talent_id": 134421,
+     "share": 0.964,
+     "top20_share_within": 0.202
+    },
+    {
+     "talent_id": 134538,
+     "share": 0.036,
+     "top20_share_within": 0.062
+    }
+   ]
+  }
+ },
+ "two_point_splits": {
+  "62102": {
+   "1": 14,
+   "2": 868
+  },
+  "108662": {
+   "1": 30,
+   "2": 259
+  },
+  "62112": {
+   "1": 59,
+   "2": 771
+  }
+ }
+}

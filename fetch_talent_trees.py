@@ -51,6 +51,8 @@ SPECS = [
     ("Monk/Brewmaster",        1000, 268),
     ("Monk/Windwalker",        1000, 269),
     ("Monk/Mistweaver",        1000, 270),
+    # Mage 냉기 추가 (냉법 부캐 가이드 특성 노드 해석용, 2026-07-03). tree=658, Frost spec=64.
+    ("Mage/Frost",             658, 64),
 ]
 
 
