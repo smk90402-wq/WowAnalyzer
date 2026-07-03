@@ -1260,6 +1260,32 @@
       "files": [
         "data/talent_trees.json"
       ]
+    },
+    {
+      "ts": "2026-07-03T23:21:58",
+      "host": "SmkDesktop",
+      "action": "backfill_v2",
+      "params": {
+        "limit": null,
+        "processed": 274,
+        "scanned": 300,
+        "missing_only": true,
+        "max_new": null,
+        "pf_all": false,
+        "no_events": false
+      },
+      "result": {
+        "pf_new": 271,
+        "pf_fail": 3,
+        "ev_new": 269,
+        "ev_fail": 5,
+        "ev_skip": 0,
+        "rate_end": 2206.87
+      },
+      "files": [
+        "data/v2_cache_player_fight.json",
+        "data/v2_cache_events.json"
+      ]
     }
   ]
 }

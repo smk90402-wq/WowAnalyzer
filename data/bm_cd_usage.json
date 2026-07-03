@@ -1,0 +1,1709 @@
+{
+ "meta": {
+  "date": "2026-07-03",
+  "n_kills": 362,
+  "eff_cd_s": 30.0,
+  "spells": {
+   "bestial_wrath": 19574,
+   "wild_trample": 1264359,
+   "puzzle_box": 383781,
+   "potions": {
+    "1236616": "빛의잠재력",
+    "1236998": "방종의비약",
+    "1236994": "무모함의물약"
+   }
+  },
+  "notes": [
+   "야생의 부름(359844)은 12.0 미드나잇 로그에 0회 — 스킬 자체가 사라져 격노(19574)가 유일한 주기 쿨기.",
+   "블러드/영웅심/시간왜곡 계열 버프 0/362킬 — 미드나잇에는 블러드가 없어 '블러드 정렬' 항목은 성립 안 함.",
+   "물약 슬롯은 '빛의 잠재력'(주스탯+346 30s 5분쿨)이 표준. 무모함의 물약은 3/362킬만 사용.",
+   "격노 캐스트 1회당 쇄도!(1258338)·무리의 지도자의 포효가 1:1로 따라붙음 — 격노=쇄도 타이밍."
+  ]
+ },
+ "overall": {
+  "rank_1_20": {
+   "n": 177,
+   "first_bw_med_s": 2.8,
+   "first_bw_p25_p75": [
+    2.1,
+    4.5
+   ],
+   "bw_per_min_med": 1.95,
+   "bw_gap": {
+    "n": 1642,
+    "p25": 30.1,
+    "med": 30.8,
+    "p75": 32.4,
+    "즉시_pct": 78,
+    "소홀드_pct": 18,
+    "대홀드_pct": 5
+   },
+   "pot_uses": 245,
+   "pot_bw_overlap_med_s": 15.0,
+   "pot_overlap_ge20s_pct": 0,
+   "pot_cast_in_bw_pct": 11,
+   "pot_then_bw_within3s_pct": 75,
+   "pot_to_next_bw_med_s": 1.3,
+   "box_uses": 396,
+   "box_bw_overlap_med_s": 15.0,
+   "box_cast_in_bw_pct": 7,
+   "box_then_bw_within3s_pct": 64
+  },
+  "rank_21_100": {
+   "n": 185,
+   "first_bw_med_s": 2.9,
+   "first_bw_p25_p75": [
+    2.3,
+    4.0
+   ],
+   "bw_per_min_med": 1.95,
+   "bw_gap": {
+    "n": 1664,
+    "p25": 30.2,
+    "med": 30.8,
+    "p75": 32.4,
+    "즉시_pct": 78,
+    "소홀드_pct": 18,
+    "대홀드_pct": 4
+   },
+   "pot_uses": 246,
+   "pot_bw_overlap_med_s": 15.0,
+   "pot_overlap_ge20s_pct": 0,
+   "pot_cast_in_bw_pct": 15,
+   "pot_then_bw_within3s_pct": 78,
+   "pot_to_next_bw_med_s": 0.8,
+   "box_uses": 401,
+   "box_bw_overlap_med_s": 15.0,
+   "box_cast_in_bw_pct": 7,
+   "box_then_bw_within3s_pct": 67
+  },
+  "all": {
+   "n": 362,
+   "first_bw_med_s": 2.9,
+   "first_bw_p25_p75": [
+    2.2,
+    4.3
+   ],
+   "bw_per_min_med": 1.95,
+   "bw_gap": {
+    "n": 3306,
+    "p25": 30.1,
+    "med": 30.8,
+    "p75": 32.4,
+    "즉시_pct": 78,
+    "소홀드_pct": 18,
+    "대홀드_pct": 4
+   },
+   "pot_uses": 491,
+   "pot_bw_overlap_med_s": 15.0,
+   "pot_overlap_ge20s_pct": 0,
+   "pot_cast_in_bw_pct": 13,
+   "pot_then_bw_within3s_pct": 77,
+   "pot_to_next_bw_med_s": 1.0,
+   "box_uses": 797,
+   "box_bw_overlap_med_s": 15.0,
+   "box_cast_in_bw_pct": 7,
+   "box_then_bw_within3s_pct": 65
+  }
+ },
+ "per_boss": {
+  "아베르지안": {
+   "encounter_id": 3176,
+   "name_en": "Imperator Averzian",
+   "kill_med_s": 210,
+   "all": {
+    "n": 41,
+    "first_bw_med_s": 2.6,
+    "first_bw_p25_p75": [
+     2.2,
+     3.0
+    ],
+    "bw_per_min_med": 1.97,
+    "bw_gap": {
+     "n": 251,
+     "p25": 30.0,
+     "med": 30.4,
+     "p75": 31.5,
+     "즉시_pct": 80,
+     "소홀드_pct": 7,
+     "대홀드_pct": 13
+    },
+    "pot_uses": 39,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 13,
+    "pot_then_bw_within3s_pct": 90,
+    "pot_to_next_bw_med_s": 0.8,
+    "box_uses": 65,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 0,
+    "box_then_bw_within3s_pct": 58
+   },
+   "rank_1_20": {
+    "n": 19,
+    "first_bw_med_s": 2.6,
+    "first_bw_p25_p75": [
+     1.9,
+     2.8
+    ],
+    "bw_per_min_med": 1.97,
+    "bw_gap": {
+     "n": 115,
+     "p25": 30.1,
+     "med": 30.6,
+     "p75": 31.5,
+     "즉시_pct": 79,
+     "소홀드_pct": 8,
+     "대홀드_pct": 13
+    },
+    "pot_uses": 19,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 16,
+    "pot_then_bw_within3s_pct": 84,
+    "pot_to_next_bw_med_s": 0.8,
+    "box_uses": 31,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 0,
+    "box_then_bw_within3s_pct": 58
+   },
+   "rank_21_100": {
+    "n": 22,
+    "first_bw_med_s": 2.7,
+    "first_bw_p25_p75": [
+     2.3,
+     3.2
+    ],
+    "bw_per_min_med": 1.94,
+    "bw_gap": {
+     "n": 136,
+     "p25": 30.0,
+     "med": 30.4,
+     "p75": 31.7,
+     "즉시_pct": 80,
+     "소홀드_pct": 7,
+     "대홀드_pct": 13
+    },
+    "pot_uses": 20,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 10,
+    "pot_then_bw_within3s_pct": 95,
+    "pot_to_next_bw_med_s": 0.6,
+    "box_uses": 34,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 0,
+    "box_then_bw_within3s_pct": 59
+   },
+   "opener": {
+    "first_bw_med_s": 2.6,
+    "first_bw_le5s_pct": 100,
+    "box_precast_pct": 28,
+    "pot_prepull_or_10s_pct": 93,
+    "seq_top3": [
+     {
+      "seq": [
+       "알게타르 수수께끼",
+       "날카로운 사격",
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수"
+      ],
+      "n": 13
+     },
+     {
+      "seq": [
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수",
+       "살상 명령",
+       "날카로운 사격"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "알게타르 수수께끼",
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수",
+       "살상 명령"
+      ],
+      "n": 4
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 35,
+    "60-70%": 3,
+    "90-100%": 1
+   },
+   "pot_kind": {
+    "빛의잠재력": 21,
+    "방종의비약": 17,
+    "무모함의물약": 1
+   },
+   "pot_first_med_s": 1.8,
+   "pot_second_med_s": 307.2,
+   "fights_with_2pots_pct": 2,
+   "addwave": {
+    "wt_fights": 38,
+    "wave_windows_s": [
+     [
+      60,
+      70
+     ],
+     [
+      140,
+      150
+     ]
+    ],
+    "wave_windows_mmss": [
+     "1:00~1:10",
+     "2:20~2:30"
+    ],
+    "bw_on_wave_pct": 22,
+    "wave_bw_gap_med_s": 41.8,
+    "nonwave_bw_gap_med_s": 30.3,
+    "bw_after_wave_start_pct": 100,
+    "bw_lead_med_s": 5.9
+   },
+   "hold_bw_arrival_top": [
+    {
+     "t": "2:00",
+     "n": 30
+    },
+    {
+     "t": "4:00",
+     "n": 3
+    }
+   ],
+   "n_holds": 33
+  },
+  "보라시우스": {
+   "encounter_id": 3177,
+   "name_en": "Vorasius",
+   "kill_med_s": 203,
+   "all": {
+    "n": 47,
+    "first_bw_med_s": 2.7,
+    "first_bw_p25_p75": [
+     2.3,
+     3.5
+    ],
+    "bw_per_min_med": 2.07,
+    "bw_gap": {
+     "n": 287,
+     "p25": 30.2,
+     "med": 30.6,
+     "p75": 31.3,
+     "즉시_pct": 94,
+     "소홀드_pct": 6,
+     "대홀드_pct": 0
+    },
+    "pot_uses": 44,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 16,
+    "pot_then_bw_within3s_pct": 93,
+    "pot_to_next_bw_med_s": 0.6,
+    "box_uses": 72,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 4,
+    "box_then_bw_within3s_pct": 85
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_bw_med_s": 2.5,
+    "first_bw_p25_p75": [
+     2.0,
+     4.0
+    ],
+    "bw_per_min_med": 2.11,
+    "bw_gap": {
+     "n": 122,
+     "p25": 30.0,
+     "med": 30.5,
+     "p75": 31.4,
+     "즉시_pct": 92,
+     "소홀드_pct": 8,
+     "대홀드_pct": 0
+    },
+    "pot_uses": 20,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 20,
+    "pot_then_bw_within3s_pct": 90,
+    "pot_to_next_bw_med_s": 0.6,
+    "box_uses": 33,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 0,
+    "box_then_bw_within3s_pct": 82
+   },
+   "rank_21_100": {
+    "n": 27,
+    "first_bw_med_s": 2.7,
+    "first_bw_p25_p75": [
+     2.4,
+     3.2
+    ],
+    "bw_per_min_med": 2.07,
+    "bw_gap": {
+     "n": 165,
+     "p25": 30.3,
+     "med": 30.7,
+     "p75": 31.3,
+     "즉시_pct": 96,
+     "소홀드_pct": 4,
+     "대홀드_pct": 0
+    },
+    "pot_uses": 24,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 12,
+    "pot_then_bw_within3s_pct": 96,
+    "pot_to_next_bw_med_s": 0.5,
+    "box_uses": 39,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 8,
+    "box_then_bw_within3s_pct": 87
+   },
+   "opener": {
+    "first_bw_med_s": 2.7,
+    "first_bw_le5s_pct": 96,
+    "box_precast_pct": 27,
+    "pot_prepull_or_10s_pct": 100,
+    "seq_top3": [
+     {
+      "seq": [
+       "알게타르 수수께끼",
+       "날카로운 사격",
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수"
+      ],
+      "n": 11
+     },
+     {
+      "seq": [
+       "날카로운 사격",
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수",
+       "살상 명령"
+      ],
+      "n": 8
+     },
+     {
+      "seq": [
+       "알게타르 수수께끼",
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수",
+       "살상 명령"
+      ],
+      "n": 7
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 44
+   },
+   "pot_kind": {
+    "방종의비약": 9,
+    "빛의잠재력": 35
+   },
+   "pot_first_med_s": 2.2,
+   "pot_second_med_s": null,
+   "fights_with_2pots_pct": 0,
+   "hold_bw_arrival_top": [],
+   "n_holds": 0
+  },
+  "바엘고어&에조라크": {
+   "encounter_id": 3178,
+   "name_en": "Vaelgor & Ezzorak",
+   "kill_med_s": 406,
+   "all": {
+    "n": 46,
+    "first_bw_med_s": 3.5,
+    "first_bw_p25_p75": [
+     2.9,
+     4.5
+    ],
+    "bw_per_min_med": 1.82,
+    "bw_gap": {
+     "n": 509,
+     "p25": 30.7,
+     "med": 33.4,
+     "p75": 38.9,
+     "즉시_pct": 48,
+     "소홀드_pct": 50,
+     "대홀드_pct": 3
+    },
+    "pot_uses": 84,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 11,
+    "pot_then_bw_within3s_pct": 64,
+    "pot_to_next_bw_med_s": 2.0,
+    "box_uses": 100,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 2,
+    "box_then_bw_within3s_pct": 46
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_bw_med_s": 3.5,
+    "first_bw_p25_p75": [
+     2.8,
+     4.5
+    ],
+    "bw_per_min_med": 1.84,
+    "bw_gap": {
+     "n": 224,
+     "p25": 30.6,
+     "med": 33.1,
+     "p75": 38.2,
+     "즉시_pct": 50,
+     "소홀드_pct": 48,
+     "대홀드_pct": 2
+    },
+    "pot_uses": 34,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 3,
+    "pot_then_bw_within3s_pct": 62,
+    "pot_to_next_bw_med_s": 2.1,
+    "box_uses": 42,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 0,
+    "box_then_bw_within3s_pct": 43
+   },
+   "rank_21_100": {
+    "n": 26,
+    "first_bw_med_s": 3.5,
+    "first_bw_p25_p75": [
+     2.9,
+     4.4
+    ],
+    "bw_per_min_med": 1.81,
+    "bw_gap": {
+     "n": 285,
+     "p25": 30.8,
+     "med": 33.5,
+     "p75": 38.9,
+     "즉시_pct": 47,
+     "소홀드_pct": 51,
+     "대홀드_pct": 3
+    },
+    "pot_uses": 50,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 16,
+    "pot_then_bw_within3s_pct": 66,
+    "pot_to_next_bw_med_s": 1.4,
+    "box_uses": 58,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 3,
+    "box_then_bw_within3s_pct": 48
+   },
+   "opener": {
+    "first_bw_med_s": 3.5,
+    "first_bw_le5s_pct": 87,
+    "box_precast_pct": 28,
+    "pot_prepull_or_10s_pct": 70,
+    "seq_top3": [
+     {
+      "seq": [
+       "알게타르 수수께끼",
+       "날카로운 사격",
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "날카로운 사격",
+       "날카로운 사격",
+       "야수의 격노",
+       "고대의 부름",
+       "광포한 야수"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "날카로운 사격",
+       "마구잡이 난타",
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수"
+      ],
+      "n": 2
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 39,
+    "10-20%": 2,
+    "60-70%": 3,
+    "70-80%": 8,
+    "80-90%": 18,
+    "90-100%": 14
+   },
+   "pot_kind": {
+    "빛의잠재력": 60,
+    "방종의비약": 24
+   },
+   "pot_first_med_s": 3.9,
+   "pot_second_med_s": 351.0,
+   "fights_with_2pots_pct": 85,
+   "addwave": {
+    "wt_fights": 46,
+    "wave_windows_s": [
+     [
+      0,
+      120
+     ],
+     [
+      170,
+      380
+     ]
+    ],
+    "wave_windows_mmss": [
+     "0:00~2:00",
+     "2:50~6:20"
+    ],
+    "bw_on_wave_pct": 58,
+    "wave_bw_gap_med_s": 34.3,
+    "nonwave_bw_gap_med_s": 32.0,
+    "bw_after_wave_start_pct": 100,
+    "bw_lead_med_s": 3.5
+   },
+   "hold_bw_arrival_top": [
+    {
+     "t": "2:30",
+     "n": 4
+    },
+    {
+     "t": "6:00",
+     "n": 3
+    },
+    {
+     "t": "5:30",
+     "n": 2
+    },
+    {
+     "t": "7:00",
+     "n": 1
+    },
+    {
+     "t": "2:00",
+     "n": 1
+    }
+   ],
+   "n_holds": 13
+  },
+  "살라다르": {
+   "encounter_id": 3179,
+   "name_en": "Fallen-King Salhadaar",
+   "kill_med_s": 236,
+   "all": {
+    "n": 35,
+    "first_bw_med_s": 2.5,
+    "first_bw_p25_p75": [
+     2.0,
+     2.9
+    ],
+    "bw_per_min_med": 2.03,
+    "bw_gap": {
+     "n": 261,
+     "p25": 30.4,
+     "med": 31.3,
+     "p75": 36.0,
+     "즉시_pct": 64,
+     "소홀드_pct": 29,
+     "대홀드_pct": 7
+    },
+    "pot_uses": 47,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 4,
+    "pot_then_bw_within3s_pct": 91,
+    "pot_to_next_bw_med_s": 0.8,
+    "box_uses": 63,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 8,
+    "box_then_bw_within3s_pct": 76
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_bw_med_s": 2.6,
+    "first_bw_p25_p75": [
+     2.1,
+     2.9
+    ],
+    "bw_per_min_med": 1.84,
+    "bw_gap": {
+     "n": 151,
+     "p25": 30.5,
+     "med": 32.3,
+     "p75": 37.8,
+     "즉시_pct": 54,
+     "소홀드_pct": 36,
+     "대홀드_pct": 10
+    },
+    "pot_uses": 30,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 3,
+    "pot_then_bw_within3s_pct": 93,
+    "pot_to_next_bw_med_s": 0.7,
+    "box_uses": 40,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 8,
+    "box_then_bw_within3s_pct": 75
+   },
+   "rank_21_100": {
+    "n": 15,
+    "first_bw_med_s": 2.4,
+    "first_bw_p25_p75": [
+     2.0,
+     2.8
+    ],
+    "bw_per_min_med": 2.08,
+    "bw_gap": {
+     "n": 110,
+     "p25": 30.2,
+     "med": 30.8,
+     "p75": 32.3,
+     "즉시_pct": 79,
+     "소홀드_pct": 18,
+     "대홀드_pct": 3
+    },
+    "pot_uses": 17,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 6,
+    "pot_then_bw_within3s_pct": 88,
+    "pot_to_next_bw_med_s": 0.9,
+    "box_uses": 23,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 9,
+    "box_then_bw_within3s_pct": 78
+   },
+   "opener": {
+    "first_bw_med_s": 2.5,
+    "first_bw_le5s_pct": 91,
+    "box_precast_pct": 53,
+    "pot_prepull_or_10s_pct": 100,
+    "seq_top3": [
+     {
+      "seq": [
+       "날카로운 사격",
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수",
+       "살상 명령"
+      ],
+      "n": 8
+     },
+     {
+      "seq": [
+       "알게타르 수수께끼",
+       "날카로운 사격",
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수"
+      ],
+      "n": 6
+     },
+     {
+      "seq": [
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수",
+       "살상 명령",
+       "날카로운 사격"
+      ],
+      "n": 5
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 34,
+    "80-90%": 5,
+    "90-100%": 8
+   },
+   "pot_kind": {
+    "방종의비약": 12,
+    "빛의잠재력": 35
+   },
+   "pot_first_med_s": 1.6,
+   "pot_second_med_s": 307.2,
+   "fights_with_2pots_pct": 37,
+   "addwave": {
+    "wt_fights": 16,
+    "wave_windows_s": [],
+    "wave_windows_mmss": [],
+    "bw_on_wave_pct": 11,
+    "wave_bw_gap_med_s": 36.1,
+    "nonwave_bw_gap_med_s": 31.0,
+    "bw_after_wave_start_pct": 100,
+    "bw_lead_med_s": 2.7
+   },
+   "hold_bw_arrival_top": [
+    {
+     "t": "3:00",
+     "n": 9
+    },
+    {
+     "t": "5:00",
+     "n": 8
+    },
+    {
+     "t": "4:00",
+     "n": 1
+    }
+   ],
+   "n_holds": 18
+  },
+  "선봉대": {
+   "encounter_id": 3180,
+   "name_en": "Lightblinded Vanguard",
+   "kill_med_s": 380,
+   "all": {
+    "n": 41,
+    "first_bw_med_s": 3.7,
+    "first_bw_p25_p75": [
+     3.1,
+     4.2
+    ],
+    "bw_per_min_med": 1.99,
+    "bw_gap": {
+     "n": 472,
+     "p25": 30.1,
+     "med": 30.6,
+     "p75": 31.5,
+     "즉시_pct": 91,
+     "소홀드_pct": 9,
+     "대홀드_pct": 0
+    },
+    "pot_uses": 78,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 18,
+    "pot_then_bw_within3s_pct": 69,
+    "pot_to_next_bw_med_s": 1.1,
+    "box_uses": 119,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 10,
+    "box_then_bw_within3s_pct": 71
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_bw_med_s": 3.9,
+    "first_bw_p25_p75": [
+     3.4,
+     4.6
+    ],
+    "bw_per_min_med": 2.0,
+    "bw_gap": {
+     "n": 228,
+     "p25": 30.1,
+     "med": 30.6,
+     "p75": 31.5,
+     "즉시_pct": 92,
+     "소홀드_pct": 8,
+     "대홀드_pct": 0
+    },
+    "pot_uses": 39,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 18,
+    "pot_then_bw_within3s_pct": 72,
+    "pot_to_next_bw_med_s": 1.0,
+    "box_uses": 59,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 14,
+    "box_then_bw_within3s_pct": 76
+   },
+   "rank_21_100": {
+    "n": 21,
+    "first_bw_med_s": 3.6,
+    "first_bw_p25_p75": [
+     3.0,
+     4.0
+    ],
+    "bw_per_min_med": 1.97,
+    "bw_gap": {
+     "n": 244,
+     "p25": 30.1,
+     "med": 30.6,
+     "p75": 31.6,
+     "즉시_pct": 90,
+     "소홀드_pct": 10,
+     "대홀드_pct": 0
+    },
+    "pot_uses": 39,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 18,
+    "pot_then_bw_within3s_pct": 67,
+    "pot_to_next_bw_med_s": 1.6,
+    "box_uses": 60,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 7,
+    "box_then_bw_within3s_pct": 65
+   },
+   "opener": {
+    "first_bw_med_s": 3.7,
+    "first_bw_le5s_pct": 80,
+    "box_precast_pct": 17,
+    "pot_prepull_or_10s_pct": 100,
+    "seq_top3": [
+     {
+      "seq": [
+       "알게타르 수수께끼",
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수",
+       "날카로운 사격"
+      ],
+      "n": 3
+     },
+     {
+      "seq": [
+       "알게타르 수수께끼",
+       "마구잡이 난타",
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수"
+      ],
+      "n": 3
+     },
+     {
+      "seq": [
+       "알게타르 수수께끼",
+       "마구잡이 난타",
+       "날카로운 사격",
+       "날카로운 사격",
+       "야수의 격노"
+      ],
+      "n": 2
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 40,
+    "70-80%": 7,
+    "80-90%": 23,
+    "90-100%": 8
+   },
+   "pot_kind": {
+    "빛의잠재력": 53,
+    "방종의비약": 25
+   },
+   "pot_first_med_s": 2.4,
+   "pot_second_med_s": 315.9,
+   "fights_with_2pots_pct": 90,
+   "addwave": {
+    "wt_fights": 41,
+    "wave_windows_s": [
+     [
+      0,
+      340
+     ]
+    ],
+    "wave_windows_mmss": [
+     "0:00~5:40"
+    ],
+    "bw_on_wave_pct": 80,
+    "wave_bw_gap_med_s": 30.6,
+    "nonwave_bw_gap_med_s": 30.5,
+    "bw_after_wave_start_pct": 100,
+    "bw_lead_med_s": 3.9
+   },
+   "hold_bw_arrival_top": [
+    {
+     "t": "4:00",
+     "n": 1
+    }
+   ],
+   "n_holds": 1
+  },
+  "우주의 왕관": {
+   "encounter_id": 3181,
+   "name_en": "Crown of the Cosmos",
+   "kill_med_s": 456,
+   "all": {
+    "n": 36,
+    "first_bw_med_s": 19.2,
+    "first_bw_p25_p75": [
+     2.4,
+     22.9
+    ],
+    "bw_per_min_med": 1.7,
+    "bw_gap": {
+     "n": 434,
+     "p25": 30.2,
+     "med": 30.7,
+     "p75": 32.6,
+     "즉시_pct": 76,
+     "소홀드_pct": 13,
+     "대홀드_pct": 11
+    },
+    "pot_uses": 49,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 14,
+    "pot_then_bw_within3s_pct": 78,
+    "pot_to_next_bw_med_s": 0.8,
+    "box_uses": 117,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 10,
+    "box_then_bw_within3s_pct": 88
+   },
+   "rank_1_20": {
+    "n": 19,
+    "first_bw_med_s": 19.6,
+    "first_bw_p25_p75": [
+     2.3,
+     23.4
+    ],
+    "bw_per_min_med": 1.7,
+    "bw_gap": {
+     "n": 225,
+     "p25": 30.2,
+     "med": 30.7,
+     "p75": 32.6,
+     "즉시_pct": 76,
+     "소홀드_pct": 13,
+     "대홀드_pct": 11
+    },
+    "pot_uses": 23,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 9,
+    "pot_then_bw_within3s_pct": 83,
+    "pot_to_next_bw_med_s": 1.6,
+    "box_uses": 57,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 12,
+    "box_then_bw_within3s_pct": 86
+   },
+   "rank_21_100": {
+    "n": 17,
+    "first_bw_med_s": 16.4,
+    "first_bw_p25_p75": [
+     3.2,
+     22.6
+    ],
+    "bw_per_min_med": 1.69,
+    "bw_gap": {
+     "n": 209,
+     "p25": 30.2,
+     "med": 30.8,
+     "p75": 32.5,
+     "즉시_pct": 77,
+     "소홀드_pct": 13,
+     "대홀드_pct": 10
+    },
+    "pot_uses": 26,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 19,
+    "pot_then_bw_within3s_pct": 73,
+    "pot_to_next_bw_med_s": 0.5,
+    "box_uses": 60,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 8,
+    "box_then_bw_within3s_pct": 90
+   },
+   "opener": {
+    "first_bw_med_s": 19.2,
+    "first_bw_le5s_pct": 44,
+    "box_precast_pct": 0,
+    "pot_prepull_or_10s_pct": 0,
+    "seq_top3": [
+     {
+      "seq": [
+       "날카로운 사격",
+       "살상 명령",
+       "날카로운 사격",
+       "살상 명령",
+       "코브라 사격"
+      ],
+      "n": 9
+     },
+     {
+      "seq": [
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수",
+       "살상 명령",
+       "날카로운 사격"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "날카로운 사격",
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수",
+       "살상 명령"
+      ],
+      "n": 3
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 4,
+    "30-40%": 23,
+    "40-50%": 6,
+    "60-70%": 1,
+    "80-90%": 6,
+    "90-100%": 9
+   },
+   "pot_kind": {
+    "빛의잠재력": 36,
+    "방종의비약": 11,
+    "무모함의물약": 2
+   },
+   "pot_first_med_s": 176.0,
+   "pot_second_med_s": 477.8,
+   "fights_with_2pots_pct": 36,
+   "hold_bw_arrival_top": [
+    {
+     "t": "2:30",
+     "n": 33
+    },
+    {
+     "t": "5:30",
+     "n": 7
+    },
+    {
+     "t": "5:00",
+     "n": 2
+    },
+    {
+     "t": "3:00",
+     "n": 2
+    },
+    {
+     "t": "6:00",
+     "n": 1
+    }
+   ],
+   "n_holds": 46
+  },
+  "벨로렌": {
+   "encounter_id": 3182,
+   "name_en": "Belo'ren, Child of Al'ar",
+   "kill_med_s": 275,
+   "all": {
+    "n": 43,
+    "first_bw_med_s": 2.4,
+    "first_bw_p25_p75": [
+     1.3,
+     2.8
+    ],
+    "bw_per_min_med": 1.94,
+    "bw_gap": {
+     "n": 342,
+     "p25": 30.1,
+     "med": 30.8,
+     "p75": 32.1,
+     "즉시_pct": 81,
+     "소홀드_pct": 15,
+     "대홀드_pct": 4
+    },
+    "pot_uses": 43,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 16,
+    "pot_then_bw_within3s_pct": 74,
+    "pot_to_next_bw_med_s": 1.7,
+    "box_uses": 55,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 13,
+    "box_then_bw_within3s_pct": 56
+   },
+   "rank_1_20": {
+    "n": 19,
+    "first_bw_med_s": 2.4,
+    "first_bw_p25_p75": [
+     1.3,
+     2.8
+    ],
+    "bw_per_min_med": 1.96,
+    "bw_gap": {
+     "n": 144,
+     "p25": 30.1,
+     "med": 30.8,
+     "p75": 31.8,
+     "즉시_pct": 84,
+     "소홀드_pct": 12,
+     "대홀드_pct": 3
+    },
+    "pot_uses": 19,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 11,
+    "pot_then_bw_within3s_pct": 58,
+    "pot_to_next_bw_med_s": 2.4,
+    "box_uses": 26,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 12,
+    "box_then_bw_within3s_pct": 54
+   },
+   "rank_21_100": {
+    "n": 24,
+    "first_bw_med_s": 2.4,
+    "first_bw_p25_p75": [
+     1.3,
+     2.7
+    ],
+    "bw_per_min_med": 1.91,
+    "bw_gap": {
+     "n": 198,
+     "p25": 30.1,
+     "med": 30.8,
+     "p75": 32.6,
+     "즉시_pct": 79,
+     "소홀드_pct": 17,
+     "대홀드_pct": 4
+    },
+    "pot_uses": 24,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 21,
+    "pot_then_bw_within3s_pct": 88,
+    "pot_to_next_bw_med_s": 0.9,
+    "box_uses": 29,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 14,
+    "box_then_bw_within3s_pct": 59
+   },
+   "opener": {
+    "first_bw_med_s": 2.4,
+    "first_bw_le5s_pct": 98,
+    "box_precast_pct": 16,
+    "pot_prepull_or_10s_pct": 5,
+    "seq_top3": [
+     {
+      "seq": [
+       "날카로운 사격",
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수",
+       "살상 명령"
+      ],
+      "n": 14
+     },
+     {
+      "seq": [
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수",
+       "살상 명령",
+       "날카로운 사격"
+      ],
+      "n": 11
+     },
+     {
+      "seq": [
+       "야수의 격노",
+       "광포한 야수",
+       "살상 명령",
+       "날카로운 사격",
+       "살상 명령"
+      ],
+      "n": 6
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 2,
+    "30-40%": 35,
+    "40-50%": 3,
+    "80-90%": 2,
+    "90-100%": 1
+   },
+   "pot_kind": {
+    "빛의잠재력": 40,
+    "방종의비약": 3
+   },
+   "pot_first_med_s": 97.2,
+   "pot_second_med_s": null,
+   "fights_with_2pots_pct": 0,
+   "hold_bw_arrival_top": [
+    {
+     "t": "2:00",
+     "n": 4
+    },
+    {
+     "t": "1:30",
+     "n": 4
+    },
+    {
+     "t": "1:00",
+     "n": 2
+    },
+    {
+     "t": "4:00",
+     "n": 2
+    },
+    {
+     "t": "3:30",
+     "n": 1
+    }
+   ],
+   "n_holds": 13
+  },
+  "한밤의 도래(르우라)": {
+   "encounter_id": 3183,
+   "name_en": "Midnight Falls",
+   "kill_med_s": 566,
+   "all": {
+    "n": 34,
+    "first_bw_med_s": 13.7,
+    "first_bw_p25_p75": [
+     13.2,
+     14.1
+    ],
+    "bw_per_min_med": 1.91,
+    "bw_gap": {
+     "n": 576,
+     "p25": 30.0,
+     "med": 30.5,
+     "p75": 31.3,
+     "즉시_pct": 85,
+     "소홀드_pct": 12,
+     "대홀드_pct": 3
+    },
+    "pot_uses": 68,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 6,
+    "pot_then_bw_within3s_pct": 72,
+    "pot_to_next_bw_med_s": 1.2,
+    "box_uses": 143,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 9,
+    "box_then_bw_within3s_pct": 41
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_bw_med_s": 13.6,
+    "first_bw_p25_p75": [
+     13.2,
+     13.7
+    ],
+    "bw_per_min_med": 1.93,
+    "bw_gap": {
+     "n": 340,
+     "p25": 30.0,
+     "med": 30.5,
+     "p75": 31.3,
+     "즉시_pct": 86,
+     "소홀드_pct": 11,
+     "대홀드_pct": 3
+    },
+    "pot_uses": 40,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 8,
+    "pot_then_bw_within3s_pct": 75,
+    "pot_to_next_bw_med_s": 1.1,
+    "box_uses": 78,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 8,
+    "box_then_bw_within3s_pct": 37
+   },
+   "rank_21_100": {
+    "n": 14,
+    "first_bw_med_s": 13.7,
+    "first_bw_p25_p75": [
+     13.2,
+     14.1
+    ],
+    "bw_per_min_med": 1.89,
+    "bw_gap": {
+     "n": 236,
+     "p25": 30.1,
+     "med": 30.5,
+     "p75": 31.4,
+     "즉시_pct": 84,
+     "소홀드_pct": 12,
+     "대홀드_pct": 4
+    },
+    "pot_uses": 28,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 4,
+    "pot_then_bw_within3s_pct": 68,
+    "pot_to_next_bw_med_s": 1.2,
+    "box_uses": 65,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 11,
+    "box_then_bw_within3s_pct": 45
+   },
+   "opener": {
+    "first_bw_med_s": 13.7,
+    "first_bw_le5s_pct": 0,
+    "box_precast_pct": 0,
+    "pot_prepull_or_10s_pct": 21,
+    "seq_top3": [
+     {
+      "seq": [
+       "날카로운 사격",
+       "살상 명령",
+       "날카로운 사격",
+       "살상 명령",
+       "알게타르 수수께끼"
+      ],
+      "n": 12
+     },
+     {
+      "seq": [
+       "날카로운 사격",
+       "살상 명령",
+       "날카로운 사격",
+       "살상 명령",
+       "코브라 사격"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "날카로운 사격",
+       "살상 명령",
+       "날카로운 사격",
+       "살상 명령",
+       "광포한 야수"
+      ],
+      "n": 3
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 33,
+    "10-20%": 1,
+    "60-70%": 27,
+    "70-80%": 6,
+    "80-90%": 1
+   },
+   "pot_kind": {
+    "빛의잠재력": 66,
+    "방종의비약": 2
+   },
+   "pot_first_med_s": 12.7,
+   "pot_second_med_s": 379.9,
+   "fights_with_2pots_pct": 100,
+   "hold_bw_arrival_top": [
+    {
+     "t": "5:30",
+     "n": 14
+    },
+    {
+     "t": "8:00",
+     "n": 3
+    },
+    {
+     "t": "4:00",
+     "n": 1
+    }
+   ],
+   "n_holds": 18
+  },
+  "카이메루스": {
+   "encounter_id": 3306,
+   "name_en": "Chimaerus, the Undreamt God",
+   "kill_med_s": 145,
+   "all": {
+    "n": 39,
+    "first_bw_med_s": 2.2,
+    "first_bw_p25_p75": [
+     1.6,
+     2.6
+    ],
+    "bw_per_min_med": 2.08,
+    "bw_gap": {
+     "n": 174,
+     "p25": 30.1,
+     "med": 30.5,
+     "p75": 31.2,
+     "즉시_pct": 93,
+     "소홀드_pct": 5,
+     "대홀드_pct": 2
+    },
+    "pot_uses": 39,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 23,
+    "pot_then_bw_within3s_pct": 77,
+    "pot_to_next_bw_med_s": 1.5,
+    "box_uses": 63,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 5,
+    "box_then_bw_within3s_pct": 79
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_bw_med_s": 2.1,
+    "first_bw_p25_p75": [
+     1.6,
+     2.6
+    ],
+    "bw_per_min_med": 2.04,
+    "bw_gap": {
+     "n": 93,
+     "p25": 30.1,
+     "med": 30.5,
+     "p75": 31.2,
+     "즉시_pct": 91,
+     "소홀드_pct": 6,
+     "대홀드_pct": 2
+    },
+    "pot_uses": 21,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 19,
+    "pot_then_bw_within3s_pct": 62,
+    "pot_to_next_bw_med_s": 2.7,
+    "box_uses": 30,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 3,
+    "box_then_bw_within3s_pct": 73
+   },
+   "rank_21_100": {
+    "n": 19,
+    "first_bw_med_s": 2.2,
+    "first_bw_p25_p75": [
+     1.5,
+     2.8
+    ],
+    "bw_per_min_med": 2.09,
+    "bw_gap": {
+     "n": 81,
+     "p25": 30.1,
+     "med": 30.5,
+     "p75": 31.1,
+     "즉시_pct": 94,
+     "소홀드_pct": 4,
+     "대홀드_pct": 2
+    },
+    "pot_uses": 18,
+    "pot_bw_overlap_med_s": 15.0,
+    "pot_overlap_ge20s_pct": 0,
+    "pot_cast_in_bw_pct": 28,
+    "pot_then_bw_within3s_pct": 94,
+    "pot_to_next_bw_med_s": 0.4,
+    "box_uses": 33,
+    "box_bw_overlap_med_s": 15.0,
+    "box_cast_in_bw_pct": 6,
+    "box_then_bw_within3s_pct": 85
+   },
+   "opener": {
+    "first_bw_med_s": 2.2,
+    "first_bw_le5s_pct": 100,
+    "box_precast_pct": 34,
+    "pot_prepull_or_10s_pct": 74,
+    "seq_top3": [
+     {
+      "seq": [
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수",
+       "살상 명령",
+       "날카로운 사격"
+      ],
+      "n": 7
+     },
+     {
+      "seq": [
+       "알게타르 수수께끼",
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수",
+       "살상 명령"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "알게타르 수수께끼",
+       "날카로운 사격",
+       "날카로운 사격",
+       "야수의 격노",
+       "광포한 야수"
+      ],
+      "n": 5
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 27,
+    "10-20%": 4,
+    "20-30%": 3,
+    "40-50%": 1,
+    "70-80%": 1,
+    "80-90%": 2,
+    "90-100%": 1
+   },
+   "pot_kind": {
+    "방종의비약": 9,
+    "빛의잠재력": 29,
+    "무모함의물약": 1
+   },
+   "pot_first_med_s": 2.0,
+   "pot_second_med_s": 305.3,
+   "fights_with_2pots_pct": 8,
+   "addwave": {
+    "wt_fights": 17,
+    "wave_windows_s": [],
+    "wave_windows_mmss": [],
+    "bw_on_wave_pct": 15,
+    "wave_bw_gap_med_s": 30.5,
+    "nonwave_bw_gap_med_s": 30.5,
+    "bw_after_wave_start_pct": 100,
+    "bw_lead_med_s": 5.5
+   },
+   "hold_bw_arrival_top": [
+    {
+     "t": "2:30",
+     "n": 3
+    },
+    {
+     "t": "4:00",
+     "n": 1
+    }
+   ],
+   "n_holds": 4
+  }
+ },
+ "deep_dive": {
+  "crown_3181_opener": {
+   "early_le5s": {
+    "n": 16,
+    "dps_med": 140879,
+    "rank_med": 20,
+    "first_bw_med_s": 2.3
+   },
+   "hold_ge15s": {
+    "n": 19,
+    "dps_med": 141542,
+    "rank_med": 17,
+    "first_bw_med_s": 22.9
+   },
+   "mid_5_15s": {
+    "n": 1
+   },
+   "hold_first_box_med_s": 22.6,
+   "early_group_later_hold_arrivals": [
+    {
+     "t": "2:30",
+     "n": 15
+    },
+    {
+     "t": "5:00",
+     "n": 2
+    },
+    {
+     "t": "5:30",
+     "n": 2
+    },
+    {
+     "t": "3:00",
+     "n": 1
+    }
+   ],
+   "note": "첫 격노를 바로 쓰는 파 vs ~20초 아끼는 파의 실제 DPS 비교"
+  },
+  "lura_3183": {
+   "first_bw": {
+    "min": 11.9,
+    "p10": 12.7,
+    "med": 13.7,
+    "p90": 14.4,
+    "max": 15.6
+   },
+   "pot1_minus_bw1_med_s": -0.9,
+   "midfight_hold_fights": "14/34",
+   "midfight_hold_len_med_s": 49.3,
+   "pot2_to_next_bw_med_s": 2.1,
+   "note": "전원이 첫 격노를 ~13.7s까지 안 씀 + 물약도 같이 늦춤 — 왜인지는 전투 기믹(개막 무적/딜증 창) 확인 필요"
+  },
+  "salhadaar_3179_hold": {
+   "holders": {
+    "n": 14,
+    "dps_med": 157387,
+    "rank_med": 12,
+    "first_bw_med_s": 2.7
+   },
+   "nonholders": {
+    "n": 21,
+    "dps_med": 153869,
+    "rank_med": 22,
+    "first_bw_med_s": 2.5
+   },
+   "note": "간격>40s 홀드(2:30 이후)를 한 킬 vs 안 한 킬 — top20이 홀드를 더 함(즉시 54% vs 79%)"
+  },
+  "averzian_3176_wavehold": {
+   "hold_for_wave": {
+    "n": 36,
+    "dps_med": 155976,
+    "rank_med": 21,
+    "first_bw_med_s": 2.6
+   },
+   "no_hold": {
+    "n": 5,
+    "dps_med": 154201,
+    "rank_med": 32,
+    "first_bw_med_s": 2.8
+   },
+   "note": "2:20 쫄웨이브 직전 격노 홀드 여부별 DPS — 6월 '모은 뒤 격노' 재검증"
+  },
+  "vaelgor_3178_drift": {
+   "drift_arrival_top": [
+    {
+     "t": "0:30",
+     "n": 46
+    },
+    {
+     "t": "4:00",
+     "n": 46
+    },
+    {
+     "t": "1:00",
+     "n": 45
+    },
+    {
+     "t": "3:00",
+     "n": 43
+    },
+    {
+     "t": "6:00",
+     "n": 19
+    },
+    {
+     "t": "4:30",
+     "n": 19
+    },
+    {
+     "t": "2:30",
+     "n": 9
+    },
+    {
+     "t": "5:30",
+     "n": 8
+    }
+   ],
+   "note": "소홀드 50%가 특정 시각에 몰리는지(기믹) 고른지(다운타임) 판별"
+  }
+ }
+}

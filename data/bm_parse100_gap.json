@@ -1,0 +1,1129 @@
+{
+ "meta": {
+  "date": "2026-07-03",
+  "spec": "Hunter-BeastMastery",
+  "n_csv_rows": 900,
+  "n_with_events": 362,
+  "bands": "rank_1_5 / rank_6_20 / rank_21_100",
+  "downtime_def": "시전과 시전 사이(전투 시작/끝 포함) 3초 이상 무시전 구간의 합(초)",
+  "filler_spell_id": 193455,
+  "top_cast_spells": [
+   {
+    "id": 34026,
+    "name": "살상 명령",
+    "casts": 34584
+   },
+   {
+    "id": 193455,
+    "name": "코브라 사격",
+    "casts": 25411
+   },
+   {
+    "id": 217200,
+    "name": "날카로운 사격",
+    "casts": 21689
+   },
+   {
+    "id": 1283818,
+    "name": "광포한 야수",
+    "casts": 6290
+   },
+   {
+    "id": 204526,
+    "name": "광포한 야수",
+    "casts": 4106
+   },
+   {
+    "id": 1264359,
+    "name": "마구잡이 난타",
+    "casts": 3955
+   },
+   {
+    "id": 19574,
+    "name": "야수의 격노",
+    "casts": 3668
+   },
+   {
+    "id": 219199,
+    "name": "광포한 야수",
+    "casts": 2045
+   },
+   {
+    "id": 264735,
+    "name": "적자생존",
+    "casts": 890
+   },
+   {
+    "id": 383781,
+    "name": "알게타르 수수께끼",
+    "casts": 797
+   },
+   {
+    "id": 781,
+    "name": "철수",
+    "casts": 715
+   },
+   {
+    "id": 304051,
+    "name": "광포한 야수",
+    "casts": 679
+   },
+   {
+    "id": 1283817,
+    "name": "광포한 야수",
+    "casts": 585
+   },
+   {
+    "id": 186257,
+    "name": "치타의 상",
+    "casts": 493
+   },
+   {
+    "id": 147362,
+    "name": "반격의 사격",
+    "casts": 474
+   }
+  ],
+  "pi_source": "PI CSV pi_received만 사용. events 캐시 buffs에 마력주입(10060)이 수집돼 있지 않음(PI=True 표본 4건 raw buffs 직접 확인). BM 900행 중 판정값 있는 행 107(True 42/False 65) — 부분표본임."
+ },
+ "per_boss": {
+  "Vorasius": {
+   "rank_1_5": {
+    "n": 5,
+    "kc_per_min_med": 20.43,
+    "barbed_per_min_med": 11.98,
+    "casts_per_min_med": 67.12,
+    "downtime_s_med": 0,
+    "downtime_s_per_min_med": 0.0,
+    "gaps3s_count_med": 0,
+    "filler_pct_med": 28.6
+   },
+   "rank_6_20": {
+    "n": 15,
+    "kc_per_min_med": 20.13,
+    "barbed_per_min_med": 11.26,
+    "casts_per_min_med": 65.01,
+    "downtime_s_med": 0,
+    "downtime_s_per_min_med": 0.0,
+    "gaps3s_count_med": 0,
+    "filler_pct_med": 28.7
+   },
+   "rank_21_100": {
+    "n": 27,
+    "kc_per_min_med": 19.81,
+    "barbed_per_min_med": 11.47,
+    "casts_per_min_med": 64.75,
+    "downtime_s_med": 0,
+    "downtime_s_per_min_med": 0.0,
+    "gaps3s_count_med": 0,
+    "filler_pct_med": 28.4
+   },
+   "all": {
+    "n": 47,
+    "kc_per_min_med": 19.93,
+    "barbed_per_min_med": 11.48,
+    "casts_per_min_med": 65.15,
+    "downtime_s_med": 0,
+    "downtime_s_per_min_med": 0.0,
+    "gaps3s_count_med": 0,
+    "filler_pct_med": 28.6
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 195,
+    "all100_med_s": 204,
+    "rank1_5_vs_all_diff_s": -9,
+    "rank1_5_vs_all_diff_pct": -4.2,
+    "by_band_med_s": {
+     "r1_5": 195,
+     "r6_20": 206,
+     "r21_50": 203,
+     "r51_100": 206
+    },
+    "rank1_10_slower_than_med_pct": 30
+   },
+   "pi": {
+    "bm_rank_1_20": null,
+    "bm_rank_21_100": {
+     "n": 14,
+     "pi": 7,
+     "pi_pct": 50
+    },
+    "bm_all_known": {
+     "n": 14,
+     "pi": 7,
+     "pi_pct": 50
+    },
+    "bm_pi_true_rank_med": 49,
+    "bm_pi_false_rank_med": 56,
+    "allspec_rank1_10": {
+     "n": 43,
+     "pi": 20,
+     "pi_pct": 47
+    }
+   }
+  },
+  "Vaelgor & Ezzorak": {
+   "rank_1_5": {
+    "n": 5,
+    "kc_per_min_med": 18.01,
+    "barbed_per_min_med": 13.97,
+    "casts_per_min_med": 55.26,
+    "downtime_s_med": 21.58,
+    "downtime_s_per_min_med": 3.51,
+    "gaps3s_count_med": 6,
+    "filler_pct_med": 16.2
+   },
+   "rank_6_20": {
+    "n": 15,
+    "kc_per_min_med": 17.18,
+    "barbed_per_min_med": 12.78,
+    "casts_per_min_med": 53.81,
+    "downtime_s_med": 20.7,
+    "downtime_s_per_min_med": 3.05,
+    "gaps3s_count_med": 6,
+    "filler_pct_med": 14.3
+   },
+   "rank_21_100": {
+    "n": 26,
+    "kc_per_min_med": 17.13,
+    "barbed_per_min_med": 12.91,
+    "casts_per_min_med": 53.0,
+    "downtime_s_med": 27.06,
+    "downtime_s_per_min_med": 3.81,
+    "gaps3s_count_med": 7,
+    "filler_pct_med": 14.7
+   },
+   "all": {
+    "n": 46,
+    "kc_per_min_med": 17.19,
+    "barbed_per_min_med": 12.91,
+    "casts_per_min_med": 53.18,
+    "downtime_s_med": 22.45,
+    "downtime_s_per_min_med": 3.51,
+    "gaps3s_count_med": 6,
+    "filler_pct_med": 14.5
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 387,
+    "all100_med_s": 394,
+    "rank1_5_vs_all_diff_s": -8,
+    "rank1_5_vs_all_diff_pct": -2.0,
+    "by_band_med_s": {
+     "r1_5": 387,
+     "r6_20": 414,
+     "r21_50": 389,
+     "r51_100": 392
+    },
+    "rank1_10_slower_than_med_pct": 40
+   },
+   "pi": {
+    "bm_rank_1_20": {
+     "n": 5,
+     "pi": 3,
+     "pi_pct": 60
+    },
+    "bm_rank_21_100": {
+     "n": 14,
+     "pi": 4,
+     "pi_pct": 29
+    },
+    "bm_all_known": {
+     "n": 19,
+     "pi": 7,
+     "pi_pct": 37
+    },
+    "bm_pi_true_rank_med": 34,
+    "bm_pi_false_rank_med": 59,
+    "allspec_rank1_10": {
+     "n": 28,
+     "pi": 10,
+     "pi_pct": 36
+    }
+   }
+  },
+  "Belo'ren, Child of Al'ar": {
+   "rank_1_5": {
+    "n": 4,
+    "kc_per_min_med": 19.41,
+    "barbed_per_min_med": 10.43,
+    "casts_per_min_med": 64.52,
+    "downtime_s_med": 19.14,
+    "downtime_s_per_min_med": 4.26,
+    "gaps3s_count_med": 4,
+    "filler_pct_med": 25.6
+   },
+   "rank_6_20": {
+    "n": 15,
+    "kc_per_min_med": 17.61,
+    "barbed_per_min_med": 10.24,
+    "casts_per_min_med": 58.74,
+    "downtime_s_med": 19.62,
+    "downtime_s_per_min_med": 4.51,
+    "gaps3s_count_med": 3,
+    "filler_pct_med": 26.1
+   },
+   "rank_21_100": {
+    "n": 24,
+    "kc_per_min_med": 17.25,
+    "barbed_per_min_med": 10.18,
+    "casts_per_min_med": 59.07,
+    "downtime_s_med": 29.47,
+    "downtime_s_per_min_med": 5.89,
+    "gaps3s_count_med": 5,
+    "filler_pct_med": 26.2
+   },
+   "all": {
+    "n": 43,
+    "kc_per_min_med": 17.51,
+    "barbed_per_min_med": 10.19,
+    "casts_per_min_med": 58.78,
+    "downtime_s_med": 26.31,
+    "downtime_s_per_min_med": 5.31,
+    "gaps3s_count_med": 4,
+    "filler_pct_med": 25.8
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "killtime": {
+    "rank1_5_med_s": 250,
+    "all100_med_s": 285,
+    "rank1_5_vs_all_diff_s": -35,
+    "rank1_5_vs_all_diff_pct": -12.2,
+    "by_band_med_s": {
+     "r1_5": 250,
+     "r6_20": 261,
+     "r21_50": 287,
+     "r51_100": 289
+    },
+    "rank1_10_slower_than_med_pct": 0
+   },
+   "pi": {
+    "bm_rank_1_20": {
+     "n": 3,
+     "pi": 1,
+     "pi_pct": 33
+    },
+    "bm_rank_21_100": {
+     "n": 13,
+     "pi": 5,
+     "pi_pct": 38
+    },
+    "bm_all_known": {
+     "n": 16,
+     "pi": 6,
+     "pi_pct": 38
+    },
+    "bm_pi_true_rank_med": 38,
+    "bm_pi_false_rank_med": 49,
+    "allspec_rank1_10": {
+     "n": 28,
+     "pi": 13,
+     "pi_pct": 46
+    }
+   }
+  },
+  "Imperator Averzian": {
+   "rank_1_5": {
+    "n": 5,
+    "kc_per_min_med": 18.67,
+    "barbed_per_min_med": 10.14,
+    "casts_per_min_med": 49.44,
+    "downtime_s_med": 6.37,
+    "downtime_s_per_min_med": 1.47,
+    "gaps3s_count_med": 2,
+    "filler_pct_med": 22.1
+   },
+   "rank_6_20": {
+    "n": 14,
+    "kc_per_min_med": 18.84,
+    "barbed_per_min_med": 12.08,
+    "casts_per_min_med": 52.16,
+    "downtime_s_med": 7.12,
+    "downtime_s_per_min_med": 1.99,
+    "gaps3s_count_med": 2,
+    "filler_pct_med": 22.5
+   },
+   "rank_21_100": {
+    "n": 22,
+    "kc_per_min_med": 18.63,
+    "barbed_per_min_med": 12.21,
+    "casts_per_min_med": 52.14,
+    "downtime_s_med": 6.65,
+    "downtime_s_per_min_med": 1.84,
+    "gaps3s_count_med": 2,
+    "filler_pct_med": 23.0
+   },
+   "all": {
+    "n": 41,
+    "kc_per_min_med": 18.84,
+    "barbed_per_min_med": 11.88,
+    "casts_per_min_med": 52.14,
+    "downtime_s_med": 6.71,
+    "downtime_s_per_min_med": 1.94,
+    "gaps3s_count_med": 2,
+    "filler_pct_med": 22.7
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    8,
+    9,
+    10,
+    11
+   ],
+   "killtime": {
+    "rank1_5_med_s": 213,
+    "all100_med_s": 216,
+    "rank1_5_vs_all_diff_s": -3,
+    "rank1_5_vs_all_diff_pct": -1.5,
+    "by_band_med_s": {
+     "r1_5": 213,
+     "r6_20": 212,
+     "r21_50": 210,
+     "r51_100": 223
+    },
+    "rank1_10_slower_than_med_pct": 40
+   },
+   "pi": {
+    "bm_rank_1_20": {
+     "n": 4,
+     "pi": 0,
+     "pi_pct": 0
+    },
+    "bm_rank_21_100": {
+     "n": 19,
+     "pi": 7,
+     "pi_pct": 37
+    },
+    "bm_all_known": {
+     "n": 23,
+     "pi": 7,
+     "pi_pct": 30
+    },
+    "bm_pi_true_rank_med": 60,
+    "bm_pi_false_rank_med": 45,
+    "allspec_rank1_10": {
+     "n": 96,
+     "pi": 36,
+     "pi_pct": 38
+    }
+   }
+  },
+  "Lightblinded Vanguard": {
+   "rank_1_5": {
+    "n": 5,
+    "kc_per_min_med": 17.56,
+    "barbed_per_min_med": 12.83,
+    "casts_per_min_med": 54.03,
+    "downtime_s_med": 9.94,
+    "downtime_s_per_min_med": 1.67,
+    "gaps3s_count_med": 3,
+    "filler_pct_med": 13.2
+   },
+   "rank_6_20": {
+    "n": 15,
+    "kc_per_min_med": 17.04,
+    "barbed_per_min_med": 12.69,
+    "casts_per_min_med": 53.08,
+    "downtime_s_med": 15.94,
+    "downtime_s_per_min_med": 2.34,
+    "gaps3s_count_med": 4,
+    "filler_pct_med": 14.0
+   },
+   "rank_21_100": {
+    "n": 21,
+    "kc_per_min_med": 17.58,
+    "barbed_per_min_med": 12.77,
+    "casts_per_min_med": 53.36,
+    "downtime_s_med": 13.51,
+    "downtime_s_per_min_med": 2.17,
+    "gaps3s_count_med": 4,
+    "filler_pct_med": 13.0
+   },
+   "all": {
+    "n": 41,
+    "kc_per_min_med": 17.37,
+    "barbed_per_min_med": 12.77,
+    "casts_per_min_med": 53.24,
+    "downtime_s_med": 13.18,
+    "downtime_s_per_min_med": 2.11,
+    "gaps3s_count_med": 4,
+    "filler_pct_med": 13.2
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 356,
+    "all100_med_s": 388,
+    "rank1_5_vs_all_diff_s": -31,
+    "rank1_5_vs_all_diff_pct": -8.1,
+    "by_band_med_s": {
+     "r1_5": 356,
+     "r6_20": 378,
+     "r21_50": 375,
+     "r51_100": 396
+    },
+    "rank1_10_slower_than_med_pct": 40
+   },
+   "pi": {
+    "bm_rank_1_20": {
+     "n": 1,
+     "pi": 0,
+     "pi_pct": 0
+    },
+    "bm_rank_21_100": {
+     "n": 8,
+     "pi": 4,
+     "pi_pct": 50
+    },
+    "bm_all_known": {
+     "n": 9,
+     "pi": 4,
+     "pi_pct": 44
+    },
+    "bm_pi_true_rank_med": 75,
+    "bm_pi_false_rank_med": 83,
+    "allspec_rank1_10": {
+     "n": 33,
+     "pi": 18,
+     "pi_pct": 55
+    }
+   }
+  },
+  "Chimaerus, the Undreamt God": {
+   "rank_1_5": {
+    "n": 5,
+    "kc_per_min_med": 19.27,
+    "barbed_per_min_med": 11.31,
+    "casts_per_min_med": 53.53,
+    "downtime_s_med": 3.44,
+    "downtime_s_per_min_med": 1.47,
+    "gaps3s_count_med": 1,
+    "filler_pct_med": 22.5
+   },
+   "rank_6_20": {
+    "n": 15,
+    "kc_per_min_med": 19.8,
+    "barbed_per_min_med": 11.09,
+    "casts_per_min_med": 53.43,
+    "downtime_s_med": 7.45,
+    "downtime_s_per_min_med": 3.02,
+    "gaps3s_count_med": 2,
+    "filler_pct_med": 21.3
+   },
+   "rank_21_100": {
+    "n": 19,
+    "kc_per_min_med": 19.13,
+    "barbed_per_min_med": 11.25,
+    "casts_per_min_med": 59.48,
+    "downtime_s_med": 3.6,
+    "downtime_s_per_min_med": 1.47,
+    "gaps3s_count_med": 1,
+    "filler_pct_med": 25.5
+   },
+   "all": {
+    "n": 39,
+    "kc_per_min_med": 19.3,
+    "barbed_per_min_med": 11.2,
+    "casts_per_min_med": 54.61,
+    "downtime_s_med": 4.05,
+    "downtime_s_per_min_med": 1.7,
+    "gaps3s_count_med": 1,
+    "filler_pct_med": 23.4
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 148,
+    "all100_med_s": 145,
+    "rank1_5_vs_all_diff_s": 3,
+    "rank1_5_vs_all_diff_pct": 1.8,
+    "by_band_med_s": {
+     "r1_5": 148,
+     "r6_20": 147,
+     "r21_50": 144,
+     "r51_100": 145
+    },
+    "rank1_10_slower_than_med_pct": 50
+   },
+   "pi": {
+    "bm_rank_1_20": {
+     "n": 4,
+     "pi": 3,
+     "pi_pct": 75
+    },
+    "bm_rank_21_100": {
+     "n": 5,
+     "pi": 1,
+     "pi_pct": 20
+    },
+    "bm_all_known": {
+     "n": 9,
+     "pi": 4,
+     "pi_pct": 44
+    },
+    "bm_pi_true_rank_med": 13,
+    "bm_pi_false_rank_med": 48,
+    "allspec_rank1_10": {
+     "n": 28,
+     "pi": 12,
+     "pi_pct": 43
+    }
+   }
+  },
+  "Crown of the Cosmos": {
+   "rank_1_5": {
+    "n": 4,
+    "kc_per_min_med": 17.65,
+    "barbed_per_min_med": 10.03,
+    "casts_per_min_med": 58.31,
+    "downtime_s_med": 48.3,
+    "downtime_s_per_min_med": 6.46,
+    "gaps3s_count_med": 5,
+    "filler_pct_med": 29.8
+   },
+   "rank_6_20": {
+    "n": 15,
+    "kc_per_min_med": 16.4,
+    "barbed_per_min_med": 9.74,
+    "casts_per_min_med": 56.54,
+    "downtime_s_med": 34.35,
+    "downtime_s_per_min_med": 4.78,
+    "gaps3s_count_med": 4,
+    "filler_pct_med": 30.2
+   },
+   "rank_21_100": {
+    "n": 17,
+    "kc_per_min_med": 16.52,
+    "barbed_per_min_med": 9.62,
+    "casts_per_min_med": 56.27,
+    "downtime_s_med": 34.53,
+    "downtime_s_per_min_med": 4.58,
+    "gaps3s_count_med": 5,
+    "filler_pct_med": 28.8
+   },
+   "all": {
+    "n": 36,
+    "kc_per_min_med": 16.52,
+    "barbed_per_min_med": 9.75,
+    "casts_per_min_med": 56.67,
+    "downtime_s_med": 36.77,
+    "downtime_s_per_min_med": 4.85,
+    "gaps3s_count_med": 5,
+    "filler_pct_med": 29.3
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "killtime": {
+    "rank1_5_med_s": 449,
+    "all100_med_s": 466,
+    "rank1_5_vs_all_diff_s": -17,
+    "rank1_5_vs_all_diff_pct": -3.6,
+    "by_band_med_s": {
+     "r1_5": 449,
+     "r6_20": 449,
+     "r21_50": 465,
+     "r51_100": 470
+    },
+    "rank1_10_slower_than_med_pct": 20
+   },
+   "pi": {
+    "bm_rank_1_20": null,
+    "bm_rank_21_100": {
+     "n": 6,
+     "pi": 2,
+     "pi_pct": 33
+    },
+    "bm_all_known": {
+     "n": 6,
+     "pi": 2,
+     "pi_pct": 33
+    },
+    "bm_pi_true_rank_med": 47,
+    "bm_pi_false_rank_med": 83,
+    "allspec_rank1_10": {
+     "n": 23,
+     "pi": 11,
+     "pi_pct": 48
+    }
+   }
+  },
+  "Fallen-King Salhadaar": {
+   "rank_1_5": {
+    "n": 5,
+    "kc_per_min_med": 18.44,
+    "barbed_per_min_med": 11.11,
+    "casts_per_min_med": 49.55,
+    "downtime_s_med": 23.16,
+    "downtime_s_per_min_med": 4.27,
+    "gaps3s_count_med": 6,
+    "filler_pct_med": 20.4
+   },
+   "rank_6_20": {
+    "n": 15,
+    "kc_per_min_med": 17.97,
+    "barbed_per_min_med": 10.95,
+    "casts_per_min_med": 52.47,
+    "downtime_s_med": 18.12,
+    "downtime_s_per_min_med": 3.38,
+    "gaps3s_count_med": 4,
+    "filler_pct_med": 22.1
+   },
+   "rank_21_100": {
+    "n": 15,
+    "kc_per_min_med": 19.26,
+    "barbed_per_min_med": 11.08,
+    "casts_per_min_med": 63.85,
+    "downtime_s_med": 0,
+    "downtime_s_per_min_med": 0.0,
+    "gaps3s_count_med": 0,
+    "filler_pct_med": 28.4
+   },
+   "all": {
+    "n": 35,
+    "kc_per_min_med": 18.44,
+    "barbed_per_min_med": 11.06,
+    "casts_per_min_med": 61.63,
+    "downtime_s_med": 6.6,
+    "downtime_s_per_min_med": 1.18,
+    "gaps3s_count_med": 2,
+    "filler_pct_med": 26.8
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 321,
+    "all100_med_s": 217,
+    "rank1_5_vs_all_diff_s": 104,
+    "rank1_5_vs_all_diff_pct": 47.7,
+    "by_band_med_s": {
+     "r1_5": 321,
+     "r6_20": 319,
+     "r21_50": 206,
+     "r51_100": 214
+    },
+    "rank1_10_slower_than_med_pct": 70
+   },
+   "pi": {
+    "bm_rank_1_20": {
+     "n": 2,
+     "pi": 1,
+     "pi_pct": 50
+    },
+    "bm_rank_21_100": {
+     "n": 7,
+     "pi": 3,
+     "pi_pct": 43
+    },
+    "bm_all_known": {
+     "n": 9,
+     "pi": 4,
+     "pi_pct": 44
+    },
+    "bm_pi_true_rank_med": 24,
+    "bm_pi_false_rank_med": 34,
+    "allspec_rank1_10": {
+     "n": 29,
+     "pi": 15,
+     "pi_pct": 52
+    }
+   }
+  },
+  "Midnight Falls": {
+   "rank_1_5": {
+    "n": 5,
+    "kc_per_min_med": 18.98,
+    "barbed_per_min_med": 10.59,
+    "casts_per_min_med": 62.92,
+    "downtime_s_med": 25.65,
+    "downtime_s_per_min_med": 2.74,
+    "gaps3s_count_med": 5,
+    "filler_pct_med": 27.4
+   },
+   "rank_6_20": {
+    "n": 15,
+    "kc_per_min_med": 18.36,
+    "barbed_per_min_med": 10.52,
+    "casts_per_min_med": 61.49,
+    "downtime_s_med": 24.48,
+    "downtime_s_per_min_med": 2.53,
+    "gaps3s_count_med": 4,
+    "filler_pct_med": 27.2
+   },
+   "rank_21_100": {
+    "n": 14,
+    "kc_per_min_med": 18.37,
+    "barbed_per_min_med": 10.51,
+    "casts_per_min_med": 61.88,
+    "downtime_s_med": 27.81,
+    "downtime_s_per_min_med": 2.93,
+    "gaps3s_count_med": 5,
+    "filler_pct_med": 27.6
+   },
+   "all": {
+    "n": 34,
+    "kc_per_min_med": 18.64,
+    "barbed_per_min_med": 10.52,
+    "casts_per_min_med": 61.88,
+    "downtime_s_med": 27.2,
+    "downtime_s_per_min_med": 2.84,
+    "gaps3s_count_med": 5,
+    "filler_pct_med": 27.5
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 563,
+    "all100_med_s": 565,
+    "rank1_5_vs_all_diff_s": -2,
+    "rank1_5_vs_all_diff_pct": -0.4,
+    "by_band_med_s": {
+     "r1_5": 563,
+     "r6_20": 572,
+     "r21_50": 560,
+     "r51_100": 563
+    },
+    "rank1_10_slower_than_med_pct": 50
+   },
+   "pi": {
+    "bm_rank_1_20": null,
+    "bm_rank_21_100": {
+     "n": 2,
+     "pi": 1,
+     "pi_pct": 50
+    },
+    "bm_all_known": {
+     "n": 2,
+     "pi": 1,
+     "pi_pct": 50
+    },
+    "bm_pi_true_rank_med": 27,
+    "bm_pi_false_rank_med": 98,
+    "allspec_rank1_10": {
+     "n": 22,
+     "pi": 14,
+     "pi_pct": 64
+    }
+   }
+  }
+ },
+ "overall": {
+  "rank_1_5": {
+   "n": 43,
+   "kc_per_min_med": 18.68,
+   "barbed_per_min_med": 11.29,
+   "casts_per_min_med": 55.26,
+   "downtime_s_med": 12.72,
+   "downtime_s_per_min_med": 2.34,
+   "gaps3s_count_med": 3,
+   "filler_pct_med": 24.1
+  },
+  "rank_6_20": {
+   "n": 134,
+   "kc_per_min_med": 18.03,
+   "barbed_per_min_med": 11.09,
+   "casts_per_min_med": 56.16,
+   "downtime_s_med": 15.91,
+   "downtime_s_per_min_med": 2.75,
+   "gaps3s_count_med": 3,
+   "filler_pct_med": 25.6
+  },
+  "rank_21_100": {
+   "n": 185,
+   "kc_per_min_med": 18.13,
+   "barbed_per_min_med": 11.25,
+   "casts_per_min_med": 56.42,
+   "downtime_s_med": 14.19,
+   "downtime_s_per_min_med": 2.69,
+   "gaps3s_count_med": 3,
+   "filler_pct_med": 25.7
+  }
+ },
+ "deep_dive_salhadaar": {
+  "note": "마구잡이 난타(다중타겟 전용) 시전 유무로 '쫄 페이즈를 본 킬'과 '쫄 전에 끝낸 킬'을 구분",
+  "kills_with_adds": {
+   "n": 16,
+   "dur_med_s": 342,
+   "rank_med": 15
+  },
+  "kills_no_adds": {
+   "n": 19,
+   "dur_med_s": 199,
+   "rank_med": 22
+  },
+  "top5_with_adds": 4,
+  "per_kill": [
+   {
+    "rank": 1,
+    "dur_s": 326,
+    "wild_thrash_casts": 15
+   },
+   {
+    "rank": 2,
+    "dur_s": 321,
+    "wild_thrash_casts": 13
+   },
+   {
+    "rank": 3,
+    "dur_s": 319,
+    "wild_thrash_casts": 9
+   },
+   {
+    "rank": 4,
+    "dur_s": 329,
+    "wild_thrash_casts": 9
+   },
+   {
+    "rank": 5,
+    "dur_s": 196,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 6,
+    "dur_s": 319,
+    "wild_thrash_casts": 18
+   },
+   {
+    "rank": 7,
+    "dur_s": 163,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 8,
+    "dur_s": 329,
+    "wild_thrash_casts": 8
+   },
+   {
+    "rank": 9,
+    "dur_s": 323,
+    "wild_thrash_casts": 16
+   },
+   {
+    "rank": 10,
+    "dur_s": 198,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 11,
+    "dur_s": 196,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 12,
+    "dur_s": 355,
+    "wild_thrash_casts": 18
+   },
+   {
+    "rank": 13,
+    "dur_s": 197,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 14,
+    "dur_s": 201,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 15,
+    "dur_s": 371,
+    "wild_thrash_casts": 22
+   },
+   {
+    "rank": 16,
+    "dur_s": 200,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 17,
+    "dur_s": 236,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 18,
+    "dur_s": 351,
+    "wild_thrash_casts": 9
+   },
+   {
+    "rank": 19,
+    "dur_s": 322,
+    "wild_thrash_casts": 14
+   },
+   {
+    "rank": 20,
+    "dur_s": 356,
+    "wild_thrash_casts": 10
+   },
+   {
+    "rank": 21,
+    "dur_s": 200,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 22,
+    "dur_s": 227,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 23,
+    "dur_s": 344,
+    "wild_thrash_casts": 19
+   },
+   {
+    "rank": 24,
+    "dur_s": 202,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 25,
+    "dur_s": 197,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 28,
+    "dur_s": 370,
+    "wild_thrash_casts": 9
+   },
+   {
+    "rank": 29,
+    "dur_s": 342,
+    "wild_thrash_casts": 19
+   },
+   {
+    "rank": 30,
+    "dur_s": 168,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 31,
+    "dur_s": 193,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 32,
+    "dur_s": 324,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 33,
+    "dur_s": 179,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 34,
+    "dur_s": 348,
+    "wild_thrash_casts": 10
+   },
+   {
+    "rank": 57,
+    "dur_s": 214,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 79,
+    "dur_s": 199,
+    "wild_thrash_casts": 0
+   },
+   {
+    "rank": 98,
+    "dur_s": 234,
+    "wild_thrash_casts": 0
+   }
+  ]
+ },
+ "pi_overall_bm": {
+  "true_n": 42,
+  "true_rank_med": 43,
+  "false_n": 65,
+  "false_rank_med": 51,
+  "rank1_20_pi_pct": 42,
+  "rank1_20_known_n": 19
+ }
+}

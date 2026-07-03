@@ -940,10 +940,10 @@ function renderRotBody() {
           </div>
         </div>
       </div>` : ''}
-      ${f.mage_tips && f.mage_tips.length ? `
+      ${f.util_tips && (f.util_tips.items || []).length ? `
       <div class="fl-sec">
-        <div class="fl-h">법사라서 되는 것들 — 유틸 꿀팁 (전부 상위 로그 사용 빈도 근거)</div>
-        ${f.mage_tips.map(t => `<div class="fl-track-item"><span class="fl-track-s">${wsify(esc(t.s))}</span>${wsify(esc(t.n))}</div>`).join('')}
+        <div class="fl-h">${esc(f.util_tips.title || '유틸 꿀팁')}</div>
+        ${f.util_tips.items.map(t => `<div class="fl-track-item"><span class="fl-track-s">${wsify(esc(t.s))}</span>${wsify(esc(t.n))}</div>`).join('')}
       </div>` : ''}
       ${gloss ? `<div class="fl-sec"><div class="fl-h">처음 보는 말</div><div class="fl-gloss">${gloss}</div></div>` : ''}
       <details class="fl-details">
