@@ -902,29 +902,37 @@ function renderRotBody() {
         <div class="fl-a">${wsify(esc(c.a))}${tone ? `<span class="fl-tone ${tone}">${TONE_LBL[tone]}</span>` : ''}</div>
       </div>`;
     }).join('');
-    const openerSteps = (f.opener || []).map((o, i) => `
+    const openerStrip = (steps) => (steps || []).map((o, i) => `
       <div class="fl-op-step">
         <div class="fl-op-num">${i + 1}</div>
         <div class="fl-op-icon">${wsify(esc(o.s))}</div>
         <div class="fl-op-cap">${esc(o.t || '')}</div>
       </div>`).join('<div class="fl-op-arrow">→</div>');
+    // 오프너: 단일/광역 분리(opener_single/opener_aoe) 지원, 없으면 공용(opener)
+    const openerBlocks = [];
+    if (f.opener_single) openerBlocks.push(['오프너 (단일 보스)', f.opener_single]);
+    if (f.opener_aoe) openerBlocks.push(['오프너 (쫄 나오는 보스)', f.opener_aoe]);
+    if (!openerBlocks.length && f.opener) openerBlocks.push(['오프너 — 전투 시작 순서 그대로', f.opener]);
+    const openerHtml = openerBlocks.map(([title, steps]) => `
+      <div class="fl-sec">
+        <div class="fl-h">${esc(title)}</div>
+        <div class="fl-opener">${openerStrip(steps)}</div>
+      </div>`).join('');
     const gloss = (f.glossary || []).map(g =>
       `<div class="fl-gloss-item"><b>${esc(g.w)}</b> ${wsify(esc(g.m))}</div>`).join('');
+    const tipItem = (t) => `<div class="fl-track-item"><span class="fl-track-s">${wsify(esc(t.s))}</span>${wsify(esc(t.n))}${t.macro ? `<pre class="fl-macro">${esc(t.macro)}</pre>` : ''}</div>`;
     $('#rot-body').innerHTML = `
       ${head}
       <div class="fl-sec">
-        <div class="fl-h">다음에 뭘 누르지? — 위에서부터, 지금 상황에 맞는 첫 줄</div>
+        <div class="fl-h">다음에 뭘 누르지? — 위에서부터 우선순위</div>
         <div class="fl-note">${esc(f.note || '')}</div>
         <div class="fl-list">${rows}</div>
         ${f.aoe_diff && f.aoe_diff.length ? `
         <div class="fl-aoe"><div class="fl-aoe-h">여러 마리일 때 (광역)</div>
           ${f.aoe_diff.map(x => `<div class="fl-aoe-line">${wsify(esc(x))}</div>`).join('')}</div>` : ''}
       </div>
-      <div class="fl-sec">
-        <div class="fl-h">오프너 — 전투 시작 순서 그대로</div>
-        <div class="fl-opener">${openerSteps}</div>
-        ${f.opener_note ? `<div class="fl-note">${wsify(esc(f.opener_note))}</div>` : ''}
-      </div>
+      ${openerHtml}
+      ${f.opener_note ? `<div class="fl-note" style="margin:-6px 4px 10px">${wsify(esc(f.opener_note))}</div>` : ''}
       ${f.tracking ? `
       <div class="fl-sec">
         <div class="fl-h">화면에서 볼 것 — 추적할 버프·스택</div>
@@ -943,9 +951,9 @@ function renderRotBody() {
       ${f.util_tips && (f.util_tips.items || []).length ? `
       <div class="fl-sec">
         <div class="fl-h">${esc(f.util_tips.title || '유틸 꿀팁')}</div>
-        ${f.util_tips.items.map(t => `<div class="fl-track-item"><span class="fl-track-s">${wsify(esc(t.s))}</span>${wsify(esc(t.n))}</div>`).join('')}
+        ${f.util_tips.items.map(tipItem).join('')}
       </div>` : ''}
-      ${gloss ? `<div class="fl-sec"><div class="fl-h">처음 보는 말</div><div class="fl-gloss">${gloss}</div></div>` : ''}
+      ${gloss ? `<div class="fl-sec"><div class="fl-h">용어 설명</div><div class="fl-gloss">${gloss}</div></div>` : ''}
       <details class="fl-details">
         <summary>자세한 설명 전문 (조건별 원문)</summary>
         <div class="rot-cols">

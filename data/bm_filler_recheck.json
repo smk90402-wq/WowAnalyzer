@@ -1,0 +1,244 @@
+{
+ "meta": {
+  "date": "2026-07-04",
+  "question": "'단일 필러 54%=코브라'가 코브라 우선순위 증거인가, 날카 충전 고갈의 결과인가 (본캐 유저 반론 검증)",
+  "sample": "12.0.7 top100 신화 BM 200킬 (마구잡이 난타<3회 = 단일 위주 판만)",
+  "method": "날카 2충전/재충전 시뮬(리셋 프록은 관측 불가 → 시뮬 충전수는 항상 '실제 이하'인 하한). 충전 하한이 1 이상인 순간의 필러 선택만 보면 '충전이 분명히 있는데 뭘 눌렀나'를 확정할 수 있음."
+ },
+ "barbed_charge_reality": {
+  "tooltip": "18초 재충전, 2회 충전 (spell_db)",
+  "observed": "20초 창에 날카 5~8발이 흔함 → 재충전만으론 불가능, 리셋/추가충전이 대량 존재",
+  "bw_grant_check": {
+   "bw_casts": 1821,
+   "barbed_in_6s_before": 0.9,
+   "barbed_in_6s_after": 1.77
+  }
+ },
+ "decision_by_charge_state": {
+  "S1_툴팁18s": {
+   "R_note": "18s 고정",
+   "clamp_pct_of_barb": 66.0,
+   "state0": {
+    "cobra": 14387,
+    "barbed": 7299,
+    "cobra_pct": 66.3
+   },
+   "state1": {
+    "cobra": 3434,
+    "barbed": 3531,
+    "cobra_pct": 49.3
+   },
+   "state2": {
+    "cobra": 8,
+    "barbed": 222,
+    "cobra_pct": 3.5
+   },
+   "state_ge1": {
+    "cobra": 3442,
+    "barbed": 3753,
+    "cobra_pct": 47.8
+   }
+  },
+  "S2_가속반영": {
+   "R_note": "판별 가속 반영 18s/(1+가속)",
+   "clamp_pct_of_barb": 46.2,
+   "state0": {
+    "cobra": 12141,
+    "barbed": 5108,
+    "cobra_pct": 70.4
+   },
+   "state1": {
+    "cobra": 5665,
+    "barbed": 5636,
+    "cobra_pct": 50.1
+   },
+   "state2": {
+    "cobra": 23,
+    "barbed": 308,
+    "cobra_pct": 6.9
+   },
+   "state_ge1": {
+    "cobra": 5688,
+    "barbed": 5944,
+    "cobra_pct": 48.9
+   }
+  },
+  "S3_실효8s": {
+   "R_note": "8s 고정",
+   "clamp_pct_of_barb": 28.3,
+   "state0": {
+    "cobra": 9426,
+    "barbed": 3128,
+    "cobra_pct": 75.1
+   },
+   "state1": {
+    "cobra": 8335,
+    "barbed": 7280,
+    "cobra_pct": 53.4
+   },
+   "state2": {
+    "cobra": 68,
+    "barbed": 644,
+    "cobra_pct": 9.6
+   },
+   "state_ge1": {
+    "cobra": 8403,
+    "barbed": 7924,
+    "cobra_pct": 51.5
+   }
+  },
+  "S4_실효6s": {
+   "R_note": "6s 고정",
+   "clamp_pct_of_barb": 9.9,
+   "state0": {
+    "cobra": 5935,
+    "barbed": 1091,
+    "cobra_pct": 84.5
+   },
+   "state1": {
+    "cobra": 11390,
+    "barbed": 7777,
+    "cobra_pct": 59.4
+   },
+   "state2": {
+    "cobra": 504,
+    "barbed": 2184,
+    "cobra_pct": 18.8
+   },
+   "state_ge1": {
+    "cobra": 11894,
+    "barbed": 9961,
+    "cobra_pct": 54.4
+   }
+  }
+ },
+ "by_rank_band": {
+  "S1_툴팁18s": {
+   "rank_1_20": {
+    "state1": {
+     "cobra": 1690,
+     "barbed": 1732,
+     "cobra_pct": 49.4
+    },
+    "state2": {
+     "cobra": 3,
+     "barbed": 106,
+     "cobra_pct": 2.8
+    }
+   },
+   "rank_21_100": {
+    "state1": {
+     "cobra": 1744,
+     "barbed": 1799,
+     "cobra_pct": 49.2
+    },
+    "state2": {
+     "cobra": 5,
+     "barbed": 116,
+     "cobra_pct": 4.1
+    }
+   }
+  },
+  "S2_가속반영": {
+   "rank_1_20": {
+    "state1": {
+     "cobra": 2829,
+     "barbed": 2786,
+     "cobra_pct": 50.4
+    },
+    "state2": {
+     "cobra": 12,
+     "barbed": 141,
+     "cobra_pct": 7.8
+    }
+   },
+   "rank_21_100": {
+    "state1": {
+     "cobra": 2836,
+     "barbed": 2850,
+     "cobra_pct": 49.9
+    },
+    "state2": {
+     "cobra": 11,
+     "barbed": 167,
+     "cobra_pct": 6.2
+    }
+   }
+  },
+  "S3_실효8s": {
+   "rank_1_20": {
+    "state1": {
+     "cobra": 4082,
+     "barbed": 3581,
+     "cobra_pct": 53.3
+    },
+    "state2": {
+     "cobra": 35,
+     "barbed": 312,
+     "cobra_pct": 10.1
+    }
+   },
+   "rank_21_100": {
+    "state1": {
+     "cobra": 4253,
+     "barbed": 3699,
+     "cobra_pct": 53.5
+    },
+    "state2": {
+     "cobra": 33,
+     "barbed": 332,
+     "cobra_pct": 9.0
+    }
+   }
+  },
+  "S4_실효6s": {
+   "rank_1_20": {
+    "state1": {
+     "cobra": 5612,
+     "barbed": 3850,
+     "cobra_pct": 59.3
+    },
+    "state2": {
+     "cobra": 247,
+     "barbed": 1047,
+     "cobra_pct": 19.1
+    }
+   },
+   "rank_21_100": {
+    "state1": {
+     "cobra": 5778,
+     "barbed": 3927,
+     "cobra_pct": 59.5
+    },
+    "state2": {
+     "cobra": 257,
+     "barbed": 1137,
+     "cobra_pct": 18.4
+    }
+   }
+  }
+ },
+ "order_when_both": {
+  "kc_windows_with_both": 4339,
+  "cobra_first_pct": 72.4,
+  "cobra_then_barbed_next_gcd": 2686,
+  "barbed_then_cobra_next_gcd": 1291
+ },
+ "saving_for_bw_check": {
+  "cobra_with_charge_n": 4726,
+  "bw_within_6s_after": 875,
+  "pct": 18.5,
+  "note": "'격노 버스트용으로 날카를 아껴둔 것' 반론 검증 — 충전 있는데 코브라 누른 순간의 18.5%만 6초 안에 격노가 옴. 나머지 81.5%는 아껴둘 이유가 없는데도 코브라를 먼저 누름."
+ },
+ "cobra_proc_scan": {
+  "found": false,
+  "note": "코브라 시전 직전 2.5s 버프 lift 스캔 — 최고 lift 1.5(원정순찰대원의 매의 눈, 출현 2.5%)로 전부 장신구/외부 버프. 코브라를 강화하는 클래스 프록 버프는 top100 로그에 없음. (날카 쪽은 야수의 격노 직후 몰림 lift 2.2 — 프록이 아니라 버스트 정렬)"
+ },
+ "conclusion": {
+  "user_method_point": "인정 — '필러의 54%가 코브라'라는 빈도만으로는 우선순위를 말할 수 없음. 충전 고갈로도 같은 빈도가 나올 수 있다는 지적이 맞음. 기존 문구의 근거 제시가 틀렸음.",
+  "user_hypothesis_test": "그러나 '충전 없을 때만 코브라'는 실측과 다름 — 날카 충전이 확실히 남아 있는 순간에도 필러의 절반이 코브라(가장 보수적 추정 47.8%, 현실적 추정 51~59%)이고, 살상 명령 사이에 둘 다 나올 땐 코브라를 먼저 누른 게 72.4%.",
+  "real_barbed_rule": "날카가 우선이 되는 순간은 딱 두 가지 — ① 2충전(넘치기 직전)이면 즉시(이때 날카 선택 81~97%), ② 야수의 격노 직후(직후 6초 날카 1.77발 vs 직전 0.90발 — 격노에 맞춰 몰아씀). 그 외엔 서두르지 않음(출혈은 늦게 발라도 남은 피해가 합산).",
+  "cobra_proc": "코브라 강화 프록은 이번 시즌(무리의 지도자 빌드) 로그에 존재하지 않음. 코브라의 가치는 프록이 아니라 '살상 명령 쿨 1초 단축'(툴팁 내장 효과).",
+  "guide_sentence": "단일 필러: 날카로운 사격은 '2충전으로 넘치기 직전'과 '격노 직후'에만 먼저 쓰고, 그 외 남는 글쿨은 충전이 있어도 코브라(살상 명령 쿨 1초 단축) — 상위 100 로그에서 충전이 확실히 남아 있어도 절반은 코브라를 먼저 눌렀다."
+ }
+}

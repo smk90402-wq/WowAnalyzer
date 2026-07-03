@@ -1111,3 +1111,11 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   background: rgba(255,255,255,0.03); border-radius: 6px; padding: 8px 10px; margin-bottom: 5px; }
 .fl-track-item .fl-track-s { font-weight: 700; margin-right: 8px; }
 .fl-track-item .ws-ic { width: 20px; height: 20px; border-radius: 4px; }
+
+/* 매크로 블록 — 복사하기 쉽게 줄 단위 표시 */
+.fl-macro {
+  margin: 8px 0 2px; padding: 9px 12px; border-radius: 6px;
+  background: var(--bg-0); border: 1px solid var(--border-soft);
+  font-family: Consolas, monospace; font-size: 12px; line-height: 1.7;
+  color: #cfe3cf; white-space: pre; overflow-x: auto; user-select: all;
+}
