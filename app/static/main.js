@@ -913,7 +913,7 @@ function renderRotBody() {
     $('#rot-body').innerHTML = `
       ${head}
       <div class="fl-sec">
-        <div class="fl-h">뭘 누를까? — 매 순간 위에서부터, 처음 '예'인 줄</div>
+        <div class="fl-h">다음에 뭘 누르지? — 위에서부터, 지금 상황에 맞는 첫 줄</div>
         <div class="fl-note">${esc(f.note || '')}</div>
         <div class="fl-list">${rows}</div>
         ${f.aoe_diff && f.aoe_diff.length ? `

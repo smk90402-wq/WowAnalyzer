@@ -164,6 +164,7 @@ def main() -> None:
         "WoW 한밤 레이드 로그 분석기 (web)",
         url=f"http://127.0.0.1:{args.port}/",
         width=win_w, height=win_h,
+        text_select=True,   # 가이드 문구 드래그 복사 허용 (pywebview 기본값이 선택 금지)
         **kw,
     )
     webview.start()  # 블로킹
