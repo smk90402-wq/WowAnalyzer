@@ -102,7 +102,7 @@ function renderSpecMeta(rows) {
     <tr class="meta-row" data-idx="${i}" title="클릭 = 특징 팝업">
       <td class="mute num">${r.rank}</td>
       <td>${esc(r.kr || (r.class_kr + ' ' + r.spec_kr))}</td>
-      <td class="right num strong" title="${r.score_parse != null ? `파스력 ${fmt(r.score_parse,3)} × 0.65 + 막공환영 ${r.pug || '-'}/5 × 0.35` : ''}">${fmt(r.score, 3)}</td>
+      <td class="right num strong" title="${r.score_parse != null ? `로그점수 잘나옴 ${fmt(r.score_parse,3)} × 0.65 + 막공환영 ${r.pug || '-'}/5 × 0.35` : ''}">${fmt(r.score, 3)}</td>
       <td class="right num">${fmt(r.ease)}</td>
       <td class="right mute num">${r.rot_rank != null ? Math.round(r.rot_rank) : '-'}</td>
       <td class="right num ${r.reactive_stability >= 0.7 ? 'good' : (r.reactive_stability != null && r.reactive_stability < 0.4 ? 'bad' : '')}">${fmt(r.reactive_stability)}</td>
@@ -112,7 +112,7 @@ function renderSpecMeta(rows) {
       ${tierCell(r.raid_tier)}
       ${tierCell(r.mplus_tier)}
       <td class="right num ${tuneCls(r.tuning)}" title="${esc(r.tuning_note || '')}">${r.tuning || '-'}</td>
-      <td class="right num ${r.pop_favor >= 70 ? 'good' : (r.pop_favor != null && r.pop_favor < 35 ? 'bad' : 'mute')}" title="실제 모집단 ~${r.pop_avg != null ? Number(r.pop_avg).toLocaleString() : '?'}명">${r.pop_favor != null ? Math.round(r.pop_favor) : '-'}</td>
+      <td class="right num ${r.pop_favor >= 70 ? 'good' : (r.pop_favor != null && r.pop_favor < 35 ? 'bad' : 'mute')}" title="집계된 실제 인원 ~${r.pop_avg != null ? Number(r.pop_avg).toLocaleString() : '?'}명">${r.pop_favor != null ? Math.round(r.pop_favor) : '-'}</td>
       <td class="right num ${r.pug >= 4 ? 'good' : (r.pug && r.pug <= 2 ? 'bad' : 'mute')}" title="${esc(r.pug_note || '')}${r.pug_to != null ? ` (참고·정공로스터: 공대당 ${r.pug_to}자리·채용 ${r.pug_present}%)` : ''}">${r.pug || '-'}</td>
       <td class="right num ${r.burden >= 4 ? 'bad' : (r.burden && r.burden <= 2 ? 'good' : 'mute')}" title="${esc(r.burden_note || '')}">${r.burden || '-'}</td>
       <td class="right num ${aoeHi ? 'good' : 'mute'}">${r.aoe_ratio != null ? fmt(r.aoe_ratio) : '-'}</td>
@@ -188,20 +188,20 @@ function specTraits(r) {
     : (sc >= 0.50 ? '막공 종합 보통' : '막공 종합 낮음'));
   const sp = r.score_parse;
   const brk = sp != null
-    ? ` <span class="sm-muted">= 파스력 ${_fmtN(sp, 3)}×0.65 + 막공환영 ${r.pug || '-'}/5×0.35 (구인난 가중, 파스력 안에 반응 안정 15%)</span>`
+    ? ` <span class="sm-muted">= 로그점수 잘나옴 ${_fmtN(sp, 3)}×0.65 + 막공환영 ${r.pug || '-'}/5×0.35 (구인난 가중, 로그점수 잘나옴 안에 반응 안정 15%)</span>`
     : '';
   out.push({ tone: sc >= 0.70 ? 'good' : (sc < 0.50 ? 'bad' : ''),
     text: `<b>${pt}</b> (종합 ${_fmtN(sc, 3)} · ${r.rank}위)${brk}` });
   if (r.pi_indep != null) {
     const dep = r.uplift_pct != null && r.uplift_pct >= 3;
     out.push({ tone: dep ? 'bad' : 'good', text: dep
-      ? `마력주입(PI) <b>의존</b> — uplift +${_fmtN(r.uplift_pct, 1)}% (사제 버프 있어야 고파스)`
-      : `마력주입(PI) <b>독립</b> — 버프 없이도 OK (uplift ${r.uplift_pct >= 0 ? '+' : ''}${_fmtN(r.uplift_pct, 1)}%)` });
+      ? `마력주입(PI) <b>의존</b> — 받으면 딜 +${_fmtN(r.uplift_pct, 1)}% (사제 버프 있어야 고파스)`
+      : `마력주입(PI) <b>독립</b> — 버프 없이도 OK (받아도 ${r.uplift_pct >= 0 ? '+' : ''}${_fmtN(r.uplift_pct, 1)}%)` });
   }
   if (r.consistency != null)
     out.push({ tone: r.consistency >= 0.85 ? 'good' : (r.consistency < 0.60 ? 'bad' : ''),
-      text: r.consistency >= 0.85 ? '기믹/RNG에 <b>안정적</b> (일관성↑)'
-        : (r.consistency < 0.60 ? '기믹/RNG에 <b>흔들림</b> (일관성↓)' : '일관성 보통') });
+      text: r.consistency >= 0.85 ? '기믹·운에 <b>안정적</b> — 매번 딜이 비슷하게 나옴 (일관성↑)'
+        : (r.consistency < 0.60 ? '기믹·운에 <b>흔들림</b> — 킬마다 딜 편차 큼 (일관성↓)' : '일관성 보통') });
   out.push({ tone: 'info',
     text: `실전 성능 — 레이드 <b>${r.raid_tier || '?'}</b> · 쐐기 <b>${r.mplus_tier || '?'}</b> <span class="sm-muted">(순수 성능, 파스 무관)</span>` });
   if (r.meta_note) out.push({ tone: 'warn', text: `⚠ ${esc(r.meta_note)}` });
@@ -213,7 +213,7 @@ function specTraits(r) {
   if (r.pop_favor != null) {
     const many = r.pop_favor >= 70, few = r.pop_favor < 35;
     out.push({ tone: '',
-      text: `인구 <b>~${r.pop_avg != null ? Number(r.pop_avg).toLocaleString() : '?'}명</b> ${many ? '(많음 — median 파스엔 유리)' : (few ? '(적음 — 고인물풀)' : '(중간)')} <span class="sm-muted">점수 미반영·1%추구자엔 무의미</span>` });
+      text: `인구 <b>~${r.pop_avg != null ? Number(r.pop_avg).toLocaleString() : '?'}명</b> ${many ? '(많음 — 50~80점대 파스 따긴 유리)' : (few ? '(적음 — 잘하는 사람만 남아 경쟁 빡셈)' : '(중간)')} <span class="sm-muted">점수 미반영·99파스 노리면 무의미</span>` });
   }
   if (r.pug) {
     const PUG_LBL = { 5: '최우선 모심', 4: '환영', 3: '무난', 2: '찬밥', 1: '기피' };
@@ -247,7 +247,7 @@ function openSpecModal(idx) {
     cell('난이도 순위', r.rot_rank != null ? '#' + Math.round(r.rot_rank) : '-'),
     cell('반응 안정', _fmtN(r.reactive_stability)),
     cell('PI 독립', _fmtN(r.pi_indep)),
-    cell('PI uplift', r.uplift_pct != null ? (r.uplift_pct >= 0 ? '+' : '') + _fmtN(r.uplift_pct, 1) + '%' : '-'),
+    cell('PI 딜상승', r.uplift_pct != null ? (r.uplift_pct >= 0 ? '+' : '') + _fmtN(r.uplift_pct, 1) + '%' : '-'),
     cell('일관성', _fmtN(r.consistency)),
     cell('레이드 티어', r.raid_tier || '-'),
     cell('쐐기 티어', r.mplus_tier || '-'),
@@ -294,7 +294,7 @@ function openSpecModal(idx) {
       </div>
       <div class="sm-col-right">${rightHtml}</div>
     </div>
-    <div class="sm-foot">난이도·딜 스킬천장·꿀팁 = 유튜브(12.0.5)/가이드 큐레이션 · 특임/유틸 부담 = 점수 미반영 운영 리스크 · 레이드/쐐기 티어 = 순수 성능(파스 무관) · PI독립·일관성·광딜·인구 = 로그 데이터</div>`;
+    <div class="sm-foot">난이도·딜 스킬천장·꿀팁 = 유튜브(12.0.5)/가이드를 보고 직접 정리 · 특임/유틸 부담 = 점수 미반영 운영 리스크 · 레이드/쐐기 티어 = 순수 성능(파스 무관) · PI독립·일관성·광딜·인구 = 로그 데이터</div>`;
   $('#spec-modal').classList.add('show');
   whEnsure();  // 스킬명 마우스오버 툴팁
 }
@@ -565,7 +565,7 @@ function _boxEventText(box) {
   if (box.used_pct_checked != null) parts.push(`사용 ${box.used_pct_checked}%`);
   if (box.opener_pct != null) parts.push(`오프닝 ${box.opener_pct}%`);
   if (box.first_s_median != null) parts.push(`첫사용 ${box.first_s_median}s`);
-  if (box.count_median != null) parts.push(`중앙 ${box.count_median}회`);
+  if (box.count_median != null) parts.push(`보통 ${box.count_median}회`);
   return parts.join(' · ') || '-';
 }
 function renderBossTrinketRecommendationTable() {
@@ -770,7 +770,7 @@ function renderGear(data, charName) {
   $('#gear-modal-body').innerHTML = `
     <div class="gm-head">${esc(charName)} <span class="bc-mute">장비 (${gear.length}부위)</span></div>
     <div class="gm-grid">${items || '<div class="empty">장비 데이터 없음</div>'}</div>
-    <div class="sm-foot">아이템에 마우스 = wowhead 툴팁(풀스탯·마부·보석명). 클릭 = wowhead. 보석 아이콘=호버시 이름.</div>`;
+    <div class="sm-foot">아이템에 마우스 = wowhead 툴팁(풀스탯·마부·보석명). 클릭 = wowhead. 보석 아이콘에 마우스 올리면 이름.</div>`;
   // wowhead 파워 툴팁 스크립트 (없으면 1회 로드)
   if (!window.$WowheadPower) {
     const s = document.createElement('script');
