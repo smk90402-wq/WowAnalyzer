@@ -1286,6 +1286,48 @@
         "data/v2_cache_player_fight.json",
         "data/v2_cache_events.json"
       ]
+    },
+    {
+      "ts": "2026-07-04T01:11:17",
+      "host": "SmkDesktop",
+      "action": "fetch_pi_all",
+      "params": {
+        "difficulty": 5,
+        "label": "mythic",
+        "limit": null
+      },
+      "result": {
+        "fights_done": 3525,
+        "fights_fail": 6,
+        "rows_matched": 23823,
+        "pi_received": 7330,
+        "points": -435.0
+      },
+      "files": [
+        "data/rankings_zone46_mythic_dps_top100_pi.csv",
+        "data/v2_cache_pi_fight.json"
+      ]
+    },
+    {
+      "ts": "2026-07-04T01:12:32",
+      "host": "SmkDesktop",
+      "action": "analyze_spec_meta",
+      "params": {
+        "weights": {
+          "ease": 0.35,
+          "reactive_stability": 0.15,
+          "pi_indep": 0.3,
+          "consistency": 0.2,
+          "cleave_parse": 0.0
+        }
+      },
+      "result": {
+        "specs": 27,
+        "top": "사냥 야수"
+      },
+      "files": [
+        "data/spec_meta_ranking.csv"
+      ]
     }
   ]
 }
