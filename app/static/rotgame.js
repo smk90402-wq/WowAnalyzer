@@ -47,7 +47,7 @@
     fingers: { nm: '서리의 손가락', ic: 'ability_mage_wintersgrasp', id: 44544 },
     thermal: { nm: '열기 동공', ic: 'spell_mage_thermalvoid', id: 1247730 },
     freezing: { nm: '빙결', ic: 'spell_frost_frostblast' },
-    freezingRain: { nm: '빙결의 비', ic: 'spell_frost_icestorm', id: 270233 },
+    freezingRain: { nm: '빗발치는 냉기', ic: 'spell_frost_icestorm', id: 270233 },
     aoe: { nm: '광역 상황', ic: 'spell_frost_icestorm' },
     targets: { nm: '타겟 수', ic: 'ability_hunter_snipershot' },
   };
@@ -152,7 +152,7 @@
   ];
 
   const frostAoeRules = [
-    { k: 'blizzard', c: s => s.aoe && s.freezingRain && s.blizzardCd <= 0, w: '빙결의 비 광역이면 눈보라가 먼저입니다.' },
+    { k: 'blizzard', c: s => s.aoe && s.freezingRain && s.blizzardCd <= 0, w: '빗발치는 냉기(구슬 직후) 광역이면 눈보라가 먼저입니다.' },
     { k: 'iceLance', c: s => s.fingers >= 2, w: '서리의 손가락 2중첩이면 얼음창으로 1개 먼저 털어야 합니다.' },
     { k: 'flurry', c: s => s.brainFreeze && !s.thermalVoid && s.freezing >= 12 && s.flurryCd <= 0, w: '진눈깨비를 쓸 때입니다: 두뇌 빙결 있음, 열기 동공 없음, 빙결 12중첩 이상.' },
     { k: 'frozenOrb', c: s => s.orbCd <= 0, w: '얼어붙은 구슬은 조건이 맞으면 바로바로 털어줍니다.' },
@@ -294,7 +294,7 @@
       unavailable(s, k) {
         if (k === 'iceLance') return '서리의 손가락이 없고 빙결도 6중첩 미만입니다.';
         if (k === 'flurry') return '진눈깨비 충전이 없습니다.';
-        if (k === 'blizzard') return '빙결의 비 광역 상황이 아닙니다.';
+        if (k === 'blizzard') return '빗발치는 냉기 광역 상황이 아닙니다.';
         if (k === 'frozenOrb' || k === 'glacialSpike' || k === 'ray') return '쿨다운 중입니다.';
         return '지금은 우선순위가 아닙니다.';
       },

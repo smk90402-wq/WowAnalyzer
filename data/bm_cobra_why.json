@@ -1,0 +1,573 @@
+{
+ "meta": {
+  "date": "2026-07-04",
+  "question": "기계적 최적(날사 우선?)과 실제 행동(충전 있어도 코브라 먼저)이 왜 다른가 — 가설 3개 실측 판정",
+  "sample": "12.0.7 top100 신화 BM 362킬 (bm_alt_events.json 캐시 재사용)",
+  "master_handler_kills": 166,
+  "buckets_note": "tsk=직전 살명으로부터 경과, ttk=다음 살명까지 남은 시간. 그라디언트는 필러 2개 이상 창(순서 선택이 실존)만 집계"
+ },
+ "talent_adoption": {
+  "전쟁 명령(날사→살명 -3s)": {
+   "n": 362,
+   "pct": 100.0
+  },
+  "코브라 사격 내장(코브라→살명 -1s)": {
+   "n": 362,
+   "pct": 100.0
+  },
+  "날카로운 비늘(코브라→날사 쿨 -2s)": {
+   "n": 362,
+   "pct": 100.0
+  },
+  "조련술의 거장(날사 틱당 살명 -0.5s)": {
+   "n": 166,
+   "pct": 45.9
+  },
+  "우두머리 포식자(살명 2충전)": {
+   "n": 362,
+   "pct": 100.0
+  },
+  "피의 향기(격노 시 날사 +1충전)": {
+   "n": 362,
+   "pct": 100.0
+  },
+  "무리 전술(날사 즉시 집중 25 + 회복 지속효과 +75%)": {
+   "n": 362,
+   "pct": 100.0
+  },
+  "독사의 일격(코브라 치명타 시 집중 10 반환)": {
+   "n": 197,
+   "pct": 54.4
+  },
+  "살상 코브라(격노 중 코브라=살명 초기화)": {
+   "n": 1,
+   "pct": 0.3
+  },
+  "광포한 명령(살명 20% 광포한 야수 소환)": {
+   "n": 195,
+   "pct": 53.9
+  },
+  "note": "선택 노드(102344 뱀가죽/코브라 감각, 102339 야생의 본능/피의 광란)의 옵션 구분은 캐시의 talents id 체계가 트리 talent_id와 달라 판별 불가"
+ },
+ "h1_frenzy_pacing": {
+  "premise_check": {
+   "tree_scan": "BM 트리(class/spec/hero 전 노드)와 날카로운 사격 툴팁 어디에도 '광기' 없음 — 이번 시즌 날사는 광기를 부여/유지하지 않음",
+   "frenzy_tooltip": "광기(272790) = '활성화된 야수의 공격 속도 20% 증가' (스택 문구 없음)",
+   "log_attribution": {
+    "applybuff_total": 2623,
+    "nearest_cast_within_150ms": {
+     "광포한 야수 소환(여러 id)": 1728,
+     "야수의 격노(19574)": 469,
+     "날카로운 사격(217200)": 249,
+     "매칭없음(150ms내 시전 없음)": 134,
+     "살상 명령(34026)": 15,
+     "광기(272790)": 9,
+     "알게타르 수수께끼(383781)": 4,
+     "고대의 부름(274738)": 4,
+     "피의 격노(20572)": 3,
+     "빛의 잠재력(1236616)": 2
+    }
+   }
+  },
+  "barbed_spacing": {
+   "gap_p25_s": 2.71,
+   "gap_median_s": 5.3,
+   "gap_p75_s": 7.45,
+   "gap_p90_s": 9.21,
+   "cv_median": 0.473,
+   "cobra_cv_median": 0.679,
+   "n_gaps": 21327
+  },
+  "bunching": {
+   "pairs_le_2p6s": 4933,
+   "pairs_per_min": 2.56,
+   "near_bw_pct": 65.0,
+   "bw8_share_of_time_pct": 25.1
+  },
+  "barbed_rate_in_bw8_vs_out": {
+   "in_bw_8s_per_min": 17.65,
+   "outside_per_min": 9.1,
+   "ratio": 1.94
+  }
+ },
+ "h2_cdr_waste": {
+  "mechanics": "전쟁 명령 100%: 날사→살명 -3s. 코브라 내장 -1s. 단 우두머리 포식자(살명 2충전) 채택 100% — 쿨감 초과분은 '2충전 만충'일 때만 버려지는데, 살명을 평균 3.3초마다 치는 로그에서 만충은 드묾.",
+  "kc_gap_gt_7p5s_pct": 2.2,
+  "window_slots": {
+   "note": "살명→살명 사이 창에서 날사/코브라만 셈. single=필러 1개뿐인 창(순서 선택 불가), first/last=필러 2개 이상 창의 첫/마지막 슬롯",
+   "single": {
+    "barbed": 10718,
+    "cobra": 9150,
+    "barbed_pct": 53.9
+   },
+   "first_slot": {
+    "barbed": 3425,
+    "cobra": 8597,
+    "barbed_pct": 28.5
+   },
+   "mid_slots": {
+    "barbed": 883,
+    "cobra": 1545,
+    "barbed_pct": 36.4
+   },
+   "last_slot": {
+    "barbed": 6065,
+    "cobra": 5957,
+    "barbed_pct": 50.4
+   }
+  },
+  "tsk_gradient": {
+   "0-1.5s": {
+    "barbed": 4009,
+    "cobra": 8372,
+    "barbed_pct": 32.4
+   },
+   "1.5-3.0s": {
+    "barbed": 3849,
+    "cobra": 6402,
+    "barbed_pct": 37.5
+   },
+   "3.0-4.5s": {
+    "barbed": 1479,
+    "cobra": 826,
+    "barbed_pct": 64.2
+   },
+   "4.5-7.0s": {
+    "barbed": 691,
+    "cobra": 254,
+    "barbed_pct": 73.1
+   },
+   "7.0s+": {
+    "barbed": 345,
+    "cobra": 245,
+    "barbed_pct": 58.5
+   }
+  },
+  "ttk_gradient": {
+   "0-1.5s": {
+    "barbed": 5985,
+    "cobra": 5166,
+    "barbed_pct": 53.7
+   },
+   "1.5-3.0s": {
+    "barbed": 3005,
+    "cobra": 7471,
+    "barbed_pct": 28.7
+   },
+   "3.0-4.5s": {
+    "barbed": 853,
+    "cobra": 1993,
+    "barbed_pct": 30.0
+   },
+   "4.5-7.0s": {
+    "barbed": 373,
+    "cobra": 891,
+    "barbed_pct": 29.5
+   },
+   "7.0s+": {
+    "barbed": 157,
+    "cobra": 578,
+    "barbed_pct": 21.4
+   }
+  }
+ },
+ "h3_master_handler": {
+  "master": {
+   "n_fights": 166,
+   "rates_per_min": {
+    "kill_command": 17.72,
+    "barbed": 12.16,
+    "cobra": 8.7,
+    "bestial_wrath": 1.89
+   },
+   "window_slots": {
+    "note": "살명→살명 사이 창에서 날사/코브라만 셈. single=필러 1개뿐인 창(순서 선택 불가), first/last=필러 2개 이상 창의 첫/마지막 슬롯",
+    "single": {
+     "barbed": 4702,
+     "cobra": 4925,
+     "barbed_pct": 48.8
+    },
+    "first_slot": {
+     "barbed": 2143,
+     "cobra": 1638,
+     "barbed_pct": 56.7
+    },
+    "mid_slots": {
+     "barbed": 631,
+     "cobra": 252,
+     "barbed_pct": 71.5
+    },
+    "last_slot": {
+     "barbed": 2961,
+     "cobra": 820,
+     "barbed_pct": 78.3
+    }
+   },
+   "tsk_gradient": {
+    "0-1.5s": {
+     "barbed": 2765,
+     "cobra": 1576,
+     "barbed_pct": 63.7
+    },
+    "1.5-3.0s": {
+     "barbed": 1583,
+     "cobra": 834,
+     "barbed_pct": 65.5
+    },
+    "3.0-4.5s": {
+     "barbed": 771,
+     "cobra": 205,
+     "barbed_pct": 79.0
+    },
+    "4.5-7.0s": {
+     "barbed": 481,
+     "cobra": 73,
+     "barbed_pct": 86.8
+    },
+    "7.0s+": {
+     "barbed": 135,
+     "cobra": 22,
+     "barbed_pct": 86.0
+    }
+   },
+   "ttk_gradient": {
+    "0-1.5s": {
+     "barbed": 3250,
+     "cobra": 587,
+     "barbed_pct": 84.7
+    },
+    "1.5-3.0s": {
+     "barbed": 1656,
+     "cobra": 1084,
+     "barbed_pct": 60.4
+    },
+    "3.0-4.5s": {
+     "barbed": 542,
+     "cobra": 574,
+     "barbed_pct": 48.6
+    },
+    "4.5-7.0s": {
+     "barbed": 233,
+     "cobra": 353,
+     "barbed_pct": 39.8
+    },
+    "7.0s+": {
+     "barbed": 54,
+     "cobra": 112,
+     "barbed_pct": 32.5
+    }
+   },
+   "barbed_spacing": {
+    "gap_p25_s": 1.52,
+    "gap_median_s": 4.76,
+    "gap_p75_s": 7.65,
+    "gap_p90_s": 9.73,
+    "cv_median": 0.536,
+    "cobra_cv_median": 0.604,
+    "n_gaps": 10579
+   },
+   "bunching": {
+    "pairs_le_2p6s": 3300,
+    "pairs_per_min": 3.73,
+    "near_bw_pct": 54.1,
+    "bw8_share_of_time_pct": 24.9
+   },
+   "barbed_rate_in_bw8_vs_out": {
+    "in_bw_8s_per_min": 20.17,
+    "outside_per_min": 9.5,
+    "ratio": 2.12
+   },
+   "kc_gap_gt_7p5s_pct": 2.5
+  },
+  "no_master": {
+   "n_fights": 196,
+   "rates_per_min": {
+    "kill_command": 18.09,
+    "barbed": 10.47,
+    "cobra": 16.95,
+    "bestial_wrath": 1.91
+   },
+   "window_slots": {
+    "note": "살명→살명 사이 창에서 날사/코브라만 셈. single=필러 1개뿐인 창(순서 선택 불가), first/last=필러 2개 이상 창의 첫/마지막 슬롯",
+    "single": {
+     "barbed": 6016,
+     "cobra": 4225,
+     "barbed_pct": 58.7
+    },
+    "first_slot": {
+     "barbed": 1282,
+     "cobra": 6959,
+     "barbed_pct": 15.6
+    },
+    "mid_slots": {
+     "barbed": 252,
+     "cobra": 1293,
+     "barbed_pct": 16.3
+    },
+    "last_slot": {
+     "barbed": 3104,
+     "cobra": 5137,
+     "barbed_pct": 37.7
+    }
+   },
+   "tsk_gradient": {
+    "0-1.5s": {
+     "barbed": 1244,
+     "cobra": 6796,
+     "barbed_pct": 15.5
+    },
+    "1.5-3.0s": {
+     "barbed": 2266,
+     "cobra": 5568,
+     "barbed_pct": 28.9
+    },
+    "3.0-4.5s": {
+     "barbed": 708,
+     "cobra": 621,
+     "barbed_pct": 53.3
+    },
+    "4.5-7.0s": {
+     "barbed": 210,
+     "cobra": 181,
+     "barbed_pct": 53.7
+    },
+    "7.0s+": {
+     "barbed": 210,
+     "cobra": 223,
+     "barbed_pct": 48.5
+    }
+   },
+   "ttk_gradient": {
+    "0-1.5s": {
+     "barbed": 2735,
+     "cobra": 4579,
+     "barbed_pct": 37.4
+    },
+    "1.5-3.0s": {
+     "barbed": 1349,
+     "cobra": 6387,
+     "barbed_pct": 17.4
+    },
+    "3.0-4.5s": {
+     "barbed": 311,
+     "cobra": 1419,
+     "barbed_pct": 18.0
+    },
+    "4.5-7.0s": {
+     "barbed": 140,
+     "cobra": 538,
+     "barbed_pct": 20.6
+    },
+    "7.0s+": {
+     "barbed": 103,
+     "cobra": 466,
+     "barbed_pct": 18.1
+    }
+   },
+   "barbed_spacing": {
+    "gap_p25_s": 3.72,
+    "gap_median_s": 5.73,
+    "gap_p75_s": 7.37,
+    "gap_p90_s": 8.75,
+    "cv_median": 0.437,
+    "cobra_cv_median": 0.732,
+    "n_gaps": 10748
+   },
+   "bunching": {
+    "pairs_le_2p6s": 1633,
+    "pairs_per_min": 1.56,
+    "near_bw_pct": 86.9,
+    "bw8_share_of_time_pct": 25.2
+   },
+   "barbed_rate_in_bw8_vs_out": {
+    "in_bw_8s_per_min": 15.55,
+    "outside_per_min": 8.75,
+    "ratio": 1.78
+   },
+   "kc_gap_gt_7p5s_pct": 1.9
+  },
+  "per_boss_controlled": {
+   "보라시우스": {
+    "master": {
+     "n_fights": 0
+    },
+    "no_master": {
+     "n_fights": 47,
+     "barbed_per_min": 11.45,
+     "cobra_per_min": 18.51,
+     "barbed_gap_median_s": 5.45,
+     "single_slot_barbed_pct": 58.2,
+     "first_slot_barbed_pct": 13.4,
+     "last_slot_barbed_pct": 40.0
+    }
+   },
+   "바엘고어": {
+    "master": {
+     "n_fights": 46,
+     "barbed_per_min": 13.03,
+     "cobra_per_min": 7.88,
+     "barbed_gap_median_s": 3.97,
+     "single_slot_barbed_pct": 49.7,
+     "first_slot_barbed_pct": 66.9,
+     "last_slot_barbed_pct": 78.2
+    },
+    "no_master": {
+     "n_fights": 0
+    }
+   },
+   "벨로렌": {
+    "master": {
+     "n_fights": 3
+    },
+    "no_master": {
+     "n_fights": 40,
+     "barbed_per_min": 10.18,
+     "cobra_per_min": 15.48,
+     "barbed_gap_median_s": 5.82,
+     "single_slot_barbed_pct": 57.5,
+     "first_slot_barbed_pct": 14.6,
+     "last_slot_barbed_pct": 41.6
+    }
+   },
+   "아베르지안": {
+    "master": {
+     "n_fights": 38,
+     "barbed_per_min": 11.35,
+     "cobra_per_min": 11.53,
+     "barbed_gap_median_s": 5.31,
+     "single_slot_barbed_pct": 47.8,
+     "first_slot_barbed_pct": 37.6,
+     "last_slot_barbed_pct": 61.4
+    },
+    "no_master": {
+     "n_fights": 3
+    }
+   },
+   "선봉대": {
+    "master": {
+     "n_fights": 41,
+     "barbed_per_min": 12.68,
+     "cobra_per_min": 7.18,
+     "barbed_gap_median_s": 4.74,
+     "single_slot_barbed_pct": 47.6,
+     "first_slot_barbed_pct": 67.9,
+     "last_slot_barbed_pct": 92.0
+    },
+    "no_master": {
+     "n_fights": 0
+    }
+   },
+   "카이메루스": {
+    "master": {
+     "n_fights": 21,
+     "barbed_per_min": 10.87,
+     "cobra_per_min": 10.38,
+     "barbed_gap_median_s": 5.35,
+     "single_slot_barbed_pct": 49.1,
+     "first_slot_barbed_pct": 34.5,
+     "last_slot_barbed_pct": 75.0
+    },
+    "no_master": {
+     "n_fights": 18,
+     "barbed_per_min": 11.24,
+     "cobra_per_min": 17.35,
+     "barbed_gap_median_s": 5.23,
+     "single_slot_barbed_pct": 55.2,
+     "first_slot_barbed_pct": 14.7,
+     "last_slot_barbed_pct": 43.4
+    }
+   },
+   "우주의왕관": {
+    "master": {
+     "n_fights": 0
+    },
+    "no_master": {
+     "n_fights": 36,
+     "barbed_per_min": 9.68,
+     "cobra_per_min": 16.43,
+     "barbed_gap_median_s": 5.99,
+     "single_slot_barbed_pct": 60.0,
+     "first_slot_barbed_pct": 17.1,
+     "last_slot_barbed_pct": 35.4
+    }
+   },
+   "살라다르": {
+    "master": {
+     "n_fights": 16,
+     "barbed_per_min": 10.43,
+     "cobra_per_min": 9.74,
+     "barbed_gap_median_s": 5.68,
+     "single_slot_barbed_pct": 50.9,
+     "first_slot_barbed_pct": 34.9,
+     "last_slot_barbed_pct": 69.2
+    },
+    "no_master": {
+     "n_fights": 19,
+     "barbed_per_min": 11.24,
+     "cobra_per_min": 18.21,
+     "barbed_gap_median_s": 5.69,
+     "single_slot_barbed_pct": 58.2,
+     "first_slot_barbed_pct": 14.7,
+     "last_slot_barbed_pct": 39.0
+    }
+   },
+   "한밤의도래(르우라)": {
+    "master": {
+     "n_fights": 1
+    },
+    "no_master": {
+     "n_fights": 33,
+     "barbed_per_min": 10.53,
+     "cobra_per_min": 17.11,
+     "barbed_gap_median_s": 5.45,
+     "single_slot_barbed_pct": 59.2,
+     "first_slot_barbed_pct": 16.4,
+     "last_slot_barbed_pct": 35.3
+    }
+   }
+  }
+ },
+ "focus_economy": {
+  "costs": {
+   "살상 명령": 30,
+   "코브라 사격": 35,
+   "날카로운 사격": 0
+  },
+  "income_static": "날사=무리 전술 즉시 25 + 8초에 걸쳐 20 생성(트리/툴팁). 기본 집중 회복 별도(가속 비례).",
+  "per_min_spend_est": 999.0,
+  "per_min_barbed_income_est": 506.0,
+  "gap_to_fill_by_regen_est": 493.0,
+  "note": "로그에 집중 리소스 이벤트가 없어 실측 불가 — 시전율×툴팁 단가 산수. 살명+코브라 소모(분당 약 1000)를 날사 수입(분당 약 500)만으론 못 채움 → 기본 회복이 마저 채움. 코브라는 유일한 집중 소모 필러, 날사는 생성 필러 — 코브라를 안 치면 집중이 넘치고, 날사를 안 치면 코브라를 못 침(맞물린 경제)."
+ },
+ "verdicts": {
+  "H1_광기_페이싱": {
+   "verdict": "기각(전제 소멸)",
+   "why": [
+    "이번 시즌 날사는 광기를 부여/유지하지 않음 — BM 트리 전 노드와 날사 툴팁에 '광기' 없음. 로그의 광기 발생 2623건 중 최근접 시전은 광포한 야수 소환 1728건(66%), 야수의 격노 469건(18%), 날사는 249건(9%)뿐.",
+    "날사 간격의 '균등함'은 시계식 유지가 아니라 재충전 리듬 — 간격 CV 중앙 0.473 (완전 균등=0, 랜덤=1; 코브라 0.679).",
+    "몰아쓰기(간격≤2.6s 쌍 4933건)는 격노에 정렬 — 65.0%가 격노 ±8초 안에 발생(격노 8초 창은 전체 시간의 25.1%뿐, 농축 x2.6). 격노 후 8초 날사 17.65/분 vs 평시 9.1/분 (x1.94) — 피의 향기(+1충전)와 격노 정렬로 설명되고 광기와는 무관."
+   ]
+  },
+  "H2_쿨감_낭비_방지": {
+   "verdict": "기각(행동이 예측과 정반대, 그리고 전제가 이 빌드에 없음)",
+   "why": [
+    "H2 예측(살상 직후=날사, 직전=코브라)과 반대 — 필러 2개 이상 창에서 첫 슬롯 날사 28.5%, 마지막 슬롯 50.4%. 직전 살명 후 경과별 날사 비중: 0-1.5s 32.4% → 3.0-4.5s 64.2% → 4.5-7.0s 73.1%. 코브라가 앞, 날사가 뒤.",
+    "전제 자체가 무너짐: 우두머리 포식자(살명 2충전) 100% — 쿨감 초과분은 '2충전 만충'일 때만 버려지는데 살명 간격>7.5s(만충이 가능해지는 조건)는 2.2%뿐. 2번째 충전이 완충기 역할이라 날사 -3s는 언제 눌러도 거의 안 넘침 → '살상 직후 날사' 규칙은 1충전 가정에서만 최적. 기존 분석의 '살상 직후 첫 버튼 코브라 51%' 모순은 이렇게 풀림.",
+    "날사가 창 끝에 몰리는 것(마지막 슬롯 50.4%, 다음 살명까지 1.5s 미만 구간 날사 53.7%)은 날사 -3s가 다음 살명을 그 자리로 당겨오는 인과의 결과이기도 함 (날사 = 살명 재장전 방아쇠). 코브라는 항상 누를 수 있고 날사는 충전이 차야 하므로 창 후반일수록 가용성이 오르는 효과도 섞임.",
+    "필러 1개짜리 짧은 창(순서 선택이 없는 경우)에선 날사 53.9%로 반반 — 충전이 있을 때 순서는 사실상 무차별이라는 bm_filler_recheck(state≥1에서 코브라 48~54%)과 일치."
+   ]
+  },
+  "H3_조련술의_거장": {
+   "verdict": "기각(겉보기 차이는 보스/빌드 교란)",
+   "why": [
+    "채택 166킬 vs 미채택 196킬의 슬롯 차이(첫 슬롯 날사 56.7% vs 15.6%)는 커 보이지만, 채택이 보스와 거의 완전 상관(바엘고어·선봉대·아베르지안=전원 채택, 보라시우스·벨로렌·우주의왕관·르우라=전원 미채택) — 광역 빌드(광포한 명령 등)와 세트로 감.",
+    "채택/미채택이 섞인 두 보스로 통제하면 차이 소멸: 카이메루스 날사 10.87/분 vs 11.24/분, 간격 중앙 5.35s vs 5.23s, 단일 슬롯 날사 선택 49.1% vs 55.2%; 살라다르 날사 10.43/분 vs 11.24/분, 간격 5.68s vs 5.69s, 단일 슬롯 50.9% vs 58.2%. 채택자가 날사를 더 자주/일찍 쓰지 않음(오히려 미세하게 덜 씀).",
+    "같은 보스에서 채택자의 첫 슬롯 날사가 높아 보이는 것(35% vs 15%)은 채택자의 코브라 시전 자체가 적어서(카이메루스 10.38 vs 17.35/분 — 마구잡이 난타로 대체) 생기는 구성 효과."
+   ]
+  }
+ },
+ "conclusion": {
+  "mystery_answer": "기계적 최적과 행동이 다른 게 아니라, '날사 우선이 최적'이라는 전제가 이 빌드에서 무너져 있음. ①살명 2충전(우두머리 포식자 100%)이 쿨감 넘침을 흡수(만충 노출 2.2%) → 날사 -3s는 언제 써도 손실 없음. ②날사의 진짜 보너스 창은 격노(피의 향기 +1충전) — 몰아쓰기의 65%가 격노 근처, 밀도 x1.94. ③코브라는 살명 -1s에 더해 날사 재충전 -2s(날카로운 비늘 100%)와 집중 배출을 겸함 → 코브라를 먼저 눌러도 날사가 늦어지기는커녕 충전이 당겨짐. 그래서 순서는 '코브라 먼저, 날사는 창 끝에서 다음 살명을 당기는 방아쇠'가 되고, 이 순서와 반대 순서의 기대 손익 차가 거의 0이라 상위권도 절반쯤은 섞어 씀.",
+  "guide_paragraph": "왜 상위권은 날카로운 사격 충전이 남아도 코브라부터 누를까 — 답은 '그래도 손해가 0'이기 때문이다. 이번 빌드(전쟁 명령·우두머리 포식자·날카로운 비늘 전원 채택)에서 살상 명령은 2충전이라 날사의 쿨 -3초가 넘쳐 버려지는 순간이 사실상 없고(살명 간격이 7.5초를 넘는 경우는 2.2%뿐), 코브라는 살명 쿨 -1초에 더해 날사 재충전까지 2초 당겨 주면서 집중도 비워 준다. 날사가 진짜 비싸지는 순간은 딱 둘 — 2충전으로 넘치기 직전과 야수의 격노 창(충전 +1) — 이고, 실제로 상위 100 로그의 날사 몰아치기 65%가 격노 ±8초에 몰려 있다(평시 대비 밀도 약 2배). 남는 글쿨이 두 개 이상이면 코브라 먼저(첫 슬롯 72%), 날사는 창 끝에서 다음 살명을 당기는 방아쇠로 쓰고(날사 직후 1.5초 안에 살명이 뜨는 비율 54%), 글쿨이 하나뿐인 짧은 창에선 반반(날사 54%)으로 사실상 순서 무차별이다. 참고로 '펫 광기 유지를 위한 균등 배분'은 이번 시즌엔 성립하지 않고(날사는 광기를 주지 않음 — 광기의 66%는 광포한 야수 소환에서 발생), 조련술의 거장 채택 여부도 필러 리듬을 바꾸지 않는다(같은 보스에서 빈도·간격 동일). 요약: 날사는 '만충 직전 + 격노 창'에서만 서두르고, 그 외 남는 글쿨은 코브라 먼저 — 순서 자체의 딜 손해는 없으니 리듬이 편한 쪽으로 쳐도 된다."
+ }
+}

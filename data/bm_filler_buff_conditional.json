@@ -1,0 +1,1061 @@
+{
+ "meta": {
+  "date": "2026-07-04",
+  "question": "특정 프록/버프가 떠 있을 때 코브라를 우선하는가 — 필러 시전 순간 버프 상태 전수 조건부 분석",
+  "sample": "12.0.7 top100 신화 BM 단일 필러판 200킬, 필러 시전 28881회 (코브라 17829 / 날카 11052)",
+  "method": "버프 apply~remove 구간 복원(시전과 같은 ms 이벤트는 결정 이후로 간주). 버프별 P(코브라|ON) vs P(코브라|OFF). 격노 정렬 혼동 제거용으로 '격노 밖 시전만' 조건부 병기. 표본 기준: ON 400회+, OFF 400회+, 출현 25판+. fights_on_higher = ON/OFF 양쪽 5회 이상인 판 중 ON쪽 코브라 비율이 더 높았던 판 수(방향 일관성).",
+  "baseline_cobra_pct": 61.7,
+  "baseline_cobra_pct_bw_off": 68.4,
+  "baseline_note": "이 분모는 '코브라+날카 시전만'(단일 필러판). 이전 분석의 54%는 살명 사이 전체 필러 분모라 수치가 다름."
+ },
+ "frenzy_pet_buff": {
+  "measurable": false,
+  "cache_evidence": {
+   "fights_with_events": 260,
+   "event_types": {
+    "applybuff": 2623,
+    "removebuff": 16
+   },
+   "apply_gap_median_s": 30.8
+  },
+  "note": "광기(272790)는 펫 버프. 캐시엔 applybuff만 판당 ~7회, 약 30초 간격으로 남아 있고 갱신/스택/소멸 이벤트가 없음 — 실제 광기는 날카마다(~8초) 갱신되는 3스택 버프라 이 기록으로는 ON/OFF 구간 복원이 불가능. '광기 유지가 필러 선택을 가르는가'는 이 캐시로 측정 불가. (표의 272790 행은 참고용일 뿐 수치를 믿으면 안 됨)"
+ },
+ "bestial_wrath_conditional": {
+  "buff_id": 19574,
+  "name": "야수의 격노",
+  "fights": 200,
+  "on_casts": 13430,
+  "off_casts": 15451,
+  "cobra_pct_on": 54.1,
+  "cobra_pct_off": 68.4,
+  "diff": -14.3,
+  "cobra_pct_on_bw_off": null,
+  "cobra_pct_off_bw_off": 68.4,
+  "diff_bw_off": null,
+  "fights_on_higher": "0/200",
+  "identity": "특성 버프(전문화) — 야수의 격노 본체(15초)",
+  "talent_hits": [
+   {
+    "tree": "전문화",
+    "talent": "죽음의 통곡",
+    "spell_id": 1264290,
+    "match": "이름/설명",
+    "desc": "야수의 격노 사용 시 어둠 사냥개를 소환합니다.\r\n\r\n야수의 격노 시전 후 15초 동안 야수의 격노가 울부짖는 화살로 대체됩니다.\r\n\r\n 울부짖는 화살\r\n마력 깃든 화살을 발사하여 대상에게 482의 암흑 피해를 입히고 대상의 8미터 내에 있는 모든 적에게는 245의 추가 암흑 피해를 입힙니다. 울부짖는 화살에 적중당한 플레이어가 아닌 대상은 주문 시전을 방해받고 1초 동안 침묵 상태가 됩니다"
+   },
+   {
+    "tree": "전문화",
+    "talent": "야수의 격노",
+    "spell_id": 19574,
+    "match": "spell_id",
+    "desc": "시전자와 야수가 광폭해져 대상에게 즉시 280의 물리 피해를 입힙니다. 또한 15초 동안 시전자와 야수의 모든 공격력이 20%만큼 증가합니다. 야수에게 걸린 모든 군중 제어 효과를 제거합니다. "
+   }
+  ]
+ },
+ "key_buffs": [
+  {
+   "buff_id": 1258338,
+   "name": "쇄도!",
+   "fights": 200,
+   "on_casts": 751,
+   "off_casts": 28130,
+   "cobra_pct_on": 4.1,
+   "cobra_pct_off": 63.3,
+   "diff": -59.1,
+   "cobra_pct_on_bw_off": null,
+   "cobra_pct_off_bw_off": 68.4,
+   "diff_bw_off": null,
+   "fights_on_higher": "1/64",
+   "identity": "특성 버프(영웅:무리의 지도자, 쇄도! 472741) — 격노 시전 시 부여, '다음 살상 명령'이 쇄도를 일으킴. 격노 직후 창 표시",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "쇄도!",
+     "spell_id": 472741,
+     "match": "이름/설명",
+     "desc": "야수의 격노 시전 시 무리의 지도자의 포효가 부여되고 다음 살상 명령이 주위의 야생동물을 자극해 쇄도를 일으켜, 대상에게 돌진해 7초에 걸쳐 470의 물리 피해를 입히게 합니다."
+    },
+    {
+     "tree": "영웅:무리의 지도자",
+     "talent": "쇄도!",
+     "spell_id": 472741,
+     "match": "이름/설명",
+     "desc": "야수의 격노 시전 시 무리의 지도자의 포효가 부여되고 다음 살상 명령이 주위의 야생동물을 자극해 쇄도를 일으켜, 대상에게 돌진해 7초에 걸쳐 465의 물리 피해를 입히게 합니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 246152,
+   "name": "날카로운 사격",
+   "fights": 200,
+   "on_casts": 27056,
+   "off_casts": 1825,
+   "cobra_pct_on": 64.9,
+   "cobra_pct_off": 14.9,
+   "diff": 50.0,
+   "cobra_pct_on_bw_off": 73.3,
+   "cobra_pct_off_bw_off": 16.9,
+   "diff_bw_off": 56.4,
+   "fights_on_higher": "144/145",
+   "identity": "날카 자체 버프 — 날카 시전 후 8초 집중 회복. 날카를 '눌렀기 때문에' 켜지는 결과 버프(원인 아님)",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "영혼 흡수자",
+     "spell_id": 469638,
+     "match": "이름/설명",
+     "desc": "살상 명령 사용 시 20%의 확률로, 날카로운 사격 사용 시 50%의 확률로 죽음의 강타가 부여됩니다.\r\n\r\n 죽음의 강타\r\n마무리 사격의 재사용 대기시간이 초기화됩니다. 다음 마무리 사격은 대상의 현재 생명력에 상관없이 모든 대상에게 사용할 수 있습니다."
+    },
+    {
+     "tree": "전문화",
+     "talent": "날카로운 사격",
+     "spell_id": 217200,
+     "match": "이름/설명",
+     "desc": "적을 관통하며 찢어발기는 사격을 가해 12초에 걸쳐 136의 출혈 피해를 입힙니다. 날카로운 사격을 다시 부여하면 남은 피해량을 새로운 날카로운 사격 효과에 합산합니다.\r\n\r\n8초에 걸쳐 20의 집중을 생성합니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 1258344,
+   "name": "쇄도",
+   "fights": 200,
+   "on_casts": 3925,
+   "off_casts": 24956,
+   "cobra_pct_on": 27.5,
+   "cobra_pct_off": 67.1,
+   "diff": -39.7,
+   "cobra_pct_on_bw_off": null,
+   "cobra_pct_off_bw_off": 68.4,
+   "diff_bw_off": null,
+   "fights_on_higher": "0/200",
+   "identity": "특성 버프(쇄도! 472741의 진행 창) — 쇄도 발동 후 7초 야생동물 돌진 구간",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "쇄도!",
+     "spell_id": 472741,
+     "match": "이름/설명",
+     "desc": "야수의 격노 시전 시 무리의 지도자의 포효가 부여되고 다음 살상 명령이 주위의 야생동물을 자극해 쇄도를 일으켜, 대상에게 돌진해 7초에 걸쳐 470의 물리 피해를 입히게 합니다."
+    },
+    {
+     "tree": "영웅:무리의 지도자",
+     "talent": "쇄도!",
+     "spell_id": 472741,
+     "match": "이름/설명",
+     "desc": "야수의 격노 시전 시 무리의 지도자의 포효가 부여되고 다음 살상 명령이 주위의 야생동물을 자극해 쇄도를 일으켜, 대상에게 돌진해 7초에 걸쳐 465의 물리 피해를 입히게 합니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 1265063,
+   "name": "피의 광란",
+   "fights": 197,
+   "on_casts": 8476,
+   "off_casts": 20405,
+   "cobra_pct_on": 45.6,
+   "cobra_pct_off": 68.4,
+   "diff": -22.8,
+   "cobra_pct_on_bw_off": null,
+   "cobra_pct_off_bw_off": 68.4,
+   "diff_bw_off": null,
+   "fights_on_higher": "0/197",
+   "identity": "특성 버프(전문화, 피의 광란 407412) — 격노 후 10초간 날카 출혈이 2배속으로 들어감 → 이 창에 날카를 넣을 직접적 이유",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "피의 광란",
+     "spell_id": 407412,
+     "match": "이름/설명",
+     "desc": "야수의 격노 사용 시 날카로운 사격이 10초 동안 피해를 100%만큼 더 빨리 입힙니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 19574,
+   "name": "야수의 격노",
+   "fights": 200,
+   "on_casts": 13430,
+   "off_casts": 15451,
+   "cobra_pct_on": 54.1,
+   "cobra_pct_off": 68.4,
+   "diff": -14.3,
+   "cobra_pct_on_bw_off": null,
+   "cobra_pct_off_bw_off": 68.4,
+   "diff_bw_off": null,
+   "fights_on_higher": "0/200",
+   "identity": "특성 버프(전문화) — 야수의 격노 본체(15초)",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "죽음의 통곡",
+     "spell_id": 1264290,
+     "match": "이름/설명",
+     "desc": "야수의 격노 사용 시 어둠 사냥개를 소환합니다.\r\n\r\n야수의 격노 시전 후 15초 동안 야수의 격노가 울부짖는 화살로 대체됩니다.\r\n\r\n 울부짖는 화살\r\n마력 깃든 화살을 발사하여 대상에게 482의 암흑 피해를 입히고 대상의 8미터 내에 있는 모든 적에게는 245의 추가 암흑 피해를 입힙니다. 울부짖는 화살에 적중당한 플레이어가 아닌 대상은 주문 시전을 방해받고 1초 동안 침묵 상태가 됩니다"
+    },
+    {
+     "tree": "전문화",
+     "talent": "야수의 격노",
+     "spell_id": 19574,
+     "match": "spell_id",
+     "desc": "시전자와 야수가 광폭해져 대상에게 즉시 280의 물리 피해를 입힙니다. 또한 15초 동안 시전자와 야수의 모든 공격력이 20%만큼 증가합니다. 야수에게 걸린 모든 군중 제어 효과를 제거합니다. "
+    }
+   ]
+  },
+  {
+   "buff_id": 472640,
+   "name": "멧돼지 기수",
+   "fights": 200,
+   "on_casts": 3089,
+   "off_casts": 25792,
+   "cobra_pct_on": 51.2,
+   "cobra_pct_off": 63.0,
+   "diff": -11.7,
+   "cobra_pct_on_bw_off": 65.9,
+   "cobra_pct_off_bw_off": 68.5,
+   "diff_bw_off": -2.6,
+   "fights_on_higher": "37/200",
+   "identity": "특성 프록(멧돼지 기수 472639) — '다음 코브라 사격 공격력 +200%' 프록",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "멧돼지 기수",
+     "spell_id": 472639,
+     "match": "이름/설명",
+     "desc": "멧돼지가 피해를 입히면 다음 코브라 사격의 공격력이 200%만큼 증가합니다.\r\n\r\n멧돼지에게 피해를 받은 적 하나당 코브라 사격이 1명의 추가 대상을 공격하며, 최대 4번까지 유효합니다."
+    },
+    {
+     "tree": "전문화",
+     "talent": "발굽과 칼날",
+     "spell_id": 1264797,
+     "match": "이름/설명",
+     "desc": "멧돼지 기수가 추가로 코브라 사격의 공격력을 50%만큼 증가시키고, 최대 3명의 추가 대상을 공격합니다."
+    }
+   ]
+  }
+ ],
+ "buffs_ranked_by_effect": [
+  {
+   "buff_id": 1258338,
+   "name": "쇄도!",
+   "fights": 200,
+   "on_casts": 751,
+   "off_casts": 28130,
+   "cobra_pct_on": 4.1,
+   "cobra_pct_off": 63.3,
+   "diff": -59.1,
+   "cobra_pct_on_bw_off": null,
+   "cobra_pct_off_bw_off": 68.4,
+   "diff_bw_off": null,
+   "fights_on_higher": "1/64",
+   "identity": "특성 버프(영웅:무리의 지도자, 쇄도! 472741) — 격노 시전 시 부여, '다음 살상 명령'이 쇄도를 일으킴. 격노 직후 창 표시",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "쇄도!",
+     "spell_id": 472741,
+     "match": "이름/설명",
+     "desc": "야수의 격노 시전 시 무리의 지도자의 포효가 부여되고 다음 살상 명령이 주위의 야생동물을 자극해 쇄도를 일으켜, 대상에게 돌진해 7초에 걸쳐 470의 물리 피해를 입히게 합니다."
+    },
+    {
+     "tree": "영웅:무리의 지도자",
+     "talent": "쇄도!",
+     "spell_id": 472741,
+     "match": "이름/설명",
+     "desc": "야수의 격노 시전 시 무리의 지도자의 포효가 부여되고 다음 살상 명령이 주위의 야생동물을 자극해 쇄도를 일으켜, 대상에게 돌진해 7초에 걸쳐 465의 물리 피해를 입히게 합니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 246152,
+   "name": "날카로운 사격",
+   "fights": 200,
+   "on_casts": 27056,
+   "off_casts": 1825,
+   "cobra_pct_on": 64.9,
+   "cobra_pct_off": 14.9,
+   "diff": 50.0,
+   "cobra_pct_on_bw_off": 73.3,
+   "cobra_pct_off_bw_off": 16.9,
+   "diff_bw_off": 56.4,
+   "fights_on_higher": "144/145",
+   "identity": "날카 자체 버프 — 날카 시전 후 8초 집중 회복. 날카를 '눌렀기 때문에' 켜지는 결과 버프(원인 아님)",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "영혼 흡수자",
+     "spell_id": 469638,
+     "match": "이름/설명",
+     "desc": "살상 명령 사용 시 20%의 확률로, 날카로운 사격 사용 시 50%의 확률로 죽음의 강타가 부여됩니다.\r\n\r\n 죽음의 강타\r\n마무리 사격의 재사용 대기시간이 초기화됩니다. 다음 마무리 사격은 대상의 현재 생명력에 상관없이 모든 대상에게 사용할 수 있습니다."
+    },
+    {
+     "tree": "전문화",
+     "talent": "날카로운 사격",
+     "spell_id": 217200,
+     "match": "이름/설명",
+     "desc": "적을 관통하며 찢어발기는 사격을 가해 12초에 걸쳐 136의 출혈 피해를 입힙니다. 날카로운 사격을 다시 부여하면 남은 피해량을 새로운 날카로운 사격 효과에 합산합니다.\r\n\r\n8초에 걸쳐 20의 집중을 생성합니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 1258344,
+   "name": "쇄도",
+   "fights": 200,
+   "on_casts": 3925,
+   "off_casts": 24956,
+   "cobra_pct_on": 27.5,
+   "cobra_pct_off": 67.1,
+   "diff": -39.7,
+   "cobra_pct_on_bw_off": null,
+   "cobra_pct_off_bw_off": 68.4,
+   "diff_bw_off": null,
+   "fights_on_higher": "0/200",
+   "identity": "특성 버프(쇄도! 472741의 진행 창) — 쇄도 발동 후 7초 야생동물 돌진 구간",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "쇄도!",
+     "spell_id": 472741,
+     "match": "이름/설명",
+     "desc": "야수의 격노 시전 시 무리의 지도자의 포효가 부여되고 다음 살상 명령이 주위의 야생동물을 자극해 쇄도를 일으켜, 대상에게 돌진해 7초에 걸쳐 470의 물리 피해를 입히게 합니다."
+    },
+    {
+     "tree": "영웅:무리의 지도자",
+     "talent": "쇄도!",
+     "spell_id": 472741,
+     "match": "이름/설명",
+     "desc": "야수의 격노 시전 시 무리의 지도자의 포효가 부여되고 다음 살상 명령이 주위의 야생동물을 자극해 쇄도를 일으켜, 대상에게 돌진해 7초에 걸쳐 465의 물리 피해를 입히게 합니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 1265063,
+   "name": "피의 광란",
+   "fights": 197,
+   "on_casts": 8476,
+   "off_casts": 20405,
+   "cobra_pct_on": 45.6,
+   "cobra_pct_off": 68.4,
+   "diff": -22.8,
+   "cobra_pct_on_bw_off": null,
+   "cobra_pct_off_bw_off": 68.4,
+   "diff_bw_off": null,
+   "fights_on_higher": "0/197",
+   "identity": "특성 버프(전문화, 피의 광란 407412) — 격노 후 10초간 날카 출혈이 2배속으로 들어감 → 이 창에 날카를 넣을 직접적 이유",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "피의 광란",
+     "spell_id": 407412,
+     "match": "이름/설명",
+     "desc": "야수의 격노 사용 시 날카로운 사격이 10초 동안 피해를 100%만큼 더 빨리 입힙니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 472325,
+   "name": "무리의 지도자의 포효",
+   "fights": 200,
+   "on_casts": 1062,
+   "off_casts": 27819,
+   "cobra_pct_on": 43.3,
+   "cobra_pct_off": 62.4,
+   "diff": -19.1,
+   "cobra_pct_on_bw_off": 61.6,
+   "cobra_pct_off_bw_off": 68.6,
+   "diff_bw_off": -7.0,
+   "fights_on_higher": "16/88",
+   "identity": "특성 버프(무리의 지도자의 포효) — 소환 창 변형",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "무리의 지도자의 포효",
+     "spell_id": 471876,
+     "match": "이름/설명",
+     "desc": "전투 중 30초마다 다음 살상 명령 사용 시 맹수를 소환하여 지원을 받습니다.\r\n\r\n 와이번\r\n와이번이 하늘에서 내려와 전투의 함성을 내질러 12초 동안 사냥꾼과 야수의 공격력을 10%만큼 증가시킵니다.\r\n\r\n 멧돼지\r\n멧돼지가 시전자의 대상에게 1회 돌진하여 주위의 적에게 504의 피해를 입히고, 주 대상에게는 420의 추가 물리 피해를 입힙니다. 5명을 초과하는 대상에게는 감소된 피해를 "
+    },
+    {
+     "tree": "전문화",
+     "talent": "무리 본능",
+     "spell_id": 472358,
+     "match": "이름/설명",
+     "desc": "무리의 지도자의 포효가 살상 명령의 공격력을 50%만큼 증가시킵니다.\r\n\r\n맹수를 소환하면 날카로운 사격의 재사용 대기시간이 4.0초만큼 감소합니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 471878,
+   "name": "무리의 지도자의 포효",
+   "fights": 200,
+   "on_casts": 1148,
+   "off_casts": 27733,
+   "cobra_pct_on": 44.2,
+   "cobra_pct_off": 62.5,
+   "diff": -18.3,
+   "cobra_pct_on_bw_off": 61.2,
+   "cobra_pct_off_bw_off": 68.6,
+   "diff_bw_off": -7.5,
+   "fights_on_higher": "16/98",
+   "identity": "특성 버프(무리의 지도자의 포효) — 소환 창 변형(곰/멧돼지/와이번 중 하나)",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "무리의 지도자의 포효",
+     "spell_id": 471876,
+     "match": "이름/설명",
+     "desc": "전투 중 30초마다 다음 살상 명령 사용 시 맹수를 소환하여 지원을 받습니다.\r\n\r\n 와이번\r\n와이번이 하늘에서 내려와 전투의 함성을 내질러 12초 동안 사냥꾼과 야수의 공격력을 10%만큼 증가시킵니다.\r\n\r\n 멧돼지\r\n멧돼지가 시전자의 대상에게 1회 돌진하여 주위의 적에게 504의 피해를 입히고, 주 대상에게는 420의 추가 물리 피해를 입힙니다. 5명을 초과하는 대상에게는 감소된 피해를 "
+    },
+    {
+     "tree": "전문화",
+     "talent": "무리 본능",
+     "spell_id": 472358,
+     "match": "이름/설명",
+     "desc": "무리의 지도자의 포효가 살상 명령의 공격력을 50%만큼 증가시킵니다.\r\n\r\n맹수를 소환하면 날카로운 사격의 재사용 대기시간이 4.0초만큼 감소합니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 472324,
+   "name": "무리의 지도자의 포효",
+   "fights": 200,
+   "on_casts": 1065,
+   "off_casts": 27816,
+   "cobra_pct_on": 46.1,
+   "cobra_pct_off": 62.3,
+   "diff": -16.2,
+   "cobra_pct_on_bw_off": 62.5,
+   "cobra_pct_off_bw_off": 68.6,
+   "diff_bw_off": -6.0,
+   "fights_on_higher": "22/98",
+   "identity": "특성 버프(무리의 지도자의 포효) — 소환 창 변형",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "무리의 지도자의 포효",
+     "spell_id": 471876,
+     "match": "이름/설명",
+     "desc": "전투 중 30초마다 다음 살상 명령 사용 시 맹수를 소환하여 지원을 받습니다.\r\n\r\n 와이번\r\n와이번이 하늘에서 내려와 전투의 함성을 내질러 12초 동안 사냥꾼과 야수의 공격력을 10%만큼 증가시킵니다.\r\n\r\n 멧돼지\r\n멧돼지가 시전자의 대상에게 1회 돌진하여 주위의 적에게 504의 피해를 입히고, 주 대상에게는 420의 추가 물리 피해를 입힙니다. 5명을 초과하는 대상에게는 감소된 피해를 "
+    },
+    {
+     "tree": "전문화",
+     "talent": "무리 본능",
+     "spell_id": 472358,
+     "match": "이름/설명",
+     "desc": "무리의 지도자의 포효가 살상 명령의 공격력을 50%만큼 증가시킵니다.\r\n\r\n맹수를 소환하면 날카로운 사격의 재사용 대기시간이 4.0초만큼 감소합니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 186254,
+   "name": "야수의 격노",
+   "fights": 200,
+   "on_casts": 13437,
+   "off_casts": 15444,
+   "cobra_pct_on": 54.1,
+   "cobra_pct_off": 68.4,
+   "diff": -14.3,
+   "cobra_pct_on_bw_off": null,
+   "cobra_pct_off_bw_off": 68.4,
+   "diff_bw_off": null,
+   "fights_on_higher": "0/200",
+   "identity": "특성 버프 — 야수의 격노(펫측 기록, 19574와 동일 창)",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "죽음의 통곡",
+     "spell_id": 1264290,
+     "match": "이름/설명",
+     "desc": "야수의 격노 사용 시 어둠 사냥개를 소환합니다.\r\n\r\n야수의 격노 시전 후 15초 동안 야수의 격노가 울부짖는 화살로 대체됩니다.\r\n\r\n 울부짖는 화살\r\n마력 깃든 화살을 발사하여 대상에게 482의 암흑 피해를 입히고 대상의 8미터 내에 있는 모든 적에게는 245의 추가 암흑 피해를 입힙니다. 울부짖는 화살에 적중당한 플레이어가 아닌 대상은 주문 시전을 방해받고 1초 동안 침묵 상태가 됩니다"
+    },
+    {
+     "tree": "전문화",
+     "talent": "야수의 격노",
+     "spell_id": 19574,
+     "match": "이름/설명",
+     "desc": "시전자와 야수가 광폭해져 대상에게 즉시 280의 물리 피해를 입힙니다. 또한 15초 동안 시전자와 야수의 모든 공격력이 20%만큼 증가합니다. 야수에게 걸린 모든 군중 제어 효과를 제거합니다. "
+    }
+   ]
+  },
+  {
+   "buff_id": 19574,
+   "name": "야수의 격노",
+   "fights": 200,
+   "on_casts": 13430,
+   "off_casts": 15451,
+   "cobra_pct_on": 54.1,
+   "cobra_pct_off": 68.4,
+   "diff": -14.3,
+   "cobra_pct_on_bw_off": null,
+   "cobra_pct_off_bw_off": 68.4,
+   "diff_bw_off": null,
+   "fights_on_higher": "0/200",
+   "identity": "특성 버프(전문화) — 야수의 격노 본체(15초)",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "죽음의 통곡",
+     "spell_id": 1264290,
+     "match": "이름/설명",
+     "desc": "야수의 격노 사용 시 어둠 사냥개를 소환합니다.\r\n\r\n야수의 격노 시전 후 15초 동안 야수의 격노가 울부짖는 화살로 대체됩니다.\r\n\r\n 울부짖는 화살\r\n마력 깃든 화살을 발사하여 대상에게 482의 암흑 피해를 입히고 대상의 8미터 내에 있는 모든 적에게는 245의 추가 암흑 피해를 입힙니다. 울부짖는 화살에 적중당한 플레이어가 아닌 대상은 주문 시전을 방해받고 1초 동안 침묵 상태가 됩니다"
+    },
+    {
+     "tree": "전문화",
+     "talent": "야수의 격노",
+     "spell_id": 19574,
+     "match": "spell_id",
+     "desc": "시전자와 야수가 광폭해져 대상에게 즉시 280의 물리 피해를 입힙니다. 또한 15초 동안 시전자와 야수의 모든 공격력이 20%만큼 증가합니다. 야수에게 걸린 모든 군중 제어 효과를 제거합니다. "
+    }
+   ]
+  },
+  {
+   "buff_id": 1235388,
+   "name": "야수의 격노",
+   "fights": 194,
+   "on_casts": 14625,
+   "off_casts": 14256,
+   "cobra_pct_on": 55.6,
+   "cobra_pct_off": 68.0,
+   "diff": -12.4,
+   "cobra_pct_on_bw_off": 68.7,
+   "cobra_pct_off_bw_off": 68.3,
+   "diff_bw_off": 0.4,
+   "fights_on_higher": "3/194",
+   "identity": "특성 버프 — 야수의 격노(광포한 야수측 기록, 격노 창과 정렬)",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "죽음의 통곡",
+     "spell_id": 1264290,
+     "match": "이름/설명",
+     "desc": "야수의 격노 사용 시 어둠 사냥개를 소환합니다.\r\n\r\n야수의 격노 시전 후 15초 동안 야수의 격노가 울부짖는 화살로 대체됩니다.\r\n\r\n 울부짖는 화살\r\n마력 깃든 화살을 발사하여 대상에게 482의 암흑 피해를 입히고 대상의 8미터 내에 있는 모든 적에게는 245의 추가 암흑 피해를 입힙니다. 울부짖는 화살에 적중당한 플레이어가 아닌 대상은 주문 시전을 방해받고 1초 동안 침묵 상태가 됩니다"
+    },
+    {
+     "tree": "전문화",
+     "talent": "야수의 격노",
+     "spell_id": 19574,
+     "match": "이름/설명",
+     "desc": "시전자와 야수가 광폭해져 대상에게 즉시 280의 물리 피해를 입힙니다. 또한 15초 동안 시전자와 야수의 모든 공격력이 20%만큼 증가합니다. 야수에게 걸린 모든 군중 제어 효과를 제거합니다. "
+    }
+   ]
+  },
+  {
+   "buff_id": 472640,
+   "name": "멧돼지 기수",
+   "fights": 200,
+   "on_casts": 3089,
+   "off_casts": 25792,
+   "cobra_pct_on": 51.2,
+   "cobra_pct_off": 63.0,
+   "diff": -11.7,
+   "cobra_pct_on_bw_off": 65.9,
+   "cobra_pct_off_bw_off": 68.5,
+   "diff_bw_off": -2.6,
+   "fights_on_higher": "37/200",
+   "identity": "특성 프록(멧돼지 기수 472639) — '다음 코브라 사격 공격력 +200%' 프록",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "멧돼지 기수",
+     "spell_id": 472639,
+     "match": "이름/설명",
+     "desc": "멧돼지가 피해를 입히면 다음 코브라 사격의 공격력이 200%만큼 증가합니다.\r\n\r\n멧돼지에게 피해를 받은 적 하나당 코브라 사격이 1명의 추가 대상을 공격하며, 최대 4번까지 유효합니다."
+    },
+    {
+     "tree": "전문화",
+     "talent": "발굽과 칼날",
+     "spell_id": 1264797,
+     "match": "이름/설명",
+     "desc": "멧돼지 기수가 추가로 코브라 사격의 공격력을 50%만큼 증가시키고, 최대 3명의 추가 대상을 공격합니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 20572,
+   "name": "피의 격노",
+   "fights": 42,
+   "on_casts": 872,
+   "off_casts": 28009,
+   "cobra_pct_on": 54.0,
+   "cobra_pct_off": 62.0,
+   "diff": -8.0,
+   "cobra_pct_on_bw_off": null,
+   "cobra_pct_off_bw_off": 68.4,
+   "diff_bw_off": null,
+   "fights_on_higher": "0/42",
+   "identity": "종족 특성(오크, 피의 격노) — 버스트에 정렬되는 외부성 버프"
+  },
+  {
+   "buff_id": 383781,
+   "name": "알게타르 수수께끼",
+   "fights": 164,
+   "on_casts": 4624,
+   "off_casts": 24257,
+   "cobra_pct_on": 55.4,
+   "cobra_pct_off": 62.9,
+   "diff": -7.5,
+   "cobra_pct_on_bw_off": 56.9,
+   "cobra_pct_off_bw_off": 69.4,
+   "diff_bw_off": -12.5,
+   "fights_on_higher": "4/164",
+   "identity": "장신구(알게타르 수수께끼 상자) — 사용 효과, 버스트 정렬"
+  },
+  {
+   "buff_id": 471877,
+   "name": "무리의 지도자의 포효",
+   "fights": 200,
+   "on_casts": 26272,
+   "off_casts": 2609,
+   "cobra_pct_on": 62.4,
+   "cobra_pct_off": 55.1,
+   "diff": 7.3,
+   "cobra_pct_on_bw_off": 69.5,
+   "cobra_pct_off_bw_off": 59.0,
+   "diff_bw_off": 10.5,
+   "fights_on_higher": "138/189",
+   "identity": "특성 버프(무리의 지도자의 포효 471876) — 30초 주기 '다음 살명이 맹수 소환' 대기 상태(업타임 ~91%). OFF=소환 직후 창",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "무리의 지도자의 포효",
+     "spell_id": 471876,
+     "match": "이름/설명",
+     "desc": "전투 중 30초마다 다음 살상 명령 사용 시 맹수를 소환하여 지원을 받습니다.\r\n\r\n 와이번\r\n와이번이 하늘에서 내려와 전투의 함성을 내질러 12초 동안 사냥꾼과 야수의 공격력을 10%만큼 증가시킵니다.\r\n\r\n 멧돼지\r\n멧돼지가 시전자의 대상에게 1회 돌진하여 주위의 적에게 504의 피해를 입히고, 주 대상에게는 420의 추가 물리 피해를 입힙니다. 5명을 초과하는 대상에게는 감소된 피해를 "
+    },
+    {
+     "tree": "전문화",
+     "talent": "무리 본능",
+     "spell_id": 472358,
+     "match": "이름/설명",
+     "desc": "무리의 지도자의 포효가 살상 명령의 공격력을 50%만큼 증가시킵니다.\r\n\r\n맹수를 소환하면 날카로운 사격의 재사용 대기시간이 4.0초만큼 감소합니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 1285912,
+   "name": "야수의 격노",
+   "fights": 200,
+   "on_casts": 22711,
+   "off_casts": 6170,
+   "cobra_pct_on": 60.5,
+   "cobra_pct_off": 66.2,
+   "diff": -5.7,
+   "cobra_pct_on_bw_off": 69.7,
+   "cobra_pct_off_bw_off": 66.3,
+   "diff_bw_off": 3.4,
+   "fights_on_higher": "40/189",
+   "identity": "특성 버프 — 야수의 격노 파생(장시간 기록, 부차적)",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "죽음의 통곡",
+     "spell_id": 1264290,
+     "match": "이름/설명",
+     "desc": "야수의 격노 사용 시 어둠 사냥개를 소환합니다.\r\n\r\n야수의 격노 시전 후 15초 동안 야수의 격노가 울부짖는 화살로 대체됩니다.\r\n\r\n 울부짖는 화살\r\n마력 깃든 화살을 발사하여 대상에게 482의 암흑 피해를 입히고 대상의 8미터 내에 있는 모든 적에게는 245의 추가 암흑 피해를 입힙니다. 울부짖는 화살에 적중당한 플레이어가 아닌 대상은 주문 시전을 방해받고 1초 동안 침묵 상태가 됩니다"
+    },
+    {
+     "tree": "전문화",
+     "talent": "야수의 격노",
+     "spell_id": 19574,
+     "match": "이름/설명",
+     "desc": "시전자와 야수가 광폭해져 대상에게 즉시 280의 물리 피해를 입힙니다. 또한 15초 동안 시전자와 야수의 모든 공격력이 20%만큼 증가합니다. 야수에게 걸린 모든 군중 제어 효과를 제거합니다. "
+    }
+   ]
+  },
+  {
+   "buff_id": 1276720,
+   "name": "자연의 동맹",
+   "fights": 200,
+   "on_casts": 9879,
+   "off_casts": 19002,
+   "cobra_pct_on": 65.4,
+   "cobra_pct_off": 59.8,
+   "diff": 5.6,
+   "cobra_pct_on_bw_off": 67.8,
+   "cobra_pct_off_bw_off": 68.8,
+   "diff_bw_off": -1.0,
+   "fights_on_higher": "134/200",
+   "identity": "특성 버프(자연의 동맹 1273043) — 격노 시 동물 친구 15초 소환",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "자연의 동맹",
+     "spell_id": 1273043,
+     "match": "이름/설명",
+     "desc": "야수의 격노 사용 시 우리에서 동물 친구 한 마리를 소환하여 15초 동안 전투를 돕게 합니다. 소환된 동물 친구는 시전자의 살상 명령과 마구잡이 난타를 따르며, 다른 야수와 함께 발구르기를 시전합니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 459731,
+   "name": "사냥지배자의 부름",
+   "fights": 194,
+   "on_casts": 24270,
+   "off_casts": 4611,
+   "cobra_pct_on": 62.4,
+   "cobra_pct_off": 58.1,
+   "diff": 4.4,
+   "cobra_pct_on_bw_off": 69.5,
+   "cobra_pct_off_bw_off": 62.5,
+   "diff_bw_off": 7.0,
+   "fights_on_higher": "131/183",
+   "identity": "특성 버프(사냥지배자의 부름 459730) — 광포한 야수 소환 카운터(하티/펜리르)",
+   "talent_hits": [
+    {
+     "tree": "전문화",
+     "talent": "사냥지배자의 부름",
+     "spell_id": 459730,
+     "match": "이름/설명",
+     "desc": "광포한 야수를 8번 소환할 때마다 용맹의 뿔피리를 불어 하티 또는 펜리르를 소환해 전투를 돕게 합니다.\r\n\r\n하티\r\n모든 야수의 공격력을 4%만큼 증가시킵니다.\r\n\r\n펜리르\r\n주 대상에게 달려들어 강력한 출혈 효과를 걸어, 8초에 걸쳐 280의 피해를 입히고 사냥꾼의 가속을 4%만큼 증가시킵니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 118922,
+   "name": "급가속",
+   "fights": 123,
+   "on_casts": 427,
+   "off_casts": 28454,
+   "cobra_pct_on": 58.3,
+   "cobra_pct_off": 61.8,
+   "diff": -3.5,
+   "cobra_pct_on_bw_off": 66.1,
+   "cobra_pct_off_bw_off": 68.4,
+   "diff_bw_off": -2.4,
+   "fights_on_higher": "15/30",
+   "identity": "이동기 버프(급가속) — 유틸, 필러와 무관",
+   "talent_hits": [
+    {
+     "tree": "직업",
+     "talent": "급가속",
+     "spell_id": 109215,
+     "match": "이름/설명",
+     "desc": "철수 사용 시 모든 이동 방해 효과가 제거되고, 이동 속도가 4초 동안 50%만큼 증가합니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 186257,
+   "name": "치타의 상",
+   "fights": 138,
+   "on_casts": 695,
+   "off_casts": 28186,
+   "cobra_pct_on": 64.3,
+   "cobra_pct_off": 61.7,
+   "diff": 2.6,
+   "cobra_pct_on_bw_off": 68.7,
+   "cobra_pct_off_bw_off": 68.4,
+   "diff_bw_off": 0.4,
+   "fights_on_higher": "38/68",
+   "identity": "이동기 버프(치타의 상)",
+   "talent_hits": [
+    {
+     "tree": "직업",
+     "talent": "치타의 상 연마",
+     "spell_id": 1258407,
+     "match": "이름/설명",
+     "desc": "치타의 상의 재사용 대기시간이 30초만큼 감소합니다."
+    },
+    {
+     "tree": "직업",
+     "talent": "정찰병의 본능",
+     "spell_id": 459455,
+     "match": "이름/설명",
+     "desc": "치타의 상이 활성화된 동안에는 이동 속도가 평상시의 80% 이하로 내려가지 않습니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 1266687,
+   "name": "알른멸시의 정수",
+   "fights": 193,
+   "on_casts": 17522,
+   "off_casts": 11359,
+   "cobra_pct_on": 62.6,
+   "cobra_pct_off": 60.4,
+   "diff": 2.2,
+   "cobra_pct_on_bw_off": 70.0,
+   "cobra_pct_off_bw_off": 65.9,
+   "diff_bw_off": 4.1,
+   "fights_on_higher": "130/193",
+   "identity": "장신구 — 알른멸시의 정수"
+  },
+  {
+   "buff_id": 272790,
+   "name": "광기",
+   "fights": 143,
+   "on_casts": 21303,
+   "off_casts": 7578,
+   "cobra_pct_on": 62.3,
+   "cobra_pct_off": 60.2,
+   "diff": 2.1,
+   "cobra_pct_on_bw_off": 69.7,
+   "cobra_pct_off_bw_off": 64.9,
+   "diff_bw_off": 4.7,
+   "fights_on_higher": "34/38",
+   "identity": "펫 버프(광기) — 캐시 기록 불완전(apply만 ~30초 간격), 이 행의 수치는 신뢰 불가",
+   "reliable": false
+  },
+  {
+   "buff_id": 1258890,
+   "name": "샬라드라실의 힘",
+   "fights": 81,
+   "on_casts": 1791,
+   "off_casts": 27090,
+   "cobra_pct_on": 63.6,
+   "cobra_pct_off": 61.6,
+   "diff": 2.0,
+   "cobra_pct_on_bw_off": 70.1,
+   "cobra_pct_off_bw_off": 68.3,
+   "diff_bw_off": 1.8,
+   "fights_on_higher": "46/80",
+   "identity": "장신구(세계수 계열) — 샬라드라실의 힘"
+  },
+  {
+   "buff_id": 1258887,
+   "name": "아미드랏실의 신속함",
+   "fights": 82,
+   "on_casts": 2025,
+   "off_casts": 26856,
+   "cobra_pct_on": 63.4,
+   "cobra_pct_off": 61.6,
+   "diff": 1.8,
+   "cobra_pct_on_bw_off": 70.2,
+   "cobra_pct_off_bw_off": 68.2,
+   "diff_bw_off": 1.9,
+   "fights_on_higher": "54/82",
+   "identity": "장신구(세계수 계열) — 아미드랏실의 신속함"
+  },
+  {
+   "buff_id": 1266686,
+   "name": "알른시야",
+   "fights": 193,
+   "on_casts": 11942,
+   "off_casts": 16939,
+   "cobra_pct_on": 62.6,
+   "cobra_pct_off": 61.1,
+   "diff": 1.6,
+   "cobra_pct_on_bw_off": 70.1,
+   "cobra_pct_off_bw_off": 67.2,
+   "diff_bw_off": 3.0,
+   "fights_on_higher": "128/193",
+   "identity": "장신구 — 알른시야"
+  },
+  {
+   "buff_id": 1285161,
+   "name": "보호의 독버섯",
+   "fights": 74,
+   "on_casts": 1167,
+   "off_casts": 27714,
+   "cobra_pct_on": 60.2,
+   "cobra_pct_off": 61.8,
+   "diff": -1.6,
+   "cobra_pct_on_bw_off": 68.1,
+   "cobra_pct_off_bw_off": 68.4,
+   "diff_bw_off": -0.3,
+   "fights_on_higher": "33/72",
+   "identity": "장신구 — 보호의 독버섯"
+  },
+  {
+   "buff_id": 1241715,
+   "name": "공허의 기세",
+   "fights": 150,
+   "on_casts": 11295,
+   "off_casts": 17586,
+   "cobra_pct_on": 62.6,
+   "cobra_pct_off": 61.2,
+   "diff": 1.5,
+   "cobra_pct_on_bw_off": 69.5,
+   "cobra_pct_off_bw_off": 67.7,
+   "diff_bw_off": 1.9,
+   "fights_on_higher": "93/150",
+   "identity": "장신구 — 공허의 기세"
+  },
+  {
+   "buff_id": 1258885,
+   "name": "텔드랏실의 끈기",
+   "fights": 80,
+   "on_casts": 1986,
+   "off_casts": 26895,
+   "cobra_pct_on": 63.0,
+   "cobra_pct_off": 61.6,
+   "diff": 1.4,
+   "cobra_pct_on_bw_off": 68.5,
+   "cobra_pct_off_bw_off": 68.4,
+   "diff_bw_off": 0.2,
+   "fights_on_higher": "51/80",
+   "identity": "장신구(세계수 계열) — 텔드랏실의 끈기"
+  },
+  {
+   "buff_id": 1229746,
+   "name": "비전매듭 통찰",
+   "fights": 112,
+   "on_casts": 7924,
+   "off_casts": 20957,
+   "cobra_pct_on": 62.7,
+   "cobra_pct_off": 61.4,
+   "diff": 1.3,
+   "cobra_pct_on_bw_off": 69.6,
+   "cobra_pct_off_bw_off": 67.9,
+   "diff_bw_off": 1.7,
+   "fights_on_higher": "73/112",
+   "identity": "장신구 — 비전매듭 통찰"
+  },
+  {
+   "buff_id": 1258886,
+   "name": "놀드랏실의 현명함",
+   "fights": 80,
+   "on_casts": 2079,
+   "off_casts": 26802,
+   "cobra_pct_on": 62.9,
+   "cobra_pct_off": 61.6,
+   "diff": 1.3,
+   "cobra_pct_on_bw_off": 69.9,
+   "cobra_pct_off_bw_off": 68.3,
+   "diff_bw_off": 1.7,
+   "fights_on_higher": "46/80",
+   "identity": "장신구(세계수 계열) — 놀드랏실의 현명함"
+  },
+  {
+   "buff_id": 1236998,
+   "name": "날뛰는 방종의 비약",
+   "fights": 28,
+   "on_casts": 514,
+   "off_casts": 28367,
+   "cobra_pct_on": 60.5,
+   "cobra_pct_off": 61.8,
+   "diff": -1.2,
+   "cobra_pct_on_bw_off": 64.9,
+   "cobra_pct_off_bw_off": 68.4,
+   "diff_bw_off": -3.5,
+   "fights_on_higher": "10/28",
+   "identity": "물약 — 날뛰는 방종의 비약"
+  },
+  {
+   "buff_id": 186258,
+   "name": "치타의 상",
+   "fights": 136,
+   "on_casts": 1407,
+   "off_casts": 27474,
+   "cobra_pct_on": 60.6,
+   "cobra_pct_off": 61.8,
+   "diff": -1.2,
+   "cobra_pct_on_bw_off": 67.0,
+   "cobra_pct_off_bw_off": 68.5,
+   "diff_bw_off": -1.5,
+   "fights_on_higher": "46/107",
+   "identity": "이동기 버프(치타의 상)",
+   "talent_hits": [
+    {
+     "tree": "직업",
+     "talent": "치타의 상 연마",
+     "spell_id": 1258407,
+     "match": "이름/설명",
+     "desc": "치타의 상의 재사용 대기시간이 30초만큼 감소합니다."
+    },
+    {
+     "tree": "직업",
+     "talent": "정찰병의 본능",
+     "spell_id": 459455,
+     "match": "이름/설명",
+     "desc": "치타의 상이 활성화된 동안에는 이동 속도가 평상시의 80% 이하로 내려가지 않습니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 264735,
+   "name": "적자생존",
+   "fights": 189,
+   "on_casts": 1726,
+   "off_casts": 27155,
+   "cobra_pct_on": 62.5,
+   "cobra_pct_off": 61.7,
+   "diff": 0.8,
+   "cobra_pct_on_bw_off": 70.5,
+   "cobra_pct_off_bw_off": 68.2,
+   "diff_bw_off": 2.3,
+   "fights_on_higher": "83/154",
+   "identity": "생존기 버프(적자생존)",
+   "talent_hits": [
+    {
+     "tree": "직업",
+     "talent": "적자생존",
+     "spell_id": 264735,
+     "match": "spell_id",
+     "desc": "6초 동안 자신과 야수가 받는 모든 피해가 30%만큼 감소합니다."
+    },
+    {
+     "tree": "직업",
+     "talent": "솜댄 갑옷",
+     "spell_id": 459450,
+     "match": "이름/설명",
+     "desc": "적자생존이 추가로 1회 충전됩니다."
+    }
+   ]
+  },
+  {
+   "buff_id": 1260615,
+   "name": "광휘의 꽁지깃",
+   "fights": 37,
+   "on_casts": 5261,
+   "off_casts": 23620,
+   "cobra_pct_on": 61.2,
+   "cobra_pct_off": 61.8,
+   "diff": -0.6,
+   "cobra_pct_on_bw_off": 67.7,
+   "cobra_pct_off_bw_off": 68.5,
+   "diff_bw_off": -0.8,
+   "fights_on_higher": null,
+   "identity": "장신구 — 광휘의 꽁지깃"
+  },
+  {
+   "buff_id": 1236616,
+   "name": "빛의 잠재력",
+   "fights": 171,
+   "on_casts": 3429,
+   "off_casts": 25452,
+   "cobra_pct_on": 61.4,
+   "cobra_pct_off": 61.8,
+   "diff": -0.3,
+   "cobra_pct_on_bw_off": 67.3,
+   "cobra_pct_off_bw_off": 68.5,
+   "diff_bw_off": -1.3,
+   "fights_on_higher": "88/170",
+   "identity": "물약 — 빛의 잠재력(주스탯 30초)"
+  },
+  {
+   "buff_id": 1287425,
+   "name": "공허에 물든 보주",
+   "fights": 106,
+   "on_casts": 4368,
+   "off_casts": 24513,
+   "cobra_pct_on": 61.8,
+   "cobra_pct_off": 61.7,
+   "diff": 0.1,
+   "cobra_pct_on_bw_off": 69.4,
+   "cobra_pct_off_bw_off": 68.2,
+   "diff_bw_off": 1.1,
+   "fights_on_higher": "52/106",
+   "identity": "장신구 — 공허에 물든 보주"
+  },
+  {
+   "buff_id": 471881,
+   "name": "와이번의 울음소리",
+   "fights": 200,
+   "on_casts": 12908,
+   "off_casts": 15973,
+   "cobra_pct_on": 61.8,
+   "cobra_pct_off": 61.7,
+   "diff": 0.0,
+   "cobra_pct_on_bw_off": 70.8,
+   "cobra_pct_off_bw_off": 67.2,
+   "diff_bw_off": 3.7,
+   "fights_on_higher": "111/200",
+   "identity": "특성 버프(와이번의 울음소리) — 와이번 소환 중 공격력 +10% 창"
+  }
+ ],
+ "conclusion": {
+  "cobra_calling_buff": "없음 — 코브라 선택 비율을 의미 있게 끌어올리는 프록/버프는 하나도 없다. 겉보기 1위(날카로운 사격 246152, +50)는 날카를 '방금 눌렀기 때문에' 켜지는 결과 버프라 원인이 아니고, '다음 코브라 +200%'인 멧돼지 기수 프록이 떠 있어도 코브라 비율은 오히려 내려감(51.2% vs 63.0%) — 그 창이 맹수 소환(날카 쿨 4초 감소, 무리 본능) 창과 겹치기 때문.",
+  "barbed_calling_buffs": "뚜렷함 — 전부 '야수의 격노 창' 계열. 쇄도!(격노 직후, 코브라 4.1% vs 63.3%), 쇄도 진행 7초(27.5% vs 67.1%), 피의 광란 10초(45.6% vs 68.4%, 197판 전부 같은 방향), 격노 자체(54.1% vs 68.4%, 200판 전부 같은 방향). 이유도 특성에 그대로 적혀 있음: 피의 향기(격노 시 날카 1충전 지급) + 피의 광란(격노 후 10초 날카 출혈 2배속).",
+  "why_cobra_default": "격노 밖 평시엔 코브라가 68.4%로 기본 선택. 버프 조건이 아니라 상시 이유 때문 — 코브라는 살상 명령 쿨 1초 단축(내장) + 절실한 소환장으로 무리의 지도자의 포효 쿨도 1초 단축. 즉 코브라를 굴릴수록 살명과 맹수 소환이 빨리 돌아옴.",
+  "frenzy": "펫 광기 유지가 선택을 가르는지는 이 캐시로 측정 불가(펫 버프 이벤트가 불완전하게 기록됨).",
+  "guide_sentence": "코브라를 부르는 프록은 없다 — 반대로 '격노를 누른 직후 10초'(피의 향기 충전 + 피의 광란 2배속 출혈)가 날카를 부르는 창이고, 그 창 밖의 남는 글쿨은 조건 없이 코브라가 기본이다(격노 밖 코브라 68%, 200판 전부 동일 방향)."
+ }
+}
