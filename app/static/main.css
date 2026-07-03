@@ -1051,3 +1051,54 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   background: rgba(255,255,255,0.03); font-size: 12px; line-height: 1.55; }
 #fun-detail .fd-src { color: var(--text-mute); font-size: 11px; margin-left: 6px; }
 #fun-detail .fd-log { color: var(--text-mute); font-size: 11.5px; margin-top: 8px; }
+
+/* ── 딜사이클 플로우형 레이아웃 (build.flow) ─────────────────────────── */
+.fl-sec { background: var(--bg-1); border: 1px solid var(--border-soft); border-radius: 10px;
+  padding: 16px 18px; margin: 12px 0; }
+.fl-h { font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+.fl-note { font-size: 12px; color: var(--text-mute); margin-bottom: 10px; }
+.fl-list { display: flex; flex-direction: column; gap: 6px; }
+.fl-row { display: grid; grid-template-columns: 34px 1fr 28px minmax(190px, 240px); gap: 10px;
+  align-items: center; padding: 9px 12px; border-radius: 8px;
+  background: rgba(255,255,255,0.025); border-left: 4px solid var(--border); }
+.fl-row.proc   { border-left-color: #4da3ff; }
+.fl-row.cd     { border-left-color: #e8c15a; }
+.fl-row.hold   { border-left-color: #ff9d5c; }
+.fl-row.spend  { border-left-color: #8fd18f; }
+.fl-row.filler { border-left-color: #777; }
+.fl-num { width: 26px; height: 26px; border-radius: 50%; background: var(--bg-0);
+  border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: var(--text-soft); }
+.fl-q { font-size: 13.5px; font-weight: 600; color: var(--text); line-height: 1.45; }
+.fl-why { font-size: 11.5px; font-weight: 400; color: var(--text-mute); margin-top: 2px; line-height: 1.5; }
+.fl-arrow { font-size: 16px; color: var(--accent); text-align: center; }
+.fl-a { font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.fl-a .ws-ic { width: 26px; height: 26px; border-radius: 5px; vertical-align: middle; }
+.fl-a .ws { display: inline-flex; align-items: center; gap: 6px; }
+.fl-tone { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 9px; opacity: 0.9; }
+.fl-tone.proc   { background: rgba(77,163,255,0.18);  color: #8ec5ff; }
+.fl-tone.cd     { background: rgba(232,193,90,0.18);  color: #ecd28a; }
+.fl-tone.hold   { background: rgba(255,157,92,0.18);  color: #ffbd93; }
+.fl-tone.spend  { background: rgba(143,209,143,0.16); color: #a9dda9; }
+.fl-tone.filler { background: rgba(160,160,160,0.16); color: #bbb; }
+.fl-aoe { margin-top: 12px; padding: 10px 12px; border-radius: 8px;
+  background: rgba(77,163,255,0.06); border: 1px dashed rgba(77,163,255,0.35); }
+.fl-aoe-h { font-size: 12.5px; font-weight: 700; color: #8ec5ff; margin-bottom: 5px; }
+.fl-aoe-line { font-size: 12.5px; line-height: 1.6; color: var(--text); }
+.fl-opener { display: flex; align-items: stretch; gap: 4px; flex-wrap: wrap; margin: 8px 0 10px; }
+.fl-op-step { display: flex; flex-direction: column; align-items: center; gap: 4px;
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border-soft); border-radius: 8px;
+  padding: 8px 10px; width: 108px; text-align: center; }
+.fl-op-num { font-size: 10.5px; font-weight: 700; color: var(--accent); }
+.fl-op-icon .ws-ic { width: 34px; height: 34px; border-radius: 6px; }
+.fl-op-icon .ws { display: flex; flex-direction: column; align-items: center; gap: 3px;
+  font-size: 11px; line-height: 1.25; }
+.fl-op-cap { font-size: 10.5px; color: var(--text-mute); line-height: 1.35; }
+.fl-op-arrow { align-self: center; color: var(--accent); font-size: 15px; padding: 0 1px; }
+.fl-gloss { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 6px; }
+.fl-gloss-item { font-size: 12px; color: var(--text); background: rgba(255,255,255,0.03);
+  border-radius: 6px; padding: 7px 10px; line-height: 1.5; }
+.fl-gloss-item b { color: var(--accent); margin-right: 4px; }
+.fl-details { margin: 10px 0 4px; }
+.fl-details summary { cursor: pointer; font-size: 12.5px; color: var(--text-mute); padding: 6px 2px; }
+.fl-details summary:hover { color: var(--text); }

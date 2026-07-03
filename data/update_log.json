@@ -1220,6 +1220,32 @@
       "files": [
         "C:/Users/smk90/OneDrive/바탕 화면/LogAnalyze/data/frost_trinket_recommendations.json"
       ]
+    },
+    {
+      "ts": "2026-07-03T21:50:07",
+      "host": "SmkDesktop",
+      "action": "backfill_v2",
+      "params": {
+        "limit": null,
+        "processed": 8364,
+        "scanned": 9817,
+        "missing_only": true,
+        "max_new": null,
+        "pf_all": false,
+        "no_events": true
+      },
+      "result": {
+        "pf_new": 8272,
+        "pf_fail": 92,
+        "ev_new": 0,
+        "ev_fail": 0,
+        "ev_skip": 8364,
+        "rate_end": 90
+      },
+      "files": [
+        "data/v2_cache_player_fight.json",
+        "data/v2_cache_events.json"
+      ]
     }
   ]
 }

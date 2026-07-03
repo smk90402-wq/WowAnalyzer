@@ -230,7 +230,7 @@ function specTraits(r) {
   if (r.burden) {
     const hi = r.burden >= 4, lo = r.burden <= 2;
     out.push({ tone: lo ? 'good' : (hi ? 'bad' : ''),
-      text: `특임/유틸 부담 <b>${r.burden}/5</b> ${hi ? '(높음 — 딜천장보다 운영 리스크/시선분산 증가)' : (lo ? '(낮음 — 딜 스킬 운용에 집중하기 쉬움)' : '(중간)')} <span class="sm-muted">점수 미반영</span> — ${esc(r.burden_note || '')}` });
+      text: `특임/유틸 부담 <b>${r.burden}/5</b> ${hi ? '(높음 — 딜 말고 시켜지는 일이 많아 신경 분산)' : (lo ? '(낮음 — 내 딜에만 집중하기 쉬움)' : '(중간)')} <span class="sm-muted">점수 미반영</span> — ${esc(r.burden_note || '')}` });
   }
   if (r.aoe_ratio != null)
     out.push({ tone: '', text: r.aoe_ratio >= 1.4 ? `<b>다타겟·쫄파이 특화</b> (광딜비 ${_fmtN(r.aoe_ratio)})`
@@ -301,7 +301,7 @@ function openSpecModal(idx) {
       </div>
       <div class="sm-col-right">${rightHtml}</div>
     </div>
-    <div class="sm-foot">난이도·딜 스킬천장·꿀팁 = 유튜브(12.0.5)/가이드를 보고 직접 정리 · 특임/유틸 부담 = 점수 미반영 운영 리스크 · 레이드/쐐기 티어 = 순수 성능(파스 무관) · PI독립·일관성·광딜·인구 = 로그 데이터</div>`;
+    <div class="sm-foot">난이도·딜 스킬천장·꿀팁 = 유튜브(12.0.5)/가이드를 보고 직접 정리 · 특임/유틸 부담 = 점수 미반영 참고 · 레이드/쐐기 티어 = 순수 성능(파스 무관) · PI독립·일관성·광딜·인구 = 로그 데이터</div>`;
   $('#spec-modal').classList.add('show');
   whEnsure();  // 스킬명 마우스오버 툴팁
 }
@@ -879,19 +879,72 @@ function renderRotBody() {
   const list = (arr) => arr && arr.length
     ? `<ol class="rot-list">${arr.map(x => `<li>${wsify(esc(x))}</li>`).join('')}</ol>`
     : '<div class="sm-empty">데이터 없음</div>';
-  $('#rot-body').innerHTML = `
+  const gameBtn = hasGame ? `<button id="rot-game-btn" class="rot-game-btn" style="margin-top:10px">딜사이클 문제풀이 — ${esc(_rotSel.build)} (단일특/광특 50문제)</button>` : '';
+  const head = `
     <div class="rot-meta">
       <div class="rot-summary">${wsify(esc(spec.summary || ''))}</div>
       ${spec.stat ? `<div class="rot-stat"><b>스탯</b> ${wsify(esc(spec.stat))}</div>` : ''}
       ${build.hero_note ? `<div class="rot-hero"><b>${esc(_rotSel.build)}</b> ${wsify(esc(build.hero_note))}</div>` : ''}
-      ${hasGame ? `<button id="rot-game-btn" class="rot-game-btn" style="margin-top:10px">딜사이클 문제풀이 — ${esc(_rotSel.build)} (단일특/광특 50문제)</button>` : ''}
-    </div>
-    <div class="rot-cols">
-      <div class="rot-col"><div class="rot-col-h single">단일 우선순위</div>${list(build.single)}</div>
-      <div class="rot-col"><div class="rot-col-h aoe">광역 우선순위</div>${list(build.aoe)}</div>
-      <div class="rot-col"><div class="rot-col-h opener">오프너</div>${list(build.opener)}</div>
-      ${build.util && build.util.length ? `<div class="rot-col"><div class="rot-col-h util">유틸·생존 (눌러야 할 것)</div>${list(build.util)}</div>` : ''}
+      ${gameBtn}
     </div>`;
+
+  if (build.flow) {
+    // ── 플로우형 레이아웃: 체크리스트(뭘 누를까) + 오프너 타임라인 + 용어 ──
+    const f = build.flow;
+    const TONE_LBL = { proc: '프록', cd: '쿨기', hold: '아끼기', spend: '소모', filler: '기본기' };
+    const rows = (f.checklist || []).map((c, i) => {
+      const tone = TONE_LBL[c.tone] ? c.tone : '';   // 화이트리스트 — class 속성 주입 방지
+      return `
+      <div class="fl-row ${tone}">
+        <div class="fl-num">${i + 1}</div>
+        <div class="fl-q">${wsify(esc(c.q))}<div class="fl-why">${wsify(esc(c.why || ''))}</div></div>
+        <div class="fl-arrow">→</div>
+        <div class="fl-a">${wsify(esc(c.a))}${tone ? `<span class="fl-tone ${tone}">${TONE_LBL[tone]}</span>` : ''}</div>
+      </div>`;
+    }).join('');
+    const openerSteps = (f.opener || []).map((o, i) => `
+      <div class="fl-op-step">
+        <div class="fl-op-num">${i + 1}</div>
+        <div class="fl-op-icon">${wsify(esc(o.s))}</div>
+        <div class="fl-op-cap">${esc(o.t || '')}</div>
+      </div>`).join('<div class="fl-op-arrow">→</div>');
+    const gloss = (f.glossary || []).map(g =>
+      `<div class="fl-gloss-item"><b>${esc(g.w)}</b> ${wsify(esc(g.m))}</div>`).join('');
+    $('#rot-body').innerHTML = `
+      ${head}
+      <div class="fl-sec">
+        <div class="fl-h">뭘 누를까? — 매 순간 위에서부터, 처음 '예'인 줄</div>
+        <div class="fl-note">${esc(f.note || '')}</div>
+        <div class="fl-list">${rows}</div>
+        ${f.aoe_diff && f.aoe_diff.length ? `
+        <div class="fl-aoe"><div class="fl-aoe-h">여러 마리일 때 (광역)</div>
+          ${f.aoe_diff.map(x => `<div class="fl-aoe-line">${wsify(esc(x))}</div>`).join('')}</div>` : ''}
+      </div>
+      <div class="fl-sec">
+        <div class="fl-h">오프너 — 전투 시작 순서 그대로</div>
+        <div class="fl-opener">${openerSteps}</div>
+        ${f.opener_note ? `<div class="fl-note">${wsify(esc(f.opener_note))}</div>` : ''}
+      </div>
+      ${gloss ? `<div class="fl-sec"><div class="fl-h">처음 보는 말</div><div class="fl-gloss">${gloss}</div></div>` : ''}
+      <details class="fl-details">
+        <summary>자세한 설명 전문 (조건별 원문)</summary>
+        <div class="rot-cols">
+          <div class="rot-col"><div class="rot-col-h single">단일 우선순위</div>${list(build.single)}</div>
+          <div class="rot-col"><div class="rot-col-h aoe">광역 우선순위</div>${list(build.aoe)}</div>
+          <div class="rot-col"><div class="rot-col-h opener">오프너</div>${list(build.opener)}</div>
+          ${build.util && build.util.length ? `<div class="rot-col"><div class="rot-col-h util">유틸·생존 (눌러야 할 것)</div>${list(build.util)}</div>` : ''}
+        </div>
+      </details>`;
+  } else {
+    $('#rot-body').innerHTML = `
+      ${head}
+      <div class="rot-cols">
+        <div class="rot-col"><div class="rot-col-h single">단일 우선순위</div>${list(build.single)}</div>
+        <div class="rot-col"><div class="rot-col-h aoe">광역 우선순위</div>${list(build.aoe)}</div>
+        <div class="rot-col"><div class="rot-col-h opener">오프너</div>${list(build.opener)}</div>
+        ${build.util && build.util.length ? `<div class="rot-col"><div class="rot-col-h util">유틸·생존 (눌러야 할 것)</div>${list(build.util)}</div>` : ''}
+      </div>`;
+  }
   const gb = $('#rot-game-btn');
   if (gb) gb.onclick = () => openRotGame(_rotSel.cls, _rotSel.spec, _rotSel.build);
   whEnsure();
