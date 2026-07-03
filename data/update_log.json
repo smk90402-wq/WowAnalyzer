@@ -1025,6 +1025,201 @@
       "files": [
         "data/spec_difficulty_v2.json"
       ]
+    },
+    {
+      "ts": "2026-07-03T13:52:00",
+      "host": "SmkDesktop",
+      "action": "fetch_rankings_v2",
+      "params": {
+        "difficulty": 5,
+        "label": "mythic",
+        "zone": 46,
+        "top_n": 100,
+        "partition": 3
+      },
+      "result": {
+        "rows": 24077,
+        "api_pts": 246.4
+      },
+      "files": [
+        "data/rankings_zone46_mythic_dps_top100.csv"
+      ]
+    },
+    {
+      "ts": "2026-07-03T13:54:46",
+      "host": "SmkDesktop",
+      "action": "fetch_rankings_v2",
+      "params": {
+        "difficulty": 4,
+        "label": "heroic",
+        "zone": 46,
+        "top_n": 100,
+        "partition": 3
+      },
+      "result": {
+        "rows": 24300,
+        "api_pts": 340.6
+      },
+      "files": [
+        "data/rankings_zone46_heroic_dps_top100.csv"
+      ]
+    },
+    {
+      "ts": "2026-07-03T14:00:26",
+      "host": "SmkDesktop",
+      "action": "fetch_pi_all",
+      "params": {
+        "difficulty": 5,
+        "label": "mythic",
+        "limit": 200
+      },
+      "result": {
+        "fights_done": 200,
+        "fights_fail": 0,
+        "rows_matched": 3431,
+        "pi_received": 1054,
+        "points": 714.0
+      },
+      "files": [
+        "data/rankings_zone46_mythic_dps_top100_pi.csv",
+        "data/v2_cache_pi_fight.json"
+      ]
+    },
+    {
+      "ts": "2026-07-03T14:01:47",
+      "host": "SmkDesktop",
+      "action": "analyze_spec_meta",
+      "params": {
+        "weights": {
+          "ease": 0.35,
+          "reactive_stability": 0.15,
+          "pi_indep": 0.3,
+          "consistency": 0.2,
+          "cleave_parse": 0.0
+        }
+      },
+      "result": {
+        "specs": 27,
+        "top": "사냥 야수"
+      },
+      "files": [
+        "data/spec_meta_ranking.csv"
+      ]
+    },
+    {
+      "ts": "2026-07-03T17:16:21",
+      "host": "SmkDesktop",
+      "action": "analyze_spec_fun",
+      "params": {
+        "videos": 10
+      },
+      "result": {
+        "specs": 27,
+        "top": "생존",
+        "bottom": "야수"
+      },
+      "files": [
+        "data/spec_fun.json"
+      ]
+    },
+    {
+      "ts": "2026-07-03T17:44:54",
+      "host": "SmkDesktop",
+      "action": "analyze_spec_fun",
+      "params": {
+        "videos": 10
+      },
+      "result": {
+        "specs": 27,
+        "top": "생존",
+        "bottom": "야수"
+      },
+      "files": [
+        "data/spec_fun.json"
+      ]
+    },
+    {
+      "ts": "2026-07-03T18:21:56",
+      "host": "SmkDesktop",
+      "action": "backfill_v2",
+      "params": {
+        "limit": null,
+        "processed": 865,
+        "scanned": 900,
+        "missing_only": true,
+        "max_new": null,
+        "pf_all": false,
+        "no_events": true
+      },
+      "result": {
+        "pf_new": 851,
+        "pf_fail": 14,
+        "ev_new": 0,
+        "ev_fail": 0,
+        "ev_skip": 865,
+        "rate_end": 2829.2
+      },
+      "files": [
+        "data/v2_cache_player_fight.json",
+        "data/v2_cache_events.json"
+      ]
+    },
+    {
+      "ts": "2026-07-03T18:32:01",
+      "host": "SmkDesktop",
+      "action": "backfill_v2",
+      "params": {
+        "limit": null,
+        "processed": 291,
+        "scanned": 300,
+        "missing_only": true,
+        "max_new": null,
+        "pf_all": false,
+        "no_events": false
+      },
+      "result": {
+        "pf_new": 285,
+        "pf_fail": 6,
+        "ev_new": 285,
+        "ev_fail": 6,
+        "ev_skip": 0,
+        "rate_end": 3610.3
+      },
+      "files": [
+        "data/v2_cache_player_fight.json",
+        "data/v2_cache_events.json"
+      ]
+    },
+    {
+      "ts": "2026-07-03T18:33:02",
+      "host": "SmkDesktop",
+      "action": "analyze_frost_stat_recommendations",
+      "params": {
+        "topn": 100,
+        "top_band": 20
+      },
+      "result": {
+        "bosses": 9
+      },
+      "files": [
+        "C:/Users/smk90/OneDrive/바탕 화면/LogAnalyze/data/frost_stat_recommendations.json"
+      ]
+    },
+    {
+      "ts": "2026-07-03T18:33:47",
+      "host": "SmkDesktop",
+      "action": "analyze_frost_trinket_recommendations",
+      "params": {
+        "topn": 100,
+        "top_band": 25,
+        "partition": 3
+      },
+      "result": {
+        "bosses": 9
+      },
+      "files": [
+        "C:/Users/smk90/OneDrive/바탕 화면/LogAnalyze/data/frost_trinket_recommendations.json"
+      ]
     }
   ]
 }

@@ -1,0 +1,884 @@
+{
+  "_meta": {
+    "generated_at": "2026-07-03T18:33:19",
+    "zone_id": 46,
+    "zone": "VS / DR / MQD",
+    "difficulty": "mythic",
+    "partition": 3,
+    "partition_name": "12.0.7",
+    "topn": 100,
+    "top_band": 25,
+    "notes": [
+      "DPS 보정값은 템렙과 전투시간 영향을 뺀 값 기준입니다.",
+      "장신구 목록은 하드코딩 없이 냉법 상위권 장비에 실제로 나온 것만 집계합니다.",
+      "추천은 평균 딜보다 상위권 채택률을 더 크게 봅니다. 킬마다 딜이 들쭉날쭉한 표본이라 작은 차이는 무시하세요."
+    ]
+  },
+  "Mage|Frost": {
+    "3176": {
+      "encounter_id": "3176",
+      "boss": "전제군주 아베르지안",
+      "encounter_name": "Imperator Averzian",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "unknown": 100
+      },
+      "failures": 0,
+      "cache_hits": 99,
+      "live_fetches": 1,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 191.9,
+      "top_ilvl": 291.4,
+      "top_stats": {
+        "crit": 1242.0,
+        "haste": 636.7,
+        "mastery": 991.4,
+        "vers": 0.3
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 100
+        },
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 100
+        }
+      ],
+      "top_items": [
+        [
+          "알른 선견자의 응시",
+          25
+        ],
+        [
+          "바엘고어의 마지막 시선",
+          25
+        ]
+      ],
+      "top_item_pct": {
+        "알른 선견자의 응시": 100,
+        "바엘고어의 마지막 시선": 100
+      },
+      "top_combos": [
+        {
+          "combo": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+          "n": 25,
+          "pct": 100
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 100,
+          "pct": 100,
+          "avg_rank": 50.5,
+          "avg_dps": 164299.2,
+          "avg_adjusted_dps": -0.0,
+          "others_adjusted_dps": null
+        },
+        "249346": {
+          "label": "바엘고어의 마지막 시선",
+          "n": 100,
+          "pct": 100,
+          "avg_rank": 50.5,
+          "avg_dps": 164299.2,
+          "avg_adjusted_dps": -0.0,
+          "others_adjusted_dps": null
+        }
+      },
+      "recommendation": {
+        "pick": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 100%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": null
+      }
+    },
+    "3177": {
+      "encounter_id": "3177",
+      "boss": "보라시우스",
+      "encounter_name": "Vorasius",
+      "rankings_n": 100,
+      "sample_n": 98,
+      "hero_counts": {
+        "unknown": 98
+      },
+      "failures": 2,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 209.7,
+      "top_ilvl": 291.5,
+      "top_stats": {
+        "crit": 1265.5,
+        "haste": 584.4,
+        "mastery": 1131.1,
+        "vers": -7.2
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 98
+        },
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 95
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 1
+        },
+        {
+          "id": 249809,
+          "label": "공간 방랑자의 리본",
+          "n": 1
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "알른 선견자의 응시",
+          25
+        ],
+        [
+          "바엘고어의 마지막 시선",
+          24
+        ],
+        [
+          "잿불날개 깃털",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "알른 선견자의 응시": 100,
+        "바엘고어의 마지막 시선": 96,
+        "잿불날개 깃털": 4
+      },
+      "top_combos": [
+        {
+          "combo": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+          "n": 24,
+          "pct": 96
+        },
+        {
+          "combo": "알른 선견자의 응시 + 잿불날개 깃털",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 98,
+          "pct": 100,
+          "avg_rank": 50.8,
+          "avg_dps": 142812.6,
+          "avg_adjusted_dps": -0.0,
+          "others_adjusted_dps": null
+        },
+        "249346": {
+          "label": "바엘고어의 마지막 시선",
+          "n": 95,
+          "pct": 97,
+          "avg_rank": 50.8,
+          "avg_dps": 142801.5,
+          "avg_adjusted_dps": -8.4,
+          "others_adjusted_dps": 267.0
+        }
+      },
+      "recommendation": {
+        "pick": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 96%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": null
+      }
+    },
+    "3178": {
+      "encounter_id": "3178",
+      "boss": "바엘고어와 에조라크",
+      "encounter_name": "Vaelgor & Ezzorak",
+      "rankings_n": 100,
+      "sample_n": 97,
+      "hero_counts": {
+        "unknown": 97
+      },
+      "failures": 3,
+      "cache_hits": 97,
+      "live_fetches": 3,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 294.3,
+      "top_ilvl": 291.2,
+      "top_stats": {
+        "crit": 1290.8,
+        "haste": 627.3,
+        "mastery": 1111.1,
+        "vers": -9.0
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 97
+        },
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 93
+        },
+        {
+          "id": 249809,
+          "label": "공간 방랑자의 리본",
+          "n": 4
+        }
+      ],
+      "top_items": [
+        [
+          "알른 선견자의 응시",
+          25
+        ],
+        [
+          "바엘고어의 마지막 시선",
+          24
+        ],
+        [
+          "공간 방랑자의 리본",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "바엘고어의 마지막 시선": 96,
+        "알른 선견자의 응시": 100,
+        "공간 방랑자의 리본": 4
+      },
+      "top_combos": [
+        {
+          "combo": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+          "n": 24,
+          "pct": 96
+        },
+        {
+          "combo": "공간 방랑자의 리본 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 97,
+          "pct": 100,
+          "avg_rank": 51.0,
+          "avg_dps": 220565.5,
+          "avg_adjusted_dps": 0.0,
+          "others_adjusted_dps": null
+        },
+        "249346": {
+          "label": "바엘고어의 마지막 시선",
+          "n": 93,
+          "pct": 96,
+          "avg_rank": 51.5,
+          "avg_dps": 220467.1,
+          "avg_adjusted_dps": -147.2,
+          "others_adjusted_dps": 3423.3
+        },
+        "249809": {
+          "label": "공간 방랑자의 리본",
+          "n": 4,
+          "pct": 4,
+          "avg_rank": 38.8,
+          "avg_dps": 222854.9,
+          "avg_adjusted_dps": 3423.3,
+          "others_adjusted_dps": -147.2
+        }
+      },
+      "recommendation": {
+        "pick": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 96%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": null
+      }
+    },
+    "3179": {
+      "encounter_id": "3179",
+      "boss": "몰락왕 살라다르",
+      "encounter_name": "Fallen-King Salhadaar",
+      "rankings_n": 100,
+      "sample_n": 97,
+      "hero_counts": {
+        "unknown": 97
+      },
+      "failures": 3,
+      "cache_hits": 99,
+      "live_fetches": 1,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 212.2,
+      "top_ilvl": 291.2,
+      "top_stats": {
+        "crit": 1235.2,
+        "haste": 614.6,
+        "mastery": 1120.6,
+        "vers": -9.0
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 97
+        },
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 96
+        },
+        {
+          "id": 250223,
+          "label": "영혼포획자의 부적",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "알른 선견자의 응시",
+          25
+        ],
+        [
+          "바엘고어의 마지막 시선",
+          25
+        ]
+      ],
+      "top_item_pct": {
+        "알른 선견자의 응시": 100,
+        "바엘고어의 마지막 시선": 100
+      },
+      "top_combos": [
+        {
+          "combo": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+          "n": 25,
+          "pct": 100
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 97,
+          "pct": 100,
+          "avg_rank": 50.7,
+          "avg_dps": 168143.5,
+          "avg_adjusted_dps": 0.0,
+          "others_adjusted_dps": null
+        },
+        "249346": {
+          "label": "바엘고어의 마지막 시선",
+          "n": 96,
+          "pct": 99,
+          "avg_rank": 50.4,
+          "avg_dps": 168178.8,
+          "avg_adjusted_dps": 64.2,
+          "others_adjusted_dps": null
+        }
+      },
+      "recommendation": {
+        "pick": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 100%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": null
+      }
+    },
+    "3180": {
+      "encounter_id": "3180",
+      "boss": "빛눈먼 선봉대",
+      "encounter_name": "Lightblinded Vanguard",
+      "rankings_n": 100,
+      "sample_n": 99,
+      "hero_counts": {
+        "unknown": 99
+      },
+      "failures": 1,
+      "cache_hits": 97,
+      "live_fetches": 3,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 393.7,
+      "top_ilvl": 290.7,
+      "top_stats": {
+        "crit": 1205.4,
+        "haste": 638.2,
+        "mastery": 1084.9,
+        "vers": 1.8
+      },
+      "trinket_pool": [
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 98
+        },
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 98
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 1
+        },
+        {
+          "id": 251792,
+          "label": "영광스러운 성전사의 기념품",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "바엘고어의 마지막 시선",
+          25
+        ],
+        [
+          "알른 선견자의 응시",
+          25
+        ]
+      ],
+      "top_item_pct": {
+        "바엘고어의 마지막 시선": 100,
+        "알른 선견자의 응시": 100
+      },
+      "top_combos": [
+        {
+          "combo": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+          "n": 25,
+          "pct": 100
+        }
+      ],
+      "groups": {
+        "249346": {
+          "label": "바엘고어의 마지막 시선",
+          "n": 98,
+          "pct": 99,
+          "avg_rank": 51.1,
+          "avg_dps": 249345.7,
+          "avg_adjusted_dps": -22.4,
+          "others_adjusted_dps": null
+        },
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 98,
+          "pct": 99,
+          "avg_rank": 51.1,
+          "avg_dps": 249345.7,
+          "avg_adjusted_dps": -22.4,
+          "others_adjusted_dps": null
+        }
+      },
+      "recommendation": {
+        "pick": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 100%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": null
+      }
+    },
+    "3181": {
+      "encounter_id": "3181",
+      "boss": "우주의 왕관",
+      "encounter_name": "Crown of the Cosmos",
+      "rankings_n": 100,
+      "sample_n": 97,
+      "hero_counts": {
+        "unknown": 97
+      },
+      "failures": 3,
+      "cache_hits": 98,
+      "live_fetches": 2,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 467.1,
+      "top_ilvl": 291.2,
+      "top_stats": {
+        "crit": 1137.5,
+        "haste": 602.5,
+        "mastery": 974.0,
+        "vers": 10.7
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 96
+        },
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 94
+        },
+        {
+          "id": 249809,
+          "label": "공간 방랑자의 리본",
+          "n": 3
+        },
+        {
+          "id": 250256,
+          "label": "바람의 심장",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "바엘고어의 마지막 시선",
+          25
+        ],
+        [
+          "알른 선견자의 응시",
+          25
+        ]
+      ],
+      "top_item_pct": {
+        "바엘고어의 마지막 시선": 100,
+        "알른 선견자의 응시": 100
+      },
+      "top_combos": [
+        {
+          "combo": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+          "n": 25,
+          "pct": 100
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 96,
+          "pct": 99,
+          "avg_rank": 50.1,
+          "avg_dps": 151269.7,
+          "avg_adjusted_dps": 17.9,
+          "others_adjusted_dps": null
+        },
+        "249346": {
+          "label": "바엘고어의 마지막 시선",
+          "n": 94,
+          "pct": 97,
+          "avg_rank": 49.9,
+          "avg_dps": 151299.3,
+          "avg_adjusted_dps": 48.0,
+          "others_adjusted_dps": -1505.0
+        },
+        "249809": {
+          "label": "공간 방랑자의 리본",
+          "n": 3,
+          "pct": 3,
+          "avg_rank": 68.3,
+          "avg_dps": 149079.7,
+          "avg_adjusted_dps": -1918.7,
+          "others_adjusted_dps": 61.2
+        }
+      },
+      "recommendation": {
+        "pick": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 100%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": null
+      }
+    },
+    "3182": {
+      "encounter_id": "3182",
+      "boss": "벨로렌",
+      "encounter_name": "Belo'ren, Child of Al'ar",
+      "rankings_n": 100,
+      "sample_n": 98,
+      "hero_counts": {
+        "unknown": 98
+      },
+      "failures": 2,
+      "cache_hits": 99,
+      "live_fetches": 1,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 304.4,
+      "top_ilvl": 291.2,
+      "top_stats": {
+        "crit": 1067.9,
+        "haste": 655.6,
+        "mastery": 1056.0,
+        "vers": 10.2
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 98
+        },
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 97
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "바엘고어의 마지막 시선",
+          25
+        ],
+        [
+          "알른 선견자의 응시",
+          25
+        ]
+      ],
+      "top_item_pct": {
+        "바엘고어의 마지막 시선": 100,
+        "알른 선견자의 응시": 100
+      },
+      "top_combos": [
+        {
+          "combo": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+          "n": 25,
+          "pct": 100
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 98,
+          "pct": 100,
+          "avg_rank": 50.3,
+          "avg_dps": 157535.8,
+          "avg_adjusted_dps": -0.0,
+          "others_adjusted_dps": null
+        },
+        "249346": {
+          "label": "바엘고어의 마지막 시선",
+          "n": 97,
+          "pct": 99,
+          "avg_rank": 50.2,
+          "avg_dps": 157562.2,
+          "avg_adjusted_dps": 21.1,
+          "others_adjusted_dps": null
+        }
+      },
+      "recommendation": {
+        "pick": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 100%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": null
+      }
+    },
+    "3183": {
+      "encounter_id": "3183",
+      "boss": "한밤의 도래",
+      "encounter_name": "Midnight Falls",
+      "rankings_n": 100,
+      "sample_n": 99,
+      "hero_counts": {
+        "unknown": 99
+      },
+      "failures": 1,
+      "cache_hits": 97,
+      "live_fetches": 3,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 571.1,
+      "top_ilvl": 290.6,
+      "top_stats": {
+        "crit": 1069.0,
+        "haste": 695.3,
+        "mastery": 980.7,
+        "vers": 19.4
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 99
+        },
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 80
+        },
+        {
+          "id": 249809,
+          "label": "공간 방랑자의 리본",
+          "n": 17
+        },
+        {
+          "id": 264507,
+          "label": "뒤틀린 마력의 도가니",
+          "n": 1
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "알른 선견자의 응시",
+          25
+        ],
+        [
+          "바엘고어의 마지막 시선",
+          18
+        ],
+        [
+          "공간 방랑자의 리본",
+          7
+        ]
+      ],
+      "top_item_pct": {
+        "공간 방랑자의 리본": 28,
+        "알른 선견자의 응시": 100,
+        "바엘고어의 마지막 시선": 72
+      },
+      "top_combos": [
+        {
+          "combo": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+          "n": 18,
+          "pct": 72
+        },
+        {
+          "combo": "공간 방랑자의 리본 + 알른 선견자의 응시",
+          "n": 7,
+          "pct": 28
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 99,
+          "pct": 100,
+          "avg_rank": 50.6,
+          "avg_dps": 172056.7,
+          "avg_adjusted_dps": -0.0,
+          "others_adjusted_dps": null
+        },
+        "249346": {
+          "label": "바엘고어의 마지막 시선",
+          "n": 80,
+          "pct": 81,
+          "avg_rank": 52.1,
+          "avg_dps": 171838.2,
+          "avg_adjusted_dps": -333.0,
+          "others_adjusted_dps": 1402.0
+        },
+        "249809": {
+          "label": "공간 방랑자의 리본",
+          "n": 17,
+          "pct": 17,
+          "avg_rank": 39.1,
+          "avg_dps": 173488.6,
+          "avg_adjusted_dps": 1847.2,
+          "others_adjusted_dps": -383.0
+        }
+      },
+      "recommendation": {
+        "pick": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 72%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": null
+      }
+    },
+    "3306": {
+      "encounter_id": "3306",
+      "boss": "카이메루스",
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "unknown": 100
+      },
+      "failures": 0,
+      "cache_hits": 99,
+      "live_fetches": 1,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 144.9,
+      "top_ilvl": 291.4,
+      "top_stats": {
+        "crit": 1311.8,
+        "haste": 587.7,
+        "mastery": 1134.5,
+        "vers": -13.4
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 100
+        },
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 99
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "알른 선견자의 응시",
+          25
+        ],
+        [
+          "바엘고어의 마지막 시선",
+          25
+        ]
+      ],
+      "top_item_pct": {
+        "알른 선견자의 응시": 100,
+        "바엘고어의 마지막 시선": 100
+      },
+      "top_combos": [
+        {
+          "combo": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+          "n": 25,
+          "pct": 100
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 100,
+          "pct": 100,
+          "avg_rank": 50.5,
+          "avg_dps": 169480.5,
+          "avg_adjusted_dps": 0.0,
+          "others_adjusted_dps": null
+        },
+        "249346": {
+          "label": "바엘고어의 마지막 시선",
+          "n": 99,
+          "pct": 99,
+          "avg_rank": 50.5,
+          "avg_dps": 169499.6,
+          "avg_adjusted_dps": 19.6,
+          "others_adjusted_dps": null
+        }
+      },
+      "recommendation": {
+        "pick": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 100%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": null
+      }
+    }
+  }
+}

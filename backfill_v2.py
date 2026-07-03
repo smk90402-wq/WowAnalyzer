@@ -34,6 +34,7 @@ LOCK_FILE = DATA / ".backfill_v2.lock"
 
 # 풀 데이터 (talents + gear + casts + buffs)
 PRIMARY_TARGETS = {
+    ("Mage",    "Frost"),
     ("Warlock", "Demonology"),
     ("Druid",   "Balance"),
     ("Hunter",  "Beast Mastery"),

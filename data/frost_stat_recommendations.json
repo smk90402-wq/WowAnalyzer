@@ -1,0 +1,1982 @@
+{
+  "_meta": {
+    "generated_at": "2026-07-03T18:33:02",
+    "source": "C:\\Users\\smk90\\OneDrive\\바탕 화면\\LogAnalyze\\data\\rankings_zone46_mythic_dps_top100.csv",
+    "topn": 100,
+    "top_band": 20,
+    "spec": "Mage|Frost"
+  },
+  "Mage|Frost": {
+    "3176": {
+      "sample_n": 100,
+      "hero_counts": {
+        "unknown": 100
+      },
+      "mean": {
+        "crit": 1094,
+        "haste": 642,
+        "mastery": 1008,
+        "vers": 12
+      },
+      "stat_pct": {
+        "crit": 39.7,
+        "haste": 23.3,
+        "mastery": 36.6,
+        "vers": 0.4
+      },
+      "crit_mastery_pct": 108.5,
+      "haste_crit_pct": 58.7,
+      "top20": [
+        {
+          "rank": 1,
+          "dps": 182583.4,
+          "ilvl": 292.0,
+          "crit": 1180,
+          "haste": 435,
+          "mastery": 1075,
+          "vers": 0
+        },
+        {
+          "rank": 2,
+          "dps": 177122.1,
+          "ilvl": 291.0,
+          "crit": 1219,
+          "haste": 396,
+          "mastery": 1152,
+          "vers": 0
+        },
+        {
+          "rank": 3,
+          "dps": 174103.9,
+          "ilvl": 293.0,
+          "crit": 1041,
+          "haste": 761,
+          "mastery": 970,
+          "vers": 0
+        },
+        {
+          "rank": 4,
+          "dps": 172939.2,
+          "ilvl": 292.0,
+          "crit": 987,
+          "haste": 805,
+          "mastery": 974,
+          "vers": 0
+        },
+        {
+          "rank": 5,
+          "dps": 171379.4,
+          "ilvl": 293.0,
+          "crit": 1064,
+          "haste": 690,
+          "mastery": 983,
+          "vers": 0
+        },
+        {
+          "rank": 6,
+          "dps": 171293.6,
+          "ilvl": 291.0,
+          "crit": 1120,
+          "haste": 644,
+          "mastery": 948,
+          "vers": 16
+        },
+        {
+          "rank": 7,
+          "dps": 170828.5,
+          "ilvl": 290.0,
+          "crit": 1118,
+          "haste": 563,
+          "mastery": 984,
+          "vers": 110
+        },
+        {
+          "rank": 8,
+          "dps": 170179.5,
+          "ilvl": 292.0,
+          "crit": 1191,
+          "haste": 765,
+          "mastery": 850,
+          "vers": 0
+        },
+        {
+          "rank": 9,
+          "dps": 169822.6,
+          "ilvl": 291.0,
+          "crit": 1102,
+          "haste": 564,
+          "mastery": 1098,
+          "vers": 0
+        },
+        {
+          "rank": 10,
+          "dps": 169817.1,
+          "ilvl": 291.0,
+          "crit": 996,
+          "haste": 784,
+          "mastery": 990,
+          "vers": 0
+        },
+        {
+          "rank": 11,
+          "dps": 169799.9,
+          "ilvl": 291.0,
+          "crit": 967,
+          "haste": 840,
+          "mastery": 935,
+          "vers": 43
+        },
+        {
+          "rank": 12,
+          "dps": 169747.1,
+          "ilvl": 292.0,
+          "crit": 1037,
+          "haste": 690,
+          "mastery": 1022,
+          "vers": 16
+        },
+        {
+          "rank": 13,
+          "dps": 169461.5,
+          "ilvl": 293.0,
+          "crit": 1082,
+          "haste": 629,
+          "mastery": 1056,
+          "vers": 0
+        },
+        {
+          "rank": 14,
+          "dps": 169405.5,
+          "ilvl": 290.0,
+          "crit": 1149,
+          "haste": 493,
+          "mastery": 1083,
+          "vers": 0
+        },
+        {
+          "rank": 15,
+          "dps": 169289.1,
+          "ilvl": 290.0,
+          "crit": 1160,
+          "haste": 530,
+          "mastery": 947,
+          "vers": 65
+        },
+        {
+          "rank": 16,
+          "dps": 168828.7,
+          "ilvl": 290.0,
+          "crit": 1056,
+          "haste": 584,
+          "mastery": 1175,
+          "vers": 0
+        },
+        {
+          "rank": 17,
+          "dps": 168531.7,
+          "ilvl": 291.0,
+          "crit": 1070,
+          "haste": 736,
+          "mastery": 964,
+          "vers": 0
+        },
+        {
+          "rank": 18,
+          "dps": 168192.1,
+          "ilvl": 291.0,
+          "crit": 1101,
+          "haste": 598,
+          "mastery": 1000,
+          "vers": 0
+        },
+        {
+          "rank": 19,
+          "dps": 167786.6,
+          "ilvl": 292.0,
+          "crit": 986,
+          "haste": 797,
+          "mastery": 983,
+          "vers": 0
+        },
+        {
+          "rank": 20,
+          "dps": 167675.5,
+          "ilvl": 290.0,
+          "crit": 1251,
+          "haste": 546,
+          "mastery": 970,
+          "vers": 0
+        }
+      ],
+      "rest_avg": {
+        "n": 80,
+        "crit": 1199,
+        "haste": 595,
+        "mastery": 982,
+        "vers": 12
+      },
+      "raw_corr": {
+        "crit": -0.005,
+        "haste": 0.005,
+        "mastery": 0.129,
+        "vers": -0.024
+      },
+      "adjusted_corr": {
+        "crit": -0.019,
+        "haste": -0.043,
+        "mastery": 0.064,
+        "vers": 0.057
+      },
+      "adjustment": "DPS에서 템렙과 전투시간 영향을 뺀 값 기준",
+      "priority": "치명 > 특화 > 가속 > 유연",
+      "confidence": "보통",
+      "basis": "상위 20명 평균: 치명 1094, 특화 1008, 가속 642, 유연 12. 수치가 큰 순서대로 우선순위를 정했습니다. 템렙·전투시간 영향을 뺀 뒤 딜과 같이 움직인 정도: 치명 -0.02, 특화 +0.06, 가속 -0.04, 유연 +0.06."
+    },
+    "3177": {
+      "sample_n": 98,
+      "hero_counts": {
+        "unknown": 98
+      },
+      "mean": {
+        "crit": 1303,
+        "haste": 588,
+        "mastery": 1165,
+        "vers": -9
+      },
+      "stat_pct": {
+        "crit": 42.8,
+        "haste": 19.3,
+        "mastery": 38.2,
+        "vers": -0.3
+      },
+      "crit_mastery_pct": 111.8,
+      "haste_crit_pct": 45.1,
+      "top20": [
+        {
+          "rank": 1,
+          "dps": 152440.2,
+          "ilvl": 292.0,
+          "crit": 1180,
+          "haste": 435,
+          "mastery": 1075,
+          "vers": 0
+        },
+        {
+          "rank": 2,
+          "dps": 151311.2,
+          "ilvl": 291.0,
+          "crit": 1143,
+          "haste": 420,
+          "mastery": 2485,
+          "vers": 94
+        },
+        {
+          "rank": 3,
+          "dps": 148605.4,
+          "ilvl": 293.0,
+          "crit": 1064,
+          "haste": 735,
+          "mastery": 931,
+          "vers": 43
+        },
+        {
+          "rank": 4,
+          "dps": 147916.1,
+          "ilvl": 293.0,
+          "crit": 1082,
+          "haste": 629,
+          "mastery": 1056,
+          "vers": 0
+        },
+        {
+          "rank": 5,
+          "dps": 147737.2,
+          "ilvl": 291.0,
+          "crit": 2795,
+          "haste": 668,
+          "mastery": 2424,
+          "vers": -231
+        },
+        {
+          "rank": 6,
+          "dps": 147127.5,
+          "ilvl": 290.0,
+          "crit": 1285,
+          "haste": 711,
+          "mastery": 800,
+          "vers": 0
+        },
+        {
+          "rank": 7,
+          "dps": 146980.2,
+          "ilvl": 292.0,
+          "crit": 1040,
+          "haste": 714,
+          "mastery": 1017,
+          "vers": 0
+        },
+        {
+          "rank": 8,
+          "dps": 146904.1,
+          "ilvl": 289.0,
+          "crit": 1182,
+          "haste": 403,
+          "mastery": 1069,
+          "vers": 0
+        },
+        {
+          "rank": 9,
+          "dps": 146803.7,
+          "ilvl": 291.0,
+          "crit": 1010,
+          "haste": 795,
+          "mastery": 944,
+          "vers": 0
+        },
+        {
+          "rank": 10,
+          "dps": 146335.6,
+          "ilvl": 291.0,
+          "crit": 1246,
+          "haste": 393,
+          "mastery": 1100,
+          "vers": 0
+        },
+        {
+          "rank": 11,
+          "dps": 146099.8,
+          "ilvl": 292.0,
+          "crit": 1180,
+          "haste": 508,
+          "mastery": 1054,
+          "vers": 0
+        },
+        {
+          "rank": 12,
+          "dps": 145916.4,
+          "ilvl": 293.0,
+          "crit": 943,
+          "haste": 753,
+          "mastery": 1076,
+          "vers": 0
+        },
+        {
+          "rank": 13,
+          "dps": 145911.9,
+          "ilvl": 292.0,
+          "crit": 1211,
+          "haste": 439,
+          "mastery": 1088,
+          "vers": 0
+        },
+        {
+          "rank": 14,
+          "dps": 145359.4,
+          "ilvl": 291.0,
+          "crit": 2911,
+          "haste": 513,
+          "mastery": 1032,
+          "vers": -231
+        },
+        {
+          "rank": 16,
+          "dps": 144951.5,
+          "ilvl": 292.0,
+          "crit": 1036,
+          "haste": 682,
+          "mastery": 994,
+          "vers": 48
+        },
+        {
+          "rank": 17,
+          "dps": 144949.8,
+          "ilvl": 292.0,
+          "crit": 977,
+          "haste": 829,
+          "mastery": 929,
+          "vers": 32
+        },
+        {
+          "rank": 18,
+          "dps": 144905.4,
+          "ilvl": 292.0,
+          "crit": 1175,
+          "haste": 387,
+          "mastery": 1163,
+          "vers": 0
+        },
+        {
+          "rank": 19,
+          "dps": 144852.1,
+          "ilvl": 291.0,
+          "crit": 1131,
+          "haste": 625,
+          "mastery": 951,
+          "vers": 0
+        },
+        {
+          "rank": 20,
+          "dps": 144692.8,
+          "ilvl": 290.0,
+          "crit": 1160,
+          "haste": 530,
+          "mastery": 947,
+          "vers": 65
+        }
+      ],
+      "rest_avg": {
+        "n": 79,
+        "crit": 1188,
+        "haste": 613,
+        "mastery": 1044,
+        "vers": 4
+      },
+      "raw_corr": {
+        "crit": 0.017,
+        "haste": -0.127,
+        "mastery": 0.217,
+        "vers": -0.029
+      },
+      "adjusted_corr": {
+        "crit": 0.034,
+        "haste": -0.134,
+        "mastery": 0.214,
+        "vers": -0.023
+      },
+      "adjustment": "DPS에서 템렙과 전투시간 영향을 뺀 값 기준",
+      "priority": "치명 > 특화 > 가속 > 유연",
+      "confidence": "보통",
+      "basis": "상위 19명 평균: 치명 1303, 특화 1165, 가속 588, 유연 -9. 수치가 큰 순서대로 우선순위를 정했습니다. 템렙·전투시간 영향을 뺀 뒤 딜과 같이 움직인 정도: 치명 +0.03, 특화 +0.21, 가속 -0.13, 유연 -0.02."
+    },
+    "3178": {
+      "sample_n": 98,
+      "hero_counts": {
+        "unknown": 98
+      },
+      "mean": {
+        "crit": 1271,
+        "haste": 631,
+        "mastery": 1090,
+        "vers": -12
+      },
+      "stat_pct": {
+        "crit": 42.7,
+        "haste": 21.2,
+        "mastery": 36.6,
+        "vers": -0.4
+      },
+      "crit_mastery_pct": 116.6,
+      "haste_crit_pct": 49.6,
+      "top20": [
+        {
+          "rank": 1,
+          "dps": 239980.5,
+          "ilvl": 291.0,
+          "crit": 1182,
+          "haste": 493,
+          "mastery": 1028,
+          "vers": 0
+        },
+        {
+          "rank": 2,
+          "dps": 237704.1,
+          "ilvl": 292.0,
+          "crit": 1180,
+          "haste": 435,
+          "mastery": 1075,
+          "vers": 0
+        },
+        {
+          "rank": 3,
+          "dps": 234835.2,
+          "ilvl": 292.0,
+          "crit": 1074,
+          "haste": 629,
+          "mastery": 1062,
+          "vers": 0
+        },
+        {
+          "rank": 4,
+          "dps": 232122.7,
+          "ilvl": 291.0,
+          "crit": 1059,
+          "haste": 702,
+          "mastery": 1004,
+          "vers": 79
+        },
+        {
+          "rank": 5,
+          "dps": 230608.7,
+          "ilvl": 291.0,
+          "crit": 1140,
+          "haste": 521,
+          "mastery": 1029,
+          "vers": 0
+        },
+        {
+          "rank": 6,
+          "dps": 229982.1,
+          "ilvl": 293.0,
+          "crit": 1038,
+          "haste": 692,
+          "mastery": 1037,
+          "vers": 0
+        },
+        {
+          "rank": 8,
+          "dps": 229585.0,
+          "ilvl": 293.0,
+          "crit": 1015,
+          "haste": 699,
+          "mastery": 988,
+          "vers": 65
+        },
+        {
+          "rank": 9,
+          "dps": 229292.7,
+          "ilvl": 293.0,
+          "crit": 2931,
+          "haste": 629,
+          "mastery": 1056,
+          "vers": -231
+        },
+        {
+          "rank": 10,
+          "dps": 228836.4,
+          "ilvl": 292.0,
+          "crit": 1195,
+          "haste": 404,
+          "mastery": 1055,
+          "vers": 81
+        },
+        {
+          "rank": 11,
+          "dps": 227614.4,
+          "ilvl": 291.0,
+          "crit": 1133,
+          "haste": 523,
+          "mastery": 1072,
+          "vers": 0
+        },
+        {
+          "rank": 12,
+          "dps": 226623.7,
+          "ilvl": 289.0,
+          "crit": 948,
+          "haste": 758,
+          "mastery": 947,
+          "vers": 0
+        },
+        {
+          "rank": 13,
+          "dps": 226584.5,
+          "ilvl": 291.0,
+          "crit": 1085,
+          "haste": 706,
+          "mastery": 972,
+          "vers": 0
+        },
+        {
+          "rank": 14,
+          "dps": 226340.6,
+          "ilvl": 291.0,
+          "crit": 1110,
+          "haste": 669,
+          "mastery": 931,
+          "vers": 0
+        },
+        {
+          "rank": 15,
+          "dps": 225578.9,
+          "ilvl": 291.0,
+          "crit": 996,
+          "haste": 805,
+          "mastery": 971,
+          "vers": 0
+        },
+        {
+          "rank": 16,
+          "dps": 225343.2,
+          "ilvl": 291.0,
+          "crit": 2756,
+          "haste": 710,
+          "mastery": 2393,
+          "vers": -231
+        },
+        {
+          "rank": 17,
+          "dps": 225012.5,
+          "ilvl": 292.0,
+          "crit": 986,
+          "haste": 797,
+          "mastery": 983,
+          "vers": 0
+        },
+        {
+          "rank": 18,
+          "dps": 224213.7,
+          "ilvl": 292.0,
+          "crit": 1257,
+          "haste": 387,
+          "mastery": 1089,
+          "vers": 0
+        },
+        {
+          "rank": 19,
+          "dps": 224207.9,
+          "ilvl": 292.0,
+          "crit": 1037,
+          "haste": 690,
+          "mastery": 1022,
+          "vers": 16
+        },
+        {
+          "rank": 20,
+          "dps": 223644.0,
+          "ilvl": 293.0,
+          "crit": 1029,
+          "haste": 739,
+          "mastery": 1003,
+          "vers": 0
+        }
+      ],
+      "rest_avg": {
+        "n": 79,
+        "crit": 1159,
+        "haste": 593,
+        "mastery": 1035,
+        "vers": 22
+      },
+      "raw_corr": {
+        "crit": 0.154,
+        "haste": -0.078,
+        "mastery": 0.008,
+        "vers": -0.142
+      },
+      "adjusted_corr": {
+        "crit": 0.136,
+        "haste": -0.087,
+        "mastery": -0.021,
+        "vers": -0.094
+      },
+      "adjustment": "DPS에서 템렙과 전투시간 영향을 뺀 값 기준",
+      "priority": "치명 > 특화 > 가속 > 유연",
+      "confidence": "높음",
+      "basis": "상위 19명 평균: 치명 1271, 특화 1090, 가속 631, 유연 -12. 수치가 큰 순서대로 우선순위를 정했습니다. 템렙·전투시간 영향을 뺀 뒤 딜과 같이 움직인 정도: 치명 +0.14, 특화 -0.02, 가속 -0.09, 유연 -0.09."
+    },
+    "3179": {
+      "sample_n": 97,
+      "hero_counts": {
+        "unknown": 97
+      },
+      "mean": {
+        "crit": 1287,
+        "haste": 602,
+        "mastery": 1171,
+        "vers": -12
+      },
+      "stat_pct": {
+        "crit": 42.2,
+        "haste": 19.8,
+        "mastery": 38.4,
+        "vers": -0.4
+      },
+      "crit_mastery_pct": 109.9,
+      "haste_crit_pct": 46.8,
+      "top20": [
+        {
+          "rank": 1,
+          "dps": 205174.4,
+          "ilvl": 293.0,
+          "crit": 1026,
+          "haste": 676,
+          "mastery": 1019,
+          "vers": 0
+        },
+        {
+          "rank": 2,
+          "dps": 183120.3,
+          "ilvl": 291.0,
+          "crit": 1133,
+          "haste": 523,
+          "mastery": 1072,
+          "vers": 0
+        },
+        {
+          "rank": 3,
+          "dps": 179803.8,
+          "ilvl": 293.0,
+          "crit": 2725,
+          "haste": 795,
+          "mastery": 2391,
+          "vers": -231
+        },
+        {
+          "rank": 4,
+          "dps": 178982.5,
+          "ilvl": 290.0,
+          "crit": 1154,
+          "haste": 647,
+          "mastery": 913,
+          "vers": 0
+        },
+        {
+          "rank": 5,
+          "dps": 176376.1,
+          "ilvl": 290.0,
+          "crit": 1065,
+          "haste": 665,
+          "mastery": 1006,
+          "vers": 0
+        },
+        {
+          "rank": 6,
+          "dps": 176188.1,
+          "ilvl": 290.0,
+          "crit": 1052,
+          "haste": 644,
+          "mastery": 1032,
+          "vers": 0
+        },
+        {
+          "rank": 7,
+          "dps": 176129.0,
+          "ilvl": 289.0,
+          "crit": 1030,
+          "haste": 554,
+          "mastery": 996,
+          "vers": 65
+        },
+        {
+          "rank": 8,
+          "dps": 175167.8,
+          "ilvl": 293.0,
+          "crit": 1077,
+          "haste": 669,
+          "mastery": 2435,
+          "vers": 0
+        },
+        {
+          "rank": 9,
+          "dps": 174906.1,
+          "ilvl": 292.0,
+          "crit": 1055,
+          "haste": 589,
+          "mastery": 963,
+          "vers": 108
+        },
+        {
+          "rank": 10,
+          "dps": 174186.4,
+          "ilvl": 291.0,
+          "crit": 1133,
+          "haste": 609,
+          "mastery": 918,
+          "vers": 65
+        },
+        {
+          "rank": 11,
+          "dps": 173697.1,
+          "ilvl": 293.0,
+          "crit": 2806,
+          "haste": 629,
+          "mastery": 1056,
+          "vers": -231
+        },
+        {
+          "rank": 12,
+          "dps": 173472.7,
+          "ilvl": 291.0,
+          "crit": 1182,
+          "haste": 493,
+          "mastery": 1028,
+          "vers": 0
+        },
+        {
+          "rank": 13,
+          "dps": 173154.5,
+          "ilvl": 292.0,
+          "crit": 1175,
+          "haste": 387,
+          "mastery": 1163,
+          "vers": 0
+        },
+        {
+          "rank": 15,
+          "dps": 172506.5,
+          "ilvl": 290.0,
+          "crit": 1134,
+          "haste": 487,
+          "mastery": 1106,
+          "vers": 0
+        },
+        {
+          "rank": 16,
+          "dps": 172224.9,
+          "ilvl": 291.0,
+          "crit": 1032,
+          "haste": 710,
+          "mastery": 980,
+          "vers": 0
+        },
+        {
+          "rank": 17,
+          "dps": 172007.6,
+          "ilvl": 290.0,
+          "crit": 1048,
+          "haste": 608,
+          "mastery": 1021,
+          "vers": 0
+        },
+        {
+          "rank": 18,
+          "dps": 171980.2,
+          "ilvl": 293.0,
+          "crit": 1032,
+          "haste": 765,
+          "mastery": 976,
+          "vers": 0
+        },
+        {
+          "rank": 19,
+          "dps": 171405.9,
+          "ilvl": 291.0,
+          "crit": 1311,
+          "haste": 387,
+          "mastery": 1006,
+          "vers": 0
+        }
+      ],
+      "rest_avg": {
+        "n": 79,
+        "crit": 1189,
+        "haste": 631,
+        "mastery": 1034,
+        "vers": 10
+      },
+      "raw_corr": {
+        "crit": 0.057,
+        "haste": -0.025,
+        "mastery": 0.089,
+        "vers": -0.091
+      },
+      "adjusted_corr": {
+        "crit": 0.012,
+        "haste": -0.026,
+        "mastery": 0.077,
+        "vers": -0.08
+      },
+      "adjustment": "DPS에서 템렙과 전투시간 영향을 뺀 값 기준",
+      "priority": "치명 > 특화 > 가속 > 유연",
+      "confidence": "보통",
+      "basis": "상위 18명 평균: 치명 1287, 특화 1171, 가속 602, 유연 -12. 수치가 큰 순서대로 우선순위를 정했습니다. 템렙·전투시간 영향을 뺀 뒤 딜과 같이 움직인 정도: 치명 +0.01, 특화 +0.08, 가속 -0.03, 유연 -0.08."
+    },
+    "3180": {
+      "sample_n": 99,
+      "hero_counts": {
+        "unknown": 99
+      },
+      "mean": {
+        "crit": 1144,
+        "haste": 655,
+        "mastery": 1044,
+        "vers": 10
+      },
+      "stat_pct": {
+        "crit": 40.1,
+        "haste": 23.0,
+        "mastery": 36.6,
+        "vers": 0.4
+      },
+      "crit_mastery_pct": 109.6,
+      "haste_crit_pct": 57.3,
+      "top20": [
+        {
+          "rank": 1,
+          "dps": 272955.6,
+          "ilvl": 292.0,
+          "crit": 1057,
+          "haste": 669,
+          "mastery": 1035,
+          "vers": 0
+        },
+        {
+          "rank": 2,
+          "dps": 268038.4,
+          "ilvl": 293.0,
+          "crit": 1026,
+          "haste": 676,
+          "mastery": 1019,
+          "vers": 0
+        },
+        {
+          "rank": 3,
+          "dps": 264821.4,
+          "ilvl": 290.0,
+          "crit": 1108,
+          "haste": 587,
+          "mastery": 935,
+          "vers": 7
+        },
+        {
+          "rank": 4,
+          "dps": 260635.7,
+          "ilvl": 290.0,
+          "crit": 1045,
+          "haste": 699,
+          "mastery": 965,
+          "vers": 0
+        },
+        {
+          "rank": 5,
+          "dps": 260589.7,
+          "ilvl": 292.0,
+          "crit": 1087,
+          "haste": 595,
+          "mastery": 1054,
+          "vers": 0
+        },
+        {
+          "rank": 7,
+          "dps": 260107.1,
+          "ilvl": 292.0,
+          "crit": 1111,
+          "haste": 554,
+          "mastery": 1003,
+          "vers": 65
+        },
+        {
+          "rank": 8,
+          "dps": 259410.0,
+          "ilvl": 290.0,
+          "crit": 1117,
+          "haste": 578,
+          "mastery": 839,
+          "vers": 163
+        },
+        {
+          "rank": 9,
+          "dps": 258656.2,
+          "ilvl": 290.0,
+          "crit": 2700,
+          "haste": 590,
+          "mastery": 2374,
+          "vers": -213
+        },
+        {
+          "rank": 10,
+          "dps": 258636.5,
+          "ilvl": 290.0,
+          "crit": 1120,
+          "haste": 593,
+          "mastery": 996,
+          "vers": 0
+        },
+        {
+          "rank": 11,
+          "dps": 256804.5,
+          "ilvl": 287.0,
+          "crit": 1037,
+          "haste": 617,
+          "mastery": 921,
+          "vers": 0
+        },
+        {
+          "rank": 12,
+          "dps": 256005.5,
+          "ilvl": 290.0,
+          "crit": 1122,
+          "haste": 570,
+          "mastery": 1040,
+          "vers": 0
+        },
+        {
+          "rank": 13,
+          "dps": 255831.6,
+          "ilvl": 289.0,
+          "crit": 985,
+          "haste": 643,
+          "mastery": 929,
+          "vers": 59
+        },
+        {
+          "rank": 14,
+          "dps": 255727.3,
+          "ilvl": 292.0,
+          "crit": 1083,
+          "haste": 591,
+          "mastery": 1024,
+          "vers": 0
+        },
+        {
+          "rank": 15,
+          "dps": 255082.5,
+          "ilvl": 293.0,
+          "crit": 1080,
+          "haste": 707,
+          "mastery": 983,
+          "vers": 0
+        },
+        {
+          "rank": 16,
+          "dps": 254860.4,
+          "ilvl": 291.0,
+          "crit": 1033,
+          "haste": 743,
+          "mastery": 894,
+          "vers": 0
+        },
+        {
+          "rank": 17,
+          "dps": 254605.2,
+          "ilvl": 292.0,
+          "crit": 1053,
+          "haste": 669,
+          "mastery": 1016,
+          "vers": 0
+        },
+        {
+          "rank": 18,
+          "dps": 254453.3,
+          "ilvl": 291.0,
+          "crit": 816,
+          "haste": 1091,
+          "mastery": 912,
+          "vers": 43
+        },
+        {
+          "rank": 19,
+          "dps": 253672.9,
+          "ilvl": 291.0,
+          "crit": 1070,
+          "haste": 670,
+          "mastery": 1005,
+          "vers": 0
+        },
+        {
+          "rank": 20,
+          "dps": 253504.2,
+          "ilvl": 290.0,
+          "crit": 1090,
+          "haste": 603,
+          "mastery": 897,
+          "vers": 65
+        }
+      ],
+      "rest_avg": {
+        "n": 80,
+        "crit": 1221,
+        "haste": 592,
+        "mastery": 1037,
+        "vers": 20
+      },
+      "raw_corr": {
+        "crit": -0.009,
+        "haste": 0.212,
+        "mastery": 0.115,
+        "vers": -0.09
+      },
+      "adjusted_corr": {
+        "crit": -0.023,
+        "haste": 0.191,
+        "mastery": 0.084,
+        "vers": -0.064
+      },
+      "adjustment": "DPS에서 템렙과 전투시간 영향을 뺀 값 기준",
+      "priority": "치명 > 특화 > 가속 > 유연",
+      "confidence": "보통",
+      "basis": "상위 19명 평균: 치명 1144, 특화 1044, 가속 655, 유연 10. 수치가 큰 순서대로 우선순위를 정했습니다. 템렙·전투시간 영향을 뺀 뒤 딜과 같이 움직인 정도: 치명 -0.02, 특화 +0.08, 가속 +0.19, 유연 -0.06."
+    },
+    "3181": {
+      "sample_n": 97,
+      "hero_counts": {
+        "unknown": 97
+      },
+      "mean": {
+        "crit": 1142,
+        "haste": 608,
+        "mastery": 970,
+        "vers": 14
+      },
+      "stat_pct": {
+        "crit": 41.8,
+        "haste": 22.2,
+        "mastery": 35.5,
+        "vers": 0.5
+      },
+      "crit_mastery_pct": 117.7,
+      "haste_crit_pct": 53.2,
+      "top20": [
+        {
+          "rank": 1,
+          "dps": 166249.4,
+          "ilvl": 293.0,
+          "crit": 1040,
+          "haste": 697,
+          "mastery": 1032,
+          "vers": 0
+        },
+        {
+          "rank": 2,
+          "dps": 162643.8,
+          "ilvl": 291.0,
+          "crit": 1079,
+          "haste": 578,
+          "mastery": 937,
+          "vers": 140
+        },
+        {
+          "rank": 3,
+          "dps": 161506.4,
+          "ilvl": 292.0,
+          "crit": 1031,
+          "haste": 810,
+          "mastery": 900,
+          "vers": 32
+        },
+        {
+          "rank": 4,
+          "dps": 161014.2,
+          "ilvl": 291.0,
+          "crit": 1151,
+          "haste": 711,
+          "mastery": 868,
+          "vers": 0
+        },
+        {
+          "rank": 5,
+          "dps": 160907.6,
+          "ilvl": 292.0,
+          "crit": 1053,
+          "haste": 669,
+          "mastery": 1016,
+          "vers": 0
+        },
+        {
+          "rank": 6,
+          "dps": 159858.5,
+          "ilvl": 291.0,
+          "crit": 1182,
+          "haste": 539,
+          "mastery": 1054,
+          "vers": 0
+        },
+        {
+          "rank": 7,
+          "dps": 158615.6,
+          "ilvl": 290.0,
+          "crit": 1364,
+          "haste": 552,
+          "mastery": 749,
+          "vers": 66
+        },
+        {
+          "rank": 8,
+          "dps": 157954.1,
+          "ilvl": 290.0,
+          "crit": 1108,
+          "haste": 587,
+          "mastery": 935,
+          "vers": 7
+        },
+        {
+          "rank": 9,
+          "dps": 157555.9,
+          "ilvl": 291.0,
+          "crit": 1434,
+          "haste": 469,
+          "mastery": 814,
+          "vers": 0
+        },
+        {
+          "rank": 10,
+          "dps": 155817.1,
+          "ilvl": 291.0,
+          "crit": 1219,
+          "haste": 396,
+          "mastery": 1152,
+          "vers": 0
+        },
+        {
+          "rank": 11,
+          "dps": 155617.6,
+          "ilvl": 291.0,
+          "crit": 1071,
+          "haste": 668,
+          "mastery": 1011,
+          "vers": 0
+        },
+        {
+          "rank": 12,
+          "dps": 155545.4,
+          "ilvl": 291.0,
+          "crit": 1120,
+          "haste": 620,
+          "mastery": 987,
+          "vers": 0
+        },
+        {
+          "rank": 13,
+          "dps": 155027.8,
+          "ilvl": 292.0,
+          "crit": 1072,
+          "haste": 629,
+          "mastery": 1055,
+          "vers": 7
+        },
+        {
+          "rank": 15,
+          "dps": 154542.1,
+          "ilvl": 292.0,
+          "crit": 1037,
+          "haste": 690,
+          "mastery": 1022,
+          "vers": 16
+        },
+        {
+          "rank": 16,
+          "dps": 154533.5,
+          "ilvl": 292.0,
+          "crit": 1180,
+          "haste": 435,
+          "mastery": 1075,
+          "vers": 0
+        },
+        {
+          "rank": 17,
+          "dps": 154367.8,
+          "ilvl": 292.0,
+          "crit": 1057,
+          "haste": 669,
+          "mastery": 1035,
+          "vers": 0
+        },
+        {
+          "rank": 18,
+          "dps": 154351.7,
+          "ilvl": 291.0,
+          "crit": 1182,
+          "haste": 493,
+          "mastery": 1028,
+          "vers": 0
+        },
+        {
+          "rank": 19,
+          "dps": 153914.8,
+          "ilvl": 293.0,
+          "crit": 1082,
+          "haste": 629,
+          "mastery": 1056,
+          "vers": 0
+        },
+        {
+          "rank": 20,
+          "dps": 153564.1,
+          "ilvl": 291.0,
+          "crit": 1235,
+          "haste": 712,
+          "mastery": 703,
+          "vers": 0
+        }
+      ],
+      "rest_avg": {
+        "n": 78,
+        "crit": 1098,
+        "haste": 636,
+        "mastery": 958,
+        "vers": 24
+      },
+      "raw_corr": {
+        "crit": 0.128,
+        "haste": -0.045,
+        "mastery": 0.026,
+        "vers": -0.048
+      },
+      "adjusted_corr": {
+        "crit": 0.166,
+        "haste": -0.087,
+        "mastery": -0.058,
+        "vers": -0.001
+      },
+      "adjustment": "DPS에서 템렙과 전투시간 영향을 뺀 값 기준",
+      "priority": "치명 > 특화 > 가속 > 유연",
+      "confidence": "높음",
+      "basis": "상위 19명 평균: 치명 1142, 특화 970, 가속 608, 유연 14. 수치가 큰 순서대로 우선순위를 정했습니다. 템렙·전투시간 영향을 뺀 뒤 딜과 같이 움직인 정도: 치명 +0.17, 특화 -0.06, 가속 -0.09, 유연 -0.00."
+    },
+    "3182": {
+      "sample_n": 98,
+      "hero_counts": {
+        "unknown": 98
+      },
+      "mean": {
+        "crit": 1057,
+        "haste": 669,
+        "mastery": 1066,
+        "vers": 13
+      },
+      "stat_pct": {
+        "crit": 37.7,
+        "haste": 23.9,
+        "mastery": 38.0,
+        "vers": 0.5
+      },
+      "crit_mastery_pct": 99.2,
+      "haste_crit_pct": 63.3,
+      "top20": [
+        {
+          "rank": 1,
+          "dps": 171322.3,
+          "ilvl": 292.0,
+          "crit": 1020,
+          "haste": 731,
+          "mastery": 1023,
+          "vers": 0
+        },
+        {
+          "rank": 2,
+          "dps": 170444.8,
+          "ilvl": 293.0,
+          "crit": 1041,
+          "haste": 761,
+          "mastery": 2383,
+          "vers": 0
+        },
+        {
+          "rank": 3,
+          "dps": 168252.4,
+          "ilvl": 290.0,
+          "crit": 1163,
+          "haste": 426,
+          "mastery": 982,
+          "vers": 66
+        },
+        {
+          "rank": 4,
+          "dps": 166298.2,
+          "ilvl": 291.0,
+          "crit": 1151,
+          "haste": 711,
+          "mastery": 868,
+          "vers": 0
+        },
+        {
+          "rank": 5,
+          "dps": 166287.4,
+          "ilvl": 290.0,
+          "crit": 1198,
+          "haste": 592,
+          "mastery": 823,
+          "vers": 43
+        },
+        {
+          "rank": 6,
+          "dps": 166237.8,
+          "ilvl": 291.0,
+          "crit": 1054,
+          "haste": 688,
+          "mastery": 1057,
+          "vers": 1
+        },
+        {
+          "rank": 7,
+          "dps": 166007.5,
+          "ilvl": 291.0,
+          "crit": 1031,
+          "haste": 672,
+          "mastery": 1027,
+          "vers": 0
+        },
+        {
+          "rank": 8,
+          "dps": 165196.5,
+          "ilvl": 293.0,
+          "crit": 972,
+          "haste": 878,
+          "mastery": 898,
+          "vers": 32
+        },
+        {
+          "rank": 9,
+          "dps": 165189.0,
+          "ilvl": 290.0,
+          "crit": 839,
+          "haste": 722,
+          "mastery": 1068,
+          "vers": 48
+        },
+        {
+          "rank": 10,
+          "dps": 164562.3,
+          "ilvl": 291.0,
+          "crit": 1127,
+          "haste": 543,
+          "mastery": 1059,
+          "vers": 0
+        },
+        {
+          "rank": 11,
+          "dps": 163852.0,
+          "ilvl": 292.0,
+          "crit": 979,
+          "haste": 813,
+          "mastery": 953,
+          "vers": 0
+        },
+        {
+          "rank": 12,
+          "dps": 163109.8,
+          "ilvl": 290.0,
+          "crit": 1165,
+          "haste": 590,
+          "mastery": 952,
+          "vers": 0
+        },
+        {
+          "rank": 13,
+          "dps": 162670.0,
+          "ilvl": 291.0,
+          "crit": 1105,
+          "haste": 542,
+          "mastery": 1061,
+          "vers": 16
+        },
+        {
+          "rank": 14,
+          "dps": 162032.8,
+          "ilvl": 291.0,
+          "crit": 1045,
+          "haste": 665,
+          "mastery": 1034,
+          "vers": 0
+        },
+        {
+          "rank": 15,
+          "dps": 161547.6,
+          "ilvl": 291.0,
+          "crit": 990,
+          "haste": 807,
+          "mastery": 931,
+          "vers": 32
+        },
+        {
+          "rank": 16,
+          "dps": 161408.2,
+          "ilvl": 293.0,
+          "crit": 952,
+          "haste": 740,
+          "mastery": 1064,
+          "vers": 16
+        },
+        {
+          "rank": 17,
+          "dps": 160988.8,
+          "ilvl": 291.0,
+          "crit": 1222,
+          "haste": 390,
+          "mastery": 1118,
+          "vers": 0
+        },
+        {
+          "rank": 18,
+          "dps": 160873.6,
+          "ilvl": 291.0,
+          "crit": 1107,
+          "haste": 625,
+          "mastery": 990,
+          "vers": 0
+        },
+        {
+          "rank": 19,
+          "dps": 160684.6,
+          "ilvl": 291.0,
+          "crit": 908,
+          "haste": 783,
+          "mastery": 1056,
+          "vers": 0
+        },
+        {
+          "rank": 20,
+          "dps": 160582.1,
+          "ilvl": 293.0,
+          "crit": 1080,
+          "haste": 707,
+          "mastery": 983,
+          "vers": 0
+        }
+      ],
+      "rest_avg": {
+        "n": 78,
+        "crit": 1110,
+        "haste": 619,
+        "mastery": 1140,
+        "vers": 15
+      },
+      "raw_corr": {
+        "crit": -0.172,
+        "haste": 0.214,
+        "mastery": -0.017,
+        "vers": -0.026
+      },
+      "adjusted_corr": {
+        "crit": -0.135,
+        "haste": 0.186,
+        "mastery": -0.041,
+        "vers": -0.008
+      },
+      "adjustment": "DPS에서 템렙과 전투시간 영향을 뺀 값 기준",
+      "priority": "특화 > 치명 > 가속 > 유연",
+      "confidence": "보통",
+      "basis": "상위 20명 평균: 특화 1066, 치명 1057, 가속 669, 유연 13. 수치가 큰 순서대로 우선순위를 정했습니다. 템렙·전투시간 영향을 뺀 뒤 딜과 같이 움직인 정도: 특화 -0.04, 치명 -0.14, 가속 +0.19, 유연 -0.01."
+    },
+    "3183": {
+      "sample_n": 99,
+      "hero_counts": {
+        "unknown": 99
+      },
+      "mean": {
+        "crit": 1061,
+        "haste": 718,
+        "mastery": 968,
+        "vers": 16
+      },
+      "stat_pct": {
+        "crit": 38.4,
+        "haste": 26.0,
+        "mastery": 35.0,
+        "vers": 0.6
+      },
+      "crit_mastery_pct": 109.6,
+      "haste_crit_pct": 67.7,
+      "top20": [
+        {
+          "rank": 1,
+          "dps": 183048.6,
+          "ilvl": 293.0,
+          "crit": 1082,
+          "haste": 629,
+          "mastery": 1179,
+          "vers": 0
+        },
+        {
+          "rank": 2,
+          "dps": 182652.5,
+          "ilvl": 291.0,
+          "crit": 1151,
+          "haste": 711,
+          "mastery": 868,
+          "vers": 0
+        },
+        {
+          "rank": 3,
+          "dps": 182384.6,
+          "ilvl": 290.0,
+          "crit": 1199,
+          "haste": 499,
+          "mastery": 1036,
+          "vers": 75
+        },
+        {
+          "rank": 4,
+          "dps": 180104.3,
+          "ilvl": 290.0,
+          "crit": 1154,
+          "haste": 681,
+          "mastery": 880,
+          "vers": 0
+        },
+        {
+          "rank": 5,
+          "dps": 178791.8,
+          "ilvl": 291.0,
+          "crit": 905,
+          "haste": 802,
+          "mastery": 1057,
+          "vers": 0
+        },
+        {
+          "rank": 6,
+          "dps": 177652.4,
+          "ilvl": 293.0,
+          "crit": 1058,
+          "haste": 669,
+          "mastery": 1040,
+          "vers": 0
+        },
+        {
+          "rank": 7,
+          "dps": 176933.6,
+          "ilvl": 290.0,
+          "crit": 1137,
+          "haste": 623,
+          "mastery": 950,
+          "vers": 0
+        },
+        {
+          "rank": 8,
+          "dps": 176733.0,
+          "ilvl": 291.0,
+          "crit": 1232,
+          "haste": 553,
+          "mastery": 842,
+          "vers": 65
+        },
+        {
+          "rank": 9,
+          "dps": 176622.2,
+          "ilvl": 291.0,
+          "crit": 1159,
+          "haste": 650,
+          "mastery": 1036,
+          "vers": 0
+        },
+        {
+          "rank": 10,
+          "dps": 176446.7,
+          "ilvl": 290.0,
+          "crit": 961,
+          "haste": 869,
+          "mastery": 940,
+          "vers": 0
+        },
+        {
+          "rank": 11,
+          "dps": 175664.3,
+          "ilvl": 290.0,
+          "crit": 1211,
+          "haste": 533,
+          "mastery": 908,
+          "vers": 65
+        },
+        {
+          "rank": 12,
+          "dps": 175638.7,
+          "ilvl": 290.0,
+          "crit": 973,
+          "haste": 778,
+          "mastery": 942,
+          "vers": 0
+        },
+        {
+          "rank": 13,
+          "dps": 175430.6,
+          "ilvl": 291.0,
+          "crit": 974,
+          "haste": 869,
+          "mastery": 884,
+          "vers": 0
+        },
+        {
+          "rank": 14,
+          "dps": 175324.2,
+          "ilvl": 292.0,
+          "crit": 1042,
+          "haste": 827,
+          "mastery": 1001,
+          "vers": 0
+        },
+        {
+          "rank": 15,
+          "dps": 174879.6,
+          "ilvl": 290.0,
+          "crit": 964,
+          "haste": 818,
+          "mastery": 1059,
+          "vers": 0
+        },
+        {
+          "rank": 16,
+          "dps": 174645.3,
+          "ilvl": 288.0,
+          "crit": 1022,
+          "haste": 540,
+          "mastery": 967,
+          "vers": 108
+        },
+        {
+          "rank": 17,
+          "dps": 174537.2,
+          "ilvl": 290.0,
+          "crit": 1111,
+          "haste": 658,
+          "mastery": 1107,
+          "vers": 0
+        },
+        {
+          "rank": 18,
+          "dps": 174348.2,
+          "ilvl": 290.0,
+          "crit": 1005,
+          "haste": 913,
+          "mastery": 855,
+          "vers": 0
+        },
+        {
+          "rank": 19,
+          "dps": 174322.6,
+          "ilvl": 291.0,
+          "crit": 929,
+          "haste": 833,
+          "mastery": 981,
+          "vers": 0
+        },
+        {
+          "rank": 20,
+          "dps": 174228.6,
+          "ilvl": 290.0,
+          "crit": 954,
+          "haste": 910,
+          "mastery": 834,
+          "vers": 0
+        }
+      ],
+      "rest_avg": {
+        "n": 79,
+        "crit": 1096,
+        "haste": 614,
+        "mastery": 998,
+        "vers": 23
+      },
+      "raw_corr": {
+        "crit": -0.04,
+        "haste": 0.19,
+        "mastery": -0.036,
+        "vers": -0.016
+      },
+      "adjusted_corr": {
+        "crit": 0.01,
+        "haste": 0.106,
+        "mastery": 0.058,
+        "vers": 0.007
+      },
+      "adjustment": "DPS에서 템렙과 전투시간 영향을 뺀 값 기준",
+      "priority": "치명 > 특화 > 가속 > 유연",
+      "confidence": "보통",
+      "basis": "상위 20명 평균: 치명 1061, 특화 968, 가속 718, 유연 16. 수치가 큰 순서대로 우선순위를 정했습니다. 템렙·전투시간 영향을 뺀 뒤 딜과 같이 움직인 정도: 치명 +0.01, 특화 +0.06, 가속 +0.11, 유연 +0.01."
+    },
+    "3306": {
+      "sample_n": 100,
+      "hero_counts": {
+        "unknown": 100
+      },
+      "mean": {
+        "crit": 1290,
+        "haste": 565,
+        "mastery": 1103,
+        "vers": -8
+      },
+      "stat_pct": {
+        "crit": 43.7,
+        "haste": 19.2,
+        "mastery": 37.4,
+        "vers": -0.3
+      },
+      "crit_mastery_pct": 117.0,
+      "haste_crit_pct": 43.8,
+      "top20": [
+        {
+          "rank": 1,
+          "dps": 203402.8,
+          "ilvl": 292.0,
+          "crit": 1180,
+          "haste": 435,
+          "mastery": 1075,
+          "vers": 0
+        },
+        {
+          "rank": 2,
+          "dps": 183725.1,
+          "ilvl": 292.0,
+          "crit": 1085,
+          "haste": 629,
+          "mastery": 1015,
+          "vers": 32
+        },
+        {
+          "rank": 3,
+          "dps": 180631.0,
+          "ilvl": 293.0,
+          "crit": 1048,
+          "haste": 721,
+          "mastery": 1024,
+          "vers": 0
+        },
+        {
+          "rank": 4,
+          "dps": 178816.3,
+          "ilvl": 289.0,
+          "crit": 1141,
+          "haste": 465,
+          "mastery": 1098,
+          "vers": 0
+        },
+        {
+          "rank": 5,
+          "dps": 178332.1,
+          "ilvl": 290.0,
+          "crit": 1159,
+          "haste": 506,
+          "mastery": 1082,
+          "vers": 0
+        },
+        {
+          "rank": 6,
+          "dps": 177790.1,
+          "ilvl": 291.0,
+          "crit": 1110,
+          "haste": 575,
+          "mastery": 1053,
+          "vers": 0
+        },
+        {
+          "rank": 7,
+          "dps": 177758.8,
+          "ilvl": 290.0,
+          "crit": 1253,
+          "haste": 537,
+          "mastery": 909,
+          "vers": 0
+        },
+        {
+          "rank": 8,
+          "dps": 177741.7,
+          "ilvl": 291.0,
+          "crit": 1135,
+          "haste": 564,
+          "mastery": 971,
+          "vers": 65
+        },
+        {
+          "rank": 9,
+          "dps": 176763.2,
+          "ilvl": 290.0,
+          "crit": 992,
+          "haste": 761,
+          "mastery": 916,
+          "vers": 0
+        },
+        {
+          "rank": 10,
+          "dps": 174993.7,
+          "ilvl": 292.0,
+          "crit": 1221,
+          "haste": 483,
+          "mastery": 1034,
+          "vers": 0
+        },
+        {
+          "rank": 11,
+          "dps": 174716.3,
+          "ilvl": 293.0,
+          "crit": 1055,
+          "haste": 697,
+          "mastery": 985,
+          "vers": 32
+        },
+        {
+          "rank": 12,
+          "dps": 174258.7,
+          "ilvl": 291.0,
+          "crit": 1252,
+          "haste": 384,
+          "mastery": 1089,
+          "vers": 0
+        },
+        {
+          "rank": 13,
+          "dps": 174027.8,
+          "ilvl": 293.0,
+          "crit": 1069,
+          "haste": 629,
+          "mastery": 1004,
+          "vers": 66
+        },
+        {
+          "rank": 14,
+          "dps": 173755.8,
+          "ilvl": 291.0,
+          "crit": 911,
+          "haste": 415,
+          "mastery": 1324,
+          "vers": 0
+        },
+        {
+          "rank": 15,
+          "dps": 173702.0,
+          "ilvl": 292.0,
+          "crit": 2930,
+          "haste": 455,
+          "mastery": 1100,
+          "vers": -231
+        },
+        {
+          "rank": 16,
+          "dps": 172761.6,
+          "ilvl": 292.0,
+          "crit": 1111,
+          "haste": 652,
+          "mastery": 996,
+          "vers": 44
+        },
+        {
+          "rank": 17,
+          "dps": 172493.2,
+          "ilvl": 292.0,
+          "crit": 1109,
+          "haste": 561,
+          "mastery": 1071,
+          "vers": 0
+        },
+        {
+          "rank": 18,
+          "dps": 172453.5,
+          "ilvl": 292.0,
+          "crit": 993,
+          "haste": 793,
+          "mastery": 964,
+          "vers": 0
+        },
+        {
+          "rank": 19,
+          "dps": 172010.1,
+          "ilvl": 292.0,
+          "crit": 1179,
+          "haste": 402,
+          "mastery": 1132,
+          "vers": 16
+        },
+        {
+          "rank": 20,
+          "dps": 172007.6,
+          "ilvl": 291.0,
+          "crit": 2867,
+          "haste": 639,
+          "mastery": 2212,
+          "vers": -188
+        }
+      ],
+      "rest_avg": {
+        "n": 80,
+        "crit": 1179,
+        "haste": 605,
+        "mastery": 1037,
+        "vers": 6
+      },
+      "raw_corr": {
+        "crit": 0.061,
+        "haste": -0.092,
+        "mastery": 0.029,
+        "vers": -0.076
+      },
+      "adjusted_corr": {
+        "crit": 0.082,
+        "haste": -0.108,
+        "mastery": 0.013,
+        "vers": -0.077
+      },
+      "adjustment": "DPS에서 템렙과 전투시간 영향을 뺀 값 기준",
+      "priority": "치명 > 특화 > 가속 > 유연",
+      "confidence": "높음",
+      "basis": "상위 20명 평균: 치명 1290, 특화 1103, 가속 565, 유연 -8. 수치가 큰 순서대로 우선순위를 정했습니다. 템렙·전투시간 영향을 뺀 뒤 딜과 같이 움직인 정도: 치명 +0.08, 특화 +0.01, 가속 -0.11, 유연 -0.08."
+    }
+  }
+}

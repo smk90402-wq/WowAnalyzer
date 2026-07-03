@@ -16,6 +16,7 @@
       <button class="tab" data-tab="arbitrary">임의 로그 분석</button>
       <button class="tab" data-tab="comparison">비교 분석</button>
       <button class="tab" data-tab="meta">메타 분석</button>
+      <button class="tab" data-tab="fun">재미 분석</button>
       <button class="tab" data-tab="rotation">딜사이클</button>
       <button class="tab" data-tab="stats">스탯</button>
       <button class="tab" data-tab="replay">리플레이</button>
@@ -219,9 +220,10 @@
               <th class="right" data-sort="ease" data-tip="딜사이클 난이도 (0~1, 높을수록 쉬움). ★최신 유튜브(12.0.5) 영상을 보고 직접 정리★ — Comeback Kids/Bispril/Dal 난이도 영상 종합. 로그로 잰 '손 바쁨(APM)'과 '스킬 순서 다양성'은 실제 어려움과 어긋날 수 있어 맨 뒤 참고 컬럼으로만 둠. 클릭=정렬">로테<br>쉬움</th>
               <th class="right mute" data-sort="rot_rank" data-tip="난이도 순위 (1=가장 쉬움 ~ 27=가장 어려움). 최신 유튜브 종합. 클릭=정렬">난이도<br>순위</th>
               <th class="right" data-sort="reactive_stability" data-tip="반응 안정성 (0~1, 높을수록 돌발 상황/스킬 발동에도 뭘 눌러야 할지 명확함). 스펙마다 플레이 방식을 하나하나 직접 정리한 평가: 손이 바빠도 누를 순서가 정해져 있으면 높게, 버튼이 적어도 버프 타이밍 맞추기·발동 스킬 판단이 어려우면 낮게. ★'로그점수 잘나옴'에 15% 반영★. 클릭=정렬">반응<br>안정</th>
-              <th class="right" data-sort="pi_indep" data-tip="마력주입(사제 PI 버프) 독립도 (0~1). PI 받았을 때 딜 상승이 0에 가까울수록 1.00 = 사제 버프 없이도 고파스 가능. 클릭=정렬">PI<br>독립</th>
-              <th class="right" data-sort="uplift_pct" data-tip="마력주입 받을 때 딜이 몇 % 오르는지 (보스별로 같은 조건끼리 비교한 평균). 작을수록 사제 버프 없어도 됨. 화염 +7.5%=의존, 포식 −0.08%=완전독립. 클릭=정렬">PI<br>딜상승</th>
+              <th class="right" data-sort="pi_indep" data-tip="마력주입(사제 PI 버프) 독립도 (0~1). ★상위 25% 파스 구간 기준★ — PI 받았을 때 상위권 딜 상승이 0에 가까울수록 1.00 = 사제 버프 없이도 최고점 경쟁 가능. 클릭=정렬">PI<br>독립</th>
+              <th class="right" data-sort="uplift_top_pct" data-tip="마력주입 받을 때 딜이 몇 % 오르는지 — ★상위 25% 파스 구간끼리 비교 (최고점 노리는 관점, 중앙값 비교는 상위 구간 이득을 과소평가)★. 보스별 같은 조건 평균. 작을수록 사제 버프 없어도 됨. 칸에 마우스 올리면 최상위(top10) 파스 중 PI 받은 비율. 클릭=정렬">PI<br>딜상승</th>
               <th class="right" data-sort="consistency" data-tip="일관성 (0~1) = 킬마다 딜 편차가 작은가 = 기믹이나 운에 딜이 안 무너지나. 쫄파이 안정성도 여기 포함. 높을수록 매번 비슷하게 고파스. 클릭=정렬">일관성</th>
+              <th class="right info" data-sort="p99_ease" data-tip="99파스 찍기 쉬움 (0~1, 높을수록 쉬움). ★점수 미반영·참고용★. 최고점(99~100) 도전이 얼마나 수월한 스펙인가 = 스킬천장 낮음(최대딜 뽑는 조작이 쉬움)×0.35 + PI독립(사제 버프 없어도 됨)×0.25 + 일관성(좋은 킬이 재현됨)×0.25 + 인구 적음(경쟁자 적어 컷이 낮음)×0.15. 스킬천장이 주관 평가라 이 지표도 참고용. 클릭=정렬">99파스<br>쉬움</th>
               <th class="right info" data-sort="raid_tier" data-tip="실전 레이드 메타 강도 (S~D). ★파스와 무관 — raw DPS/실전 강함★. 최신 유튜브(12.0.5, 밸패 후) 레이드 티어 종합. 셀에 마우스=raid↔쐐기 갈리는 스펙 메모. 클릭=정렬(S→D)">레이드<br>티어</th>
               <th class="right info" data-sort="mplus_tier" data-tip="실전 쐐기(M+) 메타 강도 (S~D). ★파스와 무관★. 최신 유튜브 M+ 조합/티어 종합. 냉기죽기(레이드S↔쐐기D)·비전 등은 레이드와 크게 갈림 — 칸에 마우스 올리면 메모. 클릭=정렬(S→D)">쐐기<br>티어</th>
               <th class="right info" data-sort="tuning" data-tip="최근 튜닝 추세 (↑↑강버프~↓↓강너프). ★공식 블리자드 핫픽스 날짜별 기록★ (레이드 전→5/5→5/28 신화後). 티어=현재 강함 / 이건=오르는 중인지 내리는 중인지. ↑=버프받는중, ↓=너프중. 칸에 마우스 올리면 수치. 클릭=정렬">최근<br>튜닝</th>
@@ -229,13 +231,13 @@
               <th class="right info" data-sort="pug" data-tip="막공 환영도 (1기피~5최우선 모심). ★점수 미반영·구인 시장 기반★. 정공 로스터 직업분포가 아니라 '막공/신규정공이 자리 못채워 구인하는 직업'이 환영지표 (사용자 교정). 인벤 board2972 공격대_구인 본문 138개 고유 캠페인 정독 → DPS 수요 집계 (제목 '딜러 구인(세부참조)'뿐이라 본문 약어 파싱). 구인수요 사냥꾼30·증강27·정술21·흑마19·죽기18 top (용딜=증강, 죽딜=부정/냉죽 무구분). 냉법은 공급과잉이라 4로 하향, 황폐는 멸종급이라 2. 스왑힐(힐특↔딜특)12건은 하이브리드 원딜(암흑·조화)이 딜+힐 양쪽 충족=가점. 칸에 마우스 올리면 근거. 클릭=정렬">막공<br>환영</th>
               <th class="right info" data-sort="burden" data-tip="특임/유틸 부담 (1낮음~5높음). ★점수 미반영·운영 리스크★ — 딜과 별개로, 차단·해제·쫄 끌기·아군 버프 챙기기 같은 '딜 말고 시켜지는 일'이 많은지. 많을수록 딜에 집중 못 하고 신경 쓸 게 늘어남. ★기믹·유틸 지식으로 직접 정리★. 칸에 마우스 올리면 근거. 클릭=정렬">특임<br>부담</th>
               <th class="right info" data-sort="aoe_ratio" data-tip="광딜 프로필 = 쫄 많은 보스 / 단일 보스 DPS 비율. 높을수록 다수 대상 특화. ★참고용★ — 파스는 같은 스펙끼리만 비교라 무관, 실전 킬 기여도/레이드 적합 지표. 클릭=정렬">광딜<br>프로필</th>
-              <th class="right info" data-sort="skill_ceiling" data-tip="점수뽑기 딜 스킬천장 (1쉬움~5매우어려움). '최고점을 뽑으려면 얼마나 어려운가' — 딜 스킬·쿨기·자원·폭딜 타이밍 최적화 난이도. 로그 통계로 안 잡히는 부분(붕괴하는별 타이밍 등). ★가이드와 스펙 이해를 바탕으로 직접 추정, 주관적★ — 점수 미반영. 칸에 마우스 올리면 근거. 클릭=정렬">스킬<br>천장</th>
+              <th class="right info" data-sort="skill_ceiling" data-tip="점수뽑기 딜 스킬천장 (1쉬움~5매우어려움). '최고점을 뽑으려면 얼마나 어려운가' — 딜 스킬·쿨기·자원·폭딜 타이밍 최적화 난이도. ⚠99파스 쉬움 그 자체가 아니라 '내 조작' 부분만 — 경쟁·버프·운까지 합친 건 99파스 쉬움 컬럼 참조. 로그 통계로 안 잡히는 부분(붕괴하는별 타이밍 등). ★가이드와 스펙 이해를 바탕으로 직접 추정, 주관적★ — 점수 미반영. 칸에 마우스 올리면 근거. 클릭=정렬">스킬<br>천장</th>
               <th class="right mute" data-sort="unique_spells" data-tip="한 전투 고유 시전 스펠 종류 수 (로그). ★참고용★ — 점수 미반영. 클릭=정렬">스킬수</th>
-              <th class="right mute" data-sort="apm" data-tip="1분에 스킬을 몇 번 누르는지 (로그 실측, 글쿨 안 도는 스킬 연타는 뻥튀기 안 되게 보정). ★참고용 — 점수 미반영★. 근딜은 즉시시전 위주라 캐스터보다 원래 높게 나옴(어려운 게 아님). 클릭=정렬">APM</th>
+              <th class="right mute" data-sort="apm" data-tip="1분에 스킬을 몇 번 누르는지 (실제 로그에서 잰 값, 글쿨 안 도는 스킬 연타는 뻥튀기 안 되게 보정). ★참고용 — 점수 미반영★. 근딜은 즉시시전 위주라 캐스터보다 원래 높게 나옴(어려운 게 아님). 클릭=정렬">APM</th>
               <th class="right mute" data-sort="cleave_med" data-tip="광딜 4보스(바엘고어/한밤의도래/빛눈먼선봉대/우주의왕관)에서 top100 중간값 DPS. 참고용. 클릭=정렬">쫄파이<br>DPS</th>
             </tr>
           </thead>
-          <tbody id="meta-body"><tr><td colspan="20" class="empty">로딩…</td></tr></tbody>
+          <tbody id="meta-body"><tr><td colspan="21" class="empty">로딩…</td></tr></tbody>
         </table>
       </div>
     </section>
@@ -244,6 +246,42 @@
       <div class="spec-modal-card">
         <button class="sm-close" title="닫기 (Esc)">✕</button>
         <div id="spec-modal-body"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ── 재미 분석 (유튜버 평가 + 로그 실측 검증) ──────────────── -->
+  <main class="tab-pane" data-pane="fun" id="pane-fun">
+    <section class="meta-head">
+      <h2>스펙 재미 분석 <span class="meta-sub">— 유튜브 재미 랭킹 영상 10개를 종합하고, 그 말이 맞는지 실제 로그 데이터로 확인한 표. ★성능·파스와 무관, 순수 재미★. 재미는 취향이라 점수보다 '평가가 갈린 이유'를 보세요. 줄 클릭 = 자세한 내용.</span></h2>
+    </section>
+    <section class="panel meta-panel">
+      <div class="table-wrap">
+        <table id="fun-table">
+          <thead>
+            <tr>
+              <th data-fsort="rank" data-tip="재미 점수 순위. 클릭=정렬">#</th>
+              <th data-fsort="kr" data-tip="클래스 / 전문화. 클릭=정렬">스펙</th>
+              <th class="right" data-fsort="yt_score" data-tip="유튜브 영상 10개가 이 스펙을 얼마나 재밌다고 했는지 0~5점으로 합친 점수. 유튜버끼리 평가가 갈리면 ※표시 — 칸에 마우스 올리면 누가 뭐라고 했는지 나옴. 클릭=정렬">재미<br>종합</th>
+              <th class="right mute" data-fsort="yt_n" data-tip="10개 영상 중 이 스펙 얘기가 나온 영상 수. 2~3개뿐이면 점수를 너무 믿지 마세요. 클릭=정렬">언급<br>영상</th>
+              <th class="right" data-fsort="impact" data-tip="타격감 (1~5) — 누르는 맛이 있는 한 방 버튼이 있는가. 붐스틱, 역병 폭발, 붕괴하는 별 같은 것. 유튜버들이 한 말을 정리한 점수. 클릭=정렬">타격감</th>
+              <th class="right" data-fsort="proc" data-tip="프록·도박 재미 (1~5) — 스킬이 랜덤으로 터져서 심심할 틈이 없는가. 롤더본, 킬링 머신 같은 것. 유튜버들이 한 말을 정리한 점수. 클릭=정렬">프록<br>도박</th>
+              <th class="right" data-fsort="burst" data-tip="폭딜맛 (1~5) — 쿨기 몰아서 딜 쏟아붓는 순간이 짜릿한가. 유튜버들이 한 말을 정리한 점수. 클릭=정렬">폭딜맛</th>
+              <th class="right" data-fsort="flow" data-tip="로테 흐름 (1~5) — 스킬 하나를 누르면 다음 스킬로 착착 이어지는가. 유튜버들이 한 말을 정리한 점수. 클릭=정렬">로테<br>흐름</th>
+              <th class="right" data-fsort="fantasy" data-tip="연출·컨셉 (1~5) — 이펙트, 사운드, 직업 컨셉이 주는 멋. 악마 군단 소환, 네크로맨서, 촉수 같은 것. 유튜버들이 한 말을 정리한 점수. 클릭=정렬">연출<br>컨셉</th>
+              <th class="right info" data-fsort="mobility" data-tip="움직이며 딜 (0~5) — 움직이면서도 딜이 잘 나오는가. 이 칸만 유튜버 말이 아니라 실제 로그 데이터로 잰 것 — 무빙 많은 보스에서 딜이 덜 깎이는 스펙일수록 높음. 클릭=정렬">움직이며<br>딜</th>
+              <th data-tip="유튜버 말이 실제 로그 데이터와 맞는지 확인한 결과. ✓=말대로임 / △=평가가 갈리거나 반만 맞음 / ✗=데이터와 다름. 줄 클릭=자세히">데이터<br>확인</th>
+            </tr>
+          </thead>
+          <tbody id="fun-body"><tr><td colspan="11" class="empty">로딩…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+    <!-- 재미 상세 팝업 -->
+    <div id="fun-modal">
+      <div class="spec-modal-card">
+        <button class="sm-close" title="닫기 (Esc)">✕</button>
+        <div id="fun-detail"></div>
       </div>
     </div>
   </main>
@@ -262,10 +300,10 @@
       </label>
       <div class="rot-mode">
         <button class="rot-mode-btn active" data-mode="general">일반 로테</button>
-        <button class="rot-mode-btn" data-mode="boss">보스별 실측</button>
+        <button class="rot-mode-btn" data-mode="boss">보스별 기록</button>
       </div>
       <button id="rot-game-control-btn" class="rot-game-btn" type="button" style="display:none">딜사이클 문제풀이</button>
-      <span class="rot-hint">일반=가이드 베이스 / 보스별=top100 실측 역산</span>
+      <span class="rot-hint">일반=가이드 기준 / 보스별=상위 100명이 실제로 쓴 순서에서 뽑아냄</span>
     </section>
     <div id="rot-body" class="rot-body"><div class="empty">로딩…</div></div>
   </main>

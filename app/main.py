@@ -232,6 +232,17 @@ def rankings(difficulty: str) -> Response:
 PUG_SCORE_W = 0.35
 
 
+# ── 재미 분석 (유튜버 재미 평가 + 로그 실측 검증) ─────────────────────────
+@app.get("/api/spec-fun")
+def spec_fun() -> Response:
+    """analyze_spec_fun.py 산출 spec_fun.json — 유튜브 10영상 재미 큐레이션 + 로그 대조."""
+    p = DATA_DIR / "spec_fun.json"
+    if not p.exists():
+        raise HTTPException(404, "spec_fun.json 없음 — analyze_spec_fun.py 실행 필요")
+    return Response(content=p.read_text(encoding="utf-8"),
+                    media_type="application/json")
+
+
 # ── 스펙 메타 종합 (5차원 분석 표) ─────────────────────────────────────────
 @app.get("/api/spec-meta")
 def spec_meta() -> Response:
@@ -314,6 +325,18 @@ def spec_meta() -> Response:
     else:
         df["pop_avg"] = None
         df["pop_favor"] = None
+    # ── 99파스 쉬움 (0~1, 참고용·점수 미반영) — "최고점(99~100) 도전이 얼마나 수월한가".
+    # 스킬천장 낮음(최대딜 뽑는 조작 쉬움) 0.35 + PI독립 0.25 + 일관성 0.25
+    # + 인구 적음(경쟁자 적어 컷 낮음) 0.15. 스킬천장이 주관 평가라 이 지표도 참고용.
+    _ceil = pd.to_numeric(df["skill_ceiling"], errors="coerce")
+    _ceil_ease = (5 - _ceil.where(_ceil > 0)) / 4
+    _scarce = (100 - pd.to_numeric(df["pop_favor"], errors="coerce")) / 100
+    df["p99_ease"] = (
+        _ceil_ease.fillna(0.5) * 0.35
+        + pd.to_numeric(df["pi_indep"], errors="coerce").fillna(0.5) * 0.25
+        + pd.to_numeric(df["consistency"], errors="coerce").fillna(0.5) * 0.25
+        + _scarce.fillna(0.5) * 0.15
+    ).round(3)
     # 스펙 가이드(설명/로테/꿀팁) inject — 팝업 우측 패널용
     guide = _spellify(_spec_guide())
     df["guide_desc"] = df.apply(
@@ -324,7 +347,8 @@ def spec_meta() -> Response:
         lambda r: (guide.get(f'{r["class"]}|{r["spec"]}') or {}).get("tips", []), axis=1)
     keep = ["rank", "kr", "class", "spec", "class_kr", "spec_kr", "score", "score_parse",
             "ease", "rot_rank", "reactive_stability", "reactive_note",
-            "pi_indep", "uplift_pct", "pi_rate_pct", "consistency",
+            "pi_indep", "uplift_pct", "uplift_top_pct", "pi_rate_top10_pct",
+            "pi_rate_pct", "consistency", "p99_ease",
             "raid_tier", "mplus_tier", "meta_note", "tuning", "tuning_note",
             "burden", "burden_note", "pug", "pug_note",
             "pug_emp", "pug_emp_capped", "pug_to", "pug_present", "pop_avg", "pop_favor",
@@ -552,10 +576,23 @@ def boss_stats() -> Response:
         raise HTTPException(404, "boss_stats.json 없음 — extract_boss_stats.py 실행 필요")
     import json as _json
     data = _json.loads(p.read_text(encoding="utf-8"))
-    rec_p = DATA_DIR / "bm_stat_recommendations.json"
-    recs = _json.loads(rec_p.read_text(encoding="utf-8")) if rec_p.exists() else {}
-    trinket_rec_p = DATA_DIR / "bm_trinket_recommendations.json"
-    trinket_recs = _json.loads(trinket_rec_p.read_text(encoding="utf-8")) if trinket_rec_p.exists() else {}
+    # 스펙별 추천 JSON — 스키마 동일, 키='Class|Spec'. 새 스펙 분석 시 파일명만 추가.
+    def _load_recs(*names: str) -> dict:
+        out: dict = {}
+        for name in names:
+            fp = DATA_DIR / name
+            if not fp.exists():
+                continue
+            obj = _json.loads(fp.read_text(encoding="utf-8"))
+            for k, v in obj.items():
+                if k == "_meta":
+                    out.setdefault("_meta", {}).update(v if isinstance(v, dict) else {})
+                else:
+                    out[k] = v
+        return out
+
+    recs = _load_recs("bm_stat_recommendations.json", "frost_stat_recommendations.json")
+    trinket_recs = _load_recs("bm_trinket_recommendations.json", "frost_trinket_recommendations.json")
     trinket_meta = trinket_recs.get("_meta", {}) if isinstance(trinket_recs, dict) else {}
     STATS = ["특화", "치명", "가속", "유연"]
 

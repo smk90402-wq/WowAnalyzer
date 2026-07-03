@@ -68,7 +68,7 @@ let _metaRows = [];   // 팝업용 행 데이터 보관
 async function loadSpecMeta(force) {
   if (_metaLoaded && !force) return;
   const body = $('#meta-body');
-  body.innerHTML = '<tr><td colspan="20" class="empty">로딩…</td></tr>';
+  body.innerHTML = '<tr><td colspan="21" class="empty">로딩…</td></tr>';
   try {
     const r = await fetch('/api/spec-meta');
     if (!r.ok) throw new Error(`HTTP ${r.status} — run_full_analysis.py 필요할 수 있음`);
@@ -76,7 +76,7 @@ async function loadSpecMeta(force) {
     renderSpecMeta(j.rows || []);
     _metaLoaded = true;
   } catch (e) {
-    body.innerHTML = `<tr><td colspan="20" class="empty">로드 실패: ${esc(e.message)}</td></tr>`;
+    body.innerHTML = `<tr><td colspan="21" class="empty">로드 실패: ${esc(e.message)}</td></tr>`;
   }
 }
 
@@ -86,7 +86,8 @@ function renderSpecMeta(rows) {
   _metaRows = rows;
   body.innerHTML = rows.map((r, i) => {
     const piHi = r.pi_indep != null && r.pi_indep >= 0.9;
-    const upDep = r.uplift_pct != null && r.uplift_pct >= 3;
+    const upVal = r.uplift_top_pct != null ? r.uplift_top_pct : r.uplift_pct;
+    const upDep = upVal != null && upVal >= 3;
     // 광딜 프로필 강조: >1.4 다타겟 특화(초록), <1.1 단일형(흐림)
     const aoeHi = r.aoe_ratio != null && r.aoe_ratio >= 1.4;
     // 스킬천장: 1~2 쉬움(초록), 4~5 어려움(빨강), 셀 tooltip=근거
@@ -107,8 +108,9 @@ function renderSpecMeta(rows) {
       <td class="right mute num">${r.rot_rank != null ? Math.round(r.rot_rank) : '-'}</td>
       <td class="right num ${r.reactive_stability >= 0.7 ? 'good' : (r.reactive_stability != null && r.reactive_stability < 0.4 ? 'bad' : '')}">${fmt(r.reactive_stability)}</td>
       <td class="right num ${piHi ? 'good' : ''}">${fmt(r.pi_indep)}</td>
-      <td class="right num ${upDep ? 'bad' : 'mute'}">${r.uplift_pct != null ? (r.uplift_pct >= 0 ? '+' : '') + fmt(r.uplift_pct) + '%' : '-'}</td>
+      <td class="right num ${upDep ? 'bad' : 'mute'}" title="${r.pi_rate_top10_pct != null ? `최상위(top10) 파스 중 PI 받은 비율 ${Math.round(r.pi_rate_top10_pct)}%` : ''}${r.uplift_pct != null ? ` · 중앙값 기준 ${r.uplift_pct >= 0 ? '+' : ''}${fmt(r.uplift_pct)}%` : ''}">${upVal != null ? (upVal >= 0 ? '+' : '') + fmt(upVal) + '%' : '-'}</td>
       <td class="right num">${fmt(r.consistency)}</td>
+      <td class="right num ${r.p99_ease >= 0.75 ? 'good' : (r.p99_ease != null && r.p99_ease < 0.55 ? 'bad' : '')}">${fmt(r.p99_ease)}</td>
       ${tierCell(r.raid_tier)}
       ${tierCell(r.mplus_tier)}
       <td class="right num ${tuneCls(r.tuning)}" title="${esc(r.tuning_note || '')}">${r.tuning || '-'}</td>
@@ -193,10 +195,12 @@ function specTraits(r) {
   out.push({ tone: sc >= 0.70 ? 'good' : (sc < 0.50 ? 'bad' : ''),
     text: `<b>${pt}</b> (종합 ${_fmtN(sc, 3)} · ${r.rank}위)${brk}` });
   if (r.pi_indep != null) {
-    const dep = r.uplift_pct != null && r.uplift_pct >= 3;
+    const upv = r.uplift_top_pct != null ? r.uplift_top_pct : r.uplift_pct;
+    const t10 = r.pi_rate_top10_pct != null ? ` · 최상위 파스 중 PI ${Math.round(r.pi_rate_top10_pct)}%` : '';
+    const dep = upv != null && upv >= 3;
     out.push({ tone: dep ? 'bad' : 'good', text: dep
-      ? `마력주입(PI) <b>의존</b> — 받으면 딜 +${_fmtN(r.uplift_pct, 1)}% (사제 버프 있어야 고파스)`
-      : `마력주입(PI) <b>독립</b> — 버프 없이도 OK (받아도 ${r.uplift_pct >= 0 ? '+' : ''}${_fmtN(r.uplift_pct, 1)}%)` });
+      ? `마력주입(PI) <b>의존</b> — 상위권 기준 받으면 딜 +${_fmtN(upv, 1)}%${t10} (사제 버프 있어야 최고점)`
+      : `마력주입(PI) <b>독립</b> — 버프 없이도 최고점 경쟁 가능 (상위권 기준 받아도 ${upv >= 0 ? '+' : ''}${_fmtN(upv, 1)}%${t10})` });
   }
   if (r.consistency != null)
     out.push({ tone: r.consistency >= 0.85 ? 'good' : (r.consistency < 0.60 ? 'bad' : ''),
@@ -247,8 +251,11 @@ function openSpecModal(idx) {
     cell('난이도 순위', r.rot_rank != null ? '#' + Math.round(r.rot_rank) : '-'),
     cell('반응 안정', _fmtN(r.reactive_stability)),
     cell('PI 독립', _fmtN(r.pi_indep)),
-    cell('PI 딜상승', r.uplift_pct != null ? (r.uplift_pct >= 0 ? '+' : '') + _fmtN(r.uplift_pct, 1) + '%' : '-'),
+    cell('PI 딜상승(상위)', r.uplift_top_pct != null ? (r.uplift_top_pct >= 0 ? '+' : '') + _fmtN(r.uplift_top_pct, 1) + '%'
+      : (r.uplift_pct != null ? (r.uplift_pct >= 0 ? '+' : '') + _fmtN(r.uplift_pct, 1) + '%' : '-')),
+    cell('top10 PI율', r.pi_rate_top10_pct != null ? Math.round(r.pi_rate_top10_pct) + '%' : '-'),
     cell('일관성', _fmtN(r.consistency)),
+    cell('99파스 쉬움', _fmtN(r.p99_ease)),
     cell('레이드 티어', r.raid_tier || '-'),
     cell('쐐기 티어', r.mplus_tier || '-'),
     cell('최근 튜닝', r.tuning || '-'),
@@ -299,6 +306,89 @@ function openSpecModal(idx) {
   whEnsure();  // 스킬명 마우스오버 툴팁
 }
 function closeSpecModal() { $('#spec-modal').classList.remove('show'); }
+
+// ── 재미 분석 탭 ──────────────────────────────────────────────────────
+let _funRows = [];
+let _funLoaded = false;
+let _funSort = { field: 'yt_score', dir: -1 };
+
+async function loadSpecFun() {
+  if (_funLoaded) return;
+  const body = $('#fun-body');
+  body.innerHTML = '<tr><td colspan="11" class="empty">로딩…</td></tr>';
+  try {
+    const r = await fetch('/api/spec-fun');
+    if (!r.ok) throw new Error(`HTTP ${r.status} — analyze_spec_fun.py 필요할 수 있음`);
+    const j = await r.json();
+    _funRows = j.rows || [];
+    _funMeta = j._meta || {};
+    renderSpecFun();
+    _funLoaded = true;
+  } catch (e) {
+    body.innerHTML = `<tr><td colspan="11" class="empty">로드 실패: ${esc(e.message)}</td></tr>`;
+  }
+}
+let _funMeta = {};
+
+function _verifyMark(v) {
+  if (!v) return '-';
+  if (v.startsWith('✓')) return '<span class="good">✓ 일치</span>';
+  if (v.startsWith('✗')) return '<span class="bad">✗ 불일치</span>';
+  return '<span style="color:#ffd166">△ 갈림/부분</span>';
+}
+
+function renderSpecFun() {
+  const fmt1 = v => (v == null ? '-' : Number(v).toFixed(1));
+  const dir = _funSort.dir, f = _funSort.field;
+  const rows = _funRows.slice().sort((a, b) => {
+    const va = a[f], vb = b[f];
+    if (typeof va === 'string' || typeof vb === 'string')
+      return String(va).localeCompare(String(vb), 'ko') * dir;
+    return (((va == null) ? -Infinity : va) - ((vb == null) ? -Infinity : vb)) * dir;
+  });
+  $('#fun-body').innerHTML = rows.map(r => {
+    const i = _funRows.indexOf(r);
+    const scoreCls = r.yt_score >= 4 ? 'good' : (r.yt_score < 2.5 ? 'bad' : '');
+    const split = r.split_note ? '<span class="note-mark" style="color:#ffd166">※</span>' : '';
+    const axis = v => `<td class="right num ${v >= 4.5 ? 'good' : (v <= 2 ? 'bad' : '')}">${fmt1(v)}</td>`;
+    return `
+    <tr class="fun-row" data-idx="${i}" title="클릭 = 영상별 평가와 데이터 확인">
+      <td class="mute num">${r.rank}</td>
+      <td>${esc(r.kr)}</td>
+      <td class="right num strong ${scoreCls}" title="${esc(r.split_note || '')}">${fmt1(r.yt_score)}${split}</td>
+      <td class="right mute num">${r.yt_n}</td>
+      ${axis(r.impact)}${axis(r.proc)}${axis(r.burst)}${axis(r.flow)}${axis(r.fantasy)}
+      <td class="right num ${r.mobility >= 4 ? 'good' : (r.mobility != null && r.mobility < 1.5 ? 'bad' : 'mute')}">${fmt1(r.mobility)}</td>
+      <td>${_verifyMark(r.verify)}</td>
+    </tr>`;
+  }).join('');
+  // 헤더 정렬 표시
+  $$('#fun-table th').forEach(th => {
+    th.classList.toggle('sorted', th.dataset.fsort === f);
+  });
+}
+
+function showFunDetail(idx) {
+  const r = _funRows[idx];
+  if (!r) return;
+  const box = $('#fun-detail');
+  const srcMap = {};
+  (_funMeta.sources || []).forEach(s => { srcMap[s.id] = s; });
+  const notes = (r.yt_notes || []).map(n => {
+    const s = srcMap[n.src] || {};
+    const link = s.url ? `<a href="${s.url}" target="_blank" rel="noopener">${esc(s.channel || n.src)}</a>` : esc(n.src);
+    return `<div class="fd-note"><b>[${esc(n.tier)}]</b> ${esc(n.text)}<span class="fd-src">— ${link}</span></div>`;
+  }).join('');
+  const log = r.log || {};
+  box.innerHTML = `
+    <div class="fd-title">${esc(r.kr)} — 재미 ${Number(r.yt_score).toFixed(1)}/5 (${r.yt_n}개 영상) · ${esc(r.note)}</div>
+    ${r.split_note ? `<div class="fd-split">※ 평가 갈림: ${esc(r.split_note)}</div>` : ''}
+    <div class="fd-verify">데이터로 확인: ${esc(r.verify)}</div>
+    ${notes}
+    <div class="fd-log">실제 로그에서 잰 값 — 1분에 스킬 ${log.apm ?? '-'}번 · 쓰는 버튼 ${log.unique_spells ?? '-'}개 · 누르는 순서 다양함 ${log.bigram_entropy ?? '-'} (높을수록 다채로움) · 킬마다 딜 출렁임 ${log.avg_cv ?? '-'} (높을수록 운빨) · 움직일 때 딜 손해 ${log.move_pen != null ? Number(log.move_pen).toFixed(2) : '-'} (높을수록 무빙에 약함)</div>`;
+  $('#fun-modal').classList.add('show');
+}
+function closeFunModal() { $('#fun-modal')?.classList.remove('show'); }
 
 // ── 스킬명 → 아이콘 + wowhead 마우스오버 툴팁 ──────────────────────────
 let _spellMap = null, _spellNames = null;
@@ -425,7 +515,7 @@ function renderRotBoss() {
   const key = `${_rotSel.cls}|${_rotSel.spec}`;
   const bosses = _bossCycle && _bossCycle[key];
   if (!bosses || !Object.keys(bosses).length) {
-    $('#rot-body').innerHTML = '<div class="empty">이 전문화는 보스별 실측 데이터 없음 (top100 캐시 부족)</div>';
+    $('#rot-body').innerHTML = '<div class="empty">이 전문화는 보스별 기록 없음 (상위 100명 데이터 부족)</div>';
     return;
   }
   // 킬타임 순 정렬
@@ -453,7 +543,7 @@ function renderRotBoss() {
       ${ups ? `<div class="bc-row"><span class="bc-label">버프업타임</span><div class="bc-mute">${ups}</div></div>` : ''}
     </div>`;
   }).join('');
-  $('#rot-body').innerHTML = `<div class="bc-note">⚠ top100 실측 역산. 블러드는 펫블러드(야수)외엔 외부주술사라 받은판만 집계(커버리지 표기). 물약 추적 희박=참고.</div><div class="bc-grid">${cards}</div>`;
+  $('#rot-body').innerHTML = `<div class="bc-note">⚠ 상위 100명이 실제로 쓴 순서에서 뽑아낸 값. 블러드는 펫블러드(야수) 말고는 남이 걸어주는 거라 받은 판만 집계(비율 표기). 물약은 기록이 드물어 참고만.</div><div class="bc-grid">${cards}</div>`;
   whEnsure();
 }
 // ── 스탯 (보스별 스탯 분포) ─────────────────────────────────────────
@@ -1280,6 +1370,7 @@ function switchTab(tab) {
   const paneId = (tab === 'arbitrary') ? 'arbitrary'
               : (tab === 'comparison') ? 'comparison'
               : (tab === 'meta') ? 'meta'
+              : (tab === 'fun') ? 'fun'
               : (tab === 'rotation') ? 'rotation'
               : (tab === 'stats') ? 'stats'
               : (tab === 'replay') ? 'replay'
@@ -1298,6 +1389,9 @@ function bind() {
     } else if (tab === 'meta') {
       $('#meta').textContent = '표본: 신화 top100 (PI·로테·일관성 전부 mythic)';
       loadSpecMeta();
+    } else if (tab === 'fun') {
+      $('#meta').textContent = '유튜브 재미 영상 10개 종합 + 실제 로그로 확인';
+      loadSpecFun();
     } else if (tab === 'rotation') {
       $('#meta').textContent = '표본: 신화 top100';
       loadRotation();
@@ -1423,6 +1517,21 @@ function bind() {
     const th = e.target.closest('th[data-sort]');
     if (th) sortMetaRows(th.dataset.sort);
   });
+  // 재미 표 헤더 클릭 → 정렬 / row 클릭 → 상세
+  const _fthead = document.querySelector('#fun-table thead');
+  if (_fthead) _fthead.addEventListener('click', e => {
+    const th = e.target.closest('th[data-fsort]');
+    if (!th) return;
+    const field = th.dataset.fsort;
+    if (_funSort.field === field) _funSort.dir *= -1;
+    else _funSort = { field, dir: (field === 'kr' || field === 'rank') ? 1 : -1 };
+    renderSpecFun();
+  });
+  const _fbody = $('#fun-body');
+  if (_fbody) _fbody.addEventListener('click', e => {
+    const tr = e.target.closest('tr.fun-row');
+    if (tr) showFunDetail(Number(tr.dataset.idx));
+  });
   // 메타 표 row 클릭 → 특징 팝업
   $('#meta-body').addEventListener('click', e => {
     const tr = e.target.closest('tr.meta-row');
@@ -1434,8 +1543,12 @@ function bind() {
   if (sm) sm.addEventListener('click', e => {
     if (e.target === sm || e.target.closest('.sm-close')) closeSpecModal();
   });
+  const fm = $('#fun-modal');
+  if (fm) fm.addEventListener('click', e => {
+    if (e.target === fm || e.target.closest('.sm-close')) closeFunModal();
+  });
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeSpecModal(); $('#gear-modal')?.classList.remove('show'); }
+    if (e.key === 'Escape') { closeSpecModal(); closeFunModal(); $('#gear-modal')?.classList.remove('show'); }
   });
 
   // 빌드 패널 위임 — 매 row 클릭마다 재렌더 → 위임 패턴 필수

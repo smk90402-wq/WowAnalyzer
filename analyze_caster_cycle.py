@@ -1,4 +1,4 @@
-"""정기 주술사 · 악마 흑마 — 로그 기반 딜사이클/버튼/유틸 실측.
+"""정기 주술사 · 악마 흑마 · 냉기 법사 — 로그 기반 딜사이클/버튼/유틸 실측.
 
 사용자 결정 기준: 딜사이클 복잡도 + '눌러야 할 유틸 기술 수'.
 신화 top100 표본(스펙당 상위 ~50판)의 cast/buff 이벤트에서:
@@ -18,7 +18,7 @@ except Exception: pass
 import pandas as pd
 
 DATA = Path(__file__).parent / "data"
-SPECS = [("Shaman", "Elemental"), ("Warlock", "Demonology")]
+SPECS = [("Shaman", "Elemental"), ("Warlock", "Demonology"), ("Mage", "Frost")]
 PER_SPEC = 60   # 스펙당 상위 표본 (보스 가로질러)
 
 # 딜 외 '유틸' 스펠 분류용 키워드 (한글명 기준). 정확 분류는 출력 후 큐레이션.

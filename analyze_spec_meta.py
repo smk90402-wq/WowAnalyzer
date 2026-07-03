@@ -174,14 +174,20 @@ def main() -> None:
     else:
         base["consistency"] = np.nan
 
-    # 4. pi independence
+    # 4. pi independence — 상위25% 구간 uplift 기준 (사용자=최고점 추구, 2026-07-03).
+    # 중앙값 uplift 는 상위 파스 구간의 PI 이득을 과소평가 (사격: 중앙 +0.9% vs 상위 +2~8%).
     pp = DATA / "pi_impact.csv"
     if pp.exists():
-        pi = pd.read_csv(pp)[["class", "spec", "uplift_pct", "pi_rate_pct"]]
-        base = base.merge(pi, on=["class", "spec"], how="left")
-        base["pi_indep"] = _norm(base["uplift_pct"].abs(), invert=True)
+        pi_all = pd.read_csv(pp)
+        pi_cols = ["class", "spec", "uplift_pct", "pi_rate_pct"]
+        pi_cols += [c for c in ("uplift_top_pct", "pi_rate_top10_pct") if c in pi_all.columns]
+        base = base.merge(pi_all[pi_cols], on=["class", "spec"], how="left")
+        indep_src = base["uplift_top_pct"] if "uplift_top_pct" in base.columns else base["uplift_pct"]
+        base["pi_indep"] = _norm(indep_src.abs(), invert=True)
     else:
         base["uplift_pct"] = np.nan
+        base["uplift_top_pct"] = np.nan
+        base["pi_rate_top10_pct"] = np.nan
         base["pi_indep"] = np.nan
 
     # 정규화
@@ -201,6 +207,15 @@ def main() -> None:
     base["kr"] = base.apply(
         lambda r: f"{CLASS_KR.get(r['class'], r['class'])} {SPEC_KR.get(r['spec'], r['spec'])}",
         axis=1)
+
+    # ease_v2 참고 컬럼 (spec_difficulty_v2.json) — 재실행해도 유지되게 여기서 머지
+    dv2 = DATA / "spec_difficulty_v2.json"
+    if dv2.exists():
+        import json as _json
+        v2 = {(r["class"], r["spec"]): r.get("ease_v2")
+              for r in _json.loads(dv2.read_text(encoding="utf-8"))["rows"]}
+        base["ease_v2"] = base.apply(
+            lambda r: v2.get((r["class"], r["spec"])), axis=1)
 
     cols = ["kr", "score", "ease", "reactive_stability", "reactive_note", "consistency",
             "pi_indep", "cleave_parse", "cleave_med", "uplift_pct"]
