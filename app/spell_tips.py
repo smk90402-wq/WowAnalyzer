@@ -8,8 +8,18 @@
 값으로 치환하고(못 구하면 빈칸), 색코드(|cff...|r)는 제거. 정리 후에도 $ 나 | 가
 남으면 desc 는 빈 문자열 — 지저분한 설명은 노출하지 않는다.
 
+폴백 (원 체인이 빈손일 때만, 2026-07 실측 — 르우라/카이메루스 기믹):
+  설명 : 던전 저널 JournalEncounterSection filter[SpellID] 의 BodyText_lang.
+         해당 ID 가 0행이면 SpellName 역조회로 동명 spell_id 들을 재시도(보스 기믹은
+         cast/hit/damage 가 다른 ID·저널엔 대표 ID 하나). 기믹 행 BodyText 가 비면
+         같은 인카운터 공략(Type=3) 섹션의 $bullet; 항목 중 해당 스킬 링크가 든 줄.
+         난이도 분기($[!15,16 …$])는 신화(16) 포함 분기만 유지.
+  아이콘: SpellMisc 에 행이 없으면 동명 spell_id 들의 SpellMisc 에서 첫 아이콘.
+
 캐시:
-  data/spell_tips.json  spell_id → {icon_fdid, name, desc} 누적 (파일 하나, Lock)
+  data/spell_tips.json  spell_id → {v, icon_fdid, name, desc} 누적 (파일 하나, Lock)
+      v 가 CACHE_V 와 다르면 desc 재계산(옛 로직이 저장한 깨진/빈 desc 무효화).
+      name 과 icon_fdid 는 버전 무관 유효 — 재사용.
   data/icons/{fdid}.png 아이콘 디스크 캐시 (같은 fdid 공유)
   실패는 10분 네거티브 캐시 (replay_map 패턴) — wago 재시도 폭주 방지.
 """
@@ -24,6 +34,7 @@ import time
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote
 
 # UA 헤더/에러 처리·BLP 디코드(Pillow 네이티브)·DATA_DIR 규칙은 replay_map 재사용
 from app.replay_map import DATA_DIR, WAGO, MapError, _get, _to_int
@@ -34,6 +45,10 @@ TIPS_PATH = DATA_DIR / "spell_tips.json"
 # db2 CSV 는 build 미지정 시 어떤 빌드가 올지 보장이 없어 명시 (fetch_spell_cooldowns 와 동일).
 # /api/builds 실패 시 폴백으로 쓰는 마지막 확인 라이브 빌드.
 _FALLBACK_BUILD = "12.0.7.68367"
+
+# spell_tips.json 엔트리 버전 — desc 계산 로직이 바뀌면 올린다.
+# v 가 다른(없는) 엔트리는 desc 를 다시 계산 (name/icon_fdid 는 그대로 유효).
+CACHE_V = 3   # v2: 저널 폴백이 공략 불릿만 봐서 산문 문단 기믹이 빈 desc 로 저장됨
 
 _FAIL_TTL_S = 600
 # (종류 "icon"/"tip", spell_id) → (실패 시각 monotonic, 사유)
@@ -56,9 +71,10 @@ def _build() -> str:
         return _FALLBACK_BUILD
 
 
-def _csv_rows(table: str, field: str, value: int, locale: str | None = None) -> list[dict[str, str]]:
+def _csv_rows(table: str, field: str, value: int | str,
+              locale: str | None = None) -> list[dict[str, str]]:
     """filter 쿼리로 행 단위 조회. filter 는 부분일치(fuzzy)라 호출부 재필터 필수."""
-    url = f"{WAGO}/db2/{table}/csv?build={_build()}&filter[{field}]={value}"
+    url = f"{WAGO}/db2/{table}/csv?build={_build()}&filter[{field}]={quote(str(value))}"
     if locale:
         url += f"&locale={locale}"
     text = _get(url, timeout=30).decode("utf-8-sig", errors="replace")
@@ -268,6 +284,154 @@ def _clean_desc(raw: str, spell_id: int, depth: int = 0,
     return text
 
 
+# ── 폴백: 동명 spell_id 역조회 + 던전 저널 ──────────────────────────────────
+@lru_cache(maxsize=256)
+def _sibling_ids(name: str) -> tuple[int, ...]:
+    """SpellName 을 이름으로 역조회(정확 일치 재필터) — 동명 spell_id 전체, 오름차순."""
+    for locale in ("koKR", None):
+        rows = _csv_rows("SpellName", "Name_lang", name, locale)
+        ids = sorted({_to_int(r.get("ID")) for r in rows
+                      if (r.get("Name_lang") or "") == name and _to_int(r.get("ID")) > 0})
+        if ids:
+            return tuple(ids)
+    return ()
+
+
+def _near_siblings(name: str, spell_id: int, limit: int = 8) -> list[int]:
+    """동명 spell_id 중 자기와 ID 가 가까운 순 상위 N — 보스 기믹의 cast/hit/damage
+    변형은 ID 가 이웃해 있다. 오름차순 앞자르기는 흔한 이름('돌진' 317개)에서
+    옛 확장팩 ID 만 남아 현행 레이드 스펠이 무조건 탈락하므로 근접순이 맞다."""
+    ids = [i for i in _sibling_ids(name) if i != spell_id]
+    ids.sort(key=lambda i: abs(i - spell_id))
+    return ids[:limit]
+
+
+@lru_cache(maxsize=512)
+def _journal_rows_for(spell_id: int) -> list[dict[str, str]]:
+    """JournalEncounterSection 에서 SpellID 로 기믹 섹션 행들."""
+    for locale in ("koKR", None):
+        rows = _rows_exact("JournalEncounterSection", "SpellID", spell_id, locale)
+        if rows:
+            return rows
+    return []
+
+
+@lru_cache(maxsize=64)
+def _journal_enc_rows(enc_id: int) -> list[dict[str, str]]:
+    """인카운터 하나의 저널 섹션 전체 (공략 Type=3 포함)."""
+    for locale in ("koKR", None):
+        rows = _rows_exact("JournalEncounterSection", "JournalEncounterID", enc_id, locale)
+        if rows:
+            return rows
+    return []
+
+
+# $[!15,16 …$] 난이도 분기 / |Hspell:123|h[이름]|h 링크 — 저널 BodyText 전용 토큰
+_RE_J_COND = re.compile(r"\$\[\s*!?([\d,]*)\s*(.*?)\$\]", re.S)
+_RE_J_LINK = re.compile(r"\|H[^|]*\|h\[?([^|]*?)\]?\|h")
+
+
+def _journal_pre(text: str) -> str:
+    """저널 토큰 정리 — 난이도 분기는 신화(16) 포함 분기만 유지. 나머지는 _clean_desc."""
+    def _cond(m: re.Match[str]) -> str:
+        ids = {x.strip() for x in m.group(1).split(",") if x.strip()}
+        return m.group(2) if (not ids or "16" in ids) else ""
+    text = _RE_J_COND.sub(_cond, text)
+    text = _RE_J_LINK.sub(lambda m: m.group(1), text)
+    return text.replace("$bullet;", "\n")
+
+
+def _pick_body(rows: list[dict[str, str]]) -> str:
+    """기믹 섹션 행들의 BodyText 중 하나 — 여럿이면 신화(16) 난이도 행 우선."""
+    cands: list[tuple[int, str]] = []
+    for r in rows:
+        body = (r.get("BodyText_lang") or "").strip()
+        if body and all(body != b for _, b in cands):
+            cands.append((_to_int(r.get("ID")), body))
+    if len(cands) > 1:
+        for sec_id, body in cands:
+            diffs = _rows_exact("JournalSectionXDifficulty", "JournalEncounterSectionID", sec_id)
+            if any(_to_int(d.get("DifficultyID")) == 16 for d in diffs):
+                return body
+    return cands[0][1] if cands else ""
+
+
+def _overview_body(enc_id: int, spell_ids: set[int]) -> str:
+    """공략(Type=3) 섹션에서 해당 스킬 링크가 든 조각들 (중복 제거).
+
+    $bullet; 항목 우선, 없으면 산문 문단(빈 줄 구분)도 후보 — 이 레이드 저널은
+    기믹 설명이 불릿에만 있는 보스와 산문에만 있는 보스가 섞여 있다(실측).
+    """
+    if enc_id <= 0:
+        return ""
+    marks = [f"spell:{sid}|h" for sid in spell_ids if sid > 0]
+    lines: list[str] = []
+    for r in _journal_enc_rows(enc_id):
+        if (r.get("Type") or "").strip() != "3":
+            continue
+        body = r.get("BodyText_lang") or ""
+        for part in body.split("$bullet;")[1:]:
+            part = part.strip()
+            if part and any(m in part for m in marks) and part not in lines:
+                lines.append(part)
+        for part in re.split(r"(?:\r?\n){2,}", body):
+            part = part.strip()
+            if not part or "$bullet;" in part:
+                continue   # 불릿 포함 문단은 위에서 항목 단위로 이미 처리
+            if any(m in part for m in marks) and part not in lines:
+                lines.append(part)
+    return "\n".join(lines)
+
+
+def _journal_desc(spell_id: int, name: str, state: dict[str, bool]) -> str:
+    """던전 저널 폴백 desc. 실패/빈 결과는 "" — 조회 예외는 transient 로만 표시."""
+    try:
+        rows = _journal_rows_for(spell_id)
+        if not rows:
+            # 저널엔 기믹당 대표 spell_id 하나 — 동명·근접 ID 로 재시도 (최대 8개)
+            for sib in _near_siblings(name, spell_id):
+                rows = _journal_rows_for(sib)
+                if rows:
+                    break
+        if not rows:
+            return ""
+        rep_id = _to_int(rows[0].get("SpellID"))
+        enc_id = _to_int(rows[0].get("JournalEncounterID"))
+        # 1순위: 기믹 행 자체 BodyText — 비어 있으면 공략 불릿 (이 레이드 저널의 실태)
+        for body in (_pick_body(rows), _overview_body(enc_id, {spell_id, rep_id})):
+            if not body:
+                continue
+            st: dict[str, bool] = {}
+            text = _clean_desc(_journal_pre(body), spell_id, state=st)
+            if st.get("transient"):
+                state["transient"] = True
+            if text and not st.get("bad"):
+                return text
+        return ""
+    except Exception:
+        state["transient"] = True   # 저널 체인 조회 실패 — 캐시하지 말고 다음에 재시도
+        return ""
+
+
+def _icon_fdid(spell_id: int) -> int:
+    """SpellMisc 아이콘 FileDataID. 없으면 동명 spell_id 들의 SpellMisc 에서 첫 아이콘."""
+    try:
+        fdid = _to_int(_spell_misc(spell_id).get("SpellIconFileDataID"))
+    except SpellTipError:
+        fdid = 0
+    if fdid > 0:
+        return fdid
+    name = _spell_name(spell_id)
+    for sib in (_near_siblings(name, spell_id) if name else []):
+        try:
+            fdid = _to_int(_spell_misc(sib).get("SpellIconFileDataID"))
+        except SpellTipError:
+            continue
+        if fdid > 0:
+            return fdid
+    raise SpellTipError(f"spellID {spell_id} 아이콘 FileDataID 없음(동명 폴백 포함)")
+
+
 # ── 공개 API ─────────────────────────────────────────────────────────────────
 def icon_png_path(spell_id: int) -> Path:
     """spell_id → data/icons/{fdid}.png (없으면 wago 에서 BLP 받아 변환)."""
@@ -280,17 +444,16 @@ def icon_png_path(spell_id: int) -> Path:
     _fail_check("icon", spell_id)
     try:
         if fdid <= 0:
-            fdid = _to_int(_spell_misc(spell_id).get("SpellIconFileDataID"))
-            if fdid <= 0:
-                raise SpellTipError(f"spellID {spell_id} 아이콘 FileDataID 없음")
+            fdid = _icon_fdid(spell_id)   # 원 체인 실패 시 동명 폴백 포함
             _cache_set(spell_id, icon_fdid=fdid)
         path = ICONS_DIR / f"{fdid}.png"
         if not path.exists():
             from PIL import Image  # 지연 import — replay_map 과 동일 (Pillow BLP 네이티브)
             blp = _get(f"{WAGO}/api/casc/{fdid}")
             ICONS_DIR.mkdir(parents=True, exist_ok=True)
-            # 임시 파일 → rename: 저장 중 끊겨도 깨진 PNG 가 캐시로 남지 않게
-            tmp = path.with_suffix(".png.tmp")
+            # 임시 파일 → rename: 저장 중 끊겨도 깨진 PNG 가 캐시로 남지 않게.
+            # 스레드별 이름 — 같은 fdid 를 공유하는 스킬 둘을 동시에 hover 해도 충돌 없음
+            tmp = path.with_suffix(f".{threading.get_ident()}.tmp")
             Image.open(io.BytesIO(blp)).convert("RGBA").save(tmp, format="PNG")
             tmp.replace(path)
         return path
@@ -304,23 +467,31 @@ def icon_png_path(spell_id: int) -> Path:
 def spell_tip(spell_id: int) -> dict[str, str]:
     """spell_id → {name, desc}. 이름이 아예 없으면 SpellTipError."""
     ent = _cache_get(spell_id)
-    if isinstance(ent.get("name"), str) and isinstance(ent.get("desc"), str):
+    if (_to_int(ent.get("v")) == CACHE_V
+            and isinstance(ent.get("name"), str) and isinstance(ent.get("desc"), str)):
         return {"name": ent["name"], "desc": ent["desc"]}
     _fail_check("tip", spell_id)
     state: dict[str, bool] = {}
     try:
-        name = _spell_name(spell_id)
+        cached = ent.get("name")   # 옛 버전 엔트리라도 이름은 유효 — 재사용
+        name = cached if isinstance(cached, str) and cached else _spell_name(spell_id)
         if not name:
             raise SpellTipError(f"SpellName 에 spellID {spell_id} 없음")
-        raw = _spell_desc_raw(spell_id)
+        try:
+            raw = _spell_desc_raw(spell_id)
+        except Exception:
+            raw = ""                       # 일반 설명 조회 장애 — 저널 폴백은 시도
+            state["transient"] = True
         desc = _clean_desc(raw, spell_id, state=state) if raw else ""
+        if state.get("bad") or state.get("transient"):
+            desc = ""   # 깨진 문장은 노출하지 않는다 (모듈 방침)
+        if not desc:
+            desc = _journal_desc(spell_id, name, state)   # 원 체인 빈손 → 던전 저널
     except Exception as exc:
         _fail_cache[("tip", spell_id)] = (time.monotonic(), str(exc))
         raise SpellTipError(str(exc))
-    if state.get("bad") or state.get("transient"):
-        desc = ""   # 깨진 문장은 노출하지 않는다 (모듈 방침)
     if state.get("transient"):
-        _cache_set(spell_id, name=name)   # 일시 장애 — desc 는 다음에 재시도
+        _cache_set(spell_id, name=name)   # 일시 장애 — desc 는 다음에 재시도 (v 미기록)
     else:
-        _cache_set(spell_id, name=name, desc=desc)
+        _cache_set(spell_id, name=name, desc=desc, v=CACHE_V)
     return {"name": name, "desc": desc}
