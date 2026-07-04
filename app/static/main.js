@@ -1452,34 +1452,97 @@ function _replayEventRow(ev) {
   `;
 }
 
-// 보스 기믹 한 줄 (frames boss_events — t 는 전투 시작 기준이라 오프셋 더해 점프)
-function _bossEventRow(ev) {
-  const kindLabel = ev.kind === 'hit' ? '디버프' : '시전';
+// ── 통합 이벤트 피드 (보스 기믹 + 죽음 + 플레이어 이벤트) ────────────────
+// 종류 정의 — 체크박스·색점 공용. 물약/쿨기류는 양이 많아 기본 꺼짐.
+const RC_FEED_KINDS = [
+  { key: 'boss',      label: '보스 기믹' },
+  { key: 'death',     label: '죽음' },
+  { key: 'bloodlust', label: '블러드' },
+  { key: 'battleres', label: '전투부활' },
+  { key: 'potion',    label: '물약' },
+  { key: 'healthpot', label: '치유석·생명력 물약' },
+  { key: 'offensive', label: '공격 쿨기' },
+  { key: 'defensive', label: '생존기' },
+];
+const rcFeedOn = {
+  boss: true, death: true, bloodlust: true, battleres: true,
+  potion: false, healthpot: false, offensive: false, defensive: false,
+};
+const RC_FEED_MAX_ROWS = 2000;   // 전부 켰을 때 DOM 폭주 방지
+
+// 피드 한 줄 — [시간] [종류 색점] [짧은 텍스트] (t 는 전투 기준 → 영상 기준으로 변환)
+function _feedRow(it) {
+  const vt = Number(it.t || 0) + rc.videoOffset;
   return `
-    <button class="replay-event boss ${esc(ev.kind || '')}" type="button"
-      data-replay-jump="${Number(ev.t || 0) + rc.videoOffset}">
-      <span class="rt">${_replayTime(Number(ev.t || 0) + rc.videoOffset)}</span>
-      <span class="rk">${ev.priority ? '기믹★' : kindLabel}</span>
-      <span class="rs">${esc(ev.src_name || '')}</span>
-      <span class="ra">${esc(ev.spell || '')}</span>
-      <span class="rtg">${esc(String(ev.dest_name || '').split('-')[0])}</span>
+    <button class="replay-event feed k-${esc(it.kind)}" type="button"
+      data-replay-jump="${vt}" title="${esc(it.text)}">
+      <span class="rt">${rcClock(vt)}</span><i class="dot"></i><span class="tx">${esc(it.text)}</span>
     </button>
   `;
 }
 
-// 이벤트 목록 모드 전환: all = 상세 이벤트, boss = 보스 기믹만
-function renderReplayEventRows(mode) {
+// frames 데이터 → 피드 재료 (t 오름차순, 종류 무관 전체)
+function rcBuildFeed() {
+  const items = [];
+  const nameOf = {};
+  for (const u of (rc.meta?.units || [])) nameOf[u.id] = String(u.name || u.id).split('-')[0];
+  for (const ev of rc.bossEvents || []) {
+    const who = ev.dest_name ? ` → ${String(ev.dest_name).split('-')[0]}` : '';
+    items.push({ t: Number(ev.t) || 0, kind: 'boss', text: `${ev.spell || ''}${who}` });
+  }
+  for (const d of rc.meta?.deaths || []) {
+    // 쫄몹 죽음은 제외 — 웨이브형 보스에선 수십 건이라 플레이어 죽음이 묻힌다
+    if (String(d.id).startsWith('n')) continue;
+    items.push({ t: Number(d.t) || 0, kind: 'death', text: `${nameOf[d.id] || d.id} 사망` });
+  }
+  for (const pe of rc.playerEvents || []) {
+    if (!(pe.kind in rcFeedOn)) continue;
+    const who = pe.unit_id ? (nameOf[pe.unit_id] || '') : '';   // 펫 시전은 이름 없이
+    items.push({ t: Number(pe.t) || 0, kind: pe.kind,
+                 text: who ? `${who} ${pe.spell || ''}` : String(pe.spell || '') });
+  }
+  items.sort((a, b) => a.t - b.t);
+  return items;
+}
+
+// 통합 피드 렌더 — 체크된 종류만, 종류별 건수는 체크박스 라벨 옆에 표시
+function renderReplayEventRows() {
   const evRoot = $('#replay-events');
   if (!evRoot) return;
-  if (mode === 'boss') {
-    evRoot.innerHTML = rc.bossEvents.map(_bossEventRow).join('')
-      || '<div class="empty">보스 기믹 없음</div>';
-  } else {
-    const events = replayState.detail?.events || [];
-    evRoot.innerHTML = events.slice(0, 900).map(_replayEventRow).join('')
-      || '<div class="empty">표시할 이벤트 없음</div>';
+  evRoot.classList.remove('raw');
+  const feed = rc.meta ? rcBuildFeed() : [];
+  const counts = {};
+  for (const k of RC_FEED_KINDS) counts[k.key] = 0;
+  for (const it of feed) counts[it.kind]++;
+  for (const k of RC_FEED_KINDS) {
+    const n = document.querySelector(`#replay-ev-kinds [data-evn="${k.key}"]`);
+    if (n) n.textContent = counts[k.key] ? String(counts[k.key]) : '';
   }
+  const shown = feed.filter(it => rcFeedOn[it.kind]);
+  const cut = shown.length - RC_FEED_MAX_ROWS;
+  evRoot.innerHTML = (shown.slice(0, RC_FEED_MAX_ROWS).map(_feedRow).join('')
+    + (cut > 0 ? `<div class="empty">…${cut.toLocaleString()}개 생략 (종류를 줄여 보세요)</div>` : ''))
+    || '<div class="empty">표시할 이벤트 없음 (위 체크박스로 종류 선택)</div>';
   rcRebuildEvCache();
+}
+
+// frames(좌표) 없는 풀 폴백 — 기존 상세 이벤트 원본 목록 (종류 필터 불가)
+function renderReplayEventRowsRaw() {
+  const evRoot = $('#replay-events');
+  if (!evRoot) return;
+  evRoot.classList.add('raw');
+  const events = replayState.detail?.events || [];
+  evRoot.innerHTML = events.slice(0, 900).map(_replayEventRow).join('')
+    || '<div class="empty">표시할 이벤트 없음</div>';
+  rcRebuildEvCache();
+}
+
+// 이벤트 종류 체크박스 활성/비활성 (frames 로딩 성공 후에만 켜짐)
+function rcSetFeedEnabled(on, why) {
+  const root = $('#replay-ev-kinds');
+  if (!root) return;
+  root.title = why || '';
+  root.querySelectorAll('input[data-evkind]').forEach(cb => { cb.disabled = !on; });
 }
 
 function renderLocalReplayDetail(detail) {
@@ -1488,7 +1551,6 @@ function renderLocalReplayDetail(detail) {
   const cap = detail.capture || {};
   const counts = detail.counts || {};
   const events = detail.events || [];
-  const eventRows = events.slice(0, 900).map(_replayEventRow).join('');
   root.classList.remove('empty');
   root.innerHTML = `
     <div class="replay-head">
@@ -1532,9 +1594,12 @@ function renderLocalReplayDetail(detail) {
       </div>
     </div>
     <div class="replay-belt">
-      <div class="replay-ev-filter" id="replay-ev-filter">
-        <button type="button" data-evmode="all" class="active">전체 이벤트</button>
-        <button type="button" data-evmode="boss" disabled title="이동 경로 데이터 로딩 후 사용 가능">보스 기믹</button>
+      <div class="replay-ev-kinds" id="replay-ev-kinds" title="이동 경로 데이터 로딩 후 사용 가능">
+        ${RC_FEED_KINDS.map(k => `
+          <label class="k-${k.key}">
+            <input type="checkbox" data-evkind="${k.key}" ${rcFeedOn[k.key] ? 'checked' : ''} disabled>
+            <i class="dot"></i>${k.label}<span class="n" data-evn="${k.key}"></span>
+          </label>`).join('')}
       </div>
       <div class="replay-counts">
         <span>캐스트 ${Number(counts.casts || 0).toLocaleString()}</span>
@@ -1545,7 +1610,7 @@ function renderLocalReplayDetail(detail) {
       </div>
     </div>
     <div id="replay-events" class="replay-events">
-      ${eventRows || '<div class="empty">표시할 이벤트 없음</div>'}
+      <div class="empty">이벤트 목록 로딩…</div>
     </div>
   `;
 
@@ -1574,13 +1639,13 @@ function renderLocalReplayDetail(detail) {
       rcSeek(Math.max(0, t - Number(rc.meta?.video_offset_s || 0)));
     });
   }
-  const evFilter = $('#replay-ev-filter');
-  if (evFilter) {
-    evFilter.addEventListener('click', e => {
-      const btn = e.target.closest('button[data-evmode]');
-      if (!btn || btn.disabled) return;
-      evFilter.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
-      renderReplayEventRows(btn.dataset.evmode);
+  const evKinds = $('#replay-ev-kinds');
+  if (evKinds) {
+    evKinds.addEventListener('change', e => {
+      const cb = e.target.closest('input[data-evkind]');
+      if (!cb) return;
+      rcFeedOn[cb.dataset.evkind] = cb.checked;
+      renderReplayEventRows();
     });
   }
   // initReplayCanvas 가 rc 상태(t·meta)를 리셋한 뒤에 캐시를 만들어야
@@ -1615,6 +1680,8 @@ const rc = {
   mapImg: null,
   mode: {},       // unitId → 0 보통 / 1 강조 / 2 숨김
   bossEvents: [], // frames 응답 boss_events (t 오름차순, 전투 시작 기준)
+  playerEvents: [], // frames 응답 player_events (t 오름차순 — 블러드/물약/쿨기류)
+  peByUnit: {},   // unitId → player_events 배열 (t 오름차순, 패널 강조용)
   casts: {},      // frames 응답 casts — unitId → [[t, 스킬이름], ...] (t 오름차순)
   selectedUnit: null, // 3D 에서 클릭으로 선택한 unitId (정보 패널 대상)
   video: null,    // 영상 있는 풀이면 <video> — 재생/탐색/배속 동기화 대상
@@ -1641,6 +1708,7 @@ async function initReplayCanvas(replayId) {
   rc.meta = null; rc.tracks = {}; rc.deathsBy = {}; rc.mapImg = null;
   rc.mode = {}; rc.t = 0; rc.speed = 1; rc.duration = 0;
   rc.bossEvents = []; rc.videoOffset = 0;
+  rc.playerEvents = []; rc.peByUnit = {};
   rc.casts = {}; rc.selectedUnit = null;
   rc.is3d = false; rc.replayId = replayId;   // 리플레이 바꾸면 2D 부터 (3D 씬은 폐기)
   if (window.Replay3D) window.Replay3D.reset();
@@ -1661,6 +1729,9 @@ async function initReplayCanvas(replayId) {
     if (token === rc.token && $('#rc-msg')) {
       // textContent 라 HTML 이스케이프 불필요
       $('#rc-msg').textContent = `이동 경로를 불러오지 못했습니다 — ${e.message || e}`;
+      // 통합 피드 재료(frames)가 없으니 원본 이벤트 목록으로 폴백
+      rcSetFeedEnabled(false, '이동 경로 데이터가 없어 종류별 목록을 쓸 수 없습니다');
+      renderReplayEventRowsRaw();
     }
     return;
   }
@@ -1670,6 +1741,8 @@ async function initReplayCanvas(replayId) {
   const frames = j.frames || [];
   if (!frames.length) {
     msg.textContent = '이 전투에는 좌표 데이터가 없습니다 (고급 전투 정보 로그 필요)';
+    rcSetFeedEnabled(false, '좌표 데이터가 없어 종류별 목록을 쓸 수 없습니다');
+    renderReplayEventRowsRaw();
     return;
   }
   for (const fr of frames) {
@@ -1682,6 +1755,11 @@ async function initReplayCanvas(replayId) {
   rc.meta = meta;
   rc.duration = Math.max(Number(meta.duration_s) || 0, frames[frames.length - 1].t);
   rc.bossEvents = j.boss_events || [];
+  rc.playerEvents = j.player_events || [];
+  rc.peByUnit = {};
+  for (const pe of rc.playerEvents) {
+    if (pe.unit_id) (rc.peByUnit[pe.unit_id] ??= []).push(pe);
+  }
   rc.casts = j.casts || {};
   rc.videoOffset = Number(meta.video_offset_s) || 0;
   rc.video = $('#replay-video');  // 영상 없는 풀(아카이브 등)은 null → 자립 시계
@@ -1713,11 +1791,8 @@ async function initReplayCanvas(replayId) {
   if (note) note.textContent = notes.join(' · ');
   rcBuildControls();
   rcBindVideo();
-  const bossBtn = document.querySelector('#replay-ev-filter [data-evmode="boss"]');
-  if (bossBtn) {
-    bossBtn.disabled = !rc.bossEvents.length;
-    bossBtn.title = rc.bossEvents.length ? '' : '이 전투에는 보스 기믹 이벤트가 없습니다';
-  }
+  rcSetFeedEnabled(true);
+  renderReplayEventRows();
   rcSyncControls();
   rcDraw();
 }
@@ -1757,7 +1832,8 @@ function rcBuildControls() {
   }
   const deaths = $('#rc-deaths');
   if (deaths) {
-    deaths.innerHTML = (rc.meta.deaths || []).map(d =>
+    // 스크럽 마커도 쫄몹 죽음 제외 (플레이어·보스만)
+    deaths.innerHTML = (rc.meta.deaths || []).filter(d => !String(d.id).startsWith('n')).map(d =>
       `<i style="left:${(Number(d.t) / Math.max(1, rc.duration) * 100).toFixed(2)}%" title="${rcClock(d.t)} 사망"></i>`
     ).join('');
   }
@@ -1795,18 +1871,42 @@ function rcBuildControls() {
   }
   const unitsRoot = $('#rc-units');
   if (unitsRoot) {
-    unitsRoot.innerHTML = (rc.meta.units || []).map(u => {
+    const chip = u => {
       const label = u.kind === 'boss' ? `★ ${u.name}` : (String(u.name || u.id).split('-')[0] || u.id);
       return `<button type="button" class="rc-unit rc-${esc(u.kind)}" data-uid="${esc(u.id)}"
         style="--uc:${rcUnitColor(u)}" title="클릭: 강조 → 숨김 → 해제"><i></i>${esc(label)}</button>`;
-    }).join('');
+    };
+    // 쫄몹(npc)은 수십 개 늘어설 수 있어 '쫄몹 N' 칩 하나로 접어두고 클릭 시 펼침
+    const allUnits = rc.meta.units || [];
+    const npcs = allUnits.filter(u => u.kind === 'npc');
+    unitsRoot.classList.remove('npc-open');
+    unitsRoot.innerHTML = allUnits.filter(u => u.kind !== 'npc').map(chip).join('')
+      + (npcs.length
+        ? `<button type="button" class="rc-unit rc-npc-toggle" title="쫄몹 목록 펴기/접기">쫄몹 ${npcs.length} ▸</button>`
+          + npcs.map(chip).join('')
+        : '');
+    // 접힌 그룹 칩에 강조·숨김 중인 쫄 수 표시 — 접어도 상태 단서가 남게
+    const npcToggleLabel = (open) => {
+      const hl = npcs.filter(u => rc.mode[u.id] === 1).length;
+      const off = npcs.filter(u => rc.mode[u.id] === 2).length;
+      const badge = (hl ? ` · 강조 ${hl}` : '') + (off ? ` · 숨김 ${off}` : '');
+      return `쫄몹 ${npcs.length}${badge} ${open ? '▾' : '▸'}`;
+    };
     unitsRoot.addEventListener('click', e => {
+      const tg = e.target.closest('.rc-npc-toggle');
+      if (tg) {
+        const open = unitsRoot.classList.toggle('npc-open');
+        tg.textContent = npcToggleLabel(open);
+        return;
+      }
       const btn = e.target.closest('.rc-unit');
       if (!btn) return;
       const uid = btn.dataset.uid;
       rc.mode[uid] = ((rc.mode[uid] || 0) + 1) % 3;
       btn.classList.toggle('hl', rc.mode[uid] === 1);
       btn.classList.toggle('off', rc.mode[uid] === 2);
+      const ntg = unitsRoot.querySelector('.rc-npc-toggle');
+      if (ntg) ntg.textContent = npcToggleLabel(unitsRoot.classList.contains('npc-open'));
       rcDraw();
     });
   }
@@ -2001,6 +2101,20 @@ const RC_PANEL_CASTS = 10;   // 쓴 스킬: 최근 10개
 
 let rcPanelKey = '';   // 마지막으로 그린 패널 내용 키 — 같으면 DOM 재구성 생략
 
+// '쓴 스킬' 한 줄이 player_events(쿨기/물약 등)에 잡힌 시전인지 — 종류 반환 (없으면 '')
+// casts 와 player_events 는 같은 시전에서 나오므로 스킬명 + 시각(±1초)으로 짝을 찾는다.
+// 외부생존기는 player_events 쪽 spell 에 "→대상"이 붙어 있어 prefix 비교.
+function rcCastEventKind(uid, t, spell) {
+  const arr = rc.peByUnit[uid];
+  if (!arr || !spell) return '';
+  let i = rcUpperIdx(arr, t + 1.0, pe => Number(pe.t));
+  for (; i >= 0 && t - Number(arr[i].t) <= 1.0; i--) {
+    const s = String(arr[i].spell || '');
+    if (s === spell || s.startsWith(spell + '→')) return arr[i].kind || '';
+  }
+  return '';
+}
+
 // replay3d.js 픽킹이 부른다 — uid=null 이면 선택 해제
 function rcSelectUnit(uid) {
   if (!rc.meta) return;
@@ -2058,7 +2172,10 @@ function rcUpdatePanel() {
         ${hits.map(ev => `<div class="rc-panel-row ${ev.kind === 'hit' ? 'hit' : ''}"><span class="t">${rcClock(ev.t)}</span><span class="s">${esc(ev.spell || '')}</span></div>`).join('')
           || '<div class="rc-panel-none">없음</div>'}
         <div class="rc-panel-sec">쓴 스킬 (최근 ${RC_PANEL_CASTS}개)</div>
-        ${castList.map(c => `<div class="rc-panel-row"><span class="t">${rcClock(c[0])}</span><span class="s">${esc(c[1] || '')}</span></div>`).join('')
+        ${castList.map(c => {
+          const pk = rcCastEventKind(uid, Number(c[0]), String(c[1] || ''));
+          return `<div class="rc-panel-row"><span class="t">${rcClock(c[0])}</span><span class="s${pk ? ` pk-${pk}` : ''}">${esc(c[1] || '')}</span></div>`;
+        }).join('')
           || '<div class="rc-panel-none">없음</div>'}
       </div>`;
     const lists = panel.querySelector('.rc-panel-lists');
@@ -2122,10 +2239,11 @@ function rcDraw() {
   const t = rc.t;
   const anyHl = Object.values(rc.mode).includes(1);
 
-  // 죽음 해골 마커 (죽은 자리에 고정)
+  // 죽음 해골 마커 (죽은 자리에 고정) — 쫄몹은 제외 (지도가 해골로 뒤덮이지 않게)
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   for (const d of rc.meta.deaths || []) {
+    if (String(d.id).startsWith('n')) continue;
     if (Number(d.t) > t || rc.mode[d.id] === 2) continue;
     const pos = rcTrackAt(rc.tracks[d.id], Number(d.t));
     if (!pos) continue;
@@ -2143,7 +2261,10 @@ function rcDraw() {
     if (rc.mode[u.id] === 2) continue;
     const track = rc.tracks[u.id];
     const cur = track ? rcTrackAt(track, t) : null;
-    if (!cur || cur.age > RC_STALE_S) continue;
+    if (!cur) continue;
+    // 샘플 끊김: 네임드는 마지막 위치에 계속 표시(살짝 흐리게), 나머지는 숨김
+    const stale = cur.age > RC_STALE_S;
+    if (stale && u.kind !== 'boss') continue;
     // 마지막 죽음 이후 새 샘플이 없으면 = 지금 죽어 있음 → 점 생략 (해골만)
     const dts = rc.deathsBy[u.id] || [];
     let lastDeath = -1;
@@ -2152,7 +2273,7 @@ function rcDraw() {
 
     const color = rcUnitColor(u);
     const hl = rc.mode[u.id] === 1;
-    const baseA = anyHl && !hl ? 0.25 : 1;
+    const baseA = (anyHl && !hl ? 0.25 : 1) * (stale ? 0.55 : 1);
     const [x, y] = toPx(cur.x, cur.y);
 
     // 궤적 잔상 (최근 3초 페이드)

@@ -998,6 +998,11 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .rc-unit:hover { border-color: var(--accent); }
 .rc-unit.hl { border-color: var(--accent); color: var(--text); background: var(--bg-2); }
 .rc-unit.off { opacity: .35; text-decoration: line-through; }
+/* 쫄몹 칩은 '쫄몹 N' 칩 하나로 접어두고 클릭하면 개별 칩 펼침 */
+.rc-units .rc-unit.rc-npc { display: none; }
+.rc-units.npc-open .rc-unit.rc-npc { display: inline-flex; }
+.rc-unit.rc-npc-toggle { border-style: dashed; color: var(--text-mute); }
+.rc-units.npc-open .rc-unit.rc-npc-toggle { color: var(--text); border-color: var(--accent); }
 .rc-note { color: var(--text-mute); font-size: 11px; }
 .rc-note:empty { display: none; }
 /* 좌측 상단 유닛 정보 패널 (3D 보기 — 캐릭터 클릭으로 선택) */
@@ -1027,16 +1032,26 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .rc-panel-row .t { color: var(--accent); font-variant-numeric: tabular-nums; flex: none; }
 .rc-panel-row .s { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .rc-panel-row.hit .s { color: #b18cf0; }
+/* '쓴 스킬' 중 블러드/물약/쿨기류로 잡힌 시전은 종류 색으로 강조 */
+.rc-panel-row .s.pk-bloodlust { color: #e8a34c; }
+.rc-panel-row .s.pk-battleres { color: #f08cc0; }
+.rc-panel-row .s.pk-potion { color: #6fcf7f; }
+.rc-panel-row .s.pk-healthpot { color: #45d0a2; }
+.rc-panel-row .s.pk-offensive { color: #e2c14e; }
+.rc-panel-row .s.pk-defensive { color: #6facf0; }
 .rc-panel-none { color: var(--text-dim); font-size: 10.5px; }
 /* 이벤트 영역: 화면 행 아래 별도 행 — 필터+요약 한 줄, 목록은 고정 높이 내부 스크롤 */
 .replay-belt { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin: 10px 0 8px; }
 .replay-counts { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
 .replay-events {
   display: grid; gap: 1px; border: 1px solid var(--border); border-radius: 4px;
-  background: var(--border); margin-bottom: 12px;
+  background: var(--bg-1); margin-bottom: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));  /* 넓으면 2열+ */
   position: relative; align-content: start;
   flex: 0 1 auto; height: 220px; min-height: 90px; overflow-y: auto;
 }
+/* frames(좌표) 없는 풀 폴백 — 원본 상세 목록은 한 줄 전체 폭 + 헤어라인 유지 */
+.replay-events.raw { grid-template-columns: 1fr; background: var(--border); }
 .replay-event {
   display: grid; grid-template-columns: 58px 66px minmax(120px, .85fr) minmax(140px, 1fr) minmax(110px, .85fr) 82px;
   gap: 8px; align-items: center; text-align: left; border: 0; border-radius: 0;
@@ -1049,16 +1064,34 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .replay-event .rk { color: var(--text-mute); text-transform: uppercase; font-size: 10px; }
 .replay-event .rs, .replay-event .ra, .replay-event .rtg { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .replay-event.damage .rd { color: #e09a87; text-align: right; font-variant-numeric: tabular-nums; }
-/* 이벤트 목록 필터 (전체 / 보스 기믹) */
-.replay-ev-filter { display: flex; gap: 6px; }
-.replay-ev-filter button {
-  background: var(--bg-1); border: 1px solid var(--border); color: var(--text);
-  border-radius: 6px; padding: 4px 11px; cursor: pointer; font-size: 12px;
+/* 통합 피드 행 — [시간][종류 색점][짧은 텍스트(말줄임)] 고정 그리드 */
+.replay-event.feed {
+  grid-template-columns: 42px 10px minmax(0, 1fr);
+  gap: 6px; padding: 3px 9px; min-height: 24px; font-size: 11px;
+  border-bottom: 1px solid var(--border-soft);
 }
-.replay-ev-filter button.active { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
-.replay-ev-filter button:disabled { opacity: .4; cursor: default; }
-.replay-event.boss .ra { color: #e8a34c; }
-.replay-event.boss.hit .ra { color: #b18cf0; }
+.replay-event.feed .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--evk, #999); justify-self: center; }
+.replay-event.feed .tx { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* 이벤트 종류 색 — 기믹 보라 / 죽음 빨강 / 블러드 주황 / 물약 초록 / 회복 청록 / 공격쿨 노랑 / 생존기 파랑 */
+.k-boss { --evk: #b18cf0; }
+.k-death { --evk: #e06c6c; }
+.k-bloodlust { --evk: #e8a34c; }
+.k-battleres { --evk: #f08cc0; }
+.k-potion { --evk: #6fcf7f; }
+.k-healthpot { --evk: #45d0a2; }
+.k-offensive { --evk: #e2c14e; }
+.k-defensive { --evk: #6facf0; }
+/* 이벤트 종류 체크박스 한 줄 (통합 피드) */
+.replay-ev-kinds { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; }
+.replay-ev-kinds label {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11.5px; color: var(--text-dim); cursor: pointer; white-space: nowrap;
+}
+.replay-ev-kinds label:hover { color: var(--text); }
+.replay-ev-kinds input { accent-color: var(--accent); margin: 0; }
+.replay-ev-kinds input:disabled { opacity: .4; cursor: default; }
+.replay-ev-kinds .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--evk, #999); }
+.replay-ev-kinds .n { color: var(--text-mute); font-size: 10px; }
 
 @media (max-width: 1180px) {
   .topbar { align-items: flex-start; flex-wrap: wrap; }

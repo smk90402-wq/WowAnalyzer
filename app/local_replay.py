@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import logging
 import os
 import re
 from collections import Counter
@@ -574,9 +575,41 @@ def replay_video_path(replay_id: str) -> Path:
 
 ARCHIVE_DIR_NAME = "warcraftlogsarchive"
 FRAME_STEP = 0.5          # 다운샘플 그리드 (초)
-NPC_MAX = 8               # 보스 외 npc 는 샘플 많은 순 상위 N 만
+NPC_MAX = 40              # 보스 외 npc(적대 Creature/Vehicle)는 샘플 많은 순 상위 N 만
 NPC_MIN_SAMPLES = 10      # 이보다 샘플 적은 npc 는 제외
 CASTS_UNIT_CAP = 2000     # casts: 유닛당 시전 상한 (초과 시 앞부분 버림)
+CASTS_NPC_CAP = 200       # casts: 쫄몹(npc)은 낮은 상한 — 페이로드 억제
+
+# 플레이어 이벤트 (frames 응답 player_events)
+PLAYER_EVENT_TOTAL_CAP = 5000   # 총 상한 — 초과 시 쿨다운 폴백류부터 컷
+_FALLBACK_CD_MIN = 180.0        # 분류표 밖 스킬: 쿨다운 >= 이 값이면 offensive 폴백
+_BLOODLUST_IDS = frozenset({
+    2825, 32182,                # 피의 욕망 / 영웅심 (주술사)
+    80353,                      # 시간 왜곡 (마법사)
+    264667, 272678,             # 원초적 분노 (사냥꾼 펫 — 시전자가 Pet- guid)
+    390386,                     # 위상의 격노 (기원사)
+    466904,                     # 쇠황조롱이의 울음 (사냥꾼)
+    178207, 230935, 256740, 309658, 444257,  # 북(드럼) 계열
+})
+# 전투부활 — 분류표에 없고 쿨다운이 길어 offensive 폴백에 걸리므로 별도 kind
+_BREZ_IDS = frozenset({
+    20484,   # 소생 (드루이드)
+    61999,   # 아군 되살리기 (죽음의 기사)
+    391054,  # 중재 (성기사)
+    20707,   # 영혼석 되살리기 (흑마법사)
+    212048,  # 조상의 시야 (주술사)
+})
+# player_spell_types.json 타입 → player_events kind. 여기 없는 타입(CC/Utility/
+# Minor DPS CD 등)은 제외하되 '분류표에 있음'으로 취급해 쿨다운 폴백도 막는다.
+_SPELL_TYPE_KIND = {
+    "Potions": "potion",
+    "Healthpots": "healthpot",
+    "DPS CD": "offensive",
+    "Defensives": "defensive",
+    "Immunities": "defensive",
+    "Externals": "defensive",
+    "Raid DR": "defensive",
+}
 
 # 고급 파라미터가 붙는 이벤트 (플랜 §2-2). SWING 계열은 spell prefix 3필드가
 # 없어서 고급 블록 시작 인덱스가 12 가 아니라 9 — 좌표 인덱스도 3 앞당겨짐.
@@ -825,6 +858,12 @@ def _stream_frames_window(
     casts: dict[str, list[tuple[float, str]]] = {}
     # 보스 기믹 후보: (t, event, spell_id, spell, src_guid, src_name, dest_guid, dest_name)
     boss_raw: list[tuple[float, str, int, str, str, str, str, str]] = []
+    # 플레이어 이벤트 후보: (t, kind, src_guid, spell_id, spell, dest_guid, dest_name, 폴백여부)
+    player_raw: list[tuple[float, str, str, int, str, str, str, bool]] = []
+    spell_kinds = _player_spell_kinds()
+    long_cds = _long_cooldown_ids()
+    # 적대(REACTION_HOSTILE) 판정된 Creature/Vehicle guid — npc 트랙 선별용
+    hostile: set[str] = set()
 
     with log_path.open("rb") as fh:
         fh.seek(start_off)
@@ -872,6 +911,28 @@ def _stream_frames_window(
                 if spell_name:
                     casts.setdefault(row[1], []).append(
                         (round(max(t, 0.0), 2), spell_name))
+                if str(row[1]).startswith("Player-"):
+                    # 플레이어 이벤트 후보 (블러드/물약/오펜시브/생존기)
+                    sid = _to_int(row[9])
+                    kind, fb = _player_event_kind(sid, spell_name, spell_kinds, long_cds)
+                    if kind:
+                        player_raw.append((
+                            round(max(t, 0.0), 2), kind, row[1], sid, spell_name,
+                            str(row[5]) if len(row) > 5 else "",
+                            _clean_name(row[6]) if len(row) > 6 else "",
+                            fb,
+                        ))
+            elif (event == "SPELL_AURA_APPLIED" and len(row) > 10
+                    and _to_int(row[9]) in _BLOODLUST_IDS
+                    and str(row[1]).startswith(("Player-", "Pet-"))):
+                # CAST_SUCCESS 없는 로그 대비. 진짜 블러드는 다수 대상에 동시
+                # 적용 — 자기 자신만 깜빡이는 동명 오라(기원사 등)와 구분하려고
+                # 대상 guid 를 남기고 선별 단계에서 대상 수를 검사한다.
+                player_raw.append((
+                    round(max(t, 0.0), 2), "bloodlust_aura", row[1],
+                    _to_int(row[9]), _clean_name(row[10]),
+                    str(row[5]) if len(row) > 5 else "",
+                    _clean_name(row[6]) if len(row) > 6 else "", False))
 
             if (event in ("SPELL_CAST_START", "SPELL_CAST_SUCCESS", "SPELL_AURA_APPLIED")
                     and len(row) > 10
@@ -898,10 +959,16 @@ def _stream_frames_window(
             name = _actor_name(row, guid)
             if name:
                 names.setdefault(guid, name)
+            if guid not in hostile and guid.startswith(("Creature-", "Vehicle-")):
+                # adv guid 가 소스면 row[3], 대상이면 row[7] 이 해당 유닛 flags
+                if guid == row[1] and _flags_int(row[3]) & _HOSTILE_FLAG:
+                    hostile.add(guid)
+                elif len(row) > 7 and guid == row[5] and _flags_int(row[7]) & _HOSTILE_FLAG:
+                    hostile.add(guid)
 
     return {"samples": samples, "names": names, "specs": specs,
             "deaths": deaths, "map_counts": map_counts, "boss_raw": boss_raw,
-            "casts": casts}
+            "casts": casts, "player_raw": player_raw, "hostile": hostile}
 
 
 def _boss_tokens(encounter_name: str) -> set[str]:
@@ -913,9 +980,17 @@ def _classify_units(
     names: dict[str, str],
     specs: dict[str, int],
     encounter_name: str,
+    hostile: set[str] | None = None,
 ) -> list[dict[str, Any]]:
-    """유닛 선별: 플레이어 전부 + 보스(이름 매칭) + 상위 N npc."""
+    """유닛 선별: 플레이어 전부 + 보스(이름 매칭) + 적대 npc 상위 N (샘플 순).
+
+    npc 는 적대(REACTION_HOSTILE) Creature/Vehicle 만 — 아군 소환수/펫 제외.
+    같은 이름 개체가 여럿이면 이름에 " 1/2/3" 넘버링 (첫 등장 순).
+    NPC id 가 아니라 표시 이름으로 묶는다 — 같은 이름이 여러 NPC id 로
+    나오는 로그에서 번호가 겹치는 것 방지.
+    """
     tokens = _boss_tokens(encounter_name)
+    hostile = hostile or set()
     units: list[dict[str, Any]] = []
     npcs: list[tuple[int, dict[str, Any]]] = []
     for guid, pts in samples.items():
@@ -926,10 +1001,26 @@ def _classify_units(
                           "kind": "player"})
         elif name and (name == encounter_name or any(tok in name for tok in tokens)):
             units.append({"guid": guid, "name": name, "cls": None, "kind": "boss"})
-        elif len(pts) >= NPC_MIN_SAMPLES:
+        elif (guid in hostile and guid.startswith(("Creature-", "Vehicle-"))
+                and len(pts) >= NPC_MIN_SAMPLES):
             npcs.append((len(pts), {"guid": guid, "name": name, "cls": None, "kind": "npc"}))
     npcs.sort(key=lambda t: t[0], reverse=True)
-    units.extend(u for _, u in npcs[:NPC_MAX])
+    picked = [u for _, u in npcs[:NPC_MAX]]
+
+    for u in picked:
+        if not u["name"]:
+            u["name"] = "몬스터"   # 이름 없는 npc — 넘버링만 남는 라벨('1') 방지
+    by_name: dict[str, list[dict[str, Any]]] = {}
+    for u in picked:
+        by_name.setdefault(u["name"], []).append(u)
+    for group in by_name.values():
+        if len(group) < 2:
+            continue
+        group.sort(key=lambda u: samples[u["guid"]][0][0])  # 첫 샘플 t 순
+        for i, u in enumerate(group, 1):
+            u["name"] = f"{u['name']} {i}".strip()
+
+    units.extend(picked)
     return units
 
 
@@ -954,6 +1045,171 @@ def _boss_priority_map() -> dict[int, frozenset[int]]:
         if eid:
             out[eid] = frozenset(_to_int(i) for i in ids)
     return out
+
+
+@lru_cache(maxsize=1)
+def _player_spell_kinds() -> dict[int, str]:
+    """data/player_spell_types.json → spell_id → player_events kind.
+
+    fetch_player_spell_types.py 산출물 (wowutils viserio playerSpellType).
+    관심 밖 타입은 빈 문자열로 남겨 '분류표에 있음'(폴백 금지)을 표시.
+    파일이 없거나 깨져도 이름/쿨다운 휴리스틱만으로 동작 (빈 dict).
+    """
+    from app import replay_map
+    path = replay_map.DATA_DIR / "player_spell_types.json"
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    out: dict[int, str] = {}
+    for key, val in data.items():
+        if key.startswith("_") or not isinstance(val, str):
+            continue
+        sid = _to_int(key)
+        if sid:
+            out[sid] = _SPELL_TYPE_KIND.get(val, "")
+    return out
+
+
+@lru_cache(maxsize=1)
+def _long_cooldown_ids() -> frozenset[int]:
+    """data/spell_cooldowns.json 에서 쿨다운 >= 180초인 spellID 집합 (폴백용)."""
+    from app import replay_map
+    path = replay_map.DATA_DIR / "spell_cooldowns.json"
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return frozenset()
+    out: set[int] = set()
+    for key, val in data.items():
+        sid = _to_int(key)
+        cd = _to_float(val)
+        if sid and cd is not None and cd >= _FALLBACK_CD_MIN:
+            out.add(sid)
+    return frozenset(out)
+
+
+def _player_event_kind(
+    spell_id: int,
+    spell_name: str,
+    spell_kinds: dict[int, str],
+    long_cds: frozenset[int],
+) -> tuple[str, bool]:
+    """플레이어 SPELL_CAST_SUCCESS → (kind, 쿨다운폴백 여부). 제외면 ("", False).
+
+    우선순위: 블러드류 > 전투부활 > 분류표(player_spell_types) > 물약/치유석 이름 >
+    쿨다운 >= 180s 폴백(offensive).
+    """
+    if spell_id in _BLOODLUST_IDS:
+        return "bloodlust", False
+    if spell_id in _BREZ_IDS:
+        return "battleres", False
+    mapped = spell_kinds.get(spell_id)
+    if mapped is not None:
+        return mapped, False   # ""(관심 밖 타입)이면 제외 + 폴백 금지
+    if "치유석" in spell_name:
+        return "healthpot", False
+    if "물약" in spell_name:
+        if "치유" in spell_name or "생명력" in spell_name:
+            return "healthpot", False
+        return "potion", False
+    if spell_id in long_cds:
+        return "offensive", True
+    return "", False
+
+
+_LUST_AURA_MIN_TARGETS = 5  # 오라만으로 블러드 인정하는 최소 동시 대상 수
+
+
+def _select_lust_events(
+    lust_raw: list[tuple[float, str, str, int, str, str, str, bool]],
+    guid_to_id: dict[str, str],
+) -> list[dict[str, Any]]:
+    """블러드류 → 시전자 기준 1초 클러스터당 1건.
+
+    - CAST_SUCCESS 가 포함된 클러스터는 무조건 인정.
+    - AURA_APPLIED 만 있는 클러스터는 서로 다른 대상 >= 5 일 때만 인정 —
+      진짜 블러드는 공대 전체에 동시 적용, 자기 자신만 반복 점멸하는
+      동명 오라(위상의 격노 셀프 프록 등)는 컷.
+    - 펫 시전(원초적 분노)은 meta.units 에 없어 unit_id "" — 타이밍 마커 용도.
+    """
+    by_caster: dict[str, list[tuple[float, str, int, str, str]]] = {}
+    for t, kind, src_guid, sid, spell, dest_guid, _dest_name, _fb in sorted(lust_raw):
+        by_caster.setdefault(src_guid, []).append((t, kind, sid, spell, dest_guid))
+
+    out: list[dict[str, Any]] = []
+    for src_guid, rows in by_caster.items():
+        cluster: list[tuple[float, str, int, str, str]] = []
+
+        def flush() -> None:
+            if not cluster:
+                return
+            has_cast = any(k == "bloodlust" for _, k, *_ in cluster)
+            targets = {d for _, k, _, _, d in cluster if k == "bloodlust_aura" and d}
+            if has_cast or len(targets) >= _LUST_AURA_MIN_TARGETS:
+                t0, _, sid0, spell0, _ = cluster[0]
+                out.append({
+                    "t": t0, "unit_id": guid_to_id.get(src_guid, ""),
+                    "kind": "bloodlust", "spell": spell0, "spell_id": sid0,
+                })
+
+        for row in rows:
+            if cluster and row[0] - cluster[-1][0] > 1.0:
+                flush()
+                cluster = []
+            cluster.append(row)
+        flush()
+    return out
+
+
+def _select_player_events(
+    player_raw: list[tuple[float, str, str, int, str, str, str, bool]],
+    guid_to_id: dict[str, str],
+) -> list[dict[str, Any]]:
+    """player_raw → frames 응답 player_events (t 오름차순).
+
+    - bloodlust: _select_lust_events 로 시전자 기준 dedupe/검증.
+    - defensive 외부생존기: 대상이 다른 플레이어면 spell 에 "→대상" 표기.
+    - 총 상한 PLAYER_EVENT_TOTAL_CAP: 쿨다운 폴백류부터 잘라내고 로그에 남김.
+    """
+    events: list[dict[str, Any]] = []
+    lust_raw = [r for r in player_raw if r[1] in ("bloodlust", "bloodlust_aura")]
+    events.extend(_select_lust_events(lust_raw, guid_to_id))
+    for t, kind, src_guid, sid, spell, dest_guid, dest_name, fallback in sorted(player_raw):
+        if kind in ("bloodlust", "bloodlust_aura"):
+            continue
+        uid = guid_to_id.get(src_guid, "")
+        if not uid:
+            continue  # meta.units 플레이어만 (펫/이탈자 제외)
+        if (kind == "defensive" and dest_guid and dest_guid != src_guid
+                and dest_guid.startswith("Player-") and dest_name):
+            spell = f"{spell}→{dest_name.split('-', 1)[0]}"
+        item: dict[str, Any] = {
+            "t": t, "unit_id": uid, "kind": kind,
+            "spell": spell, "spell_id": sid,
+        }
+        if fallback:
+            item["_fb"] = True
+        events.append(item)
+    events.sort(key=lambda e: e["t"])
+
+    if len(events) > PLAYER_EVENT_TOTAL_CAP:
+        over = len(events) - PLAYER_EVENT_TOTAL_CAP
+        kept: list[dict[str, Any]] = []
+        cut_fb = 0
+        for item in events:
+            if cut_fb < over and item.get("_fb"):
+                cut_fb += 1
+                continue
+            kept.append(item)
+        cut_tail = len(kept) - PLAYER_EVENT_TOTAL_CAP
+        logging.getLogger(__name__).warning(
+            "player_events %d > cap %d — 쿨다운 폴백 %d개 컷, 추가 컷 %d개",
+            len(events), PLAYER_EVENT_TOTAL_CAP, cut_fb, max(cut_tail, 0))
+        events = kept[:PLAYER_EVENT_TOTAL_CAP]
+    for item in events:
+        item.pop("_fb", None)
+    return events
 
 
 def _select_boss_events(
@@ -1049,7 +1305,8 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
 
     samples = parsed["samples"]
     units = _classify_units(samples, parsed["names"], parsed["specs"],
-                            enc.get("encounter") or "")
+                            enc.get("encounter") or "",
+                            parsed.get("hostile") or set())
 
     # 짧은 유닛 id 부여 (JSON 용량 절약): p1.. / b1.. / n1..
     prefix_counter = {"player": 0, "boss": 0, "npc": 0}
@@ -1079,13 +1336,15 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
 
     # 시전 타임라인 — meta.units 에 있는 유닛만 (펫/기타 guid 제외),
     # 유닛당 상한 CASTS_UNIT_CAP 초과 시 앞부분을 버린다.
+    # 쫄몹은 낮은 상한 — 40마리까지 포함되면서 페이로드가 수 MB 로 커지는 것 방지
     casts_out: dict[str, list[list[Any]]] = {}
     for guid, items in (parsed.get("casts") or {}).items():
         uid = guid_to_id.get(guid)
         if not uid:
             continue
-        if len(items) > CASTS_UNIT_CAP:
-            items = items[-CASTS_UNIT_CAP:]
+        cap_n = CASTS_NPC_CAP if uid.startswith("n") else CASTS_UNIT_CAP
+        if len(items) > cap_n:
+            items = items[-cap_n:]
         casts_out[uid] = [[t, spell] for t, spell in items]
 
     # 죽음 마커 — 추적 중인 유닛만
@@ -1098,6 +1357,10 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
     boss_guids = {u["guid"] for u in units if u["kind"] == "boss"}
     boss_events = _select_boss_events(
         parsed.get("boss_raw") or [], boss_guids, guid_to_id, priority_ids)
+
+    # 플레이어 이벤트 (블러드/물약/치유석/오펜시브/생존기)
+    player_events = _select_player_events(
+        parsed.get("player_raw") or [], guid_to_id)
 
     # 맵 메타 + world→px 계수 (플레이어 실좌표로 축 뒤집힘 캘리브레이션)
     calib = player_world[::max(1, len(player_world) // 200)]  # 최대 ~200점만
@@ -1134,6 +1397,7 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
         "frames": frames,
         "boss_events": boss_events,
         "casts": casts_out,
+        "player_events": player_events,
     }
 
 

@@ -459,7 +459,9 @@ window.Replay3D = (() => {
       const mode = rc.mode[u.id] || 0;
       const track = rc.tracks[u.id];
       const cur = track ? rcTrackAt(track, t) : null;
-      let show = mode !== 2 && cur && cur.age <= RC_STALE_S;
+      // 샘플 끊김: 네임드는 마지막 위치에 계속 표시(살짝 흐리게), 나머지는 숨김
+      const stale = !!(cur && cur.age > RC_STALE_S);
+      let show = mode !== 2 && cur && (!stale || u.kind === 'boss');
       if (show) {
         // 마지막 죽음 이후 새 샘플 없음 = 지금 죽어 있음 → 마커 숨김 (해골만)
         const dts = rc.deathsBy[u.id] || [];
@@ -475,7 +477,7 @@ window.Replay3D = (() => {
         rec.group.rotation.y = Math.atan2(-Math.sin(cur.facing), -Math.cos(cur.facing));
       }
       const hl = mode === 1;
-      rec.mat.opacity = anyHl && !hl ? 0.25 : 1;
+      rec.mat.opacity = (anyHl && !hl ? 0.25 : 1) * (stale ? 0.5 : 1);
       // 클릭 선택 유닛은 살짝 밝게 (발밑 링은 아래에서)
       rec.mat.emissive.copy(rec.mat.color).multiplyScalar(u.id === rc.selectedUnit ? 0.45 : 0);
       const sc = hl ? 1.35 : 1;
@@ -507,8 +509,9 @@ window.Replay3D = (() => {
       selRing.visible = false;
     }
 
-    // 죽음 해골 (죽은 자리에 고정)
+    // 죽음 해골 (죽은 자리에 고정) — 쫄몹 제외 (2D 와 동일 규칙)
     (rc.meta.deaths || []).forEach((d, i) => {
+      if (String(d.id).startsWith('n')) return;
       let s = skulls[i];
       if (!s) {
         const pos = rcTrackAt(rc.tracks[d.id], Number(d.t));
