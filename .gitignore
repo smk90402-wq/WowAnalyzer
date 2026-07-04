@@ -71,5 +71,7 @@ data/icons_med/
 
 # 리플레이 맵 타일 캐시 (wago.tools에서 재생성 가능)
 data/maps/
+# 스킬 툴팁 누적 캐시 (wago.tools에서 재생성 가능)
+data/spell_tips.json
 # 리플레이 스파이크 (일회성 증명)
 tmp_replay_spike.html

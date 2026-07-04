@@ -51,6 +51,7 @@ from app import aug_feedback
 from app import local_replay
 from app import replay_map
 from app import replay_terrain
+from app import spell_tips
 
 log = logging.getLogger("app.main")
 
@@ -1805,3 +1806,27 @@ def replay_terrain_grid(replay_id: str) -> JSONResponse:
     except Exception as e:
         raise HTTPException(500, f"replay terrain failed: {e}")
     return JSONResponse(grid)
+
+
+# ── 스킬 툴팁 (이벤트 피드 마우스 툴팁: 아이콘 + 이름/설명) ─────────────────
+@app.get("/api/spell-icon/{spell_id}.png")
+def spell_icon_png(spell_id: int) -> FileResponse:
+    """spell_id → 스킬 아이콘 PNG (data/icons/ 캐시, 최초 1회 wago.tools 다운로드)."""
+    try:
+        path = spell_tips.icon_png_path(spell_id)
+    except spell_tips.SpellTipError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        raise HTTPException(500, f"spell icon failed: {e}")
+    return FileResponse(path, media_type="image/png")
+
+
+@app.get("/api/spell-tip/{spell_id}")
+def spell_tip(spell_id: int) -> JSONResponse:
+    """spell_id → {name, desc} (koKR 우선, 설명은 달러 변수 정리본. 캐시: data/spell_tips.json)."""
+    try:
+        return JSONResponse(spell_tips.spell_tip(spell_id))
+    except spell_tips.SpellTipError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        raise HTTPException(500, f"spell tip failed: {e}")

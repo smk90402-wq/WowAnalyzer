@@ -1391,10 +1391,45 @@ async function loadLocalReplays(force = false) {
     if (replayState.rows.length && !replayState.selectedId) {
       selectLocalReplay(replayState.rows[0].id);
     }
+    rcStartTerrainPrefetch();
   } catch (e) {
     body.innerHTML = `<tr><td colspan="4" class="empty">로드 실패: ${esc(e.message)}</td></tr>`;
     if (status) status.textContent = '로드 실패';
   }
+}
+
+// ── 지형 프리페치 ────────────────────────────────────────────────────────
+// 목록 로드 후 3초 쉬었다가 최근 10개 리플레이의 지형을 하나씩 미리 요청.
+// 서버가 디스크(data/maps/terrain_*.json)에 저장하므로 다음 3D 열람이 즉시 뜬다.
+// 실패는 무시, 리플레이 탭을 떠나면 중단, 보고 있는 리플레이는 건너뜀.
+const rcPrefetch = { timer: 0, on: false, abort: null };
+
+function rcStartTerrainPrefetch() {
+  rcStopTerrainPrefetch();
+  const ids = replayState.rows.slice(0, 10).map(r => r.id);
+  if (!ids.length) return;
+  rcPrefetch.timer = setTimeout(async () => {
+    rcPrefetch.timer = 0;
+    rcPrefetch.on = true;
+    for (const id of ids) {
+      if (!rcPrefetch.on) return;                 // 탭 이탈 등으로 중단됨
+      if (id === replayState.selectedId) continue; // 보고 있는 리플레이는 3D 진입이 알아서
+      rcPrefetch.abort = new AbortController();
+      try {
+        await fetch(`/api/replay/${encodeURIComponent(id)}/terrain`,
+                    { signal: rcPrefetch.abort.signal });
+      } catch (_) {}
+      rcPrefetch.abort = null;
+    }
+    rcPrefetch.on = false;
+  }, 3000);
+}
+
+function rcStopTerrainPrefetch() {
+  if (rcPrefetch.timer) clearTimeout(rcPrefetch.timer);
+  rcPrefetch.timer = 0;
+  rcPrefetch.on = false;
+  if (rcPrefetch.abort) { try { rcPrefetch.abort.abort(); } catch (_) {} rcPrefetch.abort = null; }
 }
 
 function renderLocalReplayList(rows) {
@@ -1471,11 +1506,14 @@ const rcFeedOn = {
 const RC_FEED_MAX_ROWS = 2000;   // 전부 켰을 때 DOM 폭주 방지
 
 // 피드 한 줄 — [시간] [종류 색점] [짧은 텍스트] (t 는 전투 기준 → 영상 기준으로 변환)
+// 툴팁 재료는 data-* 로 (sid=스킬 id, bk=보스 이벤트 종류, dur=지속 초, dest/src=대상/시전자)
 function _feedRow(it) {
   const vt = Number(it.t || 0) + rc.videoOffset;
   return `
-    <button class="replay-event feed k-${esc(it.kind)}" type="button"
-      data-replay-jump="${vt}" title="${esc(it.text)}">
+    <button class="replay-event feed k-${esc(it.kind)}" type="button" data-replay-jump="${vt}"
+      data-k="${esc(it.kind)}" data-sid="${Number(it.sid) || 0}" data-spell="${esc(it.spell || '')}"
+      data-bk="${esc(it.bk || '')}" data-dur="${Number(it.dur) || 0}"
+      data-dest="${esc(it.dest || '')}" data-src="${esc(it.src || '')}">
       <span class="rt">${rcClock(vt)}</span><i class="dot"></i><span class="tx">${esc(it.text)}</span>
     </button>
   `;
@@ -1487,21 +1525,27 @@ function rcBuildFeed() {
   const nameOf = {};
   for (const u of (rc.meta?.units || [])) nameOf[u.id] = String(u.name || u.id).split('-')[0];
   for (const ev of rc.bossEvents || []) {
-    const who = ev.dest_name ? ` → ${String(ev.dest_name).split('-')[0]}` : '';
+    const dest = ev.dest_name ? String(ev.dest_name).split('-')[0] : '';
+    const who = dest ? ` → ${dest}` : '';
     // 기간형 디버프(end 있음)는 걸려 있던 시간을 같이 표기 — "(8초)"
-    const dur = ev.end != null ? ` (${Math.round(Number(ev.end) - Number(ev.t))}초)` : '';
-    items.push({ t: Number(ev.t) || 0, kind: 'boss', text: `${ev.spell || ''}${who}${dur}` });
+    const durS = ev.end != null ? Math.round(Number(ev.end) - Number(ev.t)) : 0;
+    const dur = ev.end != null ? ` (${durS}초)` : '';
+    items.push({ t: Number(ev.t) || 0, kind: 'boss', text: `${ev.spell || ''}${who}${dur}`,
+                 sid: ev.spell_id, spell: ev.spell, bk: ev.kind, dur: durS,
+                 dest, src: ev.src_name ? String(ev.src_name).split('-')[0] : '' });
   }
   for (const d of rc.meta?.deaths || []) {
     // 쫄몹 죽음은 제외 — 웨이브형 보스에선 수십 건이라 플레이어 죽음이 묻힌다
     if (String(d.id).startsWith('n')) continue;
-    items.push({ t: Number(d.t) || 0, kind: 'death', text: `${nameOf[d.id] || d.id} 사망` });
+    items.push({ t: Number(d.t) || 0, kind: 'death', text: `${nameOf[d.id] || d.id} 사망`,
+                 spell: `${nameOf[d.id] || d.id} 사망` });
   }
   for (const pe of rc.playerEvents || []) {
     if (!(pe.kind in rcFeedOn)) continue;
     const who = pe.unit_id ? (nameOf[pe.unit_id] || '') : '';   // 펫 시전은 이름 없이
     items.push({ t: Number(pe.t) || 0, kind: pe.kind,
-                 text: who ? `${who} ${pe.spell || ''}` : String(pe.spell || '') });
+                 text: who ? `${who} ${pe.spell || ''}` : String(pe.spell || ''),
+                 sid: pe.spell_id, spell: pe.spell, src: who });
   }
   items.sort((a, b) => a.t - b.t);
   return items;
@@ -1569,9 +1613,8 @@ function renderLocalReplayDetail(detail) {
     <div class="replay-main">
       <div class="replay-video-wrap">
         ${detail.video?.available
-          ? `<video id="replay-video" class="replay-video" controls preload="metadata" src="${esc(detail.video.url)}"></video>`
+          ? `<video id="replay-video" class="replay-video" preload="metadata" src="${esc(detail.video.url)}"></video>`
           : '<div class="empty replay-no-video">영상 파일 없음</div>'}
-        <input id="replay-time" class="replay-time" type="range" min="0" max="${Number(detail.duration || cap.duration || 0)}" value="0" step="0.1">
       </div>
       <div class="replay-canvas-wrap">
         <div class="rc-stage">
@@ -1580,20 +1623,22 @@ function renderLocalReplayDetail(detail) {
           <div id="rc-panel" class="rc-panel" style="display:none"></div>
           <div id="rc-msg" class="rc-msg">이동 경로 데이터 로딩…</div>
         </div>
-        <div class="rc-controls">
-          <button id="rc-play" type="button">재생</button>
-          <button id="rc-speed" type="button" title="재생 속도">1x</button>
-          <button id="rc-3d" type="button" title="지형 위에서 입체로 보기">3D 보기</button>
-          <div class="rc-scrub-wrap">
-            <input id="rc-scrub" type="range" min="0" max="0" step="0.1" value="0">
-            <div id="rc-bossevents" title=""></div>
-            <div id="rc-deaths"></div>
-          </div>
-          <span id="rc-clock">0:00 / 0:00</span>
-        </div>
         <div id="rc-units" class="rc-units"></div>
         <div id="rc-note" class="rc-note"></div>
       </div>
+    </div>
+    <!-- 타임라인 하나 — 영상·리플레이 둘 다 이 줄로 조작 (두 화면 아래 전체 폭) -->
+    <div class="rc-controls">
+      <button id="rc-play" type="button">재생</button>
+      <button id="rc-speed" type="button" title="재생 속도">1x</button>
+      <button id="rc-3d" type="button" title="지형 위에서 입체로 보기">3D 보기</button>
+      ${detail.video?.available ? '<button id="rc-mute" type="button" title="영상 소리 켜고 끄기">소리 끄기</button>' : ''}
+      <div class="rc-scrub-wrap">
+        <input id="rc-scrub" type="range" min="0" max="0" step="0.1" value="0">
+        <div id="rc-bossevents" title=""></div>
+        <div id="rc-deaths"></div>
+      </div>
+      <span id="rc-clock">0:00 / 0:00</span>
     </div>
     <div class="replay-belt">
       <div class="replay-ev-kinds" id="replay-ev-kinds" title="이동 경로 데이터 로딩 후 사용 가능">
@@ -1616,17 +1661,13 @@ function renderLocalReplayDetail(detail) {
     </div>
   `;
 
-  const slider = $('#replay-time');
   const video = $('#replay-video');
-  if (slider) {
-    slider.addEventListener('input', () => {
-      const t = Number(slider.value || 0);
-      if (video && Math.abs(video.currentTime - t) > 0.25) video.currentTime = t;
-    });
-  }
-  if (video && slider) {
-    video.addEventListener('timeupdate', () => {
-      slider.value = String(Number(video.currentTime || 0));
+  // 소리 켜기/끄기 — video.muted 토글 (동사형: 누르면 할 일을 표시)
+  const muteBtn = $('#rc-mute');
+  if (muteBtn && video) {
+    muteBtn.addEventListener('click', () => {
+      video.muted = !video.muted;
+      muteBtn.textContent = video.muted ? '소리 켜기' : '소리 끄기';
     });
   }
   const evRoot = $('#replay-events');
@@ -1634,12 +1675,24 @@ function renderLocalReplayDetail(detail) {
     evRoot.addEventListener('click', e => {
       const btn = e.target.closest('[data-replay-jump]');
       if (!btn) return;
+      rcHideTip();
       const t = Number(btn.dataset.replayJump || 0);
-      if (slider) slider.value = String(t);
       if (video) video.currentTime = t;
       // 이벤트/영상 t 는 캡처 시작 기준, 캔버스는 전투 시작 기준 → 오프셋 보정
       rcSeek(Math.max(0, t - Number(rc.meta?.video_offset_s || 0)));
     });
+    // 피드 행에 마우스를 올리면 스킬 툴팁 (터치 클릭은 방해하지 않음)
+    evRoot.addEventListener('mouseover', e => {
+      const row = e.target.closest('.replay-event.feed');
+      if (!row || row === rcTip.anchor) return;
+      rcShowTip(rcTipInfoFromRow(row), row);
+    });
+    evRoot.addEventListener('mouseout', e => {
+      const row = e.target.closest('.replay-event.feed');
+      if (row && !row.contains(e.relatedTarget)) rcHideTip();
+    });
+    // 재생 중 자동 스크롤 등으로 행이 움직이면 툴팁이 어긋나니 바로 치움
+    evRoot.addEventListener('scroll', rcHideTip, { passive: true });
   }
   const evKinds = $('#replay-ev-kinds');
   if (evKinds) {
@@ -1719,6 +1772,7 @@ async function initReplayCanvas(replayId) {
   rc.casts = {}; rc.selectedUnit = null;
   rc.is3d = false; rc.replayId = replayId;   // 리플레이 바꾸면 2D 부터 (3D 씬은 폐기)
   if (window.Replay3D) window.Replay3D.reset();
+  rcHideTip();   // 직전 리플레이 목록에 떠 있던 툴팁 제거
   const msg = $('#rc-msg');
   if (!msg || !replayId) return;
   msg.style.display = '';
@@ -1739,6 +1793,7 @@ async function initReplayCanvas(replayId) {
       // 통합 피드 재료(frames)가 없으니 원본 이벤트 목록으로 폴백
       rcSetFeedEnabled(false, '이동 경로 데이터가 없어 종류별 목록을 쓸 수 없습니다');
       renderReplayEventRowsRaw();
+      rcRestoreVideoControls();   // 통합 조작줄이 못 움직이니 영상 기본 조작 복원
     }
     return;
   }
@@ -1750,6 +1805,7 @@ async function initReplayCanvas(replayId) {
     msg.textContent = '이 전투에는 좌표 데이터가 없습니다 (고급 전투 정보 로그 필요)';
     rcSetFeedEnabled(false, '좌표 데이터가 없어 종류별 목록을 쓸 수 없습니다');
     renderReplayEventRowsRaw();
+    rcRestoreVideoControls();   // 통합 조작줄이 못 움직이니 영상 기본 조작 복원
     return;
   }
   for (const fr of frames) {
@@ -1808,6 +1864,19 @@ async function initReplayCanvas(replayId) {
   renderReplayEventRows();
   rcSyncControls();
   rcDraw();
+  // 기본은 3D — 실패하면(three.js 로드 불가 등) 그대로 2D 유지.
+  // '2D 보기'를 누르면 이 리플레이에선 다시 자동 전환하지 않음 (자동 진입은 로드 때 한 번뿐).
+  if (window.Replay3D) rcToggle3D();
+}
+
+// frames(좌표) 없는 풀 폴백 — 통합 조작줄은 rc.meta 가 없으면 못 움직이므로
+// 영상이 있으면 브라우저 기본 컨트롤을 되살려 재생·소리를 잃지 않게 한다.
+function rcRestoreVideoControls() {
+  const v = $('#replay-video');
+  if (v) v.controls = true;
+  // 통합 조작줄은 frames 가 있어야 동작 — 죽은 버튼·스크럽을 노출하지 않는다
+  const controls = document.querySelector('.rc-controls');
+  if (controls) controls.style.display = 'none';
 }
 
 // 영상 ↔ 캔버스 재생 동기화 (영상이 시계 역할, 캔버스가 따라감)
@@ -1824,8 +1893,33 @@ function rcBindVideo() {
     rc.speed = v.playbackRate || 1;
     if (speedBtn) speedBtn.textContent = `${rc.speed}x`;
   });
+  if (v.readyState >= 1) rcExtendTimelineToVideo();
+  else v.addEventListener('loadedmetadata', rcExtendTimelineToVideo, { once: true });
   rcSetFromVideo();
   if (!v.paused) rcPlay();  // 프레임 로딩 전에 이미 재생 중이면 이어붙기
+}
+
+// 영상이 전투보다 길면 타임라인을 영상 끝까지 확장 — 유일한 타임라인이 된 만큼
+// 전투 종료 후(킬 장면 등) 영상 구간도 탐색·시계 표시가 가능해야 한다
+function rcExtendTimelineToVideo() {
+  const v = rc.video;
+  if (!v || !rc.meta) return;
+  const vd = Number(v.duration);
+  if (!isFinite(vd) || vd <= 0) return;
+  const full = vd - rc.videoOffset;
+  if (full <= rc.duration + 0.5) return;
+  rc.duration = full;
+  const scrub = $('#rc-scrub');
+  if (scrub) scrub.max = String(full);
+  const dur = Math.max(1, full);
+  document.querySelectorAll('#rc-deaths i').forEach(el => {
+    el.style.left = `${(Number(el.dataset.t) / dur * 100).toFixed(2)}%`;
+  });
+  document.querySelectorAll('#rc-bossevents i[data-bi]').forEach(el => {
+    const ev = rc.bossEvents[Number(el.dataset.bi)];
+    if (ev) el.style.left = `${(Number(ev.t) / dur * 100).toFixed(2)}%`;
+  });
+  rcSyncControls();
 }
 
 // 영상 현재 시각 → 캔버스 시각 (영상 쪽 탐색/재생 반영, 영상은 안 건드림)
@@ -1845,9 +1939,9 @@ function rcBuildControls() {
   }
   const deaths = $('#rc-deaths');
   if (deaths) {
-    // 스크럽 마커도 쫄몹 죽음 제외 (플레이어·보스만)
+    // 스크럽 마커도 쫄몹 죽음 제외 (플레이어·보스만). data-t 는 타임라인 확장 시 재배치용
     deaths.innerHTML = (rc.meta.deaths || []).filter(d => !String(d.id).startsWith('n')).map(d =>
-      `<i style="left:${(Number(d.t) / Math.max(1, rc.duration) * 100).toFixed(2)}%" title="${rcClock(d.t)} 사망"></i>`
+      `<i data-t="${Number(d.t) || 0}" style="left:${(Number(d.t) / Math.max(1, rc.duration) * 100).toFixed(2)}%" title="${rcClock(d.t)} 사망"></i>`
     ).join('');
   }
   // 보스 기믹 트랙 — 시전=주황, 플레이어 디버프=보라, priority 는 크게
@@ -1855,16 +1949,32 @@ function rcBuildControls() {
   if (bossTrack) {
     const dur = Math.max(1, rc.duration);
     bossTrack.innerHTML = rc.bossEvents.map((ev, i) => {
-      const who = ev.dest_name ? ` → ${String(ev.dest_name).split('-')[0]}` : '';
       const cls = `${ev.kind === 'hit' ? 'hit' : 'cast'}${ev.priority ? ' prio' : ''}`;
-      const tip = `${rcClock(ev.t)} ${ev.spell || ''}${who}`;
-      return `<i class="${cls}" data-bi="${i}" style="left:${(Number(ev.t) / dur * 100).toFixed(2)}%" title="${esc(tip)}"></i>`;
+      return `<i class="${cls}" data-bi="${i}" style="left:${(Number(ev.t) / dur * 100).toFixed(2)}%"></i>`;
     }).join('');
     bossTrack.addEventListener('click', e => {
       const el = e.target.closest('i[data-bi]');
       if (!el) return;
       const ev = rc.bossEvents[Number(el.dataset.bi)];
       if (ev) rcSeek(ev.t);
+    });
+    // 눈금에 마우스 올리면 스킬 툴팁 (피드 행과 같은 모양)
+    bossTrack.addEventListener('mouseover', e => {
+      const el = e.target.closest('i[data-bi]');
+      if (!el || el === rcTip.anchor) return;
+      const ev = rc.bossEvents[Number(el.dataset.bi)];
+      if (!ev) return;
+      rcShowTip({
+        sid: Number(ev.spell_id) || 0, name: ev.spell || '',
+        kind: rcTipKindLabel('boss', ev.kind),
+        dur: ev.end != null ? Math.round(Number(ev.end) - Number(ev.t)) : 0,
+        dest: ev.dest_name ? String(ev.dest_name).split('-')[0] : '',
+        src: ev.src_name ? String(ev.src_name).split('-')[0] : '',
+      }, el);
+    });
+    bossTrack.addEventListener('mouseout', e => {
+      const el = e.target.closest('i[data-bi]');
+      if (el && el !== e.relatedTarget) rcHideTip();
     });
   }
   const play = $('#rc-play');
@@ -2100,6 +2210,106 @@ function rcUpdateEvNow(force) {
       box.scrollTop = el.offsetTop + el.offsetHeight - box.clientHeight + 6;
     }
   }
+}
+
+// ── 스킬 툴팁 (피드 행·기믹 눈금에 마우스 올리면) ────────────────────────
+// 아이콘/이름/종류/기간/대상·시전자는 바로, 설명(desc)은 150ms 뒤 lazy fetch.
+const rcTip = { anchor: null, rect: null, key: '', timer: 0 };
+const rcTipCache = new Map();   // spell_id → Promise<{name, desc}> (실패도 캐시 → 재요청 안 함)
+
+// 피드 종류 → 쉬운 이름. 보스 이벤트는 세부 종류(bk)로 디버프/시전 구분.
+function rcTipKindLabel(kind, bk) {
+  if (kind === 'boss') return bk === 'hit' ? '보스 디버프' : '보스 시전';
+  const k = RC_FEED_KINDS.find(v => v.key === kind);
+  return k ? k.label : '';
+}
+
+function rcTipInfoFromRow(row) {
+  const d = row.dataset;
+  return {
+    sid: Number(d.sid) || 0, name: d.spell || '',
+    kind: rcTipKindLabel(d.k, d.bk), dur: Number(d.dur) || 0,
+    dest: d.dest || '', src: d.src || '',
+  };
+}
+
+function rcTipFetch(sid) {
+  let p = rcTipCache.get(sid);
+  if (!p) {
+    p = fetch(`/api/spell-tip/${sid}`)
+      .then(r => (r.ok ? r.json() : {}))
+      .catch(() => ({}));
+    rcTipCache.set(sid, p);
+  }
+  return p;
+}
+
+// 앵커(행/눈금) 근처에 고정 — 화면 밖으로 안 나가게. 마우스는 안 따라다님.
+function rcPlaceTip() {
+  const el = document.getElementById('rc-tip');
+  const r = rcTip.rect;
+  if (!el || !r) return;
+  const w = el.offsetWidth, h = el.offsetHeight;
+  const x = Math.min(Math.max(8, r.left), window.innerWidth - w - 8);
+  let y = r.top - h - 8;
+  if (y < 8) y = Math.min(r.bottom + 8, window.innerHeight - h - 8);
+  el.style.left = `${Math.round(x)}px`;
+  el.style.top = `${Math.round(y)}px`;
+}
+
+function rcShowTip(info, anchorEl) {
+  if (rcTip.timer) clearTimeout(rcTip.timer);
+  rcTip.timer = 0;
+  let el = document.getElementById('rc-tip');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'rc-tip';
+    document.body.appendChild(el);
+  }
+  const key = `${info.sid}|${info.name}|${info.kind}`;
+  rcTip.anchor = anchorEl;
+  rcTip.rect = anchorEl.getBoundingClientRect();
+  rcTip.key = key;
+  const sub = [
+    info.dur ? `${info.dur}초 동안` : '',
+    info.dest ? `대상 ${info.dest}` : '',
+    info.src ? `시전자 ${info.src}` : '',
+  ].filter(Boolean).join(' · ');
+  el.innerHTML = `
+    <div class="rc-tip-head">
+      <b>${esc(info.name)}</b><span class="k">${esc(info.kind)}</span>
+    </div>
+    ${sub ? `<div class="rc-tip-sub">${esc(sub)}</div>` : ''}
+    <div class="rc-tip-desc"></div>`;
+  el.style.display = 'block';
+  rcPlaceTip();
+  if (info.sid) {
+    // 아이콘도 설명처럼 150ms 뒤에 요청 — 피드를 마우스로 훑을 때
+    // 미캐시 스펠 수만큼 요청이 쏟아지는 것 방지
+    rcTip.timer = setTimeout(async () => {
+      if (rcTip.key !== key) return;
+      const head = el.querySelector('.rc-tip-head');
+      if (head && !head.querySelector('img')) {
+        const img = document.createElement('img');
+        img.src = `/api/spell-icon/${info.sid}.png`;
+        img.alt = '';
+        img.onerror = () => { img.style.display = 'none'; };
+        head.prepend(img);
+      }
+      const j = await rcTipFetch(info.sid);
+      if (rcTip.key !== key) return;   // 기다리는 동안 다른 행으로 이동함
+      const box = el.querySelector('.rc-tip-desc');
+      if (box && j && j.desc) { box.textContent = j.desc; rcPlaceTip(); }
+    }, 150);
+  }
+}
+
+function rcHideTip() {
+  if (rcTip.timer) clearTimeout(rcTip.timer);
+  rcTip.timer = 0;
+  rcTip.anchor = null; rcTip.rect = null; rcTip.key = '';
+  const el = document.getElementById('rc-tip');
+  if (el) { el.style.display = 'none'; el.innerHTML = ''; }
 }
 
 // ── 3D 선택 유닛 정보 패널 (이름·직업·체력·걸린 기믹·쓴 스킬) ────────────
@@ -2415,7 +2625,11 @@ function rcDraw() {
 }
 
 function switchTab(tab) {
-  if (tab !== 'replay') rcPause();  // 리플레이 탭 이탈 시 캔버스 재생 정지
+  if (tab !== 'replay') {
+    rcPause();                  // 리플레이 탭 이탈 시 캔버스 재생 정지
+    rcStopTerrainPrefetch();    // 지형 미리받기도 중단
+    rcHideTip();
+  }
   $$('#tabs .tab').forEach(t => t.classList.remove('active'));
   $$('.tab-pane').forEach(p => p.classList.remove('active'));
   const btn = document.querySelector(`#tabs .tab[data-tab="${tab}"]`);

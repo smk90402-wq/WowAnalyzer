@@ -945,7 +945,6 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   background: #000; border: 1px solid var(--border); border-radius: 4px;
 }
 .replay-no-video { border: 1px solid var(--border); border-radius: 4px; }
-.replay-time { width: 100%; margin-top: 8px; accent-color: var(--accent); }
 /* 캔버스 리플레이 (전투로그 좌표 재생) */
 .replay-canvas-wrap { display: flex; flex-direction: column; gap: 8px; }
 .rc-stage { position: relative; border: 1px solid var(--border); border-radius: 4px; background: #10141a; }
@@ -958,7 +957,8 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   text-align: center; padding: 14px; color: var(--text-mute); font-size: 12.5px;
   background: rgba(10, 13, 18, .45); border-radius: 4px;
 }
-.rc-controls { display: flex; align-items: center; gap: 8px; padding-top: 10px; /* 위 10px = 보스 기믹 트랙 자리 */ }
+/* 통합 조작줄 — 영상·리플레이 두 화면 아래 전체 폭 한 줄 (유일한 타임라인) */
+.rc-controls { display: flex; align-items: center; gap: 8px; padding-top: 12px; /* 위 12px = 보스 기믹 트랙 자리 */ }
 .rc-controls button {
   background: var(--bg-1); border: 1px solid var(--border); color: var(--text);
   border-radius: 6px; padding: 5px 11px; cursor: pointer; font-size: 12px;
@@ -1083,6 +1083,20 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .k-healthpot { --evk: #45d0a2; }
 .k-offensive { --evk: #e2c14e; }
 .k-defensive { --evk: #6facf0; }
+/* 스킬 툴팁 — 피드 행/기믹 눈금에 마우스 올리면 (앵커 근처 고정, 클릭 방해 X) */
+#rc-tip {
+  position: fixed; z-index: 1000; display: none; pointer-events: none;
+  max-width: 320px; padding: 8px 10px;
+  background: rgba(13, 16, 22, .96); border: 1px solid var(--border); border-radius: 6px;
+  color: var(--text); font-size: 11.5px; box-shadow: 0 4px 14px rgba(0, 0, 0, .45);
+}
+#rc-tip .rc-tip-head { display: flex; align-items: center; gap: 6px; min-width: 0; }
+#rc-tip .rc-tip-head img { width: 22px; height: 22px; border-radius: 3px; flex: none; }
+#rc-tip .rc-tip-head b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#rc-tip .rc-tip-head .k { color: var(--text-mute); font-size: 10.5px; flex: none; }
+#rc-tip .rc-tip-sub { color: var(--text-dim); margin-top: 3px; }
+#rc-tip .rc-tip-desc { color: var(--text-mute); margin-top: 4px; line-height: 1.45; }
+#rc-tip .rc-tip-desc:empty { display: none; }
 /* 이벤트 종류 체크박스 한 줄 (통합 피드) */
 .replay-ev-kinds { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; }
 .replay-ev-kinds label {
