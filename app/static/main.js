@@ -392,7 +392,7 @@ function closeFunModal() { $('#fun-modal')?.classList.remove('show'); }
 
 // ── 시즌2 전망 탭 (예측·추측 자료집 — 수시 갱신) ─────────────────────────
 let _s2Data = null;
-const _S2_TIER_ORD = { S: 6, A: 5, B: 4, C: 3, D: 2, '?': 1 };
+const _S2_TIER_ORD = { S: 8, '상': 7, A: 6, B: 5, '중': 4, C: 3, '하': 2, D: 1, '?': 0 };
 
 async function loadS2Meta() {
   // 수시 갱신 자료라 캐시 안 함 — 탭 열 때마다 재요청
@@ -416,7 +416,8 @@ function renderS2() {
     $('#s2-body').innerHTML = '<tr><td colspan="5" class="empty">아직 자료 없음 — 영상/PTR 자료를 주시면 정리해서 채웁니다</td></tr>';
     return;
   }
-  const tierCls = (t) => t === 'S' || t === 'A' ? 'good' : (t === 'C' || t === 'D' ? 'bad' : 'mute');
+  const tierCls = (t) => (t === 'S' || t === 'A' || t === '상') ? 'good'
+    : (t === 'C' || t === 'D' || t === '하') ? 'bad' : 'mute';
   const rows = specs
     .map(([key, v]) => ({ key, v, ord: _S2_TIER_ORD[(v.raid || {}).outlook] || 0 }))
     .sort((a, b) => b.ord - a.ord);
