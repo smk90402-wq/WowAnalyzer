@@ -524,25 +524,27 @@ window.Replay3D = (() => {
       if (s.sprite) s.sprite.visible = Number(d.t) <= t && rc.mode[d.id] !== 2;
     });
 
-    // 보스 기믹: 대상 발밑에 지면 원형 링 (2D 와 같은 3초 페이드)
+    // 보스 기믹: 대상 발밑에 지면 원형 링 — 규칙은 main.js rcRingEventsAt 공용
+    // (기간형 end 는 걸린 동안 유지+은은한 맥동, 마지막 0.5초 페이드 / 순간형은 3초)
     let ri = 0;
-    for (const ev of rc.bossEvents || []) {
-      if (Number(ev.t) > t) break;                     // t 오름차순
-      const age = t - Number(ev.t);
-      if (age > RC_RING_S || !ev.dest_id || rc.mode[ev.dest_id] === 2) continue;
+    for (const it of rcRingEventsAt(t)) {
+      const ev = it.ev;
+      const age = it.age;
       const pos = rcTrackAt(rc.tracks[ev.dest_id], t);
       if (!pos || pos.age > RC_STALE_S) continue;
       const mesh = getRing(ri++);
-      const rr = 2.2 + age * 2.2;                      // 천천히 퍼지며 사라짐
+      const rr = it.durable
+        ? 2.6 + 0.3 * Math.sin(age * Math.PI * 2 / 1.6)   // 은은한 맥동
+        : 2.2 + age * 2.2;                                // 천천히 퍼지며 사라짐
       mesh.position.set(sceneX(pos.y), heightAt(pos.x, pos.y) - center.h + 0.25, sceneZ(pos.x));
       mesh.scale.set(rr, rr, 1);
       mesh.material.color.set(ev.kind === 'hit' ? '#b18cf0' : '#e8a34c');
-      mesh.material.opacity = 0.9 * (1 - age / RC_RING_S);
+      mesh.material.opacity = 0.9 * it.fade;
       mesh.visible = true;
-      // 대상 유닛 강조: 3초 동안 구체 펄스(1→1.25 왕복) + 이름표 잠깐 표시
+      // 대상 유닛 강조: 표시 기간 내내 구체 펄스 + 이름표 (기간형은 살짝만 왕복)
       const drec = units[ev.dest_id];
       if (drec && drec.group.visible) {
-        const pu = 1 + 0.25 * Math.abs(Math.sin(age * Math.PI * 2));
+        const pu = 1 + (it.durable ? 0.12 : 0.25) * Math.abs(Math.sin(age * Math.PI * 2));
         const ps = (drec.baseScale || 1) * pu;
         drec.group.scale.set(ps, ps, ps);
         if (drec.u.kind !== 'boss') {
@@ -550,7 +552,7 @@ window.Replay3D = (() => {
           drec.label.visible = true;
         }
       }
-      if (ri >= 16) break;
+      if (ri >= RC_RING_MAX) break;   // main.js 상수 공유 (링 풀 상한)
     }
     for (let i = ri; i < rings.length; i++) if (rings[i]) rings[i].visible = false;
 

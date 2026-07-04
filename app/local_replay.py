@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import bisect
 import csv
 import hashlib
 import json
@@ -858,6 +859,9 @@ def _stream_frames_window(
     casts: dict[str, list[tuple[float, str]]] = {}
     # 보스 기믹 후보: (t, event, spell_id, spell, src_guid, src_name, dest_guid, dest_name)
     boss_raw: list[tuple[float, str, int, str, str, str, str, str]] = []
+    # 플레이어 디버프 해제: (t, spell_id, dest_guid, src_guid) — boss_events 오라
+    # 구간(end) 매칭용. src 는 같은 스킬을 여러 몹이 건 경우 짝 우선순위에 쓴다.
+    aura_removed: list[tuple[float, int, str, str]] = []
     # 플레이어 이벤트 후보: (t, kind, src_guid, spell_id, spell, dest_guid, dest_name, 폴백여부)
     player_raw: list[tuple[float, str, str, int, str, str, str, bool]] = []
     spell_kinds = _player_spell_kinds()
@@ -949,6 +953,12 @@ def _stream_frames_window(
                         str(row[5]) if len(row) > 5 else "",
                         _clean_name(row[6]) if len(row) > 6 else "",
                     ))
+            elif (event == "SPELL_AURA_REMOVED" and len(row) > 12
+                    and row[12] == "DEBUFF" and str(row[5]).startswith("Player-")):
+                # 소스 flags 는 안 봄 — 시전자가 죽은 뒤 해제되는 오라도 매칭되게.
+                # APPLIED 로 수집된 (spell_id, dest) 짝만 실제로 쓰인다.
+                aura_removed.append(
+                    (round(max(t, 0.0), 2), _to_int(row[9]), str(row[5]), str(row[1])))
 
             adv = _adv_position_any(row)
             if not adv:
@@ -968,7 +978,8 @@ def _stream_frames_window(
 
     return {"samples": samples, "names": names, "specs": specs,
             "deaths": deaths, "map_counts": map_counts, "boss_raw": boss_raw,
-            "casts": casts, "player_raw": player_raw, "hostile": hostile}
+            "aura_removed": aura_removed, "casts": casts,
+            "player_raw": player_raw, "hostile": hostile}
 
 
 def _boss_tokens(encounter_name: str) -> set[str]:
@@ -1217,6 +1228,9 @@ def _select_boss_events(
     boss_guids: set[str],
     guid_to_id: dict[str, str],
     priority_ids: frozenset[int],
+    aura_removed: list[tuple[float, int, str]] | None = None,
+    deaths: list[tuple[float, str]] | None = None,
+    duration_s: float = 0.0,
 ) -> list[dict[str, Any]]:
     """보스 기믹 노이즈 컷 (플랜: 시전바 캐스트 전부 + 저빈도 즉시기/디버프 + priority).
 
@@ -1224,10 +1238,22 @@ def _select_boss_events(
     - SPELL_CAST_SUCCESS: CAST_START 있는 스펠은 중복이라 제외,
       나머지는 풀당 횟수 <= 15 또는 priority 만 (kind=cast)
     - SPELL_AURA_APPLIED(DEBUFF→Player): 풀당 적용 <= 15 또는 priority (kind=hit)
+      + 디버프 걸린 구간 표시용 "end" 필드 — 같은 (spell_id, 대상)의 다음
+      SPELL_AURA_REMOVED 시각. REFRESH/DOSE 는 REMOVED 가 아니라 구간이
+      자연히 이어진다. REMOVED 유실 시 대상 사망·전투 종료 중 이른 쪽.
+      1초 미만 극초단 오라는 end 생략 (순간 히트 취급).
     - 스펠별 캡 20 (초과 시 균등 샘플), 전체 캡 300 (priority > 보스 소스 우선)
     """
     castbar_ids = {sid for _, ev, sid, *_ in boss_raw if ev == "SPELL_CAST_START"}
     counts: Counter = Counter((ev, sid) for _, ev, sid, *_ in boss_raw)
+
+    # (spell_id, dest_guid) → [(해제 t, 해제 src)] / dest_guid → 사망 시각 (t 오름차순)
+    removed_by_key: dict[tuple[int, str], list[tuple[float, str]]] = {}
+    for rt, sid, dguid, rsrc in aura_removed or []:
+        removed_by_key.setdefault((sid, dguid), []).append((rt, rsrc))
+    death_by_guid: dict[str, list[float]] = {}
+    for dt_, dguid in deaths or []:
+        death_by_guid.setdefault(dguid, []).append(dt_)
 
     picked: list[dict[str, Any]] = []
     for t, ev, sid, spell, src_guid, src_name, dest_guid, dest_name in boss_raw:
@@ -1248,6 +1274,33 @@ def _select_boss_events(
             "t": t, "spell_id": sid, "spell": spell,
             "kind": kind, "src_name": src_name,
         }
+        if ev == "SPELL_AURA_APPLIED":
+            # 오라 구간: 다음 REMOVED > t. 없으면 대상 사망/전투 종료 중 이른 쪽.
+            end: float | None = None
+            instant = False
+            removals = removed_by_key.get((sid, dest_guid))
+            if removals:
+                i = bisect.bisect_right(removals, (t, "￿"))
+                if i > 0 and removals[i - 1][0] == t:
+                    # 같은 시각(10ms 반올림)에 해제 = 즉시 풀린 오라 — 순간 취급.
+                    # 다음 구간의 REMOVED 나 사망/전투끝 폴백에 잘못 붙는 것 방지.
+                    instant = True
+                else:
+                    # 같은 스킬을 여러 몹이 건 경우: 같은 소스의 해제를 우선 짝짓기
+                    for rt, rsrc in removals[i:]:
+                        if rsrc == src_guid:
+                            end = rt
+                            break
+                    if end is None and i < len(removals):
+                        end = removals[i][0]
+            if end is None and not instant:
+                end = duration_s if duration_s > 0 else None
+                for death_t in death_by_guid.get(dest_guid, ()):
+                    if death_t >= t:
+                        end = death_t if end is None else min(end, death_t)
+                        break
+            if end is not None and end - t >= 1.0:
+                item["end"] = round(end, 2)
         if prio:
             item["priority"] = True
         if src_guid in boss_guids:
@@ -1356,7 +1409,10 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
         frozenset())
     boss_guids = {u["guid"] for u in units if u["kind"] == "boss"}
     boss_events = _select_boss_events(
-        parsed.get("boss_raw") or [], boss_guids, guid_to_id, priority_ids)
+        parsed.get("boss_raw") or [], boss_guids, guid_to_id, priority_ids,
+        aura_removed=parsed.get("aura_removed") or [],
+        deaths=parsed.get("deaths") or [],
+        duration_s=float(duration_s or 0))
 
     # 플레이어 이벤트 (블러드/물약/치유석/오펜시브/생존기)
     player_events = _select_player_events(

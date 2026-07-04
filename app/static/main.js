@@ -1488,7 +1488,9 @@ function rcBuildFeed() {
   for (const u of (rc.meta?.units || [])) nameOf[u.id] = String(u.name || u.id).split('-')[0];
   for (const ev of rc.bossEvents || []) {
     const who = ev.dest_name ? ` → ${String(ev.dest_name).split('-')[0]}` : '';
-    items.push({ t: Number(ev.t) || 0, kind: 'boss', text: `${ev.spell || ''}${who}` });
+    // 기간형 디버프(end 있음)는 걸려 있던 시간을 같이 표기 — "(8초)"
+    const dur = ev.end != null ? ` (${Math.round(Number(ev.end) - Number(ev.t))}초)` : '';
+    items.push({ t: Number(ev.t) || 0, kind: 'boss', text: `${ev.spell || ''}${who}${dur}` });
   }
   for (const d of rc.meta?.deaths || []) {
     // 쫄몹 죽음은 제외 — 웨이브형 보스에선 수십 건이라 플레이어 죽음이 묻힌다
@@ -1663,8 +1665,13 @@ const CLASS_COLORS = {
 };
 const RC_TRAIL_S = 3;      // 궤적 잔상 길이(초)
 const RC_STALE_S = 15;     // 이 시간 넘게 샘플 없으면 점 숨김
-const RC_RING_S = 3;       // 보스 기믹: 대상 링 표시 시간(초)
+const RC_RING_S = 3;       // 보스 기믹: 순간형(end 없음) 대상 링 표시 시간(초)
 const RC_BANNER_S = 4;     // 보스 기믹: 상단 자막 유지 시간(초)
+const RC_RING_MAX = 16;    // 대상 링 동시 표시 상한 — 기간형(end 있음) 우선
+const RC_RING_FADE_S = 0.5; // 기간형 링: 풀리기 직전 페이드아웃 시간(초)
+const RC_EV_WINDOW_S = 120; // 기간형 검색 창(초) 기본값 — 실제 창은 rc.evWindow
+                            // (최장 지속 기믹에 맞춰 로드 시 확장 — 장기 디버프가
+                            //  120초 지나며 뚝 끊기는 것 방지)
 
 const rc = {
   token: 0,       // 리플레이 재선택 시 이전 비동기 로드 무효화
@@ -1755,6 +1762,12 @@ async function initReplayCanvas(replayId) {
   rc.meta = meta;
   rc.duration = Math.max(Number(meta.duration_s) || 0, frames[frames.length - 1].t);
   rc.bossEvents = j.boss_events || [];
+  // 기간형 검색 창 = 최장 지속 기믹 + 여유 — 장기 디버프도 끝까지 링·패널 유지
+  let maxDur = 0;
+  for (const ev of rc.bossEvents) {
+    if (ev.end != null) maxDur = Math.max(maxDur, Number(ev.end) - Number(ev.t));
+  }
+  rc.evWindow = Math.max(RC_EV_WINDOW_S, maxDur + RC_BANNER_S);
   rc.playerEvents = j.player_events || [];
   rc.peByUnit = {};
   for (const pe of rc.playerEvents) {
@@ -2096,7 +2109,6 @@ const RC_CLASS_KR = {
   paladin: '성기사', priest: '사제', rogue: '도적', shaman: '주술사',
   warlock: '흑마법사', warrior: '전사',
 };
-const RC_PANEL_HIT_S = 15;   // 걸린 기믹: 최근 15초
 const RC_PANEL_CASTS = 10;   // 쓴 스킬: 최근 10개
 
 let rcPanelKey = '';   // 마지막으로 그린 패널 내용 키 — 같으면 DOM 재구성 생략
@@ -2113,6 +2125,27 @@ function rcCastEventKind(uid, t, spell) {
     if (s === spell || s.startsWith(spell + '→')) return arr[i].kind || '';
   }
   return '';
+}
+
+// '지금 걸린 보스 기믹' — uid 대상 중 시각 t 에 표시할 것 (오래된 것 위).
+// 기간형(end 있음)은 활성(시작<=t<end)인 동안, 순간형은 발생 후 3초만.
+// bossEvents 는 t 오름차순 → 이진탐색 + 최근 120초 창만 역방향 스캔 (전체 스캔 금지).
+function rcActiveHitsFor(uid, t) {
+  const evs = rc.bossEvents || [];
+  const out = [];
+  for (let i = rcUpperIdx(evs, t, e => Number(e.t)); i >= 0; i--) {
+    const ev = evs[i];
+    const age = t - Number(ev.t);
+    if (age > (rc.evWindow || RC_EV_WINDOW_S)) break;
+    if (ev.dest_id !== uid) continue;
+    if (ev.end != null) {
+      if (t < Number(ev.end)) out.push({ ev, i, end: Number(ev.end) });
+    } else if (age <= RC_RING_S) {
+      out.push({ ev, i, end: null });
+    }
+  }
+  out.reverse();
+  return out;
 }
 
 // replay3d.js 픽킹이 부른다 — uid=null 이면 선택 해제
@@ -2139,20 +2172,14 @@ function rcUpdatePanel() {
   const dead = rcDeadAt(uid, t);
   const hp = dead ? 0 : rcHpAt(rc.tracks[uid], t);
 
-  // 걸린 기믹: 최근 15초 안에서 이 유닛이 대상인 것만 (이진탐색으로 창 구간만 훑음)
-  const evs = rc.bossEvents || [];
-  const evEnd = rcUpperIdx(evs, t, e => Number(e.t));
-  const hits = [];
-  for (let i = evEnd; i >= 0 && t - Number(evs[i].t) <= RC_PANEL_HIT_S; i--) {
-    if (evs[i].dest_id === uid) hits.push(evs[i]);
-  }
-  hits.reverse();   // 오래된 것 위
+  // 지금 걸린 기믹: 기간형은 활성인 것만, 순간형은 3초 (남은 시간은 아래에서 값만 갱신)
+  const hits = rcActiveHitsFor(uid, t);
   // 쓴 스킬: t 이전 최근 10개 (오래된 것 위, 최신 아래)
   const castArr = rc.casts[uid] || [];
   const castEnd = rcUpperIdx(castArr, t, c => Number(c[0]));
   const castList = castArr.slice(Math.max(0, castEnd - RC_PANEL_CASTS + 1), castEnd + 1);
 
-  const key = [uid, dead ? 1 : 0, evEnd, hits.length, castEnd].join('|');
+  const key = [uid, dead ? 1 : 0, hits.map(h => h.i).join(','), castEnd].join('|');
   if (key !== rcPanelKey) {
     rcPanelKey = key;
     const name = String(u.name || u.id).split('-')[0];
@@ -2168,8 +2195,8 @@ function rcUpdatePanel() {
       <div class="rc-panel-hpbar"><i></i></div>
       <div class="rc-panel-hptxt"></div>
       <div class="rc-panel-lists">
-        <div class="rc-panel-sec">최근 ${RC_PANEL_HIT_S}초에 걸린 보스 기믹</div>
-        ${hits.map(ev => `<div class="rc-panel-row ${ev.kind === 'hit' ? 'hit' : ''}"><span class="t">${rcClock(ev.t)}</span><span class="s">${esc(ev.spell || '')}</span></div>`).join('')
+        <div class="rc-panel-sec">지금 걸린 보스 기믹</div>
+        ${hits.map(h => `<div class="rc-panel-row ${h.ev.kind === 'hit' ? 'hit' : ''}"><span class="s">${esc(h.ev.spell || '')}</span>${h.end != null ? `<span class="rem" data-end="${h.end}"></span>` : ''}</div>`).join('')
           || '<div class="rc-panel-none">없음</div>'}
         <div class="rc-panel-sec">쓴 스킬 (최근 ${RC_PANEL_CASTS}개)</div>
         ${castList.map(c => {
@@ -2197,16 +2224,43 @@ function rcUpdatePanel() {
       txt.textContent = `체력 ${v}%`;
     }
   }
+  // 기간형 기믹 남은 시간 — 체력바처럼 매 틱 값만 갱신 (DOM 재구성 없음)
+  for (const el of panel.querySelectorAll('.rc-panel-row .rem')) {
+    const s = `· ${Math.max(0, Math.ceil(Number(el.dataset.end) - t))}초 남음`;
+    if (el.textContent !== s) el.textContent = s;
+  }
 }
 
-// 시각 t 의 자막 대상 기믹 (2D 는 링 루프에서 같이 계산 — 3D 경로용)
-function rcBannerEventAt(t) {
-  let ev = null;
-  for (const e of rc.bossEvents) {
-    if (Number(e.t) > t) break;   // t 오름차순
-    if (t - Number(e.t) <= RC_BANNER_S) ev = e;
+// 시각 t 에 대상 링을 그릴 보스 기믹 목록 — 2D(rcDraw)/3D(replay3d.js) 공용 규칙.
+// bossEvents 는 t 오름차순이지만 end 는 아님 → 이진탐색으로 t 이하 끝을 찾고
+// 최근 RC_EV_WINDOW_S 창만 역방향 스캔해 비용 제한 (매 프레임 전체 스캔 금지).
+// 기간형(end 있음): 걸린 동안 유지, 마지막 0.5초 페이드아웃 / 순간형: 기존 3초 페이드.
+// 상한 RC_RING_MAX — 기간형 먼저 채움. fade 는 0~1 (그리는 쪽에서 투명도에 곱함).
+function rcRingEventsAt(t) {
+  const evs = rc.bossEvents || [];
+  const durable = [], instant = [];
+  for (let i = rcUpperIdx(evs, t, e => Number(e.t)); i >= 0; i--) {
+    const ev = evs[i];
+    const age = t - Number(ev.t);
+    if (age > (rc.evWindow || RC_EV_WINDOW_S) || durable.length >= RC_RING_MAX) break;
+    if (!ev.dest_id || rc.mode[ev.dest_id] === 2) continue;
+    if (ev.end != null) {
+      const end = Number(ev.end);
+      if (t < end) durable.push({ ev, age, durable: true, fade: Math.min(1, (end - t) / RC_RING_FADE_S) });
+    } else if (age <= RC_RING_S && instant.length < RC_RING_MAX) {
+      instant.push({ ev, age, durable: false, fade: 1 - age / RC_RING_S });
+    }
   }
-  return ev;
+  const out = durable.concat(instant).slice(0, RC_RING_MAX);
+  out.sort((a, b) => Number(a.ev.t) - Number(b.ev.t));   // 그리는 순서는 기존처럼 t 오름차순
+  return out;
+}
+
+// 시각 t 의 자막 대상 기믹 — 마지막 이벤트가 자막 창(4초) 안이면 그것 (이진탐색)
+function rcBannerEventAt(t) {
+  const evs = rc.bossEvents || [];
+  const i = rcUpperIdx(evs, t, e => Number(e.t));
+  return (i >= 0 && t - Number(evs[i].t) <= RC_BANNER_S) ? evs[i] : null;
 }
 
 // 상단 자막 1줄 — 최근 기믹 (textContent 라 esc 불필요)
@@ -2327,19 +2381,19 @@ function rcDraw() {
     }
   }
 
-  // 보스 기믹: 이벤트 후 3초간 대상 플레이어에 링 + 스킬명 라벨
-  let bannerEv = null;
-  for (const ev of rc.bossEvents) {
-    if (Number(ev.t) > t) break;  // t 오름차순
-    const age = t - Number(ev.t);
-    if (age <= RC_BANNER_S) bannerEv = ev;
-    if (age > RC_RING_S || !ev.dest_id || rc.mode[ev.dest_id] === 2) continue;
+  // 보스 기믹: 대상 링 + 스킬명 라벨 — 기간형(end)은 걸린 동안 유지(은은한 맥동)
+  // 후 0.5초 페이드아웃, 순간형은 기존 3초 페이드 (rcRingEventsAt 이 공용 규칙)
+  for (const it of rcRingEventsAt(t)) {
+    const ev = it.ev;
+    const age = it.age;
     const pos = rcTrackAt(rc.tracks[ev.dest_id], t);
     if (!pos || pos.age > RC_STALE_S) continue;
     const [x, y] = toPx(pos.x, pos.y);
     const color = ev.kind === 'hit' ? '#b18cf0' : '#e8a34c';
-    const rr = 11 + age * 5;   // 링이 천천히 퍼지며 사라짐
-    ctx.globalAlpha = 0.9 * (1 - age / RC_RING_S);
+    const rr = it.durable
+      ? 13 + 1.5 * Math.sin(age * Math.PI * 2 / 1.6)   // 은은한 맥동
+      : 11 + age * 5;                                  // 링이 천천히 퍼지며 사라짐
+    ctx.globalAlpha = 0.9 * it.fade;
     ctx.lineWidth = ev.priority ? 3 : 2;
     ctx.strokeStyle = color;
     ctx.beginPath();
@@ -2357,7 +2411,7 @@ function rcDraw() {
   }
   ctx.globalAlpha = 1;
 
-  rcUpdateBanner(bannerEv);
+  rcUpdateBanner(rcBannerEventAt(t));
 }
 
 function switchTab(tab) {

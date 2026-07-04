@@ -1032,6 +1032,8 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .rc-panel-row .t { color: var(--accent); font-variant-numeric: tabular-nums; flex: none; }
 .rc-panel-row .s { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .rc-panel-row.hit .s { color: #b18cf0; }
+/* 기간형 기믹 남은 시간 — "· 6초 남음" (값은 매 틱 textContent 만 갱신) */
+.rc-panel-row .rem { color: var(--text-mute); font-size: 10.5px; flex: none; font-variant-numeric: tabular-nums; }
 /* '쓴 스킬' 중 블러드/물약/쿨기류로 잡힌 시전은 종류 색으로 강조 */
 .rc-panel-row .s.pk-bloodlust { color: #e8a34c; }
 .rc-panel-row .s.pk-battleres { color: #f08cc0; }
