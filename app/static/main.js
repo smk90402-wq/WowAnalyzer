@@ -394,44 +394,62 @@ function closeFunModal() { $('#fun-modal')?.classList.remove('show'); }
 let _s2Data = null;
 const _S2_TIER_ORD = { S: 8, '상': 7, A: 6, B: 5, '중': 4, C: 3, '하': 2, D: 1, '?': 0 };
 
+let _s2Mode = 'raid';   // raid | mplus
+
 async function loadS2Meta() {
   // 수시 갱신 자료라 캐시 안 함 — 탭 열 때마다 재요청
-  const body = $('#s2-body');
-  body.innerHTML = '<tr><td colspan="5" class="empty">로딩…</td></tr>';
+  const board = $('#s2-board');
+  board.innerHTML = '<div class="empty">로딩…</div>';
   try {
     const r = await fetch('/api/s2-meta');
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     _s2Data = await r.json();
     renderS2();
   } catch (e) {
-    body.innerHTML = `<tr><td colspan="5" class="empty">로드 실패: ${esc(e.message)}</td></tr>`;
+    board.innerHTML = `<div class="empty">로드 실패: ${esc(e.message)}</div>`;
   }
 }
+
+// 티어표 행 정의 — outlook 값을 행으로 묶음 (S~D 자료가 들어와도 수용)
+const _S2_ROWS = [
+  { label: '상', match: ['S', '상', 'A'], cls: 'top', desc: '강할 거라는 예측' },
+  { label: '중', match: ['B', '중'], cls: 'mid', desc: '무난 예측' },
+  { label: '하', match: ['C', '하', 'D'], cls: 'low', desc: '약할 거라는 예측' },
+  { label: '?', match: ['?'], cls: 'unk', desc: '자료 부족' },
+];
+const _S2_ROLE = { '혈기': '탱', '보호': '탱', '수호': '탱', '양조': '탱', '복수': '탱',
+  '신성': '힐', '수양': '힐', '회복': '힐', '운무': '힐', '보존': '힐', '복원': '힐' };
 
 function renderS2() {
   const specs = Object.entries(_s2Data.specs || {});
   const meta = _s2Data._meta || {};
-  $('#meta').textContent = `시즌2(${meta.patch || '12.1'}) 예측 — 자료 ${(meta.sources || []).length}건 · ${meta.updated || ''} 갱신`;
+  $('#meta').textContent = `시즌2(${meta.patch || '12.1'}) 예측 — 자료 ${(meta.sources || []).length}건 · ${meta.updated || ''} 갱신 · 전부 추측입니다`;
   if (!specs.length) {
-    $('#s2-body').innerHTML = '<tr><td colspan="5" class="empty">아직 자료 없음 — 영상/PTR 자료를 주시면 정리해서 채웁니다</td></tr>';
+    $('#s2-board').innerHTML = '<div class="empty">아직 자료 없음 — 영상/PTR 자료를 주시면 정리해서 채웁니다</div>';
     return;
   }
-  const tierCls = (t) => (t === 'S' || t === 'A' || t === '상') ? 'good'
-    : (t === 'C' || t === 'D' || t === '하') ? 'bad' : 'mute';
-  const rows = specs
-    .map(([key, v]) => ({ key, v, ord: _S2_TIER_ORD[(v.raid || {}).outlook] || 0 }))
-    .sort((a, b) => b.ord - a.ord);
-  $('#s2-body').innerHTML = rows.map(({ key, v }) => {
-    const nRefs = ((v.raid || {}).notes || []).length + ((v.mplus || {}).notes || []).length + (v.changes || []).length;
+  $$('.s2-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.s2mode === _s2Mode));
+  const boardRows = _S2_ROWS.map(row => {
+    const chips = specs
+      .filter(([, v]) => row.match.includes(((v[_s2Mode] || {}).outlook) || '?'))
+      .sort((a, b) => (a[1].kr || a[0]).localeCompare(b[1].kr || b[0], 'ko'))
+      .map(([key, v]) => {
+        const spec = (v.kr || key).split(' ').pop();
+        const role = _S2_ROLE[spec] || '';
+        const nRefs = ((v.raid || {}).notes || []).length + ((v.mplus || {}).notes || []).length + (v.changes || []).length;
+        return `<div class="s2-chip ${role ? 'role-' + (role === '탱' ? 'tank' : 'heal') : ''}" data-key="${esc(key)}"
+          title="${esc(v.summary || '')}">
+          ${esc(v.kr || key)}${role ? `<span class="s2-role">${role}</span>` : ''}<span class="s2-nrefs">${nRefs}</span>
+        </div>`;
+      }).join('');
+    if (!chips) return '';
     return `
-    <tr class="s2-row" data-key="${esc(key)}" title="클릭 = 출처별 근거">
-      <td>${esc(v.kr || key)}</td>
-      <td class="right num ${tierCls((v.raid || {}).outlook)}">${esc((v.raid || {}).outlook || '?')}<span class="note-mark">※</span></td>
-      <td class="right num ${tierCls((v.mplus || {}).outlook)}">${esc((v.mplus || {}).outlook || '?')}<span class="note-mark">※</span></td>
-      <td>${esc(v.summary || '')}</td>
-      <td class="right num ${nRefs < 2 ? 'bad' : 'mute'}">${nRefs}</td>
-    </tr>`;
+    <div class="s2-tier-row ${row.cls}">
+      <div class="s2-tier-label" title="${esc(row.desc)}">${row.label}</div>
+      <div class="s2-tier-cell">${chips}</div>
+    </div>`;
   }).join('');
+  $('#s2-board').innerHTML = boardRows || '<div class="empty">표시할 스펙 없음</div>';
 }
 
 function showS2Detail(key) {
@@ -1720,11 +1738,15 @@ function bind() {
   if (s2m) s2m.addEventListener('click', e => {
     if (e.target === s2m || e.target.closest('.sm-close')) closeS2Modal();
   });
-  const s2b = $('#s2-body');
+  const s2b = $('#s2-board');
   if (s2b) s2b.addEventListener('click', e => {
-    const tr = e.target.closest('tr.s2-row');
-    if (tr) showS2Detail(tr.dataset.key);
+    const chip = e.target.closest('.s2-chip');
+    if (chip) showS2Detail(chip.dataset.key);
   });
+  $$('.s2-mode-btn').forEach(b => b.addEventListener('click', () => {
+    _s2Mode = b.dataset.s2mode;
+    if (_s2Data) renderS2();
+  }));
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeSpecModal(); closeFunModal(); closeS2Modal(); $('#gear-modal')?.classList.remove('show'); }
   });

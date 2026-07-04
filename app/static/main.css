@@ -1153,3 +1153,29 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   background: rgba(0,0,0,0.55); align-items: center; justify-content: center; }
 #s2-modal.show { display: flex; }
 #s2-modal .spec-modal-card { width: min(720px, 94vw); }
+
+/* 시즌2 티어보드 */
+.s2-toolbar { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.s2-mode-btn { background: var(--bg-0); color: var(--text-soft); border: 1px solid var(--border);
+  border-radius: 7px; padding: 6px 16px; cursor: pointer; font-size: 12.5px; font-weight: 600; }
+.s2-mode-btn.active { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.s2-hint { font-size: 11.5px; color: var(--text-mute); margin-left: auto; }
+.s2-tier-row { display: grid; grid-template-columns: 64px 1fr; gap: 1px; margin-bottom: 8px;
+  border-radius: 10px; overflow: hidden; border: 1px solid var(--border-soft); }
+.s2-tier-label { display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 800; padding: 12px 0; }
+.s2-tier-row.top .s2-tier-label { background: rgba(108,194,74,0.18); color: #8fdb70; }
+.s2-tier-row.mid .s2-tier-label { background: rgba(232,193,90,0.15); color: #ecd28a; }
+.s2-tier-row.low .s2-tier-label { background: rgba(255,120,90,0.15); color: #ff9d85; }
+.s2-tier-row.unk .s2-tier-label { background: rgba(150,150,150,0.12); color: #aaa; }
+.s2-tier-cell { display: flex; flex-wrap: wrap; gap: 7px; padding: 10px 12px; background: rgba(255,255,255,0.02); }
+.s2-chip { display: inline-flex; align-items: center; gap: 5px; cursor: pointer;
+  background: var(--bg-0); border: 1px solid var(--border); border-radius: 8px;
+  padding: 7px 11px; font-size: 12.5px; font-weight: 600; color: var(--text);
+  transition: transform .06s ease; }
+.s2-chip:hover { transform: translateY(-1px); border-color: var(--accent); }
+.s2-chip.role-tank { border-left: 3px solid #7aa2ff; }
+.s2-chip.role-heal { border-left: 3px solid #7ee0b8; }
+.s2-role { font-size: 10px; color: var(--text-mute); }
+.s2-nrefs { font-size: 10px; color: var(--text-mute); background: rgba(255,255,255,0.06);
+  border-radius: 8px; padding: 1px 6px; }
