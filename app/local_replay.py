@@ -576,6 +576,7 @@ ARCHIVE_DIR_NAME = "warcraftlogsarchive"
 FRAME_STEP = 0.5          # 다운샘플 그리드 (초)
 NPC_MAX = 8               # 보스 외 npc 는 샘플 많은 순 상위 N 만
 NPC_MIN_SAMPLES = 10      # 이보다 샘플 적은 npc 는 제외
+CASTS_UNIT_CAP = 2000     # casts: 유닛당 시전 상한 (초과 시 앞부분 버림)
 
 # 고급 파라미터가 붙는 이벤트 (플랜 §2-2). SWING 계열은 spell prefix 3필드가
 # 없어서 고급 블록 시작 인덱스가 12 가 아니라 9 — 좌표 인덱스도 3 앞당겨짐.
@@ -611,11 +612,13 @@ _SPEC_CLASS = {
 }
 
 
-def _adv_position_any(row: list[str]) -> tuple[str, float, float, int, float | None] | None:
-    """이벤트 종류별 고급 좌표 추출 → (guid, x, y, uiMapID, facing).
+def _adv_position_any(row: list[str]) -> tuple[str, float, float, int, float | None, int | None] | None:
+    """이벤트 종류별 고급 좌표 추출 → (guid, x, y, uiMapID, facing, hp%).
 
     기존 _advanced_position() 은 인덱스 26 고정이라 SWING 좌표를 버렸음 —
     여기서는 이벤트에 따라 오프셋을 맞춰 밀도를 살린다.
+    hp% 는 같은 고급 블록의 currentHP/maxHP(off+2, off+3) → 0~100 정수,
+    못 구하면 None.
     """
     event = row[0]
     if event in _ADV_SWING_EVENTS:
@@ -633,7 +636,12 @@ def _adv_position_any(row: list[str]) -> tuple[str, float, float, int, float | N
     y = _to_float(row[off + 15])
     if x is None or y is None:
         return None
-    return guid, x, y, _to_int(row[off + 16]), _to_float(row[off + 17])
+    cur_hp = _to_float(row[off + 2])
+    max_hp = _to_float(row[off + 3])
+    hp: int | None = None
+    if cur_hp is not None and max_hp is not None and max_hp > 0:
+        hp = max(0, min(100, round(cur_hp / max_hp * 100)))
+    return guid, x, y, _to_int(row[off + 16]), _to_float(row[off + 17]), hp
 
 
 def _combatant_spec(row: list[str]) -> tuple[str, int] | None:
@@ -808,11 +816,13 @@ def _stream_frames_window(
     end_dt: datetime,
 ) -> dict[str, Any]:
     """전투 구간만 seek 해서 좌표/이름/스펙/죽음을 스트리밍 수집 (전량 메모리 적재 없음)."""
-    samples: dict[str, list[tuple[float, float, float, float | None]]] = {}
+    samples: dict[str, list[tuple[float, float, float, float | None, int | None]]] = {}
     names: dict[str, str] = {}
     specs: dict[str, int] = {}
     deaths: list[tuple[float, str]] = []
     map_counts: Counter = Counter()
+    # 시전 성공: guid → [(t, 스킬이름), ...] (다운샘플 없음 — 유닛 선별은 호출부에서)
+    casts: dict[str, list[tuple[float, str]]] = {}
     # 보스 기믹 후보: (t, event, spell_id, spell, src_guid, src_name, dest_guid, dest_name)
     boss_raw: list[tuple[float, str, int, str, str, str, str, str]] = []
 
@@ -854,6 +864,15 @@ def _stream_frames_window(
                         names.setdefault(guid, _clean_name(row[6]))
                 continue
 
+            if (event == "SPELL_CAST_SUCCESS" and len(row) > 10
+                    and str(row[1]).startswith(("Player-", "Creature-", "Vehicle-"))):
+                # 유닛별 시전 타임라인 — meta.units 에 오를 수 있는 guid 만 수집,
+                # 최종 필터(펫 등 제외)는 replay_frames 에서 unit id 매핑으로.
+                spell_name = _clean_name(row[10])
+                if spell_name:
+                    casts.setdefault(row[1], []).append(
+                        (round(max(t, 0.0), 2), spell_name))
+
             if (event in ("SPELL_CAST_START", "SPELL_CAST_SUCCESS", "SPELL_AURA_APPLIED")
                     and len(row) > 10
                     and str(row[1]).startswith(("Creature-", "Vehicle-"))
@@ -873,15 +892,16 @@ def _stream_frames_window(
             adv = _adv_position_any(row)
             if not adv:
                 continue
-            guid, x, y, ui_map, facing = adv
-            samples.setdefault(guid, []).append((t, x, y, facing))
+            guid, x, y, ui_map, facing, hp = adv
+            samples.setdefault(guid, []).append((t, x, y, facing, hp))
             map_counts[ui_map] += 1
             name = _actor_name(row, guid)
             if name:
                 names.setdefault(guid, name)
 
     return {"samples": samples, "names": names, "specs": specs,
-            "deaths": deaths, "map_counts": map_counts, "boss_raw": boss_raw}
+            "deaths": deaths, "map_counts": map_counts, "boss_raw": boss_raw,
+            "casts": casts}
 
 
 def _boss_tokens(encounter_name: str) -> set[str]:
@@ -1043,7 +1063,7 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
     player_world: list[tuple[float, float]] = []
     for unit in units:
         uid = guid_to_id[unit["guid"]]
-        for t, x, y, facing in samples[unit["guid"]]:
+        for t, x, y, facing, hp in samples[unit["guid"]]:
             if t < 0:
                 continue
             if unit["kind"] == "player":
@@ -1052,9 +1072,21 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
             buckets.setdefault(b, {})[uid] = [
                 round(x, 2), round(y, 2),
                 round(facing, 3) if facing is not None else None,
+                hp,
             ]
     frames = [{"t": round(b * FRAME_STEP, 1), "p": pts}
               for b, pts in sorted(buckets.items())]
+
+    # 시전 타임라인 — meta.units 에 있는 유닛만 (펫/기타 guid 제외),
+    # 유닛당 상한 CASTS_UNIT_CAP 초과 시 앞부분을 버린다.
+    casts_out: dict[str, list[list[Any]]] = {}
+    for guid, items in (parsed.get("casts") or {}).items():
+        uid = guid_to_id.get(guid)
+        if not uid:
+            continue
+        if len(items) > CASTS_UNIT_CAP:
+            items = items[-CASTS_UNIT_CAP:]
+        casts_out[uid] = [[t, spell] for t, spell in items]
 
     # 죽음 마커 — 추적 중인 유닛만
     deaths = [{"t": t, "id": guid_to_id[g]} for t, g in parsed["deaths"] if g in guid_to_id]
@@ -1101,6 +1133,7 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
         },
         "frames": frames,
         "boss_events": boss_events,
+        "casts": casts_out,
     }
 
 
@@ -1124,7 +1157,7 @@ def replay_terrain_request(replay_id: str) -> dict[str, Any]:
     for guid, pts in parsed["samples"].items():
         if not guid.startswith("Player-"):
             continue
-        for t, x, y, _facing in pts:
+        for t, x, y, _facing, _hp in pts:
             if t < 0:
                 continue
             xs.append(x)

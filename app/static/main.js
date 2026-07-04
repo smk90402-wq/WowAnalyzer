@@ -1479,6 +1479,7 @@ function renderReplayEventRows(mode) {
     evRoot.innerHTML = events.slice(0, 900).map(_replayEventRow).join('')
       || '<div class="empty">표시할 이벤트 없음</div>';
   }
+  rcRebuildEvCache();
 }
 
 function renderLocalReplayDetail(detail) {
@@ -1512,6 +1513,7 @@ function renderLocalReplayDetail(detail) {
         <div class="rc-stage">
           <canvas id="rc-canvas" width="1000" height="660"></canvas>
           <div id="rc-banner" class="rc-banner"></div>
+          <div id="rc-panel" class="rc-panel" style="display:none"></div>
           <div id="rc-msg" class="rc-msg">이동 경로 데이터 로딩…</div>
         </div>
         <div class="rc-controls">
@@ -1529,16 +1531,18 @@ function renderLocalReplayDetail(detail) {
         <div id="rc-note" class="rc-note"></div>
       </div>
     </div>
-    <div class="replay-counts">
-      <span>캐스트 ${Number(counts.casts || 0).toLocaleString()}</span>
-      <span>디버프 ${Number(counts.debuffs || 0).toLocaleString()}</span>
-      <span>큰 피해 ${Number(counts.damage || 0).toLocaleString()}</span>
-      <span>사망 ${Number(cap.deaths || counts.deaths || 0).toLocaleString()}</span>
-      ${counts.skipped ? `<span>목록 생략 ${Number(counts.skipped).toLocaleString()}</span>` : ''}
-    </div>
-    <div class="replay-ev-filter" id="replay-ev-filter">
-      <button type="button" data-evmode="all" class="active">전체 이벤트</button>
-      <button type="button" data-evmode="boss" disabled title="이동 경로 데이터 로딩 후 사용 가능">보스 기믹</button>
+    <div class="replay-belt">
+      <div class="replay-ev-filter" id="replay-ev-filter">
+        <button type="button" data-evmode="all" class="active">전체 이벤트</button>
+        <button type="button" data-evmode="boss" disabled title="이동 경로 데이터 로딩 후 사용 가능">보스 기믹</button>
+      </div>
+      <div class="replay-counts">
+        <span>캐스트 ${Number(counts.casts || 0).toLocaleString()}</span>
+        <span>디버프 ${Number(counts.debuffs || 0).toLocaleString()}</span>
+        <span>큰 피해 ${Number(counts.damage || 0).toLocaleString()}</span>
+        <span>사망 ${Number(cap.deaths || counts.deaths || 0).toLocaleString()}</span>
+        ${counts.skipped ? `<span>목록 생략 ${Number(counts.skipped).toLocaleString()}</span>` : ''}
+      </div>
     </div>
     <div id="replay-events" class="replay-events">
       ${eventRows || '<div class="empty">표시할 이벤트 없음</div>'}
@@ -1579,7 +1583,10 @@ function renderLocalReplayDetail(detail) {
       renderReplayEventRows(btn.dataset.evmode);
     });
   }
+  // initReplayCanvas 가 rc 상태(t·meta)를 리셋한 뒤에 캐시를 만들어야
+  // 직전 리플레이 시각 기준의 엉뚱한 하이라이트/스크롤이 안 생긴다
   initReplayCanvas(cap.id || replayState.selectedId);
+  rcRebuildEvCache();
 }
 
 // ── 캔버스 리플레이 (전투로그 좌표 재생: /api/replay/{id}/frames) ────────
@@ -1603,11 +1610,13 @@ const rc = {
   lastTs: 0,
   duration: 0,
   meta: null,     // frames 응답 meta
-  tracks: {},     // unitId → [[t, wx, wy, facing], ...] (t 오름차순)
+  tracks: {},     // unitId → [[t, wx, wy, facing, hp], ...] (t 오름차순, hp 는 %/null)
   deathsBy: {},   // unitId → [t, ...]
   mapImg: null,
   mode: {},       // unitId → 0 보통 / 1 강조 / 2 숨김
   bossEvents: [], // frames 응답 boss_events (t 오름차순, 전투 시작 기준)
+  casts: {},      // frames 응답 casts — unitId → [[t, 스킬이름], ...] (t 오름차순)
+  selectedUnit: null, // 3D 에서 클릭으로 선택한 unitId (정보 패널 대상)
   video: null,    // 영상 있는 풀이면 <video> — 재생/탐색/배속 동기화 대상
   videoOffset: 0, // meta.video_offset_s (영상 t − 이 값 = 캔버스 t)
   is3d: false,    // 3D 보기 모드 — rcDraw 가 replay3d.js 로 위임 (시계·재생은 공유)
@@ -1632,6 +1641,7 @@ async function initReplayCanvas(replayId) {
   rc.meta = null; rc.tracks = {}; rc.deathsBy = {}; rc.mapImg = null;
   rc.mode = {}; rc.t = 0; rc.speed = 1; rc.duration = 0;
   rc.bossEvents = []; rc.videoOffset = 0;
+  rc.casts = {}; rc.selectedUnit = null;
   rc.is3d = false; rc.replayId = replayId;   // 리플레이 바꾸면 2D 부터 (3D 씬은 폐기)
   if (window.Replay3D) window.Replay3D.reset();
   const msg = $('#rc-msg');
@@ -1665,13 +1675,14 @@ async function initReplayCanvas(replayId) {
   for (const fr of frames) {
     const ft = Number(fr.t || 0);
     for (const [uid, p] of Object.entries(fr.p || {})) {
-      (rc.tracks[uid] ??= []).push([ft, p[0], p[1], p[2]]);
+      (rc.tracks[uid] ??= []).push([ft, p[0], p[1], p[2], p[3] ?? null]);
     }
   }
   for (const d of meta.deaths || []) (rc.deathsBy[d.id] ??= []).push(d.t);
   rc.meta = meta;
   rc.duration = Math.max(Number(meta.duration_s) || 0, frames[frames.length - 1].t);
   rc.bossEvents = j.boss_events || [];
+  rc.casts = j.casts || {};
   rc.videoOffset = Number(meta.video_offset_s) || 0;
   rc.video = $('#replay-video');  // 영상 없는 풀(아카이브 등)은 null → 자립 시계
 
@@ -1855,6 +1866,8 @@ function rcSyncControls() {
   if (scrub) scrub.value = String(rc.t);
   const clock = $('#rc-clock');
   if (clock) clock.textContent = `${rcClock(rc.t)} / ${rcClock(rc.duration)}`;
+  rcUpdateEvNow();
+  rcUpdatePanel();
 }
 
 // 2D/3D 전환 — 3D 는 replay3d.js(three.js)가 그림. 시계·재생·스크럽·기믹은 공유.
@@ -1867,6 +1880,7 @@ async function rcToggle3D() {
     btn.textContent = '3D 보기';
     window.Replay3D.hide();
     if (cv) cv.style.display = '';
+    rcUpdatePanel();   // 정보 패널은 3D 전용 — 2D 로 오면 숨김
     rcDraw();
     return;
   }
@@ -1883,6 +1897,7 @@ async function rcToggle3D() {
   rc.is3d = true;
   btn.textContent = '2D 보기';
   if (cv) cv.style.display = 'none';
+  rcUpdatePanel();   // 선택이 남아 있으면 패널 다시 표시
   rcDraw();
 }
 
@@ -1903,6 +1918,168 @@ function rcTrackAt(track, t) {
     y += (next[2] - y) * u;
   }
   return { x, y, facing: prev[3], age: t - prev[0], srcT: prev[0], idx: lo };
+}
+
+// 정렬 배열에서 "t 이하 마지막" 인덱스 (이진탐색, 없으면 -1)
+function rcUpperIdx(arr, t, getT) {
+  let lo = -1, hi = arr.length - 1;
+  while (lo < hi) {
+    const mid = (lo + hi + 1) >> 1;
+    if (getT(arr[mid]) <= t) lo = mid; else hi = mid - 1;
+  }
+  return lo;
+}
+
+// 시각 t 에 죽어 있는지 — 마지막 죽음 이후 새 좌표 샘플 없음 = 사망 (rcDraw 와 같은 판정)
+function rcDeadAt(uid, t) {
+  let last = -1;
+  for (const dt of rc.deathsBy[uid] || []) if (dt <= t && dt > last) last = dt;
+  if (last < 0) return false;
+  const cur = rcTrackAt(rc.tracks[uid], t);
+  return !cur || cur.srcT <= last;
+}
+
+// 시각 t 의 체력% — 트랙 s[4] 보간, 근처 샘플에 값이 없으면 null (체력 정보 없음)
+function rcHpAt(track, t) {
+  const cur = rcTrackAt(track, t);
+  if (!cur) return null;
+  let i = cur.idx;
+  for (let n = 0; i >= 0 && track[i][4] == null && n < 30; n++) i--;
+  if (i < 0 || track[i][4] == null) return null;
+  const prev = track[i];
+  let hp = Number(prev[4]);
+  const next = track[i + 1];
+  if (next && next[4] != null && next[0] > prev[0] && next[0] - prev[0] <= 2.5) {
+    hp += (Number(next[4]) - hp) * Math.min(1, Math.max(0, (t - prev[0]) / (next[0] - prev[0])));
+  }
+  return Math.round(Math.min(100, Math.max(0, hp)));
+}
+
+// ── 이벤트 목록: 현재 시각 근처 행 자동 하이라이트 ──────────────────────
+// 목록이 다시 그려질 때 행/시각 캐시를 만들어 두고, t 이동 때는 이진탐색만 한다.
+let rcEvCache = { els: [], ts: [], idx: -1 };
+
+function rcRebuildEvCache() {
+  rcEvCache = { els: [], ts: [], idx: -1 };
+  const box = $('#replay-events');
+  if (!box) return;
+  for (const el of box.querySelectorAll('[data-replay-jump]')) {
+    rcEvCache.els.push(el);
+    rcEvCache.ts.push(Number(el.dataset.replayJump || 0));   // 캡처(영상) 시각 기준
+  }
+  rcUpdateEvNow(true);
+}
+
+function rcUpdateEvNow(force) {
+  const c = rcEvCache;
+  if (!c.els.length || !rc.meta) return;
+  const idx = rcUpperIdx(c.ts, rc.t + rc.videoOffset, v => v);
+  if (idx === c.idx && !force) return;
+  if (c.idx >= 0 && c.els[c.idx]) c.els[c.idx].classList.remove('now');
+  c.idx = idx;
+  if (idx < 0) return;
+  const el = c.els[idx];
+  el.classList.add('now');
+  const box = $('#replay-events');
+  if (box) {   // 목록 내부 스크롤만 살짝 — 페이지 스크롤은 안 건드림
+    if (el.offsetTop < box.scrollTop + 6) box.scrollTop = el.offsetTop - 6;
+    else if (el.offsetTop + el.offsetHeight > box.scrollTop + box.clientHeight - 6) {
+      box.scrollTop = el.offsetTop + el.offsetHeight - box.clientHeight + 6;
+    }
+  }
+}
+
+// ── 3D 선택 유닛 정보 패널 (이름·직업·체력·걸린 기믹·쓴 스킬) ────────────
+const RC_CLASS_KR = {
+  deathknight: '죽음의 기사', demonhunter: '악마사냥꾼', druid: '드루이드',
+  evoker: '기원사', hunter: '사냥꾼', mage: '마법사', monk: '수도사',
+  paladin: '성기사', priest: '사제', rogue: '도적', shaman: '주술사',
+  warlock: '흑마법사', warrior: '전사',
+};
+const RC_PANEL_HIT_S = 15;   // 걸린 기믹: 최근 15초
+const RC_PANEL_CASTS = 10;   // 쓴 스킬: 최근 10개
+
+let rcPanelKey = '';   // 마지막으로 그린 패널 내용 키 — 같으면 DOM 재구성 생략
+
+// replay3d.js 픽킹이 부른다 — uid=null 이면 선택 해제
+function rcSelectUnit(uid) {
+  if (!rc.meta) return;
+  rc.selectedUnit = uid || null;
+  rcPanelKey = '';
+  rcUpdatePanel();
+  rcDraw();
+}
+
+function rcUpdatePanel() {
+  const panel = $('#rc-panel');
+  if (!panel) return;
+  const uid = rc.selectedUnit;
+  const u = (uid && rc.meta) ? (rc.meta.units || []).find(v => v.id === uid) : null;
+  if (!u || !rc.is3d) {
+    if (panel.style.display !== 'none') { panel.style.display = 'none'; panel.innerHTML = ''; }
+    rcPanelKey = '';
+    return;
+  }
+  panel.style.display = '';
+  const t = rc.t;
+  const dead = rcDeadAt(uid, t);
+  const hp = dead ? 0 : rcHpAt(rc.tracks[uid], t);
+
+  // 걸린 기믹: 최근 15초 안에서 이 유닛이 대상인 것만 (이진탐색으로 창 구간만 훑음)
+  const evs = rc.bossEvents || [];
+  const evEnd = rcUpperIdx(evs, t, e => Number(e.t));
+  const hits = [];
+  for (let i = evEnd; i >= 0 && t - Number(evs[i].t) <= RC_PANEL_HIT_S; i--) {
+    if (evs[i].dest_id === uid) hits.push(evs[i]);
+  }
+  hits.reverse();   // 오래된 것 위
+  // 쓴 스킬: t 이전 최근 10개 (오래된 것 위, 최신 아래)
+  const castArr = rc.casts[uid] || [];
+  const castEnd = rcUpperIdx(castArr, t, c => Number(c[0]));
+  const castList = castArr.slice(Math.max(0, castEnd - RC_PANEL_CASTS + 1), castEnd + 1);
+
+  const key = [uid, dead ? 1 : 0, evEnd, hits.length, castEnd].join('|');
+  if (key !== rcPanelKey) {
+    rcPanelKey = key;
+    const name = String(u.name || u.id).split('-')[0];
+    const clsKr = u.kind === 'boss' ? '보스'
+      : (u.kind === 'npc' ? '몬스터' : (RC_CLASS_KR[u.cls] || ''));
+    panel.innerHTML = `
+      <div class="rc-panel-head">
+        <span class="rc-panel-name" style="color:${rcUnitColor(u)}">${esc(name)}</span>
+        <span class="rc-panel-cls">${esc(clsKr)}</span>
+        <span class="rc-panel-state ${dead ? 'dead' : 'alive'}">${dead ? '사망' : '생존'}</span>
+        <button type="button" class="rc-panel-close" title="선택 해제">×</button>
+      </div>
+      <div class="rc-panel-hpbar"><i></i></div>
+      <div class="rc-panel-hptxt"></div>
+      <div class="rc-panel-lists">
+        <div class="rc-panel-sec">최근 ${RC_PANEL_HIT_S}초에 걸린 보스 기믹</div>
+        ${hits.map(ev => `<div class="rc-panel-row ${ev.kind === 'hit' ? 'hit' : ''}"><span class="t">${rcClock(ev.t)}</span><span class="s">${esc(ev.spell || '')}</span></div>`).join('')
+          || '<div class="rc-panel-none">없음</div>'}
+        <div class="rc-panel-sec">쓴 스킬 (최근 ${RC_PANEL_CASTS}개)</div>
+        ${castList.map(c => `<div class="rc-panel-row"><span class="t">${rcClock(c[0])}</span><span class="s">${esc(c[1] || '')}</span></div>`).join('')
+          || '<div class="rc-panel-none">없음</div>'}
+      </div>`;
+    const lists = panel.querySelector('.rc-panel-lists');
+    if (lists) lists.scrollTop = lists.scrollHeight;   // 최신(아래)이 보이게
+    const closeBtn = panel.querySelector('.rc-panel-close');
+    if (closeBtn) closeBtn.addEventListener('click', () => rcSelectUnit(null));
+  }
+  // 체력바 — 값만 매번 갱신 (DOM 재구성 없이 폭/색/문구)
+  const bar = panel.querySelector('.rc-panel-hpbar i');
+  const txt = panel.querySelector('.rc-panel-hptxt');
+  if (bar && txt) {
+    if (hp == null && !dead) {
+      bar.style.width = '0%';
+      txt.textContent = '체력 정보 없음';
+    } else {
+      const v = dead ? 0 : hp;
+      bar.style.width = `${v}%`;
+      bar.style.background = v > 50 ? '#6fcf7f' : (v > 25 ? '#e2c14e' : '#e06c6c');
+      txt.textContent = `체력 ${v}%`;
+    }
+  }
 }
 
 // 시각 t 의 자막 대상 기믹 (2D 는 링 루프에서 같이 계산 — 3D 경로용)
@@ -2127,6 +2304,8 @@ function bind() {
       if (!grid) return;
       const collapsed = grid.classList.toggle('list-collapsed');
       replayListToggle.textContent = collapsed ? '▶ 목록 펴기' : '◀ 목록 접기';
+      // 스테이지 폭이 바뀌므로 한 번 다시 그려 3D 버퍼 크기를 맞춤 (일시정지 중 왜곡 방지)
+      if (rc.meta) rcDraw();
     });
   }
   const replayList = $('#replay-list-body');

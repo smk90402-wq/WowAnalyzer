@@ -19,11 +19,14 @@ window.Replay3D = (() => {
   let units = {};          // unitId → {group, mat, label, r, u}
   let skulls = {};         // meta.deaths 인덱스 → {sprite|null}
   let rings = [];          // 보스 기믹 링 풀 (재사용)
+  let selRing = null;      // 선택 유닛 발밑 링 (rc.selectedUnit)
   let builtFor = null;     // 씬을 만든 replayId
   let ready = false;
   let renderQueued = false;
   let epoch = 0;           // reset()/새 enter() 마다 증가 — 진행 중이던 이전 enter() 무효화
-  const cam = { yaw: 0, pitch: Math.PI / 4, dist: 120, target: null, drag: 0, px: 0, py: 0 };
+  // sx/sy/moved: pointerdown 위치·이동 여부 — 4px 미만 이동이면 클릭(픽킹)으로 인정
+  const cam = { yaw: 0, pitch: Math.PI / 4, dist: 120, target: null, drag: 0, px: 0, py: 0,
+                sx: 0, sy: 0, moved: false };
 
   // 월드 → 씬: 동쪽(-Y월드) = +X, 북쪽(+X월드) = -Z, 높이 = +Y (2D 지도와 같은 방위)
   const sceneX = (wy) => -(wy - center.y);
@@ -87,16 +90,20 @@ window.Replay3D = (() => {
     sizeToStage();
   }
 
-  let sizedW = 0;   // 마지막으로 맞춘 스테이지 폭 — draw 에서 폭 변화 감지용
+  let sizedW = 0;   // 마지막으로 맞춘 스테이지 폭/높이 — draw 에서 변화 감지용
+  let sizedH = 0;
 
   function sizeToStage() {
     if (!renderer || !canvas.parentElement) return;
     const w = Math.max(320, canvas.parentElement.clientWidth || 1000);
-    const h = Math.round(w * 0.62);
-    renderer.setSize(w, h, false);   // 버퍼만 — CSS 는 width:100% + 비율 자동
+    // 스테이지(.rc-stage)가 CSS 비율·상한으로 높이를 정함 — 버퍼를 그 실제 크기에 맞춰
+    // 영상 화면과 같은 px 높이가 된다 (스테이지 높이를 못 읽으면 0.62 비율 폴백)
+    const h = Math.max(200, canvas.parentElement.clientHeight || Math.round(w * 0.62));
+    renderer.setSize(w, h, false);   // 버퍼만 — CSS 는 width/height 100%
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     sizedW = canvas.parentElement.clientWidth || 0;
+    sizedH = canvas.parentElement.clientHeight || 0;
   }
 
   // ── 카메라: 드래그 회전 · 휠 줌 · 우클릭(또는 Shift) 팬, 틸트 10°~85° ──
@@ -127,11 +134,13 @@ window.Replay3D = (() => {
       if (!ready) return;
       cam.drag = (e.button === 2 || e.shiftKey) ? 2 : 1;
       cam.px = e.clientX; cam.py = e.clientY;
+      cam.sx = e.clientX; cam.sy = e.clientY; cam.moved = false;
       try { canvas.setPointerCapture(e.pointerId); } catch (_) {}
       e.preventDefault();
     });
     canvas.addEventListener('pointermove', e => {
       if (!cam.drag || !ready) return;
+      if (!cam.moved && Math.hypot(e.clientX - cam.sx, e.clientY - cam.sy) >= 4) cam.moved = true;
       const dx = e.clientX - cam.px, dy = e.clientY - cam.py;
       cam.px = e.clientX; cam.py = e.clientY;
       if (cam.drag === 1) {          // 회전
@@ -146,9 +155,13 @@ window.Replay3D = (() => {
       updateCamera();
       scheduleRender();
     });
-    const end = () => { cam.drag = 0; };
-    canvas.addEventListener('pointerup', end);
-    canvas.addEventListener('pointercancel', end);
+    canvas.addEventListener('pointerup', e => {
+      const wasRotate = cam.drag === 1;
+      cam.drag = 0;
+      // 4px 미만 이동 + 좌클릭만 클릭으로 인정 — 카메라 드래그와 충돌 없음
+      if (wasRotate && !cam.moved && ready && e.button === 0 && !e.shiftKey) pickAt(e);
+    });
+    canvas.addEventListener('pointercancel', () => { cam.drag = 0; });
     canvas.addEventListener('wheel', e => {
       if (!ready) return;
       e.preventDefault();
@@ -161,6 +174,28 @@ window.Replay3D = (() => {
     });
   }
 
+  // 클릭 픽킹 — 유닛 구체/화살표/이름표를 Raycaster 로 집음, 빈 곳이면 선택 해제
+  function pickAt(e) {
+    if (!scene || !camera || !rc.is3d) return;
+    const rect = canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const ndc = new THREE.Vector2(
+      (e.clientX - rect.left) / rect.width * 2 - 1,
+      -((e.clientY - rect.top) / rect.height) * 2 + 1);
+    const ray = new THREE.Raycaster();
+    ray.setFromCamera(ndc, camera);
+    const targets = Object.values(units).filter(r => r.group.visible).map(r => r.group);
+    let uid = null;
+    for (const hit of ray.intersectObjects(targets, true)) {
+      let o = hit.object;
+      while (o && !(o.userData && o.userData.uid)) o = o.parent;
+      if (o) { uid = o.userData.uid; break; }
+    }
+    // 선택 상태는 main.js 의 rc 가 갖고, 패널 갱신도 거기서 한다
+    if (typeof window.rcSelectUnit === 'function') window.rcSelectUnit(uid);
+    else scheduleRender();
+  }
+
   // ── 씬 구성 ────────────────────────────────────────────────────────────
   function disposeScene() {
     if (scene) {
@@ -170,7 +205,7 @@ window.Replay3D = (() => {
         for (const m of mats) { if (m.map) m.map.dispose(); m.dispose(); }
       });
     }
-    scene = null; units = {}; skulls = {}; rings = [];
+    scene = null; units = {}; skulls = {}; rings = []; selRing = null;
     terrain = null; ready = false; builtFor = null;
   }
 
@@ -286,6 +321,7 @@ window.Replay3D = (() => {
     arrow.rotation.x = Math.PI / 2;       // 시선(facing) 방향 = 그룹 +Z
     arrow.position.set(0, r * 0.6 + 0.5, r + 0.9);
     const group = new THREE.Group();
+    group.userData.uid = u.id;   // 클릭 픽킹에서 유닛 식별
     group.add(body);
     group.add(arrow);
     let label = null;
@@ -411,9 +447,10 @@ window.Replay3D = (() => {
   // 매 프레임: rc.t 기준으로 유닛/해골/기믹 링 갱신 후 렌더 (rcDraw 가 호출)
   function draw() {
     if (!ready || !scene || !rc.meta) return;
-    // 스테이지 폭이 바뀌었으면(목록 접기, 창 크기 등) 버퍼 다시 맞춤
+    // 스테이지 크기가 바뀌었으면(목록 접기, 창 크기 등) 버퍼 다시 맞춤
     const pw = canvas.parentElement ? canvas.parentElement.clientWidth : 0;
-    if (pw && Math.abs(pw - sizedW) > 2) sizeToStage();
+    const ph = canvas.parentElement ? canvas.parentElement.clientHeight : 0;
+    if ((pw && Math.abs(pw - sizedW) > 2) || (ph && Math.abs(ph - sizedH) > 2)) sizeToStage();
     const t = rc.t;
     const anyHl = Object.values(rc.mode).includes(1);
 
@@ -439,12 +476,35 @@ window.Replay3D = (() => {
       }
       const hl = mode === 1;
       rec.mat.opacity = anyHl && !hl ? 0.25 : 1;
+      // 클릭 선택 유닛은 살짝 밝게 (발밑 링은 아래에서)
+      rec.mat.emissive.copy(rec.mat.color).multiplyScalar(u.id === rc.selectedUnit ? 0.45 : 0);
       const sc = hl ? 1.35 : 1;
+      rec.baseScale = sc;   // 기믹 펄스가 이 값 기준으로 왕복
       rec.group.scale.set(sc, sc, sc);
       if (u.kind !== 'boss') {
         if (hl) ensureLabel(rec);
         if (rec.label) rec.label.visible = hl;
       }
+    }
+
+    // 선택 유닛 발밑 링
+    const selRec = rc.selectedUnit ? units[rc.selectedUnit] : null;
+    if (selRec && selRec.group.visible) {
+      if (!selRing) {
+        selRing = new THREE.Mesh(
+          new THREE.RingGeometry(0.78, 1, 40),
+          new THREE.MeshBasicMaterial({ color: 0x7db7ff, transparent: true, opacity: 0.95,
+                                        side: THREE.DoubleSide, depthWrite: false }));
+        selRing.rotation.x = -Math.PI / 2;
+        scene.add(selRing);   // disposeScene 의 traverse 가 정리
+      }
+      const rr = selRec.r * 1.8;
+      selRing.position.copy(selRec.group.position);
+      selRing.position.y += 0.18;
+      selRing.scale.set(rr, rr, 1);
+      selRing.visible = true;
+    } else if (selRing) {
+      selRing.visible = false;
     }
 
     // 죽음 해골 (죽은 자리에 고정)
@@ -476,6 +536,17 @@ window.Replay3D = (() => {
       mesh.material.color.set(ev.kind === 'hit' ? '#b18cf0' : '#e8a34c');
       mesh.material.opacity = 0.9 * (1 - age / RC_RING_S);
       mesh.visible = true;
+      // 대상 유닛 강조: 3초 동안 구체 펄스(1→1.25 왕복) + 이름표 잠깐 표시
+      const drec = units[ev.dest_id];
+      if (drec && drec.group.visible) {
+        const pu = 1 + 0.25 * Math.abs(Math.sin(age * Math.PI * 2));
+        const ps = (drec.baseScale || 1) * pu;
+        drec.group.scale.set(ps, ps, ps);
+        if (drec.u.kind !== 'boss') {
+          ensureLabel(drec);
+          drec.label.visible = true;
+        }
+      }
       if (ri >= 16) break;
     }
     for (let i = ri; i < rings.length; i++) if (rings[i]) rings[i].visible = false;
@@ -485,10 +556,16 @@ window.Replay3D = (() => {
 
   // 프리뷰/디버깅용 상태 요약 (UI 미사용)
   function debug() {
-    const shown = Object.values(units).filter(r => r.group.visible).map(r => ({
-      id: r.u.id, name: r.u.name, kind: r.u.kind,
-      x: r.group.position.x, y: r.group.position.y, z: r.group.position.z,
-    }));
+    const shown = Object.values(units).filter(r => r.group.visible).map(r => {
+      // 화면 좌표(sx, sy)도 같이 — 프리뷰에서 클릭 픽킹 검증용
+      const v = r.group.position.clone().project(camera);
+      return {
+        id: r.u.id, name: r.u.name, kind: r.u.kind,
+        x: r.group.position.x, y: r.group.position.y, z: r.group.position.z,
+        sx: (v.x + 1) / 2 * canvas.clientWidth, sy: (1 - v.y) / 2 * canvas.clientHeight,
+        scale: r.group.scale.x, labelShown: !!(r.label && r.label.visible),
+      };
+    });
     return {
       ready, flat, builtFor,
       grid: terrain ? { w: terrain.grid_w, h: terrain.grid_h, rect: terrain.world_rect } : null,

@@ -919,7 +919,10 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .rp-ok { color: #6fcf7f !important; }
 .rp-wipe { color: #e09a87 !important; }
 .rp-unmatched td:first-child::before { content: "?"; color: #e2c14e; margin-right: 4px; }
-#replay-detail { height: 100%; overflow: auto; padding: 12px 14px; }
+#replay-detail { height: 100%; overflow: auto; padding: 12px 14px; display: flex; flex-direction: column; }
+#replay-detail > * { flex: 0 0 auto; }
+/* 이벤트 목록만 세로 공간이 모자라면 줄어듦 (최소 90px) — 화면+이벤트 동시 노출 */
+#replay-detail > .replay-events { flex: 0 1 auto; }
 #replay-detail.empty { display: flex; align-items: center; justify-content: center; color: var(--text-mute); }
 .replay-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
 .replay-head h2 { margin: 0; padding: 0; border: 0; background: transparent; color: var(--accent); font-size: 16px; }
@@ -930,20 +933,25 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   padding: 5px 8px; color: var(--text-mute); font-size: 11px;
 }
 .replay-kpis b { color: var(--text); margin-left: 3px; }
-.replay-main { display: grid; grid-template-columns: minmax(420px, 1.1fr) minmax(340px, .9fr); gap: 12px; min-height: 360px; }
+.replay-main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
 .replay-video-wrap, .replay-canvas-wrap { min-width: 0; }
+/* 영상·리플레이 두 화면 높이 통일 — 같은 폭(1fr) + 같은 비율(1000:660) + 같은 상한 → 항상 같은 px 높이 */
+.replay-video, .replay-no-video, .rc-stage {
+  width: 100%; aspect-ratio: 1000 / 660;
+  max-height: max(240px, calc(100vh - 520px));
+}
 .replay-video {
-  width: 100%; aspect-ratio: 16 / 9; max-height: 520px;
+  object-fit: contain;   /* 16:9 영상은 위아래 레터박스로 캔버스와 높이를 맞춤 */
   background: #000; border: 1px solid var(--border); border-radius: 4px;
 }
-.replay-no-video { min-height: 260px; border: 1px solid var(--border); border-radius: 4px; }
+.replay-no-video { border: 1px solid var(--border); border-radius: 4px; }
 .replay-time { width: 100%; margin-top: 8px; accent-color: var(--accent); }
 /* 캔버스 리플레이 (전투로그 좌표 재생) */
 .replay-canvas-wrap { display: flex; flex-direction: column; gap: 8px; }
 .rc-stage { position: relative; border: 1px solid var(--border); border-radius: 4px; background: #10141a; }
-#rc-canvas { display: block; width: 100%; height: auto; border-radius: 4px; }
+#rc-canvas { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 4px; }
 /* 3D 보기 캔버스 (replay3d.js 가 .rc-stage 에 붙임) — 드래그 회전용 커서/터치 설정 */
-#rc-canvas3d { display: block; width: 100%; height: auto; border-radius: 4px; cursor: grab; touch-action: none; }
+#rc-canvas3d { display: block; width: 100%; height: 100%; border-radius: 4px; cursor: grab; touch-action: none; }
 #rc-canvas3d:active { cursor: grabbing; }
 .rc-msg {
   position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
@@ -980,7 +988,7 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 }
 .rc-banner:empty { display: none; }
 #rc-clock { color: var(--text-mute); font-size: 11.5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.rc-units { display: flex; flex-wrap: wrap; gap: 4px; }
+.rc-units { display: flex; flex-wrap: wrap; gap: 4px; max-height: 58px; overflow-y: auto; }
 .rc-unit {
   display: inline-flex; align-items: center; gap: 5px;
   background: var(--bg-1); border: 1px solid var(--border-soft); color: var(--text-dim);
@@ -992,10 +1000,42 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .rc-unit.off { opacity: .35; text-decoration: line-through; }
 .rc-note { color: var(--text-mute); font-size: 11px; }
 .rc-note:empty { display: none; }
-.replay-counts { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+/* 좌측 상단 유닛 정보 패널 (3D 보기 — 캐릭터 클릭으로 선택) */
+.rc-panel {
+  position: absolute; top: 8px; left: 8px; z-index: 3;
+  width: 218px; max-width: 46%;
+  background: rgba(13, 16, 22, .84); border: 1px solid var(--border);
+  border-radius: 6px; padding: 8px 10px; font-size: 11.5px;
+}
+.rc-panel-head { display: flex; align-items: baseline; gap: 6px; min-width: 0; }
+.rc-panel-name { font-weight: 700; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rc-panel-cls { color: var(--text-mute); font-size: 10.5px; flex: none; }
+.rc-panel-state { margin-left: auto; font-size: 10.5px; flex: none; }
+.rc-panel-state.alive { color: #6fcf7f; }
+.rc-panel-state.dead { color: #e09a87; }
+.rc-panel-close {
+  flex: none; border: 0; background: none; color: var(--text-mute);
+  font-size: 14px; line-height: 1; padding: 0 0 0 4px; cursor: pointer;
+}
+.rc-panel-close:hover { color: var(--text); }
+.rc-panel-hpbar { position: relative; height: 9px; background: rgba(255, 255, 255, .14); border-radius: 3px; margin-top: 7px; overflow: hidden; }
+.rc-panel-hpbar i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: #6fcf7f; border-radius: 3px; }
+.rc-panel-hptxt { color: var(--text-mute); font-size: 10.5px; margin-top: 3px; }
+.rc-panel-lists { max-height: 168px; overflow-y: auto; margin-top: 6px; }
+.rc-panel-sec { color: var(--text-dim); font-size: 10px; margin: 6px 0 2px; }
+.rc-panel-row { display: flex; gap: 6px; min-width: 0; }
+.rc-panel-row .t { color: var(--accent); font-variant-numeric: tabular-nums; flex: none; }
+.rc-panel-row .s { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rc-panel-row.hit .s { color: #b18cf0; }
+.rc-panel-none { color: var(--text-dim); font-size: 10.5px; }
+/* 이벤트 영역: 화면 행 아래 별도 행 — 필터+요약 한 줄, 목록은 고정 높이 내부 스크롤 */
+.replay-belt { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin: 10px 0 8px; }
+.replay-counts { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
 .replay-events {
   display: grid; gap: 1px; border: 1px solid var(--border); border-radius: 4px;
-  overflow: hidden; background: var(--border); margin-bottom: 12px;
+  background: var(--border); margin-bottom: 12px;
+  position: relative; align-content: start;
+  flex: 0 1 auto; height: 220px; min-height: 90px; overflow-y: auto;
 }
 .replay-event {
   display: grid; grid-template-columns: 58px 66px minmax(120px, .85fr) minmax(140px, 1fr) minmax(110px, .85fr) 82px;
@@ -1004,12 +1044,13 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   font-size: 11.5px; min-height: 30px;
 }
 .replay-event:hover { background: var(--bg-2); }
+.replay-event.now { background: var(--row-selected); box-shadow: inset 2px 0 0 var(--accent); }
 .replay-event .rt { color: var(--accent); font-variant-numeric: tabular-nums; }
 .replay-event .rk { color: var(--text-mute); text-transform: uppercase; font-size: 10px; }
 .replay-event .rs, .replay-event .ra, .replay-event .rtg { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .replay-event.damage .rd { color: #e09a87; text-align: right; font-variant-numeric: tabular-nums; }
 /* 이벤트 목록 필터 (전체 / 보스 기믹) */
-.replay-ev-filter { display: flex; gap: 6px; margin-bottom: 8px; }
+.replay-ev-filter { display: flex; gap: 6px; }
 .replay-ev-filter button {
   background: var(--bg-1); border: 1px solid var(--border); color: var(--text);
   border-radius: 6px; padding: 4px 11px; cursor: pointer; font-size: 12px;
