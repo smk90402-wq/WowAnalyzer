@@ -986,6 +986,13 @@ def _boss_tokens(encounter_name: str) -> set[str]:
     return {tok for tok in (encounter_name or "").split() if len(tok) >= 2}
 
 
+# 전투 이름과 보스 유닛 이름이 다른 네임드 — 이름 매칭만으론 보스로 못 잡는 경우.
+# (예: 전투 "한밤의 도래"의 보스 유닛은 "르우라")
+_ENCOUNTER_BOSS_ALIASES: dict[str, tuple[str, ...]] = {
+    "한밤의 도래": ("르우라",),
+}
+
+
 def _classify_units(
     samples: dict[str, list],
     names: dict[str, str],
@@ -1001,6 +1008,7 @@ def _classify_units(
     나오는 로그에서 번호가 겹치는 것 방지.
     """
     tokens = _boss_tokens(encounter_name)
+    aliases = _ENCOUNTER_BOSS_ALIASES.get((encounter_name or "").strip(), ())
     hostile = hostile or set()
     units: list[dict[str, Any]] = []
     npcs: list[tuple[int, dict[str, Any]]] = []
@@ -1010,12 +1018,19 @@ def _classify_units(
             units.append({"guid": guid, "name": name,
                           "cls": _SPEC_CLASS.get(specs.get(guid, 0)),
                           "kind": "player"})
-        elif name and (name == encounter_name or any(tok in name for tok in tokens)):
+        elif name and (name == encounter_name or any(tok in name for tok in tokens)
+                       or any(al in name for al in aliases)):
             units.append({"guid": guid, "name": name, "cls": None, "kind": "boss"})
         elif (guid in hostile and guid.startswith(("Creature-", "Vehicle-"))
                 and len(pts) >= NPC_MIN_SAMPLES):
             npcs.append((len(pts), {"guid": guid, "name": name, "cls": None, "kind": "npc"}))
     npcs.sort(key=lambda t: t[0], reverse=True)
+    if not any(u["kind"] == "boss" for u in units) and npcs:
+        # 별칭에도 없는 새 전투 폴백: 샘플이 가장 많은 적대 유닛을 보스로 승격
+        # (이름표·상시 표시가 통째로 빠지는 것 방지 — 정확한 이름은 별칭에 추가)
+        _, top = npcs.pop(0)
+        top["kind"] = "boss"
+        units.append(top)
     picked = [u for _, u in npcs[:NPC_MAX]]
 
     for u in picked:
