@@ -1,0 +1,884 @@
+{
+ "3159": [
+  1221622,
+  1221639,
+  1221781,
+  1222088,
+  1221787,
+  1221637,
+  1221965
+ ],
+ "3182": [
+  1242981,
+  1261217,
+  1261218,
+  1244348,
+  1241291,
+  1242515,
+  1242792,
+  1246709
+ ],
+ "3183": [
+  1267049,
+  1284931,
+  1253915,
+  1249609,
+  1284980,
+  1279420,
+  1285563,
+  1282043,
+  1284525,
+  1281184,
+  1282412,
+  1281123,
+  1275057,
+  1266897,
+  1286915,
+  1266388,
+  1266810,
+  1273375,
+  1266344,
+  1251343,
+  1263253,
+  1285510,
+  1276525
+ ],
+ "3176": [
+  1249251,
+  1262776,
+  1280015,
+  1249266,
+  1262036,
+  1261249,
+  1258880,
+  1260712
+ ],
+ "3177": [
+  1260052,
+  1241836,
+  1254199,
+  1254113,
+  1259186,
+  1256855
+ ],
+ "3179": [
+  1243453,
+  1250686,
+  1254081,
+  1285211,
+  1260823,
+  1253032,
+  1246175
+ ],
+ "3178": [
+  1265131,
+  1264467,
+  1245645,
+  1265152,
+  1262623,
+  1270497,
+  1258744,
+  1244221,
+  1245391,
+  1244672,
+  1244917,
+  1249748
+ ],
+ "3180": [
+  1258659,
+  1246497,
+  1251857,
+  1251859,
+  1251812,
+  1249130,
+  1246765,
+  1258514,
+  1248644,
+  1246162,
+  1248449,
+  1248451,
+  1255738,
+  1246749,
+  1248710,
+  1250839
+ ],
+ "3181": [
+  1233865,
+  1232467,
+  1243743,
+  1233787,
+  1233602,
+  1233819,
+  1234546,
+  1237837,
+  1246461,
+  1237035,
+  1237614,
+  1246918,
+  1239080,
+  1238843
+ ],
+ "3306": [
+  1258610,
+  1250953,
+  1262289,
+  1246621,
+  1257087,
+  1264756,
+  1262020,
+  1272726,
+  1245396,
+  1245452
+ ],
+ "_meta": {
+  "source": "wowutils.com viserio-cooldowns (RSC 임베드 파싱)",
+  "fetched": "2026-07-04",
+  "bosses": {
+   "3159": {
+    "name": "Rotmire",
+    "slug": "rotmire",
+    "spells": {
+     "1221622": {
+      "name": "Awaken Fungi",
+      "types": [
+       "Add Spawn"
+      ]
+     },
+     "1221639": {
+      "name": "Shroomling",
+      "types": [
+       "Add Spawn"
+      ]
+     },
+     "1221781": {
+      "name": "Putrid Fist",
+      "types": [
+       "Tankbuster"
+      ]
+     },
+     "1222088": {
+      "name": "Festering Vines",
+      "types": [
+       "Movement"
+      ]
+     },
+     "1221787": {
+      "name": "Bursting Pustules",
+      "types": [
+       "Raid AOE"
+      ]
+     },
+     "1221637": {
+      "name": "Fungal Bloom",
+      "types": [
+       "Raid AOE"
+      ]
+     },
+     "1221965": {
+      "name": "Bursting Shroom",
+      "types": [
+       "Raid AOE"
+      ]
+     }
+    }
+   },
+   "3182": {
+    "name": "Belo'ren, Child of Al'ar",
+    "slug": "beloren-child-of-alar",
+    "spells": {
+     "1242981": {
+      "name": "Radiant Echoes",
+      "types": [
+       "Event"
+      ]
+     },
+     "1261217": {
+      "name": "Light Edict",
+      "types": [
+       "Frontal",
+       "Tankbuster"
+      ]
+     },
+     "1261218": {
+      "name": "Void Edict",
+      "types": [
+       "Frontal",
+       "Tankbuster"
+      ]
+     },
+     "1244348": {
+      "name": "Light Burn",
+      "types": [
+       "Debuffs",
+       "Healing Absorb"
+      ]
+     },
+     "1241291": {
+      "name": "Light Dive",
+      "types": [
+       "Group Soak"
+      ]
+     },
+     "1242515": {
+      "name": "Voidlight Convergence",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1242792": {
+      "name": "Incubation of Flames",
+      "types": [
+       "Event",
+       "Raid Damage"
+      ]
+     },
+     "1246709": {
+      "name": "Death Drop",
+      "types": [
+       "Raid Damage"
+      ]
+     }
+    }
+   },
+   "3183": {
+    "name": "Midnight Falls",
+    "slug": "midnight-falls",
+    "spells": {
+     "1267049": {
+      "name": "Heaven's Lance",
+      "types": [
+       "Tankbuster"
+      ]
+     },
+     "1284931": {
+      "name": "Termination Prism",
+      "types": [
+       "Add Spawn"
+      ]
+     },
+     "1253915": {
+      "name": "Heaven's Glaives",
+      "types": [
+       "Movement"
+      ]
+     },
+     "1249609": {
+      "name": "Dark Rune",
+      "types": [
+       "Debuffs"
+      ]
+     },
+     "1284980": {
+      "name": "Grim Symphony",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1279420": {
+      "name": "Dark Quasar",
+      "types": [
+       "Raid AOE"
+      ]
+     },
+     "1285563": {
+      "name": "Total Eclipse",
+      "types": [
+       "Raid DOT"
+      ]
+     },
+     "1282043": {
+      "name": "Into the Darkwell",
+      "types": [
+       "Movement"
+      ]
+     },
+     "1284525": {
+      "name": "Galvanize",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1281184": {
+      "name": "Criticality",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1282412": {
+      "name": "Core Harvest",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1281123": {
+      "name": "Dark Meltdown",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1275057": {
+      "name": "Severance",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1266897": {
+      "name": "Light Siphon [Left]",
+      "types": [
+       "Group Soak"
+      ]
+     },
+     "1286915": {
+      "name": "Death's Requiem [Left]",
+      "types": [
+       "Debuffs"
+      ]
+     },
+     "1266388": {
+      "name": "Dark Constellation [Left]",
+      "types": [
+       "Raid AOE"
+      ]
+     },
+     "1266810": {
+      "name": "Light Siphon [Right]",
+      "types": [
+       "Group Soak"
+      ]
+     },
+     "1273375": {
+      "name": "Death's Requiem [Right]",
+      "types": [
+       "Debuffs"
+      ]
+     },
+     "1266344": {
+      "name": "Dark Constellation [Right]",
+      "types": [
+       "Raid AOE"
+      ]
+     },
+     "1251343": {
+      "name": "The Dark Archangel",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1263253": {
+      "name": "Black Tide",
+      "types": [
+       "Movement"
+      ]
+     },
+     "1285510": {
+      "name": "Starsplinter",
+      "types": [
+       "Spread"
+      ]
+     },
+     "1276525": {
+      "name": "Heaven & Hell",
+      "types": [
+       "Raid Damage"
+      ]
+     }
+    }
+   },
+   "3176": {
+    "name": "Imperator Averzian",
+    "slug": "imperator-averzian",
+    "spells": {
+     "1249251": {
+      "name": "Dark Upheaval",
+      "types": [
+       "Movement",
+       "Raid Damage"
+      ]
+     },
+     "1262776": {
+      "name": "Shadow's Advance",
+      "types": [
+       "Add Spawn"
+      ]
+     },
+     "1280015": {
+      "name": "Void Marked",
+      "types": [
+       "Debuffs"
+      ]
+     },
+     "1249266": {
+      "name": "Umbral Collapse",
+      "types": [
+       "Group Soak"
+      ]
+     },
+     "1262036": {
+      "name": "Void Rupture",
+      "types": [
+       "Movement"
+      ]
+     },
+     "1261249": {
+      "name": "Void Rupture",
+      "types": [
+       "Add Spawn"
+      ]
+     },
+     "1258880": {
+      "name": "Void Fall",
+      "types": [
+       "Knock",
+       "Movement"
+      ]
+     },
+     "1260712": {
+      "name": "Oblivion's Wrath",
+      "types": [
+       "Movement"
+      ]
+     }
+    }
+   },
+   "3177": {
+    "name": "Vorasius",
+    "slug": "vorasius",
+    "spells": {
+     "1260052": {
+      "name": "Primordial Roar",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1241836": {
+      "name": "Smashing Frenzy",
+      "types": [
+       "Tankbuster"
+      ]
+     },
+     "1254199": {
+      "name": "Parasite Expulsion",
+      "types": [
+       "Add Spawn",
+       "Movement",
+       "Raid Damage"
+      ]
+     },
+     "1254113": {
+      "name": "Fixate",
+      "types": [
+       "Debuffs"
+      ]
+     },
+     "1259186": {
+      "name": "Blisterburst",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1256855": {
+      "name": "Void Breath",
+      "types": [
+       "Movement"
+      ]
+     }
+    }
+   },
+   "3179": {
+    "name": "Fallen-King Salhadaar",
+    "slug": "fallen-king-salhadaar",
+    "spells": {
+     "1243453": {
+      "name": "Void Convergence",
+      "types": [
+       "Add Spawn"
+      ]
+     },
+     "1250686": {
+      "name": "Twisting Obscurity",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1254081": {
+      "name": "Fractured Projection",
+      "types": [
+       "Event",
+       "Interrupt"
+      ]
+     },
+     "1285211": {
+      "name": "Dark Radiation",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1260823": {
+      "name": "Despotic Command",
+      "types": [
+       "Debuffs"
+      ]
+     },
+     "1253032": {
+      "name": "Shattering Twilight",
+      "types": [
+       "Debuffs",
+       "Movement"
+      ]
+     },
+     "1246175": {
+      "name": "Entropic Unraveling",
+      "types": [
+       "Damage Amp",
+       "Movement",
+       "Raid Damage"
+      ]
+     }
+    }
+   },
+   "3178": {
+    "name": "Vaelgor & Ezzorak",
+    "slug": "vaelgor-and-ezzorak",
+    "spells": {
+     "1265131": {
+      "name": "Vaelwing",
+      "types": [
+       "Knock",
+       "Tankbuster"
+      ]
+     },
+     "1264467": {
+      "name": "Tail Lash",
+      "types": [
+       "Knock",
+       "Tankbuster"
+      ]
+     },
+     "1245645": {
+      "name": "Rakfang",
+      "types": [
+       "Tankbuster"
+      ]
+     },
+     "1265152": {
+      "name": "Impale",
+      "types": [
+       "Tankbuster"
+      ]
+     },
+     "1262623": {
+      "name": "Nullbeam",
+      "types": [
+       "Tankbuster"
+      ]
+     },
+     "1270497": {
+      "name": "Shadowmark",
+      "types": [
+       "Debuffs"
+      ]
+     },
+     "1258744": {
+      "name": "Midnight Manifestation",
+      "types": [
+       "Raid DOT"
+      ]
+     },
+     "1244221": {
+      "name": "Dread Breath",
+      "types": [
+       "Movement"
+      ]
+     },
+     "1245391": {
+      "name": "Gloom",
+      "types": [
+       "Group Soak"
+      ]
+     },
+     "1244672": {
+      "name": "Nullzone",
+      "types": [
+       "Movement"
+      ]
+     },
+     "1244917": {
+      "name": "Void Howl",
+      "types": [
+       "Adds",
+       "Movement",
+       "Raid Damage"
+      ]
+     },
+     "1249748": {
+      "name": "Midnight Flames",
+      "types": [
+       "Raid DOT",
+       "Raid Damage"
+      ]
+     }
+    }
+   },
+   "3180": {
+    "name": "Lightblinded Vanguard",
+    "slug": "lightblinded-vanguard",
+    "spells": {
+     "1258659": {
+      "name": "Light Infused",
+      "types": [
+       "Raid DOT"
+      ]
+     },
+     "1246497": {
+      "name": "Avenger's Shield",
+      "types": [
+       "Dispel"
+      ]
+     },
+     "1251857": {
+      "name": "Judgment",
+      "types": [
+       "Tankbuster"
+      ]
+     },
+     "1251859": {
+      "name": "Shield of the Righteous",
+      "types": [
+       "Tankbuster"
+      ]
+     },
+     "1251812": {
+      "name": "Final Verdict",
+      "types": [
+       "Tankbuster"
+      ]
+     },
+     "1249130": {
+      "name": "Elekk Charge",
+      "types": [
+       "Event",
+       "Movement"
+      ]
+     },
+     "1246765": {
+      "name": "Divine Storm",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1258514": {
+      "name": "Blinding Light",
+      "types": [
+       "Event"
+      ]
+     },
+     "1248644": {
+      "name": "Divine Toll",
+      "types": [
+       "Movement"
+      ]
+     },
+     "1246162": {
+      "name": "Aura of Devotion",
+      "types": [
+       "Movement"
+      ]
+     },
+     "1248449": {
+      "name": "Aura of Wrath",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1248451": {
+      "name": "Aura of Peace",
+      "types": [
+       "Movement"
+      ]
+     },
+     "1255738": {
+      "name": "Searing Radiance",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1246749": {
+      "name": "Sacred Toll",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1248710": {
+      "name": "Tyr's Wrath",
+      "types": [
+       "Healing Absorb"
+      ]
+     },
+     "1250839": {
+      "name": "Execution Sentence",
+      "types": [
+       "Group Soak"
+      ]
+     }
+    }
+   },
+   "3181": {
+    "name": "Crown of the Cosmos",
+    "slug": "crown-of-the-cosmos",
+    "spells": {
+     "1233865": {
+      "name": "Null Corona",
+      "types": [
+       "Healing Absorb"
+      ]
+     },
+     "1232467": {
+      "name": "Grasp of Emptiness",
+      "types": [
+       "Debuffs"
+      ]
+     },
+     "1243743": {
+      "name": "Interrupting Tremor",
+      "types": [
+       "Event"
+      ]
+     },
+     "1233787": {
+      "name": "Dark Hand",
+      "types": [
+       "Tankbuster"
+      ]
+     },
+     "1233602": {
+      "name": "Silverstrike Arrow",
+      "types": [
+       "Debuffs"
+      ]
+     },
+     "1233819": {
+      "name": "Void Expulsion",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1234546": {
+      "name": "Silversunder Catastrophe",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1237837": {
+      "name": "Call of the Void",
+      "types": [
+       "Add Spawn"
+      ]
+     },
+     "1246461": {
+      "name": "Rift Slash",
+      "types": [
+       "Tankbuster"
+      ]
+     },
+     "1237035": {
+      "name": "Voidstalker Sting",
+      "types": [
+       "Raid DOT"
+      ]
+     },
+     "1237614": {
+      "name": "Ranger Captain's Mark",
+      "types": [
+       "Debuffs"
+      ]
+     },
+     "1246918": {
+      "name": "Cosmic Barrier",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1239080": {
+      "name": "Aspect of the End",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1238843": {
+      "name": "Devouring Cosmos",
+      "types": [
+       "Movement"
+      ]
+     }
+    }
+   },
+   "3306": {
+    "name": "Chimaerus the Undreamt God",
+    "slug": "chimaerus-the-undreamt-god",
+    "spells": {
+     "1258610": {
+      "name": "Rift Emergence",
+      "types": [
+       "Add Spawn",
+       "Raid Damage"
+      ]
+     },
+     "1250953": {
+      "name": "Rift Sickness",
+      "types": [
+       "Healing Absorb"
+      ]
+     },
+     "1262289": {
+      "name": "Alndust Upheaval",
+      "types": [
+       "Group Soak"
+      ]
+     },
+     "1246621": {
+      "name": "Caustic Phlegm",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1257087": {
+      "name": "Consuming Miasma",
+      "types": [
+       "Dispel"
+      ]
+     },
+     "1264756": {
+      "name": "Rift Madness",
+      "types": [
+       "Debuffs"
+      ]
+     },
+     "1262020": {
+      "name": "Colossal Strikes",
+      "types": [
+       "Tankbuster"
+      ]
+     },
+     "1272726": {
+      "name": "Rending Tear",
+      "types": [
+       "Frontal"
+      ]
+     },
+     "1245396": {
+      "name": "Consume",
+      "types": [
+       "Raid Damage"
+      ]
+     },
+     "1245452": {
+      "name": "Corrupted Devastation",
+      "types": [
+       "Movement"
+      ]
+     }
+    }
+   }
+  }
+ }
+}

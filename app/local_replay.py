@@ -66,6 +66,14 @@ def _clean_name(name: Any) -> str:
     return str(name).strip('"')
 
 
+def _flags_int(value: Any) -> int:
+    """전투로그 flags 필드('0x10a48') → int. 실패 시 0."""
+    try:
+        return int(str(value), 16)
+    except (TypeError, ValueError):
+        return 0
+
+
 def latest_log_path(log_dir: Path = DEFAULT_LOG_DIR) -> Path | None:
     if not log_dir.exists():
         return None
@@ -579,6 +587,12 @@ _ADV_SPELL_EVENTS = {
 }
 _ADV_SWING_EVENTS = {"SWING_DAMAGE", "SWING_DAMAGE_LANDED"}
 
+# 보스 기믹 이벤트 (frames 응답 boss_events)
+_HOSTILE_FLAG = 0x40          # sourceFlags REACTION_HOSTILE — 아군 소환수 제외 핵심
+BOSS_EVENT_TOTAL_CAP = 300    # 풀당 전체 캡
+BOSS_EVENT_SPELL_CAP = 20     # 스펠별 캡 (초과 시 균등 샘플)
+BOSS_HIT_MAX_APPLIED = 15     # 플레이어 디버프: 풀당 적용 횟수 이 이하만 (스팸 컷)
+
 # specID → 클래스 토큰 (COMBATANT_INFO 에서 플레이어 직업색 얻기용)
 _SPEC_CLASS = {
     62: "mage", 63: "mage", 64: "mage",
@@ -798,6 +812,8 @@ def _stream_frames_window(
     specs: dict[str, int] = {}
     deaths: list[tuple[float, str]] = []
     map_counts: Counter = Counter()
+    # 보스 기믹 후보: (t, event, spell_id, spell, src_guid, src_name, dest_guid, dest_name)
+    boss_raw: list[tuple[float, str, int, str, str, str, str, str]] = []
 
     with log_path.open("rb") as fh:
         fh.seek(start_off)
@@ -837,6 +853,22 @@ def _stream_frames_window(
                         names.setdefault(guid, _clean_name(row[6]))
                 continue
 
+            if (event in ("SPELL_CAST_START", "SPELL_CAST_SUCCESS", "SPELL_AURA_APPLIED")
+                    and len(row) > 10
+                    and str(row[1]).startswith(("Creature-", "Vehicle-"))
+                    and _flags_int(row[3]) & _HOSTILE_FLAG):
+                # 적대 소스만 — 흑마 임프 같은 아군 소환수의 시전 스팸 제외
+                if event != "SPELL_AURA_APPLIED" or (
+                        len(row) > 12 and row[12] == "DEBUFF"
+                        and str(row[5]).startswith("Player-")):
+                    boss_raw.append((
+                        round(max(t, 0.0), 2), event,
+                        _to_int(row[9]), _clean_name(row[10]),
+                        row[1], _clean_name(row[2]),
+                        str(row[5]) if len(row) > 5 else "",
+                        _clean_name(row[6]) if len(row) > 6 else "",
+                    ))
+
             adv = _adv_position_any(row)
             if not adv:
                 continue
@@ -848,7 +880,7 @@ def _stream_frames_window(
                 names.setdefault(guid, name)
 
     return {"samples": samples, "names": names, "specs": specs,
-            "deaths": deaths, "map_counts": map_counts}
+            "deaths": deaths, "map_counts": map_counts, "boss_raw": boss_raw}
 
 
 def _boss_tokens(encounter_name: str) -> set[str]:
@@ -878,6 +910,97 @@ def _classify_units(
     npcs.sort(key=lambda t: t[0], reverse=True)
     units.extend(u for _, u in npcs[:NPC_MAX])
     return units
+
+
+@lru_cache(maxsize=1)
+def _boss_priority_map() -> dict[int, frozenset[int]]:
+    """data/boss_spell_priority.json → encounterID → 중요 spell_id 집합.
+
+    fetch_boss_spell_priority.py 산출물 (wowutils viserio-cooldowns).
+    파일이 없거나 깨져도 기능은 휴리스틱만으로 동작 (빈 dict).
+    """
+    from app import replay_map
+    path = replay_map.DATA_DIR / "boss_spell_priority.json"
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    out: dict[int, frozenset[int]] = {}
+    for key, ids in data.items():
+        if key.startswith("_") or not isinstance(ids, list):
+            continue
+        eid = _to_int(key)
+        if eid:
+            out[eid] = frozenset(_to_int(i) for i in ids)
+    return out
+
+
+def _select_boss_events(
+    boss_raw: list[tuple[float, str, int, str, str, str, str, str]],
+    boss_guids: set[str],
+    guid_to_id: dict[str, str],
+    priority_ids: frozenset[int],
+) -> list[dict[str, Any]]:
+    """보스 기믹 노이즈 컷 (플랜: 시전바 캐스트 전부 + 저빈도 즉시기/디버프 + priority).
+
+    - SPELL_CAST_START: 캐스트바 스킬 → 전부 채택 (kind=cast)
+    - SPELL_CAST_SUCCESS: CAST_START 있는 스펠은 중복이라 제외,
+      나머지는 풀당 횟수 <= 15 또는 priority 만 (kind=cast)
+    - SPELL_AURA_APPLIED(DEBUFF→Player): 풀당 적용 <= 15 또는 priority (kind=hit)
+    - 스펠별 캡 20 (초과 시 균등 샘플), 전체 캡 300 (priority > 보스 소스 우선)
+    """
+    castbar_ids = {sid for _, ev, sid, *_ in boss_raw if ev == "SPELL_CAST_START"}
+    counts: Counter = Counter((ev, sid) for _, ev, sid, *_ in boss_raw)
+
+    picked: list[dict[str, Any]] = []
+    for t, ev, sid, spell, src_guid, src_name, dest_guid, dest_name in boss_raw:
+        prio = sid in priority_ids
+        if ev == "SPELL_CAST_START":
+            kind = "cast"
+        elif ev == "SPELL_CAST_SUCCESS":
+            if sid in castbar_ids:
+                continue  # CAST_START 로 이미 잡힘 (완료 시점 중복)
+            if counts[(ev, sid)] > BOSS_HIT_MAX_APPLIED and not prio:
+                continue  # 틱뎀·평타류 스팸
+            kind = "cast"
+        else:
+            if counts[(ev, sid)] > BOSS_HIT_MAX_APPLIED and not prio:
+                continue
+            kind = "hit"
+        item: dict[str, Any] = {
+            "t": t, "spell_id": sid, "spell": spell,
+            "kind": kind, "src_name": src_name,
+        }
+        if prio:
+            item["priority"] = True
+        if src_guid in boss_guids:
+            item["_boss_src"] = True
+        dest_id = guid_to_id.get(dest_guid)
+        if dest_id:
+            item["dest_id"] = dest_id
+        if dest_name:
+            item["dest_name"] = dest_name
+        picked.append(item)
+
+    # 스펠별 캡 — 초과분은 시간축 균등 샘플 (앞쪽 쏠림 방지)
+    by_spell: dict[tuple[str, int], list[dict[str, Any]]] = {}
+    for item in picked:
+        by_spell.setdefault((item["kind"], item["spell_id"]), []).append(item)
+    capped: list[dict[str, Any]] = []
+    for items in by_spell.values():
+        if len(items) > BOSS_EVENT_SPELL_CAP:
+            step = len(items) / BOSS_EVENT_SPELL_CAP
+            items = [items[int(i * step)] for i in range(BOSS_EVENT_SPELL_CAP)]
+        capped.extend(items)
+
+    # 전체 캡 — priority > 보스 소스 > 시간 순으로 남김
+    if len(capped) > BOSS_EVENT_TOTAL_CAP:
+        capped.sort(key=lambda x: (not x.get("priority"), not x.get("_boss_src"), x["t"]))
+        capped = capped[:BOSS_EVENT_TOTAL_CAP]
+    for item in capped:
+        item.pop("_boss_src", None)
+    capped.sort(key=lambda x: x["t"])
+    return capped
 
 
 def replay_frames(replay_id: str) -> dict[str, Any]:
@@ -935,6 +1058,14 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
     # 죽음 마커 — 추적 중인 유닛만
     deaths = [{"t": t, "id": guid_to_id[g]} for t, g in parsed["deaths"] if g in guid_to_id]
 
+    # 보스 기믹 이벤트 (누가 대상인지) — viserio priority 목록은 있으면 보강
+    priority_ids = _boss_priority_map().get(
+        _to_int(enc.get("encounter_id")) or _to_int(cap.get("encounter_id")),
+        frozenset())
+    boss_guids = {u["guid"] for u in units if u["kind"] == "boss"}
+    boss_events = _select_boss_events(
+        parsed.get("boss_raw") or [], boss_guids, guid_to_id, priority_ids)
+
     # 맵 메타 + world→px 계수 (플레이어 실좌표로 축 뒤집힘 캘리브레이션)
     calib = player_world[::max(1, len(player_world) // 200)]  # 최대 ~200점만
     if not dominant_map:
@@ -967,6 +1098,7 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
             "deaths": deaths,
         },
         "frames": frames,
+        "boss_events": boss_events,
     }
 
 

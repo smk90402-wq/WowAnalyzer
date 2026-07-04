@@ -1438,13 +1438,9 @@ async function selectLocalReplay(id) {
   }
 }
 
-function renderLocalReplayDetail(detail) {
-  const root = $('#replay-detail');
-  if (!root) return;
-  const cap = detail.capture || {};
-  const counts = detail.counts || {};
-  const events = detail.events || [];
-  const eventRows = events.slice(0, 900).map(ev => `
+// 이벤트 목록 한 줄 (전투로그 상세 이벤트 — t 는 캡처 시작 기준)
+function _replayEventRow(ev) {
+  return `
     <button class="replay-event ${esc(ev.kind || '')}" type="button" data-replay-jump="${Number(ev.t || 0)}">
       <span class="rt">${_replayTime(ev.t)}</span>
       <span class="rk">${esc(ev.kind || ev.event || '')}</span>
@@ -1453,7 +1449,45 @@ function renderLocalReplayDetail(detail) {
       <span class="rtg">${esc(ev.target || '')}</span>
       ${ev.amount ? `<span class="rd">${Number(ev.amount).toLocaleString()}</span>` : ''}
     </button>
-  `).join('');
+  `;
+}
+
+// 보스 기믹 한 줄 (frames boss_events — t 는 전투 시작 기준이라 오프셋 더해 점프)
+function _bossEventRow(ev) {
+  const kindLabel = ev.kind === 'hit' ? '디버프' : '시전';
+  return `
+    <button class="replay-event boss ${esc(ev.kind || '')}" type="button"
+      data-replay-jump="${Number(ev.t || 0) + rc.videoOffset}">
+      <span class="rt">${_replayTime(Number(ev.t || 0) + rc.videoOffset)}</span>
+      <span class="rk">${ev.priority ? '기믹★' : kindLabel}</span>
+      <span class="rs">${esc(ev.src_name || '')}</span>
+      <span class="ra">${esc(ev.spell || '')}</span>
+      <span class="rtg">${esc(String(ev.dest_name || '').split('-')[0])}</span>
+    </button>
+  `;
+}
+
+// 이벤트 목록 모드 전환: all = 상세 이벤트, boss = 보스 기믹만
+function renderReplayEventRows(mode) {
+  const evRoot = $('#replay-events');
+  if (!evRoot) return;
+  if (mode === 'boss') {
+    evRoot.innerHTML = rc.bossEvents.map(_bossEventRow).join('')
+      || '<div class="empty">보스 기믹 없음</div>';
+  } else {
+    const events = replayState.detail?.events || [];
+    evRoot.innerHTML = events.slice(0, 900).map(_replayEventRow).join('')
+      || '<div class="empty">표시할 이벤트 없음</div>';
+  }
+}
+
+function renderLocalReplayDetail(detail) {
+  const root = $('#replay-detail');
+  if (!root) return;
+  const cap = detail.capture || {};
+  const counts = detail.counts || {};
+  const events = detail.events || [];
+  const eventRows = events.slice(0, 900).map(_replayEventRow).join('');
   root.classList.remove('empty');
   root.innerHTML = `
     <div class="replay-head">
@@ -1477,6 +1511,7 @@ function renderLocalReplayDetail(detail) {
       <div class="replay-canvas-wrap">
         <div class="rc-stage">
           <canvas id="rc-canvas" width="1000" height="660"></canvas>
+          <div id="rc-banner" class="rc-banner"></div>
           <div id="rc-msg" class="rc-msg">이동 경로 데이터 로딩…</div>
         </div>
         <div class="rc-controls">
@@ -1484,6 +1519,7 @@ function renderLocalReplayDetail(detail) {
           <button id="rc-speed" type="button" title="재생 속도">1x</button>
           <div class="rc-scrub-wrap">
             <input id="rc-scrub" type="range" min="0" max="0" step="0.1" value="0">
+            <div id="rc-bossevents" title=""></div>
             <div id="rc-deaths"></div>
           </div>
           <span id="rc-clock">0:00 / 0:00</span>
@@ -1498,6 +1534,10 @@ function renderLocalReplayDetail(detail) {
       <span>큰 피해 ${Number(counts.damage || 0).toLocaleString()}</span>
       <span>사망 ${Number(cap.deaths || counts.deaths || 0).toLocaleString()}</span>
       ${counts.skipped ? `<span>목록 생략 ${Number(counts.skipped).toLocaleString()}</span>` : ''}
+    </div>
+    <div class="replay-ev-filter" id="replay-ev-filter">
+      <button type="button" data-evmode="all" class="active">전체 이벤트</button>
+      <button type="button" data-evmode="boss" disabled title="이동 경로 데이터 로딩 후 사용 가능">보스 기믹</button>
     </div>
     <div id="replay-events" class="replay-events">
       ${eventRows || '<div class="empty">표시할 이벤트 없음</div>'}
@@ -1529,6 +1569,15 @@ function renderLocalReplayDetail(detail) {
       rcSeek(Math.max(0, t - Number(rc.meta?.video_offset_s || 0)));
     });
   }
+  const evFilter = $('#replay-ev-filter');
+  if (evFilter) {
+    evFilter.addEventListener('click', e => {
+      const btn = e.target.closest('button[data-evmode]');
+      if (!btn || btn.disabled) return;
+      evFilter.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+      renderReplayEventRows(btn.dataset.evmode);
+    });
+  }
   initReplayCanvas(cap.id || replayState.selectedId);
 }
 
@@ -1541,6 +1590,8 @@ const CLASS_COLORS = {
 };
 const RC_TRAIL_S = 3;      // 궤적 잔상 길이(초)
 const RC_STALE_S = 15;     // 이 시간 넘게 샘플 없으면 점 숨김
+const RC_RING_S = 3;       // 보스 기믹: 대상 링 표시 시간(초)
+const RC_BANNER_S = 4;     // 보스 기믹: 상단 자막 유지 시간(초)
 
 const rc = {
   token: 0,       // 리플레이 재선택 시 이전 비동기 로드 무효화
@@ -1555,6 +1606,9 @@ const rc = {
   deathsBy: {},   // unitId → [t, ...]
   mapImg: null,
   mode: {},       // unitId → 0 보통 / 1 강조 / 2 숨김
+  bossEvents: [], // frames 응답 boss_events (t 오름차순, 전투 시작 기준)
+  video: null,    // 영상 있는 풀이면 <video> — 재생/탐색/배속 동기화 대상
+  videoOffset: 0, // meta.video_offset_s (영상 t − 이 값 = 캔버스 t)
 };
 
 function rcClock(sec) {
@@ -1570,9 +1624,11 @@ function rcUnitColor(u) {
 
 async function initReplayCanvas(replayId) {
   const token = ++rc.token;
+  rc.video = null;  // 이전 풀 영상 참조 해제 (rcPause 가 옛 영상 건드리지 않게)
   rcPause();
   rc.meta = null; rc.tracks = {}; rc.deathsBy = {}; rc.mapImg = null;
   rc.mode = {}; rc.t = 0; rc.speed = 1; rc.duration = 0;
+  rc.bossEvents = []; rc.videoOffset = 0;
   const msg = $('#rc-msg');
   if (!msg || !replayId) return;
   msg.style.display = '';
@@ -1610,6 +1666,9 @@ async function initReplayCanvas(replayId) {
   for (const d of meta.deaths || []) (rc.deathsBy[d.id] ??= []).push(d.t);
   rc.meta = meta;
   rc.duration = Math.max(Number(meta.duration_s) || 0, frames[frames.length - 1].t);
+  rc.bossEvents = j.boss_events || [];
+  rc.videoOffset = Number(meta.video_offset_s) || 0;
+  rc.video = $('#replay-video');  // 영상 없는 풀(아카이브 등)은 null → 자립 시계
 
   const map = meta.map || {};
   const cv = $('#rc-canvas');
@@ -1637,6 +1696,38 @@ async function initReplayCanvas(replayId) {
   const note = $('#rc-note');
   if (note) note.textContent = notes.join(' · ');
   rcBuildControls();
+  rcBindVideo();
+  const bossBtn = document.querySelector('#replay-ev-filter [data-evmode="boss"]');
+  if (bossBtn) {
+    bossBtn.disabled = !rc.bossEvents.length;
+    bossBtn.title = rc.bossEvents.length ? '' : '이 전투에는 보스 기믹 이벤트가 없습니다';
+  }
+  rcSyncControls();
+  rcDraw();
+}
+
+// 영상 ↔ 캔버스 재생 동기화 (영상이 시계 역할, 캔버스가 따라감)
+function rcBindVideo() {
+  const v = rc.video;
+  if (!v) return;
+  rc.speed = v.playbackRate || 1;
+  const speedBtn = $('#rc-speed');
+  if (speedBtn) speedBtn.textContent = `${rc.speed}x`;
+  v.addEventListener('play', () => { if (!rc.playing) rcPlay(); });
+  v.addEventListener('pause', () => { if (rc.playing) rcPause(); });
+  v.addEventListener('seeked', rcSetFromVideo);
+  v.addEventListener('ratechange', () => {
+    rc.speed = v.playbackRate || 1;
+    if (speedBtn) speedBtn.textContent = `${rc.speed}x`;
+  });
+  rcSetFromVideo();
+  if (!v.paused) rcPlay();  // 프레임 로딩 전에 이미 재생 중이면 이어붙기
+}
+
+// 영상 현재 시각 → 캔버스 시각 (영상 쪽 탐색/재생 반영, 영상은 안 건드림)
+function rcSetFromVideo() {
+  if (!rc.video || !rc.meta) return;
+  rc.t = Math.min(Math.max(0, rc.video.currentTime - rc.videoOffset), rc.duration);
   rcSyncControls();
   rcDraw();
 }
@@ -1654,6 +1745,23 @@ function rcBuildControls() {
       `<i style="left:${(Number(d.t) / Math.max(1, rc.duration) * 100).toFixed(2)}%" title="${rcClock(d.t)} 사망"></i>`
     ).join('');
   }
+  // 보스 기믹 트랙 — 시전=주황, 플레이어 디버프=보라, priority 는 크게
+  const bossTrack = $('#rc-bossevents');
+  if (bossTrack) {
+    const dur = Math.max(1, rc.duration);
+    bossTrack.innerHTML = rc.bossEvents.map((ev, i) => {
+      const who = ev.dest_name ? ` → ${String(ev.dest_name).split('-')[0]}` : '';
+      const cls = `${ev.kind === 'hit' ? 'hit' : 'cast'}${ev.priority ? ' prio' : ''}`;
+      const tip = `${rcClock(ev.t)} ${ev.spell || ''}${who}`;
+      return `<i class="${cls}" data-bi="${i}" style="left:${(Number(ev.t) / dur * 100).toFixed(2)}%" title="${esc(tip)}"></i>`;
+    }).join('');
+    bossTrack.addEventListener('click', e => {
+      const el = e.target.closest('i[data-bi]');
+      if (!el) return;
+      const ev = rc.bossEvents[Number(el.dataset.bi)];
+      if (ev) rcSeek(ev.t);
+    });
+  }
   const play = $('#rc-play');
   if (play) play.addEventListener('click', () => { rc.playing ? rcPause() : rcPlay(); });
   const speed = $('#rc-speed');
@@ -1661,6 +1769,7 @@ function rcBuildControls() {
     speed.addEventListener('click', () => {
       rc.speed = rc.speed >= 4 ? 1 : rc.speed * 2;
       speed.textContent = `${rc.speed}x`;
+      if (rc.video) rc.video.playbackRate = rc.speed;  // 배속도 영상과 동기
     });
   }
   const unitsRoot = $('#rc-units');
@@ -1684,11 +1793,13 @@ function rcBuildControls() {
 
 function rcPlay() {
   if (!rc.meta || rc.playing) return;
-  if (rc.t >= rc.duration - 0.05) rc.t = 0;   // 끝에서 재생 → 처음부터
+  if (!rc.video && rc.t >= rc.duration - 0.05) rc.t = 0;   // 끝에서 재생 → 처음부터
   rc.playing = true;
   rc.lastTs = 0;
   const btn = $('#rc-play');
   if (btn) btn.textContent = '일시정지';
+  // 영상 있는 풀은 영상도 같이 재생 (이미 재생 중이면 no-op → 루프 없음)
+  if (rc.video && rc.video.paused) rc.video.play().catch(() => {});
   rc.raf = requestAnimationFrame(rcStep);
 }
 
@@ -1698,21 +1809,33 @@ function rcPause() {
   rc.raf = 0;
   const btn = $('#rc-play');
   if (btn) btn.textContent = '재생';
+  if (rc.video && !rc.video.paused) rc.video.pause();
 }
 
 function rcStep(ts) {
   if (!rc.playing) return;
-  if (rc.lastTs) rc.t = Math.min(rc.duration, rc.t + (ts - rc.lastTs) / 1000 * rc.speed);
-  rc.lastTs = ts;
+  if (rc.video) {
+    // 영상이 시계 — 탐색/배속/버퍼링이 전부 자동 반영
+    rc.t = Math.min(Math.max(0, rc.video.currentTime - rc.videoOffset), rc.duration);
+  } else {
+    if (rc.lastTs) rc.t = Math.min(rc.duration, rc.t + (ts - rc.lastTs) / 1000 * rc.speed);
+    rc.lastTs = ts;
+  }
   rcSyncControls();
   rcDraw();
-  if (rc.t >= rc.duration) { rcPause(); return; }
+  // 자립 시계만 끝에서 정지 — 영상은 영상 pause/ended 이벤트가 처리
+  if (!rc.video && rc.t >= rc.duration) { rcPause(); return; }
   rc.raf = requestAnimationFrame(rcStep);
 }
 
 function rcSeek(t) {
   if (!rc.meta) return;
   rc.t = Math.min(Math.max(0, Number(t) || 0), rc.duration);
+  if (rc.video) {
+    // 캔버스 쪽 탐색 → 영상도 이동 (같은 값이면 건너뜀 → seeked 루프 방지)
+    const vt = rc.t + rc.videoOffset;
+    if (Math.abs(rc.video.currentTime - vt) > 0.2) rc.video.currentTime = vt;
+  }
   rcSyncControls();
   rcDraw();
 }
@@ -1839,7 +1962,45 @@ function rcDraw() {
       ctx.fillText(label, x, y - r - 10);
     }
   }
+
+  // 보스 기믹: 이벤트 후 3초간 대상 플레이어에 링 + 스킬명 라벨
+  let bannerEv = null;
+  for (const ev of rc.bossEvents) {
+    if (Number(ev.t) > t) break;  // t 오름차순
+    const age = t - Number(ev.t);
+    if (age <= RC_BANNER_S) bannerEv = ev;
+    if (age > RC_RING_S || !ev.dest_id || rc.mode[ev.dest_id] === 2) continue;
+    const pos = rcTrackAt(rc.tracks[ev.dest_id], t);
+    if (!pos || pos.age > RC_STALE_S) continue;
+    const [x, y] = toPx(pos.x, pos.y);
+    const color = ev.kind === 'hit' ? '#b18cf0' : '#e8a34c';
+    const rr = 11 + age * 5;   // 링이 천천히 퍼지며 사라짐
+    ctx.globalAlpha = 0.9 * (1 - age / RC_RING_S);
+    ctx.lineWidth = ev.priority ? 3 : 2;
+    ctx.strokeStyle = color;
+    ctx.beginPath();
+    ctx.arc(x, y, rr, 0, Math.PI * 2);
+    ctx.stroke();
+    const label = String(ev.spell || '');
+    if (label) {
+      ctx.font = 'bold 12px sans-serif';
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#10141a';
+      ctx.strokeText(label, x, y + rr + 11);
+      ctx.fillStyle = color;
+      ctx.fillText(label, x, y + rr + 11);
+    }
+  }
   ctx.globalAlpha = 1;
+
+  // 상단 자막 1줄 — 최근 기믹 (textContent 라 esc 불필요)
+  const banner = $('#rc-banner');
+  if (banner) {
+    const txt = bannerEv
+      ? `${rcClock(bannerEv.t)} ${bannerEv.spell || ''}${bannerEv.dest_name ? ' → ' + String(bannerEv.dest_name).split('-')[0] : ''}`
+      : '';
+    if (banner.textContent !== txt) banner.textContent = txt;
+  }
 }
 
 function switchTab(tab) {
@@ -1897,6 +2058,16 @@ function bind() {
       replayState.selectedId = null;
       replayState.detail = null;
       loadLocalReplays(true);
+    });
+  }
+  // 캡처 목록 접기/펴기 — 영상+리플레이 두 화면이라 공간 확보용
+  const replayListToggle = $('#replay-list-toggle');
+  if (replayListToggle) {
+    replayListToggle.addEventListener('click', () => {
+      const grid = document.querySelector('.replay-grid');
+      if (!grid) return;
+      const collapsed = grid.classList.toggle('list-collapsed');
+      replayListToggle.textContent = collapsed ? '▶ 목록 펴기' : '◀ 목록 접기';
     });
   }
   const replayList = $('#replay-list-body');

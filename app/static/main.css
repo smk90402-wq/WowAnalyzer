@@ -947,7 +947,7 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   text-align: center; padding: 14px; color: var(--text-mute); font-size: 12.5px;
   background: rgba(10, 13, 18, .45); border-radius: 4px;
 }
-.rc-controls { display: flex; align-items: center; gap: 8px; }
+.rc-controls { display: flex; align-items: center; gap: 8px; padding-top: 10px; /* 위 10px = 보스 기믹 트랙 자리 */ }
 .rc-controls button {
   background: var(--bg-1); border: 1px solid var(--border); color: var(--text);
   border-radius: 6px; padding: 5px 11px; cursor: pointer; font-size: 12px;
@@ -958,6 +958,24 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 #rc-scrub { width: 100%; margin: 0; accent-color: var(--accent); }
 #rc-deaths { position: absolute; left: 0; right: 0; top: -5px; height: 5px; pointer-events: none; }
 #rc-deaths i { position: absolute; top: 0; width: 2px; height: 5px; background: #e06c6c; }
+/* 보스 기믹 트랙 (죽음 마커 위) — 시전=주황, 플레이어 디버프=보라 */
+#rc-bossevents { position: absolute; left: 0; right: 0; top: -14px; height: 9px; }
+#rc-bossevents i {
+  position: absolute; bottom: 0; width: 2px; height: 6px;
+  background: #e8a34c; cursor: pointer;
+}
+#rc-bossevents i.hit { background: #b18cf0; }
+#rc-bossevents i.prio { width: 3px; height: 9px; }
+#rc-bossevents i:hover { width: 4px; }
+/* 보스 기믹 자막 (캔버스 상단 1줄) */
+.rc-banner {
+  position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+  max-width: 92%; padding: 3px 12px; border-radius: 999px;
+  background: rgba(10, 13, 18, .74); color: #f0f0f0; font-size: 12px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  pointer-events: none;
+}
+.rc-banner:empty { display: none; }
 #rc-clock { color: var(--text-mute); font-size: 11.5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .rc-units { display: flex; flex-wrap: wrap; gap: 4px; }
 .rc-unit {
@@ -987,6 +1005,16 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .replay-event .rk { color: var(--text-mute); text-transform: uppercase; font-size: 10px; }
 .replay-event .rs, .replay-event .ra, .replay-event .rtg { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .replay-event.damage .rd { color: #e09a87; text-align: right; font-variant-numeric: tabular-nums; }
+/* 이벤트 목록 필터 (전체 / 보스 기믹) */
+.replay-ev-filter { display: flex; gap: 6px; margin-bottom: 8px; }
+.replay-ev-filter button {
+  background: var(--bg-1); border: 1px solid var(--border); color: var(--text);
+  border-radius: 6px; padding: 4px 11px; cursor: pointer; font-size: 12px;
+}
+.replay-ev-filter button.active { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.replay-ev-filter button:disabled { opacity: .4; cursor: default; }
+.replay-event.boss .ra { color: #e8a34c; }
+.replay-event.boss.hit .ra { color: #b18cf0; }
 
 @media (max-width: 1180px) {
   .topbar { align-items: flex-start; flex-wrap: wrap; }
@@ -1202,3 +1230,7 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .s2-nrefs { font-size: 10px; color: var(--text-mute); background: rgba(255,255,255,0.06);
   border-radius: 8px; padding: 1px 6px; }
 .s2-ico { width: 24px; height: 24px; border-radius: 5px; }
+
+/* 캡처 목록 접기 */
+.replay-grid.list-collapsed { grid-template-columns: 1fr; }
+.replay-grid.list-collapsed .replay-list-panel { display: none; }
