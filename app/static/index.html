@@ -17,6 +17,7 @@
       <button class="tab" data-tab="comparison">비교 분석</button>
       <button class="tab" data-tab="meta">메타 분석</button>
       <button class="tab" data-tab="fun">재미 분석</button>
+      <button class="tab" data-tab="s2">시즌2 전망</button>
       <button class="tab" data-tab="rotation">딜사이클</button>
       <button class="tab" data-tab="stats">스탯</button>
       <button class="tab" data-tab="replay">리플레이</button>
@@ -282,6 +283,36 @@
       <div class="spec-modal-card">
         <button class="sm-close" title="닫기 (Esc)">✕</button>
         <div id="fun-detail"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ── 시즌2 전망 (예측·추측 자료집) ─────────────────────────── -->
+  <main class="tab-pane" data-pane="s2" id="pane-s2">
+    <section class="meta-head">
+      <h2>시즌2 (12.1) 전망 <span class="meta-sub">— ★전부 예측·추측입니다 (아직 로그 없음)★. 영상·PTR 자료가 들어올 때마다 갱신되고, 밸런스 패치로 계속 바뀝니다. 레이드와 쐐기는 따로 표기. 줄 클릭 = 출처별 근거.</span></h2>
+    </section>
+    <section class="panel meta-panel">
+      <div class="table-wrap">
+        <table id="s2-table">
+          <thead>
+            <tr>
+              <th data-tip="클래스 / 전문화">스펙</th>
+              <th data-tip="레이드 전망 (S~D, 물음표=자료 부족). ★예측★ — 영상·PTR 자료 종합">레이드<br>전망</th>
+              <th data-tip="쐐기(M+) 전망 (S~D). ★예측★ — 레이드와 따로 봄">쐐기<br>전망</th>
+              <th data-tip="시즌2에서 바뀌는 것 요약 (리워크/티어셋/너프·버프)">주요 변경</th>
+              <th class="right" data-tip="이 스펙을 다룬 자료 수 — 적으면 신뢰도 낮음">자료<br>수</th>
+            </tr>
+          </thead>
+          <tbody id="s2-body"><tr><td colspan="5" class="empty">로딩…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+    <!-- 시즌2 상세 팝업 -->
+    <div id="s2-modal">
+      <div class="spec-modal-card">
+        <button class="sm-close" title="닫기 (Esc)">✕</button>
+        <div id="s2-detail"></div>
       </div>
     </div>
   </main>

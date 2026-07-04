@@ -1,0 +1,1153 @@
+{
+ "_meta": {
+  "generated_by": "tmp_mine_frost_procmap.py",
+  "spec": "Mage|Frost",
+  "zone": 46,
+  "difficulty": "mythic",
+  "partition": "12.0.7",
+  "sample_talents": 885,
+  "sample_event_kills": 302,
+  "naming": "스킬·특성명은 talent_trees.json / spell_db.json 공식 한글명만 사용. 선택지 entry 매핑 근거는 스크립트 docstring.",
+  "no_wcl_api": true
+ },
+ "task1_button_swap_map": [
+  {
+   "kind": "버튼 변신(강화)",
+   "original": "얼음 화살",
+   "becomes": "혹한의 쐐기",
+   "node_id": 109915,
+   "tree": "냉기 전문화",
+   "talent": "고드름",
+   "spell_id": 1246832,
+   "condition": "전투 중 5.4초마다 고드름이 자동으로 1개씩 쌓임(버프 205473). 5개가 모이면 '혹한의 쐐기!' 버프(1222865)가 뜨며 얼음 화살 버튼이 혹한의 쐐기로 강화됨. 시전하면 다시 얼음 화살로.",
+   "duration": "다음 시전까지 유지(자연 만료 없음 — 실측 참조)",
+   "official_desc": "전투 중 주위로 서리가 결정화되어 5.4초마다 고드름을 생성합니다. 고드름이 5번 생성되면 얼음 화살이 혹한의 쐐기로 강화되어, 다음에 시전할 수 있습니다.\n\n 혹한의 쐐기\n거대한 쐐기를 만든 뒤 대상을 꿰뚫어 5,381의 피해를 입히고 8초 동안 대상의 이동 속도를 50%만큼 감소시킵니다.\n\n빙결 3중첩을 부여합니다.",
+   "adoption": {
+    "n": 885,
+    "of": 885,
+    "pct": 100.0,
+    "top20_n": 174,
+    "top20_of": 174,
+    "top20_pct": 100.0
+   },
+   "measured": {
+    "spike_casts_per_fight_med": 10,
+    "buff_hold_med_s": 3.4,
+    "buff_hold_p90_s": 8.6,
+    "buff_hold_n": 3535
+   },
+   "note": "우박(고드름 -1초, 노드 108857)은 0/885, 빙결술사(쐐기+20%, 108852)도 0/885 — 쐐기 강화 노드는 안 찍고 고드름 하나만 100%."
+  },
+  {
+   "kind": "버튼 변신(대체)",
+   "original": "서리 광선",
+   "becomes": "혜성 폭풍",
+   "node_id": 62185,
+   "tree": "냉기 전문화(정점)",
+   "talent": "혜성 폭풍",
+   "spell_id": 1247777,
+   "condition": "특성을 찍으면 서리 광선 버튼 자체가 혜성 폭풍으로 대체",
+   "duration": "상시",
+   "official_desc": "서리 광선 시전 시 서리 광선이 혜성 폭풍으로 대체되어, 대상 및 주변에 얼음 혜성 7개를 연속으로 떨어뜨려 충돌 지점 8미터 내의 모든 적에게 최대 2,472의 냉기 피해를 입힙니다.\n\n각 혜성은 빙결 1중첩을 산산조각 냅니다.",
+   "adoption": {
+    "n": 0,
+    "of": 885,
+    "pct": 0.0,
+    "top20_n": 0,
+    "top20_of": 174,
+    "top20_pct": 0.0
+   },
+   "note": "상위권 채택 0/885, 302킬 시전 0회 — 레이드에서 죽은 선택지."
+  },
+  {
+   "kind": "버튼 성질 변경(선택 노드)",
+   "original": "혹한의 쐐기",
+   "becomes": null,
+   "node_id": 108863,
+   "tree": "냉기 전문화",
+   "options": [
+    {
+     "talent": "빙하의 한기",
+     "spell_id": 1280779,
+     "official_desc": "혹한의 쐐기의 공격력이 5%만큼 증가하고 빙결 2중첩을 추가로 부여합니다."
+    },
+    {
+     "talent": "빙하 분쇄",
+     "spell_id": 1280780,
+     "official_desc": "혹한의 쐐기가 빙결을 부여하지 않으며, 빙결 5중첩을 산산조각 냅니다."
+    }
+   ],
+   "adoption": {
+    "n": 0,
+    "of": 885,
+    "pct": 0.0,
+    "top20_n": 0,
+    "top20_of": 174,
+    "top20_pct": 0.0
+   },
+   "note": "노드 자체가 0/885 — 상위권은 쐐기 성질 변경 없이 기본형(빙결 3중첩 부여)으로 씀."
+  },
+  {
+   "kind": "버튼 성질 변경(선택 노드)",
+   "original": "눈보라",
+   "becomes": null,
+   "node_id": 108864,
+   "tree": "냉기 전문화",
+   "options": [
+    {
+     "talent": "눈보라(위치 지정)",
+     "spell_id": 190356,
+     "entry": 134421,
+     "official_desc": "대상 지역에 얼음 파편을 퍼부어, 10.7초에 걸쳐 1,479의 냉기 피해를 입히고 3초 동안 이동 속도를 50%만큼 감소시킵니다.\n\n이 주문은 지정된 위치에 시전됩니다.",
+     "adoption": {
+      "n": 853,
+      "of": 885,
+      "pct": 96.4,
+      "top20_n": 172,
+      "top20_of": 174,
+      "top20_pct": 98.9
+     }
+    },
+    {
+     "talent": "눈보라(대상 시전)",
+     "spell_id": 1248829,
+     "entry": 134538,
+     "official_desc": "대상 지역에 얼음 파편을 퍼부어, 10.7초에 걸쳐 1,436의 냉기 피해를 입히고 3초 동안 이동 속도를 50%만큼 감소시킵니다.\n\n이 주문은 대상에게 시전됩니다.",
+     "adoption": {
+      "n": 32,
+      "of": 885,
+      "pct": 3.6,
+      "top20_n": 2,
+      "top20_of": 174,
+      "top20_pct": 1.1
+     }
+    }
+   ],
+   "per_boss": {
+    "아베르지안": {
+     "눈보라(위치 지정)": 98,
+     "눈보라(대상 시전)": 2
+    },
+    "보라시우스": {
+     "눈보라(위치 지정)": 94,
+     "눈보라(대상 시전)": 4
+    },
+    "살라다르": {
+     "눈보라(위치 지정)": 93,
+     "눈보라(대상 시전)": 4
+    },
+    "바엘고어": {
+     "눈보라(위치 지정)": 98
+    },
+    "선봉대": {
+     "눈보라(위치 지정)": 96,
+     "눈보라(대상 시전)": 3
+    },
+    "우주의 왕관": {
+     "눈보라(위치 지정)": 94,
+     "눈보라(대상 시전)": 3
+    },
+    "카이메루스": {
+     "눈보라(위치 지정)": 87,
+     "눈보라(대상 시전)": 13
+    },
+    "벨로렌": {
+     "눈보라(위치 지정)": 95,
+     "눈보라(대상 시전)": 2
+    },
+    "한밤의 도래(르우라)": {
+     "눈보라(위치 지정)": 98,
+     "눈보라(대상 시전)": 1
+    }
+   },
+   "measured": {
+    "casts_190356": 200,
+    "casts_1248829": 0,
+    "kills_with_blizzard": 55
+   },
+   "note": "96%가 위치 지정형. 실제 시전도 190356만 관측(대상 시전형 1248829 시전 0회). 눈보라 자체가 302킬 중 55킬에서만 눌린 조연(바엘고어 쌍보스에 집중)."
+  },
+  {
+   "kind": "버튼 성질 변경(선택 노드)",
+   "original": "서리 광선",
+   "becomes": null,
+   "node_id": 103771,
+   "tree": "냉기 전문화",
+   "options": [
+    {
+     "talent": "혹한의 집중",
+     "spell_id": 1247055,
+     "entry": 134418,
+     "official_desc": "서리 광선의 냉기 공격력이 30%만큼 증가합니다.",
+     "adoption": {
+      "n": 789,
+      "of": 885,
+      "pct": 89.2,
+      "top20_n": 154,
+      "top20_of": 174,
+      "top20_pct": 88.5
+     }
+    },
+    {
+     "talent": "갈라지는 광선",
+     "spell_id": 418733,
+     "entry": 128077,
+     "official_desc": "서리 광선이 주위에 있는 적 5명에게 30%의 피해를 입힙니다.",
+     "adoption": {
+      "n": 96,
+      "of": 885,
+      "pct": 10.8,
+      "top20_n": 20,
+      "top20_of": 174,
+      "top20_pct": 11.5
+     }
+    }
+   ],
+   "per_boss": {
+    "아베르지안": {
+     "혹한의 집중": 100
+    },
+    "보라시우스": {
+     "혹한의 집중": 98
+    },
+    "살라다르": {
+     "혹한의 집중": 97
+    },
+    "바엘고어": {
+     "혹한의 집중": 97,
+     "갈라지는 광선": 1
+    },
+    "선봉대": {
+     "갈라지는 광선": 93,
+     "혹한의 집중": 6
+    },
+    "우주의 왕관": {
+     "혹한의 집중": 96,
+     "갈라지는 광선": 1
+    },
+    "카이메루스": {
+     "혹한의 집중": 100
+    },
+    "벨로렌": {
+     "혹한의 집중": 96,
+     "갈라지는 광선": 1
+    },
+    "한밤의 도래(르우라)": {
+     "혹한의 집중": 99
+    }
+   },
+   "note": "단일 대상 8보스는 혹한의 집중(광선 +30%) ~100%, 쫄 웨이브 보스인 선봉대만 갈라지는 광선(주위 5명 30% 피해) 94% — 보스 따라 갈아끼우는 노드."
+  },
+  {
+   "kind": "버튼 성질 변경",
+   "original": "얼음 방패(45438)",
+   "becomes": "얼음장(414658)",
+   "node_id": 62085,
+   "tree": "직업 공용",
+   "talent": "얼음장",
+   "spell_id": 414659,
+   "condition": "특성을 찍으면 얼음 방패 자리가 얼음장으로 — 면역 대신 6초 70% 경감, 이동/시전 가능",
+   "duration": "상시",
+   "official_desc": "얼음 방패 시전 시 6초 동안 받는 모든 피해가 70%만큼 감소하지만 더는 면역 상태가 되지도, 이동, 공격, 주문 시전을 방지하지도 않습니다. 전역 재사용 대기시간을 발동시키지 않습니다.",
+   "adoption": {
+    "n": 883,
+    "of": 885,
+    "pct": 99.8,
+    "top20_n": 173,
+    "top20_of": 174,
+    "top20_pct": 99.4
+   },
+   "measured": {
+    "casts_45438": 3,
+    "casts_414658": 497
+   },
+   "note": "302킬 실측: 얼음장 시전 497회 vs 얼음 방패 시전 3회 — 사실상 전원이 바뀐 버튼을 씀(딜 끊김 없이 경감)."
+  },
+  {
+   "kind": "버튼 변신(대체)",
+   "original": "점멸",
+   "becomes": "일렁임",
+   "node_id": 62105,
+   "tree": "직업 공용",
+   "options": [
+    {
+     "talent": "일렁임",
+     "spell_id": 212653,
+     "entry": 80163,
+     "adoption": {
+      "n": 882,
+      "of": 885,
+      "pct": 99.7,
+      "top20_n": 173,
+      "top20_of": 174,
+      "top20_pct": 99.4
+     },
+     "official_desc": "장애물이 없는 한 20미터 전방으로 순간이동합니다. 전역 재사용 대기시간의 영향을 받지 않고, 다른 주문을 시전하는 중에도 시전할 수 있습니다."
+    },
+    {
+     "talent": "점멸 연마",
+     "spell_id": 1244340,
+     "entry": 134197,
+     "adoption": {
+      "n": 3,
+      "of": 885,
+      "pct": 0.3,
+      "top20_n": 1,
+      "top20_of": 174,
+      "top20_pct": 0.6
+     },
+     "official_desc": "점멸의 재사용 대기시간이 2초만큼 감소합니다."
+    }
+   ],
+   "measured": {
+    "casts_blink": 0,
+    "casts_shimmer": 1927
+   },
+   "note": "99.7%가 일렁임. 302킬에서 점멸 시전 0회·일렁임 1,927회 — 점멸 버튼은 일렁임으로 바뀐다고 보면 됨(시전 중에도 사용 가능)."
+  },
+  {
+   "kind": "버튼 변신(조건부 대체)",
+   "original": "점멸(일렁임)",
+   "becomes": "반영",
+   "node_id": 62094,
+   "tree": "직업 공용",
+   "options": [
+    {
+     "talent": "공간 조작",
+     "spell_id": 1244031,
+     "entry": 126060,
+     "adoption": {
+      "n": 885,
+      "of": 885,
+      "pct": 100.0,
+      "top20_n": 174,
+      "top20_of": 174,
+      "top20_pct": 100.0
+     },
+     "official_desc": "점멸이 추가로 1회 충전됩니다."
+    },
+    {
+     "talent": "반영",
+     "spell_id": 1270829,
+     "entry": null,
+     "adoption": {
+      "n": 0,
+      "of": 885,
+      "pct": 0.0
+     },
+     "official_desc": "점멸 시전 후 8초 동안 반영으로 대체됩니다.\n\n 반영\n최근 점멸을 사용한 지점으로 다시 돌아갑니다. 다른 주문 시전 중에도 시전할 수 있으며, 전역 재사용 대기시간에 영향을 받지 않습니다."
+    }
+   ],
+   "measured": {
+    "casts": 0
+   },
+   "note": "885명 전원 공간 조작(충전 +1). 반영 채택 0, 시전 0회."
+  },
+  {
+   "kind": "2단 버튼(자체 변신)",
+   "original": "시간 돌리기(1타: 표식)",
+   "becomes": "시간 돌리기(2타: 귀환)",
+   "node_id": 62115,
+   "tree": "직업 공용",
+   "talent": "시간 돌리기",
+   "spell_id": 342245,
+   "condition": "첫 시전 시 장소·체력 저장, 두 번째 시전 혹은 10초 후 귀환",
+   "duration": "10초",
+   "official_desc": "시간의 결을 조작하여, 첫 번째 시전할 때의 장소와 체력 상태로 두 번째 시전 시 혹은 10초 후에 돌아오게 합니다. 너무 먼 거리를 이동하거나 죽으면 효과가 취소됩니다.",
+   "adoption": {
+    "n": 885,
+    "of": 885,
+    "pct": 100.0,
+    "top20_n": 174,
+    "top20_of": 174,
+    "top20_pct": 100.0
+   },
+   "measured": {
+    "casts_mark": 362,
+    "casts_return": 487
+   },
+   "note": "로그에도 두 ID가 따로 찍힘(1타 342245, 2타/귀환 342247)."
+  },
+  {
+   "kind": "버튼 성질 변경(선택 노드)",
+   "original": "시간 돌리기",
+   "becomes": null,
+   "node_id": 108654,
+   "tree": "직업 공용",
+   "options": [
+    {
+     "talent": "시간 걸음",
+     "spell_id": 1244087,
+     "entry": 134183,
+     "adoption": {
+      "n": 801,
+      "of": 885,
+      "pct": 90.5,
+      "top20_n": 158,
+      "top20_of": 174,
+      "top20_pct": 90.8
+     },
+     "official_desc": "원래 위치로 돌아오면 시간 돌리기가 점멸 및 일렁임의 재사용 대기시간을 초기화합니다."
+    },
+    {
+     "talent": "시간 재정렬",
+     "spell_id": 1244090,
+     "entry": 134182,
+     "adoption": {
+      "n": 83,
+      "of": 885,
+      "pct": 9.4,
+      "top20_n": 16,
+      "top20_of": 174,
+      "top20_pct": 9.2
+     },
+     "official_desc": "생명력이 25% 미만으로 떨어지면 과거의 자신이 시간의 길을 교정하여, 시간 돌리기를 시전하고 즉시 최대 생명력의 50%를 회복합니다."
+    }
+   ],
+   "note": "90%가 시간 걸음(귀환 시 점멸/일렁임 쿨 초기화 — 기동성). 시간 재정렬(체력 25% 미만 자동 발동+50% 회복)은 9%가 보험용으로."
+  },
+  {
+   "kind": "버튼 변신(강화)",
+   "original": "얼음불꽃 화살",
+   "becomes": "얼음불꽃 화살(즉시+60%)",
+   "node_id": 94641,
+   "tree": "서리불꽃 영웅트리 계열",
+   "talent": "서리불꽃 강화",
+   "spell_id": 431176,
+   "condition": "서리불꽃 주문 시전 시 10% 확률",
+   "official_desc": "서리불꽃 주문 시전 시 10%의 확률로 서리불꽃 강화가 활성화되어 다음 얼음불꽃 화살이 즉시 시전되며 60%의 추가 피해를 입히고, 적중 시 폭발하여 주위의 적에게 입힌 피해의 60%에 해당하는 피해를 입힙니다. 5명을 초과하는 대상에게는 감소된 피해를 입힙니다.\n\n서리불꽃 강화로 피해를 입히면 빙결 1중첩을 부여합니다.",
+   "adoption": {
+    "n": 0,
+    "of": 885,
+    "pct": 0.0,
+    "top20_n": 0,
+    "top20_of": 174,
+    "top20_pct": 0.0
+   },
+   "note": "냉법 상위권 885명 전원 주문술사 영웅트리 — 서리불꽃 계열(얼음불꽃 화살 포함)은 채택 0."
+  }
+ ],
+ "task2_proc_action_map": {
+  "기본기_읽기전_배경": {
+   "산산조각_체계": {
+    "spell_id": 1246769,
+    "name": "산산조각",
+    "text": "얼음 화살 및 진눈깨비로 피해를 입히면 대상에게 빙결을 부여합니다. 최대 20번까지 중첩됩니다.\n\n얼음창으로 피해를 입히면 적을 산산조각 내 빙결 4중첩을 소모하고, 제거된 중첩 하나당 375의 냉기 피해를 입힙니다.",
+    "source": "Blizzard API spell 1246769 (기본 지속효과, 트리 밖)"
+   },
+   "특화": {
+    "spell_id": 1246752,
+    "name": "특화: 빙결과 산산조각",
+    "text": "적을 빙결 상태로 만드는 주문의 공격력이 32%만큼 증가합니다.\n\n적을 산산조각 내는 주문의 공격력이 32%만큼 증가합니다.",
+    "source": "Blizzard API spell 1246752"
+   },
+   "쉬운_설명": "냉법의 뼈대: 얼음 화살·진눈깨비(등)가 적에게 '빙결'을 쌓고(최대 20중첩), 얼음창이 빙결 4중첩을 '산산조각'내 중첩당 추가 피해를 뽑는다. 아래 프록들은 전부 이 쌓기→깨기 순환의 어딘가를 강화한다."
+  },
+  "procs": [
+   {
+    "name": "서리의 손가락",
+    "buff_id": 44544,
+    "talent_node": 62164,
+    "talent_spell": 112965,
+    "adoption": {
+     "n": 885,
+     "of": 885,
+     "pct": 100.0,
+     "top20_n": 174,
+     "top20_of": 174,
+     "top20_pct": 100.0
+    },
+    "official_tooltip_buff": "서리의 손가락\n100 야드 사정거리\n즉시마법사 필요요구 레벨 1\n[얼음불꽃 화살 / 얼음 화살] 시전 시 15%의 확률로 서리의 손가락 충전이 부여됩니다.\n\n서리의 손가락은 다음 얼음창 시전 시 빙결 4중첩과 같은 산산조각 피해를 입히게 하는 한편, 빙결 중첩을 소모하지는 않습니다.\n\n최대 2번 충전됩니다.",
+    "official_desc_talent": "얼음 화살 시전 시 15%의 확률로 서리의 손가락 충전이 부여됩니다.\n\n서리의 손가락은 다음 얼음창 시전 시 빙결 4중첩과 같은 산산조각 피해를 입히게 하는 한편, 빙결 중첩을 소모하지는 않습니다.\n\n최대 2번 충전됩니다.",
+    "trigger": "얼음 화살 시전 시 15% 확률(얼어붙은 손길로 25% 더 자주 발동). 그 외 부여원: 혹한의 쐐기 시전 시 100%(순간 빙결), 얼어붙은 구슬 시전 시 1중첩+구슬이 피해를 입힐 때 3%(영원한 서리), 서리 광선 지속 중 2중첩(결정화된 굴절), 티어 2세트: 진눈깨비 시전 시 10%.",
+    "effect": "별도 스킬이 아니고 버튼도 안 바뀜 — 내 몸에 붙는 충전형 버프(최대 2충전). 이게 있으면 '다음 얼음창'이 대상의 빙결 중첩과 무관하게 '빙결 4중첩을 산산조각 낸 것과 같은' 강화 피해로 들어가고, 실제 빙결 중첩은 소모하지 않는다. 티어 4세트로 이 산산조각 피해 +15%.",
+    "consumed_by": "얼음창 (시전 1회당 1충전 소모)",
+    "explain_easy": "처음 보는 사람용: 얼음창은 원래 '빙결이 쌓인 적'에게 써야 아픈 기술인데, 서리의 손가락 버프가 있으면 아무 때나 얼음창을 꽂아도 최대 위력(빙결 4중첩 산산조각)으로 들어간다. 그래서 냉법 화면에 이 버프가 뜨면 = '얼음창 공짜 강타권 1장'. 2장까지 저장되니 안 쓰고 묵히면 새 프록이 증발한다(실측: 상위권도 획득의 3.9%는 낭비, 대부분 2충전 상태 겹침).",
+    "measured_ref": "frost_proc_timing.json — 소모까지 중앙 1.76초, 3초 내 소모 84.5%, 분당 획득 14.9회"
+   },
+   {
+    "name": "두뇌 빙결",
+    "buff_id": 190446,
+    "talent_node": 62179,
+    "talent_spell": 190447,
+    "adoption": {
+     "n": 885,
+     "of": 885,
+     "pct": 100.0,
+     "top20_n": 174,
+     "top20_of": 174,
+     "top20_pct": 100.0
+    },
+    "official_tooltip_buff": "두뇌 빙결\n100 야드 사정거리\n즉시마법사 필요요구 레벨 10\n[얼음불꽃 화살 / 얼음 화살] 시전 시 25%의 확률로 진눈깨비의 남은 재사용 대기시간이 초기화되고, 다음 진눈깨비의 공격력이 50%만큼 증가합니다.",
+    "official_desc_talent": "얼음 화살 시전 시 25%의 확률로 진눈깨비의 남은 재사용 대기시간이 초기화되고, 다음 진눈깨비의 공격력이 50%만큼 증가합니다.",
+    "trigger": "얼음 화살 시전 시 25% 확률(얼어붙은 손길로 +20% 더 자주). 겨울해일(885명 전원 채택): 얼어붙은 구슬 시전 시 100% 부여 — 실측 302킬에서 구슬 직후 1.5초 내 두뇌 빙결 부여 확인.",
+    "effect": "진눈깨비의 남은 쿨이 초기화되고, 다음 진눈깨비 공격력 +50%. 버튼은 그대로 진눈깨비 — '지금 눌러도 됨' 신호등.",
+    "consumed_by": "진눈깨비 (강화 소모) → 소모하면 열기 동공이 뜸(아래)",
+    "explain_easy": "진눈깨비 쿨 리셋+강화 티켓. 진눈깨비는 빙결 3중첩을 쌓아주는 핵심 셋업기라, 두뇌 빙결이 뜨면 '진눈깨비→얼음창' 콤보를 바로 돌리라는 뜻.",
+    "measured_ref": "frost_proc_timing.json — 소모까지 중앙 1.27초, 3초 내 89.1%, 낭비 3.3%"
+   },
+   {
+    "name": "열기 동공",
+    "buff_id": 1247730,
+    "talent_node": 62182,
+    "talent_spell": 1247729,
+    "adoption": {
+     "n": 885,
+     "of": 885,
+     "pct": 100.0,
+     "top20_n": 174,
+     "top20_of": 174,
+     "top20_pct": 100.0
+    },
+    "official_tooltip_buff": "열기 동공\n즉시마법사 필요두뇌 빙결을 소모하면 100%의 확률로 다음 얼음창이 빙결 4중첩을 추가로 산산조각 냅니다.",
+    "official_desc_talent": "두뇌 빙결을 소모하면 100%의 확률로 다음 얼음창이 빙결 4중첩을 추가로 산산조각 냅니다.",
+    "trigger": "두뇌 빙결을 소모하면(=강화 진눈깨비를 쓰면) 100%",
+    "effect": "다음 얼음창이 빙결 4중첩을 '추가로' 산산조각 — 한 번에 8중첩 분량을 깬다.",
+    "consumed_by": "얼음창",
+    "explain_easy": "두뇌 빙결→진눈깨비 뒤에는 얼음창이 두 배로 아파진다. 진눈깨비(빙결 3~4중첩 적립)→얼음창(중첩+열기 동공 동시 정산) 순서를 지키면 자동으로 소모되는 구조라 따로 관리할 건 없음."
+   },
+   {
+    "name": "빗발치는 냉기",
+    "buff_id": 270232,
+    "talent_node": 108860,
+    "talent_spell": 270233,
+    "adoption": {
+     "n": 4,
+     "of": 885,
+     "pct": 0.5,
+     "top20_n": 1,
+     "top20_of": 174,
+     "top20_pct": 0.6
+    },
+    "official_tooltip_buff": "빗발치는 냉기\n즉시마법사 필요얼어붙은 구슬 시전 시 눈보라가 즉시 시전됩니다.\n\n눈보라의 공격력이 20%만큼 증가합니다.",
+    "official_desc_talent": "얼어붙은 구슬 시전 시 눈보라가 즉시 시전됩니다.\n\n눈보라의 공격력이 20%만큼 증가합니다.",
+    "trigger": "얼어붙은 구슬 시전 시",
+    "effect": "눈보라가 즉시 시전되고(시전바 생략) 눈보라 공격력 +20%.",
+    "consumed_by": "눈보라",
+    "explain_easy": "★상위권이 안 찍는 특성★ — 채택 4/885(0.5%), 버프 관측도 302킬 중 1킬. 이번 시즌 눈보라 자체가 거의 안 눌리는(302킬 중 55킬, 대부분 바엘고어) 조연이라 가이드에서 다룰 필요 없음."
+   },
+   {
+    "name": "차디찬 손길",
+    "buff_id": 1263263,
+    "talent_node": 110422,
+    "talent_spell": 1262935,
+    "adoption": {
+     "n": 885,
+     "of": 885,
+     "pct": 100.0,
+     "top20_n": 174,
+     "top20_of": 174,
+     "top20_pct": 100.0
+    },
+    "official_tooltip_buff": "차디찬 손길\n즉시마법사 필요산산조각 내는 빙결 중첩 하나당 차디찬 손길이 소환될 확률이 1.0%만큼 추가로 증가합니다.\n\n차디찬 손길로 피해를 입히면 8초 동안 주문 공격력이 1%만큼 증가합니다. 여러 번 사용 시 효과가 중첩됩니다.",
+    "official_desc_talent": "적을 산산조각 내면 10%의 확률로 차디찬 손길을 소환해 대상을 추적하게 하여 접촉 시 1,990의 냉기 피해를 입히고 빙결 1중첩을 부여합니다.",
+    "trigger": "적을 산산조각 낼 때 10% 확률로 유령(차디찬 손길)이 자동 소환 — 깬 빙결 중첩 하나당 확률 +1%p(버프 툴팁).",
+    "effect": "유령이 적을 추적해 피해+빙결 1중첩. 유령이 피해를 입힐 때마다 내게 '주문 공격력 +1%' 8초 중첩 버프(1263263)가 쌓임 — 화면에 뜨는 버프는 이것.",
+    "consumed_by": "없음(소모형 아님 — 자동 축적/자동 만료)",
+    "explain_easy": "누르는 것도, 아껴 쓸 것도 없음. 얼음창을 정상적으로 돌리면 알아서 유령이 나오고 알아서 딜이 오른다. 302킬 전 킬에서 관측(버프 이벤트 6.5만 회) — '내 버프창에 자꾸 뜨는 저게 뭐지' 답변용."
+   },
+   {
+    "name": "공허파괴자의 합의 2세트(티어)",
+    "buff_id": 44544,
+    "adoption": "885/885 (2부위 이상)",
+    "official_text": {
+     "text": "진눈깨비의 공격력이 10%만큼 증가하며, 진눈깨비 시전 시 10%의 확률로 서리의 손가락이 부여됩니다.",
+     "source": "Blizzard API spell 1264836 (아이템 세트 엔드포인트는 비전 문구만 반환)"
+    },
+    "trigger": "진눈깨비 시전 시 10% 확률",
+    "effect": "새 버프가 아니라 기존 '서리의 손가락' 충전을 부여 + 진눈깨비 공격력 +10%.",
+    "consumed_by": "얼음창 (서리의 손가락과 동일)",
+    "explain_easy": "티어를 입으면 서리의 손가락이 더 자주 뜬다 — 관리법은 그대로(얼음창으로 소모)."
+   },
+   {
+    "name": "공허파괴자의 합의 4세트(티어)",
+    "buff_id": null,
+    "adoption": "882/885 (4부위 이상)",
+    "official_text": {
+     "text": "서리의 손가락이 산산조각의 공격력을 15%만큼 증가시킵니다.",
+     "source": "Blizzard API spell 1264837"
+    },
+    "trigger": "서리의 손가락 보유 중 (패시브)",
+    "effect": "서리의 손가락이 산산조각 공격력을 +15% — 수치 강화만, 새 버프·버튼 없음.",
+    "consumed_by": "없음",
+    "explain_easy": "서리의 손가락 얼음창이 더 아파진다는 뜻. 행동 변화 없음."
+   }
+  ]
+ },
+ "task3_burst_alignment": {
+  "n_kills": 302,
+  "bands": {
+   "rank_1_20": 174,
+   "rank_21_100": 128
+  },
+  "usage_cadence": {
+   "trinket(무위의 시야, 90s쿨)": {
+    "first_use_med_s": 1.5,
+    "gap_med_s": 94.2,
+    "gap_within_cd_plus3_pct": 43.9,
+    "hold_beyond_cd_med_s": 4.2,
+    "uses_per_fight_med": 3,
+    "efficiency_med": 0.78
+   },
+   "ray(서리 광선, 표기 60s쿨-빙하 작용 단축)": {
+    "first_use_med_s": 1.9,
+    "gap_med_s": 39.1,
+    "gap_within_cd_plus3_pct": 91.4,
+    "hold_beyond_cd_med_s": 0.0,
+    "uses_per_fight_med": 8,
+    "efficiency_med": 1.41
+   },
+   "orb(얼어붙은 구슬, 60s쿨)": {
+    "first_use_med_s": 4.9,
+    "gap_med_s": 32.4,
+    "gap_within_cd_plus3_pct": 98.7,
+    "hold_beyond_cd_med_s": 0.0,
+    "uses_per_fight_med": 9,
+    "efficiency_med": 1.54
+   },
+   "potion(무모함의 물약, 5분쿨)": {
+    "first_use_med_s": 1.3,
+    "gap_med_s": 315.2,
+    "gap_within_cd_plus3_pct": 25.9,
+    "hold_beyond_cd_med_s": 15.2,
+    "uses_per_fight_med": 1,
+    "efficiency_med": 0.6
+   }
+  },
+  "opener": {
+   "trinket_first_med_s": 1.5,
+   "trinket_first_within5s_pct": 79.2,
+   "potion_first_med_s": 1.3,
+   "ray_first_med_s": 1.9,
+   "orb_first_med_s": 4.9
+  },
+  "overall": {
+   "trinket_to_ray": {
+    "w5": {
+     "uses": 994,
+     "within_s": 5,
+     "back_s": 0.0,
+     "observed_pct": 74.9,
+     "random_pct": 13.1,
+     "lift": 5.73,
+     "delta_med_s": 0.7,
+     "delta_p75_s": 4.5
+    },
+    "w10": {
+     "uses": 973,
+     "within_s": 10,
+     "back_s": 0.0,
+     "observed_pct": 84.6,
+     "random_pct": 25.4,
+     "lift": 3.33,
+     "delta_med_s": 0.7,
+     "delta_p75_s": 4.5
+    },
+    "w15": {
+     "uses": 946,
+     "within_s": 15,
+     "back_s": 0.0,
+     "observed_pct": 89.6,
+     "random_pct": 36.7,
+     "lift": 2.45,
+     "delta_med_s": 0.7,
+     "delta_p75_s": 4.5
+    }
+   },
+   "trinket_to_ray_incl_channeling": {
+    "uses": 973,
+    "within_s": 10,
+    "back_s": 4.0,
+    "observed_pct": 87.5,
+    "random_pct": 35.7,
+    "lift": 2.45,
+    "delta_med_s": 0.7,
+    "delta_p75_s": 4.5
+   },
+   "trinket_to_orb": {
+    "w5": {
+     "uses": 994,
+     "within_s": 5,
+     "back_s": 0.0,
+     "observed_pct": 26.2,
+     "random_pct": 15.3,
+     "lift": 1.71,
+     "delta_med_s": 10.4,
+     "delta_p75_s": 22.2
+    },
+    "w10": {
+     "uses": 973,
+     "within_s": 10,
+     "back_s": 0.0,
+     "observed_pct": 47.7,
+     "random_pct": 29.5,
+     "lift": 1.62,
+     "delta_med_s": 10.4,
+     "delta_p75_s": 22.2
+    },
+    "w15": {
+     "uses": 946,
+     "within_s": 15,
+     "back_s": 0.0,
+     "observed_pct": 58.5,
+     "random_pct": 43.5,
+     "lift": 1.34,
+     "delta_med_s": 10.4,
+     "delta_p75_s": 22.4
+    }
+   },
+   "ray_in_trinket_window": {
+    "casts": 2445,
+    "observed_in_window_pct": 45.3,
+    "window_share_of_fight_pct": 16.8,
+    "lift": 2.7
+   },
+   "orb_in_trinket_window": {
+    "casts": 2735,
+    "observed_in_window_pct": 20.7,
+    "window_share_of_fight_pct": 16.8,
+    "lift": 1.24
+   },
+   "ray_in_potion_window": {
+    "casts": 1963,
+    "observed_in_window_pct": 27.9,
+    "window_share_of_fight_pct": 12.8,
+    "lift": 2.18
+   },
+   "orb_in_potion_window": {
+    "casts": 2167,
+    "observed_in_window_pct": 20.9,
+    "window_share_of_fight_pct": 12.8,
+    "lift": 1.64
+   },
+   "ray_in_timewarp": {
+    "casts": 1608,
+    "observed_in_window_pct": 48.8,
+    "window_share_of_fight_pct": 44.3,
+    "lift": 1.1
+   },
+   "orb_in_timewarp": {
+    "casts": 1830,
+    "observed_in_window_pct": 47.3,
+    "window_share_of_fight_pct": 44.3,
+    "lift": 1.07
+   }
+  },
+  "rank_1_20": {
+   "trinket_to_ray": {
+    "w5": {
+     "uses": 571,
+     "within_s": 5,
+     "back_s": 0.0,
+     "observed_pct": 75.5,
+     "random_pct": 13.1,
+     "lift": 5.78,
+     "delta_med_s": 0.7,
+     "delta_p75_s": 4.2
+    },
+    "w10": {
+     "uses": 563,
+     "within_s": 10,
+     "back_s": 0.0,
+     "observed_pct": 85.8,
+     "random_pct": 25.3,
+     "lift": 3.39,
+     "delta_med_s": 0.7,
+     "delta_p75_s": 4.2
+    },
+    "w15": {
+     "uses": 548,
+     "within_s": 15,
+     "back_s": 0.0,
+     "observed_pct": 90.9,
+     "random_pct": 36.4,
+     "lift": 2.5,
+     "delta_med_s": 0.7,
+     "delta_p75_s": 4.1
+    }
+   },
+   "trinket_to_ray_incl_channeling": {
+    "uses": 563,
+    "within_s": 10,
+    "back_s": 4.0,
+    "observed_pct": 88.3,
+    "random_pct": 35.5,
+    "lift": 2.49,
+    "delta_med_s": 0.7,
+    "delta_p75_s": 4.2
+   },
+   "trinket_to_orb": {
+    "w5": {
+     "uses": 571,
+     "within_s": 5,
+     "back_s": 0.0,
+     "observed_pct": 26.4,
+     "random_pct": 15.3,
+     "lift": 1.73,
+     "delta_med_s": 10.4,
+     "delta_p75_s": 22.0
+    },
+    "w10": {
+     "uses": 563,
+     "within_s": 10,
+     "back_s": 0.0,
+     "observed_pct": 47.4,
+     "random_pct": 29.5,
+     "lift": 1.61,
+     "delta_med_s": 10.4,
+     "delta_p75_s": 22.0
+    },
+    "w15": {
+     "uses": 548,
+     "within_s": 15,
+     "back_s": 0.0,
+     "observed_pct": 57.8,
+     "random_pct": 43.6,
+     "lift": 1.33,
+     "delta_med_s": 10.4,
+     "delta_p75_s": 22.1
+    }
+   },
+   "ray_in_trinket_window": {
+    "casts": 1400,
+    "observed_in_window_pct": 46.7,
+    "window_share_of_fight_pct": 16.8,
+    "lift": 2.77
+   },
+   "orb_in_trinket_window": {
+    "casts": 1573,
+    "observed_in_window_pct": 20.7,
+    "window_share_of_fight_pct": 16.8,
+    "lift": 1.23
+   },
+   "ray_in_potion_window": {
+    "casts": 1113,
+    "observed_in_window_pct": 28.4,
+    "window_share_of_fight_pct": 12.8,
+    "lift": 2.22
+   },
+   "orb_in_potion_window": {
+    "casts": 1235,
+    "observed_in_window_pct": 20.6,
+    "window_share_of_fight_pct": 12.8,
+    "lift": 1.61
+   },
+   "ray_in_timewarp": {
+    "casts": 924,
+    "observed_in_window_pct": 49.2,
+    "window_share_of_fight_pct": 44.8,
+    "lift": 1.1
+   },
+   "orb_in_timewarp": {
+    "casts": 1059,
+    "observed_in_window_pct": 47.3,
+    "window_share_of_fight_pct": 44.8,
+    "lift": 1.06
+   }
+  },
+  "rank_21_100": {
+   "trinket_to_ray": {
+    "w5": {
+     "uses": 423,
+     "within_s": 5,
+     "back_s": 0.0,
+     "observed_pct": 74.2,
+     "random_pct": 13.1,
+     "lift": 5.66,
+     "delta_med_s": 0.6,
+     "delta_p75_s": 4.9
+    },
+    "w10": {
+     "uses": 410,
+     "within_s": 10,
+     "back_s": 0.0,
+     "observed_pct": 82.9,
+     "random_pct": 25.6,
+     "lift": 3.24,
+     "delta_med_s": 0.6,
+     "delta_p75_s": 4.9
+    },
+    "w15": {
+     "uses": 398,
+     "within_s": 15,
+     "back_s": 0.0,
+     "observed_pct": 87.9,
+     "random_pct": 37.0,
+     "lift": 2.37,
+     "delta_med_s": 0.6,
+     "delta_p75_s": 5.0
+    }
+   },
+   "trinket_to_ray_incl_channeling": {
+    "uses": 410,
+    "within_s": 10,
+    "back_s": 4.0,
+    "observed_pct": 86.3,
+    "random_pct": 36.1,
+    "lift": 2.39,
+    "delta_med_s": 0.6,
+    "delta_p75_s": 4.9
+   },
+   "trinket_to_orb": {
+    "w5": {
+     "uses": 423,
+     "within_s": 5,
+     "back_s": 0.0,
+     "observed_pct": 25.8,
+     "random_pct": 15.3,
+     "lift": 1.68,
+     "delta_med_s": 10.3,
+     "delta_p75_s": 22.8
+    },
+    "w10": {
+     "uses": 410,
+     "within_s": 10,
+     "back_s": 0.0,
+     "observed_pct": 48.0,
+     "random_pct": 29.5,
+     "lift": 1.63,
+     "delta_med_s": 10.4,
+     "delta_p75_s": 23.0
+    },
+    "w15": {
+     "uses": 398,
+     "within_s": 15,
+     "back_s": 0.0,
+     "observed_pct": 59.3,
+     "random_pct": 43.5,
+     "lift": 1.36,
+     "delta_med_s": 10.4,
+     "delta_p75_s": 23.4
+    }
+   },
+   "ray_in_trinket_window": {
+    "casts": 1045,
+    "observed_in_window_pct": 43.4,
+    "window_share_of_fight_pct": 16.7,
+    "lift": 2.61
+   },
+   "orb_in_trinket_window": {
+    "casts": 1162,
+    "observed_in_window_pct": 20.7,
+    "window_share_of_fight_pct": 16.7,
+    "lift": 1.25
+   },
+   "ray_in_potion_window": {
+    "casts": 850,
+    "observed_in_window_pct": 27.2,
+    "window_share_of_fight_pct": 12.7,
+    "lift": 2.13
+   },
+   "orb_in_potion_window": {
+    "casts": 932,
+    "observed_in_window_pct": 21.4,
+    "window_share_of_fight_pct": 12.7,
+    "lift": 1.68
+   },
+   "ray_in_timewarp": {
+    "casts": 684,
+    "observed_in_window_pct": 48.1,
+    "window_share_of_fight_pct": 43.6,
+    "lift": 1.1
+   },
+   "orb_in_timewarp": {
+    "casts": 771,
+    "observed_in_window_pct": 47.2,
+    "window_share_of_fight_pct": 43.6,
+    "lift": 1.08
+   }
+  },
+  "per_boss_trinket_ray": {
+   "아베르지안": {
+    "n": 35,
+    "trinket_to_ray_w10": {
+     "uses": 83,
+     "within_s": 10,
+     "back_s": 0.0,
+     "observed_pct": 92.8,
+     "random_pct": 26.9,
+     "lift": 3.45,
+     "delta_med_s": 0.4,
+     "delta_p75_s": 0.9
+    }
+   },
+   "카이메루스": {
+    "n": 35,
+    "trinket_to_ray_w10": {
+     "uses": 68,
+     "within_s": 10,
+     "back_s": 0.0,
+     "observed_pct": 89.7,
+     "random_pct": 29.3,
+     "lift": 3.06,
+     "delta_med_s": 0.7,
+     "delta_p75_s": 2.5
+    }
+   },
+   "벨로렌": {
+    "n": 35,
+    "trinket_to_ray_w10": {
+     "uses": 111,
+     "within_s": 10,
+     "back_s": 0.0,
+     "observed_pct": 87.4,
+     "random_pct": 25.2,
+     "lift": 3.47,
+     "delta_med_s": 1.5,
+     "delta_p75_s": 6.1
+    }
+   },
+   "보라시우스": {
+    "n": 33,
+    "trinket_to_ray_w10": {
+     "uses": 90,
+     "within_s": 10,
+     "back_s": 0.0,
+     "observed_pct": 87.8,
+     "random_pct": 25.0,
+     "lift": 3.51,
+     "delta_med_s": 0.5,
+     "delta_p75_s": 1.2
+    }
+   },
+   "살라다르": {
+    "n": 33,
+    "trinket_to_ray_w10": {
+     "uses": 87,
+     "within_s": 10,
+     "back_s": 0.0,
+     "observed_pct": 80.5,
+     "random_pct": 25.3,
+     "lift": 3.19,
+     "delta_med_s": 0.7,
+     "delta_p75_s": 5.2
+    }
+   },
+   "선봉대": {
+    "n": 33,
+    "trinket_to_ray_w10": {
+     "uses": 122,
+     "within_s": 10,
+     "back_s": 0.0,
+     "observed_pct": 87.7,
+     "random_pct": 27.3,
+     "lift": 3.22,
+     "delta_med_s": 0.6,
+     "delta_p75_s": 2.2
+    }
+   },
+   "우주의 왕관": {
+    "n": 33,
+    "trinket_to_ray_w10": {
+     "uses": 148,
+     "within_s": 10,
+     "back_s": 0.0,
+     "observed_pct": 85.8,
+     "random_pct": 23.5,
+     "lift": 3.65,
+     "delta_med_s": 0.7,
+     "delta_p75_s": 4.5
+    }
+   },
+   "한밤의 도래(르우라)": {
+    "n": 33,
+    "trinket_to_ray_w10": {
+     "uses": 158,
+     "within_s": 10,
+     "back_s": 0.0,
+     "observed_pct": 82.9,
+     "random_pct": 23.2,
+     "lift": 3.57,
+     "delta_med_s": 1.4,
+     "delta_p75_s": 5.8
+    }
+   },
+   "바엘고어": {
+    "n": 32,
+    "trinket_to_ray_w10": {
+     "uses": 106,
+     "within_s": 10,
+     "back_s": 0.0,
+     "observed_pct": 69.8,
+     "random_pct": 26.2,
+     "lift": 2.66,
+     "delta_med_s": 0.8,
+     "delta_p75_s": 14.6
+    }
+   }
+  },
+  "spike_measured": {
+   "spike_casts_per_fight_med": 10,
+   "buff_hold_med_s": 3.4,
+   "buff_hold_p90_s": 8.6,
+   "buff_hold_n": 3535
+  },
+  "sanity_checks": {
+   "겨울해일(구슬→두뇌 빙결 1.5s 내)": {
+    "orb_casts": 2923,
+    "bf_within_1p5s_pct": 100.0,
+    "comment": "entry 80237=겨울해일 매핑 교차 검증(885명 전원 채택)"
+   },
+   "blink_vs_shimmer_casts": {
+    "점멸(1953)": 0,
+    "일렁임(212653)": 1927
+   },
+   "반영(1270829)_casts": 0,
+   "눈보라_casts": {
+    "190356(위치)": 200,
+    "1248829(대상)": 0
+   },
+   "얼음방패_vs_얼음장_casts": {
+    "얼음 방패(45438)": 3,
+    "얼음장(414658)": 497
+   },
+   "시간돌리기_casts": {
+    "1타(342245)": 362,
+    "2타/귀환(342247)": 487
+   }
+  }
+ },
+ "conclusion": {
+  "질문": "냉법은 서리 광선/얼어붙은 구슬을 장신구·물약 버프에 맞춰 설계해서 쓰는 스펙인가, 그냥 쿨마다 던지는 스펙인가?",
+  "수치": {
+   "장신구 후 5초 내 광선": "관측 74.9% vs 무작위 기대 13.1% (lift 5.73, 지연 중앙 0.7s)",
+   "장신구 후 10초 내 광선": "관측 84.6% vs 무작위 기대 25.4% (lift 3.33)",
+   "장신구 후 10초 내 구슬": "관측 47.7% vs 무작위 기대 29.5% (lift 1.62, 지연 중앙 10.4s)",
+   "광선이 장신구 15초 창 안에서 나간 비율": "45.3% (창의 전투 점유율 16.8%, lift 2.7)",
+   "광선이 물약 30초 창 안": "27.9% (점유율 12.8%, lift 2.18)",
+   "광선이 시간 왜곡 창 안": "48.8% (점유율 44.3%, lift 1.1)",
+   "밴드 비교(장신구→광선 10s)": "rank1-20 85.8% vs rank21-100 82.9% (lift 3.39 vs 3.24)",
+   "장신구 사용 간격": {
+    "first_use_med_s": 1.5,
+    "gap_med_s": 94.2,
+    "gap_within_cd_plus3_pct": 43.9,
+    "hold_beyond_cd_med_s": 4.2,
+    "uses_per_fight_med": 3,
+    "efficiency_med": 0.78
+   },
+   "광선 사용 간격": {
+    "first_use_med_s": 1.9,
+    "gap_med_s": 39.1,
+    "gap_within_cd_plus3_pct": 91.4,
+    "hold_beyond_cd_med_s": 0.0,
+    "uses_per_fight_med": 8,
+    "efficiency_med": 1.41
+   },
+   "구슬 사용 간격": {
+    "first_use_med_s": 4.9,
+    "gap_med_s": 32.4,
+    "gap_within_cd_plus3_pct": 98.7,
+    "hold_beyond_cd_med_s": 0.0,
+    "uses_per_fight_med": 9,
+    "efficiency_med": 1.54
+   }
+  },
+  "판정": [
+   "서리 광선 = '장신구에 맞춰 설계'가 맞다. 장신구를 누르면 중앙 0.7초 만에 광선이 나가고(5초 내 74.9%), 무작위 기대치의 5.73배. 광선의 45.3%가 장신구 15초 창 안에서 나감(우연 기대 16.8%).",
+   "방향은 '광선을 오래 쥐고 기다린다'기보다 '장신구를 광선에 붙여 누른다'에 가깝다 — 광선 간격의 91.4%가 쿨+3초 안(사실상 쿨마다)이고, 장신구는 쿨(90초)보다 중앙 4.2초 늦게 눌러 광선 타이밍에 맞춘다.",
+   "얼어붙은 구슬 = '쿨마다'가 맞다. 간격의 98.7%가 쿨 즉시(중앙 32.4초 — 영웅트리 '비전냉기의 가르침'(쇄편 피해마다 구슬 쿨 -0.25초, 885명 전원 채택)이 표기 60초를 크게 앞당김. 얼음창의 구슬 쿨감(백시 현상)은 채택 0), 장신구 정렬 lift 는 1.24로 미미. 구슬을 위해 버프를 기다리는 흔적 없음.",
+   "물약은 오프너(중앙 1.3초)에 붙이고, 장신구도 첫 사용은 풀링 직후(중앙 1.5초) — 오프너에 광선·구슬·물약·장신구가 한꺼번에 겹치는 구조.",
+   "상위 1-20위와 21-100위의 정렬 규율 차이는 거의 없다(lift 3.39 vs 3.24) — 장신구-광선 짝짓기는 상위권 전유물이 아니라 냉법의 기본기."
+  ]
+ }
+}

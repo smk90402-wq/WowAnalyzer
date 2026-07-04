@@ -232,6 +232,17 @@ def rankings(difficulty: str) -> Response:
 PUG_SCORE_W = 0.35
 
 
+# ── 시즌2(12.1) 전망 — 예측·추측 자료집 (실측 아님, 지속 갱신) ────────────
+@app.get("/api/s2-meta")
+def s2_meta() -> Response:
+    """data/s2_meta_predictions.json — 매 요청 재로드 (수시 갱신 반영)."""
+    p = DATA_DIR / "s2_meta_predictions.json"
+    if not p.exists():
+        raise HTTPException(404, "s2_meta_predictions.json 없음")
+    return Response(content=p.read_text(encoding="utf-8"),
+                    media_type="application/json")
+
+
 # ── 재미 분석 (유튜버 재미 평가 + 로그 실측 검증) ─────────────────────────
 @app.get("/api/spec-fun")
 def spec_fun() -> Response:

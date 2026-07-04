@@ -390,6 +390,70 @@ function showFunDetail(idx) {
 }
 function closeFunModal() { $('#fun-modal')?.classList.remove('show'); }
 
+// ── 시즌2 전망 탭 (예측·추측 자료집 — 수시 갱신) ─────────────────────────
+let _s2Data = null;
+const _S2_TIER_ORD = { S: 6, A: 5, B: 4, C: 3, D: 2, '?': 1 };
+
+async function loadS2Meta() {
+  // 수시 갱신 자료라 캐시 안 함 — 탭 열 때마다 재요청
+  const body = $('#s2-body');
+  body.innerHTML = '<tr><td colspan="5" class="empty">로딩…</td></tr>';
+  try {
+    const r = await fetch('/api/s2-meta');
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    _s2Data = await r.json();
+    renderS2();
+  } catch (e) {
+    body.innerHTML = `<tr><td colspan="5" class="empty">로드 실패: ${esc(e.message)}</td></tr>`;
+  }
+}
+
+function renderS2() {
+  const specs = Object.entries(_s2Data.specs || {});
+  const meta = _s2Data._meta || {};
+  $('#meta').textContent = `시즌2(${meta.patch || '12.1'}) 예측 — 자료 ${(meta.sources || []).length}건 · ${meta.updated || ''} 갱신`;
+  if (!specs.length) {
+    $('#s2-body').innerHTML = '<tr><td colspan="5" class="empty">아직 자료 없음 — 영상/PTR 자료를 주시면 정리해서 채웁니다</td></tr>';
+    return;
+  }
+  const tierCls = (t) => t === 'S' || t === 'A' ? 'good' : (t === 'C' || t === 'D' ? 'bad' : 'mute');
+  const rows = specs
+    .map(([key, v]) => ({ key, v, ord: _S2_TIER_ORD[(v.raid || {}).outlook] || 0 }))
+    .sort((a, b) => b.ord - a.ord);
+  $('#s2-body').innerHTML = rows.map(({ key, v }) => {
+    const nRefs = ((v.raid || {}).notes || []).length + ((v.mplus || {}).notes || []).length + (v.changes || []).length;
+    return `
+    <tr class="s2-row" data-key="${esc(key)}" title="클릭 = 출처별 근거">
+      <td>${esc(v.kr || key)}</td>
+      <td class="right num ${tierCls((v.raid || {}).outlook)}">${esc((v.raid || {}).outlook || '?')}<span class="note-mark">※</span></td>
+      <td class="right num ${tierCls((v.mplus || {}).outlook)}">${esc((v.mplus || {}).outlook || '?')}<span class="note-mark">※</span></td>
+      <td>${esc(v.summary || '')}</td>
+      <td class="right num ${nRefs < 2 ? 'bad' : 'mute'}">${nRefs}</td>
+    </tr>`;
+  }).join('');
+}
+
+function showS2Detail(key) {
+  const v = (_s2Data.specs || {})[key];
+  if (!v) return;
+  const srcMap = {};
+  ((_s2Data._meta || {}).sources || []).forEach(s => { srcMap[s.id] = s; });
+  const noteList = (arr) => (arr || []).map(n => {
+    const s = srcMap[n.src] || {};
+    return `<div class="fd-note">${esc(n.note)}<span class="fd-src">— ${esc(s.channel || n.src)}${n.date ? ' · ' + esc(n.date) : ''}</span></div>`;
+  }).join('') || '<div class="sm-empty">자료 없음</div>';
+  $('#s2-detail').innerHTML = `
+    <div class="fd-title">${esc(v.kr || key)} — 시즌2 전망 <span class="sm-muted">(예측 — 자료 들어오면 갱신)</span></div>
+    ${v.summary ? `<div class="fd-verify">${esc(v.summary)}</div>` : ''}
+    <div class="fl-track-h">레이드 (전망 ${esc((v.raid || {}).outlook || '?')})</div>
+    ${noteList((v.raid || {}).notes)}
+    <div class="fl-track-h" style="margin-top:10px">쐐기 (전망 ${esc((v.mplus || {}).outlook || '?')})</div>
+    ${noteList((v.mplus || {}).notes)}
+    ${(v.changes || []).length ? `<div class="fl-track-h" style="margin-top:10px">변경 사항</div>${noteList(v.changes)}` : ''}`;
+  $('#s2-modal').classList.add('show');
+}
+function closeS2Modal() { $('#s2-modal')?.classList.remove('show'); }
+
 // ── 스킬명 → 아이콘 + wowhead 마우스오버 툴팁 ──────────────────────────
 let _spellMap = null, _spellNames = null;
 async function ensureSpellMap() {
@@ -921,6 +985,24 @@ function renderRotBody() {
     const gloss = (f.glossary || []).map(g =>
       `<div class="fl-gloss-item"><b>${esc(g.w)}</b> ${wsify(esc(g.m))}</div>`).join('');
     const tipItem = (t) => `<div class="fl-track-item"><span class="fl-track-s">${wsify(esc(t.s))}</span>${wsify(esc(t.n))}${t.macro ? `<pre class="fl-macro">${esc(t.macro)}</pre>` : ''}</div>`;
+    // 프록·변신 맵 (proc_map): 프록이 뜨면 뭘 누르나 / 특성으로 버튼 자체가 바뀌는 것
+    const procRow = (p) => `
+      <div class="fl-proc-row">
+        <div class="fl-proc-s">${wsify(esc(p.s))}</div>
+        <div class="fl-proc-from">${wsify(esc(p.from || ''))}</div>
+        <div class="fl-arrow">→</div>
+        <div class="fl-proc-act">${wsify(esc(p.act || ''))}</div>
+      </div>`;
+    const procHtml = f.proc_map ? `
+      <div class="fl-sec">
+        <div class="fl-h">프록이 뜨면 — 무엇이 바뀌고 뭘 누르나</div>
+        ${f.proc_map.note ? `<div class="fl-note">${esc(f.proc_map.note)}</div>` : ''}
+        <div class="fl-proc-head"><div>버프/프록</div><div>언제 뜨나</div><div></div><div>그래서 뭘 누르나</div></div>
+        ${(f.proc_map.items || []).map(procRow).join('')}
+        ${(f.proc_map.transforms || []).length ? `
+        <div class="fl-track-h" style="margin-top:12px">특성으로 버튼 자체가 바뀌는 것</div>
+        ${f.proc_map.transforms.map(procRow).join('')}` : ''}
+      </div>` : '';
     $('#rot-body').innerHTML = `
       ${head}
       <div class="fl-sec">
@@ -931,6 +1013,7 @@ function renderRotBody() {
         <div class="fl-aoe"><div class="fl-aoe-h">여러 마리일 때 (광역)</div>
           ${f.aoe_diff.map(x => `<div class="fl-aoe-line">${wsify(esc(x))}</div>`).join('')}</div>` : ''}
       </div>
+      ${procHtml}
       ${openerHtml}
       ${f.opener_note ? `<div class="fl-note" style="margin:-6px 4px 10px">${wsify(esc(f.opener_note))}</div>` : ''}
       ${f.tracking ? `
@@ -1452,6 +1535,7 @@ function switchTab(tab) {
               : (tab === 'comparison') ? 'comparison'
               : (tab === 'meta') ? 'meta'
               : (tab === 'fun') ? 'fun'
+              : (tab === 's2') ? 's2'
               : (tab === 'rotation') ? 'rotation'
               : (tab === 'stats') ? 'stats'
               : (tab === 'replay') ? 'replay'
@@ -1473,6 +1557,9 @@ function bind() {
     } else if (tab === 'fun') {
       $('#meta').textContent = '유튜브 재미 영상 10개 종합 + 실제 로그로 확인';
       loadSpecFun();
+    } else if (tab === 's2') {
+      $('#meta').textContent = '시즌2(12.1) 예측 자료집 — 실측 아님, 수시 갱신';
+      loadS2Meta();
     } else if (tab === 'rotation') {
       $('#meta').textContent = '표본: 신화 top100';
       loadRotation();
@@ -1628,8 +1715,17 @@ function bind() {
   if (fm) fm.addEventListener('click', e => {
     if (e.target === fm || e.target.closest('.sm-close')) closeFunModal();
   });
+  const s2m = $('#s2-modal');
+  if (s2m) s2m.addEventListener('click', e => {
+    if (e.target === s2m || e.target.closest('.sm-close')) closeS2Modal();
+  });
+  const s2b = $('#s2-body');
+  if (s2b) s2b.addEventListener('click', e => {
+    const tr = e.target.closest('tr.s2-row');
+    if (tr) showS2Detail(tr.dataset.key);
+  });
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeSpecModal(); closeFunModal(); $('#gear-modal')?.classList.remove('show'); }
+    if (e.key === 'Escape') { closeSpecModal(); closeFunModal(); closeS2Modal(); $('#gear-modal')?.classList.remove('show'); }
   });
 
   // 빌드 패널 위임 — 매 row 클릭마다 재렌더 → 위임 패턴 필수

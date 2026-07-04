@@ -257,7 +257,7 @@
           flurryCd: brainFreeze || rb(0.7) ? 0 : 9,
           blizzardCd: rb(0.55) ? 0 : 10,
         };
-        s.freezingRain = aoe && rb(0.65);
+        s.freezingRain = false;  // 빗발치는 냉기 — 12.0.7 상위권 채택 0.5%(885명 중 4명)라 시나리오에서 제외
         return s;
       },
       actionable(s, k) {

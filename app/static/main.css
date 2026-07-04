@@ -901,7 +901,7 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 }
 .replay-toolbar button:hover { background: var(--accent); color: var(--accent-ink); }
 .replay-grid {
-  display: grid; grid-template-columns: minmax(390px, 32vw) 1fr;
+  display: grid; grid-template-columns: minmax(300px, 24vw) 1fr;
   height: 100%; min-height: 0; gap: 1px; background: var(--border);
 }
 .replay-list-panel, .replay-detail-panel { min-height: 0; }
@@ -1119,3 +1119,37 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   font-family: Consolas, monospace; font-size: 12px; line-height: 1.7;
   color: #cfe3cf; white-space: pre; overflow-x: auto; user-select: all;
 }
+
+/* 프록·변신 맵 */
+.fl-proc-head, .fl-proc-row { display: grid; grid-template-columns: minmax(150px,190px) 1fr 26px 1.2fr;
+  gap: 10px; align-items: center; padding: 7px 10px; }
+.fl-proc-head { font-size: 11px; color: var(--text-mute); border-bottom: 1px solid var(--border-soft); padding-bottom: 4px; }
+.fl-proc-row { border-radius: 7px; background: rgba(255,255,255,0.025); margin-top: 5px; font-size: 12.5px; line-height: 1.5; }
+.fl-proc-s { font-weight: 700; }
+.fl-proc-s .ws-ic { width: 22px; height: 22px; border-radius: 4px; }
+.fl-proc-from { color: var(--text-soft); }
+.fl-proc-act { color: var(--text); }
+@media (max-width: 900px) { .fl-proc-head { display: none; }
+  .fl-proc-row { grid-template-columns: 1fr; gap: 4px; } .fl-proc-row .fl-arrow { display: none; } }
+
+/* 시즌2 전망 탭 */
+#s2-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+#s2-table thead { position: sticky; top: 0; z-index: 2; background: var(--bg-1); }
+#s2-table th { padding: 8px 10px; text-align: left; color: var(--text-soft);
+  border-bottom: 1px solid var(--border); white-space: nowrap; position: relative; font-weight: 600; }
+#s2-table td { padding: 8px 10px; color: var(--text); border-bottom: 1px solid var(--border-soft); }
+#s2-table th.right, #s2-table td.right { text-align: right; }
+#s2-table td.num { font-variant-numeric: tabular-nums; }
+#s2-table td.good { color: #6cc24a; } #s2-table td.bad { color: #ff8f73; } #s2-table td.mute { color: var(--text-mute); }
+#s2-table tr.s2-row { cursor: pointer; }
+#s2-table tr.s2-row:hover td { background: rgba(200,165,96,0.10); }
+#s2-table th[data-tip]:hover::after {
+  content: attr(data-tip); position: absolute; left: 0; top: 100%; z-index: 50;
+  width: 250px; white-space: normal; background: #0f1217; color: #f4f6fb;
+  border: 1px solid var(--accent); border-radius: 6px; padding: 9px 11px;
+  font-size: 11.5px; font-weight: 400; line-height: 1.55; text-align: left;
+}
+#s2-modal { display: none; position: fixed; inset: 0; z-index: 100;
+  background: rgba(0,0,0,0.55); align-items: center; justify-content: center; }
+#s2-modal.show { display: flex; }
+#s2-modal .spec-modal-card { width: min(720px, 94vw); }
