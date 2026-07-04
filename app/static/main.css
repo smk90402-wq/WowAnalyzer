@@ -942,6 +942,9 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .replay-canvas-wrap { display: flex; flex-direction: column; gap: 8px; }
 .rc-stage { position: relative; border: 1px solid var(--border); border-radius: 4px; background: #10141a; }
 #rc-canvas { display: block; width: 100%; height: auto; border-radius: 4px; }
+/* 3D 보기 캔버스 (replay3d.js 가 .rc-stage 에 붙임) — 드래그 회전용 커서/터치 설정 */
+#rc-canvas3d { display: block; width: 100%; height: auto; border-radius: 4px; cursor: grab; touch-action: none; }
+#rc-canvas3d:active { cursor: grabbing; }
 .rc-msg {
   position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
   text-align: center; padding: 14px; color: var(--text-mute); font-size: 12.5px;

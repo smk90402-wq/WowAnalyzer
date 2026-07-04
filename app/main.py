@@ -13,6 +13,7 @@ from __future__ import annotations
 import atexit
 import logging
 import math
+import mimetypes
 import sys
 from pathlib import Path
 
@@ -49,6 +50,7 @@ from app import timeline as tl_render
 from app import aug_feedback
 from app import local_replay
 from app import replay_map
+from app import replay_terrain
 
 log = logging.getLogger("app.main")
 
@@ -71,6 +73,10 @@ auth.init(DATA_DIR)  # users.db / auth_secret 은 그대로 둬도 무관
 app = FastAPI(title="WowAnalyzer API", version="0.1.0")
 
 # static 파일 마운트 (Week 2 에서 HTML/CSS/JS 추가)
+# 윈도우 레지스트리가 .js MIME 을 text/plain 으로 오염시킨 PC 에서도
+# three.module.js dynamic import 가 동작하도록 강제 (ESM 은 MIME 검사함)
+mimetypes.add_type("text/javascript", ".js")
+mimetypes.add_type("text/javascript", ".mjs")
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 # ── 인증 게이트 (2026-06-13 재활성 — 공개 배포용 단일 공유계정 rtv) ───────────
@@ -1782,3 +1788,20 @@ def replay_frames(replay_id: str) -> JSONResponse:
         raise HTTPException(404, str(e))
     except Exception as e:
         raise HTTPException(500, f"replay frames failed: {e}")
+
+
+@app.get("/api/replay/{replay_id}/terrain")
+def replay_terrain_grid(replay_id: str) -> JSONResponse:
+    """전투 bbox 주변 지형 높이 그리드 (instanceID → WDT → ADT MCVT).
+
+    frames 와 같은 좌표 소스(플레이어 고급좌표) bbox 기준. 좌표가 없거나
+    지형을 못 만들면 404 + 사유.
+    """
+    try:
+        req = local_replay.replay_terrain_request(replay_id)
+        grid = replay_terrain.terrain_grid(req["instance_id"], req["bbox"])
+    except (local_replay.ReplayError, replay_map.MapError) as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        raise HTTPException(500, f"replay terrain failed: {e}")
+    return JSONResponse(grid)

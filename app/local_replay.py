@@ -704,6 +704,7 @@ def _apply_encounter_line(
             "encounter_id": _to_int(row[1]),
             "encounter": _clean_name(row[2]),
             "difficulty_id": _to_int(row[3]),
+            "instance_id": _to_int(row[5]),  # Map.db2 ID — 지형(replay_terrain) 체인 시작점
             "start_off": line_off,
             "_start_dt": ts,
         }
@@ -1087,6 +1088,7 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
     return {
         "meta": {
             "encounter": enc.get("encounter") or (cap.get("encounter") or ""),
+            "instance_id": _to_int(enc.get("instance_id")),
             "duration_s": round(float(duration_s), 3),
             "video_offset_s": video_offset_s,
             "map": map_out,
@@ -1099,6 +1101,39 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
         },
         "frames": frames,
         "boss_events": boss_events,
+    }
+
+
+def replay_terrain_request(replay_id: str) -> dict[str, Any]:
+    """GET /api/replay/{id}/terrain 입력 — instance_id + 플레이어 좌표 bbox.
+
+    frames 와 같은 로그 구간·같은 좌표 소스(플레이어 고급좌표, t>=0)를 쓰므로
+    지형 그리드의 bbox 기준이 frames 응답과 자연히 일치한다.
+    """
+    cap = _find_capture(replay_id)
+    log_path, enc = _find_frames_encounter(cap)
+    instance_id = _to_int(enc.get("instance_id"))
+    if not instance_id:
+        raise ReplayError("ENCOUNTER_START 에 instanceID 없음 — 지형 조회 불가")
+    start_dt = enc["_start_dt"]
+    end_dt = enc.get("_end_dt") or (start_dt + timedelta(seconds=(cap.get("duration") or 0) + 5))
+    parsed = _stream_frames_window(
+        log_path, enc["start_off"], enc.get("end_off") or 0, start_dt, end_dt)
+    xs: list[float] = []
+    ys: list[float] = []
+    for guid, pts in parsed["samples"].items():
+        if not guid.startswith("Player-"):
+            continue
+        for t, x, y, _facing in pts:
+            if t < 0:
+                continue
+            xs.append(x)
+            ys.append(y)
+    if not xs:
+        raise ReplayError("플레이어 좌표 없음 — 고급 전투 기록(advanced logging) 필요")
+    return {
+        "instance_id": instance_id,
+        "bbox": (min(xs), max(xs), min(ys), max(ys)),
     }
 
 

@@ -1517,6 +1517,7 @@ function renderLocalReplayDetail(detail) {
         <div class="rc-controls">
           <button id="rc-play" type="button">재생</button>
           <button id="rc-speed" type="button" title="재생 속도">1x</button>
+          <button id="rc-3d" type="button" title="지형 위에서 입체로 보기">3D 보기</button>
           <div class="rc-scrub-wrap">
             <input id="rc-scrub" type="range" min="0" max="0" step="0.1" value="0">
             <div id="rc-bossevents" title=""></div>
@@ -1609,6 +1610,8 @@ const rc = {
   bossEvents: [], // frames 응답 boss_events (t 오름차순, 전투 시작 기준)
   video: null,    // 영상 있는 풀이면 <video> — 재생/탐색/배속 동기화 대상
   videoOffset: 0, // meta.video_offset_s (영상 t − 이 값 = 캔버스 t)
+  is3d: false,    // 3D 보기 모드 — rcDraw 가 replay3d.js 로 위임 (시계·재생은 공유)
+  replayId: null, // 현재 리플레이 id — 3D 지형 요청(/terrain)에 사용
 };
 
 function rcClock(sec) {
@@ -1629,6 +1632,8 @@ async function initReplayCanvas(replayId) {
   rc.meta = null; rc.tracks = {}; rc.deathsBy = {}; rc.mapImg = null;
   rc.mode = {}; rc.t = 0; rc.speed = 1; rc.duration = 0;
   rc.bossEvents = []; rc.videoOffset = 0;
+  rc.is3d = false; rc.replayId = replayId;   // 리플레이 바꾸면 2D 부터 (3D 씬은 폐기)
+  if (window.Replay3D) window.Replay3D.reset();
   const msg = $('#rc-msg');
   if (!msg || !replayId) return;
   msg.style.display = '';
@@ -1772,6 +1777,11 @@ function rcBuildControls() {
       if (rc.video) rc.video.playbackRate = rc.speed;  // 배속도 영상과 동기
     });
   }
+  const btn3d = $('#rc-3d');
+  if (btn3d) {
+    btn3d.disabled = !window.Replay3D;   // replay3d.js 로드 실패 시 비활성
+    btn3d.addEventListener('click', rcToggle3D);
+  }
   const unitsRoot = $('#rc-units');
   if (unitsRoot) {
     unitsRoot.innerHTML = (rc.meta.units || []).map(u => {
@@ -1847,6 +1857,35 @@ function rcSyncControls() {
   if (clock) clock.textContent = `${rcClock(rc.t)} / ${rcClock(rc.duration)}`;
 }
 
+// 2D/3D 전환 — 3D 는 replay3d.js(three.js)가 그림. 시계·재생·스크럽·기믹은 공유.
+async function rcToggle3D() {
+  const btn = $('#rc-3d');
+  if (!btn || !rc.meta || !window.Replay3D) return;
+  const cv = $('#rc-canvas');
+  if (rc.is3d) {
+    rc.is3d = false;
+    btn.textContent = '3D 보기';
+    window.Replay3D.hide();
+    if (cv) cv.style.display = '';
+    rcDraw();
+    return;
+  }
+  const token = rc.token;
+  const msg = $('#rc-msg');
+  btn.disabled = true;
+  if (msg) { msg.style.display = ''; msg.textContent = '3D 화면 준비 중… (처음엔 지형을 내려받아서 잠깐 걸려요)'; }
+  let ok = false;
+  try { ok = await window.Replay3D.enter(); } catch (_) { ok = false; }
+  if (token !== rc.token) return;   // 기다리는 동안 다른 리플레이 선택됨
+  btn.disabled = false;
+  if (msg) msg.style.display = 'none';
+  if (!ok) return;                  // 실패 사유는 rc-note 에 표시됨
+  rc.is3d = true;
+  btn.textContent = '2D 보기';
+  if (cv) cv.style.display = 'none';
+  rcDraw();
+}
+
 // track 에서 시각 t 의 보간 위치 — {x, y, facing, age, srcT} | null
 function rcTrackAt(track, t) {
   if (!track || !track.length || track[0][0] > t) return null;
@@ -1866,9 +1905,36 @@ function rcTrackAt(track, t) {
   return { x, y, facing: prev[3], age: t - prev[0], srcT: prev[0], idx: lo };
 }
 
+// 시각 t 의 자막 대상 기믹 (2D 는 링 루프에서 같이 계산 — 3D 경로용)
+function rcBannerEventAt(t) {
+  let ev = null;
+  for (const e of rc.bossEvents) {
+    if (Number(e.t) > t) break;   // t 오름차순
+    if (t - Number(e.t) <= RC_BANNER_S) ev = e;
+  }
+  return ev;
+}
+
+// 상단 자막 1줄 — 최근 기믹 (textContent 라 esc 불필요)
+function rcUpdateBanner(bannerEv) {
+  const banner = $('#rc-banner');
+  if (!banner) return;
+  const txt = bannerEv
+    ? `${rcClock(bannerEv.t)} ${bannerEv.spell || ''}${bannerEv.dest_name ? ' → ' + String(bannerEv.dest_name).split('-')[0] : ''}`
+    : '';
+  if (banner.textContent !== txt) banner.textContent = txt;
+}
+
 function rcDraw() {
+  if (!rc.meta) return;
+  // 3D 모드면 렌더러만 교체 — 유닛/기믹 로직은 replay3d.js 가 rc 를 읽어 처리
+  if (rc.is3d && window.Replay3D && window.Replay3D.isReady()) {
+    window.Replay3D.draw();
+    rcUpdateBanner(rcBannerEventAt(rc.t));
+    return;
+  }
   const cv = $('#rc-canvas');
-  if (!cv || !rc.meta) return;
+  if (!cv) return;
   const ctx = cv.getContext('2d');
   ctx.clearRect(0, 0, cv.width, cv.height);
   if (rc.mapImg) ctx.drawImage(rc.mapImg, 0, 0, cv.width, cv.height);
@@ -1993,14 +2059,7 @@ function rcDraw() {
   }
   ctx.globalAlpha = 1;
 
-  // 상단 자막 1줄 — 최근 기믹 (textContent 라 esc 불필요)
-  const banner = $('#rc-banner');
-  if (banner) {
-    const txt = bannerEv
-      ? `${rcClock(bannerEv.t)} ${bannerEv.spell || ''}${bannerEv.dest_name ? ' → ' + String(bannerEv.dest_name).split('-')[0] : ''}`
-      : '';
-    if (banner.textContent !== txt) banner.textContent = txt;
-  }
+  rcUpdateBanner(bannerEv);
 }
 
 function switchTab(tab) {
