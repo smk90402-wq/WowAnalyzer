@@ -419,6 +419,22 @@ const _S2_ROWS = [
 ];
 const _S2_ROLE = { '혈기': '탱', '보호': '탱', '수호': '탱', '양조': '탱', '복수': '탱',
   '신성': '힐', '수양': '힐', '회복': '힐', '운무': '힐', '보존': '힐', '복원': '힐' };
+// 전문화 아이콘 (wowhead 표준 아이콘명 — 스킬 아이콘과 같은 CDN 사용)
+const _S2_SPEC_ICON = {
+  'Warrior|Arms': 'ability_warrior_savageblow', 'Warrior|Fury': 'ability_warrior_innerrage', 'Warrior|Protection': 'ability_warrior_defensivestance',
+  'Paladin|Holy': 'spell_holy_holybolt', 'Paladin|Protection': 'ability_paladin_shieldofthetemplar', 'Paladin|Retribution': 'spell_holy_auraoflight',
+  'Hunter|Beast Mastery': 'ability_hunter_bestialdiscipline', 'Hunter|Marksmanship': 'ability_hunter_focusedaim', 'Hunter|Survival': 'ability_hunter_camouflage',
+  'Rogue|Assassination': 'ability_rogue_deadlybrew', 'Rogue|Outlaw': 'ability_rogue_waylay', 'Rogue|Subtlety': 'ability_stealth',
+  'Priest|Discipline': 'spell_holy_powerwordshield', 'Priest|Holy': 'spell_holy_guardianspirit', 'Priest|Shadow': 'spell_shadow_shadowwordpain',
+  'Death Knight|Blood': 'spell_deathknight_bloodpresence', 'Death Knight|Frost': 'spell_deathknight_frostpresence', 'Death Knight|Unholy': 'spell_deathknight_unholypresence',
+  'Shaman|Elemental': 'spell_nature_lightning', 'Shaman|Enhancement': 'spell_shaman_improvedstormstrike', 'Shaman|Restoration': 'spell_nature_magicimmunity',
+  'Mage|Arcane': 'spell_holy_magicalsentry', 'Mage|Fire': 'spell_fire_firebolt02', 'Mage|Frost': 'spell_frost_frostbolt02',
+  'Warlock|Affliction': 'spell_shadow_deathcoil', 'Warlock|Demonology': 'spell_shadow_metamorphosis', 'Warlock|Destruction': 'spell_shadow_rainoffire',
+  'Monk|Brewmaster': 'monk_stance_drunkenox', 'Monk|Mistweaver': 'monk_stance_wiseserpent', 'Monk|Windwalker': 'monk_stance_whitetiger',
+  'Druid|Balance': 'spell_nature_starfall', 'Druid|Feral': 'ability_druid_catform', 'Druid|Guardian': 'ability_racial_bearform', 'Druid|Restoration': 'spell_nature_healingtouch',
+  'Demon Hunter|Havoc': 'ability_demonhunter_specdps', 'Demon Hunter|Vengeance': 'ability_demonhunter_spectank', 'Demon Hunter|Devourer': 'classicon_demonhunter',
+  'Evoker|Devastation': 'classicon_evoker_devastation', 'Evoker|Preservation': 'classicon_evoker_preservation', 'Evoker|Augmentation': 'classicon_evoker_augmentation',
+};
 
 function renderS2() {
   const specs = Object.entries(_s2Data.specs || {});
@@ -437,9 +453,12 @@ function renderS2() {
         const spec = (v.kr || key).split(' ').pop();
         const role = _S2_ROLE[spec] || '';
         const nRefs = ((v.raid || {}).notes || []).length + ((v.mplus || {}).notes || []).length + (v.changes || []).length;
+        const ico = _S2_SPEC_ICON[key]
+          ? `<img class="s2-ico" src="https://wow.zamimg.com/images/wow/icons/medium/${_S2_SPEC_ICON[key]}.jpg" onerror="this.remove()">`
+          : '';
         return `<div class="s2-chip ${role ? 'role-' + (role === '탱' ? 'tank' : 'heal') : ''}" data-key="${esc(key)}"
           title="${esc(v.summary || '')}">
-          ${esc(v.kr || key)}${role ? `<span class="s2-role">${role}</span>` : ''}<span class="s2-nrefs">${nRefs}</span>
+          ${ico}${esc(v.kr || key)}${role ? `<span class="s2-role">${role}</span>` : ''}<span class="s2-nrefs">${nRefs}</span>
         </div>`;
       }).join('');
     if (!chips) return '';
@@ -1455,8 +1474,22 @@ function renderLocalReplayDetail(detail) {
           : '<div class="empty replay-no-video">영상 파일 없음</div>'}
         <input id="replay-time" class="replay-time" type="range" min="0" max="${Number(detail.duration || cap.duration || 0)}" value="0" step="0.1">
       </div>
-      <div class="replay-map-wrap">
-        <svg id="replay-map" class="replay-map" viewBox="0 0 1000 580" role="img"></svg>
+      <div class="replay-canvas-wrap">
+        <div class="rc-stage">
+          <canvas id="rc-canvas" width="1000" height="660"></canvas>
+          <div id="rc-msg" class="rc-msg">이동 경로 데이터 로딩…</div>
+        </div>
+        <div class="rc-controls">
+          <button id="rc-play" type="button">재생</button>
+          <button id="rc-speed" type="button" title="재생 속도">1x</button>
+          <div class="rc-scrub-wrap">
+            <input id="rc-scrub" type="range" min="0" max="0" step="0.1" value="0">
+            <div id="rc-deaths"></div>
+          </div>
+          <span id="rc-clock">0:00 / 0:00</span>
+        </div>
+        <div id="rc-units" class="rc-units"></div>
+        <div id="rc-note" class="rc-note"></div>
       </div>
     </div>
     <div class="replay-counts">
@@ -1477,14 +1510,11 @@ function renderLocalReplayDetail(detail) {
     slider.addEventListener('input', () => {
       const t = Number(slider.value || 0);
       if (video && Math.abs(video.currentTime - t) > 0.25) video.currentTime = t;
-      renderReplayMap(detail, t);
     });
   }
   if (video && slider) {
     video.addEventListener('timeupdate', () => {
-      const t = Number(video.currentTime || 0);
-      slider.value = String(t);
-      renderReplayMap(detail, t);
+      slider.value = String(Number(video.currentTime || 0));
     });
   }
   const evRoot = $('#replay-events');
@@ -1495,56 +1525,320 @@ function renderLocalReplayDetail(detail) {
       const t = Number(btn.dataset.replayJump || 0);
       if (slider) slider.value = String(t);
       if (video) video.currentTime = t;
-      renderReplayMap(detail, t);
+      rcSeek(t);
     });
   }
-  const initialT = Number((detail.positions || [])[0]?.t || 0);
-  if (slider) slider.value = String(initialT);
-  renderReplayMap(detail, initialT);
+  initReplayCanvas(cap.id || replayState.selectedId);
 }
 
-function renderReplayMap(detail, t) {
-  const svg = $('#replay-map');
-  const bounds = detail?.bounds;
-  const positions = detail?.positions || [];
-  if (!svg) return;
-  if (!bounds || !positions.length) {
-    svg.innerHTML = '<text x="500" y="290" text-anchor="middle" class="replay-map-empty">좌표 없음</text>';
+// ── 캔버스 리플레이 (전투로그 좌표 재생: /api/replay/{id}/frames) ────────
+const CLASS_COLORS = {
+  deathknight: '#C41E3A', demonhunter: '#A330C9', druid: '#FF7C0A',
+  evoker: '#33937F', hunter: '#AAD372', mage: '#3FC7EB', monk: '#00FF98',
+  paladin: '#F48CBA', priest: '#FFFFFF', rogue: '#FFF468', shaman: '#0070DD',
+  warlock: '#8788EE', warrior: '#C69B6D',
+};
+const RC_TRAIL_S = 3;      // 궤적 잔상 길이(초)
+const RC_STALE_S = 15;     // 이 시간 넘게 샘플 없으면 점 숨김
+
+const rc = {
+  token: 0,       // 리플레이 재선택 시 이전 비동기 로드 무효화
+  raf: 0,
+  playing: false,
+  speed: 1,
+  t: 0,
+  lastTs: 0,
+  duration: 0,
+  meta: null,     // frames 응답 meta
+  tracks: {},     // unitId → [[t, wx, wy, facing], ...] (t 오름차순)
+  deathsBy: {},   // unitId → [t, ...]
+  mapImg: null,
+  mode: {},       // unitId → 0 보통 / 1 강조 / 2 숨김
+};
+
+function rcClock(sec) {
+  const v = Math.max(0, Number(sec) || 0);
+  return `${Math.floor(v / 60)}:${String(Math.floor(v % 60)).padStart(2, '0')}`;
+}
+
+function rcUnitColor(u) {
+  if (u.kind === 'boss') return '#e06c6c';
+  if (u.kind === 'npc') return '#8a93a3';
+  return CLASS_COLORS[u.cls] || '#7db7ff';
+}
+
+async function initReplayCanvas(replayId) {
+  const token = ++rc.token;
+  rcPause();
+  rc.meta = null; rc.tracks = {}; rc.deathsBy = {}; rc.mapImg = null;
+  rc.mode = {}; rc.t = 0; rc.speed = 1; rc.duration = 0;
+  const msg = $('#rc-msg');
+  if (!msg || !replayId) return;
+  msg.style.display = '';
+  msg.textContent = '이동 경로 데이터 로딩…';
+  let j = null;
+  try {
+    const r = await fetch(`/api/replay/${encodeURIComponent(replayId)}/frames`);
+    if (!r.ok) {
+      let why = `HTTP ${r.status}`;
+      try { const e = await r.json(); if (e.detail) why = e.detail; } catch (_) {}
+      throw new Error(why);
+    }
+    j = await r.json();
+  } catch (e) {
+    if (token === rc.token && $('#rc-msg')) {
+      // textContent 라 HTML 이스케이프 불필요
+      $('#rc-msg').textContent = `이동 경로를 불러오지 못했습니다 — ${e.message || e}`;
+    }
     return;
   }
-  const actors = new Map((detail.actors || []).map(a => [a.guid, a]));
-  const latest = new Map();
-  for (const pos of positions) {
-    if (Number(pos.t || 0) <= t) latest.set(pos.guid, pos);
-    else break;
+  if (token !== rc.token) return;
+
+  const meta = j.meta || {};
+  const frames = j.frames || [];
+  if (!frames.length) {
+    msg.textContent = '이 전투에는 좌표 데이터가 없습니다 (고급 전투 정보 로그 필요)';
+    return;
   }
-  const w = 1000, h = 580;
-  const minX = Number(bounds.min_x), maxX = Number(bounds.max_x);
-  const minY = Number(bounds.min_y), maxY = Number(bounds.max_y);
-  const sx = (x) => ((Number(x) - minX) / Math.max(1, maxX - minX)) * w;
-  const sy = (y) => h - ((Number(y) - minY) / Math.max(1, maxY - minY)) * h;
-  const dots = Array.from(latest.values()).map(pos => {
-    const guid = String(pos.guid || '');
-    const actor = actors.get(guid) || {};
-    const label = actor.name || pos.name || '';
-    const isBoss = !guid.startsWith('Player-');
-    const cls = isBoss ? 'boss' : 'player';
-    const x = sx(pos.x), y = sy(pos.y);
-    return `
-      <g class="rp-dot ${cls}">
-        <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${isBoss ? 11 : 6}"></circle>
-        <text x="${(x + 9).toFixed(1)}" y="${(y - 8).toFixed(1)}">${esc(label.split('-')[0])}</text>
-      </g>
-    `;
-  }).join('');
-  svg.innerHTML = `
-    <rect x="0" y="0" width="${w}" height="${h}" class="rp-map-bg"></rect>
-    <text x="16" y="28" class="rp-map-time">${_replayTime(t)}</text>
-    ${dots}
-  `;
+  for (const fr of frames) {
+    const ft = Number(fr.t || 0);
+    for (const [uid, p] of Object.entries(fr.p || {})) {
+      (rc.tracks[uid] ??= []).push([ft, p[0], p[1], p[2]]);
+    }
+  }
+  for (const d of meta.deaths || []) (rc.deathsBy[d.id] ??= []).push(d.t);
+  rc.meta = meta;
+  rc.duration = Math.max(Number(meta.duration_s) || 0, frames[frames.length - 1].t);
+
+  const map = meta.map || {};
+  const cv = $('#rc-canvas');
+  if (cv) { cv.width = map.px_w || 1000; cv.height = map.px_h || 660; }
+
+  // 맵 이미지 (실패해도 어두운 배경 위에 점만 표시)
+  const notes = [];
+  if (map.error) notes.push(`맵 이미지를 못 받아 임시 좌표계로 표시 (${map.error})`);
+  await new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => { if (token === rc.token) rc.mapImg = img; resolve(); };
+    img.onerror = () => {
+      if (!map.error) notes.push('맵 이미지를 불러오지 못해 배경 없이 표시합니다');
+      resolve();
+    };
+    img.src = `/api/replay/map/${Number(map.ui_map_id) || 0}.png`;
+  });
+  if (token !== rc.token) return;
+
+  msg.style.display = 'none';
+  const note = $('#rc-note');
+  if (note) note.textContent = notes.join(' · ');
+  rcBuildControls();
+  rcSyncControls();
+  rcDraw();
+}
+
+function rcBuildControls() {
+  const scrub = $('#rc-scrub');
+  if (scrub) {
+    scrub.max = String(rc.duration);
+    scrub.value = '0';
+    scrub.addEventListener('input', () => rcSeek(scrub.value));
+  }
+  const deaths = $('#rc-deaths');
+  if (deaths) {
+    deaths.innerHTML = (rc.meta.deaths || []).map(d =>
+      `<i style="left:${(Number(d.t) / Math.max(1, rc.duration) * 100).toFixed(2)}%" title="${rcClock(d.t)} 사망"></i>`
+    ).join('');
+  }
+  const play = $('#rc-play');
+  if (play) play.addEventListener('click', () => { rc.playing ? rcPause() : rcPlay(); });
+  const speed = $('#rc-speed');
+  if (speed) {
+    speed.addEventListener('click', () => {
+      rc.speed = rc.speed >= 4 ? 1 : rc.speed * 2;
+      speed.textContent = `${rc.speed}x`;
+    });
+  }
+  const unitsRoot = $('#rc-units');
+  if (unitsRoot) {
+    unitsRoot.innerHTML = (rc.meta.units || []).map(u => {
+      const label = u.kind === 'boss' ? `★ ${u.name}` : (String(u.name || u.id).split('-')[0] || u.id);
+      return `<button type="button" class="rc-unit rc-${esc(u.kind)}" data-uid="${esc(u.id)}"
+        style="--uc:${rcUnitColor(u)}" title="클릭: 강조 → 숨김 → 해제"><i></i>${esc(label)}</button>`;
+    }).join('');
+    unitsRoot.addEventListener('click', e => {
+      const btn = e.target.closest('.rc-unit');
+      if (!btn) return;
+      const uid = btn.dataset.uid;
+      rc.mode[uid] = ((rc.mode[uid] || 0) + 1) % 3;
+      btn.classList.toggle('hl', rc.mode[uid] === 1);
+      btn.classList.toggle('off', rc.mode[uid] === 2);
+      rcDraw();
+    });
+  }
+}
+
+function rcPlay() {
+  if (!rc.meta || rc.playing) return;
+  if (rc.t >= rc.duration - 0.05) rc.t = 0;   // 끝에서 재생 → 처음부터
+  rc.playing = true;
+  rc.lastTs = 0;
+  const btn = $('#rc-play');
+  if (btn) btn.textContent = '일시정지';
+  rc.raf = requestAnimationFrame(rcStep);
+}
+
+function rcPause() {
+  rc.playing = false;
+  if (rc.raf) cancelAnimationFrame(rc.raf);
+  rc.raf = 0;
+  const btn = $('#rc-play');
+  if (btn) btn.textContent = '재생';
+}
+
+function rcStep(ts) {
+  if (!rc.playing) return;
+  if (rc.lastTs) rc.t = Math.min(rc.duration, rc.t + (ts - rc.lastTs) / 1000 * rc.speed);
+  rc.lastTs = ts;
+  rcSyncControls();
+  rcDraw();
+  if (rc.t >= rc.duration) { rcPause(); return; }
+  rc.raf = requestAnimationFrame(rcStep);
+}
+
+function rcSeek(t) {
+  if (!rc.meta) return;
+  rc.t = Math.min(Math.max(0, Number(t) || 0), rc.duration);
+  rcSyncControls();
+  rcDraw();
+}
+
+function rcSyncControls() {
+  const scrub = $('#rc-scrub');
+  if (scrub) scrub.value = String(rc.t);
+  const clock = $('#rc-clock');
+  if (clock) clock.textContent = `${rcClock(rc.t)} / ${rcClock(rc.duration)}`;
+}
+
+// track 에서 시각 t 의 보간 위치 — {x, y, facing, age, srcT} | null
+function rcTrackAt(track, t) {
+  if (!track || !track.length || track[0][0] > t) return null;
+  let lo = 0, hi = track.length - 1;
+  while (lo < hi) {
+    const mid = (lo + hi + 1) >> 1;
+    if (track[mid][0] <= t) lo = mid; else hi = mid - 1;
+  }
+  const prev = track[lo];
+  const next = track[lo + 1];
+  let x = prev[1], y = prev[2];
+  if (next && next[0] > prev[0] && next[0] - prev[0] <= 2.5) {
+    const u = Math.min(1, (t - prev[0]) / (next[0] - prev[0]));
+    x += (next[1] - x) * u;
+    y += (next[2] - y) * u;
+  }
+  return { x, y, facing: prev[3], age: t - prev[0], srcT: prev[0], idx: lo };
+}
+
+function rcDraw() {
+  const cv = $('#rc-canvas');
+  if (!cv || !rc.meta) return;
+  const ctx = cv.getContext('2d');
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  if (rc.mapImg) ctx.drawImage(rc.mapImg, 0, 0, cv.width, cv.height);
+  else { ctx.fillStyle = '#10141a'; ctx.fillRect(0, 0, cv.width, cv.height); }
+
+  const M = rc.meta.map.world_to_px;
+  const toPx = (wx, wy) => [M.a * wx + M.b * wy + M.c, M.d * wx + M.e * wy + M.f];
+  const t = rc.t;
+  const anyHl = Object.values(rc.mode).includes(1);
+
+  // 죽음 해골 마커 (죽은 자리에 고정)
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  for (const d of rc.meta.deaths || []) {
+    if (Number(d.t) > t || rc.mode[d.id] === 2) continue;
+    const pos = rcTrackAt(rc.tracks[d.id], Number(d.t));
+    if (!pos) continue;
+    const [x, y] = toPx(pos.x, pos.y);
+    ctx.globalAlpha = 0.92;
+    ctx.font = 'bold 16px sans-serif';
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#000';
+    ctx.strokeText('☠', x, y);
+    ctx.fillStyle = '#f0f0f0';
+    ctx.fillText('☠', x, y);
+  }
+
+  for (const u of rc.meta.units || []) {
+    if (rc.mode[u.id] === 2) continue;
+    const track = rc.tracks[u.id];
+    const cur = track ? rcTrackAt(track, t) : null;
+    if (!cur || cur.age > RC_STALE_S) continue;
+    // 마지막 죽음 이후 새 샘플이 없으면 = 지금 죽어 있음 → 점 생략 (해골만)
+    const dts = rc.deathsBy[u.id] || [];
+    let lastDeath = -1;
+    for (const dt of dts) if (dt <= t && dt > lastDeath) lastDeath = dt;
+    if (lastDeath >= 0 && cur.srcT <= lastDeath) continue;
+
+    const color = rcUnitColor(u);
+    const hl = rc.mode[u.id] === 1;
+    const baseA = anyHl && !hl ? 0.25 : 1;
+    const [x, y] = toPx(cur.x, cur.y);
+
+    // 궤적 잔상 (최근 3초 페이드)
+    ctx.lineWidth = u.kind === 'boss' ? 3 : 2;
+    ctx.strokeStyle = color;
+    let prevPt = null;
+    for (let i = Math.max(0, cur.idx - Math.ceil(RC_TRAIL_S * 2) - 1); i <= cur.idx; i++) {
+      const s = track[i];
+      if (s[0] < t - RC_TRAIL_S) continue;
+      const p = toPx(s[1], s[2]);
+      if (prevPt) {
+        ctx.globalAlpha = baseA * 0.45 * Math.max(0, 1 - (t - s[0]) / RC_TRAIL_S);
+        ctx.beginPath(); ctx.moveTo(prevPt[0], prevPt[1]); ctx.lineTo(p[0], p[1]); ctx.stroke();
+      }
+      prevPt = p;
+    }
+    if (prevPt && (prevPt[0] !== x || prevPt[1] !== y)) {
+      ctx.globalAlpha = baseA * 0.45;
+      ctx.beginPath(); ctx.moveTo(prevPt[0], prevPt[1]); ctx.lineTo(x, y); ctx.stroke();
+    }
+
+    const r = u.kind === 'boss' ? 11 : (u.kind === 'npc' ? 4 : 6.5);
+    // 시선(facing) 짧은 선 — 월드 방향(cosθ, sinθ)을 같은 행렬로 회전
+    ctx.globalAlpha = baseA;
+    if (cur.facing != null) {
+      const vx = M.a * Math.cos(cur.facing) + M.b * Math.sin(cur.facing);
+      const vy = M.d * Math.cos(cur.facing) + M.e * Math.sin(cur.facing);
+      const n = Math.hypot(vx, vy) || 1;
+      const L = r + 9;
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = color;
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + vx / n * L, y + vy / n * L); ctx.stroke();
+    }
+    // 유닛 점
+    ctx.beginPath();
+    ctx.arc(x, y, hl ? r + 2 : r, 0, Math.PI * 2);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.lineWidth = hl ? 2.5 : 1.2;
+    ctx.strokeStyle = hl ? '#ffffff' : 'rgba(255,255,255,.55)';
+    ctx.stroke();
+    // 이름: 보스는 항상, 강조 유닛도
+    if (u.kind === 'boss' || hl) {
+      const label = String(u.name || '').split('-')[0];
+      ctx.font = 'bold 15px sans-serif';
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#10141a';
+      ctx.strokeText(label, x, y - r - 10);
+      ctx.fillStyle = '#f0f0f0';
+      ctx.fillText(label, x, y - r - 10);
+    }
+  }
+  ctx.globalAlpha = 1;
 }
 
 function switchTab(tab) {
+  if (tab !== 'replay') rcPause();  // 리플레이 탭 이탈 시 캔버스 재생 정지
   $$('#tabs .tab').forEach(t => t.classList.remove('active'));
   $$('.tab-pane').forEach(p => p.classList.remove('active'));
   const btn = document.querySelector(`#tabs .tab[data-tab="${tab}"]`);
@@ -1607,6 +1901,10 @@ function bind() {
       if (tr) selectLocalReplay(tr.dataset.replayId);
     });
   }
+  // 브라우저 탭 이탈 시 캔버스 리플레이 정지
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) rcPause();
+  });
 
   // 딜사이클 콤보박스
   $('#rot-class').addEventListener('change', e => {

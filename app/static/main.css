@@ -931,24 +931,46 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 }
 .replay-kpis b { color: var(--text); margin-left: 3px; }
 .replay-main { display: grid; grid-template-columns: minmax(420px, 1.1fr) minmax(340px, .9fr); gap: 12px; min-height: 360px; }
-.replay-video-wrap, .replay-map-wrap { min-width: 0; }
+.replay-video-wrap, .replay-canvas-wrap { min-width: 0; }
 .replay-video {
   width: 100%; aspect-ratio: 16 / 9; max-height: 520px;
   background: #000; border: 1px solid var(--border); border-radius: 4px;
 }
 .replay-no-video { min-height: 260px; border: 1px solid var(--border); border-radius: 4px; }
 .replay-time { width: 100%; margin-top: 8px; accent-color: var(--accent); }
-.replay-map {
-  width: 100%; height: 100%; min-height: 360px;
-  border: 1px solid var(--border); border-radius: 4px; background: var(--bg-1);
+/* 캔버스 리플레이 (전투로그 좌표 재생) */
+.replay-canvas-wrap { display: flex; flex-direction: column; gap: 8px; }
+.rc-stage { position: relative; border: 1px solid var(--border); border-radius: 4px; background: #10141a; }
+#rc-canvas { display: block; width: 100%; height: auto; border-radius: 4px; }
+.rc-msg {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 14px; color: var(--text-mute); font-size: 12.5px;
+  background: rgba(10, 13, 18, .45); border-radius: 4px;
 }
-.rp-map-bg { fill: #10141a; }
-.rp-map-time { fill: var(--accent); font-size: 26px; font-weight: 800; }
-.replay-map-empty { fill: var(--text-mute); font-size: 20px; }
-.rp-dot circle { stroke: rgba(255,255,255,.62); stroke-width: 1.5; }
-.rp-dot.player circle { fill: #7db7ff; }
-.rp-dot.boss circle { fill: #e06c6c; }
-.rp-dot text { fill: var(--text); font-size: 17px; paint-order: stroke; stroke: #10141a; stroke-width: 3px; }
+.rc-controls { display: flex; align-items: center; gap: 8px; }
+.rc-controls button {
+  background: var(--bg-1); border: 1px solid var(--border); color: var(--text);
+  border-radius: 6px; padding: 5px 11px; cursor: pointer; font-size: 12px;
+  min-height: 30px; white-space: nowrap;
+}
+.rc-controls button:hover { background: var(--accent); color: var(--accent-ink); }
+.rc-scrub-wrap { position: relative; flex: 1; min-width: 60px; display: flex; align-items: center; }
+#rc-scrub { width: 100%; margin: 0; accent-color: var(--accent); }
+#rc-deaths { position: absolute; left: 0; right: 0; top: -5px; height: 5px; pointer-events: none; }
+#rc-deaths i { position: absolute; top: 0; width: 2px; height: 5px; background: #e06c6c; }
+#rc-clock { color: var(--text-mute); font-size: 11.5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rc-units { display: flex; flex-wrap: wrap; gap: 4px; }
+.rc-unit {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--bg-1); border: 1px solid var(--border-soft); color: var(--text-dim);
+  border-radius: 999px; padding: 3px 9px; font-size: 11px; cursor: pointer;
+}
+.rc-unit i { width: 8px; height: 8px; border-radius: 50%; background: var(--uc, #7db7ff); flex: none; }
+.rc-unit:hover { border-color: var(--accent); }
+.rc-unit.hl { border-color: var(--accent); color: var(--text); background: var(--bg-2); }
+.rc-unit.off { opacity: .35; text-decoration: line-through; }
+.rc-note { color: var(--text-mute); font-size: 11px; }
+.rc-note:empty { display: none; }
 .replay-counts { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
 .replay-events {
   display: grid; gap: 1px; border: 1px solid var(--border); border-radius: 4px;
@@ -1179,3 +1201,4 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .s2-role { font-size: 10px; color: var(--text-mute); }
 .s2-nrefs { font-size: 10px; color: var(--text-mute); background: rgba(255,255,255,0.06);
   border-radius: 8px; padding: 1px 6px; }
+.s2-ico { width: 24px; height: 24px; border-radius: 5px; }
