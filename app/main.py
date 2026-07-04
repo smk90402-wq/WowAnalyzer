@@ -48,6 +48,7 @@ from app import talent_tree as tt_render
 from app import timeline as tl_render
 from app import aug_feedback
 from app import local_replay
+from app import replay_map
 
 log = logging.getLogger("app.main")
 
@@ -1757,3 +1758,27 @@ def local_replay_detail(replay_id: str) -> JSONResponse:
         raise HTTPException(404, str(e))
     except Exception as e:
         raise HTTPException(500, f"local replay detail failed: {e}")
+
+
+# ── 맵 리플레이 (REPLAY3D_PLAN MVP) ─────────────────────────────────────────
+@app.get("/api/replay/map/{ui_map_id}.png")
+def replay_map_png(ui_map_id: int) -> FileResponse:
+    """uiMapID → 스티칭된 맵 PNG (data/maps/ 캐시, 최초 1회 wago.tools 다운로드)."""
+    try:
+        path = replay_map.map_png_path(ui_map_id)
+    except replay_map.MapError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        raise HTTPException(500, f"replay map failed: {e}")
+    return FileResponse(path, media_type="image/png")
+
+
+@app.get("/api/replay/{replay_id}/frames")
+def replay_frames(replay_id: str) -> JSONResponse:
+    """풀 1개의 0.5초 다운샘플 좌표 프레임 + 유닛/죽음/맵 변환 계수."""
+    try:
+        return JSONResponse(local_replay.replay_frames(replay_id))
+    except local_replay.ReplayError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        raise HTTPException(500, f"replay frames failed: {e}")

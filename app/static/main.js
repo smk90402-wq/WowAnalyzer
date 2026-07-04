@@ -1525,7 +1525,8 @@ function renderLocalReplayDetail(detail) {
       const t = Number(btn.dataset.replayJump || 0);
       if (slider) slider.value = String(t);
       if (video) video.currentTime = t;
-      rcSeek(t);
+      // 이벤트/영상 t 는 캡처 시작 기준, 캔버스는 전투 시작 기준 → 오프셋 보정
+      rcSeek(Math.max(0, t - Number(rc.meta?.video_offset_s || 0)));
     });
   }
   initReplayCanvas(cap.id || replayState.selectedId);
@@ -1616,16 +1617,20 @@ async function initReplayCanvas(replayId) {
 
   // 맵 이미지 (실패해도 어두운 배경 위에 점만 표시)
   const notes = [];
-  if (map.error) notes.push(`맵 이미지를 못 받아 임시 좌표계로 표시 (${map.error})`);
-  await new Promise(resolve => {
-    const img = new Image();
-    img.onload = () => { if (token === rc.token) rc.mapImg = img; resolve(); };
-    img.onerror = () => {
-      if (!map.error) notes.push('맵 이미지를 불러오지 못해 배경 없이 표시합니다');
-      resolve();
-    };
-    img.src = `/api/replay/map/${Number(map.ui_map_id) || 0}.png`;
-  });
+  if (map.error) {
+    // 서버가 실패 사유를 줬으면 PNG 요청 자체를 생략 (네거티브 캐시와 짝)
+    notes.push(`맵 이미지를 못 받아 임시 좌표계로 표시 (${map.error})`);
+  } else {
+    await new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => { if (token === rc.token) rc.mapImg = img; resolve(); };
+      img.onerror = () => {
+        notes.push('맵 이미지를 불러오지 못해 배경 없이 표시합니다');
+        resolve();
+      };
+      img.src = `/api/replay/map/${Number(map.ui_map_id) || 0}.png`;
+    });
+  }
   if (token !== rc.token) return;
 
   msg.style.display = 'none';

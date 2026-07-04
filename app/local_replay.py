@@ -408,9 +408,11 @@ def _parse_log_window(
                     item["kind"] = "damage"
                     item["amount"] = amount
             elif event == "UNIT_DIED" and len(row) > 6 and str(row[5]).startswith("Player-"):
-                counts["deaths"] += 1
-                item = _base_event(row, ts, video_start)
-                item["kind"] = "death"
+                # 마지막 필드 unconsciousOnDeath=1 → 죽은척(사냥꾼 등), 실제 사망 아님
+                if str(row[-1]).strip() != "1":
+                    counts["deaths"] += 1
+                    item = _base_event(row, ts, video_start)
+                    item["kind"] = "death"
 
             if item:
                 if len(events) < max_events:
@@ -555,3 +557,438 @@ def replay_video_path(replay_id: str) -> Path:
     if not isinstance(video, Path) or not video.exists():
         raise ReplayError(f"video not found: {replay_id}")
     return video
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 맵 리플레이 프레임 — GET /api/replay/{replay_id}/frames 백엔드
+# (REPLAY3D_PLAN.md MVP: 아카이브 로그 + 바이트오프셋 seek + 0.5초 다운샘플)
+# ═══════════════════════════════════════════════════════════════════════════
+
+ARCHIVE_DIR_NAME = "warcraftlogsarchive"
+FRAME_STEP = 0.5          # 다운샘플 그리드 (초)
+NPC_MAX = 8               # 보스 외 npc 는 샘플 많은 순 상위 N 만
+NPC_MIN_SAMPLES = 10      # 이보다 샘플 적은 npc 는 제외
+
+# 고급 파라미터가 붙는 이벤트 (플랜 §2-2). SWING 계열은 spell prefix 3필드가
+# 없어서 고급 블록 시작 인덱스가 12 가 아니라 9 — 좌표 인덱스도 3 앞당겨짐.
+_ADV_SPELL_EVENTS = {
+    "SPELL_CAST_SUCCESS", "SPELL_DAMAGE", "SPELL_PERIODIC_DAMAGE",
+    "SPELL_HEAL", "SPELL_PERIODIC_HEAL", "SPELL_ENERGIZE",
+    "SPELL_PERIODIC_ENERGIZE", "RANGE_DAMAGE", "SPELL_DRAIN", "SPELL_LEECH",
+    "DAMAGE_SPLIT", "DAMAGE_SHIELD",
+}
+_ADV_SWING_EVENTS = {"SWING_DAMAGE", "SWING_DAMAGE_LANDED"}
+
+# specID → 클래스 토큰 (COMBATANT_INFO 에서 플레이어 직업색 얻기용)
+_SPEC_CLASS = {
+    62: "mage", 63: "mage", 64: "mage",
+    65: "paladin", 66: "paladin", 70: "paladin",
+    71: "warrior", 72: "warrior", 73: "warrior",
+    102: "druid", 103: "druid", 104: "druid", 105: "druid",
+    250: "deathknight", 251: "deathknight", 252: "deathknight",
+    253: "hunter", 254: "hunter", 255: "hunter",
+    256: "priest", 257: "priest", 258: "priest",
+    259: "rogue", 260: "rogue", 261: "rogue",
+    262: "shaman", 263: "shaman", 264: "shaman",
+    265: "warlock", 266: "warlock", 267: "warlock",
+    268: "monk", 269: "monk", 270: "monk",
+    577: "demonhunter", 581: "demonhunter",
+    1467: "evoker", 1468: "evoker", 1473: "evoker",
+}
+
+
+def _adv_position_any(row: list[str]) -> tuple[str, float, float, int, float | None] | None:
+    """이벤트 종류별 고급 좌표 추출 → (guid, x, y, uiMapID, facing).
+
+    기존 _advanced_position() 은 인덱스 26 고정이라 SWING 좌표를 버렸음 —
+    여기서는 이벤트에 따라 오프셋을 맞춰 밀도를 살린다.
+    """
+    event = row[0]
+    if event in _ADV_SWING_EVENTS:
+        off = 9        # 고급 블록 시작 (spell prefix 없음)
+    elif event in _ADV_SPELL_EVENTS:
+        off = 12
+    else:
+        return None
+    if len(row) <= off + 17:
+        return None
+    guid = row[off]
+    if not guid or guid == "0000000000000000" or "-" not in guid:
+        return None
+    x = _to_float(row[off + 14])
+    y = _to_float(row[off + 15])
+    if x is None or y is None:
+        return None
+    return guid, x, y, _to_int(row[off + 16]), _to_float(row[off + 17])
+
+
+def _combatant_spec(row: list[str]) -> tuple[str, int] | None:
+    """COMBATANT_INFO → (guid, specID). specID 는 탤런트 배열 '[( ' 직전 필드."""
+    if len(row) < 4 or not str(row[1]).startswith("Player-"):
+        return None
+    for i, field in enumerate(row):
+        if isinstance(field, str) and field.startswith("["):
+            spec = _to_int(row[i - 1]) if i >= 1 else 0
+            return row[1], spec
+    return None
+
+
+def _filename_log_start(path: Path) -> datetime | None:
+    """WoWCombatLog-MMDDYY_HHMMSS.txt 파일명에서 로그 시작 시각."""
+    m = re.search(r"WoWCombatLog-(\d{2})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})", path.name)
+    if not m:
+        return None
+    mo, d, y, h, mi, s = map(int, m.groups())
+    try:
+        return datetime(2000 + y, mo, d, h, mi, s)
+    except ValueError:
+        return None
+
+
+def _candidate_logs(cap_start: datetime, log_dir: Path = DEFAULT_LOG_DIR) -> list[Path]:
+    """캡처 시각을 포함할 수 있는 로그 파일들 (현재 + 아카이브).
+
+    파일명 시각 <= 캡처 시각 <= mtime 인 파일만 후보 — 1GB 아카이브 전수
+    인덱싱을 피하는 1차 필터. 시작 시각이 캡처에 가장 가까운 파일부터 시도.
+    """
+    cands: list[tuple[datetime, Path]] = []
+    dirs = [log_dir, log_dir / ARCHIVE_DIR_NAME]
+    for d in dirs:
+        if not d.exists():
+            continue
+        for p in d.glob("*WoWCombatLog-*.txt"):
+            file_start = _filename_log_start(p)
+            if not file_start:
+                continue
+            mtime = datetime.fromtimestamp(p.stat().st_mtime)
+            if file_start - timedelta(minutes=2) <= cap_start <= mtime + timedelta(minutes=2):
+                cands.append((file_start, p))
+    cands.sort(key=lambda t: t[0], reverse=True)
+    return [p for _, p in cands]
+
+
+def _apply_encounter_line(
+    raw: bytes,
+    line_off: int,
+    line_end: int,
+    encounters: list[dict[str, Any]],
+    current: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    """한 줄에서 ENCOUNTER_START/END 를 파싱해 encounters 갱신, 새 current 반환."""
+    if b"ENCOUNTER_" not in raw:
+        return current
+    # utf-8-sig: 파일 첫 줄 BOM 제거용
+    m = _LOG_LINE_RE.match(raw.decode("utf-8-sig", errors="replace").rstrip("\r\n"))
+    if not m:
+        return current
+    ts = _parse_log_ts(m.group(1))
+    row = _csv_row(m.group(2))
+    if not ts or not row:
+        return current
+    if row[0] == "ENCOUNTER_START" and len(row) >= 6:
+        return {
+            "encounter_id": _to_int(row[1]),
+            "encounter": _clean_name(row[2]),
+            "difficulty_id": _to_int(row[3]),
+            "start_off": line_off,
+            "_start_dt": ts,
+        }
+    if row[0] == "ENCOUNTER_END" and len(row) >= 7:
+        if current and current.get("encounter_id") == _to_int(row[1]):
+            current.update({
+                "duration_s": round(_to_int(row[6]) / 1000, 3),
+                "end_off": line_end,   # END 줄 끝까지 포함
+                "_end_dt": ts,
+            })
+            encounters.append(current)
+        return None
+    return current
+
+
+@lru_cache(maxsize=8)
+def _encounter_offsets_cached(path_str: str, mtime_ns: int, size: int) -> tuple[dict[str, Any], ...]:
+    """아카이브(불변) 로그: ENCOUNTER_START/END 만 바이트 오프셋과 함께 전체 스캔.
+
+    바이너리 모드 줄 순회 + 'ENCOUNTER_' 프리필터라 1.2GB 아카이브도 수 초.
+    이후 프레임 추출은 start_off 로 fh.seek() — 파일 앞부분을 다시 안 읽음.
+    """
+    del mtime_ns, size
+    path = Path(path_str)
+    encounters: list[dict[str, Any]] = []
+    current: dict[str, Any] | None = None
+    offset = 0
+    with path.open("rb") as fh:
+        for raw in fh:
+            line_off = offset
+            offset += len(raw)
+            current = _apply_encounter_line(raw, line_off, offset, encounters, current)
+    return tuple(encounters)
+
+
+# 활성 로그(계속 자라는 파일) 증분 인덱스: path → 스캔 상태.
+# lru 캐시는 (path,mtime,size) 키라 파일이 자라는 동안 매번 전체 재스캔이라
+# 여기선 마지막 오프셋부터 이어서 읽는다.
+_ACTIVE_ENC_INDEX: dict[str, dict[str, Any]] = {}
+
+
+def _encounter_offsets_active(path: Path) -> tuple[dict[str, Any], ...]:
+    """활성 로그: 마지막 스캔 지점부터 이어 스캔 (파일이 줄어들면 처음부터)."""
+    key = str(path)
+    size = path.stat().st_size
+    state = _ACTIVE_ENC_INDEX.get(key)
+    if state is None or size < state["scanned_size"]:
+        # 처음 보는 파일이거나 파일이 줄어듦(교체/롤오버) → 리셋
+        state = {"scanned_size": 0, "encounters": [], "current": None}
+        _ACTIVE_ENC_INDEX[key] = state
+    if size > state["scanned_size"]:
+        encounters = state["encounters"]
+        current = state["current"]
+        offset = state["scanned_size"]
+        with path.open("rb") as fh:
+            fh.seek(offset)
+            for raw in fh:
+                if not raw.endswith(b"\n"):
+                    break  # 쓰다 만 마지막 줄 — 다음 요청 때 이어서 읽음
+                line_off = offset
+                offset += len(raw)
+                current = _apply_encounter_line(raw, line_off, offset, encounters, current)
+        state["scanned_size"] = offset
+        state["current"] = current
+    return tuple(state["encounters"])
+
+
+def _encounter_offsets(path: Path) -> tuple[dict[str, Any], ...]:
+    """아카이브는 불변이라 lru 캐시, 그 외(활성 가능)는 증분 인덱스."""
+    if path.parent.name == ARCHIVE_DIR_NAME:
+        return _encounter_offsets_cached(*_file_sig(path))
+    return _encounter_offsets_active(path)
+
+
+def _find_frames_encounter(cap: dict[str, Any]) -> tuple[Path, dict[str, Any]]:
+    """캡처 ↔ 로그 전투 매칭 (encounterID 일치 + 시작 시각 8초 이내)."""
+    cap_start = cap.get("_start_dt")
+    if not cap_start:
+        raise ReplayError("capture start time missing")
+    cap_eid = cap.get("encounter_id")
+    for log_path in _candidate_logs(cap_start):
+        best: tuple[float, dict[str, Any]] | None = None
+        for enc in _encounter_offsets(log_path):
+            if cap_eid and enc.get("encounter_id") != cap_eid:
+                continue
+            delta = abs((enc["_start_dt"] - cap_start).total_seconds())
+            if best is None or delta < best[0]:
+                best = (delta, enc)
+        if best and best[0] <= 8:
+            return log_path, best[1]
+    raise ReplayError(
+        f"log encounter not found for capture (encounterID={cap_eid}, "
+        f"start={cap_start}) — 현재/아카이브 로그에 매칭 전투 없음")
+
+
+def _stream_frames_window(
+    log_path: Path,
+    start_off: int,
+    end_off: int,
+    start_dt: datetime,
+    end_dt: datetime,
+) -> dict[str, Any]:
+    """전투 구간만 seek 해서 좌표/이름/스펙/죽음을 스트리밍 수집 (전량 메모리 적재 없음)."""
+    samples: dict[str, list[tuple[float, float, float, float | None]]] = {}
+    names: dict[str, str] = {}
+    specs: dict[str, int] = {}
+    deaths: list[tuple[float, str]] = []
+    map_counts: Counter = Counter()
+
+    with log_path.open("rb") as fh:
+        fh.seek(start_off)
+        pos = start_off
+        for raw in fh:
+            line_off = pos
+            pos += len(raw)
+            if end_off and line_off >= end_off:
+                break
+            m = _LOG_LINE_RE.match(raw.decode("utf-8-sig", errors="replace").rstrip("\r\n"))
+            if not m:
+                continue
+            ts = _parse_log_ts(m.group(1))
+            if not ts:
+                continue
+            if ts > end_dt:
+                break
+            row = _csv_row(m.group(2))
+            if not row:
+                continue
+            event = row[0]
+            t = (ts - start_dt).total_seconds()
+
+            if event == "COMBATANT_INFO":
+                got = _combatant_spec(row)
+                if got:
+                    specs[got[0]] = got[1]
+                continue
+            if event == "UNIT_DIED" and len(row) > 6:
+                # 마지막 필드 unconsciousOnDeath=1 → 죽은척(사냥꾼 등), 실제 사망 아님
+                if str(row[-1]).strip() == "1":
+                    continue
+                guid = row[5]
+                if guid and guid != "0000000000000000":
+                    deaths.append((round(max(t, 0.0), 2), guid))
+                    if _clean_name(row[6]):
+                        names.setdefault(guid, _clean_name(row[6]))
+                continue
+
+            adv = _adv_position_any(row)
+            if not adv:
+                continue
+            guid, x, y, ui_map, facing = adv
+            samples.setdefault(guid, []).append((t, x, y, facing))
+            map_counts[ui_map] += 1
+            name = _actor_name(row, guid)
+            if name:
+                names.setdefault(guid, name)
+
+    return {"samples": samples, "names": names, "specs": specs,
+            "deaths": deaths, "map_counts": map_counts}
+
+
+def _boss_tokens(encounter_name: str) -> set[str]:
+    return {tok for tok in (encounter_name or "").split() if len(tok) >= 2}
+
+
+def _classify_units(
+    samples: dict[str, list],
+    names: dict[str, str],
+    specs: dict[str, int],
+    encounter_name: str,
+) -> list[dict[str, Any]]:
+    """유닛 선별: 플레이어 전부 + 보스(이름 매칭) + 상위 N npc."""
+    tokens = _boss_tokens(encounter_name)
+    units: list[dict[str, Any]] = []
+    npcs: list[tuple[int, dict[str, Any]]] = []
+    for guid, pts in samples.items():
+        name = names.get(guid, "")
+        if guid.startswith("Player-"):
+            units.append({"guid": guid, "name": name,
+                          "cls": _SPEC_CLASS.get(specs.get(guid, 0)),
+                          "kind": "player"})
+        elif name and (name == encounter_name or any(tok in name for tok in tokens)):
+            units.append({"guid": guid, "name": name, "cls": None, "kind": "boss"})
+        elif len(pts) >= NPC_MIN_SAMPLES:
+            npcs.append((len(pts), {"guid": guid, "name": name, "cls": None, "kind": "npc"}))
+    npcs.sort(key=lambda t: t[0], reverse=True)
+    units.extend(u for _, u in npcs[:NPC_MAX])
+    return units
+
+
+def replay_frames(replay_id: str) -> dict[str, Any]:
+    """GET /api/replay/{id}/frames 응답 본체 (API 계약 고정 포맷)."""
+    from app import replay_map  # 순환 import 방지 겸 지연 로드
+
+    cap = _find_capture(replay_id)
+    log_path, enc = _find_frames_encounter(cap)
+    start_dt = enc["_start_dt"]
+    end_dt = enc.get("_end_dt") or (start_dt + timedelta(seconds=(cap.get("duration") or 0) + 5))
+    duration_s = enc.get("duration_s") or round((end_dt - start_dt).total_seconds(), 3)
+
+    # 시간축 동기화: frames 의 t 는 ENCOUNTER_START 기준, 이벤트/영상은 캡처 시작
+    # 기준이라 그 차이(초)를 내려준다. 캡처 시각을 모르면 0.
+    cap_start = cap.get("_start_dt")
+    video_offset_s = round((start_dt - cap_start).total_seconds(), 3) if cap_start else 0.0
+
+    parsed = _stream_frames_window(
+        log_path, enc["start_off"], enc.get("end_off") or 0, start_dt, end_dt)
+
+    # 지배적 uiMapID 하나만 (위상 전투는 추후 맵 전환 지원)
+    dominant_map = 0
+    if parsed["map_counts"]:
+        dominant_map = parsed["map_counts"].most_common(1)[0][0]
+
+    samples = parsed["samples"]
+    units = _classify_units(samples, parsed["names"], parsed["specs"],
+                            enc.get("encounter") or "")
+
+    # 짧은 유닛 id 부여 (JSON 용량 절약): p1.. / b1.. / n1..
+    prefix_counter = {"player": 0, "boss": 0, "npc": 0}
+    guid_to_id: dict[str, str] = {}
+    for unit in units:
+        prefix_counter[unit["kind"]] += 1
+        guid_to_id[unit["guid"]] = f"{unit['kind'][0]}{prefix_counter[unit['kind']]}"
+
+    # 0.5초 그리드 다운샘플 — 버킷마다 유닛별 마지막 샘플 채택
+    buckets: dict[int, dict[str, list]] = {}
+    player_world: list[tuple[float, float]] = []
+    for unit in units:
+        uid = guid_to_id[unit["guid"]]
+        for t, x, y, facing in samples[unit["guid"]]:
+            if t < 0:
+                continue
+            if unit["kind"] == "player":
+                player_world.append((x, y))
+            b = int(t // FRAME_STEP)
+            buckets.setdefault(b, {})[uid] = [
+                round(x, 2), round(y, 2),
+                round(facing, 3) if facing is not None else None,
+            ]
+    frames = [{"t": round(b * FRAME_STEP, 1), "p": pts}
+              for b, pts in sorted(buckets.items())]
+
+    # 죽음 마커 — 추적 중인 유닛만
+    deaths = [{"t": t, "id": guid_to_id[g]} for t, g in parsed["deaths"] if g in guid_to_id]
+
+    # 맵 메타 + world→px 계수 (플레이어 실좌표로 축 뒤집힘 캘리브레이션)
+    calib = player_world[::max(1, len(player_world) // 200)]  # 최대 ~200점만
+    if not dominant_map:
+        # uiMapID 0 = 좌표에 맵 정보 없음 — wago 조회 자체가 무의미하니 생략
+        map_out = _fallback_map(0, player_world, "uiMapID 0 (좌표에 맵 정보 없음)")
+    else:
+        try:
+            mmeta = replay_map.map_meta(dominant_map)
+            map_out = {
+                "ui_map_id": dominant_map,
+                "px_w": mmeta["px_w"],
+                "px_h": mmeta["px_h"],
+                "world_to_px": replay_map.world_to_px(mmeta, calib),
+            }
+        except Exception as exc:
+            # 오프라인/미지원 맵 폴백: 좌표 bounds 를 1000px 캔버스에 맞춤
+            map_out = _fallback_map(dominant_map, player_world, str(exc))
+
+    return {
+        "meta": {
+            "encounter": enc.get("encounter") or (cap.get("encounter") or ""),
+            "duration_s": round(float(duration_s), 3),
+            "video_offset_s": video_offset_s,
+            "map": map_out,
+            "units": [
+                {"id": guid_to_id[u["guid"]], "name": u["name"],
+                 "cls": u["cls"], "kind": u["kind"]}
+                for u in units
+            ],
+            "deaths": deaths,
+        },
+        "frames": frames,
+    }
+
+
+def _fallback_map(ui_map_id: int, world_xy: list[tuple[float, float]], reason: str) -> dict[str, Any]:
+    """맵 이미지를 못 받았을 때: 데이터 bounds 기반 임시 변환 (빈 배경용)."""
+    if not world_xy:
+        return {"ui_map_id": ui_map_id, "px_w": 1000, "px_h": 1000,
+                "world_to_px": {"a": 0.0, "b": -1.0, "c": 500.0,
+                                "d": -1.0, "e": 0.0, "f": 500.0},
+                "error": reason}
+    xs = [p[0] for p in world_xy]
+    ys = [p[1] for p in world_xy]
+    pad = 10.0
+    min_x, max_x = min(xs) - pad, max(xs) + pad
+    min_y, max_y = min(ys) - pad, max(ys) + pad
+    px_w = 1000
+    px_h = max(1, round(px_w * (max_x - min_x) / max(max_y - min_y, 1e-6)))
+    # +Y=서 → 화면 왼쪽, +X=북 → 화면 위 (스파이크와 동일 방향)
+    b = -px_w / (max_y - min_y)
+    c = px_w * max_y / (max_y - min_y)
+    d = -px_h / (max_x - min_x)
+    f = px_h * max_x / (max_x - min_x)
+    return {"ui_map_id": ui_map_id, "px_w": px_w, "px_h": px_h,
+            "world_to_px": {"a": 0.0, "b": b, "c": c, "d": d, "e": 0.0, "f": f},
+            "error": reason}
