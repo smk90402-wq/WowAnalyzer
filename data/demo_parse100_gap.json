@@ -1,0 +1,1359 @@
+{
+ "meta": {
+  "date": "2026-07-05",
+  "spec": "Warlock-Demonology",
+  "n_csv_rows": 900,
+  "n_with_events": 302,
+  "bands": "rank_1_5 / rank_6_20 / rank_21_100",
+  "downtime_def": "시전-시전 간(전투 시작/끝 포함) X초 이상 무시전 구간 합. 캐스터라 하드캐스트가 3초 기준에 일부 걸릴 수 있어 5초 기준 병행 — 밴드 간 비교는 동일 기준이라 유효",
+  "top_cast_spells": [
+   {
+    "id": 105174,
+    "name": "굴단의 손",
+    "casts": 24573
+   },
+   {
+    "id": 264178,
+    "name": "악마 화살",
+    "casts": 18498
+   },
+   {
+    "id": 686,
+    "name": "어둠의 화살",
+    "casts": 14699
+   },
+   {
+    "id": 196277,
+    "name": "파열",
+    "casts": 5197
+   },
+   {
+    "id": 104316,
+    "name": "공포사냥개 부르기",
+    "casts": 4751
+   },
+   {
+    "id": 434506,
+    "name": "지옥불 화살",
+    "casts": 2618
+   },
+   {
+    "id": 434635,
+    "name": "황폐",
+    "casts": 2541
+   },
+   {
+    "id": 265187,
+    "name": "악마 폭군 소환",
+    "casts": 1694
+   },
+   {
+    "id": 108416,
+    "name": "어둠의 서약",
+    "casts": 803
+   },
+   {
+    "id": 1250508,
+    "name": "잿불날개 열파",
+    "casts": 760
+   },
+   {
+    "id": 1276452,
+    "name": "흑마법서: 임프 군주",
+    "casts": 721
+   },
+   {
+    "id": 111400,
+    "name": "불타는 돌진",
+    "casts": 677
+   },
+   {
+    "id": 48020,
+    "name": "악마의 마법진: 순간이동",
+    "casts": 393
+   },
+   {
+    "id": 1236616,
+    "name": "빛의 잠재력",
+    "casts": 365
+   },
+   {
+    "id": 1253050,
+    "name": "여명의 수정",
+    "casts": 281
+   },
+   {
+    "id": 104773,
+    "name": "영원한 결의",
+    "casts": 266
+   },
+   {
+    "id": 33702,
+    "name": "피의 격노",
+    "casts": 261
+   },
+   {
+    "id": 132411,
+    "name": "마법 태우기",
+    "casts": 246
+   },
+   {
+    "id": 385899,
+    "name": "영혼 불사르기",
+    "casts": 203
+   },
+   {
+    "id": 119914,
+    "name": "도끼 던지기",
+    "casts": 179
+   }
+  ],
+  "pi_source": "PI CSV pi_received만 사용 (events buffs엔 외부버프 미수집 — BM 분석에서 실측 확인)"
+ },
+ "per_boss": {
+  "Fallen-King Salhadaar": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 52.97,
+    "hog_per_min_med": 16.5,
+    "demonbolt_per_min_med": 12.24,
+    "shadowbolt_per_min_med": 10.18,
+    "tyrant_per_fight_med": 4,
+    "downtime3s_s_med": 3.89,
+    "downtime3s_per_min_med": 1.35,
+    "gaps3s_count_med": 1,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 52.21,
+    "hog_per_min_med": 16.24,
+    "demonbolt_per_min_med": 12.39,
+    "shadowbolt_per_min_med": 9.44,
+    "tyrant_per_fight_med": 4,
+    "downtime3s_s_med": 3.68,
+    "downtime3s_per_min_med": 1.23,
+    "gaps3s_count_med": 1,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "rank_21_100": {
+    "n": 16,
+    "casts_per_min_med": 51.49,
+    "hog_per_min_med": 15.96,
+    "demonbolt_per_min_med": 11.41,
+    "shadowbolt_per_min_med": 10.41,
+    "tyrant_per_fight_med": 4,
+    "downtime3s_s_med": 3.83,
+    "downtime3s_per_min_med": 1.06,
+    "gaps3s_count_med": 1,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "all": {
+    "n": 36,
+    "casts_per_min_med": 51.6,
+    "hog_per_min_med": 16.1,
+    "demonbolt_per_min_med": 11.58,
+    "shadowbolt_per_min_med": 9.86,
+    "tyrant_per_fight_med": 4,
+    "downtime3s_s_med": 3.83,
+    "downtime3s_per_min_med": 1.3,
+    "gaps3s_count_med": 1,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 206,
+    "all100_med_s": 217,
+    "rank1_5_vs_all_diff_s": -11,
+    "rank1_5_vs_all_diff_pct": -5.1,
+    "by_band_med_s": {
+     "r1_5": 206,
+     "r6_20": 220,
+     "r21_50": 216,
+     "r51_100": 217
+    },
+    "rank1_10_slower_than_med_pct": 40
+   },
+   "pi": {
+    "demo_rank_1_5": {
+     "n": 5,
+     "pi": 4,
+     "pi_pct": 80
+    },
+    "demo_rank_1_20": {
+     "n": 20,
+     "pi": 13,
+     "pi_pct": 65
+    },
+    "demo_rank_21_100": {
+     "n": 80,
+     "pi": 31,
+     "pi_pct": 39
+    },
+    "demo_all_known": {
+     "n": 100,
+     "pi": 44,
+     "pi_pct": 44
+    },
+    "demo_pi_true_rank_med": 46,
+    "demo_pi_false_rank_med": 54,
+    "allspec_rank1_10": {
+     "n": 267,
+     "pi": 114,
+     "pi_pct": 43
+    }
+   }
+  },
+  "Vaelgor & Ezzorak": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 46.56,
+    "hog_per_min_med": 13.37,
+    "demonbolt_per_min_med": 10.41,
+    "shadowbolt_per_min_med": 8.51,
+    "tyrant_per_fight_med": 6,
+    "downtime3s_s_med": 34.78,
+    "downtime3s_per_min_med": 4.73,
+    "gaps3s_count_med": 9,
+    "downtime5s_s_med": 7.46,
+    "downtime5s_per_min_med": 1.3,
+    "gaps5s_count_med": 1
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 47.41,
+    "hog_per_min_med": 13.95,
+    "demonbolt_per_min_med": 10.31,
+    "shadowbolt_per_min_med": 9.1,
+    "tyrant_per_fight_med": 7,
+    "downtime3s_s_med": 28.15,
+    "downtime3s_per_min_med": 4.38,
+    "gaps3s_count_med": 8,
+    "downtime5s_s_med": 5.53,
+    "downtime5s_per_min_med": 0.86,
+    "gaps5s_count_med": 1
+   },
+   "rank_21_100": {
+    "n": 14,
+    "casts_per_min_med": 46.8,
+    "hog_per_min_med": 13.66,
+    "demonbolt_per_min_med": 10.21,
+    "shadowbolt_per_min_med": 9.42,
+    "tyrant_per_fight_med": 6,
+    "downtime3s_s_med": 30.67,
+    "downtime3s_per_min_med": 4.52,
+    "gaps3s_count_med": 8,
+    "downtime5s_s_med": 6.0,
+    "downtime5s_per_min_med": 0.94,
+    "gaps5s_count_med": 1
+   },
+   "all": {
+    "n": 34,
+    "casts_per_min_med": 46.91,
+    "hog_per_min_med": 13.67,
+    "demonbolt_per_min_med": 10.31,
+    "shadowbolt_per_min_med": 8.97,
+    "tyrant_per_fight_med": 6,
+    "downtime3s_s_med": 30.67,
+    "downtime3s_per_min_med": 4.52,
+    "gaps3s_count_med": 8,
+    "downtime5s_s_med": 6.0,
+    "downtime5s_per_min_med": 0.94,
+    "gaps5s_count_med": 1
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 406,
+    "all100_med_s": 392,
+    "rank1_5_vs_all_diff_s": 14,
+    "rank1_5_vs_all_diff_pct": 3.7,
+    "by_band_med_s": {
+     "r1_5": 406,
+     "r6_20": 392,
+     "r21_50": 382,
+     "r51_100": 387
+    },
+    "rank1_10_slower_than_med_pct": 70
+   },
+   "pi": {
+    "demo_rank_1_5": {
+     "n": 5,
+     "pi": 2,
+     "pi_pct": 40
+    },
+    "demo_rank_1_20": {
+     "n": 20,
+     "pi": 9,
+     "pi_pct": 45
+    },
+    "demo_rank_21_100": {
+     "n": 80,
+     "pi": 44,
+     "pi_pct": 55
+    },
+    "demo_all_known": {
+     "n": 100,
+     "pi": 53,
+     "pi_pct": 53
+    },
+    "demo_pi_true_rank_med": 51,
+    "demo_pi_false_rank_med": 48,
+    "allspec_rank1_10": {
+     "n": 266,
+     "pi": 121,
+     "pi_pct": 45
+    }
+   }
+  },
+  "Lightblinded Vanguard": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 51.32,
+    "hog_per_min_med": 16.28,
+    "demonbolt_per_min_med": 12.34,
+    "shadowbolt_per_min_med": 10.28,
+    "tyrant_per_fight_med": 7,
+    "downtime3s_s_med": 3.23,
+    "downtime3s_per_min_med": 0.44,
+    "gaps3s_count_med": 1,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 51.95,
+    "hog_per_min_med": 16.34,
+    "demonbolt_per_min_med": 12.02,
+    "shadowbolt_per_min_med": 9.93,
+    "tyrant_per_fight_med": 6,
+    "downtime3s_s_med": 3.08,
+    "downtime3s_per_min_med": 0.54,
+    "gaps3s_count_med": 1,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "rank_21_100": {
+    "n": 14,
+    "casts_per_min_med": 50.98,
+    "hog_per_min_med": 16.22,
+    "demonbolt_per_min_med": 11.66,
+    "shadowbolt_per_min_med": 9.42,
+    "tyrant_per_fight_med": 7,
+    "downtime3s_s_med": 5.41,
+    "downtime3s_per_min_med": 0.96,
+    "gaps3s_count_med": 1,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "all": {
+    "n": 34,
+    "casts_per_min_med": 51.57,
+    "hog_per_min_med": 16.26,
+    "demonbolt_per_min_med": 11.88,
+    "shadowbolt_per_min_med": 9.54,
+    "tyrant_per_fight_med": 7,
+    "downtime3s_s_med": 3.23,
+    "downtime3s_per_min_med": 0.54,
+    "gaps3s_count_med": 1,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 412,
+    "all100_med_s": 368,
+    "rank1_5_vs_all_diff_s": 43,
+    "rank1_5_vs_all_diff_pct": 11.8,
+    "by_band_med_s": {
+     "r1_5": 412,
+     "r6_20": 353,
+     "r21_50": 400,
+     "r51_100": 359
+    },
+    "rank1_10_slower_than_med_pct": 40
+   },
+   "pi": {
+    "demo_rank_1_5": {
+     "n": 5,
+     "pi": 4,
+     "pi_pct": 80
+    },
+    "demo_rank_1_20": {
+     "n": 20,
+     "pi": 15,
+     "pi_pct": 75
+    },
+    "demo_rank_21_100": {
+     "n": 80,
+     "pi": 38,
+     "pi_pct": 48
+    },
+    "demo_all_known": {
+     "n": 100,
+     "pi": 53,
+     "pi_pct": 53
+    },
+    "demo_pi_true_rank_med": 42,
+    "demo_pi_false_rank_med": 61,
+    "allspec_rank1_10": {
+     "n": 267,
+     "pi": 136,
+     "pi_pct": 51
+    }
+   }
+  },
+  "Crown of the Cosmos": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 45.07,
+    "hog_per_min_med": 13.29,
+    "demonbolt_per_min_med": 10.75,
+    "shadowbolt_per_min_med": 7.24,
+    "tyrant_per_fight_med": 8,
+    "downtime3s_s_med": 64.94,
+    "downtime3s_per_min_med": 8.02,
+    "gaps3s_count_med": 11,
+    "downtime5s_s_med": 41.56,
+    "downtime5s_per_min_med": 4.84,
+    "gaps5s_count_med": 3
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 44.29,
+    "hog_per_min_med": 13.33,
+    "demonbolt_per_min_med": 10.45,
+    "shadowbolt_per_min_med": 7.89,
+    "tyrant_per_fight_med": 8,
+    "downtime3s_s_med": 61.59,
+    "downtime3s_per_min_med": 7.99,
+    "gaps3s_count_med": 10,
+    "downtime5s_s_med": 41.94,
+    "downtime5s_per_min_med": 4.79,
+    "gaps5s_count_med": 3
+   },
+   "rank_21_100": {
+    "n": 14,
+    "casts_per_min_med": 44.47,
+    "hog_per_min_med": 13.13,
+    "demonbolt_per_min_med": 10.38,
+    "shadowbolt_per_min_med": 7.13,
+    "tyrant_per_fight_med": 7,
+    "downtime3s_s_med": 69.66,
+    "downtime3s_per_min_med": 8.27,
+    "gaps3s_count_med": 12,
+    "downtime5s_s_med": 36.66,
+    "downtime5s_per_min_med": 4.63,
+    "gaps5s_count_med": 3
+   },
+   "all": {
+    "n": 34,
+    "casts_per_min_med": 44.47,
+    "hog_per_min_med": 13.17,
+    "demonbolt_per_min_med": 10.42,
+    "shadowbolt_per_min_med": 7.29,
+    "tyrant_per_fight_med": 8,
+    "downtime3s_s_med": 66.27,
+    "downtime3s_per_min_med": 8.1,
+    "gaps3s_count_med": 11,
+    "downtime5s_s_med": 39.5,
+    "downtime5s_per_min_med": 4.73,
+    "gaps5s_count_med": 3
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 489,
+    "all100_med_s": 482,
+    "rank1_5_vs_all_diff_s": 8,
+    "rank1_5_vs_all_diff_pct": 1.6,
+    "by_band_med_s": {
+     "r1_5": 489,
+     "r6_20": 501,
+     "r21_50": 481,
+     "r51_100": 479
+    },
+    "rank1_10_slower_than_med_pct": 60
+   },
+   "pi": {
+    "demo_rank_1_5": {
+     "n": 5,
+     "pi": 3,
+     "pi_pct": 60
+    },
+    "demo_rank_1_20": {
+     "n": 20,
+     "pi": 11,
+     "pi_pct": 55
+    },
+    "demo_rank_21_100": {
+     "n": 80,
+     "pi": 38,
+     "pi_pct": 48
+    },
+    "demo_all_known": {
+     "n": 100,
+     "pi": 49,
+     "pi_pct": 49
+    },
+    "demo_pi_true_rank_med": 45,
+    "demo_pi_false_rank_med": 59,
+    "allspec_rank1_10": {
+     "n": 263,
+     "pi": 112,
+     "pi_pct": 43
+    }
+   }
+  },
+  "Imperator Averzian": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 52.36,
+    "hog_per_min_med": 17.0,
+    "demonbolt_per_min_med": 11.61,
+    "shadowbolt_per_min_med": 10.65,
+    "tyrant_per_fight_med": 4,
+    "downtime3s_s_med": 0,
+    "downtime3s_per_min_med": 0.0,
+    "gaps3s_count_med": 0,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 52.51,
+    "hog_per_min_med": 16.5,
+    "demonbolt_per_min_med": 11.52,
+    "shadowbolt_per_min_med": 11.79,
+    "tyrant_per_fight_med": 4,
+    "downtime3s_s_med": 3.1,
+    "downtime3s_per_min_med": 0.87,
+    "gaps3s_count_med": 1,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "rank_21_100": {
+    "n": 13,
+    "casts_per_min_med": 52.24,
+    "hog_per_min_med": 16.44,
+    "demonbolt_per_min_med": 12.01,
+    "shadowbolt_per_min_med": 10.87,
+    "tyrant_per_fight_med": 4,
+    "downtime3s_s_med": 0,
+    "downtime3s_per_min_med": 0.0,
+    "gaps3s_count_med": 0,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "all": {
+    "n": 33,
+    "casts_per_min_med": 52.39,
+    "hog_per_min_med": 16.5,
+    "demonbolt_per_min_med": 11.74,
+    "shadowbolt_per_min_med": 11.25,
+    "tyrant_per_fight_med": 4,
+    "downtime3s_s_med": 3.05,
+    "downtime3s_per_min_med": 0.6,
+    "gaps3s_count_med": 1,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 222,
+    "all100_med_s": 213,
+    "rank1_5_vs_all_diff_s": 10,
+    "rank1_5_vs_all_diff_pct": 4.6,
+    "by_band_med_s": {
+     "r1_5": 222,
+     "r6_20": 215,
+     "r21_50": 209,
+     "r51_100": 213
+    },
+    "rank1_10_slower_than_med_pct": 60
+   },
+   "pi": {
+    "demo_rank_1_5": {
+     "n": 5,
+     "pi": 3,
+     "pi_pct": 60
+    },
+    "demo_rank_1_20": {
+     "n": 20,
+     "pi": 11,
+     "pi_pct": 55
+    },
+    "demo_rank_21_100": {
+     "n": 78,
+     "pi": 31,
+     "pi_pct": 40
+    },
+    "demo_all_known": {
+     "n": 98,
+     "pi": 42,
+     "pi_pct": 43
+    },
+    "demo_pi_true_rank_med": 39,
+    "demo_pi_false_rank_med": 54,
+    "allspec_rank1_10": {
+     "n": 266,
+     "pi": 110,
+     "pi_pct": 41
+    }
+   }
+  },
+  "Vorasius": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 52.71,
+    "hog_per_min_med": 16.73,
+    "demonbolt_per_min_med": 12.13,
+    "shadowbolt_per_min_med": 9.53,
+    "tyrant_per_fight_med": 4,
+    "downtime3s_s_med": 3.76,
+    "downtime3s_per_min_med": 1.08,
+    "gaps3s_count_med": 1,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 52.04,
+    "hog_per_min_med": 16.3,
+    "demonbolt_per_min_med": 12.11,
+    "shadowbolt_per_min_med": 10.06,
+    "tyrant_per_fight_med": 4,
+    "downtime3s_s_med": 3.25,
+    "downtime3s_per_min_med": 0.95,
+    "gaps3s_count_med": 1,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "rank_21_100": {
+    "n": 13,
+    "casts_per_min_med": 51.67,
+    "hog_per_min_med": 16.05,
+    "demonbolt_per_min_med": 11.98,
+    "shadowbolt_per_min_med": 9.5,
+    "tyrant_per_fight_med": 4,
+    "downtime3s_s_med": 3.83,
+    "downtime3s_per_min_med": 1.07,
+    "gaps3s_count_med": 1,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "all": {
+    "n": 33,
+    "casts_per_min_med": 52.04,
+    "hog_per_min_med": 16.14,
+    "demonbolt_per_min_med": 11.99,
+    "shadowbolt_per_min_med": 9.59,
+    "tyrant_per_fight_med": 4,
+    "downtime3s_s_med": 3.44,
+    "downtime3s_per_min_med": 1.04,
+    "gaps3s_count_med": 1,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 215,
+    "all100_med_s": 213,
+    "rank1_5_vs_all_diff_s": 2,
+    "rank1_5_vs_all_diff_pct": 0.9,
+    "by_band_med_s": {
+     "r1_5": 215,
+     "r6_20": 221,
+     "r21_50": 208,
+     "r51_100": 213
+    },
+    "rank1_10_slower_than_med_pct": 60
+   },
+   "pi": {
+    "demo_rank_1_5": {
+     "n": 5,
+     "pi": 4,
+     "pi_pct": 80
+    },
+    "demo_rank_1_20": {
+     "n": 20,
+     "pi": 12,
+     "pi_pct": 60
+    },
+    "demo_rank_21_100": {
+     "n": 80,
+     "pi": 27,
+     "pi_pct": 34
+    },
+    "demo_all_known": {
+     "n": 100,
+     "pi": 39,
+     "pi_pct": 39
+    },
+    "demo_pi_true_rank_med": 35,
+    "demo_pi_false_rank_med": 56,
+    "allspec_rank1_10": {
+     "n": 270,
+     "pi": 133,
+     "pi_pct": 49
+    }
+   }
+  },
+  "Belo'ren, Child of Al'ar": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 48.84,
+    "hog_per_min_med": 14.67,
+    "demonbolt_per_min_med": 10.56,
+    "shadowbolt_per_min_med": 10.01,
+    "tyrant_per_fight_med": 6,
+    "downtime3s_s_med": 32.83,
+    "downtime3s_per_min_med": 6.3,
+    "gaps3s_count_med": 7,
+    "downtime5s_s_med": 14.68,
+    "downtime5s_per_min_med": 2.67,
+    "gaps5s_count_med": 2
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 47.79,
+    "hog_per_min_med": 14.49,
+    "demonbolt_per_min_med": 10.96,
+    "shadowbolt_per_min_med": 8.87,
+    "tyrant_per_fight_med": 5,
+    "downtime3s_s_med": 30.27,
+    "downtime3s_per_min_med": 6.15,
+    "gaps3s_count_med": 6,
+    "downtime5s_s_med": 11.82,
+    "downtime5s_per_min_med": 2.16,
+    "gaps5s_count_med": 2
+   },
+   "rank_21_100": {
+    "n": 13,
+    "casts_per_min_med": 47.31,
+    "hog_per_min_med": 14.59,
+    "demonbolt_per_min_med": 10.71,
+    "shadowbolt_per_min_med": 8.67,
+    "tyrant_per_fight_med": 5,
+    "downtime3s_s_med": 25.35,
+    "downtime3s_per_min_med": 4.58,
+    "gaps3s_count_med": 6,
+    "downtime5s_s_med": 9.86,
+    "downtime5s_per_min_med": 1.85,
+    "gaps5s_count_med": 1
+   },
+   "all": {
+    "n": 33,
+    "casts_per_min_med": 47.76,
+    "hog_per_min_med": 14.5,
+    "demonbolt_per_min_med": 10.71,
+    "shadowbolt_per_min_med": 8.87,
+    "tyrant_per_fight_med": 5,
+    "downtime3s_s_med": 29.24,
+    "downtime3s_per_min_med": 5.6,
+    "gaps3s_count_med": 6,
+    "downtime5s_s_med": 10.69,
+    "downtime5s_per_min_med": 1.91,
+    "gaps5s_count_med": 1
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 328,
+    "all100_med_s": 312,
+    "rank1_5_vs_all_diff_s": 17,
+    "rank1_5_vs_all_diff_pct": 5.4,
+    "by_band_med_s": {
+     "r1_5": 328,
+     "r6_20": 307,
+     "r21_50": 309,
+     "r51_100": 309
+    },
+    "rank1_10_slower_than_med_pct": 60
+   },
+   "pi": {
+    "demo_rank_1_5": {
+     "n": 5,
+     "pi": 5,
+     "pi_pct": 100
+    },
+    "demo_rank_1_20": {
+     "n": 20,
+     "pi": 15,
+     "pi_pct": 75
+    },
+    "demo_rank_21_100": {
+     "n": 80,
+     "pi": 34,
+     "pi_pct": 42
+    },
+    "demo_all_known": {
+     "n": 100,
+     "pi": 49,
+     "pi_pct": 49
+    },
+    "demo_pi_true_rank_med": 40,
+    "demo_pi_false_rank_med": 59,
+    "allspec_rank1_10": {
+     "n": 267,
+     "pi": 88,
+     "pi_pct": 33
+    }
+   }
+  },
+  "Midnight Falls": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 50.73,
+    "hog_per_min_med": 15.22,
+    "demonbolt_per_min_med": 12.02,
+    "shadowbolt_per_min_med": 7.47,
+    "tyrant_per_fight_med": 9,
+    "downtime3s_s_med": 51.65,
+    "downtime3s_per_min_med": 5.7,
+    "gaps3s_count_med": 12,
+    "downtime5s_s_med": 20.05,
+    "downtime5s_per_min_med": 2.11,
+    "gaps5s_count_med": 2
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 48.3,
+    "hog_per_min_med": 14.61,
+    "demonbolt_per_min_med": 11.25,
+    "shadowbolt_per_min_med": 7.77,
+    "tyrant_per_fight_med": 9,
+    "downtime3s_s_med": 58.43,
+    "downtime3s_per_min_med": 6.45,
+    "gaps3s_count_med": 12,
+    "downtime5s_s_med": 26.16,
+    "downtime5s_per_min_med": 2.8,
+    "gaps5s_count_med": 3
+   },
+   "rank_21_100": {
+    "n": 13,
+    "casts_per_min_med": 47.94,
+    "hog_per_min_med": 14.38,
+    "demonbolt_per_min_med": 10.87,
+    "shadowbolt_per_min_med": 7.85,
+    "tyrant_per_fight_med": 9,
+    "downtime3s_s_med": 58.02,
+    "downtime3s_per_min_med": 6.55,
+    "gaps3s_count_med": 12,
+    "downtime5s_s_med": 30.25,
+    "downtime5s_per_min_med": 3.23,
+    "gaps5s_count_med": 4
+   },
+   "all": {
+    "n": 33,
+    "casts_per_min_med": 48.39,
+    "hog_per_min_med": 14.61,
+    "demonbolt_per_min_med": 11.25,
+    "shadowbolt_per_min_med": 7.63,
+    "tyrant_per_fight_med": 9,
+    "downtime3s_s_med": 58.03,
+    "downtime3s_per_min_med": 6.45,
+    "gaps3s_count_med": 12,
+    "downtime5s_s_med": 26.6,
+    "downtime5s_per_min_med": 2.94,
+    "gaps5s_count_med": 3
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 544,
+    "all100_med_s": 553,
+    "rank1_5_vs_all_diff_s": -9,
+    "rank1_5_vs_all_diff_pct": -1.6,
+    "by_band_med_s": {
+     "r1_5": 544,
+     "r6_20": 554,
+     "r21_50": 546,
+     "r51_100": 553
+    },
+    "rank1_10_slower_than_med_pct": 40
+   },
+   "pi": {
+    "demo_rank_1_5": {
+     "n": 5,
+     "pi": 5,
+     "pi_pct": 100
+    },
+    "demo_rank_1_20": {
+     "n": 20,
+     "pi": 19,
+     "pi_pct": 95
+    },
+    "demo_rank_21_100": {
+     "n": 79,
+     "pi": 60,
+     "pi_pct": 76
+    },
+    "demo_all_known": {
+     "n": 99,
+     "pi": 79,
+     "pi_pct": 80
+    },
+    "demo_pi_true_rank_med": 44,
+    "demo_pi_false_rank_med": 72,
+    "allspec_rank1_10": {
+     "n": 270,
+     "pi": 123,
+     "pi_pct": 46
+    }
+   }
+  },
+  "Chimaerus, the Undreamt God": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 55.34,
+    "hog_per_min_med": 16.55,
+    "demonbolt_per_min_med": 10.44,
+    "shadowbolt_per_min_med": 12.08,
+    "tyrant_per_fight_med": 3,
+    "downtime3s_s_med": 6.72,
+    "downtime3s_per_min_med": 2.7,
+    "gaps3s_count_med": 2,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 55.41,
+    "hog_per_min_med": 16.88,
+    "demonbolt_per_min_med": 11.24,
+    "shadowbolt_per_min_med": 12.76,
+    "tyrant_per_fight_med": 3,
+    "downtime3s_s_med": 0,
+    "downtime3s_per_min_med": 0.0,
+    "gaps3s_count_med": 0,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "rank_21_100": {
+    "n": 12,
+    "casts_per_min_med": 55.44,
+    "hog_per_min_med": 17.18,
+    "demonbolt_per_min_med": 12.1,
+    "shadowbolt_per_min_med": 10.88,
+    "tyrant_per_fight_med": 3,
+    "downtime3s_s_med": 3.82,
+    "downtime3s_per_min_med": 1.6,
+    "gaps3s_count_med": 1,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "all": {
+    "n": 32,
+    "casts_per_min_med": 55.41,
+    "hog_per_min_med": 16.89,
+    "demonbolt_per_min_med": 11.62,
+    "shadowbolt_per_min_med": 11.98,
+    "tyrant_per_fight_med": 3,
+    "downtime3s_s_med": 3.77,
+    "downtime3s_per_min_med": 1.55,
+    "gaps3s_count_med": 1,
+    "downtime5s_s_med": 0,
+    "downtime5s_per_min_med": 0.0,
+    "gaps5s_count_med": 0
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 145,
+    "all100_med_s": 147,
+    "rank1_5_vs_all_diff_s": -1,
+    "rank1_5_vs_all_diff_pct": -1.0,
+    "by_band_med_s": {
+     "r1_5": 145,
+     "r6_20": 146,
+     "r21_50": 146,
+     "r51_100": 147
+    },
+    "rank1_10_slower_than_med_pct": 40
+   },
+   "pi": {
+    "demo_rank_1_5": {
+     "n": 5,
+     "pi": 4,
+     "pi_pct": 80
+    },
+    "demo_rank_1_20": {
+     "n": 20,
+     "pi": 14,
+     "pi_pct": 70
+    },
+    "demo_rank_21_100": {
+     "n": 79,
+     "pi": 38,
+     "pi_pct": 48
+    },
+    "demo_all_known": {
+     "n": 99,
+     "pi": 52,
+     "pi_pct": 53
+    },
+    "demo_pi_true_rank_med": 53,
+    "demo_pi_false_rank_med": 51,
+    "allspec_rank1_10": {
+     "n": 269,
+     "pi": 131,
+     "pi_pct": 49
+    }
+   }
+  }
+ },
+ "overall": {
+  "rank_1_5": {
+   "n": 45,
+   "casts_per_min_med": 50.82,
+   "hog_per_min_med": 15.45,
+   "demonbolt_per_min_med": 11.36,
+   "shadowbolt_per_min_med": 9.85,
+   "tyrant_per_fight_med": 6,
+   "downtime3s_s_med": 10.24,
+   "downtime3s_per_min_med": 3.01,
+   "gaps3s_count_med": 2,
+   "downtime5s_s_med": 5.28,
+   "downtime5s_per_min_med": 0.78,
+   "gaps5s_count_med": 1
+  },
+  "rank_6_20": {
+   "n": 135,
+   "casts_per_min_med": 50.5,
+   "hog_per_min_med": 15.35,
+   "demonbolt_per_min_med": 11.25,
+   "shadowbolt_per_min_med": 9.39,
+   "tyrant_per_fight_med": 6,
+   "downtime3s_s_med": 13.97,
+   "downtime3s_per_min_med": 3.04,
+   "gaps3s_count_med": 3,
+   "downtime5s_s_med": 0,
+   "downtime5s_per_min_med": 0.0,
+   "gaps5s_count_med": 0
+  },
+  "rank_21_100": {
+   "n": 122,
+   "casts_per_min_med": 50.24,
+   "hog_per_min_med": 15.27,
+   "demonbolt_per_min_med": 11.4,
+   "shadowbolt_per_min_med": 9.26,
+   "tyrant_per_fight_med": 5,
+   "downtime3s_s_med": 12.04,
+   "downtime3s_per_min_med": 2.99,
+   "gaps3s_count_med": 3,
+   "downtime5s_s_med": 0,
+   "downtime5s_per_min_med": 0.0,
+   "gaps5s_count_med": 0
+  }
+ },
+ "deep_dive_tyrant_count": {
+  "note": "악마 폭군 소환(265187) 전투당 시전 횟수별 랭크/킬타임 중앙값 — 폭군 사이클 수와 킬타임 컷의 관계",
+  "per_boss": {
+   "Imperator Averzian": {
+    "3": {
+     "n": 8,
+     "rank_med": 22,
+     "dur_med_s": 180
+    },
+    "4": {
+     "n": 15,
+     "rank_med": 19,
+     "dur_med_s": 208
+    },
+    "5": {
+     "n": 7,
+     "rank_med": 11,
+     "dur_med_s": 276
+    },
+    "6": {
+     "n": 3,
+     "rank_med": 17,
+     "dur_med_s": 360
+    }
+   },
+   "Vorasius": {
+    "3": {
+     "n": 2,
+     "rank_med": 14,
+     "dur_med_s": 175
+    },
+    "4": {
+     "n": 28,
+     "rank_med": 18,
+     "dur_med_s": 215
+    },
+    "5": {
+     "n": 3,
+     "rank_med": 15,
+     "dur_med_s": 267
+    }
+   },
+   "Fallen-King Salhadaar": {
+    "3": {
+     "n": 5,
+     "rank_med": 9,
+     "dur_med_s": 174
+    },
+    "4": {
+     "n": 21,
+     "rank_med": 23,
+     "dur_med_s": 216
+    },
+    "5": {
+     "n": 5,
+     "rank_med": 20,
+     "dur_med_s": 282
+    },
+    "6": {
+     "n": 5,
+     "rank_med": 12,
+     "dur_med_s": 345
+    }
+   },
+   "Vaelgor & Ezzorak": {
+    "5": {
+     "n": 2,
+     "rank_med": 24,
+     "dur_med_s": 279
+    },
+    "6": {
+     "n": 17,
+     "rank_med": 13,
+     "dur_med_s": 387
+    },
+    "7": {
+     "n": 15,
+     "rank_med": 18,
+     "dur_med_s": 408
+    }
+   },
+   "Lightblinded Vanguard": {
+    "5": {
+     "n": 1,
+     "rank_med": 14,
+     "dur_med_s": 295
+    },
+    "6": {
+     "n": 15,
+     "rank_med": 15,
+     "dur_med_s": 350
+    },
+    "7": {
+     "n": 16,
+     "rank_med": 21,
+     "dur_med_s": 412
+    },
+    "8": {
+     "n": 2,
+     "rank_med": 17,
+     "dur_med_s": 440
+    }
+   },
+   "Crown of the Cosmos": {
+    "5": {
+     "n": 1,
+     "rank_med": 1,
+     "dur_med_s": 406
+    },
+    "6": {
+     "n": 4,
+     "rank_med": 12,
+     "dur_med_s": 415
+    },
+    "7": {
+     "n": 10,
+     "rank_med": 23,
+     "dur_med_s": 452
+    },
+    "8": {
+     "n": 19,
+     "rank_med": 17,
+     "dur_med_s": 510
+    }
+   },
+   "Chimaerus, the Undreamt God": {
+    "3": {
+     "n": 32,
+     "rank_med": 17,
+     "dur_med_s": 145
+    }
+   },
+   "Belo'ren, Child of Al'ar": {
+    "4": {
+     "n": 4,
+     "rank_med": 23,
+     "dur_med_s": 251
+    },
+    "5": {
+     "n": 15,
+     "rank_med": 17,
+     "dur_med_s": 303
+    },
+    "6": {
+     "n": 14,
+     "rank_med": 11,
+     "dur_med_s": 331
+    }
+   },
+   "Midnight Falls": {
+    "8": {
+     "n": 2,
+     "rank_med": 18,
+     "dur_med_s": 502
+    },
+    "9": {
+     "n": 18,
+     "rank_med": 16,
+     "dur_med_s": 544
+    },
+    "10": {
+     "n": 13,
+     "rank_med": 15,
+     "dur_med_s": 565
+    }
+   }
+  }
+ },
+ "pi_overall_demo": {
+  "true_n": 460,
+  "true_rank_med": 44,
+  "false_n": 436,
+  "false_rank_med": 56,
+  "by_band": {
+   "r1_5": {
+    "n": 45,
+    "pi_pct": 76
+   },
+   "r6_20": {
+    "n": 135,
+    "pi_pct": 63
+   },
+   "r21_50": {
+    "n": 269,
+    "pi_pct": 52
+   },
+   "r51_100": {
+    "n": 447,
+    "pi_pct": 45
+   }
+  }
+ }
+}

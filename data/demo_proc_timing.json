@@ -1,0 +1,1128 @@
+{
+ "meta": {
+  "collected": "2026-07-05 rankings CSV 교집합",
+  "n_kills": 302,
+  "bands": {
+   "rank_1_20": 180,
+   "rank_21_100": 122
+  },
+  "spells": {
+   "demonic_core": 264173,
+   "demonbolt": 264178,
+   "hand_of_guldan": 105174,
+   "ritual_of_demonfire": [
+    431944,
+    432815,
+    432816
+   ],
+   "demonsurge": [
+    428524,
+    432794,
+    432795
+   ]
+  },
+  "note": "demonic_core.spend = 스택 획득(FIFO)→그 스택을 소모한 악마 화살 직전 캐스트까지 초 (직전 캐스트 소모 실측 일치율 99.6%, ±0.1초 동시성). ritual_of_demonfire.hold = 악마의 의식 획득→제거(=악마술 전환)까지 초. demonsurge.spend = 악마술 획득→제거(=소비)까지 초 — 소비 스킬은 굴단의 손으로 실측 확정(제거 이벤트의 98.9%가 굴단의 손 캐스트와 ±0.3초 이내 동시 발생, 중앙값 0.0초). 최초 가설(악마 화살 소비)은 오탐이었음 — 캐스트 동시성 교차대조로 정정."
+ },
+ "overall": {
+  "rank_1_20": {
+   "n_fights": 180,
+   "demonic_core": {
+    "n_spends": 8407,
+    "spend_s_median": 3.19,
+    "spend_s_p75": 6.19,
+    "spend_s_p90": 10.87,
+    "used_within_3s_pct": 47.4,
+    "used_within_8s_pct": 82.4,
+    "waste_pct": 37.0,
+    "overwrites_at_cap": 4991,
+    "expiries": 0,
+    "gains": 13489,
+    "per_min": 13.7
+   },
+   "ritual_of_demonfire": {
+    "n_holds": 4827,
+    "hold_s_median": 10.14,
+    "hold_s_p75": 11.02,
+    "hold_s_p90": 13.07,
+    "gains": 4971,
+    "per_min": 5.05
+   },
+   "demonsurge": {
+    "n_spends": 4824,
+    "spend_s_median": 2.28,
+    "spend_s_p75": 3.74,
+    "spend_s_p90": 5.81,
+    "used_within_1s_pct": 10.9,
+    "used_within_2s_pct": 44.2,
+    "gains": 4888,
+    "spent_on_hog_pct": 98.7,
+    "other_consumer_or_unresolved_pct": 0.6,
+    "per_min": 4.96
+   }
+  },
+  "rank_21_100": {
+   "n_fights": 122,
+   "demonic_core": {
+    "n_spends": 5611,
+    "spend_s_median": 3.13,
+    "spend_s_p75": 6.23,
+    "spend_s_p90": 11.06,
+    "used_within_3s_pct": 48.0,
+    "used_within_8s_pct": 82.6,
+    "waste_pct": 36.6,
+    "overwrites_at_cap": 3273,
+    "expiries": 0,
+    "gains": 8931,
+    "per_min": 13.49
+   },
+   "ritual_of_demonfire": {
+    "n_holds": 3216,
+    "hold_s_median": 10.21,
+    "hold_s_p75": 11.02,
+    "hold_s_p90": 13.2,
+    "gains": 3315,
+    "per_min": 5.01
+   },
+   "demonsurge": {
+    "n_spends": 3181,
+    "spend_s_median": 2.33,
+    "spend_s_p75": 3.8,
+    "spend_s_p90": 5.91,
+    "used_within_1s_pct": 9.5,
+    "used_within_2s_pct": 42.8,
+    "gains": 3239,
+    "spent_on_hog_pct": 98.2,
+    "other_consumer_or_unresolved_pct": 0.8,
+    "per_min": 4.89
+   }
+  },
+  "all": {
+   "n_fights": 302,
+   "demonic_core": {
+    "n_spends": 14018,
+    "spend_s_median": 3.16,
+    "spend_s_p75": 6.21,
+    "spend_s_p90": 10.95,
+    "used_within_3s_pct": 47.6,
+    "used_within_8s_pct": 82.5,
+    "waste_pct": 36.9,
+    "overwrites_at_cap": 8264,
+    "expiries": 0,
+    "gains": 22420,
+    "per_min": 13.61
+   },
+   "ritual_of_demonfire": {
+    "n_holds": 8043,
+    "hold_s_median": 10.17,
+    "hold_s_p75": 11.02,
+    "hold_s_p90": 13.12,
+    "gains": 8286,
+    "per_min": 5.03
+   },
+   "demonsurge": {
+    "n_spends": 8005,
+    "spend_s_median": 2.3,
+    "spend_s_p75": 3.77,
+    "spend_s_p90": 5.84,
+    "used_within_1s_pct": 10.3,
+    "used_within_2s_pct": 43.7,
+    "gains": 8127,
+    "spent_on_hog_pct": 98.5,
+    "other_consumer_or_unresolved_pct": 0.7,
+    "per_min": 4.93
+   }
+  }
+ },
+ "per_boss": {
+  "Fallen-King Salhadaar": {
+   "all": {
+    "n_fights": 36,
+    "demonic_core": {
+     "n_spends": 1252,
+     "spend_s_median": 2.88,
+     "spend_s_p75": 5.25,
+     "spend_s_p90": 9.15,
+     "used_within_3s_pct": 52.2,
+     "used_within_8s_pct": 86.4,
+     "waste_pct": 35.5,
+     "overwrites_at_cap": 693,
+     "expiries": 0,
+     "gains": 1954,
+     "per_min": 13.85
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 714,
+     "hold_s_median": 9.81,
+     "hold_s_p75": 11.01,
+     "hold_s_p90": 13.0,
+     "gains": 742,
+     "per_min": 5.26
+    },
+    "demonsurge": {
+     "n_spends": 709,
+     "spend_s_median": 2.19,
+     "spend_s_p75": 3.52,
+     "spend_s_p90": 5.24,
+     "used_within_1s_pct": 11.8,
+     "used_within_2s_pct": 45.8,
+     "gains": 723,
+     "spent_on_hog_pct": 98.1,
+     "other_consumer_or_unresolved_pct": 0.7,
+     "per_min": 5.12
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "demonic_core": {
+     "n_spends": 726,
+     "spend_s_median": 2.87,
+     "spend_s_p75": 5.15,
+     "spend_s_p90": 8.73,
+     "used_within_3s_pct": 52.2,
+     "used_within_8s_pct": 87.6,
+     "waste_pct": 35.5,
+     "overwrites_at_cap": 403,
+     "expiries": 0,
+     "gains": 1136,
+     "per_min": 14.23
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 406,
+     "hold_s_median": 10.0,
+     "hold_s_p75": 11.01,
+     "hold_s_p90": 12.96,
+     "gains": 419,
+     "per_min": 5.25
+    },
+    "demonsurge": {
+     "n_spends": 402,
+     "spend_s_median": 2.18,
+     "spend_s_p75": 3.46,
+     "spend_s_p90": 5.28,
+     "used_within_1s_pct": 12.7,
+     "used_within_2s_pct": 45.8,
+     "gains": 410,
+     "spent_on_hog_pct": 98.0,
+     "other_consumer_or_unresolved_pct": 0.5,
+     "per_min": 5.14
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 16,
+    "demonic_core": {
+     "n_spends": 526,
+     "spend_s_median": 2.88,
+     "spend_s_p75": 5.8,
+     "spend_s_p90": 10.01,
+     "used_within_3s_pct": 52.3,
+     "used_within_8s_pct": 84.8,
+     "waste_pct": 35.5,
+     "overwrites_at_cap": 290,
+     "expiries": 0,
+     "gains": 818,
+     "per_min": 13.35
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 308,
+     "hold_s_median": 9.66,
+     "hold_s_p75": 11.01,
+     "hold_s_p90": 13.01,
+     "gains": 323,
+     "per_min": 5.27
+    },
+    "demonsurge": {
+     "n_spends": 307,
+     "spend_s_median": 2.19,
+     "spend_s_p75": 3.6,
+     "spend_s_p90": 4.95,
+     "used_within_1s_pct": 10.7,
+     "used_within_2s_pct": 45.9,
+     "gains": 313,
+     "spent_on_hog_pct": 98.1,
+     "other_consumer_or_unresolved_pct": 1.0,
+     "per_min": 5.11
+    }
+   }
+  },
+  "Vaelgor & Ezzorak": {
+   "all": {
+    "n_fights": 34,
+    "demonic_core": {
+     "n_spends": 1750,
+     "spend_s_median": 3.62,
+     "spend_s_p75": 7.55,
+     "spend_s_p90": 12.71,
+     "used_within_3s_pct": 42.2,
+     "used_within_8s_pct": 76.6,
+     "waste_pct": 37.5,
+     "overwrites_at_cap": 1056,
+     "expiries": 0,
+     "gains": 2818,
+     "per_min": 12.76
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 1034,
+     "hold_s_median": 10.98,
+     "hold_s_p75": 11.81,
+     "hold_s_p90": 13.98,
+     "gains": 1065,
+     "per_min": 4.82
+    },
+    "demonsurge": {
+     "n_spends": 1023,
+     "spend_s_median": 2.62,
+     "spend_s_p75": 4.26,
+     "spend_s_p90": 6.85,
+     "used_within_1s_pct": 8.2,
+     "used_within_2s_pct": 39.2,
+     "gains": 1040,
+     "spent_on_hog_pct": 98.4,
+     "other_consumer_or_unresolved_pct": 1.2,
+     "per_min": 4.71
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "demonic_core": {
+     "n_spends": 1042,
+     "spend_s_median": 3.7,
+     "spend_s_p75": 7.64,
+     "spend_s_p90": 13.21,
+     "used_within_3s_pct": 41.2,
+     "used_within_8s_pct": 76.4,
+     "waste_pct": 37.9,
+     "overwrites_at_cap": 641,
+     "expiries": 0,
+     "gains": 1693,
+     "per_min": 12.87
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 614,
+     "hold_s_median": 10.99,
+     "hold_s_p75": 11.89,
+     "hold_s_p90": 13.98,
+     "gains": 632,
+     "per_min": 4.81
+    },
+    "demonsurge": {
+     "n_spends": 609,
+     "spend_s_median": 2.66,
+     "spend_s_p75": 4.26,
+     "spend_s_p90": 6.64,
+     "used_within_1s_pct": 9.5,
+     "used_within_2s_pct": 39.1,
+     "gains": 618,
+     "spent_on_hog_pct": 98.5,
+     "other_consumer_or_unresolved_pct": 1.3,
+     "per_min": 4.7
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 14,
+    "demonic_core": {
+     "n_spends": 708,
+     "spend_s_median": 3.47,
+     "spend_s_p75": 7.37,
+     "spend_s_p90": 12.31,
+     "used_within_3s_pct": 43.8,
+     "used_within_8s_pct": 76.8,
+     "waste_pct": 36.9,
+     "overwrites_at_cap": 415,
+     "expiries": 0,
+     "gains": 1125,
+     "per_min": 12.59
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 420,
+     "hold_s_median": 10.98,
+     "hold_s_p75": 11.72,
+     "hold_s_p90": 13.95,
+     "gains": 433,
+     "per_min": 4.85
+    },
+    "demonsurge": {
+     "n_spends": 414,
+     "spend_s_median": 2.6,
+     "spend_s_p75": 4.28,
+     "spend_s_p90": 6.89,
+     "used_within_1s_pct": 6.3,
+     "used_within_2s_pct": 39.4,
+     "gains": 422,
+     "spent_on_hog_pct": 98.1,
+     "other_consumer_or_unresolved_pct": 0.9,
+     "per_min": 4.72
+    }
+   }
+  },
+  "Lightblinded Vanguard": {
+   "all": {
+    "n_fights": 34,
+    "demonic_core": {
+     "n_spends": 1963,
+     "spend_s_median": 3.06,
+     "spend_s_p75": 5.79,
+     "spend_s_p90": 10.01,
+     "used_within_3s_pct": 49.3,
+     "used_within_8s_pct": 84.9,
+     "waste_pct": 37.6,
+     "overwrites_at_cap": 1198,
+     "expiries": 0,
+     "gains": 3186,
+     "per_min": 14.7
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 1110,
+     "hold_s_median": 10.0,
+     "hold_s_p75": 11.01,
+     "hold_s_p90": 12.57,
+     "gains": 1139,
+     "per_min": 5.26
+    },
+    "demonsurge": {
+     "n_spends": 1122,
+     "spend_s_median": 2.29,
+     "spend_s_p75": 3.52,
+     "spend_s_p90": 5.42,
+     "used_within_1s_pct": 8.2,
+     "used_within_2s_pct": 43.5,
+     "gains": 1126,
+     "spent_on_hog_pct": 99.6,
+     "other_consumer_or_unresolved_pct": 0.0,
+     "per_min": 5.2
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "demonic_core": {
+     "n_spends": 1154,
+     "spend_s_median": 3.11,
+     "spend_s_p75": 5.95,
+     "spend_s_p90": 9.49,
+     "used_within_3s_pct": 48.4,
+     "used_within_8s_pct": 84.7,
+     "waste_pct": 37.7,
+     "overwrites_at_cap": 706,
+     "expiries": 0,
+     "gains": 1872,
+     "per_min": 14.87
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 648,
+     "hold_s_median": 10.0,
+     "hold_s_p75": 11.01,
+     "hold_s_p90": 12.75,
+     "gains": 665,
+     "per_min": 5.28
+    },
+    "demonsurge": {
+     "n_spends": 658,
+     "spend_s_median": 2.2,
+     "spend_s_p75": 3.48,
+     "spend_s_p90": 5.19,
+     "used_within_1s_pct": 9.0,
+     "used_within_2s_pct": 45.6,
+     "gains": 661,
+     "spent_on_hog_pct": 99.5,
+     "other_consumer_or_unresolved_pct": 0.0,
+     "per_min": 5.25
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 14,
+    "demonic_core": {
+     "n_spends": 809,
+     "spend_s_median": 2.97,
+     "spend_s_p75": 5.63,
+     "spend_s_p90": 10.74,
+     "used_within_3s_pct": 50.4,
+     "used_within_8s_pct": 85.2,
+     "waste_pct": 37.4,
+     "overwrites_at_cap": 492,
+     "expiries": 0,
+     "gains": 1314,
+     "per_min": 14.47
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 462,
+     "hold_s_median": 10.1,
+     "hold_s_p75": 11.01,
+     "hold_s_p90": 12.37,
+     "gains": 474,
+     "per_min": 5.22
+    },
+    "demonsurge": {
+     "n_spends": 464,
+     "spend_s_median": 2.47,
+     "spend_s_p75": 3.58,
+     "spend_s_p90": 5.7,
+     "used_within_1s_pct": 7.1,
+     "used_within_2s_pct": 40.5,
+     "gains": 465,
+     "spent_on_hog_pct": 99.8,
+     "other_consumer_or_unresolved_pct": 0.0,
+     "per_min": 5.12
+    }
+   }
+  },
+  "Crown of the Cosmos": {
+   "all": {
+    "n_fights": 34,
+    "demonic_core": {
+     "n_spends": 2180,
+     "spend_s_median": 3.02,
+     "spend_s_p75": 6.31,
+     "spend_s_p90": 12.01,
+     "used_within_3s_pct": 49.6,
+     "used_within_8s_pct": 80.7,
+     "waste_pct": 36.1,
+     "overwrites_at_cap": 1246,
+     "expiries": 0,
+     "gains": 3449,
+     "per_min": 12.64
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 1248,
+     "hold_s_median": 10.98,
+     "hold_s_p75": 11.87,
+     "hold_s_p90": 14.0,
+     "gains": 1278,
+     "per_min": 4.68
+    },
+    "demonsurge": {
+     "n_spends": 1223,
+     "spend_s_median": 2.39,
+     "spend_s_p75": 4.05,
+     "spend_s_p90": 7.38,
+     "used_within_1s_pct": 9.5,
+     "used_within_2s_pct": 41.4,
+     "gains": 1252,
+     "spent_on_hog_pct": 97.7,
+     "other_consumer_or_unresolved_pct": 1.9,
+     "per_min": 4.59
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "demonic_core": {
+     "n_spends": 1274,
+     "spend_s_median": 3.0,
+     "spend_s_p75": 6.04,
+     "spend_s_p90": 11.66,
+     "used_within_3s_pct": 49.8,
+     "used_within_8s_pct": 81.8,
+     "waste_pct": 36.3,
+     "overwrites_at_cap": 733,
+     "expiries": 0,
+     "gains": 2021,
+     "per_min": 12.69
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 728,
+     "hold_s_median": 10.99,
+     "hold_s_p75": 11.78,
+     "hold_s_p90": 14.0,
+     "gains": 744,
+     "per_min": 4.67
+    },
+    "demonsurge": {
+     "n_spends": 717,
+     "spend_s_median": 2.37,
+     "spend_s_p75": 4.03,
+     "spend_s_p90": 7.38,
+     "used_within_1s_pct": 9.6,
+     "used_within_2s_pct": 42.1,
+     "gains": 732,
+     "spent_on_hog_pct": 98.0,
+     "other_consumer_or_unresolved_pct": 1.6,
+     "per_min": 4.6
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 14,
+    "demonic_core": {
+     "n_spends": 906,
+     "spend_s_median": 3.04,
+     "spend_s_p75": 6.91,
+     "spend_s_p90": 12.48,
+     "used_within_3s_pct": 49.3,
+     "used_within_8s_pct": 79.2,
+     "waste_pct": 35.9,
+     "overwrites_at_cap": 513,
+     "expiries": 0,
+     "gains": 1428,
+     "per_min": 12.56
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 520,
+     "hold_s_median": 10.92,
+     "hold_s_p75": 11.91,
+     "hold_s_p90": 14.01,
+     "gains": 534,
+     "per_min": 4.7
+    },
+    "demonsurge": {
+     "n_spends": 506,
+     "spend_s_median": 2.43,
+     "spend_s_p75": 4.12,
+     "spend_s_p90": 7.0,
+     "used_within_1s_pct": 9.3,
+     "used_within_2s_pct": 40.3,
+     "gains": 520,
+     "spent_on_hog_pct": 97.3,
+     "other_consumer_or_unresolved_pct": 2.3,
+     "per_min": 4.58
+    }
+   }
+  },
+  "Imperator Averzian": {
+   "all": {
+    "n_fights": 33,
+    "demonic_core": {
+     "n_spends": 1119,
+     "spend_s_median": 3.0,
+     "spend_s_p75": 5.32,
+     "spend_s_p90": 9.04,
+     "used_within_3s_pct": 50.0,
+     "used_within_8s_pct": 87.2,
+     "waste_pct": 36.0,
+     "overwrites_at_cap": 637,
+     "expiries": 0,
+     "gains": 1770,
+     "per_min": 14.06
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 646,
+     "hold_s_median": 9.99,
+     "hold_s_p75": 11.01,
+     "hold_s_p90": 12.07,
+     "gains": 673,
+     "per_min": 5.35
+    },
+    "demonsurge": {
+     "n_spends": 654,
+     "spend_s_median": 2.17,
+     "spend_s_p75": 3.33,
+     "spend_s_p90": 4.8,
+     "used_within_1s_pct": 10.6,
+     "used_within_2s_pct": 45.6,
+     "gains": 663,
+     "spent_on_hog_pct": 98.6,
+     "other_consumer_or_unresolved_pct": 0.0,
+     "per_min": 5.27
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "demonic_core": {
+     "n_spends": 689,
+     "spend_s_median": 2.96,
+     "spend_s_p75": 5.32,
+     "spend_s_p90": 9.66,
+     "used_within_3s_pct": 50.7,
+     "used_within_8s_pct": 86.1,
+     "waste_pct": 35.8,
+     "overwrites_at_cap": 391,
+     "expiries": 0,
+     "gains": 1091,
+     "per_min": 13.85
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 407,
+     "hold_s_median": 10.0,
+     "hold_s_p75": 11.01,
+     "hold_s_p90": 12.22,
+     "gains": 422,
+     "per_min": 5.36
+    },
+    "demonsurge": {
+     "n_spends": 413,
+     "spend_s_median": 2.16,
+     "spend_s_p75": 3.35,
+     "spend_s_p90": 4.96,
+     "used_within_1s_pct": 10.2,
+     "used_within_2s_pct": 46.0,
+     "gains": 419,
+     "spent_on_hog_pct": 98.6,
+     "other_consumer_or_unresolved_pct": 0.0,
+     "per_min": 5.32
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 13,
+    "demonic_core": {
+     "n_spends": 430,
+     "spend_s_median": 3.11,
+     "spend_s_p75": 5.33,
+     "spend_s_p90": 8.28,
+     "used_within_3s_pct": 48.8,
+     "used_within_8s_pct": 89.1,
+     "waste_pct": 36.2,
+     "overwrites_at_cap": 246,
+     "expiries": 0,
+     "gains": 679,
+     "per_min": 14.42
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 239,
+     "hold_s_median": 9.95,
+     "hold_s_p75": 11.0,
+     "hold_s_p90": 11.76,
+     "gains": 251,
+     "per_min": 5.33
+    },
+    "demonsurge": {
+     "n_spends": 241,
+     "spend_s_median": 2.19,
+     "spend_s_p75": 3.3,
+     "spend_s_p90": 4.64,
+     "used_within_1s_pct": 11.2,
+     "used_within_2s_pct": 44.8,
+     "gains": 244,
+     "spent_on_hog_pct": 98.8,
+     "other_consumer_or_unresolved_pct": 0.0,
+     "per_min": 5.18
+    }
+   }
+  },
+  "Vorasius": {
+   "all": {
+    "n_fights": 33,
+    "demonic_core": {
+     "n_spends": 1083,
+     "spend_s_median": 2.59,
+     "spend_s_p75": 4.78,
+     "spend_s_p90": 9.43,
+     "used_within_3s_pct": 55.5,
+     "used_within_8s_pct": 87.6,
+     "waste_pct": 36.8,
+     "overwrites_at_cap": 640,
+     "expiries": 0,
+     "gains": 1740,
+     "per_min": 14.47
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 566,
+     "hold_s_median": 10.0,
+     "hold_s_p75": 11.01,
+     "hold_s_p90": 12.18,
+     "gains": 592,
+     "per_min": 4.92
+    },
+    "demonsurge": {
+     "n_spends": 563,
+     "spend_s_median": 2.25,
+     "spend_s_p75": 3.61,
+     "spend_s_p90": 5.21,
+     "used_within_1s_pct": 12.1,
+     "used_within_2s_pct": 44.2,
+     "gains": 573,
+     "spent_on_hog_pct": 98.3,
+     "other_consumer_or_unresolved_pct": 0.2,
+     "per_min": 4.77
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "demonic_core": {
+     "n_spends": 657,
+     "spend_s_median": 2.68,
+     "spend_s_p75": 5.06,
+     "spend_s_p90": 9.21,
+     "used_within_3s_pct": 54.5,
+     "used_within_8s_pct": 87.8,
+     "waste_pct": 36.8,
+     "overwrites_at_cap": 389,
+     "expiries": 0,
+     "gains": 1058,
+     "per_min": 14.41
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 351,
+     "hold_s_median": 10.0,
+     "hold_s_p75": 11.01,
+     "hold_s_p90": 12.01,
+     "gains": 367,
+     "per_min": 5.0
+    },
+    "demonsurge": {
+     "n_spends": 349,
+     "spend_s_median": 2.25,
+     "spend_s_p75": 3.5,
+     "spend_s_p90": 5.09,
+     "used_within_1s_pct": 13.2,
+     "used_within_2s_pct": 44.4,
+     "gains": 355,
+     "spent_on_hog_pct": 98.3,
+     "other_consumer_or_unresolved_pct": 0.3,
+     "per_min": 4.84
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 13,
+    "demonic_core": {
+     "n_spends": 426,
+     "spend_s_median": 2.48,
+     "spend_s_p75": 4.58,
+     "spend_s_p90": 9.46,
+     "used_within_3s_pct": 57.0,
+     "used_within_8s_pct": 87.3,
+     "waste_pct": 36.8,
+     "overwrites_at_cap": 251,
+     "expiries": 0,
+     "gains": 682,
+     "per_min": 14.57
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 215,
+     "hold_s_median": 10.01,
+     "hold_s_p75": 11.01,
+     "hold_s_p90": 12.69,
+     "gains": 225,
+     "per_min": 4.81
+    },
+    "demonsurge": {
+     "n_spends": 214,
+     "spend_s_median": 2.24,
+     "spend_s_p75": 3.79,
+     "spend_s_p90": 5.52,
+     "used_within_1s_pct": 10.3,
+     "used_within_2s_pct": 43.9,
+     "gains": 218,
+     "spent_on_hog_pct": 98.2,
+     "other_consumer_or_unresolved_pct": 0.0,
+     "per_min": 4.66
+    }
+   }
+  },
+  "Belo'ren, Child of Al'ar": {
+   "all": {
+    "n_fights": 33,
+    "demonic_core": {
+     "n_spends": 1376,
+     "spend_s_median": 3.29,
+     "spend_s_p75": 6.26,
+     "spend_s_p90": 10.21,
+     "used_within_3s_pct": 44.5,
+     "used_within_8s_pct": 82.9,
+     "waste_pct": 37.2,
+     "overwrites_at_cap": 823,
+     "expiries": 0,
+     "gains": 2212,
+     "per_min": 13.08
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 827,
+     "hold_s_median": 10.04,
+     "hold_s_p75": 11.02,
+     "hold_s_p90": 13.99,
+     "gains": 854,
+     "per_min": 5.05
+    },
+    "demonsurge": {
+     "n_spends": 817,
+     "spend_s_median": 2.23,
+     "spend_s_p75": 3.66,
+     "spend_s_p90": 5.91,
+     "used_within_1s_pct": 11.0,
+     "used_within_2s_pct": 44.3,
+     "gains": 834,
+     "spent_on_hog_pct": 98.0,
+     "other_consumer_or_unresolved_pct": 1.1,
+     "per_min": 4.93
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "demonic_core": {
+     "n_spends": 833,
+     "spend_s_median": 3.27,
+     "spend_s_p75": 5.98,
+     "spend_s_p90": 10.09,
+     "used_within_3s_pct": 44.7,
+     "used_within_8s_pct": 83.6,
+     "waste_pct": 36.6,
+     "overwrites_at_cap": 486,
+     "expiries": 0,
+     "gains": 1328,
+     "per_min": 12.86
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 509,
+     "hold_s_median": 10.18,
+     "hold_s_p75": 11.02,
+     "hold_s_p90": 13.99,
+     "gains": 527,
+     "per_min": 5.1
+    },
+    "demonsurge": {
+     "n_spends": 506,
+     "spend_s_median": 2.13,
+     "spend_s_p75": 3.54,
+     "spend_s_p90": 5.49,
+     "used_within_1s_pct": 12.8,
+     "used_within_2s_pct": 46.2,
+     "gains": 515,
+     "spent_on_hog_pct": 98.3,
+     "other_consumer_or_unresolved_pct": 1.2,
+     "per_min": 4.99
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 13,
+    "demonic_core": {
+     "n_spends": 543,
+     "spend_s_median": 3.35,
+     "spend_s_p75": 6.56,
+     "spend_s_p90": 10.3,
+     "used_within_3s_pct": 44.2,
+     "used_within_8s_pct": 82.0,
+     "waste_pct": 38.1,
+     "overwrites_at_cap": 337,
+     "expiries": 0,
+     "gains": 884,
+     "per_min": 13.42
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 318,
+     "hold_s_median": 10.01,
+     "hold_s_p75": 11.02,
+     "hold_s_p90": 13.71,
+     "gains": 327,
+     "per_min": 4.96
+    },
+    "demonsurge": {
+     "n_spends": 311,
+     "spend_s_median": 2.38,
+     "spend_s_p75": 3.79,
+     "spend_s_p90": 6.58,
+     "used_within_1s_pct": 8.0,
+     "used_within_2s_pct": 41.2,
+     "gains": 319,
+     "spent_on_hog_pct": 97.5,
+     "other_consumer_or_unresolved_pct": 0.9,
+     "per_min": 4.84
+    }
+   }
+  },
+  "Midnight Falls": {
+   "all": {
+    "n_fights": 33,
+    "demonic_core": {
+     "n_spends": 2616,
+     "spend_s_median": 3.61,
+     "spend_s_p75": 7.25,
+     "spend_s_p90": 12.06,
+     "used_within_3s_pct": 41.6,
+     "used_within_8s_pct": 77.7,
+     "waste_pct": 38.0,
+     "overwrites_at_cap": 1609,
+     "expiries": 0,
+     "gains": 4238,
+     "per_min": 14.0
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 1498,
+     "hold_s_median": 10.29,
+     "hold_s_p75": 11.02,
+     "hold_s_p90": 13.99,
+     "gains": 1519,
+     "per_min": 5.02
+    },
+    "demonsurge": {
+     "n_spends": 1492,
+     "spend_s_median": 2.18,
+     "spend_s_p75": 3.81,
+     "spend_s_p90": 6.76,
+     "used_within_1s_pct": 12.1,
+     "used_within_2s_pct": 46.6,
+     "gains": 1505,
+     "spent_on_hog_pct": 99.1,
+     "other_consumer_or_unresolved_pct": 0.3,
+     "per_min": 4.97
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "demonic_core": {
+     "n_spends": 1626,
+     "spend_s_median": 3.65,
+     "spend_s_p75": 7.47,
+     "spend_s_p90": 12.16,
+     "used_within_3s_pct": 41.3,
+     "used_within_8s_pct": 76.9,
+     "waste_pct": 38.7,
+     "overwrites_at_cap": 1029,
+     "expiries": 0,
+     "gains": 2662,
+     "per_min": 14.43
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 917,
+     "hold_s_median": 10.06,
+     "hold_s_p75": 11.02,
+     "hold_s_p90": 13.99,
+     "gains": 931,
+     "per_min": 5.05
+    },
+    "demonsurge": {
+     "n_spends": 916,
+     "spend_s_median": 2.17,
+     "spend_s_p75": 3.94,
+     "spend_s_p90": 7.04,
+     "used_within_1s_pct": 12.1,
+     "used_within_2s_pct": 46.7,
+     "gains": 921,
+     "spent_on_hog_pct": 99.5,
+     "other_consumer_or_unresolved_pct": 0.1,
+     "per_min": 4.99
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 13,
+    "demonic_core": {
+     "n_spends": 990,
+     "spend_s_median": 3.55,
+     "spend_s_p75": 7.07,
+     "spend_s_p90": 11.9,
+     "used_within_3s_pct": 42.0,
+     "used_within_8s_pct": 78.9,
+     "waste_pct": 36.8,
+     "overwrites_at_cap": 580,
+     "expiries": 0,
+     "gains": 1576,
+     "per_min": 13.33
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 581,
+     "hold_s_median": 10.81,
+     "hold_s_p75": 11.02,
+     "hold_s_p90": 14.0,
+     "gains": 588,
+     "per_min": 4.97
+    },
+    "demonsurge": {
+     "n_spends": 576,
+     "spend_s_median": 2.19,
+     "spend_s_p75": 3.68,
+     "spend_s_p90": 5.97,
+     "used_within_1s_pct": 12.0,
+     "used_within_2s_pct": 46.5,
+     "gains": 584,
+     "spent_on_hog_pct": 98.6,
+     "other_consumer_or_unresolved_pct": 0.7,
+     "per_min": 4.94
+    }
+   }
+  },
+  "Chimaerus, the Undreamt God": {
+   "all": {
+    "n_fights": 32,
+    "demonic_core": {
+     "n_spends": 679,
+     "spend_s_median": 2.53,
+     "spend_s_p75": 5.06,
+     "spend_s_p90": 7.61,
+     "used_within_3s_pct": 55.2,
+     "used_within_8s_pct": 90.4,
+     "waste_pct": 34.4,
+     "overwrites_at_cap": 362,
+     "expiries": 0,
+     "gains": 1053,
+     "per_min": 13.62
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 400,
+     "hold_s_median": 9.48,
+     "hold_s_p75": 11.0,
+     "hold_s_p90": 12.12,
+     "gains": 424,
+     "per_min": 5.49
+    },
+    "demonsurge": {
+     "n_spends": 402,
+     "spend_s_median": 2.36,
+     "spend_s_p75": 3.73,
+     "spend_s_p90": 5.27,
+     "used_within_1s_pct": 10.7,
+     "used_within_2s_pct": 42.3,
+     "gains": 411,
+     "spent_on_hog_pct": 97.8,
+     "other_consumer_or_unresolved_pct": 0.0,
+     "per_min": 5.32
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "demonic_core": {
+     "n_spends": 406,
+     "spend_s_median": 2.51,
+     "spend_s_p75": 4.9,
+     "spend_s_p90": 8.48,
+     "used_within_3s_pct": 56.9,
+     "used_within_8s_pct": 88.2,
+     "waste_pct": 33.9,
+     "overwrites_at_cap": 213,
+     "expiries": 0,
+     "gains": 628,
+     "per_min": 13.04
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 247,
+     "hold_s_median": 9.39,
+     "hold_s_p75": 11.01,
+     "hold_s_p90": 12.12,
+     "gains": 264,
+     "per_min": 5.48
+    },
+    "demonsurge": {
+     "n_spends": 254,
+     "spend_s_median": 2.38,
+     "spend_s_p75": 3.71,
+     "spend_s_p90": 5.03,
+     "used_within_1s_pct": 9.1,
+     "used_within_2s_pct": 40.2,
+     "gains": 257,
+     "spent_on_hog_pct": 98.8,
+     "other_consumer_or_unresolved_pct": 0.0,
+     "per_min": 5.33
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 12,
+    "demonic_core": {
+     "n_spends": 273,
+     "spend_s_median": 2.79,
+     "spend_s_p75": 5.46,
+     "spend_s_p90": 7.0,
+     "used_within_3s_pct": 52.7,
+     "used_within_8s_pct": 93.8,
+     "waste_pct": 35.1,
+     "overwrites_at_cap": 149,
+     "expiries": 0,
+     "gains": 425,
+     "per_min": 14.6
+    },
+    "ritual_of_demonfire": {
+     "n_holds": 153,
+     "hold_s_median": 9.54,
+     "hold_s_p75": 11.0,
+     "hold_s_p90": 12.03,
+     "gains": 160,
+     "per_min": 5.5
+    },
+    "demonsurge": {
+     "n_spends": 148,
+     "spend_s_median": 2.26,
+     "spend_s_p75": 3.8,
+     "spend_s_p90": 5.33,
+     "used_within_1s_pct": 13.5,
+     "used_within_2s_pct": 45.9,
+     "gains": 154,
+     "spent_on_hog_pct": 96.1,
+     "other_consumer_or_unresolved_pct": 0.0,
+     "per_min": 5.29
+    }
+   }
+  }
+ }
+}

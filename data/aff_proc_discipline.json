@@ -1,0 +1,2036 @@
+{
+ "meta": {
+  "collected": "2026-07-05 rankings CSV 교집합, events 캐시 적중분",
+  "n_kills": 286,
+  "bands": {
+   "rank_1_20": 171,
+   "rank_21_100": 115
+  },
+  "rank_1_10_n": 87,
+  "spells": {
+   "sunset": [
+    264571,
+    1260279
+   ],
+   "shard_instability_buff": 1260269,
+   "shadow_bolt": 686,
+   "drain_soul": 198590,
+   "malefic_rapture": 1261153,
+   "unstable_affliction": 1259790,
+   "seed_of_corruption": 27243,
+   "agony": 980,
+   "corruption": 172
+  },
+  "note": "sunset consume_delay = 일몰 버프 소모(스택 감소/제거) 시점→이후 8초 내 어둠의 화살/영혼 흡수/재앙의 손아귀/부패의 씨앗(밤의 수혜 특성 시) 시전까지 지연. 매칭 실패는 waste(만료 추정)로 집계. shard_instability 동일 로직, 대상 스킬은 불안정한 고통. dot_recast_discipline: 재시전 간격을 지속시간과 비교 — early_clip(50% 미만 시점 재시전)/near_expiry_refill(50%~130%, 적정)/late_gap(130% 초과, 공백 발생). DoT는 디버프 타임라인이 캐시에 없어 캐스트 간격으로 대체 측정(직접 만료 관측 아님). ★부패(Corruption) 주의★: '완전한 부패'(row5 CHOICE, 부패 무한 지속)가 사실상 표준 채택이라 판당 재시전 1~4회뿐(773회/286킬) — 갱신 규율이 아니라 '1회 시전 후 방치'가 정상. 이 스펠의 early_clip/late_gap 수치는 목표 대상 교체·초반 재시전 잡음일 뿐 '규율 위반'으로 해석 금지."
+ },
+ "overall": {
+  "rank_1_20": {
+   "n_fights": 171,
+   "sunset": {
+    "gains": 6771,
+    "n_consumed_tracked": 6077,
+    "consume_delay_s_median": 1.57,
+    "p75": 3.14,
+    "p90": 5.21,
+    "used_within_2s_pct": 55.5,
+    "used_within_4s_pct": 82.3,
+    "waste_pct": 7.7,
+    "overwrites": 0,
+    "expiries_or_unmatched": 523,
+    "procs_per_min": 7.71
+   },
+   "shard_instability": {
+    "gains": 2444,
+    "n_consumed_tracked": 2142,
+    "consume_delay_s_median": 1.37,
+    "p75": 2.11,
+    "p90": 4.16,
+    "used_within_2s_pct": 65.6,
+    "used_within_4s_pct": 88.7,
+    "waste_pct": 11.8,
+    "overwrites": 172,
+    "expiries_or_unmatched": 117,
+    "procs_per_min": 2.78
+   },
+   "dot_recast_discipline": {
+    "agony": {
+     "n_recasts": 5788,
+     "gap_median_s": 7.65,
+     "gap_p75_s": 13.84,
+     "gap_p90_s": 17.46,
+     "early_clip_pct": 55.6,
+     "near_expiry_refill_pct": 43.9,
+     "late_gap_pct": 0.5,
+     "dur_s": 18.0
+    },
+    "corruption": {
+     "n_recasts": 484,
+     "gap_median_s": 15.09,
+     "gap_p75_s": 37.4,
+     "gap_p90_s": 52.15,
+     "early_clip_pct": 36.4,
+     "near_expiry_refill_pct": 20.2,
+     "late_gap_pct": 43.4,
+     "dur_s": 14.0
+    },
+    "unstable_affliction": {
+     "n_recasts": 12200,
+     "gap_median_s": 2.25,
+     "gap_p75_s": 4.42,
+     "gap_p90_s": 6.88,
+     "early_clip_pct": 70.8,
+     "near_expiry_refill_pct": 25.9,
+     "late_gap_pct": 3.3,
+     "dur_s": 8.0
+    }
+   },
+   "shard_spend_per_min": {
+    "unstable_affliction": 14.12,
+    "seed_of_corruption": 5.35
+   }
+  },
+  "rank_21_100": {
+   "n_fights": 115,
+   "sunset": {
+    "gains": 4502,
+    "n_consumed_tracked": 4008,
+    "consume_delay_s_median": 1.44,
+    "p75": 3.23,
+    "p90": 5.29,
+    "used_within_2s_pct": 56.1,
+    "used_within_4s_pct": 81.6,
+    "waste_pct": 8.0,
+    "overwrites": 0,
+    "expiries_or_unmatched": 359,
+    "procs_per_min": 7.61
+   },
+   "shard_instability": {
+    "gains": 1518,
+    "n_consumed_tracked": 1310,
+    "consume_delay_s_median": 1.39,
+    "p75": 2.16,
+    "p90": 4.64,
+    "used_within_2s_pct": 63.3,
+    "used_within_4s_pct": 85.9,
+    "waste_pct": 11.9,
+    "overwrites": 112,
+    "expiries_or_unmatched": 68,
+    "procs_per_min": 2.57
+   },
+   "dot_recast_discipline": {
+    "agony": {
+     "n_recasts": 3865,
+     "gap_median_s": 7.7,
+     "gap_p75_s": 13.76,
+     "gap_p90_s": 17.43,
+     "early_clip_pct": 55.5,
+     "near_expiry_refill_pct": 43.9,
+     "late_gap_pct": 0.5,
+     "dur_s": 18.0
+    },
+    "corruption": {
+     "n_recasts": 294,
+     "gap_median_s": 16.39,
+     "gap_p75_s": 38.11,
+     "gap_p90_s": 53.69,
+     "early_clip_pct": 33.7,
+     "near_expiry_refill_pct": 20.7,
+     "late_gap_pct": 45.6,
+     "dur_s": 14.0
+    },
+    "unstable_affliction": {
+     "n_recasts": 7832,
+     "gap_median_s": 2.29,
+     "gap_p75_s": 4.62,
+     "gap_p90_s": 7.3,
+     "early_clip_pct": 68.8,
+     "near_expiry_refill_pct": 27.1,
+     "late_gap_pct": 4.1,
+     "dur_s": 8.0
+    }
+   },
+   "shard_spend_per_min": {
+    "unstable_affliction": 13.48,
+    "seed_of_corruption": 5.44
+   }
+  },
+  "all": {
+   "n_fights": 286,
+   "sunset": {
+    "gains": 11273,
+    "n_consumed_tracked": 10085,
+    "consume_delay_s_median": 1.51,
+    "p75": 3.18,
+    "p90": 5.25,
+    "used_within_2s_pct": 55.7,
+    "used_within_4s_pct": 82.0,
+    "waste_pct": 7.8,
+    "overwrites": 0,
+    "expiries_or_unmatched": 882,
+    "procs_per_min": 7.67
+   },
+   "shard_instability": {
+    "gains": 3962,
+    "n_consumed_tracked": 3452,
+    "consume_delay_s_median": 1.38,
+    "p75": 2.13,
+    "p90": 4.36,
+    "used_within_2s_pct": 64.7,
+    "used_within_4s_pct": 87.7,
+    "waste_pct": 11.8,
+    "overwrites": 284,
+    "expiries_or_unmatched": 185,
+    "procs_per_min": 2.7
+   },
+   "dot_recast_discipline": {
+    "agony": {
+     "n_recasts": 9653,
+     "gap_median_s": 7.69,
+     "gap_p75_s": 13.8,
+     "gap_p90_s": 17.44,
+     "early_clip_pct": 55.6,
+     "near_expiry_refill_pct": 43.9,
+     "late_gap_pct": 0.5,
+     "dur_s": 18.0
+    },
+    "corruption": {
+     "n_recasts": 778,
+     "gap_median_s": 15.51,
+     "gap_p75_s": 37.64,
+     "gap_p90_s": 53.05,
+     "early_clip_pct": 35.3,
+     "near_expiry_refill_pct": 20.4,
+     "late_gap_pct": 44.2,
+     "dur_s": 14.0
+    },
+    "unstable_affliction": {
+     "n_recasts": 20032,
+     "gap_median_s": 2.26,
+     "gap_p75_s": 4.5,
+     "gap_p90_s": 7.06,
+     "early_clip_pct": 70.0,
+     "near_expiry_refill_pct": 26.4,
+     "late_gap_pct": 3.6,
+     "dur_s": 8.0
+    }
+   },
+   "shard_spend_per_min": {
+    "unstable_affliction": 13.86,
+    "seed_of_corruption": 5.39
+   }
+  },
+  "rank_1_10": {
+   "n_fights": 87,
+   "sunset": {
+    "gains": 3511,
+    "n_consumed_tracked": 3184,
+    "consume_delay_s_median": 1.47,
+    "p75": 3.02,
+    "p90": 5.21,
+    "used_within_2s_pct": 55.9,
+    "used_within_4s_pct": 83.0,
+    "waste_pct": 7.0,
+    "overwrites": 0,
+    "expiries_or_unmatched": 245,
+    "procs_per_min": 7.89
+   },
+   "shard_instability": {
+    "gains": 1238,
+    "n_consumed_tracked": 1089,
+    "consume_delay_s_median": 0.0,
+    "p75": 2.08,
+    "p90": 4.07,
+    "used_within_2s_pct": 68.0,
+    "used_within_4s_pct": 89.5,
+    "waste_pct": 11.7,
+    "overwrites": 82,
+    "expiries_or_unmatched": 63,
+    "procs_per_min": 2.78
+   },
+   "dot_recast_discipline": {
+    "agony": {
+     "n_recasts": 2830,
+     "gap_median_s": 8.28,
+     "gap_p75_s": 14.24,
+     "gap_p90_s": 17.68,
+     "early_clip_pct": 53.6,
+     "near_expiry_refill_pct": 45.9,
+     "late_gap_pct": 0.5,
+     "dur_s": 18.0
+    },
+    "corruption": {
+     "n_recasts": 200,
+     "gap_median_s": 15.89,
+     "gap_p75_s": 39.38,
+     "gap_p90_s": 52.5,
+     "early_clip_pct": 35.0,
+     "near_expiry_refill_pct": 20.0,
+     "late_gap_pct": 45.0,
+     "dur_s": 14.0
+    },
+    "unstable_affliction": {
+     "n_recasts": 6115,
+     "gap_median_s": 2.21,
+     "gap_p75_s": 4.33,
+     "gap_p90_s": 6.83,
+     "early_clip_pct": 71.4,
+     "near_expiry_refill_pct": 25.7,
+     "late_gap_pct": 2.9,
+     "dur_s": 8.0
+    }
+   },
+   "shard_spend_per_min": {
+    "unstable_affliction": 13.98,
+    "seed_of_corruption": 5.89
+   }
+  }
+ },
+ "per_boss": {
+  "바엘고어&에조라크": {
+   "all": {
+    "n_fights": 34,
+    "sunset": {
+     "gains": 1910,
+     "n_consumed_tracked": 1845,
+     "consume_delay_s_median": 2.1,
+     "p75": 2.56,
+     "p90": 4.1,
+     "used_within_2s_pct": 48.9,
+     "used_within_4s_pct": 89.5,
+     "waste_pct": 2.8,
+     "overwrites": 0,
+     "expiries_or_unmatched": 53,
+     "procs_per_min": 8.88
+    },
+    "shard_instability": {
+     "gains": 0,
+     "n_consumed_tracked": 0,
+     "consume_delay_s_median": null,
+     "p75": null,
+     "p90": null,
+     "used_within_2s_pct": null,
+     "used_within_4s_pct": null,
+     "waste_pct": null,
+     "overwrites": 0,
+     "expiries_or_unmatched": 0,
+     "procs_per_min": 0.0
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 1576,
+      "gap_median_s": 6.53,
+      "gap_p75_s": 12.15,
+      "gap_p90_s": 16.07,
+      "early_clip_pct": 61.9,
+      "near_expiry_refill_pct": 37.1,
+      "late_gap_pct": 1.0,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 63,
+      "gap_median_s": 14.59,
+      "gap_p75_s": 28.17,
+      "gap_p90_s": 40.65,
+      "early_clip_pct": 23.8,
+      "near_expiry_refill_pct": 42.9,
+      "late_gap_pct": 33.3,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 367,
+      "gap_median_s": 2.41,
+      "gap_p75_s": 5.47,
+      "gap_p90_s": 14.64,
+      "early_clip_pct": 65.7,
+      "near_expiry_refill_pct": 21.5,
+      "late_gap_pct": 12.8,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 2.05,
+     "seed_of_corruption": 21.75
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "sunset": {
+     "gains": 1126,
+     "n_consumed_tracked": 1088,
+     "consume_delay_s_median": 2.22,
+     "p75": 2.58,
+     "p90": 4.12,
+     "used_within_2s_pct": 46.7,
+     "used_within_4s_pct": 89.2,
+     "waste_pct": 2.8,
+     "overwrites": 0,
+     "expiries_or_unmatched": 32,
+     "procs_per_min": 8.89
+    },
+    "shard_instability": {
+     "gains": 0,
+     "n_consumed_tracked": 0,
+     "consume_delay_s_median": null,
+     "p75": null,
+     "p90": null,
+     "used_within_2s_pct": null,
+     "used_within_4s_pct": null,
+     "waste_pct": null,
+     "overwrites": 0,
+     "expiries_or_unmatched": 0,
+     "procs_per_min": 0.0
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 923,
+      "gap_median_s": 6.53,
+      "gap_p75_s": 12.38,
+      "gap_p90_s": 16.34,
+      "early_clip_pct": 60.8,
+      "near_expiry_refill_pct": 38.5,
+      "late_gap_pct": 0.8,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 47,
+      "gap_median_s": 14.94,
+      "gap_p75_s": 30.14,
+      "gap_p90_s": 40.94,
+      "early_clip_pct": 23.4,
+      "near_expiry_refill_pct": 38.3,
+      "late_gap_pct": 38.3,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 239,
+      "gap_median_s": 2.67,
+      "gap_p75_s": 6.45,
+      "gap_p90_s": 20.87,
+      "early_clip_pct": 61.9,
+      "near_expiry_refill_pct": 23.0,
+      "late_gap_pct": 15.1,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 2.23,
+     "seed_of_corruption": 21.65
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 14,
+    "sunset": {
+     "gains": 784,
+     "n_consumed_tracked": 757,
+     "consume_delay_s_median": 1.83,
+     "p75": 2.55,
+     "p90": 3.91,
+     "used_within_2s_pct": 52.2,
+     "used_within_4s_pct": 90.1,
+     "waste_pct": 2.7,
+     "overwrites": 0,
+     "expiries_or_unmatched": 21,
+     "procs_per_min": 8.86
+    },
+    "shard_instability": {
+     "gains": 0,
+     "n_consumed_tracked": 0,
+     "consume_delay_s_median": null,
+     "p75": null,
+     "p90": null,
+     "used_within_2s_pct": null,
+     "used_within_4s_pct": null,
+     "waste_pct": null,
+     "overwrites": 0,
+     "expiries_or_unmatched": 0,
+     "procs_per_min": 0.0
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 653,
+      "gap_median_s": 6.53,
+      "gap_p75_s": 11.64,
+      "gap_p90_s": 15.79,
+      "early_clip_pct": 63.6,
+      "near_expiry_refill_pct": 35.2,
+      "late_gap_pct": 1.2,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 16,
+      "gap_median_s": 13.73,
+      "gap_p75_s": 15.83,
+      "gap_p90_s": 28.17,
+      "early_clip_pct": 25.0,
+      "near_expiry_refill_pct": 56.2,
+      "late_gap_pct": 18.8,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 128,
+      "gap_median_s": 1.8,
+      "gap_p75_s": 4.37,
+      "gap_p90_s": 8.97,
+      "early_clip_pct": 72.7,
+      "near_expiry_refill_pct": 18.8,
+      "late_gap_pct": 8.6,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 1.8,
+     "seed_of_corruption": 21.91
+    }
+   }
+  },
+  "아베르지안": {
+   "all": {
+    "n_fights": 34,
+    "sunset": {
+     "gains": 906,
+     "n_consumed_tracked": 826,
+     "consume_delay_s_median": 1.31,
+     "p75": 3.47,
+     "p90": 5.43,
+     "used_within_2s_pct": 56.9,
+     "used_within_4s_pct": 77.8,
+     "waste_pct": 7.2,
+     "overwrites": 0,
+     "expiries_or_unmatched": 65,
+     "procs_per_min": 7.8
+    },
+    "shard_instability": {
+     "gains": 482,
+     "n_consumed_tracked": 429,
+     "consume_delay_s_median": 1.41,
+     "p75": 2.12,
+     "p90": 4.27,
+     "used_within_2s_pct": 64.3,
+     "used_within_4s_pct": 87.4,
+     "waste_pct": 9.3,
+     "overwrites": 34,
+     "expiries_or_unmatched": 11,
+     "procs_per_min": 4.15
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 679,
+      "gap_median_s": 8.67,
+      "gap_p75_s": 14.73,
+      "gap_p90_s": 17.81,
+      "early_clip_pct": 51.5,
+      "near_expiry_refill_pct": 48.3,
+      "late_gap_pct": 0.1,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 40,
+      "gap_median_s": 43.14,
+      "gap_p75_s": 53.69,
+      "gap_p90_s": 56.75,
+      "early_clip_pct": 15.0,
+      "near_expiry_refill_pct": 2.5,
+      "late_gap_pct": 82.5,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 2159,
+      "gap_median_s": 2.2,
+      "gap_p75_s": 4.35,
+      "gap_p90_s": 6.44,
+      "early_clip_pct": 70.7,
+      "near_expiry_refill_pct": 27.2,
+      "late_gap_pct": 2.1,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 18.88,
+     "seed_of_corruption": 1.13
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "sunset": {
+     "gains": 514,
+     "n_consumed_tracked": 477,
+     "consume_delay_s_median": 1.09,
+     "p75": 3.45,
+     "p90": 5.32,
+     "used_within_2s_pct": 58.3,
+     "used_within_4s_pct": 78.4,
+     "waste_pct": 6.0,
+     "overwrites": 0,
+     "expiries_or_unmatched": 31,
+     "procs_per_min": 7.92
+    },
+    "shard_instability": {
+     "gains": 273,
+     "n_consumed_tracked": 250,
+     "consume_delay_s_median": 0.0,
+     "p75": 2.09,
+     "p90": 4.21,
+     "used_within_2s_pct": 67.6,
+     "used_within_4s_pct": 88.8,
+     "waste_pct": 7.7,
+     "overwrites": 18,
+     "expiries_or_unmatched": 3,
+     "procs_per_min": 4.2
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 400,
+      "gap_median_s": 8.04,
+      "gap_p75_s": 14.35,
+      "gap_p90_s": 17.38,
+      "early_clip_pct": 54.5,
+      "near_expiry_refill_pct": 45.5,
+      "late_gap_pct": 0.0,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 26,
+      "gap_median_s": 39.63,
+      "gap_p75_s": 49.31,
+      "gap_p90_s": 55.9,
+      "early_clip_pct": 23.1,
+      "near_expiry_refill_pct": 3.8,
+      "late_gap_pct": 73.1,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 1246,
+      "gap_median_s": 2.24,
+      "gap_p75_s": 4.32,
+      "gap_p90_s": 6.06,
+      "early_clip_pct": 71.2,
+      "near_expiry_refill_pct": 27.6,
+      "late_gap_pct": 1.2,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 19.5,
+     "seed_of_corruption": 0.6
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 14,
+    "sunset": {
+     "gains": 392,
+     "n_consumed_tracked": 349,
+     "consume_delay_s_median": 1.57,
+     "p75": 3.52,
+     "p90": 5.77,
+     "used_within_2s_pct": 55.0,
+     "used_within_4s_pct": 77.1,
+     "waste_pct": 8.7,
+     "overwrites": 0,
+     "expiries_or_unmatched": 34,
+     "procs_per_min": 7.65
+    },
+    "shard_instability": {
+     "gains": 209,
+     "n_consumed_tracked": 179,
+     "consume_delay_s_median": 1.57,
+     "p75": 2.33,
+     "p90": 4.41,
+     "used_within_2s_pct": 59.8,
+     "used_within_4s_pct": 85.5,
+     "waste_pct": 11.5,
+     "overwrites": 16,
+     "expiries_or_unmatched": 8,
+     "procs_per_min": 4.08
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 279,
+      "gap_median_s": 9.97,
+      "gap_p75_s": 15.29,
+      "gap_p90_s": 18.27,
+      "early_clip_pct": 47.3,
+      "near_expiry_refill_pct": 52.3,
+      "late_gap_pct": 0.4,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 14,
+      "gap_median_s": 53.26,
+      "gap_p75_s": 54.05,
+      "gap_p90_s": 56.75,
+      "early_clip_pct": 0.0,
+      "near_expiry_refill_pct": 0.0,
+      "late_gap_pct": 100.0,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 913,
+      "gap_median_s": 2.12,
+      "gap_p75_s": 4.39,
+      "gap_p90_s": 6.91,
+      "early_clip_pct": 70.0,
+      "near_expiry_refill_pct": 26.7,
+      "late_gap_pct": 3.3,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 18.09,
+     "seed_of_corruption": 1.8
+    }
+   }
+  },
+  "보라시우스": {
+   "all": {
+    "n_fights": 34,
+    "sunset": {
+     "gains": 944,
+     "n_consumed_tracked": 861,
+     "consume_delay_s_median": 1.24,
+     "p75": 3.21,
+     "p90": 4.98,
+     "used_within_2s_pct": 57.7,
+     "used_within_4s_pct": 83.3,
+     "waste_pct": 6.5,
+     "overwrites": 0,
+     "expiries_or_unmatched": 61,
+     "procs_per_min": 7.75
+    },
+    "shard_instability": {
+     "gains": 485,
+     "n_consumed_tracked": 447,
+     "consume_delay_s_median": 0.0,
+     "p75": 2.13,
+     "p90": 4.33,
+     "used_within_2s_pct": 63.5,
+     "used_within_4s_pct": 88.6,
+     "waste_pct": 7.2,
+     "overwrites": 24,
+     "expiries_or_unmatched": 11,
+     "procs_per_min": 3.98
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 732,
+      "gap_median_s": 9.95,
+      "gap_p75_s": 16.37,
+      "gap_p90_s": 18.81,
+      "early_clip_pct": 47.7,
+      "near_expiry_refill_pct": 52.3,
+      "late_gap_pct": 0.0,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 6,
+      "gap_median_s": 4.43,
+      "gap_p75_s": 8.88,
+      "gap_p90_s": 8.88,
+      "early_clip_pct": 66.7,
+      "near_expiry_refill_pct": 33.3,
+      "late_gap_pct": 0.0,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 2266,
+      "gap_median_s": 2.33,
+      "gap_p75_s": 4.37,
+      "gap_p90_s": 6.26,
+      "early_clip_pct": 71.7,
+      "near_expiry_refill_pct": 26.5,
+      "late_gap_pct": 1.8,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 18.89,
+     "seed_of_corruption": 0.12
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "sunset": {
+     "gains": 547,
+     "n_consumed_tracked": 497,
+     "consume_delay_s_median": 1.33,
+     "p75": 3.1,
+     "p90": 4.98,
+     "used_within_2s_pct": 57.1,
+     "used_within_4s_pct": 83.5,
+     "waste_pct": 6.4,
+     "overwrites": 0,
+     "expiries_or_unmatched": 35,
+     "procs_per_min": 7.86
+    },
+    "shard_instability": {
+     "gains": 275,
+     "n_consumed_tracked": 257,
+     "consume_delay_s_median": 0.0,
+     "p75": 2.13,
+     "p90": 3.61,
+     "used_within_2s_pct": 64.2,
+     "used_within_4s_pct": 91.4,
+     "waste_pct": 5.8,
+     "overwrites": 10,
+     "expiries_or_unmatched": 6,
+     "procs_per_min": 3.95
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 412,
+      "gap_median_s": 10.71,
+      "gap_p75_s": 16.38,
+      "gap_p90_s": 18.75,
+      "early_clip_pct": 46.4,
+      "near_expiry_refill_pct": 53.6,
+      "late_gap_pct": 0.0,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 1,
+      "gap_median_s": 5.85,
+      "gap_p75_s": 5.85,
+      "gap_p90_s": 5.85,
+      "early_clip_pct": 100.0,
+      "near_expiry_refill_pct": 0.0,
+      "late_gap_pct": 0.0,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 1304,
+      "gap_median_s": 2.34,
+      "gap_p75_s": 4.25,
+      "gap_p90_s": 6.15,
+      "early_clip_pct": 72.1,
+      "near_expiry_refill_pct": 26.3,
+      "late_gap_pct": 1.6,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 19.02,
+     "seed_of_corruption": 0.16
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 14,
+    "sunset": {
+     "gains": 397,
+     "n_consumed_tracked": 364,
+     "consume_delay_s_median": 1.22,
+     "p75": 3.33,
+     "p90": 4.86,
+     "used_within_2s_pct": 58.5,
+     "used_within_4s_pct": 83.0,
+     "waste_pct": 6.5,
+     "overwrites": 0,
+     "expiries_or_unmatched": 26,
+     "procs_per_min": 7.62
+    },
+    "shard_instability": {
+     "gains": 210,
+     "n_consumed_tracked": 190,
+     "consume_delay_s_median": 0.0,
+     "p75": 2.13,
+     "p90": 4.72,
+     "used_within_2s_pct": 62.6,
+     "used_within_4s_pct": 84.7,
+     "waste_pct": 9.0,
+     "overwrites": 14,
+     "expiries_or_unmatched": 5,
+     "procs_per_min": 4.03
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 320,
+      "gap_median_s": 9.21,
+      "gap_p75_s": 16.27,
+      "gap_p90_s": 18.94,
+      "early_clip_pct": 49.4,
+      "near_expiry_refill_pct": 50.6,
+      "late_gap_pct": 0.0,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 5,
+      "gap_median_s": 4.43,
+      "gap_p75_s": 8.88,
+      "gap_p90_s": 10.68,
+      "early_clip_pct": 60.0,
+      "near_expiry_refill_pct": 40.0,
+      "late_gap_pct": 0.0,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 962,
+      "gap_median_s": 2.32,
+      "gap_p75_s": 4.46,
+      "gap_p90_s": 6.53,
+      "early_clip_pct": 71.1,
+      "near_expiry_refill_pct": 26.8,
+      "late_gap_pct": 2.1,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 18.73,
+     "seed_of_corruption": 0.08
+    }
+   }
+  },
+  "살라다르": {
+   "all": {
+    "n_fights": 34,
+    "sunset": {
+     "gains": 906,
+     "n_consumed_tracked": 803,
+     "consume_delay_s_median": 0.85,
+     "p75": 3.37,
+     "p90": 5.58,
+     "used_within_2s_pct": 63.8,
+     "used_within_4s_pct": 79.6,
+     "waste_pct": 8.3,
+     "overwrites": 0,
+     "expiries_or_unmatched": 75,
+     "procs_per_min": 7.72
+    },
+    "shard_instability": {
+     "gains": 413,
+     "n_consumed_tracked": 375,
+     "consume_delay_s_median": 0.0,
+     "p75": 2.1,
+     "p90": 4.26,
+     "used_within_2s_pct": 64.0,
+     "used_within_4s_pct": 88.8,
+     "waste_pct": 7.5,
+     "overwrites": 23,
+     "expiries_or_unmatched": 8,
+     "procs_per_min": 3.52
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 821,
+      "gap_median_s": 6.58,
+      "gap_p75_s": 13.1,
+      "gap_p90_s": 17.26,
+      "early_clip_pct": 59.6,
+      "near_expiry_refill_pct": 40.1,
+      "late_gap_pct": 0.4,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 103,
+      "gap_median_s": 18.58,
+      "gap_p75_s": 41.2,
+      "gap_p90_s": 45.82,
+      "early_clip_pct": 33.0,
+      "near_expiry_refill_pct": 13.6,
+      "late_gap_pct": 53.4,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 2166,
+      "gap_median_s": 2.24,
+      "gap_p75_s": 4.41,
+      "gap_p90_s": 6.45,
+      "early_clip_pct": 71.5,
+      "near_expiry_refill_pct": 26.4,
+      "late_gap_pct": 2.1,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 18.74,
+     "seed_of_corruption": 0.15
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "sunset": {
+     "gains": 537,
+     "n_consumed_tracked": 479,
+     "consume_delay_s_median": 1.07,
+     "p75": 3.45,
+     "p90": 5.72,
+     "used_within_2s_pct": 62.8,
+     "used_within_4s_pct": 77.5,
+     "waste_pct": 8.2,
+     "overwrites": 0,
+     "expiries_or_unmatched": 44,
+     "procs_per_min": 7.8
+    },
+    "shard_instability": {
+     "gains": 239,
+     "n_consumed_tracked": 223,
+     "consume_delay_s_median": 1.44,
+     "p75": 2.1,
+     "p90": 4.47,
+     "used_within_2s_pct": 61.9,
+     "used_within_4s_pct": 86.5,
+     "waste_pct": 5.9,
+     "overwrites": 8,
+     "expiries_or_unmatched": 6,
+     "procs_per_min": 3.47
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 462,
+      "gap_median_s": 6.72,
+      "gap_p75_s": 13.91,
+      "gap_p90_s": 17.65,
+      "early_clip_pct": 58.2,
+      "near_expiry_refill_pct": 41.3,
+      "late_gap_pct": 0.4,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 60,
+      "gap_median_s": 19.03,
+      "gap_p75_s": 42.72,
+      "gap_p90_s": 45.46,
+      "early_clip_pct": 33.3,
+      "near_expiry_refill_pct": 15.0,
+      "late_gap_pct": 51.7,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 1304,
+      "gap_median_s": 2.23,
+      "gap_p75_s": 4.39,
+      "gap_p90_s": 6.15,
+      "early_clip_pct": 71.9,
+      "near_expiry_refill_pct": 26.6,
+      "late_gap_pct": 1.5,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 19.24,
+     "seed_of_corruption": 0.07
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 14,
+    "sunset": {
+     "gains": 369,
+     "n_consumed_tracked": 324,
+     "consume_delay_s_median": 0.0,
+     "p75": 3.07,
+     "p90": 5.54,
+     "used_within_2s_pct": 65.1,
+     "used_within_4s_pct": 82.7,
+     "waste_pct": 8.4,
+     "overwrites": 0,
+     "expiries_or_unmatched": 31,
+     "procs_per_min": 7.6
+    },
+    "shard_instability": {
+     "gains": 174,
+     "n_consumed_tracked": 152,
+     "consume_delay_s_median": 0.0,
+     "p75": 2.08,
+     "p90": 3.3,
+     "used_within_2s_pct": 67.1,
+     "used_within_4s_pct": 92.1,
+     "waste_pct": 9.8,
+     "overwrites": 15,
+     "expiries_or_unmatched": 2,
+     "procs_per_min": 3.58
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 359,
+      "gap_median_s": 6.44,
+      "gap_p75_s": 12.19,
+      "gap_p90_s": 16.26,
+      "early_clip_pct": 61.3,
+      "near_expiry_refill_pct": 38.4,
+      "late_gap_pct": 0.3,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 43,
+      "gap_median_s": 18.58,
+      "gap_p75_s": 34.0,
+      "gap_p90_s": 45.82,
+      "early_clip_pct": 32.6,
+      "near_expiry_refill_pct": 11.6,
+      "late_gap_pct": 55.8,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 862,
+      "gap_median_s": 2.27,
+      "gap_p75_s": 4.46,
+      "gap_p90_s": 6.9,
+      "early_clip_pct": 71.0,
+      "near_expiry_refill_pct": 26.0,
+      "late_gap_pct": 3.0,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 18.03,
+     "seed_of_corruption": 0.27
+    }
+   }
+  },
+  "벨로렌": {
+   "all": {
+    "n_fights": 33,
+    "sunset": {
+     "gains": 1153,
+     "n_consumed_tracked": 946,
+     "consume_delay_s_median": 1.46,
+     "p75": 3.79,
+     "p90": 5.63,
+     "used_within_2s_pct": 58.2,
+     "used_within_4s_pct": 77.5,
+     "waste_pct": 12.7,
+     "overwrites": 0,
+     "expiries_or_unmatched": 147,
+     "procs_per_min": 7.16
+    },
+    "shard_instability": {
+     "gains": 480,
+     "n_consumed_tracked": 393,
+     "consume_delay_s_median": 1.61,
+     "p75": 2.13,
+     "p90": 4.14,
+     "used_within_2s_pct": 63.9,
+     "used_within_4s_pct": 88.5,
+     "waste_pct": 16.7,
+     "overwrites": 45,
+     "expiries_or_unmatched": 35,
+     "procs_per_min": 2.98
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 1109,
+      "gap_median_s": 7.22,
+      "gap_p75_s": 12.55,
+      "gap_p90_s": 16.29,
+      "early_clip_pct": 57.2,
+      "near_expiry_refill_pct": 42.5,
+      "late_gap_pct": 0.4,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 241,
+      "gap_median_s": 14.18,
+      "gap_p75_s": 33.42,
+      "gap_p90_s": 49.39,
+      "early_clip_pct": 36.5,
+      "near_expiry_refill_pct": 21.6,
+      "late_gap_pct": 41.9,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 2577,
+      "gap_median_s": 2.24,
+      "gap_p75_s": 4.57,
+      "gap_p90_s": 7.44,
+      "early_clip_pct": 69.8,
+      "near_expiry_refill_pct": 25.1,
+      "late_gap_pct": 5.2,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 16.2,
+     "seed_of_corruption": 0.65
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "sunset": {
+     "gains": 722,
+     "n_consumed_tracked": 605,
+     "consume_delay_s_median": 1.38,
+     "p75": 3.88,
+     "p90": 5.69,
+     "used_within_2s_pct": 59.3,
+     "used_within_4s_pct": 77.0,
+     "waste_pct": 12.2,
+     "overwrites": 0,
+     "expiries_or_unmatched": 88,
+     "procs_per_min": 7.25
+    },
+    "shard_instability": {
+     "gains": 321,
+     "n_consumed_tracked": 266,
+     "consume_delay_s_median": 1.71,
+     "p75": 2.1,
+     "p90": 3.86,
+     "used_within_2s_pct": 63.9,
+     "used_within_4s_pct": 90.2,
+     "waste_pct": 16.2,
+     "overwrites": 34,
+     "expiries_or_unmatched": 18,
+     "procs_per_min": 3.22
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 693,
+      "gap_median_s": 6.93,
+      "gap_p75_s": 12.66,
+      "gap_p90_s": 16.39,
+      "early_clip_pct": 57.0,
+      "near_expiry_refill_pct": 42.4,
+      "late_gap_pct": 0.6,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 167,
+      "gap_median_s": 12.94,
+      "gap_p75_s": 29.87,
+      "gap_p90_s": 46.43,
+      "early_clip_pct": 38.9,
+      "near_expiry_refill_pct": 21.6,
+      "late_gap_pct": 39.5,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 1646,
+      "gap_median_s": 2.15,
+      "gap_p75_s": 4.46,
+      "gap_p90_s": 7.16,
+      "early_clip_pct": 71.3,
+      "near_expiry_refill_pct": 24.1,
+      "late_gap_pct": 4.6,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 16.73,
+     "seed_of_corruption": 0.61
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 13,
+    "sunset": {
+     "gains": 431,
+     "n_consumed_tracked": 341,
+     "consume_delay_s_median": 1.68,
+     "p75": 3.67,
+     "p90": 5.54,
+     "used_within_2s_pct": 56.3,
+     "used_within_4s_pct": 78.3,
+     "waste_pct": 13.7,
+     "overwrites": 0,
+     "expiries_or_unmatched": 59,
+     "procs_per_min": 7.01
+    },
+    "shard_instability": {
+     "gains": 159,
+     "n_consumed_tracked": 127,
+     "consume_delay_s_median": 1.46,
+     "p75": 2.4,
+     "p90": 4.75,
+     "used_within_2s_pct": 63.8,
+     "used_within_4s_pct": 85.0,
+     "waste_pct": 17.6,
+     "overwrites": 11,
+     "expiries_or_unmatched": 17,
+     "procs_per_min": 2.59
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 416,
+      "gap_median_s": 7.56,
+      "gap_p75_s": 12.09,
+      "gap_p90_s": 16.03,
+      "early_clip_pct": 57.5,
+      "near_expiry_refill_pct": 42.5,
+      "late_gap_pct": 0.0,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 74,
+      "gap_median_s": 17.74,
+      "gap_p75_s": 41.77,
+      "gap_p90_s": 54.3,
+      "early_clip_pct": 31.1,
+      "near_expiry_refill_pct": 21.6,
+      "late_gap_pct": 47.3,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 931,
+      "gap_median_s": 2.37,
+      "gap_p75_s": 4.89,
+      "gap_p90_s": 8.13,
+      "early_clip_pct": 67.0,
+      "near_expiry_refill_pct": 26.9,
+      "late_gap_pct": 6.1,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 15.36,
+     "seed_of_corruption": 0.7
+    }
+   }
+  },
+  "카이메루스": {
+   "all": {
+    "n_fights": 33,
+    "sunset": {
+     "gains": 659,
+     "n_consumed_tracked": 596,
+     "consume_delay_s_median": 1.67,
+     "p75": 3.14,
+     "p90": 5.12,
+     "used_within_2s_pct": 58.7,
+     "used_within_4s_pct": 82.2,
+     "waste_pct": 7.7,
+     "overwrites": 0,
+     "expiries_or_unmatched": 51,
+     "procs_per_min": 8.02
+    },
+    "shard_instability": {
+     "gains": 376,
+     "n_consumed_tracked": 314,
+     "consume_delay_s_median": 1.35,
+     "p75": 2.1,
+     "p90": 4.29,
+     "used_within_2s_pct": 66.2,
+     "used_within_4s_pct": 87.3,
+     "waste_pct": 13.6,
+     "overwrites": 33,
+     "expiries_or_unmatched": 18,
+     "procs_per_min": 4.58
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 432,
+      "gap_median_s": 11.79,
+      "gap_p75_s": 15.88,
+      "gap_p90_s": 18.23,
+      "early_clip_pct": 41.9,
+      "near_expiry_refill_pct": 57.9,
+      "late_gap_pct": 0.2,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 23,
+      "gap_median_s": 49.82,
+      "gap_p75_s": 55.28,
+      "gap_p90_s": 58.59,
+      "early_clip_pct": 13.0,
+      "near_expiry_refill_pct": 4.3,
+      "late_gap_pct": 82.6,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 1600,
+      "gap_median_s": 2.05,
+      "gap_p75_s": 3.98,
+      "gap_p90_s": 6.02,
+      "early_clip_pct": 75.1,
+      "near_expiry_refill_pct": 23.4,
+      "late_gap_pct": 1.4,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 19.89,
+     "seed_of_corruption": 1.13
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "sunset": {
+     "gains": 412,
+     "n_consumed_tracked": 365,
+     "consume_delay_s_median": 1.64,
+     "p75": 3.01,
+     "p90": 5.25,
+     "used_within_2s_pct": 59.7,
+     "used_within_4s_pct": 82.5,
+     "waste_pct": 9.2,
+     "overwrites": 0,
+     "expiries_or_unmatched": 38,
+     "procs_per_min": 8.06
+    },
+    "shard_instability": {
+     "gains": 231,
+     "n_consumed_tracked": 194,
+     "consume_delay_s_median": 1.29,
+     "p75": 2.09,
+     "p90": 3.81,
+     "used_within_2s_pct": 65.5,
+     "used_within_4s_pct": 91.2,
+     "waste_pct": 14.7,
+     "overwrites": 21,
+     "expiries_or_unmatched": 13,
+     "procs_per_min": 4.52
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 276,
+      "gap_median_s": 11.07,
+      "gap_p75_s": 15.71,
+      "gap_p90_s": 18.23,
+      "early_clip_pct": 42.8,
+      "near_expiry_refill_pct": 56.9,
+      "late_gap_pct": 0.4,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 15,
+      "gap_median_s": 49.82,
+      "gap_p75_s": 54.79,
+      "gap_p90_s": 57.48,
+      "early_clip_pct": 20.0,
+      "near_expiry_refill_pct": 6.7,
+      "late_gap_pct": 73.3,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 990,
+      "gap_median_s": 2.05,
+      "gap_p75_s": 3.91,
+      "gap_p90_s": 5.9,
+      "early_clip_pct": 75.8,
+      "near_expiry_refill_pct": 22.5,
+      "late_gap_pct": 1.7,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 19.78,
+     "seed_of_corruption": 1.53
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 13,
+    "sunset": {
+     "gains": 247,
+     "n_consumed_tracked": 231,
+     "consume_delay_s_median": 1.69,
+     "p75": 3.27,
+     "p90": 4.92,
+     "used_within_2s_pct": 57.1,
+     "used_within_4s_pct": 81.8,
+     "waste_pct": 5.3,
+     "overwrites": 0,
+     "expiries_or_unmatched": 13,
+     "procs_per_min": 7.96
+    },
+    "shard_instability": {
+     "gains": 145,
+     "n_consumed_tracked": 120,
+     "consume_delay_s_median": 1.49,
+     "p75": 2.12,
+     "p90": 4.94,
+     "used_within_2s_pct": 67.5,
+     "used_within_4s_pct": 80.8,
+     "waste_pct": 11.7,
+     "overwrites": 12,
+     "expiries_or_unmatched": 5,
+     "procs_per_min": 4.67
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 156,
+      "gap_median_s": 13.95,
+      "gap_p75_s": 16.3,
+      "gap_p90_s": 18.25,
+      "early_clip_pct": 40.4,
+      "near_expiry_refill_pct": 59.6,
+      "late_gap_pct": 0.0,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 8,
+      "gap_median_s": 55.12,
+      "gap_p75_s": 55.88,
+      "gap_p90_s": 58.84,
+      "early_clip_pct": 0.0,
+      "near_expiry_refill_pct": 0.0,
+      "late_gap_pct": 100.0,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 610,
+      "gap_median_s": 2.07,
+      "gap_p75_s": 4.09,
+      "gap_p90_s": 6.17,
+      "early_clip_pct": 74.1,
+      "near_expiry_refill_pct": 24.9,
+      "late_gap_pct": 1.0,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 20.07,
+     "seed_of_corruption": 0.48
+    }
+   }
+  },
+  "우주의 왕관": {
+   "all": {
+    "n_fights": 33,
+    "sunset": {
+     "gains": 1750,
+     "n_consumed_tracked": 1457,
+     "consume_delay_s_median": 1.12,
+     "p75": 3.81,
+     "p90": 6.11,
+     "used_within_2s_pct": 58.2,
+     "used_within_4s_pct": 76.4,
+     "waste_pct": 12.7,
+     "overwrites": 0,
+     "expiries_or_unmatched": 222,
+     "procs_per_min": 6.87
+    },
+    "shard_instability": {
+     "gains": 728,
+     "n_consumed_tracked": 632,
+     "consume_delay_s_median": 1.44,
+     "p75": 2.13,
+     "p90": 4.27,
+     "used_within_2s_pct": 62.8,
+     "used_within_4s_pct": 88.1,
+     "waste_pct": 13.0,
+     "overwrites": 57,
+     "expiries_or_unmatched": 38,
+     "procs_per_min": 2.86
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 1865,
+      "gap_median_s": 6.67,
+      "gap_p75_s": 11.96,
+      "gap_p90_s": 16.19,
+      "early_clip_pct": 62.0,
+      "near_expiry_refill_pct": 37.4,
+      "late_gap_pct": 0.6,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 231,
+      "gap_median_s": 9.5,
+      "gap_p75_s": 38.41,
+      "gap_p90_s": 54.7,
+      "early_clip_pct": 45.0,
+      "near_expiry_refill_pct": 13.9,
+      "late_gap_pct": 41.1,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 4166,
+      "gap_median_s": 2.19,
+      "gap_p75_s": 4.48,
+      "gap_p90_s": 7.2,
+      "early_clip_pct": 70.4,
+      "near_expiry_refill_pct": 25.9,
+      "late_gap_pct": 3.7,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 16.5,
+     "seed_of_corruption": 0.17
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "sunset": {
+     "gains": 1066,
+     "n_consumed_tracked": 892,
+     "consume_delay_s_median": 1.22,
+     "p75": 3.76,
+     "p90": 6.17,
+     "used_within_2s_pct": 57.8,
+     "used_within_4s_pct": 77.0,
+     "waste_pct": 12.2,
+     "overwrites": 0,
+     "expiries_or_unmatched": 130,
+     "procs_per_min": 6.89
+    },
+    "shard_instability": {
+     "gains": 470,
+     "n_consumed_tracked": 404,
+     "consume_delay_s_median": 1.45,
+     "p75": 2.09,
+     "p90": 4.15,
+     "used_within_2s_pct": 64.9,
+     "used_within_4s_pct": 88.6,
+     "waste_pct": 14.0,
+     "overwrites": 35,
+     "expiries_or_unmatched": 31,
+     "procs_per_min": 3.04
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 1174,
+      "gap_median_s": 6.48,
+      "gap_p75_s": 11.59,
+      "gap_p90_s": 15.92,
+      "early_clip_pct": 64.0,
+      "near_expiry_refill_pct": 35.7,
+      "late_gap_pct": 0.3,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 135,
+      "gap_median_s": 9.16,
+      "gap_p75_s": 39.5,
+      "gap_p90_s": 54.7,
+      "early_clip_pct": 45.9,
+      "near_expiry_refill_pct": 12.6,
+      "late_gap_pct": 41.5,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 2555,
+      "gap_median_s": 2.15,
+      "gap_p75_s": 4.41,
+      "gap_p90_s": 7.2,
+      "early_clip_pct": 70.6,
+      "near_expiry_refill_pct": 25.9,
+      "late_gap_pct": 3.4,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 16.69,
+     "seed_of_corruption": 0.18
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 13,
+    "sunset": {
+     "gains": 684,
+     "n_consumed_tracked": 565,
+     "consume_delay_s_median": 0.0,
+     "p75": 3.97,
+     "p90": 6.08,
+     "used_within_2s_pct": 58.8,
+     "used_within_4s_pct": 75.4,
+     "waste_pct": 13.5,
+     "overwrites": 0,
+     "expiries_or_unmatched": 92,
+     "procs_per_min": 6.82
+    },
+    "shard_instability": {
+     "gains": 258,
+     "n_consumed_tracked": 228,
+     "consume_delay_s_median": 1.44,
+     "p75": 2.13,
+     "p90": 4.41,
+     "used_within_2s_pct": 59.2,
+     "used_within_4s_pct": 87.3,
+     "waste_pct": 11.2,
+     "overwrites": 22,
+     "expiries_or_unmatched": 7,
+     "procs_per_min": 2.57
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 691,
+      "gap_median_s": 7.11,
+      "gap_p75_s": 12.76,
+      "gap_p90_s": 16.59,
+      "early_clip_pct": 58.8,
+      "near_expiry_refill_pct": 40.2,
+      "late_gap_pct": 1.0,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 96,
+      "gap_median_s": 11.67,
+      "gap_p75_s": 35.64,
+      "gap_p90_s": 54.73,
+      "early_clip_pct": 43.8,
+      "near_expiry_refill_pct": 15.6,
+      "late_gap_pct": 40.6,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 1611,
+      "gap_median_s": 2.25,
+      "gap_p75_s": 4.57,
+      "gap_p90_s": 7.21,
+      "early_clip_pct": 69.9,
+      "near_expiry_refill_pct": 25.9,
+      "late_gap_pct": 4.2,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 16.21,
+     "seed_of_corruption": 0.15
+    }
+   }
+  },
+  "한밤의 도래(르우라)": {
+   "all": {
+    "n_fights": 33,
+    "sunset": {
+     "gains": 2046,
+     "n_consumed_tracked": 1768,
+     "consume_delay_s_median": 1.5,
+     "p75": 3.64,
+     "p90": 5.58,
+     "used_within_2s_pct": 56.6,
+     "used_within_4s_pct": 77.5,
+     "waste_pct": 9.6,
+     "overwrites": 0,
+     "expiries_or_unmatched": 197,
+     "procs_per_min": 7.12
+    },
+    "shard_instability": {
+     "gains": 994,
+     "n_consumed_tracked": 858,
+     "consume_delay_s_median": 1.31,
+     "p75": 2.24,
+     "p90": 4.66,
+     "used_within_2s_pct": 67.0,
+     "used_within_4s_pct": 86.1,
+     "waste_pct": 13.3,
+     "overwrites": 68,
+     "expiries_or_unmatched": 64,
+     "procs_per_min": 3.46
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 1522,
+      "gap_median_s": 11.51,
+      "gap_p75_s": 16.24,
+      "gap_p90_s": 19.1,
+      "early_clip_pct": 41.2,
+      "near_expiry_refill_pct": 58.0,
+      "late_gap_pct": 0.8,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 71,
+      "gap_median_s": 13.29,
+      "gap_p75_s": 19.98,
+      "gap_p90_s": 38.19,
+      "early_clip_pct": 29.6,
+      "near_expiry_refill_pct": 42.3,
+      "late_gap_pct": 28.2,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 4626,
+      "gap_median_s": 2.48,
+      "gap_p75_s": 4.83,
+      "gap_p90_s": 7.71,
+      "early_clip_pct": 66.5,
+      "near_expiry_refill_pct": 28.7,
+      "late_gap_pct": 4.8,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 16.22,
+     "seed_of_corruption": 0.22
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 20,
+    "sunset": {
+     "gains": 1243,
+     "n_consumed_tracked": 1076,
+     "consume_delay_s_median": 1.36,
+     "p75": 3.36,
+     "p90": 5.43,
+     "used_within_2s_pct": 57.9,
+     "used_within_4s_pct": 80.1,
+     "waste_pct": 9.7,
+     "overwrites": 0,
+     "expiries_or_unmatched": 121,
+     "procs_per_min": 7.14
+    },
+    "shard_instability": {
+     "gains": 635,
+     "n_consumed_tracked": 548,
+     "consume_delay_s_median": 1.31,
+     "p75": 2.2,
+     "p90": 4.53,
+     "used_within_2s_pct": 68.2,
+     "used_within_4s_pct": 86.9,
+     "waste_pct": 13.5,
+     "overwrites": 46,
+     "expiries_or_unmatched": 40,
+     "procs_per_min": 3.65
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 910,
+      "gap_median_s": 11.57,
+      "gap_p75_s": 16.27,
+      "gap_p90_s": 19.11,
+      "early_clip_pct": 41.1,
+      "near_expiry_refill_pct": 57.9,
+      "late_gap_pct": 1.0,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 33,
+      "gap_median_s": 13.9,
+      "gap_p75_s": 19.98,
+      "gap_p90_s": 39.97,
+      "early_clip_pct": 24.2,
+      "near_expiry_refill_pct": 48.5,
+      "late_gap_pct": 27.3,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 2859,
+      "gap_median_s": 2.45,
+      "gap_p75_s": 4.7,
+      "gap_p90_s": 7.45,
+      "early_clip_pct": 68.3,
+      "near_expiry_refill_pct": 27.4,
+      "late_gap_pct": 4.3,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 16.53,
+     "seed_of_corruption": 0.25
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 13,
+    "sunset": {
+     "gains": 803,
+     "n_consumed_tracked": 692,
+     "consume_delay_s_median": 1.63,
+     "p75": 4.14,
+     "p90": 5.8,
+     "used_within_2s_pct": 54.6,
+     "used_within_4s_pct": 73.6,
+     "waste_pct": 9.5,
+     "overwrites": 0,
+     "expiries_or_unmatched": 76,
+     "procs_per_min": 7.1
+    },
+    "shard_instability": {
+     "gains": 359,
+     "n_consumed_tracked": 310,
+     "consume_delay_s_median": 1.3,
+     "p75": 2.32,
+     "p90": 4.74,
+     "used_within_2s_pct": 64.8,
+     "used_within_4s_pct": 84.8,
+     "waste_pct": 12.8,
+     "overwrites": 22,
+     "expiries_or_unmatched": 24,
+     "procs_per_min": 3.17
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 612,
+      "gap_median_s": 11.32,
+      "gap_p75_s": 16.21,
+      "gap_p90_s": 19.03,
+      "early_clip_pct": 41.3,
+      "near_expiry_refill_pct": 58.2,
+      "late_gap_pct": 0.5,
+      "dur_s": 18.0
+     },
+     "corruption": {
+      "n_recasts": 38,
+      "gap_median_s": 10.76,
+      "gap_p75_s": 20.43,
+      "gap_p90_s": 34.07,
+      "early_clip_pct": 34.2,
+      "near_expiry_refill_pct": 36.8,
+      "late_gap_pct": 28.9,
+      "dur_s": 14.0
+     },
+     "unstable_affliction": {
+      "n_recasts": 1767,
+      "gap_median_s": 2.57,
+      "gap_p75_s": 5.21,
+      "gap_p90_s": 8.04,
+      "early_clip_pct": 63.6,
+      "near_expiry_refill_pct": 30.9,
+      "late_gap_pct": 5.5,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 15.73,
+     "seed_of_corruption": 0.19
+    }
+   }
+  },
+  "선봉대": {
+   "all": {
+    "n_fights": 18,
+    "sunset": {
+     "gains": 999,
+     "n_consumed_tracked": 983,
+     "consume_delay_s_median": 2.02,
+     "p75": 2.53,
+     "p90": 3.62,
+     "used_within_2s_pct": 49.5,
+     "used_within_4s_pct": 93.2,
+     "waste_pct": 1.1,
+     "overwrites": 0,
+     "expiries_or_unmatched": 11,
+     "procs_per_min": 8.75
+    },
+    "shard_instability": {
+     "gains": 4,
+     "n_consumed_tracked": 4,
+     "consume_delay_s_median": 0.0,
+     "p75": 0.0,
+     "p90": 3.4,
+     "used_within_2s_pct": 75.0,
+     "used_within_4s_pct": 100.0,
+     "waste_pct": 0.0,
+     "overwrites": 0,
+     "expiries_or_unmatched": 0,
+     "procs_per_min": 0.04
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 917,
+      "gap_median_s": 6.09,
+      "gap_p75_s": 10.93,
+      "gap_p90_s": 15.31,
+      "early_clip_pct": 65.9,
+      "near_expiry_refill_pct": 34.0,
+      "late_gap_pct": 0.1,
+      "dur_s": 18.0
+     },
+     "corruption": null,
+     "unstable_affliction": {
+      "n_recasts": 105,
+      "gap_median_s": 1.39,
+      "gap_p75_s": 4.66,
+      "gap_p90_s": 15.08,
+      "early_clip_pct": 71.4,
+      "near_expiry_refill_pct": 13.3,
+      "late_gap_pct": 15.2,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 1.19,
+     "seed_of_corruption": 24.28
+    }
+   },
+   "rank_1_20": {
+    "n_fights": 11,
+    "sunset": {
+     "gains": 604,
+     "n_consumed_tracked": 598,
+     "consume_delay_s_median": 2.14,
+     "p75": 2.52,
+     "p90": 3.61,
+     "used_within_2s_pct": 47.7,
+     "used_within_4s_pct": 93.3,
+     "waste_pct": 0.7,
+     "overwrites": 0,
+     "expiries_or_unmatched": 4,
+     "procs_per_min": 8.74
+    },
+    "shard_instability": {
+     "gains": 0,
+     "n_consumed_tracked": 0,
+     "consume_delay_s_median": null,
+     "p75": null,
+     "p90": null,
+     "used_within_2s_pct": null,
+     "used_within_4s_pct": null,
+     "waste_pct": null,
+     "overwrites": 0,
+     "expiries_or_unmatched": 0,
+     "procs_per_min": 0.0
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 538,
+      "gap_median_s": 6.29,
+      "gap_p75_s": 11.52,
+      "gap_p90_s": 15.69,
+      "early_clip_pct": 63.8,
+      "near_expiry_refill_pct": 36.2,
+      "late_gap_pct": 0.0,
+      "dur_s": 18.0
+     },
+     "corruption": null,
+     "unstable_affliction": {
+      "n_recasts": 57,
+      "gap_median_s": 1.23,
+      "gap_p75_s": 4.58,
+      "gap_p90_s": 18.57,
+      "early_clip_pct": 73.7,
+      "near_expiry_refill_pct": 12.3,
+      "late_gap_pct": 14.0,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 1.08,
+     "seed_of_corruption": 24.55
+    }
+   },
+   "rank_21_100": {
+    "n_fights": 7,
+    "sunset": {
+     "gains": 395,
+     "n_consumed_tracked": 385,
+     "consume_delay_s_median": 1.66,
+     "p75": 2.54,
+     "p90": 3.67,
+     "used_within_2s_pct": 52.5,
+     "used_within_4s_pct": 93.0,
+     "waste_pct": 1.8,
+     "overwrites": 0,
+     "expiries_or_unmatched": 7,
+     "procs_per_min": 8.77
+    },
+    "shard_instability": {
+     "gains": 4,
+     "n_consumed_tracked": 4,
+     "consume_delay_s_median": 0.0,
+     "p75": 0.0,
+     "p90": 3.4,
+     "used_within_2s_pct": 75.0,
+     "used_within_4s_pct": 100.0,
+     "waste_pct": 0.0,
+     "overwrites": 0,
+     "expiries_or_unmatched": 0,
+     "procs_per_min": 0.09
+    },
+    "dot_recast_discipline": {
+     "agony": {
+      "n_recasts": 379,
+      "gap_median_s": 5.75,
+      "gap_p75_s": 10.4,
+      "gap_p90_s": 14.09,
+      "early_clip_pct": 68.9,
+      "near_expiry_refill_pct": 30.9,
+      "late_gap_pct": 0.3,
+      "dur_s": 18.0
+     },
+     "corruption": null,
+     "unstable_affliction": {
+      "n_recasts": 48,
+      "gap_median_s": 2.16,
+      "gap_p75_s": 6.25,
+      "gap_p90_s": 14.2,
+      "early_clip_pct": 68.8,
+      "near_expiry_refill_pct": 14.6,
+      "late_gap_pct": 16.7,
+      "dur_s": 8.0
+     }
+    },
+    "shard_spend_per_min": {
+     "unstable_affliction": 1.36,
+     "seed_of_corruption": 23.88
+    }
+   }
+  }
+ }
+}

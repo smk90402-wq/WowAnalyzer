@@ -1,0 +1,1200 @@
+{
+ "meta": {
+  "date": "2026-07-05",
+  "spec": "Warlock-Affliction",
+  "n_csv_rows": 878,
+  "n_with_events": 301,
+  "bands": "rank_1_5 / rank_6_20 / rank_21_100",
+  "downtime_def": "시전과 시전 사이(전투 시작/끝 포함) 3초 이상 무시전 구간의 합(초)",
+  "spender_id": 1259790,
+  "dot_ids": {
+   "980": "고통",
+   "172": "부패",
+   "1259790": "불안정한 고통"
+  },
+  "filler_ids": {
+   "686": "어둠의 화살",
+   "198590": "영혼 흡수"
+  },
+  "agony_id": 980,
+  "spender_cluster_def": "간격 2.5초 미만 연속 스펜더 시전 묶음 — 평균 묶음 크기와 2연속+ 비중(조각 모아쓰기 지표)",
+  "top_cast_spells": [
+   {
+    "id": 1259790,
+    "name": "불안정한 고통",
+    "casts": 20407
+   },
+   {
+    "id": 980,
+    "name": "고통",
+    "casts": 10629
+   },
+   {
+    "id": 27243,
+    "name": "부패의 씨앗",
+    "casts": 10395
+   },
+   {
+    "id": 198590,
+    "name": "영혼 흡수",
+    "casts": 6541
+   },
+   {
+    "id": 48181,
+    "name": "유령 출몰",
+    "casts": 5249
+   },
+   {
+    "id": 686,
+    "name": "어둠의 화살",
+    "casts": 4886
+   },
+   {
+    "id": 1261153,
+    "name": "재앙의 손아귀",
+    "casts": 2762
+   },
+   {
+    "id": 1257052,
+    "name": "암흑의 수확",
+    "casts": 2225
+   },
+   {
+    "id": 172,
+    "name": "부패",
+    "casts": 1299
+   },
+   {
+    "id": 111400,
+    "name": "불타는 돌진",
+    "casts": 949
+   },
+   {
+    "id": 205180,
+    "name": "암흑시선 소환",
+    "casts": 893
+   },
+   {
+    "id": 108416,
+    "name": "어둠의 서약",
+    "casts": 888
+   },
+   {
+    "id": 1250508,
+    "name": "잿불날개 열파",
+    "casts": 792
+   },
+   {
+    "id": 48020,
+    "name": "악마의 마법진: 순간이동",
+    "casts": 386
+   },
+   {
+    "id": 1236616,
+    "name": "빛의 잠재력",
+    "casts": 378
+   },
+   {
+    "id": 104773,
+    "name": "영원한 결의",
+    "casts": 265
+   },
+   {
+    "id": 6789,
+    "name": "필멸의 고리",
+    "casts": 237
+   },
+   {
+    "id": 119905,
+    "name": "마법 태우기",
+    "casts": 226
+   },
+   {
+    "id": 33702,
+    "name": "피의 격노",
+    "casts": 220
+   },
+   {
+    "id": 385899,
+    "name": "영혼 불사르기",
+    "casts": 210
+   }
+  ],
+  "pi_source": "PI CSV pi_received만 사용. events 캐시 buffs에는 마력주입(10060)이 전혀 수집되지 않음 — CSV로 pi_received=True 확정된 킬을 직접 열어 raw buffs 확인했으나 0건 검출. BM 분석 때와 동일한 캐시 한계(tmp_mine_bm_parse100.py 참고)."
+ },
+ "per_boss": {
+  "Imperator Averzian": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 48.9,
+    "spender_per_min_med": 21.06,
+    "filler_per_min_med": 10.81,
+    "filler_pct_med": 23.9,
+    "dot_casts_per_min_med": 27.86,
+    "downtime_s_med": 21.0,
+    "downtime_s_per_min_med": 7.02,
+    "gaps3s_count_med": 6,
+    "agony_recast_med_s": 7.9,
+    "spender_cluster_mean_med": 2.41,
+    "spender_pct_in_cluster2plus_med": 83.8
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 47.0,
+    "spender_per_min_med": 19.32,
+    "filler_per_min_med": 8.12,
+    "filler_pct_med": 17.9,
+    "dot_casts_per_min_med": 26.58,
+    "downtime_s_med": 20.9,
+    "downtime_s_per_min_med": 5.8,
+    "gaps3s_count_med": 6,
+    "agony_recast_med_s": 8.2,
+    "spender_cluster_mean_med": 2.17,
+    "spender_pct_in_cluster2plus_med": 79.7
+   },
+   "rank_21_100": {
+    "n": 14,
+    "casts_per_min_med": 45.5,
+    "spender_per_min_med": 18.25,
+    "filler_per_min_med": 8.54,
+    "filler_pct_med": 18.7,
+    "dot_casts_per_min_med": 24.79,
+    "downtime_s_med": 17.9,
+    "downtime_s_per_min_med": 5.57,
+    "gaps3s_count_med": 5,
+    "agony_recast_med_s": 10.6,
+    "spender_cluster_mean_med": 2.19,
+    "spender_pct_in_cluster2plus_med": 81.0
+   },
+   "all": {
+    "n": 34,
+    "casts_per_min_med": 46.4,
+    "spender_per_min_med": 19.15,
+    "filler_per_min_med": 8.58,
+    "filler_pct_med": 18.5,
+    "dot_casts_per_min_med": 25.9,
+    "downtime_s_med": 20.5,
+    "downtime_s_per_min_med": 5.8,
+    "gaps3s_count_med": 6,
+    "agony_recast_med_s": 9.7,
+    "spender_cluster_mean_med": 2.19,
+    "spender_pct_in_cluster2plus_med": 80.0
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 179,
+    "all100_med_s": 207,
+    "rank1_5_vs_all_diff_s": -28,
+    "rank1_5_vs_all_diff_pct": -13.4,
+    "by_band_med_s": {
+     "r1_5": 179,
+     "r6_20": 189,
+     "r21_50": 201,
+     "r51_100": 216
+    },
+    "rank1_10_slower_than_med_pct": 20
+   },
+   "pi": {
+    "aff_rank_1_5": {
+     "n": 5,
+     "pi": 1,
+     "pi_pct": 20
+    },
+    "aff_rank_1_20": {
+     "n": 20,
+     "pi": 4,
+     "pi_pct": 20
+    },
+    "aff_rank_21_100": {
+     "n": 80,
+     "pi": 27,
+     "pi_pct": 34
+    },
+    "aff_all_known": {
+     "n": 100,
+     "pi": 31,
+     "pi_pct": 31
+    },
+    "aff_pi_true_rank_med": 52,
+    "aff_pi_false_rank_med": 48,
+    "allspec_rank1_10": {
+     "n": 266,
+     "pi": 110,
+     "pi_pct": 41
+    }
+   }
+  },
+  "Vorasius": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 49.9,
+    "spender_per_min_med": 19.13,
+    "filler_per_min_med": 13.33,
+    "filler_pct_med": 26.6,
+    "dot_casts_per_min_med": 26.06,
+    "downtime_s_med": 10.8,
+    "downtime_s_per_min_med": 3.09,
+    "gaps3s_count_med": 3,
+    "agony_recast_med_s": 8.2,
+    "spender_cluster_mean_med": 1.97,
+    "spender_pct_in_cluster2plus_med": 73.9
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 48.8,
+    "spender_per_min_med": 18.93,
+    "filler_per_min_med": 11.09,
+    "filler_pct_med": 22.6,
+    "dot_casts_per_min_med": 25.52,
+    "downtime_s_med": 13.2,
+    "downtime_s_per_min_med": 3.55,
+    "gaps3s_count_med": 4,
+    "agony_recast_med_s": 11.0,
+    "spender_cluster_mean_med": 2.13,
+    "spender_pct_in_cluster2plus_med": 76.4
+   },
+   "rank_21_100": {
+    "n": 14,
+    "casts_per_min_med": 49.2,
+    "spender_per_min_med": 18.59,
+    "filler_per_min_med": 11.85,
+    "filler_pct_med": 25.0,
+    "dot_casts_per_min_med": 25.04,
+    "downtime_s_med": 14.4,
+    "downtime_s_per_min_med": 4.06,
+    "gaps3s_count_med": 4,
+    "agony_recast_med_s": 9.2,
+    "spender_cluster_mean_med": 2.04,
+    "spender_pct_in_cluster2plus_med": 76.6
+   },
+   "all": {
+    "n": 34,
+    "casts_per_min_med": 49.2,
+    "spender_per_min_med": 18.76,
+    "filler_per_min_med": 11.81,
+    "filler_pct_med": 23.6,
+    "dot_casts_per_min_med": 25.48,
+    "downtime_s_med": 13.5,
+    "downtime_s_per_min_med": 4.03,
+    "gaps3s_count_med": 4,
+    "agony_recast_med_s": 9.4,
+    "spender_cluster_mean_med": 2.08,
+    "spender_pct_in_cluster2plus_med": 76.4
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 209,
+    "all100_med_s": 218,
+    "rank1_5_vs_all_diff_s": -9,
+    "rank1_5_vs_all_diff_pct": -4.1,
+    "by_band_med_s": {
+     "r1_5": 209,
+     "r6_20": 209,
+     "r21_50": 213,
+     "r51_100": 221
+    },
+    "rank1_10_slower_than_med_pct": 20
+   },
+   "pi": {
+    "aff_rank_1_5": {
+     "n": 5,
+     "pi": 4,
+     "pi_pct": 80
+    },
+    "aff_rank_1_20": {
+     "n": 20,
+     "pi": 12,
+     "pi_pct": 60
+    },
+    "aff_rank_21_100": {
+     "n": 80,
+     "pi": 32,
+     "pi_pct": 40
+    },
+    "aff_all_known": {
+     "n": 100,
+     "pi": 44,
+     "pi_pct": 44
+    },
+    "aff_pi_true_rank_med": 46,
+    "aff_pi_false_rank_med": 59,
+    "allspec_rank1_10": {
+     "n": 270,
+     "pi": 133,
+     "pi_pct": 49
+    }
+   }
+  },
+  "Fallen-King Salhadaar": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 45.3,
+    "spender_per_min_med": 19.37,
+    "filler_per_min_med": 7.2,
+    "filler_pct_med": 16.2,
+    "dot_casts_per_min_med": 26.1,
+    "downtime_s_med": 25.2,
+    "downtime_s_per_min_med": 9.46,
+    "gaps3s_count_med": 7,
+    "agony_recast_med_s": 11.4,
+    "spender_cluster_mean_med": 2.17,
+    "spender_pct_in_cluster2plus_med": 78.4
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 49.3,
+    "spender_per_min_med": 19.19,
+    "filler_per_min_med": 8.43,
+    "filler_pct_med": 16.4,
+    "dot_casts_per_min_med": 28.3,
+    "downtime_s_med": 14.6,
+    "downtime_s_per_min_med": 4.33,
+    "gaps3s_count_med": 4,
+    "agony_recast_med_s": 7.5,
+    "spender_cluster_mean_med": 2.12,
+    "spender_pct_in_cluster2plus_med": 77.4
+   },
+   "rank_21_100": {
+    "n": 14,
+    "casts_per_min_med": 46.8,
+    "spender_per_min_med": 18.03,
+    "filler_per_min_med": 8.23,
+    "filler_pct_med": 17.1,
+    "dot_casts_per_min_med": 25.62,
+    "downtime_s_med": 18.4,
+    "downtime_s_per_min_med": 5.52,
+    "gaps3s_count_med": 5,
+    "agony_recast_med_s": 6.1,
+    "spender_cluster_mean_med": 2.14,
+    "spender_pct_in_cluster2plus_med": 77.5
+   },
+   "all": {
+    "n": 34,
+    "casts_per_min_med": 48.1,
+    "spender_per_min_med": 18.92,
+    "filler_per_min_med": 8.01,
+    "filler_pct_med": 16.6,
+    "dot_casts_per_min_med": 27.55,
+    "downtime_s_med": 16.9,
+    "downtime_s_per_min_med": 5.08,
+    "gaps3s_count_med": 5,
+    "agony_recast_med_s": 6.9,
+    "spender_cluster_mean_med": 2.14,
+    "spender_pct_in_cluster2plus_med": 77.8
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 196,
+    "all100_med_s": 219,
+    "rank1_5_vs_all_diff_s": -23,
+    "rank1_5_vs_all_diff_pct": -10.3,
+    "by_band_med_s": {
+     "r1_5": 196,
+     "r6_20": 201,
+     "r21_50": 212,
+     "r51_100": 235
+    },
+    "rank1_10_slower_than_med_pct": 20
+   },
+   "pi": {
+    "aff_rank_1_5": {
+     "n": 5,
+     "pi": 3,
+     "pi_pct": 60
+    },
+    "aff_rank_1_20": {
+     "n": 20,
+     "pi": 9,
+     "pi_pct": 45
+    },
+    "aff_rank_21_100": {
+     "n": 79,
+     "pi": 22,
+     "pi_pct": 28
+    },
+    "aff_all_known": {
+     "n": 99,
+     "pi": 31,
+     "pi_pct": 31
+    },
+    "aff_pi_true_rank_med": 36,
+    "aff_pi_false_rank_med": 56,
+    "allspec_rank1_10": {
+     "n": 267,
+     "pi": 114,
+     "pi_pct": 43
+    }
+   }
+  },
+  "Vaelgor & Ezzorak": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 44.1,
+    "spender_per_min_med": 1.61,
+    "filler_per_min_med": 3.54,
+    "filler_pct_med": 8.1,
+    "dot_casts_per_min_med": 10.05,
+    "downtime_s_med": 44.6,
+    "downtime_s_per_min_med": 7.03,
+    "gaps3s_count_med": 12,
+    "agony_recast_med_s": 5.9,
+    "spender_cluster_mean_med": 1.71,
+    "spender_pct_in_cluster2plus_med": 70.0
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 44.7,
+    "spender_per_min_med": 2.24,
+    "filler_per_min_med": 3.92,
+    "filler_pct_med": 9.3,
+    "dot_casts_per_min_med": 10.46,
+    "downtime_s_med": 44.0,
+    "downtime_s_per_min_med": 6.93,
+    "gaps3s_count_med": 11,
+    "agony_recast_med_s": 7.4,
+    "spender_cluster_mean_med": 1.64,
+    "spender_pct_in_cluster2plus_med": 62.5
+   },
+   "rank_21_100": {
+    "n": 14,
+    "casts_per_min_med": 44.3,
+    "spender_per_min_med": 1.82,
+    "filler_per_min_med": 3.49,
+    "filler_pct_med": 7.6,
+    "dot_casts_per_min_med": 9.46,
+    "downtime_s_med": 41.4,
+    "downtime_s_per_min_med": 6.37,
+    "gaps3s_count_med": 11,
+    "agony_recast_med_s": 6.7,
+    "spender_cluster_mean_med": 2.0,
+    "spender_pct_in_cluster2plus_med": 70.0
+   },
+   "all": {
+    "n": 34,
+    "casts_per_min_med": 44.4,
+    "spender_per_min_med": 1.85,
+    "filler_per_min_med": 3.59,
+    "filler_pct_med": 8.1,
+    "dot_casts_per_min_med": 9.69,
+    "downtime_s_med": 41.9,
+    "downtime_s_per_min_med": 6.93,
+    "gaps3s_count_med": 11,
+    "agony_recast_med_s": 6.7,
+    "spender_cluster_mean_med": 1.71,
+    "spender_pct_in_cluster2plus_med": 66.7
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 372,
+    "all100_med_s": 394,
+    "rank1_5_vs_all_diff_s": -22,
+    "rank1_5_vs_all_diff_pct": -5.5,
+    "by_band_med_s": {
+     "r1_5": 372,
+     "r6_20": 396,
+     "r21_50": 395,
+     "r51_100": 393
+    },
+    "rank1_10_slower_than_med_pct": 50
+   },
+   "pi": {
+    "aff_rank_1_5": {
+     "n": 5,
+     "pi": 2,
+     "pi_pct": 40
+    },
+    "aff_rank_1_20": {
+     "n": 20,
+     "pi": 10,
+     "pi_pct": 50
+    },
+    "aff_rank_21_100": {
+     "n": 79,
+     "pi": 36,
+     "pi_pct": 46
+    },
+    "aff_all_known": {
+     "n": 99,
+     "pi": 46,
+     "pi_pct": 46
+    },
+    "aff_pi_true_rank_med": 48,
+    "aff_pi_false_rank_med": 51,
+    "allspec_rank1_10": {
+     "n": 266,
+     "pi": 121,
+     "pi_pct": 45
+    }
+   }
+  },
+  "Lightblinded Vanguard": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 47.8,
+    "spender_per_min_med": 1.05,
+    "filler_per_min_med": 5.71,
+    "filler_pct_med": 11.5,
+    "dot_casts_per_min_med": 8.1,
+    "downtime_s_med": 23.5,
+    "downtime_s_per_min_med": 4.8,
+    "gaps3s_count_med": 6,
+    "agony_recast_med_s": 8.5,
+    "spender_cluster_mean_med": 1.75,
+    "spender_pct_in_cluster2plus_med": 57.1
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 44.2,
+    "spender_per_min_med": 0.6,
+    "filler_per_min_med": 2.0,
+    "filler_pct_med": 4.3,
+    "dot_casts_per_min_med": 8.51,
+    "downtime_s_med": 42.9,
+    "downtime_s_per_min_med": 6.8,
+    "gaps3s_count_med": 11,
+    "agony_recast_med_s": 6.3,
+    "spender_cluster_mean_med": 1.62,
+    "spender_pct_in_cluster2plus_med": 66.7
+   },
+   "rank_21_100": {
+    "n": 13,
+    "casts_per_min_med": 45.7,
+    "spender_per_min_med": 0.82,
+    "filler_per_min_med": 2.53,
+    "filler_pct_med": 5.8,
+    "dot_casts_per_min_med": 8.33,
+    "downtime_s_med": 49.5,
+    "downtime_s_per_min_med": 7.69,
+    "gaps3s_count_med": 13,
+    "agony_recast_med_s": 6.6,
+    "spender_cluster_mean_med": 1.75,
+    "spender_pct_in_cluster2plus_med": 66.7
+   },
+   "all": {
+    "n": 33,
+    "casts_per_min_med": 45.7,
+    "spender_per_min_med": 0.77,
+    "filler_per_min_med": 2.51,
+    "filler_pct_med": 5.5,
+    "dot_casts_per_min_med": 8.4,
+    "downtime_s_med": 42.9,
+    "downtime_s_per_min_med": 6.8,
+    "gaps3s_count_med": 11,
+    "agony_recast_med_s": 7.2,
+    "spender_cluster_mean_med": 1.75,
+    "spender_pct_in_cluster2plus_med": 57.1
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 352,
+    "all100_med_s": 389,
+    "rank1_5_vs_all_diff_s": -37,
+    "rank1_5_vs_all_diff_pct": -9.5,
+    "by_band_med_s": {
+     "r1_5": 352,
+     "r6_20": 403,
+     "r21_50": 379,
+     "r51_100": 400
+    },
+    "rank1_10_slower_than_med_pct": 60
+   },
+   "pi": {
+    "aff_rank_1_5": {
+     "n": 5,
+     "pi": 4,
+     "pi_pct": 80
+    },
+    "aff_rank_1_20": {
+     "n": 20,
+     "pi": 10,
+     "pi_pct": 50
+    },
+    "aff_rank_21_100": {
+     "n": 80,
+     "pi": 26,
+     "pi_pct": 32
+    },
+    "aff_all_known": {
+     "n": 100,
+     "pi": 36,
+     "pi_pct": 36
+    },
+    "aff_pi_true_rank_med": 34,
+    "aff_pi_false_rank_med": 56,
+    "allspec_rank1_10": {
+     "n": 267,
+     "pi": 136,
+     "pi_pct": 51
+    }
+   }
+  },
+  "Crown of the Cosmos": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 42.4,
+    "spender_per_min_med": 17.22,
+    "filler_per_min_med": 7.31,
+    "filler_pct_med": 17.3,
+    "dot_casts_per_min_med": 25.26,
+    "downtime_s_med": 81.8,
+    "downtime_s_per_min_med": 10.13,
+    "gaps3s_count_med": 18,
+    "agony_recast_med_s": 7.1,
+    "spender_cluster_mean_med": 2.18,
+    "spender_pct_in_cluster2plus_med": 77.4
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 44.0,
+    "spender_per_min_med": 16.83,
+    "filler_per_min_med": 7.47,
+    "filler_pct_med": 17.3,
+    "dot_casts_per_min_med": 25.3,
+    "downtime_s_med": 68.9,
+    "downtime_s_per_min_med": 8.88,
+    "gaps3s_count_med": 13,
+    "agony_recast_med_s": 7.1,
+    "spender_cluster_mean_med": 2.2,
+    "spender_pct_in_cluster2plus_med": 81.0
+   },
+   "rank_21_100": {
+    "n": 13,
+    "casts_per_min_med": 41.0,
+    "spender_per_min_med": 16.26,
+    "filler_per_min_med": 6.27,
+    "filler_pct_med": 15.5,
+    "dot_casts_per_min_med": 24.29,
+    "downtime_s_med": 82.6,
+    "downtime_s_per_min_med": 11.25,
+    "gaps3s_count_med": 17,
+    "agony_recast_med_s": 7.5,
+    "spender_cluster_mean_med": 2.25,
+    "spender_pct_in_cluster2plus_med": 81.2
+   },
+   "all": {
+    "n": 33,
+    "casts_per_min_med": 43.8,
+    "spender_per_min_med": 16.63,
+    "filler_per_min_med": 7.31,
+    "filler_pct_med": 17.3,
+    "dot_casts_per_min_med": 24.85,
+    "downtime_s_med": 81.0,
+    "downtime_s_per_min_med": 10.13,
+    "gaps3s_count_med": 16,
+    "agony_recast_med_s": 7.1,
+    "spender_cluster_mean_med": 2.24,
+    "spender_pct_in_cluster2plus_med": 81.0
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 463,
+    "all100_med_s": 478,
+    "rank1_5_vs_all_diff_s": -14,
+    "rank1_5_vs_all_diff_pct": -3.0,
+    "by_band_med_s": {
+     "r1_5": 463,
+     "r6_20": 473,
+     "r21_50": 464,
+     "r51_100": 486
+    },
+    "rank1_10_slower_than_med_pct": 50
+   },
+   "pi": {
+    "aff_rank_1_5": {
+     "n": 5,
+     "pi": 4,
+     "pi_pct": 80
+    },
+    "aff_rank_1_20": {
+     "n": 20,
+     "pi": 8,
+     "pi_pct": 40
+    },
+    "aff_rank_21_100": {
+     "n": 79,
+     "pi": 19,
+     "pi_pct": 24
+    },
+    "aff_all_known": {
+     "n": 99,
+     "pi": 27,
+     "pi_pct": 27
+    },
+    "aff_pi_true_rank_med": 52,
+    "aff_pi_false_rank_med": 50,
+    "allspec_rank1_10": {
+     "n": 263,
+     "pi": 112,
+     "pi_pct": 43
+    }
+   }
+  },
+  "Chimaerus, the Undreamt God": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 49.5,
+    "spender_per_min_med": 21.7,
+    "filler_per_min_med": 11.53,
+    "filler_pct_med": 22.0,
+    "dot_casts_per_min_med": 28.42,
+    "downtime_s_med": 10.0,
+    "downtime_s_per_min_med": 4.1,
+    "gaps3s_count_med": 3,
+    "agony_recast_med_s": 13.1,
+    "spender_cluster_mean_med": 2.38,
+    "spender_pct_in_cluster2plus_med": 85.7
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 49.1,
+    "spender_per_min_med": 20.84,
+    "filler_per_min_med": 7.35,
+    "filler_pct_med": 15.3,
+    "dot_casts_per_min_med": 27.51,
+    "downtime_s_med": 14.1,
+    "downtime_s_per_min_med": 5.75,
+    "gaps3s_count_med": 4,
+    "agony_recast_med_s": 12.4,
+    "spender_cluster_mean_med": 2.3,
+    "spender_pct_in_cluster2plus_med": 84.8
+   },
+   "rank_21_100": {
+    "n": 13,
+    "casts_per_min_med": 47.9,
+    "spender_per_min_med": 19.86,
+    "filler_per_min_med": 10.44,
+    "filler_pct_med": 22.7,
+    "dot_casts_per_min_med": 26.51,
+    "downtime_s_med": 14.4,
+    "downtime_s_per_min_med": 6.01,
+    "gaps3s_count_med": 4,
+    "agony_recast_med_s": 14.2,
+    "spender_cluster_mean_med": 2.37,
+    "spender_pct_in_cluster2plus_med": 82.7
+   },
+   "all": {
+    "n": 33,
+    "casts_per_min_med": 49.2,
+    "spender_per_min_med": 21.25,
+    "filler_per_min_med": 10.06,
+    "filler_pct_med": 20.3,
+    "dot_casts_per_min_med": 27.22,
+    "downtime_s_med": 14.1,
+    "downtime_s_per_min_med": 5.75,
+    "gaps3s_count_med": 4,
+    "agony_recast_med_s": 13.1,
+    "spender_cluster_mean_med": 2.37,
+    "spender_pct_in_cluster2plus_med": 84.3
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 144,
+    "all100_med_s": 146,
+    "rank1_5_vs_all_diff_s": -2,
+    "rank1_5_vs_all_diff_pct": -1.1,
+    "by_band_med_s": {
+     "r1_5": 144,
+     "r6_20": 146,
+     "r21_50": 144,
+     "r51_100": 146
+    },
+    "rank1_10_slower_than_med_pct": 40
+   },
+   "pi": {
+    "aff_rank_1_5": {
+     "n": 5,
+     "pi": 5,
+     "pi_pct": 100
+    },
+    "aff_rank_1_20": {
+     "n": 20,
+     "pi": 12,
+     "pi_pct": 60
+    },
+    "aff_rank_21_100": {
+     "n": 80,
+     "pi": 17,
+     "pi_pct": 21
+    },
+    "aff_all_known": {
+     "n": 100,
+     "pi": 29,
+     "pi_pct": 29
+    },
+    "aff_pi_true_rank_med": 33,
+    "aff_pi_false_rank_med": 57,
+    "allspec_rank1_10": {
+     "n": 269,
+     "pi": 131,
+     "pi_pct": 49
+    }
+   }
+  },
+  "Belo'ren, Child of Al'ar": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 44.4,
+    "spender_per_min_med": 17.76,
+    "filler_per_min_med": 8.58,
+    "filler_pct_med": 19.3,
+    "dot_casts_per_min_med": 25.45,
+    "downtime_s_med": 45.7,
+    "downtime_s_per_min_med": 9.05,
+    "gaps3s_count_med": 10,
+    "agony_recast_med_s": 9.2,
+    "spender_cluster_mean_med": 2.32,
+    "spender_pct_in_cluster2plus_med": 82.6
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 45.8,
+    "spender_per_min_med": 16.82,
+    "filler_per_min_med": 6.76,
+    "filler_pct_med": 14.3,
+    "dot_casts_per_min_med": 27.3,
+    "downtime_s_med": 42.5,
+    "downtime_s_per_min_med": 8.24,
+    "gaps3s_count_med": 9,
+    "agony_recast_med_s": 6.9,
+    "spender_cluster_mean_med": 2.24,
+    "spender_pct_in_cluster2plus_med": 82.2
+   },
+   "rank_21_100": {
+    "n": 13,
+    "casts_per_min_med": 42.3,
+    "spender_per_min_med": 15.86,
+    "filler_per_min_med": 7.53,
+    "filler_pct_med": 18.2,
+    "dot_casts_per_min_med": 24.32,
+    "downtime_s_med": 49.1,
+    "downtime_s_per_min_med": 10.27,
+    "gaps3s_count_med": 11,
+    "agony_recast_med_s": 7.6,
+    "spender_cluster_mean_med": 2.05,
+    "spender_pct_in_cluster2plus_med": 75.6
+   },
+   "all": {
+    "n": 33,
+    "casts_per_min_med": 44.4,
+    "spender_per_min_med": 16.61,
+    "filler_per_min_med": 7.15,
+    "filler_pct_med": 15.7,
+    "dot_casts_per_min_med": 25.37,
+    "downtime_s_med": 42.9,
+    "downtime_s_per_min_med": 9.05,
+    "gaps3s_count_med": 10,
+    "agony_recast_med_s": 7.6,
+    "spender_cluster_mean_med": 2.15,
+    "spender_pct_in_cluster2plus_med": 77.8
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 297,
+    "all100_med_s": 302,
+    "rank1_5_vs_all_diff_s": -5,
+    "rank1_5_vs_all_diff_pct": -1.7,
+    "by_band_med_s": {
+     "r1_5": 297,
+     "r6_20": 302,
+     "r21_50": 300,
+     "r51_100": 310
+    },
+    "rank1_10_slower_than_med_pct": 40
+   },
+   "pi": {
+    "aff_rank_1_5": {
+     "n": 5,
+     "pi": 2,
+     "pi_pct": 40
+    },
+    "aff_rank_1_20": {
+     "n": 20,
+     "pi": 6,
+     "pi_pct": 30
+    },
+    "aff_rank_21_100": {
+     "n": 80,
+     "pi": 18,
+     "pi_pct": 22
+    },
+    "aff_all_known": {
+     "n": 100,
+     "pi": 24,
+     "pi_pct": 24
+    },
+    "aff_pi_true_rank_med": 45,
+    "aff_pi_false_rank_med": 55,
+    "allspec_rank1_10": {
+     "n": 267,
+     "pi": 88,
+     "pi_pct": 33
+    }
+   }
+  },
+  "Midnight Falls": {
+   "rank_1_5": {
+    "n": 5,
+    "casts_per_min_med": 46.3,
+    "spender_per_min_med": 17.17,
+    "filler_per_min_med": 8.02,
+    "filler_pct_med": 18.9,
+    "dot_casts_per_min_med": 22.48,
+    "downtime_s_med": 77.1,
+    "downtime_s_per_min_med": 8.84,
+    "gaps3s_count_med": 17,
+    "agony_recast_med_s": 13.9,
+    "spender_cluster_mean_med": 2.05,
+    "spender_pct_in_cluster2plus_med": 75.7
+   },
+   "rank_6_20": {
+    "n": 15,
+    "casts_per_min_med": 42.4,
+    "spender_per_min_med": 16.25,
+    "filler_per_min_med": 8.02,
+    "filler_pct_med": 19.5,
+    "dot_casts_per_min_med": 22.5,
+    "downtime_s_med": 95.8,
+    "downtime_s_per_min_med": 10.89,
+    "gaps3s_count_med": 20,
+    "agony_recast_med_s": 11.9,
+    "spender_cluster_mean_med": 1.95,
+    "spender_pct_in_cluster2plus_med": 74.5
+   },
+   "rank_21_100": {
+    "n": 13,
+    "casts_per_min_med": 42.8,
+    "spender_per_min_med": 16.03,
+    "filler_per_min_med": 8.83,
+    "filler_pct_med": 20.4,
+    "dot_casts_per_min_med": 21.4,
+    "downtime_s_med": 94.5,
+    "downtime_s_per_min_med": 10.57,
+    "gaps3s_count_med": 22,
+    "agony_recast_med_s": 12.1,
+    "spender_cluster_mean_med": 1.91,
+    "spender_pct_in_cluster2plus_med": 74.0
+   },
+   "all": {
+    "n": 33,
+    "casts_per_min_med": 42.6,
+    "spender_per_min_med": 16.22,
+    "filler_per_min_med": 8.03,
+    "filler_pct_med": 19.5,
+    "dot_casts_per_min_med": 21.94,
+    "downtime_s_med": 94.5,
+    "downtime_s_per_min_med": 10.71,
+    "gaps3s_count_med": 20,
+    "agony_recast_med_s": 12.1,
+    "spender_cluster_mean_med": 1.96,
+    "spender_pct_in_cluster2plus_med": 74.5
+   },
+   "ranks_with_events": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "killtime": {
+    "rank1_5_med_s": 523,
+    "all100_med_s": 526,
+    "rank1_5_vs_all_diff_s": -3,
+    "rank1_5_vs_all_diff_pct": -0.6,
+    "by_band_med_s": {
+     "r1_5": 523,
+     "r6_20": 519,
+     "r21_50": 518,
+     "r51_100": 559
+    },
+    "rank1_10_slower_than_med_pct": 30
+   },
+   "pi": {
+    "aff_rank_1_5": {
+     "n": 5,
+     "pi": 4,
+     "pi_pct": 80
+    },
+    "aff_rank_1_20": {
+     "n": 20,
+     "pi": 10,
+     "pi_pct": 50
+    },
+    "aff_rank_21_100": {
+     "n": 58,
+     "pi": 12,
+     "pi_pct": 21
+    },
+    "aff_all_known": {
+     "n": 78,
+     "pi": 22,
+     "pi_pct": 28
+    },
+    "aff_pi_true_rank_med": 23,
+    "aff_pi_false_rank_med": 49,
+    "allspec_rank1_10": {
+     "n": 270,
+     "pi": 123,
+     "pi_pct": 46
+    }
+   }
+  }
+ },
+ "overall": {
+  "rank_1_5": {
+   "n": 45,
+   "casts_per_min_med": 46.2,
+   "spender_per_min_med": 18.01,
+   "filler_per_min_med": 7.99,
+   "filler_pct_med": 17.3,
+   "dot_casts_per_min_med": 25.25,
+   "downtime_s_med": 31.2,
+   "downtime_s_per_min_med": 7.48,
+   "gaps3s_count_med": 8,
+   "agony_recast_med_s": 9.2,
+   "spender_cluster_mean_med": 2.15,
+   "spender_pct_in_cluster2plus_med": 77.4
+  },
+  "rank_6_20": {
+   "n": 135,
+   "casts_per_min_med": 46.2,
+   "spender_per_min_med": 17.18,
+   "filler_per_min_med": 7.35,
+   "filler_pct_med": 15.7,
+   "dot_casts_per_min_med": 25.27,
+   "downtime_s_med": 33.8,
+   "downtime_s_per_min_med": 7.14,
+   "gaps3s_count_med": 9,
+   "agony_recast_med_s": 8.6,
+   "spender_cluster_mean_med": 2.12,
+   "spender_pct_in_cluster2plus_med": 77.4
+  },
+  "rank_21_100": {
+   "n": 121,
+   "casts_per_min_med": 45.7,
+   "spender_per_min_med": 16.46,
+   "filler_per_min_med": 7.8,
+   "filler_pct_med": 17.8,
+   "dot_casts_per_min_med": 24.21,
+   "downtime_s_med": 36.9,
+   "downtime_s_per_min_med": 7.52,
+   "gaps3s_count_med": 10,
+   "agony_recast_med_s": 8.7,
+   "spender_cluster_mean_med": 2.13,
+   "spender_pct_in_cluster2plus_med": 77.4
+  }
+ },
+ "pi_overall_aff": {
+  "true_n": 290,
+  "true_rank_med": 42,
+  "false_n": 585,
+  "false_rank_med": 53,
+  "rank_1_5": {
+   "n": 45,
+   "pi": 29,
+   "pi_pct": 64
+  },
+  "rank_6_20": {
+   "n": 135,
+   "pi": 52,
+   "pi_pct": 39
+  },
+  "rank_21_100": {
+   "n": 695,
+   "pi": 209,
+   "pi_pct": 30
+  }
+ }
+}

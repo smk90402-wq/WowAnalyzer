@@ -1,0 +1,1291 @@
+{
+  "_meta": {
+    "generated_at": "2026-07-05T15:46:39",
+    "zone_id": 46,
+    "zone": "VS / DR / MQD",
+    "difficulty": "mythic",
+    "source": "C:\\Users\\smk90\\OneDrive\\바탕 화면\\LogAnalyze\\data\\rankings_zone46_mythic_dps_top100.csv",
+    "topn": 100,
+    "top_band": 25,
+    "notes": [
+      "DPS 보정값은 템렙과 전투시간 영향을 뺀 값 기준입니다.",
+      "명단은 오늘자 랭킹 CSV 기준입니다 (pf 캐시와 정합).",
+      "장신구 목록은 하드코딩 없이 고통 흑마 상위권 장비에 실제로 나온 것만 집계합니다.",
+      "추천은 평균 딜보다 상위권 채택률을 더 크게 봅니다. 킬마다 딜이 들쭉날쭉한 표본이라 작은 차이는 무시하세요."
+    ]
+  },
+  "Warlock|Affliction": {
+    "3176": {
+      "encounter_id": "3176",
+      "boss": "전제군주 아베르지안",
+      "encounter_name": "Imperator Averzian",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "영혼 수확자": 100
+      },
+      "failures": 0,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 188.7,
+      "top_ilvl": 291.1,
+      "top_stats": {
+        "crit": 1033.4,
+        "haste": 1039.8,
+        "mastery": 592.3,
+        "vers": 43.7
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 99
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 91
+        },
+        {
+          "id": 249809,
+          "label": "공간 방랑자의 리본",
+          "n": 4
+        },
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 2
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 2
+        },
+        {
+          "id": 249810,
+          "label": "드높은 진혼곡의 그림자",
+          "n": 2
+        }
+      ],
+      "top_items": [
+        [
+          "알른 선견자의 응시",
+          25
+        ],
+        [
+          "잿불날개 깃털",
+          23
+        ],
+        [
+          "공간 방랑자의 리본",
+          1
+        ],
+        [
+          "바엘고어의 마지막 시선",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "잿불날개 깃털": 92,
+        "알른 선견자의 응시": 100,
+        "공간 방랑자의 리본": 4,
+        "바엘고어의 마지막 시선": 4
+      },
+      "top_combos": [
+        {
+          "combo": "알른 선견자의 응시 + 잿불날개 깃털",
+          "n": 23,
+          "pct": 92
+        },
+        {
+          "combo": "공간 방랑자의 리본 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 99,
+          "pct": 99,
+          "avg_rank": 50.5,
+          "avg_dps": 138858.3,
+          "avg_adjusted_dps": -7.2,
+          "others_adjusted_dps": null
+        },
+        "250144": {
+          "label": "잿불날개 깃털",
+          "n": 91,
+          "pct": 91,
+          "avg_rank": 50.4,
+          "avg_dps": 138858.5,
+          "avg_adjusted_dps": -102.7,
+          "others_adjusted_dps": 1038.4
+        },
+        "249809": {
+          "label": "공간 방랑자의 리본",
+          "n": 4,
+          "pct": 4,
+          "avg_rank": 46.8,
+          "avg_dps": 139290.6,
+          "avg_adjusted_dps": 1118.5,
+          "others_adjusted_dps": -46.6
+        }
+      },
+      "recommendation": {
+        "pick": "알른 선견자의 응시 + 잿불날개 깃털",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 92%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": null
+      }
+    },
+    "3177": {
+      "encounter_id": "3177",
+      "boss": "보라시우스",
+      "encounter_name": "Vorasius",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "영혼 수확자": 100
+      },
+      "failures": 0,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 209.1,
+      "top_ilvl": 291.0,
+      "top_stats": {
+        "crit": 1118.2,
+        "haste": 976.9,
+        "mastery": 564.0,
+        "vers": 46.2
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 100
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 89
+        },
+        {
+          "id": 249810,
+          "label": "드높은 진혼곡의 그림자",
+          "n": 6
+        },
+        {
+          "id": 249809,
+          "label": "공간 방랑자의 리본",
+          "n": 3
+        },
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 2
+        }
+      ],
+      "top_items": [
+        [
+          "알른 선견자의 응시",
+          25
+        ],
+        [
+          "잿불날개 깃털",
+          22
+        ],
+        [
+          "드높은 진혼곡의 그림자",
+          3
+        ]
+      ],
+      "top_item_pct": {
+        "잿불날개 깃털": 88,
+        "알른 선견자의 응시": 100,
+        "드높은 진혼곡의 그림자": 12
+      },
+      "top_combos": [
+        {
+          "combo": "알른 선견자의 응시 + 잿불날개 깃털",
+          "n": 22,
+          "pct": 88
+        },
+        {
+          "combo": "드높은 진혼곡의 그림자 + 알른 선견자의 응시",
+          "n": 3,
+          "pct": 12
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 100,
+          "pct": 100,
+          "avg_rank": 50.5,
+          "avg_dps": 140420.8,
+          "avg_adjusted_dps": -0.0,
+          "others_adjusted_dps": null
+        },
+        "250144": {
+          "label": "잿불날개 깃털",
+          "n": 89,
+          "pct": 89,
+          "avg_rank": 51.8,
+          "avg_dps": 140256.8,
+          "avg_adjusted_dps": -157.1,
+          "others_adjusted_dps": 1271.3
+        },
+        "249810": {
+          "label": "드높은 진혼곡의 그림자",
+          "n": 6,
+          "pct": 6,
+          "avg_rank": 35.5,
+          "avg_dps": 143365.0,
+          "avg_adjusted_dps": 2613.2,
+          "others_adjusted_dps": -166.8
+        },
+        "249809": {
+          "label": "공간 방랑자의 리본",
+          "n": 3,
+          "pct": 3,
+          "avg_rank": 51.0,
+          "avg_dps": 139281.5,
+          "avg_adjusted_dps": -1186.0,
+          "others_adjusted_dps": 36.7
+        }
+      },
+      "recommendation": {
+        "pick": "알른 선견자의 응시 + 잿불날개 깃털",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 88%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": null
+      }
+    },
+    "3178": {
+      "encounter_id": "3178",
+      "boss": "바엘고어와 에조라크",
+      "encounter_name": "Vaelgor & Ezzorak",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "영혼 수확자": 100
+      },
+      "failures": 0,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 394.1,
+      "top_ilvl": 290.3,
+      "top_stats": {
+        "crit": 1113.1,
+        "haste": 933.2,
+        "mastery": 633.4,
+        "vers": 42.8
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 98
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 72
+        },
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 14
+        },
+        {
+          "id": 249809,
+          "label": "공간 방랑자의 리본",
+          "n": 9
+        },
+        {
+          "id": 250223,
+          "label": "영혼포획자의 부적",
+          "n": 2
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 2
+        },
+        {
+          "id": 248583,
+          "label": "새로운 유대의 북",
+          "n": 1
+        },
+        {
+          "id": 250256,
+          "label": "바람의 심장",
+          "n": 1
+        },
+        {
+          "id": 249810,
+          "label": "드높은 진혼곡의 그림자",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "알른 선견자의 응시",
+          25
+        ],
+        [
+          "잿불날개 깃털",
+          20
+        ],
+        [
+          "공간 방랑자의 리본",
+          2
+        ],
+        [
+          "바엘고어의 마지막 시선",
+          2
+        ],
+        [
+          "새로운 유대의 북",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "잿불날개 깃털": 80,
+        "알른 선견자의 응시": 100,
+        "새로운 유대의 북": 4,
+        "공간 방랑자의 리본": 8,
+        "바엘고어의 마지막 시선": 8
+      },
+      "top_combos": [
+        {
+          "combo": "알른 선견자의 응시 + 잿불날개 깃털",
+          "n": 20,
+          "pct": 80
+        },
+        {
+          "combo": "공간 방랑자의 리본 + 알른 선견자의 응시",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "새로운 유대의 북 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 98,
+          "pct": 98,
+          "avg_rank": 50.0,
+          "avg_dps": 222863.5,
+          "avg_adjusted_dps": 131.5,
+          "others_adjusted_dps": -6443.5
+        },
+        "250144": {
+          "label": "잿불날개 깃털",
+          "n": 72,
+          "pct": 72,
+          "avg_rank": 51.3,
+          "avg_dps": 222816.0,
+          "avg_adjusted_dps": 116.5,
+          "others_adjusted_dps": -299.7
+        },
+        "249346": {
+          "label": "바엘고어의 마지막 시선",
+          "n": 14,
+          "pct": 14,
+          "avg_rank": 49.9,
+          "avg_dps": 221883.0,
+          "avg_adjusted_dps": -909.3,
+          "others_adjusted_dps": 148.0
+        },
+        "249809": {
+          "label": "공간 방랑자의 리본",
+          "n": 9,
+          "pct": 9,
+          "avg_rank": 49.6,
+          "avg_dps": 222356.1,
+          "avg_adjusted_dps": -431.0,
+          "others_adjusted_dps": 42.6
+        }
+      },
+      "recommendation": {
+        "pick": "알른 선견자의 응시 + 잿불날개 깃털",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 80%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": 6575.0
+      }
+    },
+    "3179": {
+      "encounter_id": "3179",
+      "boss": "몰락왕 살라다르",
+      "encounter_name": "Fallen-King Salhadaar",
+      "rankings_n": 100,
+      "sample_n": 99,
+      "hero_counts": {
+        "영혼 수확자": 99
+      },
+      "failures": 1,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 201.3,
+      "top_ilvl": 291.3,
+      "top_stats": {
+        "crit": 1053.3,
+        "haste": 1009.1,
+        "mastery": 590.6,
+        "vers": 59.6
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 99
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 89
+        },
+        {
+          "id": 249809,
+          "label": "공간 방랑자의 리본",
+          "n": 4
+        },
+        {
+          "id": 249810,
+          "label": "드높은 진혼곡의 그림자",
+          "n": 2
+        },
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 2
+        },
+        {
+          "id": 251792,
+          "label": "영광스러운 성전사의 기념품",
+          "n": 1
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "알른 선견자의 응시",
+          25
+        ],
+        [
+          "잿불날개 깃털",
+          23
+        ],
+        [
+          "공간 방랑자의 리본",
+          1
+        ],
+        [
+          "드높은 진혼곡의 그림자",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "알른 선견자의 응시": 100,
+        "잿불날개 깃털": 92,
+        "공간 방랑자의 리본": 4,
+        "드높은 진혼곡의 그림자": 4
+      },
+      "top_combos": [
+        {
+          "combo": "알른 선견자의 응시 + 잿불날개 깃털",
+          "n": 23,
+          "pct": 92
+        },
+        {
+          "combo": "공간 방랑자의 리본 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "드높은 진혼곡의 그림자 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 99,
+          "pct": 100,
+          "avg_rank": 50.3,
+          "avg_dps": 140059.6,
+          "avg_adjusted_dps": 0.0,
+          "others_adjusted_dps": null
+        },
+        "250144": {
+          "label": "잿불날개 깃털",
+          "n": 89,
+          "pct": 90,
+          "avg_rank": 47.7,
+          "avg_dps": 140430.5,
+          "avg_adjusted_dps": 322.1,
+          "others_adjusted_dps": -2867.0
+        },
+        "249809": {
+          "label": "공간 방랑자의 리본",
+          "n": 4,
+          "pct": 4,
+          "avg_rank": 69.0,
+          "avg_dps": 137447.3,
+          "avg_adjusted_dps": -2422.2,
+          "others_adjusted_dps": 102.0
+        }
+      },
+      "recommendation": {
+        "pick": "알른 선견자의 응시 + 잿불날개 깃털",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 92%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": null
+      }
+    },
+    "3180": {
+      "encounter_id": "3180",
+      "boss": "빛눈먼 선봉대",
+      "encounter_name": "Lightblinded Vanguard",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "영혼 수확자": 100
+      },
+      "failures": 0,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 392.1,
+      "top_ilvl": 290.7,
+      "top_stats": {
+        "crit": 1101.0,
+        "haste": 956.9,
+        "mastery": 609.1,
+        "vers": 48.0
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 97
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 87
+        },
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 10
+        },
+        {
+          "id": 249809,
+          "label": "공간 방랑자의 리본",
+          "n": 3
+        },
+        {
+          "id": 250256,
+          "label": "바람의 심장",
+          "n": 3
+        }
+      ],
+      "top_items": [
+        [
+          "알른 선견자의 응시",
+          25
+        ],
+        [
+          "잿불날개 깃털",
+          22
+        ],
+        [
+          "공간 방랑자의 리본",
+          2
+        ],
+        [
+          "바엘고어의 마지막 시선",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "공간 방랑자의 리본": 8,
+        "알른 선견자의 응시": 100,
+        "잿불날개 깃털": 88,
+        "바엘고어의 마지막 시선": 4
+      },
+      "top_combos": [
+        {
+          "combo": "알른 선견자의 응시 + 잿불날개 깃털",
+          "n": 22,
+          "pct": 88
+        },
+        {
+          "combo": "공간 방랑자의 리본 + 알른 선견자의 응시",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 97,
+          "pct": 97,
+          "avg_rank": 49.5,
+          "avg_dps": 193583.0,
+          "avg_adjusted_dps": 176.0,
+          "others_adjusted_dps": -5691.7
+        },
+        "250144": {
+          "label": "잿불날개 깃털",
+          "n": 87,
+          "pct": 87,
+          "avg_rank": 48.9,
+          "avg_dps": 193539.4,
+          "avg_adjusted_dps": 65.3,
+          "others_adjusted_dps": -437.2
+        },
+        "249346": {
+          "label": "바엘고어의 마지막 시선",
+          "n": 10,
+          "pct": 10,
+          "avg_rank": 67.7,
+          "avg_dps": 189386.3,
+          "avg_adjusted_dps": -2835.0,
+          "others_adjusted_dps": 315.0
+        },
+        "249809": {
+          "label": "공간 방랑자의 리본",
+          "n": 3,
+          "pct": 3,
+          "avg_rank": 39.3,
+          "avg_dps": 201535.8,
+          "avg_adjusted_dps": 7555.3,
+          "others_adjusted_dps": -233.7
+        },
+        "250256": {
+          "label": "바람의 심장",
+          "n": 3,
+          "pct": 3,
+          "avg_rank": 84.0,
+          "avg_dps": 186282.9,
+          "avg_adjusted_dps": -5691.7,
+          "others_adjusted_dps": 176.0
+        }
+      },
+      "recommendation": {
+        "pick": "알른 선견자의 응시 + 잿불날개 깃털",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 88%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": 5867.7
+      }
+    },
+    "3181": {
+      "encounter_id": "3181",
+      "boss": "우주의 왕관",
+      "encounter_name": "Crown of the Cosmos",
+      "rankings_n": 100,
+      "sample_n": 99,
+      "hero_counts": {
+        "영혼 수확자": 99
+      },
+      "failures": 1,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 477.6,
+      "top_ilvl": 291.1,
+      "top_stats": {
+        "crit": 991.5,
+        "haste": 1107.6,
+        "mastery": 559.2,
+        "vers": 69.9
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 97
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 87
+        },
+        {
+          "id": 249809,
+          "label": "공간 방랑자의 리본",
+          "n": 5
+        },
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 4
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 2
+        },
+        {
+          "id": 249810,
+          "label": "드높은 진혼곡의 그림자",
+          "n": 1
+        },
+        {
+          "id": 250256,
+          "label": "바람의 심장",
+          "n": 1
+        },
+        {
+          "id": 248583,
+          "label": "새로운 유대의 북",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "알른 선견자의 응시",
+          25
+        ],
+        [
+          "잿불날개 깃털",
+          21
+        ],
+        [
+          "공간 방랑자의 리본",
+          2
+        ],
+        [
+          "드높은 진혼곡의 그림자",
+          1
+        ],
+        [
+          "바엘고어의 마지막 시선",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "공간 방랑자의 리본": 8,
+        "알른 선견자의 응시": 100,
+        "잿불날개 깃털": 84,
+        "드높은 진혼곡의 그림자": 4,
+        "바엘고어의 마지막 시선": 4
+      },
+      "top_combos": [
+        {
+          "combo": "알른 선견자의 응시 + 잿불날개 깃털",
+          "n": 21,
+          "pct": 84
+        },
+        {
+          "combo": "공간 방랑자의 리본 + 알른 선견자의 응시",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "드높은 진혼곡의 그림자 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "바엘고어의 마지막 시선 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 97,
+          "pct": 98,
+          "avg_rank": 49.6,
+          "avg_dps": 121993.4,
+          "avg_adjusted_dps": 66.0,
+          "others_adjusted_dps": -3203.2
+        },
+        "250144": {
+          "label": "잿불날개 깃털",
+          "n": 87,
+          "pct": 88,
+          "avg_rank": 49.9,
+          "avg_dps": 121834.4,
+          "avg_adjusted_dps": -194.2,
+          "others_adjusted_dps": 1407.6
+        },
+        "249809": {
+          "label": "공간 방랑자의 리본",
+          "n": 5,
+          "pct": 5,
+          "avg_rank": 50.8,
+          "avg_dps": 124713.3,
+          "avg_adjusted_dps": 4666.8,
+          "others_adjusted_dps": -248.2
+        },
+        "249346": {
+          "label": "바엘고어의 마지막 시선",
+          "n": 4,
+          "pct": 4,
+          "avg_rank": 63.2,
+          "avg_dps": 118371.3,
+          "avg_adjusted_dps": -1940.7,
+          "others_adjusted_dps": 81.7
+        }
+      },
+      "recommendation": {
+        "pick": "알른 선견자의 응시 + 잿불날개 깃털",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 84%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": 3269.2
+      }
+    },
+    "3182": {
+      "encounter_id": "3182",
+      "boss": "벨로렌",
+      "encounter_name": "Belo'ren, Child of Al'ar",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "영혼 수확자": 100
+      },
+      "failures": 0,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 301.6,
+      "top_ilvl": 290.9,
+      "top_stats": {
+        "crit": 1007.2,
+        "haste": 1122.8,
+        "mastery": 552.9,
+        "vers": 59.6
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 99
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 93
+        },
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 4
+        },
+        {
+          "id": 249809,
+          "label": "공간 방랑자의 리본",
+          "n": 3
+        },
+        {
+          "id": 249810,
+          "label": "드높은 진혼곡의 그림자",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "알른 선견자의 응시",
+          25
+        ],
+        [
+          "잿불날개 깃털",
+          23
+        ],
+        [
+          "드높은 진혼곡의 그림자",
+          1
+        ],
+        [
+          "공간 방랑자의 리본",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "잿불날개 깃털": 92,
+        "알른 선견자의 응시": 100,
+        "드높은 진혼곡의 그림자": 4,
+        "공간 방랑자의 리본": 4
+      },
+      "top_combos": [
+        {
+          "combo": "알른 선견자의 응시 + 잿불날개 깃털",
+          "n": 23,
+          "pct": 92
+        },
+        {
+          "combo": "드높은 진혼곡의 그림자 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "공간 방랑자의 리본 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 99,
+          "pct": 99,
+          "avg_rank": 50.1,
+          "avg_dps": 113213.9,
+          "avg_adjusted_dps": 99.0,
+          "others_adjusted_dps": null
+        },
+        "250144": {
+          "label": "잿불날개 깃털",
+          "n": 93,
+          "pct": 93,
+          "avg_rank": 50.3,
+          "avg_dps": 113136.4,
+          "avg_adjusted_dps": -47.2,
+          "others_adjusted_dps": 627.1
+        },
+        "249346": {
+          "label": "바엘고어의 마지막 시선",
+          "n": 4,
+          "pct": 4,
+          "avg_rank": 74.2,
+          "avg_dps": 106255.4,
+          "avg_adjusted_dps": -4854.8,
+          "others_adjusted_dps": 202.3
+        },
+        "249809": {
+          "label": "공간 방랑자의 리본",
+          "n": 3,
+          "pct": 3,
+          "avg_rank": 53.0,
+          "avg_dps": 112446.4,
+          "avg_adjusted_dps": 525.0,
+          "others_adjusted_dps": -16.2
+        }
+      },
+      "recommendation": {
+        "pick": "알른 선견자의 응시 + 잿불날개 깃털",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 92%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": null
+      }
+    },
+    "3183": {
+      "encounter_id": "3183",
+      "boss": "한밤의 도래",
+      "encounter_name": "Midnight Falls",
+      "rankings_n": 69,
+      "sample_n": 69,
+      "hero_counts": {
+        "영혼 수확자": 69
+      },
+      "failures": 0,
+      "cache_hits": 69,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 517.5,
+      "top_ilvl": 291.0,
+      "top_stats": {
+        "crit": 1001.8,
+        "haste": 1096.2,
+        "mastery": 550.6,
+        "vers": 55.9
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 65
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 58
+        },
+        {
+          "id": 249346,
+          "label": "바엘고어의 마지막 시선",
+          "n": 4
+        },
+        {
+          "id": 249809,
+          "label": "공간 방랑자의 리본",
+          "n": 4
+        },
+        {
+          "id": 249810,
+          "label": "드높은 진혼곡의 그림자",
+          "n": 2
+        },
+        {
+          "id": 242402,
+          "label": "Araz's Ritual Forge",
+          "n": 1
+        },
+        {
+          "id": 242395,
+          "label": "Astral Antenna",
+          "n": 1
+        },
+        {
+          "id": 264507,
+          "label": "뒤틀린 마력의 도가니",
+          "n": 1
+        },
+        {
+          "id": 248583,
+          "label": "새로운 유대의 북",
+          "n": 1
+        },
+        {
+          "id": 0,
+          "label": "item 0",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "알른 선견자의 응시",
+          25
+        ],
+        [
+          "잿불날개 깃털",
+          24
+        ],
+        [
+          "드높은 진혼곡의 그림자",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "잿불날개 깃털": 96,
+        "알른 선견자의 응시": 100,
+        "드높은 진혼곡의 그림자": 4
+      },
+      "top_combos": [
+        {
+          "combo": "알른 선견자의 응시 + 잿불날개 깃털",
+          "n": 24,
+          "pct": 96
+        },
+        {
+          "combo": "드높은 진혼곡의 그림자 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 65,
+          "pct": 94,
+          "avg_rank": 33.3,
+          "avg_dps": 142637.0,
+          "avg_adjusted_dps": -91.6,
+          "others_adjusted_dps": 1488.4
+        },
+        "250144": {
+          "label": "잿불날개 깃털",
+          "n": 58,
+          "pct": 84,
+          "avg_rank": 32.1,
+          "avg_dps": 142373.4,
+          "avg_adjusted_dps": -1149.6,
+          "others_adjusted_dps": 6061.8
+        },
+        "249346": {
+          "label": "바엘고어의 마지막 시선",
+          "n": 4,
+          "pct": 6,
+          "avg_rank": 51.5,
+          "avg_dps": 107964.7,
+          "avg_adjusted_dps": 8830.3,
+          "others_adjusted_dps": -543.4
+        },
+        "249809": {
+          "label": "공간 방랑자의 리본",
+          "n": 4,
+          "pct": 6,
+          "avg_rank": 52.5,
+          "avg_dps": 141182.1,
+          "avg_adjusted_dps": 18237.8,
+          "others_adjusted_dps": -1122.3
+        }
+      },
+      "recommendation": {
+        "pick": "알른 선견자의 응시 + 잿불날개 깃털",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 96%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": -1580.0
+      }
+    },
+    "3306": {
+      "encounter_id": "3306",
+      "boss": "카이메루스",
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "영혼 수확자": 100
+      },
+      "failures": 0,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 145.5,
+      "top_ilvl": 291.3,
+      "top_stats": {
+        "crit": 1035.6,
+        "haste": 1030.9,
+        "mastery": 619.2,
+        "vers": 37.0
+      },
+      "trinket_pool": [
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 99
+        },
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 95
+        },
+        {
+          "id": 250256,
+          "label": "바람의 심장",
+          "n": 3
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 2
+        },
+        {
+          "id": 249809,
+          "label": "공간 방랑자의 리본",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "잿불날개 깃털",
+          24
+        ],
+        [
+          "알른 선견자의 응시",
+          24
+        ],
+        [
+          "바람의 심장",
+          1
+        ],
+        [
+          "공간 방랑자의 리본",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "잿불날개 깃털": 96,
+        "알른 선견자의 응시": 96,
+        "바람의 심장": 4,
+        "공간 방랑자의 리본": 4
+      },
+      "top_combos": [
+        {
+          "combo": "알른 선견자의 응시 + 잿불날개 깃털",
+          "n": 23,
+          "pct": 92
+        },
+        {
+          "combo": "바람의 심장 + 잿불날개 깃털",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "공간 방랑자의 리본 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "250144": {
+          "label": "잿불날개 깃털",
+          "n": 99,
+          "pct": 99,
+          "avg_rank": 50.8,
+          "avg_dps": 153159.7,
+          "avg_adjusted_dps": -75.7,
+          "others_adjusted_dps": null
+        },
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 95,
+          "pct": 95,
+          "avg_rank": 49.8,
+          "avg_dps": 153278.0,
+          "avg_adjusted_dps": 52.2,
+          "others_adjusted_dps": -991.8
+        },
+        "250256": {
+          "label": "바람의 심장",
+          "n": 3,
+          "pct": 3,
+          "avg_rank": 52.0,
+          "avg_dps": 154365.1,
+          "avg_adjusted_dps": 1495.5,
+          "others_adjusted_dps": -46.3
+        }
+      },
+      "recommendation": {
+        "pick": "알른 선견자의 응시 + 잿불날개 깃털",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 92%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": null
+      }
+    }
+  }
+}

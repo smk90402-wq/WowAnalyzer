@@ -1,0 +1,1878 @@
+{
+ "meta": {
+  "date": "2026-07-05",
+  "n_kills": 302,
+  "eff_cd_s": 61.0,
+  "spells": {
+   "tyrant": 265187,
+   "imp_lord": 1276452,
+   "emberwing": 1250508,
+   "potions": {
+    "1236616": "빛의잠재력",
+    "1236998": "방종의비약",
+    "1236994": "무모함의물약"
+   }
+  },
+  "notes": [
+   "악마 폭군 소환(265187, 60s쿨)이 유일한 주기 대쿨기 — 302/302판 전원 사용, 실효쿨 60.7s(p5)로 거의 즉시재사용.",
+   "흑마법서: 임프 군주(1276452, 120s쿨) 채택률 84%(255/302) — 대체옵션 지옥 유린자(1276467)는 실사용 0. 폭군보다 중앙값 3.9초 먼저 캐스트(폭군 발동 전 셋업 타이밍).",
+   "잿불날개 열파(1250508, 영웅특성 120s쿨) 채택률 87%(262/302) — 폭군과 거의 동시(중앙값 +0.1s, 96%가 3s 이내). 별도 홀드 판단 불필요, 폭군에 자동 종속.",
+   "지옥수호병 소환(30146)은 8/302판(3%)만 사용 — 임프 군주/폭군 트리 선택에 밀린 죽은 노드, 가이드 제외.",
+   "어둠의 서약(108416, 60s쿨)은 생존기(자기 보호막)라 DPS 쿨기 홀드 분석에서 제외.",
+   "블러드/영웅심/시간왜곡 계열 버프 0/302킬 — 미드나잇 시즌에는 블러드가 없어 '블러드 정렬' 항목 성립 안 함.",
+   "펫(악마) 버프는 플레이어 buffs에 없어 측정 불가 — 폭군의 '소환수 강화' 효과 자체는 캐스트/버프 타이밍으로만 간접 추적."
+  ]
+ },
+ "overall": {
+  "rank_1_20": {
+   "n": 180,
+   "first_tyrant_med_s": 4.2,
+   "first_tyrant_p25_p75": [
+    3.2,
+    5.0
+   ],
+   "tyrant_per_min_med": 1.04,
+   "tyrant_gap": {
+    "n": 830,
+    "p25": 61.4,
+    "med": 62.0,
+    "p75": 63.3,
+    "즉시_pct": 81,
+    "소홀드_pct": 15,
+    "대홀드_pct": 5
+   },
+   "imp_lord_vs_tyrant": {
+    "n": 403,
+    "med": -3.9,
+    "p25": -5.5,
+    "p75": -2.6,
+    "within3s_pct": 30,
+    "before_pct": 68,
+    "after_pct": 2
+   },
+   "ember_vs_tyrant": {
+    "n": 463,
+    "med": 0.1,
+    "p25": -1.1,
+    "p75": 0.3,
+    "within3s_pct": 97,
+    "before_pct": 0,
+    "after_pct": 3
+   },
+   "pot_uses": 256,
+   "pot_tyrant_overlap_med_s": 19.9,
+   "pot_cast_in_tyrant_pct": 62,
+   "pot_then_tyrant_within3s_pct": 82,
+   "pot_to_next_tyrant_med_s": -0.0
+  },
+  "rank_21_100": {
+   "n": 122,
+   "first_tyrant_med_s": 4.3,
+   "first_tyrant_p25_p75": [
+    3.2,
+    5.1
+   ],
+   "tyrant_per_min_med": 1.06,
+   "tyrant_gap": {
+    "n": 562,
+    "p25": 61.4,
+    "med": 62.2,
+    "p75": 63.6,
+    "즉시_pct": 79,
+    "소홀드_pct": 17,
+    "대홀드_pct": 4
+   },
+   "imp_lord_vs_tyrant": {
+    "n": 318,
+    "med": -3.9,
+    "p25": -5.7,
+    "p75": -2.5,
+    "within3s_pct": 33,
+    "before_pct": 66,
+    "after_pct": 2
+   },
+   "ember_vs_tyrant": {
+    "n": 297,
+    "med": 0.1,
+    "p25": -1.1,
+    "p75": 0.2,
+    "within3s_pct": 95,
+    "before_pct": 2,
+    "after_pct": 2
+   },
+   "pot_uses": 169,
+   "pot_tyrant_overlap_med_s": 19.9,
+   "pot_cast_in_tyrant_pct": 69,
+   "pot_then_tyrant_within3s_pct": 84,
+   "pot_to_next_tyrant_med_s": -0.1
+  },
+  "all": {
+   "n": 302,
+   "first_tyrant_med_s": 4.2,
+   "first_tyrant_p25_p75": [
+    3.2,
+    5.1
+   ],
+   "tyrant_per_min_med": 1.05,
+   "tyrant_gap": {
+    "n": 1392,
+    "p25": 61.4,
+    "med": 62.1,
+    "p75": 63.4,
+    "즉시_pct": 80,
+    "소홀드_pct": 16,
+    "대홀드_pct": 4
+   },
+   "imp_lord_vs_tyrant": {
+    "n": 721,
+    "med": -3.9,
+    "p25": -5.6,
+    "p75": -2.6,
+    "within3s_pct": 31,
+    "before_pct": 67,
+    "after_pct": 2
+   },
+   "ember_vs_tyrant": {
+    "n": 760,
+    "med": 0.1,
+    "p25": -1.1,
+    "p75": 0.2,
+    "within3s_pct": 96,
+    "before_pct": 1,
+    "after_pct": 2
+   },
+   "pot_uses": 425,
+   "pot_tyrant_overlap_med_s": 19.9,
+   "pot_cast_in_tyrant_pct": 64,
+   "pot_then_tyrant_within3s_pct": 83,
+   "pot_to_next_tyrant_med_s": -0.0
+  }
+ },
+ "per_boss": {
+  "아베르지안": {
+   "encounter_id": 3176,
+   "name_en": "Imperator Averzian",
+   "kill_med_s": 209,
+   "all": {
+    "n": 33,
+    "first_tyrant_med_s": 3.6,
+    "first_tyrant_p25_p75": [
+     3.0,
+     4.4
+    ],
+    "tyrant_per_min_med": 1.1,
+    "tyrant_gap": {
+     "n": 104,
+     "p25": 61.5,
+     "med": 62.3,
+     "p75": 64.3,
+     "즉시_pct": 74,
+     "소홀드_pct": 26,
+     "대홀드_pct": 0
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 65,
+     "med": -3.8,
+     "p25": -5.9,
+     "p75": -2.0,
+     "within3s_pct": 32,
+     "before_pct": 68,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 70,
+     "med": 0.1,
+     "p25": -1.1,
+     "p75": 0.2,
+     "within3s_pct": 100,
+     "before_pct": 0,
+     "after_pct": 0
+    },
+    "pot_uses": 35,
+    "pot_tyrant_overlap_med_s": 19.8,
+    "pot_cast_in_tyrant_pct": 77,
+    "pot_then_tyrant_within3s_pct": 86,
+    "pot_to_next_tyrant_med_s": -0.1
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_tyrant_med_s": 4.1,
+    "first_tyrant_p25_p75": [
+     3.2,
+     4.6
+    ],
+    "tyrant_per_min_med": 1.1,
+    "tyrant_gap": {
+     "n": 65,
+     "p25": 61.4,
+     "med": 62.0,
+     "p75": 63.4,
+     "즉시_pct": 80,
+     "소홀드_pct": 20,
+     "대홀드_pct": 0
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 38,
+     "med": -3.9,
+     "p25": -5.9,
+     "p75": -2.0,
+     "within3s_pct": 32,
+     "before_pct": 68,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 41,
+     "med": 0.1,
+     "p25": 0.1,
+     "p75": 0.2,
+     "within3s_pct": 100,
+     "before_pct": 0,
+     "after_pct": 0
+    },
+    "pot_uses": 22,
+    "pot_tyrant_overlap_med_s": 19.8,
+    "pot_cast_in_tyrant_pct": 73,
+    "pot_then_tyrant_within3s_pct": 82,
+    "pot_to_next_tyrant_med_s": -0.1
+   },
+   "rank_21_100": {
+    "n": 13,
+    "first_tyrant_med_s": 3.2,
+    "first_tyrant_p25_p75": [
+     2.8,
+     4.2
+    ],
+    "tyrant_per_min_med": 1.12,
+    "tyrant_gap": {
+     "n": 39,
+     "p25": 61.9,
+     "med": 62.6,
+     "p75": 64.6,
+     "즉시_pct": 64,
+     "소홀드_pct": 36,
+     "대홀드_pct": 0
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 27,
+     "med": -3.8,
+     "p25": -6.0,
+     "p75": -2.0,
+     "within3s_pct": 33,
+     "before_pct": 67,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 29,
+     "med": 0.1,
+     "p25": -1.2,
+     "p75": 0.3,
+     "within3s_pct": 100,
+     "before_pct": 0,
+     "after_pct": 0
+    },
+    "pot_uses": 13,
+    "pot_tyrant_overlap_med_s": 19.9,
+    "pot_cast_in_tyrant_pct": 85,
+    "pot_then_tyrant_within3s_pct": 92,
+    "pot_to_next_tyrant_med_s": -0.1
+   },
+   "opener": {
+    "first_tyrant_med_s": 3.6,
+    "first_tyrant_le5s_pct": 88,
+    "pot_prepull_or_10s_pct": 94,
+    "seq_top3": [
+     {
+      "seq": [
+       "흑마법서: 임프 군주",
+       "악마 폭군 소환",
+       "잿불날개 열파"
+      ],
+      "n": 10
+     },
+     {
+      "seq": [
+       "악마 폭군 소환",
+       "잿불날개 열파"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "악마 폭군 소환",
+       "흑마법서: 임프 군주",
+       "잿불날개 열파"
+      ],
+      "n": 4
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 31,
+    "70-80%": 1,
+    "80-90%": 2,
+    "90-100%": 1
+   },
+   "pot_kind": {
+    "빛의잠재력": 27,
+    "무모함의물약": 8
+   },
+   "pot_first_med_s": 4.2,
+   "pot_second_med_s": 312.5,
+   "fights_with_2pots_pct": 9,
+   "hold_tyrant_arrival_top": [],
+   "n_holds": 0
+  },
+  "보라시우스": {
+   "encounter_id": 3177,
+   "name_en": "Vorasius",
+   "kill_med_s": 215,
+   "all": {
+    "n": 33,
+    "first_tyrant_med_s": 4.6,
+    "first_tyrant_p25_p75": [
+     4.1,
+     5.1
+    ],
+    "tyrant_per_min_med": 1.12,
+    "tyrant_gap": {
+     "n": 100,
+     "p25": 61.4,
+     "med": 61.9,
+     "p75": 62.6,
+     "즉시_pct": 95,
+     "소홀드_pct": 5,
+     "대홀드_pct": 0
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 67,
+     "med": -3.9,
+     "p25": -5.0,
+     "p75": -3.0,
+     "within3s_pct": 24,
+     "before_pct": 76,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 66,
+     "med": 0.0,
+     "p25": -1.2,
+     "p75": 0.1,
+     "within3s_pct": 100,
+     "before_pct": 0,
+     "after_pct": 0
+    },
+    "pot_uses": 33,
+    "pot_tyrant_overlap_med_s": 20.0,
+    "pot_cast_in_tyrant_pct": 61,
+    "pot_then_tyrant_within3s_pct": 85,
+    "pot_to_next_tyrant_med_s": -0.0
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_tyrant_med_s": 4.7,
+    "first_tyrant_p25_p75": [
+     4.0,
+     5.1
+    ],
+    "tyrant_per_min_med": 1.12,
+    "tyrant_gap": {
+     "n": 61,
+     "p25": 61.5,
+     "med": 61.8,
+     "p75": 62.4,
+     "즉시_pct": 97,
+     "소홀드_pct": 3,
+     "대홀드_pct": 0
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 42,
+     "med": -4.0,
+     "p25": -5.0,
+     "p75": -3.3,
+     "within3s_pct": 19,
+     "before_pct": 81,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 39,
+     "med": 0.0,
+     "p25": -1.2,
+     "p75": 0.1,
+     "within3s_pct": 100,
+     "before_pct": 0,
+     "after_pct": 0
+    },
+    "pot_uses": 20,
+    "pot_tyrant_overlap_med_s": 20.0,
+    "pot_cast_in_tyrant_pct": 50,
+    "pot_then_tyrant_within3s_pct": 90,
+    "pot_to_next_tyrant_med_s": 0.8
+   },
+   "rank_21_100": {
+    "n": 13,
+    "first_tyrant_med_s": 4.6,
+    "first_tyrant_p25_p75": [
+     4.3,
+     5.1
+    ],
+    "tyrant_per_min_med": 1.1,
+    "tyrant_gap": {
+     "n": 39,
+     "p25": 61.3,
+     "med": 62.1,
+     "p75": 62.7,
+     "즉시_pct": 92,
+     "소홀드_pct": 8,
+     "대홀드_pct": 0
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 25,
+     "med": -3.9,
+     "p25": -4.9,
+     "p75": -2.8,
+     "within3s_pct": 32,
+     "before_pct": 68,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 27,
+     "med": 0.1,
+     "p25": 0.0,
+     "p75": 0.2,
+     "within3s_pct": 100,
+     "before_pct": 0,
+     "after_pct": 0
+    },
+    "pot_uses": 13,
+    "pot_tyrant_overlap_med_s": 20.0,
+    "pot_cast_in_tyrant_pct": 77,
+    "pot_then_tyrant_within3s_pct": 77,
+    "pot_to_next_tyrant_med_s": -0.0
+   },
+   "opener": {
+    "first_tyrant_med_s": 4.6,
+    "first_tyrant_le5s_pct": 67,
+    "pot_prepull_or_10s_pct": 97,
+    "seq_top3": [
+     {
+      "seq": [
+       "흑마법서: 임프 군주",
+       "악마 폭군 소환",
+       "잿불날개 열파"
+      ],
+      "n": 14
+     },
+     {
+      "seq": [
+       "흑마법서: 임프 군주",
+       "악마 폭군 소환",
+       "피의 격노",
+       "잿불날개 열파"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "흑마법서: 임프 군주",
+       "잿불날개 열파",
+       "악마 폭군 소환"
+      ],
+      "n": 4
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 33
+   },
+   "pot_kind": {
+    "빛의잠재력": 20,
+    "무모함의물약": 13
+   },
+   "pot_first_med_s": 4.4,
+   "pot_second_med_s": null,
+   "fights_with_2pots_pct": 0,
+   "hold_tyrant_arrival_top": [],
+   "n_holds": 0
+  },
+  "바엘고어&에조라크": {
+   "encounter_id": 3178,
+   "name_en": "Vaelgor & Ezzorak",
+   "kill_med_s": 395,
+   "all": {
+    "n": 34,
+    "first_tyrant_med_s": 4.4,
+    "first_tyrant_p25_p75": [
+     4.0,
+     5.0
+    ],
+    "tyrant_per_min_med": 0.98,
+    "tyrant_gap": {
+     "n": 183,
+     "p25": 62.4,
+     "med": 63.8,
+     "p75": 66.0,
+     "즉시_pct": 52,
+     "소홀드_pct": 44,
+     "대홀드_pct": 3
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 111,
+     "med": -3.9,
+     "p25": -8.2,
+     "p75": -2.7,
+     "within3s_pct": 26,
+     "before_pct": 65,
+     "after_pct": 9
+    },
+    "ember_vs_tyrant": {
+     "n": 92,
+     "med": -0.7,
+     "p25": -1.4,
+     "p75": 0.1,
+     "within3s_pct": 95,
+     "before_pct": 2,
+     "after_pct": 3
+    },
+    "pot_uses": 60,
+    "pot_tyrant_overlap_med_s": 19.9,
+    "pot_cast_in_tyrant_pct": 70,
+    "pot_then_tyrant_within3s_pct": 90,
+    "pot_to_next_tyrant_med_s": -0.1
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_tyrant_med_s": 4.5,
+    "first_tyrant_p25_p75": [
+     4.0,
+     5.0
+    ],
+    "tyrant_per_min_med": 0.98,
+    "tyrant_gap": {
+     "n": 109,
+     "p25": 62.2,
+     "med": 63.8,
+     "p75": 65.8,
+     "즉시_pct": 53,
+     "소홀드_pct": 43,
+     "대홀드_pct": 4
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 67,
+     "med": -3.9,
+     "p25": -12.4,
+     "p75": -2.9,
+     "within3s_pct": 21,
+     "before_pct": 69,
+     "after_pct": 10
+    },
+    "ember_vs_tyrant": {
+     "n": 60,
+     "med": -0.8,
+     "p25": -1.4,
+     "p75": 0.1,
+     "within3s_pct": 93,
+     "before_pct": 3,
+     "after_pct": 3
+    },
+    "pot_uses": 36,
+    "pot_tyrant_overlap_med_s": 19.9,
+    "pot_cast_in_tyrant_pct": 67,
+    "pot_then_tyrant_within3s_pct": 86,
+    "pot_to_next_tyrant_med_s": -0.1
+   },
+   "rank_21_100": {
+    "n": 14,
+    "first_tyrant_med_s": 4.3,
+    "first_tyrant_p25_p75": [
+     4.2,
+     5.0
+    ],
+    "tyrant_per_min_med": 1.01,
+    "tyrant_gap": {
+     "n": 74,
+     "p25": 62.5,
+     "med": 63.9,
+     "p75": 66.2,
+     "즉시_pct": 51,
+     "소홀드_pct": 46,
+     "대홀드_pct": 3
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 44,
+     "med": -3.9,
+     "p25": -6.2,
+     "p75": 0.0,
+     "within3s_pct": 34,
+     "before_pct": 59,
+     "after_pct": 7
+    },
+    "ember_vs_tyrant": {
+     "n": 32,
+     "med": 0.0,
+     "p25": -1.4,
+     "p75": 0.1,
+     "within3s_pct": 97,
+     "before_pct": 0,
+     "after_pct": 3
+    },
+    "pot_uses": 24,
+    "pot_tyrant_overlap_med_s": 19.9,
+    "pot_cast_in_tyrant_pct": 75,
+    "pot_then_tyrant_within3s_pct": 96,
+    "pot_to_next_tyrant_med_s": -0.1
+   },
+   "opener": {
+    "first_tyrant_med_s": 4.4,
+    "first_tyrant_le5s_pct": 76,
+    "pot_prepull_or_10s_pct": 97,
+    "seq_top3": [
+     {
+      "seq": [
+       "흑마법서: 임프 군주",
+       "악마 폭군 소환",
+       "잿불날개 열파"
+      ],
+      "n": 8
+     },
+     {
+      "seq": [
+       "흑마법서: 임프 군주",
+       "잿불날개 열파",
+       "악마 폭군 소환"
+      ],
+      "n": 7
+     },
+     {
+      "seq": [
+       "악마 폭군 소환",
+       "잿불날개 열파"
+      ],
+      "n": 3
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 34,
+    "70-80%": 4,
+    "80-90%": 12,
+    "90-100%": 10
+   },
+   "pot_kind": {
+    "빛의잠재력": 55,
+    "무모함의물약": 5
+   },
+   "pot_first_med_s": 4.5,
+   "pot_second_med_s": 335.1,
+   "fights_with_2pots_pct": 76,
+   "hold_tyrant_arrival_top": [
+    {
+     "t": "5:30",
+     "n": 2
+    },
+    {
+     "t": "2:30",
+     "n": 2
+    },
+    {
+     "t": "3:30",
+     "n": 1
+    },
+    {
+     "t": "5:00",
+     "n": 1
+    }
+   ],
+   "n_holds": 6
+  },
+  "살라다르": {
+   "encounter_id": 3179,
+   "name_en": "Fallen-King Salhadaar",
+   "kill_med_s": 219,
+   "all": {
+    "n": 36,
+    "first_tyrant_med_s": 4.3,
+    "first_tyrant_p25_p75": [
+     3.4,
+     4.8
+    ],
+    "tyrant_per_min_med": 1.1,
+    "tyrant_gap": {
+     "n": 118,
+     "p25": 61.4,
+     "med": 62.0,
+     "p75": 63.0,
+     "즉시_pct": 86,
+     "소홀드_pct": 14,
+     "대홀드_pct": 0
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 71,
+     "med": -3.9,
+     "p25": -5.5,
+     "p75": -2.9,
+     "within3s_pct": 30,
+     "before_pct": 70,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 71,
+     "med": 0.0,
+     "p25": -1.1,
+     "p75": 0.1,
+     "within3s_pct": 97,
+     "before_pct": 0,
+     "after_pct": 3
+    },
+    "pot_uses": 39,
+    "pot_tyrant_overlap_med_s": 20.0,
+    "pot_cast_in_tyrant_pct": 56,
+    "pot_then_tyrant_within3s_pct": 90,
+    "pot_to_next_tyrant_med_s": -0.0
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_tyrant_med_s": 4.3,
+    "first_tyrant_p25_p75": [
+     3.4,
+     4.7
+    ],
+    "tyrant_per_min_med": 1.09,
+    "tyrant_gap": {
+     "n": 67,
+     "p25": 61.4,
+     "med": 62.0,
+     "p75": 63.0,
+     "즉시_pct": 82,
+     "소홀드_pct": 18,
+     "대홀드_pct": 0
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 38,
+     "med": -3.9,
+     "p25": -5.1,
+     "p75": -2.0,
+     "within3s_pct": 37,
+     "before_pct": 63,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 37,
+     "med": 0.0,
+     "p25": -1.1,
+     "p75": 0.1,
+     "within3s_pct": 100,
+     "before_pct": 0,
+     "after_pct": 0
+    },
+    "pot_uses": 22,
+    "pot_tyrant_overlap_med_s": 20.0,
+    "pot_cast_in_tyrant_pct": 50,
+    "pot_then_tyrant_within3s_pct": 91,
+    "pot_to_next_tyrant_med_s": 0.8
+   },
+   "rank_21_100": {
+    "n": 16,
+    "first_tyrant_med_s": 4.5,
+    "first_tyrant_p25_p75": [
+     4.1,
+     4.9
+    ],
+    "tyrant_per_min_med": 1.11,
+    "tyrant_gap": {
+     "n": 51,
+     "p25": 61.5,
+     "med": 62.2,
+     "p75": 63.0,
+     "즉시_pct": 92,
+     "소홀드_pct": 8,
+     "대홀드_pct": 0
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 33,
+     "med": -4.1,
+     "p25": -5.7,
+     "p75": -3.3,
+     "within3s_pct": 21,
+     "before_pct": 79,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 34,
+     "med": 0.0,
+     "p25": -1.0,
+     "p75": 0.1,
+     "within3s_pct": 94,
+     "before_pct": 0,
+     "after_pct": 6
+    },
+    "pot_uses": 17,
+    "pot_tyrant_overlap_med_s": 20.0,
+    "pot_cast_in_tyrant_pct": 65,
+    "pot_then_tyrant_within3s_pct": 88,
+    "pot_to_next_tyrant_med_s": -0.0
+   },
+   "opener": {
+    "first_tyrant_med_s": 4.3,
+    "first_tyrant_le5s_pct": 78,
+    "pot_prepull_or_10s_pct": 100,
+    "seq_top3": [
+     {
+      "seq": [
+       "흑마법서: 임프 군주",
+       "악마 폭군 소환",
+       "잿불날개 열파"
+      ],
+      "n": 11
+     },
+     {
+      "seq": [
+       "흑마법서: 임프 군주",
+       "잿불날개 열파",
+       "악마 폭군 소환"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "악마 폭군 소환",
+       "잿불날개 열파"
+      ],
+      "n": 4
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 36,
+    "80-90%": 2,
+    "90-100%": 1
+   },
+   "pot_kind": {
+    "무모함의물약": 7,
+    "빛의잠재력": 32
+   },
+   "pot_first_med_s": 3.8,
+   "pot_second_med_s": 308.6,
+   "fights_with_2pots_pct": 8,
+   "hold_tyrant_arrival_top": [],
+   "n_holds": 0
+  },
+  "선봉대": {
+   "encounter_id": 3180,
+   "name_en": "Lightblinded Vanguard",
+   "kill_med_s": 388,
+   "all": {
+    "n": 34,
+    "first_tyrant_med_s": 4.2,
+    "first_tyrant_p25_p75": [
+     3.6,
+     4.7
+    ],
+    "tyrant_per_min_med": 1.02,
+    "tyrant_gap": {
+     "n": 189,
+     "p25": 61.5,
+     "med": 62.2,
+     "p75": 63.0,
+     "즉시_pct": 86,
+     "소홀드_pct": 14,
+     "대홀드_pct": 0
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 95,
+     "med": -4.5,
+     "p25": -5.8,
+     "p75": -3.5,
+     "within3s_pct": 19,
+     "before_pct": 81,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 97,
+     "med": 0.1,
+     "p25": 0.0,
+     "p75": 0.2,
+     "within3s_pct": 94,
+     "before_pct": 2,
+     "after_pct": 4
+    },
+    "pot_uses": 67,
+    "pot_tyrant_overlap_med_s": 19.9,
+    "pot_cast_in_tyrant_pct": 58,
+    "pot_then_tyrant_within3s_pct": 81,
+    "pot_to_next_tyrant_med_s": 0.7
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_tyrant_med_s": 4.1,
+    "first_tyrant_p25_p75": [
+     3.8,
+     4.3
+    ],
+    "tyrant_per_min_med": 1.02,
+    "tyrant_gap": {
+     "n": 109,
+     "p25": 61.5,
+     "med": 62.2,
+     "p75": 62.8,
+     "즉시_pct": 87,
+     "소홀드_pct": 13,
+     "대홀드_pct": 0
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 49,
+     "med": -4.9,
+     "p25": -5.5,
+     "p75": -3.6,
+     "within3s_pct": 18,
+     "before_pct": 82,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 57,
+     "med": 0.1,
+     "p25": 0.0,
+     "p75": 0.3,
+     "within3s_pct": 95,
+     "before_pct": 0,
+     "after_pct": 5
+    },
+    "pot_uses": 39,
+    "pot_tyrant_overlap_med_s": 19.9,
+    "pot_cast_in_tyrant_pct": 56,
+    "pot_then_tyrant_within3s_pct": 82,
+    "pot_to_next_tyrant_med_s": -0.1
+   },
+   "rank_21_100": {
+    "n": 14,
+    "first_tyrant_med_s": 4.3,
+    "first_tyrant_p25_p75": [
+     3.6,
+     4.7
+    ],
+    "tyrant_per_min_med": 1.03,
+    "tyrant_gap": {
+     "n": 80,
+     "p25": 61.5,
+     "med": 62.2,
+     "p75": 63.1,
+     "즉시_pct": 85,
+     "소홀드_pct": 15,
+     "대홀드_pct": 0
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 46,
+     "med": -4.4,
+     "p25": -5.9,
+     "p75": -3.1,
+     "within3s_pct": 20,
+     "before_pct": 80,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 40,
+     "med": 0.1,
+     "p25": -0.7,
+     "p75": 0.2,
+     "within3s_pct": 92,
+     "before_pct": 5,
+     "after_pct": 2
+    },
+    "pot_uses": 28,
+    "pot_tyrant_overlap_med_s": 19.9,
+    "pot_cast_in_tyrant_pct": 61,
+    "pot_then_tyrant_within3s_pct": 79,
+    "pot_to_next_tyrant_med_s": 1.2
+   },
+   "opener": {
+    "first_tyrant_med_s": 4.2,
+    "first_tyrant_le5s_pct": 85,
+    "pot_prepull_or_10s_pct": 100,
+    "seq_top3": [
+     {
+      "seq": [
+       "악마 폭군 소환",
+       "잿불날개 열파"
+      ],
+      "n": 6
+     },
+     {
+      "seq": [
+       "흑마법서: 임프 군주",
+       "악마 폭군 소환",
+       "잿불날개 열파"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "흑마법서: 임프 군주",
+       "악마 폭군 소환",
+       "잿불날개 열파",
+       "피의 격노"
+      ],
+      "n": 3
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 34,
+    "70-80%": 12,
+    "80-90%": 12,
+    "90-100%": 9
+   },
+   "pot_kind": {
+    "무모함의물약": 10,
+    "빛의잠재력": 57
+   },
+   "pot_first_med_s": 3.9,
+   "pot_second_med_s": 316.5,
+   "fights_with_2pots_pct": 97,
+   "hold_tyrant_arrival_top": [],
+   "n_holds": 0
+  },
+  "우주의 왕관": {
+   "encounter_id": 3181,
+   "name_en": "Crown of the Cosmos",
+   "kill_med_s": 495,
+   "all": {
+    "n": 34,
+    "first_tyrant_med_s": 22.4,
+    "first_tyrant_p25_p75": [
+     17.1,
+     23.2
+    ],
+    "tyrant_per_min_med": 0.93,
+    "tyrant_gap": {
+     "n": 217,
+     "p25": 61.5,
+     "med": 62.7,
+     "p75": 67.2,
+     "즉시_pct": 66,
+     "소홀드_pct": 17,
+     "대홀드_pct": 18
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 85,
+     "med": -5.1,
+     "p25": -6.6,
+     "p75": -3.4,
+     "within3s_pct": 20,
+     "before_pct": 78,
+     "after_pct": 2
+    },
+    "ember_vs_tyrant": {
+     "n": 116,
+     "med": 0.0,
+     "p25": -1.1,
+     "p75": 0.2,
+     "within3s_pct": 97,
+     "before_pct": 1,
+     "after_pct": 3
+    },
+    "pot_uses": 58,
+    "pot_tyrant_overlap_med_s": 19.9,
+    "pot_cast_in_tyrant_pct": 60,
+    "pot_then_tyrant_within3s_pct": 66,
+    "pot_to_next_tyrant_med_s": 1.0
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_tyrant_med_s": 19.8,
+    "first_tyrant_p25_p75": [
+     10.6,
+     23.2
+    ],
+    "tyrant_per_min_med": 0.93,
+    "tyrant_gap": {
+     "n": 126,
+     "p25": 61.6,
+     "med": 62.7,
+     "p75": 67.2,
+     "즉시_pct": 65,
+     "소홀드_pct": 17,
+     "대홀드_pct": 17
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 42,
+     "med": -5.0,
+     "p25": -5.7,
+     "p75": -3.7,
+     "within3s_pct": 10,
+     "before_pct": 88,
+     "after_pct": 2
+    },
+    "ember_vs_tyrant": {
+     "n": 69,
+     "med": 0.1,
+     "p25": -1.1,
+     "p75": 0.3,
+     "within3s_pct": 99,
+     "before_pct": 0,
+     "after_pct": 1
+    },
+    "pot_uses": 35,
+    "pot_tyrant_overlap_med_s": 19.9,
+    "pot_cast_in_tyrant_pct": 54,
+    "pot_then_tyrant_within3s_pct": 60,
+    "pot_to_next_tyrant_med_s": 1.5
+   },
+   "rank_21_100": {
+    "n": 14,
+    "first_tyrant_med_s": 23.0,
+    "first_tyrant_p25_p75": [
+     22.4,
+     23.7
+    ],
+    "tyrant_per_min_med": 0.94,
+    "tyrant_gap": {
+     "n": 91,
+     "p25": 61.5,
+     "med": 62.6,
+     "p75": 68.0,
+     "즉시_pct": 67,
+     "소홀드_pct": 15,
+     "대홀드_pct": 18
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 43,
+     "med": -5.7,
+     "p25": -8.6,
+     "p75": -2.3,
+     "within3s_pct": 30,
+     "before_pct": 67,
+     "after_pct": 2
+    },
+    "ember_vs_tyrant": {
+     "n": 47,
+     "med": 0.0,
+     "p25": -1.2,
+     "p75": 0.1,
+     "within3s_pct": 94,
+     "before_pct": 2,
+     "after_pct": 4
+    },
+    "pot_uses": 23,
+    "pot_tyrant_overlap_med_s": 19.9,
+    "pot_cast_in_tyrant_pct": 70,
+    "pot_then_tyrant_within3s_pct": 74,
+    "pot_to_next_tyrant_med_s": -0.0
+   },
+   "opener": {
+    "first_tyrant_med_s": 22.4,
+    "first_tyrant_le5s_pct": 6,
+    "pot_prepull_or_10s_pct": 6,
+    "seq_top3": [
+     {
+      "seq": [
+       "흑마법서: 임프 군주",
+       "악마 폭군 소환",
+       "잿불날개 열파"
+      ],
+      "n": 2
+     },
+     {
+      "seq": [
+       "흑마법서: 임프 군주"
+      ],
+      "n": 2
+     },
+     {
+      "seq": [
+       "악마 폭군 소환",
+       "잿불날개 열파",
+       "피의 격노"
+      ],
+      "n": 1
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 9,
+    "10-20%": 1,
+    "30-40%": 17,
+    "40-50%": 6,
+    "60-70%": 1,
+    "70-80%": 2,
+    "80-90%": 8,
+    "90-100%": 14
+   },
+   "pot_kind": {
+    "무모함의물약": 4,
+    "빛의잠재력": 54
+   },
+   "pot_first_med_s": 176.7,
+   "pot_second_med_s": 479.0,
+   "fights_with_2pots_pct": 71,
+   "hold_tyrant_arrival_top": [
+    {
+     "t": "2:30",
+     "n": 25
+    },
+    {
+     "t": "3:00",
+     "n": 8
+    },
+    {
+     "t": "5:00",
+     "n": 2
+    },
+    {
+     "t": "1:00",
+     "n": 1
+    },
+    {
+     "t": "1:30",
+     "n": 1
+    }
+   ],
+   "n_holds": 38
+  },
+  "벨로렌": {
+   "encounter_id": 3182,
+   "name_en": "Belo'ren, Child of Al'ar",
+   "kill_med_s": 320,
+   "all": {
+    "n": 33,
+    "first_tyrant_med_s": 2.6,
+    "first_tyrant_p25_p75": [
+     2.2,
+     4.3
+    ],
+    "tyrant_per_min_med": 1.03,
+    "tyrant_gap": {
+     "n": 142,
+     "p25": 61.3,
+     "med": 61.8,
+     "p75": 62.5,
+     "즉시_pct": 87,
+     "소홀드_pct": 2,
+     "대홀드_pct": 11
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 73,
+     "med": -2.6,
+     "p25": -3.8,
+     "p75": 0.0,
+     "within3s_pct": 56,
+     "before_pct": 44,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 71,
+     "med": 0.1,
+     "p25": -1.4,
+     "p75": 0.3,
+     "within3s_pct": 90,
+     "before_pct": 6,
+     "after_pct": 4
+    },
+    "pot_uses": 35,
+    "pot_tyrant_overlap_med_s": 19.9,
+    "pot_cast_in_tyrant_pct": 60,
+    "pot_then_tyrant_within3s_pct": 74,
+    "pot_to_next_tyrant_med_s": 1.1
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_tyrant_med_s": 2.8,
+    "first_tyrant_p25_p75": [
+     2.3,
+     4.4
+    ],
+    "tyrant_per_min_med": 1.06,
+    "tyrant_gap": {
+     "n": 87,
+     "p25": 61.3,
+     "med": 61.9,
+     "p75": 62.7,
+     "즉시_pct": 86,
+     "소홀드_pct": 2,
+     "대홀드_pct": 11
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 37,
+     "med": -2.6,
+     "p25": -3.8,
+     "p75": 0.0,
+     "within3s_pct": 62,
+     "before_pct": 38,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 46,
+     "med": 0.1,
+     "p25": -1.3,
+     "p75": 0.4,
+     "within3s_pct": 96,
+     "before_pct": 0,
+     "after_pct": 4
+    },
+    "pot_uses": 22,
+    "pot_tyrant_overlap_med_s": 19.9,
+    "pot_cast_in_tyrant_pct": 59,
+    "pot_then_tyrant_within3s_pct": 77,
+    "pot_to_next_tyrant_med_s": -0.0
+   },
+   "rank_21_100": {
+    "n": 13,
+    "first_tyrant_med_s": 2.5,
+    "first_tyrant_p25_p75": [
+     2.2,
+     3.5
+    ],
+    "tyrant_per_min_med": 1.01,
+    "tyrant_gap": {
+     "n": 55,
+     "p25": 61.3,
+     "med": 61.6,
+     "p75": 62.4,
+     "즉시_pct": 89,
+     "소홀드_pct": 2,
+     "대홀드_pct": 9
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 36,
+     "med": -3.0,
+     "p25": -3.7,
+     "p75": 0.0,
+     "within3s_pct": 50,
+     "before_pct": 50,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 25,
+     "med": -0.7,
+     "p25": -1.7,
+     "p75": 0.3,
+     "within3s_pct": 80,
+     "before_pct": 16,
+     "after_pct": 4
+    },
+    "pot_uses": 13,
+    "pot_tyrant_overlap_med_s": 19.9,
+    "pot_cast_in_tyrant_pct": 62,
+    "pot_then_tyrant_within3s_pct": 69,
+    "pot_to_next_tyrant_med_s": 1.9
+   },
+   "opener": {
+    "first_tyrant_med_s": 2.6,
+    "first_tyrant_le5s_pct": 88,
+    "pot_prepull_or_10s_pct": 15,
+    "seq_top3": [
+     {
+      "seq": [
+       "악마 폭군 소환",
+       "흑마법서: 임프 군주",
+       "잿불날개 열파"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "흑마법서: 임프 군주",
+       "악마 폭군 소환",
+       "잿불날개 열파"
+      ],
+      "n": 3
+     },
+     {
+      "seq": [
+       "잿불날개 열파",
+       "악마 폭군 소환"
+      ],
+      "n": 2
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 5,
+    "30-40%": 19,
+    "40-50%": 8,
+    "90-100%": 3
+   },
+   "pot_kind": {
+    "빛의잠재력": 34,
+    "무모함의물약": 1
+   },
+   "pot_first_med_s": 125.0,
+   "pot_second_med_s": 304.0,
+   "fights_with_2pots_pct": 6,
+   "hold_tyrant_arrival_top": [
+    {
+     "t": "4:30",
+     "n": 10
+    },
+    {
+     "t": "1:00",
+     "n": 3
+    },
+    {
+     "t": "4:00",
+     "n": 1
+    },
+    {
+     "t": "3:30",
+     "n": 1
+    }
+   ],
+   "n_holds": 15
+  },
+  "한밤의 도래(르우라)": {
+   "encounter_id": 3183,
+   "name_en": "Midnight Falls",
+   "kill_med_s": 554,
+   "all": {
+    "n": 33,
+    "first_tyrant_med_s": 2.8,
+    "first_tyrant_p25_p75": [
+     2.4,
+     3.7
+    ],
+    "tyrant_per_min_med": 1.0,
+    "tyrant_gap": {
+     "n": 275,
+     "p25": 61.2,
+     "med": 61.5,
+     "p75": 62.3,
+     "즉시_pct": 91,
+     "소홀드_pct": 8,
+     "대홀드_pct": 1
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 97,
+     "med": -3.7,
+     "p25": -5.1,
+     "p75": 0.0,
+     "within3s_pct": 42,
+     "before_pct": 58,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 113,
+     "med": 0.2,
+     "p25": 0.0,
+     "p75": 0.8,
+     "within3s_pct": 96,
+     "before_pct": 0,
+     "after_pct": 4
+    },
+    "pot_uses": 66,
+    "pot_tyrant_overlap_med_s": 19.8,
+    "pot_cast_in_tyrant_pct": 68,
+    "pot_then_tyrant_within3s_pct": 85,
+    "pot_to_next_tyrant_med_s": -0.1
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_tyrant_med_s": 2.9,
+    "first_tyrant_p25_p75": [
+     2.6,
+     3.1
+    ],
+    "tyrant_per_min_med": 1.0,
+    "tyrant_gap": {
+     "n": 166,
+     "p25": 61.2,
+     "med": 61.5,
+     "p75": 62.2,
+     "즉시_pct": 93,
+     "소홀드_pct": 6,
+     "대홀드_pct": 1
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 54,
+     "med": -3.4,
+     "p25": -5.0,
+     "p75": 0.0,
+     "within3s_pct": 46,
+     "before_pct": 54,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 74,
+     "med": 0.3,
+     "p25": 0.1,
+     "p75": 1.8,
+     "within3s_pct": 95,
+     "before_pct": 0,
+     "after_pct": 5
+    },
+    "pot_uses": 40,
+    "pot_tyrant_overlap_med_s": 19.6,
+    "pot_cast_in_tyrant_pct": 75,
+    "pot_then_tyrant_within3s_pct": 80,
+    "pot_to_next_tyrant_med_s": -0.2
+   },
+   "rank_21_100": {
+    "n": 13,
+    "first_tyrant_med_s": 2.4,
+    "first_tyrant_p25_p75": [
+     2.4,
+     4.3
+    ],
+    "tyrant_per_min_med": 1.05,
+    "tyrant_gap": {
+     "n": 109,
+     "p25": 61.1,
+     "med": 61.5,
+     "p75": 62.8,
+     "즉시_pct": 89,
+     "소홀드_pct": 10,
+     "대홀드_pct": 1
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 43,
+     "med": -4.2,
+     "p25": -5.4,
+     "p75": 0.0,
+     "within3s_pct": 37,
+     "before_pct": 63,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 39,
+     "med": 0.1,
+     "p25": -0.9,
+     "p75": 0.3,
+     "within3s_pct": 100,
+     "before_pct": 0,
+     "after_pct": 0
+    },
+    "pot_uses": 26,
+    "pot_tyrant_overlap_med_s": 19.9,
+    "pot_cast_in_tyrant_pct": 58,
+    "pot_then_tyrant_within3s_pct": 92,
+    "pot_to_next_tyrant_med_s": -0.1
+   },
+   "opener": {
+    "first_tyrant_med_s": 2.8,
+    "first_tyrant_le5s_pct": 97,
+    "pot_prepull_or_10s_pct": 79,
+    "seq_top3": [
+     {
+      "seq": [
+       "악마 폭군 소환",
+       "흑마법서: 임프 군주",
+       "무위의 시야",
+       "고대의 부름",
+       "도끼 던지기"
+      ],
+      "n": 3
+     },
+     {
+      "seq": [
+       "악마 폭군 소환",
+       "흑마법서: 임프 군주",
+       "잿불날개 열파"
+      ],
+      "n": 3
+     },
+     {
+      "seq": [
+       "악마 폭군 소환",
+       "잿불날개 열파",
+       "피의 격노",
+       "도끼 던지기"
+      ],
+      "n": 2
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 27,
+    "10-20%": 3,
+    "20-30%": 3,
+    "60-70%": 26,
+    "70-80%": 6,
+    "80-90%": 1
+   },
+   "pot_kind": {
+    "빛의잠재력": 58,
+    "무모함의물약": 8
+   },
+   "pot_first_med_s": 3.9,
+   "pot_second_med_s": 373.6,
+   "fights_with_2pots_pct": 100,
+   "hold_tyrant_arrival_top": [
+    {
+     "t": "8:30",
+     "n": 1
+    },
+    {
+     "t": "8:00",
+     "n": 1
+    },
+    {
+     "t": "7:30",
+     "n": 1
+    }
+   ],
+   "n_holds": 3
+  },
+  "카이메루스": {
+   "encounter_id": 3306,
+   "name_en": "Chimaerus, the Undreamt God",
+   "kill_med_s": 145,
+   "all": {
+    "n": 32,
+    "first_tyrant_med_s": 4.3,
+    "first_tyrant_p25_p75": [
+     4.1,
+     4.7
+    ],
+    "tyrant_per_min_med": 1.24,
+    "tyrant_gap": {
+     "n": 64,
+     "p25": 61.3,
+     "med": 62.0,
+     "p75": 62.6,
+     "즉시_pct": 98,
+     "소홀드_pct": 2,
+     "대홀드_pct": 0
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 57,
+     "med": -3.6,
+     "p25": -5.0,
+     "p75": -2.9,
+     "within3s_pct": 39,
+     "before_pct": 60,
+     "after_pct": 2
+    },
+    "ember_vs_tyrant": {
+     "n": 64,
+     "med": 0.1,
+     "p25": -0.8,
+     "p75": 0.1,
+     "within3s_pct": 100,
+     "before_pct": 0,
+     "after_pct": 0
+    },
+    "pot_uses": 32,
+    "pot_tyrant_overlap_med_s": 19.9,
+    "pot_cast_in_tyrant_pct": 72,
+    "pot_then_tyrant_within3s_pct": 94,
+    "pot_to_next_tyrant_med_s": -0.1
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_tyrant_med_s": 4.2,
+    "first_tyrant_p25_p75": [
+     4.1,
+     4.6
+    ],
+    "tyrant_per_min_med": 1.24,
+    "tyrant_gap": {
+     "n": 40,
+     "p25": 61.7,
+     "med": 62.1,
+     "p75": 62.7,
+     "즉시_pct": 100,
+     "소홀드_pct": 0,
+     "대홀드_pct": 0
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 36,
+     "med": -3.7,
+     "p25": -5.2,
+     "p75": -2.9,
+     "within3s_pct": 36,
+     "before_pct": 64,
+     "after_pct": 0
+    },
+    "ember_vs_tyrant": {
+     "n": 40,
+     "med": 0.0,
+     "p25": -0.7,
+     "p75": 0.1,
+     "within3s_pct": 100,
+     "before_pct": 0,
+     "after_pct": 0
+    },
+    "pot_uses": 20,
+    "pot_tyrant_overlap_med_s": 20.0,
+    "pot_cast_in_tyrant_pct": 65,
+    "pot_then_tyrant_within3s_pct": 100,
+    "pot_to_next_tyrant_med_s": -0.0
+   },
+   "rank_21_100": {
+    "n": 12,
+    "first_tyrant_med_s": 4.4,
+    "first_tyrant_p25_p75": [
+     4.2,
+     4.7
+    ],
+    "tyrant_per_min_med": 1.24,
+    "tyrant_gap": {
+     "n": 24,
+     "p25": 61.3,
+     "med": 61.6,
+     "p75": 62.5,
+     "즉시_pct": 96,
+     "소홀드_pct": 4,
+     "대홀드_pct": 0
+    },
+    "imp_lord_vs_tyrant": {
+     "n": 21,
+     "med": -3.2,
+     "p25": -4.9,
+     "p75": -2.9,
+     "within3s_pct": 43,
+     "before_pct": 52,
+     "after_pct": 5
+    },
+    "ember_vs_tyrant": {
+     "n": 24,
+     "med": 0.1,
+     "p25": -0.9,
+     "p75": 0.1,
+     "within3s_pct": 100,
+     "before_pct": 0,
+     "after_pct": 0
+    },
+    "pot_uses": 12,
+    "pot_tyrant_overlap_med_s": 19.9,
+    "pot_cast_in_tyrant_pct": 83,
+    "pot_then_tyrant_within3s_pct": 83,
+    "pot_to_next_tyrant_med_s": -0.1
+   },
+   "opener": {
+    "first_tyrant_med_s": 4.3,
+    "first_tyrant_le5s_pct": 84,
+    "pot_prepull_or_10s_pct": 100,
+    "seq_top3": [
+     {
+      "seq": [
+       "흑마법서: 임프 군주",
+       "악마 폭군 소환",
+       "잿불날개 열파"
+      ],
+      "n": 9
+     },
+     {
+      "seq": [
+       "흑마법서: 임프 군주",
+       "악마 폭군 소환",
+       "피의 격노",
+       "잿불날개 열파"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "악마 폭군 소환",
+       "잿불날개 열파"
+      ],
+      "n": 3
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 32
+   },
+   "pot_kind": {
+    "무모함의물약": 4,
+    "빛의잠재력": 28
+   },
+   "pot_first_med_s": 4.3,
+   "pot_second_med_s": null,
+   "fights_with_2pots_pct": 0,
+   "hold_tyrant_arrival_top": [],
+   "n_holds": 0
+  }
+ },
+ "deep_dive": {
+  "crown_3181_opener": {
+   "n_total": 34,
+   "first_tyrant_dist_s": [
+    2.4,
+    5.0,
+    5.1,
+    5.3,
+    5.4,
+    6.1,
+    10.6,
+    11.5,
+    17.1,
+    18.6,
+    18.9,
+    19.3,
+    19.7,
+    19.8,
+    22.1,
+    22.4,
+    22.4,
+    22.5,
+    23.0,
+    23.1,
+    23.1,
+    23.1,
+    23.1,
+    23.1,
+    23.2,
+    23.2,
+    23.7,
+    23.8,
+    24.6,
+    24.7,
+    24.9,
+    25.2,
+    25.7,
+    26.4
+   ],
+   "early_le8s": {
+    "n": 6,
+    "dps_med": 145683,
+    "rank_med": 16,
+    "dur_med_s": 443.3,
+    "first_tyrant_med_s": 5.3
+   },
+   "hold_ge15s": {
+    "n": 26,
+    "dps_med": 144090,
+    "rank_med": 20,
+    "dur_med_s": 505.5,
+    "first_tyrant_med_s": 23.1
+   },
+   "mid_8_15s": {
+    "n": 2
+   },
+   "early_group_later_hold_arrivals": [
+    {
+     "t": "4:00",
+     "n": 6
+    },
+    {
+     "t": "5:00",
+     "n": 6
+    },
+    {
+     "t": "6:00",
+     "n": 6
+    },
+    {
+     "t": "1:00",
+     "n": 5
+    }
+   ],
+   "note": "76%(26/34)가 첫 폭군을 17~26s로 홀드(대부분 22~24s 클러스터), 18%(6/34)만 8s 이내 즉시 사용. DPS는 홀드파 144090 vs 즉시파 145683으로 거의 동일(표본 6 vs 26, 지속시간도 달라 직접비교 주의) — BM 야수 격노 분석과 동일하게 크라운 특유의 ~20s 지점 기믹 정렬로 추정되나 기믹 자체는 미확인."
+  },
+  "belren_3182_430_hold": {
+   "n_total": 33,
+   "hold_fights": 9,
+   "hold_pct": 27,
+   "note": "4:30 부근 대홀드는 9/33킬(27%)만 겪음 — 소수파라 대표 패턴으로 단정 못 함. 미해결(표본부족)."
+  },
+  "lura_3183_opener": {
+   "n": 33,
+   "first_tyrant": {
+    "min": 2.2,
+    "p10": 2.2,
+    "med": 2.8,
+    "p90": 4.3,
+    "max": 5.2
+   },
+   "note": "97%가 5s 이내 즉시 폭군 사용 — BM(야수 격노는 전원 13.7s까지 홀드)과 정반대 패턴. 미해결: 데모 폭군은 60s 짧은 쿨이라 홀드 손실이 더 크기 때문인지, 스펙별 오프닝 셋업 차이인지 로그만으론 판정 불가."
+  }
+ }
+}

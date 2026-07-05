@@ -1,0 +1,1711 @@
+{
+ "meta": {
+  "date": "2026-07-05",
+  "n_kills": 301,
+  "eff_cd_s": 120.0,
+  "eff_cd_dark_harvest_s": 35.5,
+  "spells": {
+   "summon_darkglare": 205180,
+   "dark_harvest": 1257052,
+   "haunt": 48181,
+   "agony": 980,
+   "unstable_affliction": 1259790,
+   "seed_of_corruption": 27243,
+   "potions": {
+    "1236616": "빛의잠재력",
+    "1236998": "방종의비약",
+    "1236994": "무모함의물약"
+   }
+  },
+  "notes": [
+   "메이저 주기 쿨기는 2종: 암흑시선 소환(205180, 2분쿨/20초지속)과 암흑의 수확(1257052, 1분쿨/정신집중3초). 영혼 부패·사악한 오염 등 드래곤플라이트기 쿨기는 트리에서 사라짐(explore 0/301) — 적개심(442726, 헤로 액티브)도 0/301로 미채택.",
+   "블러드/영웅심/시간왜곡 계열 0/301킬 — 미드나잇에는 블러드가 없어 '블러드 정렬' 항목은 성립 안 함(BM/Frost와 동일 확인).",
+   "물약 슬롯은 '빛의 잠재력'(1236616)이 표준(277/301판). 무모함의 물약은 22/301판만 사용.",
+   "암흑시선 소환은 고통/부패/불안정한고통 공증 20%(대상 디버프 없이 시전자 버프로 적용) — 3가지 DoT를 최대한 걸어둔 상태에서 켜는 게 이득이라 오프너보다 '도트 정착 후 1차'가 이론상 유리.",
+   "유령 출몰(48181)은 15초쿨(처치시 초기화)이라 '홀드'보다 '즉시 재시전' 위주 — 참고 지표로만 수록.",
+   "도트(고통 18초/불안정한 고통 8초) 재시전 간격은 buffs 캐시에 대상 디버프 apply/remove 이벤트가 없어(자기 버프만 기록) 캐스트 간격으로 근사 분류.",
+   "불안정한 고통은 캐스트당 조각 1개 소비 — 암흑시선 창(전체 시간의 일부) 안에서 쓴 비율이 창 시간비율보다 높으면 조각을 몰아서 쓰는 규율이 있다는 뜻."
+  ]
+ },
+ "overall": {
+  "rank_1_20": {
+   "n": 180,
+   "first_dg_med_s": 4.7,
+   "first_dg_p25_p75": [
+    3.0,
+    6.6
+   ],
+   "dg_per_min_med": 0.58,
+   "dg_gap": {
+    "n": 347,
+    "p25": 120.6,
+    "med": 122.4,
+    "p75": 131.6,
+    "즉시_pct": 55,
+    "소홀드_pct": 22,
+    "대홀드_pct": 22
+   },
+   "pot_uses": 246,
+   "pot_dg_overlap_med_s": 24.6,
+   "pot_overlap_ge15s_pct": 91,
+   "pot_cast_in_dg_pct": 52,
+   "pot_then_dg_within3s_pct": 76,
+   "pot_to_next_dg_med_s": 0.1
+  },
+  "rank_21_100": {
+   "n": 121,
+   "first_dg_med_s": 4.7,
+   "first_dg_p25_p75": [
+    3.1,
+    6.8
+   ],
+   "dg_per_min_med": 0.59,
+   "dg_gap": {
+    "n": 245,
+    "p25": 121.0,
+    "med": 122.1,
+    "p75": 127.7,
+    "즉시_pct": 57,
+    "소홀드_pct": 28,
+    "대홀드_pct": 16
+   },
+   "pot_uses": 158,
+   "pot_dg_overlap_med_s": 24.6,
+   "pot_overlap_ge15s_pct": 89,
+   "pot_cast_in_dg_pct": 49,
+   "pot_then_dg_within3s_pct": 79,
+   "pot_to_next_dg_med_s": 0.1
+  },
+  "all": {
+   "n": 301,
+   "first_dg_med_s": 4.7,
+   "first_dg_p25_p75": [
+    3.0,
+    6.7
+   ],
+   "dg_per_min_med": 0.59,
+   "dg_gap": {
+    "n": 592,
+    "p25": 120.8,
+    "med": 122.3,
+    "p75": 129.4,
+    "즉시_pct": 56,
+    "소홀드_pct": 25,
+    "대홀드_pct": 20
+   },
+   "pot_uses": 404,
+   "pot_dg_overlap_med_s": 24.6,
+   "pot_overlap_ge15s_pct": 90,
+   "pot_cast_in_dg_pct": 51,
+   "pot_then_dg_within3s_pct": 77,
+   "pot_to_next_dg_med_s": 0.1
+  },
+  "rank_1_10": {
+   "n": 90,
+   "first_dg_med_s": 4.7,
+   "first_dg_p25_p75": [
+    2.9,
+    6.5
+   ],
+   "dg_per_min_med": 0.58,
+   "dg_gap": {
+    "n": 171,
+    "p25": 120.5,
+    "med": 121.8,
+    "p75": 129.1,
+    "즉시_pct": 59,
+    "소홀드_pct": 19,
+    "대홀드_pct": 22
+   },
+   "pot_uses": 122,
+   "pot_dg_overlap_med_s": 24.7,
+   "pot_overlap_ge15s_pct": 91,
+   "pot_cast_in_dg_pct": 49,
+   "pot_then_dg_within3s_pct": 79,
+   "pot_to_next_dg_med_s": 0.1
+  }
+ },
+ "per_boss": {
+  "아베르지안": {
+   "encounter_id": 3176,
+   "name_en": "Imperator Averzian",
+   "kill_med_s": 199,
+   "all": {
+    "n": 34,
+    "first_dg_med_s": 5.0,
+    "first_dg_p25_p75": [
+     2.9,
+     6.4
+    ],
+    "dg_per_min_med": 0.64,
+    "dg_gap": {
+     "n": 38,
+     "p25": 121.9,
+     "med": 124.8,
+     "p75": 132.9,
+     "즉시_pct": 42,
+     "소홀드_pct": 39,
+     "대홀드_pct": 18
+    },
+    "pot_uses": 33,
+    "pot_dg_overlap_med_s": 25.0,
+    "pot_overlap_ge15s_pct": 97,
+    "pot_cast_in_dg_pct": 48,
+    "pot_then_dg_within3s_pct": 94,
+    "pot_to_next_dg_med_s": 0.1
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_dg_med_s": 5.0,
+    "first_dg_p25_p75": [
+     2.9,
+     6.3
+    ],
+    "dg_per_min_med": 0.65,
+    "dg_gap": {
+     "n": 21,
+     "p25": 121.7,
+     "med": 124.0,
+     "p75": 130.5,
+     "즉시_pct": 48,
+     "소홀드_pct": 38,
+     "대홀드_pct": 14
+    },
+    "pot_uses": 20,
+    "pot_dg_overlap_med_s": 25.0,
+    "pot_overlap_ge15s_pct": 100,
+    "pot_cast_in_dg_pct": 45,
+    "pot_then_dg_within3s_pct": 95,
+    "pot_to_next_dg_med_s": 0.2
+   },
+   "rank_21_100": {
+    "n": 14,
+    "first_dg_med_s": 5.1,
+    "first_dg_p25_p75": [
+     3.3,
+     6.4
+    ],
+    "dg_per_min_med": 0.6,
+    "dg_gap": {
+     "n": 17,
+     "p25": 122.1,
+     "med": 125.1,
+     "p75": 134.3,
+     "즉시_pct": 35,
+     "소홀드_pct": 41,
+     "대홀드_pct": 24
+    },
+    "pot_uses": 13,
+    "pot_dg_overlap_med_s": 24.8,
+    "pot_overlap_ge15s_pct": 92,
+    "pot_cast_in_dg_pct": 54,
+    "pot_then_dg_within3s_pct": 92,
+    "pot_to_next_dg_med_s": 0.1
+   },
+   "opener": {
+    "first_dg_med_s": 5.0,
+    "first_dg_le10s_pct": 100,
+    "first_dg_10_25s_pct": 0,
+    "pot_prepull_or_10s_pct": 94,
+    "seq_top3": [
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "빛의 잠재력",
+       "암흑시선 소환",
+       "불안정한 고통",
+       "불안정한 고통"
+      ],
+      "n": 4
+     },
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "불안정한 고통",
+       "불안정한 고통",
+       "불안정한 고통",
+       "불안정한 고통"
+      ],
+      "n": 2
+     },
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "불안정한 고통",
+       "불안정한 고통",
+       "불안정한 고통",
+       "암흑의 수확"
+      ],
+      "n": 2
+     }
+    ]
+   },
+   "pot_kind": {
+    "빛의잠재력": 30,
+    "무모함의물약": 3
+   },
+   "pot_first_med_s": 4.9,
+   "fights_with_2pots_pct": 0,
+   "hold_dg_arrival_top": [
+    {
+     "t": "2:00",
+     "n": 6
+    },
+    {
+     "t": "3:00",
+     "n": 1
+    }
+   ],
+   "n_holds": 7,
+   "dark_harvest": {
+    "n": 34,
+    "first_med_s": 5.7,
+    "per_min_med": 1.47,
+    "gap": {
+     "n": 131,
+     "p25": 39.1,
+     "med": 41.4,
+     "p75": 49.0,
+     "즉시_pct": 17,
+     "소홀드_pct": 59,
+     "대홀드_pct": 24
+    }
+   },
+   "haunt_per_min_med": 3.56,
+   "dot_refresh": {
+    "agony_18s": {
+     "n": 679,
+     "med_gap_s": 8.7,
+     "조기클리핑_pct": 82,
+     "정시갱신_pct": 15,
+     "만료후리필_pct": 4,
+     "만료후리필_med_초과분_s": 3.1
+    },
+    "unstable_affliction_8s": {
+     "n": 2159,
+     "med_gap_s": 2.2,
+     "조기클리핑_pct": 88,
+     "정시갱신_pct": 9,
+     "만료후리필_pct": 2,
+     "만료후리필_med_초과분_s": 3.7
+    }
+   },
+   "ua_shard_timing": {
+    "ua_total": 2193,
+    "ua_per_min_med": 19.15,
+    "ua_in_darkglare_window_pct": 29,
+    "darkglare_window_time_share_pct": 25,
+    "note": "창내비율 > 창시간비율이면 암흑시선 창에 맞춰 조각 소비를 몰아준다는 뜻(홀드 규율 있음)"
+   }
+  },
+  "보라시우스": {
+   "encounter_id": 3177,
+   "name_en": "Vorasius",
+   "kill_med_s": 209,
+   "all": {
+    "n": 34,
+    "first_dg_med_s": 5.0,
+    "first_dg_p25_p75": [
+     3.6,
+     6.9
+    ],
+    "dg_per_min_med": 0.58,
+    "dg_gap": {
+     "n": 39,
+     "p25": 120.3,
+     "med": 120.9,
+     "p75": 121.9,
+     "즉시_pct": 82,
+     "소홀드_pct": 15,
+     "대홀드_pct": 3
+    },
+    "pot_uses": 34,
+    "pot_dg_overlap_med_s": 25.0,
+    "pot_overlap_ge15s_pct": 100,
+    "pot_cast_in_dg_pct": 50,
+    "pot_then_dg_within3s_pct": 88,
+    "pot_to_next_dg_med_s": 0.0
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_dg_med_s": 6.1,
+    "first_dg_p25_p75": [
+     4.0,
+     6.9
+    ],
+    "dg_per_min_med": 0.58,
+    "dg_gap": {
+     "n": 21,
+     "p25": 120.3,
+     "med": 120.7,
+     "p75": 122.6,
+     "즉시_pct": 76,
+     "소홀드_pct": 19,
+     "대홀드_pct": 5
+    },
+    "pot_uses": 20,
+    "pot_dg_overlap_med_s": 25.0,
+    "pot_overlap_ge15s_pct": 100,
+    "pot_cast_in_dg_pct": 45,
+    "pot_then_dg_within3s_pct": 80,
+    "pot_to_next_dg_med_s": 0.1
+   },
+   "rank_21_100": {
+    "n": 14,
+    "first_dg_med_s": 4.2,
+    "first_dg_p25_p75": [
+     3.6,
+     6.5
+    ],
+    "dg_per_min_med": 0.58,
+    "dg_gap": {
+     "n": 18,
+     "p25": 120.3,
+     "med": 120.9,
+     "p75": 121.8,
+     "즉시_pct": 89,
+     "소홀드_pct": 11,
+     "대홀드_pct": 0
+    },
+    "pot_uses": 14,
+    "pot_dg_overlap_med_s": 24.8,
+    "pot_overlap_ge15s_pct": 100,
+    "pot_cast_in_dg_pct": 57,
+    "pot_then_dg_within3s_pct": 100,
+    "pot_to_next_dg_med_s": -0.2
+   },
+   "opener": {
+    "first_dg_med_s": 5.0,
+    "first_dg_le10s_pct": 100,
+    "first_dg_10_25s_pct": 0,
+    "pot_prepull_or_10s_pct": 100,
+    "seq_top3": [
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "불안정한 고통",
+       "불안정한 고통",
+       "불안정한 고통",
+       "암흑의 수확"
+      ],
+      "n": 3
+     },
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "불안정한 고통",
+       "불안정한 고통",
+       "불안정한 고통",
+       "불안정한 고통"
+      ],
+      "n": 3
+     },
+     {
+      "seq": [
+       "유령 출몰",
+       "불안정한 고통",
+       "고통",
+       "암흑의 수확",
+       "암흑시선 소환",
+       "빛의 잠재력"
+      ],
+      "n": 2
+     }
+    ]
+   },
+   "pot_kind": {
+    "빛의잠재력": 34
+   },
+   "pot_first_med_s": 4.8,
+   "fights_with_2pots_pct": 0,
+   "hold_dg_arrival_top": [
+    {
+     "t": "2:30",
+     "n": 1
+    }
+   ],
+   "n_holds": 1,
+   "dark_harvest": {
+    "n": 34,
+    "first_med_s": 5.0,
+    "per_min_med": 1.54,
+    "gap": {
+     "n": 146,
+     "p25": 39.0,
+     "med": 40.7,
+     "p75": 43.8,
+     "즉시_pct": 21,
+     "소홀드_pct": 64,
+     "대홀드_pct": 14
+    }
+   },
+   "haunt_per_min_med": 3.49,
+   "dot_refresh": {
+    "agony_18s": {
+     "n": 732,
+     "med_gap_s": 9.9,
+     "조기클리핑_pct": 73,
+     "정시갱신_pct": 22,
+     "만료후리필_pct": 5,
+     "만료후리필_med_초과분_s": 2.8
+    },
+    "unstable_affliction_8s": {
+     "n": 2266,
+     "med_gap_s": 2.3,
+     "조기클리핑_pct": 88,
+     "정시갱신_pct": 10,
+     "만료후리필_pct": 2,
+     "만료후리필_med_초과분_s": 3.9
+    }
+   },
+   "ua_shard_timing": {
+    "ua_total": 2300,
+    "ua_per_min_med": 18.76,
+    "ua_in_darkglare_window_pct": 31,
+    "darkglare_window_time_share_pct": 24,
+    "note": "창내비율 > 창시간비율이면 암흑시선 창에 맞춰 조각 소비를 몰아준다는 뜻(홀드 규율 있음)"
+   }
+  },
+  "바엘고어&에조라크": {
+   "encounter_id": 3178,
+   "name_en": "Vaelgor & Ezzorak",
+   "kill_med_s": 394,
+   "all": {
+    "n": 34,
+    "first_dg_med_s": 3.6,
+    "first_dg_p25_p75": [
+     3.1,
+     5.2
+    ],
+    "dg_per_min_med": 0.55,
+    "dg_gap": {
+     "n": 81,
+     "p25": 121.4,
+     "med": 125.9,
+     "p75": 135.3,
+     "즉시_pct": 36,
+     "소홀드_pct": 38,
+     "대홀드_pct": 26
+    },
+    "pot_uses": 54,
+    "pot_dg_overlap_med_s": 19.9,
+    "pot_overlap_ge15s_pct": 81,
+    "pot_cast_in_dg_pct": 44,
+    "pot_then_dg_within3s_pct": 70,
+    "pot_to_next_dg_med_s": 0.1
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_dg_med_s": 4.3,
+    "first_dg_p25_p75": [
+     3.1,
+     5.2
+    ],
+    "dg_per_min_med": 0.5,
+    "dg_gap": {
+     "n": 44,
+     "p25": 121.6,
+     "med": 129.1,
+     "p75": 159.4,
+     "즉시_pct": 30,
+     "소홀드_pct": 30,
+     "대홀드_pct": 41
+    },
+    "pot_uses": 33,
+    "pot_dg_overlap_med_s": 19.9,
+    "pot_overlap_ge15s_pct": 82,
+    "pot_cast_in_dg_pct": 45,
+    "pot_then_dg_within3s_pct": 70,
+    "pot_to_next_dg_med_s": 0.1
+   },
+   "rank_21_100": {
+    "n": 14,
+    "first_dg_med_s": 3.5,
+    "first_dg_p25_p75": [
+     3.0,
+     4.8
+    ],
+    "dg_per_min_med": 0.6,
+    "dg_gap": {
+     "n": 37,
+     "p25": 121.1,
+     "med": 125.1,
+     "p75": 127.9,
+     "즉시_pct": 43,
+     "소홀드_pct": 49,
+     "대홀드_pct": 8
+    },
+    "pot_uses": 21,
+    "pot_dg_overlap_med_s": 19.8,
+    "pot_overlap_ge15s_pct": 81,
+    "pot_cast_in_dg_pct": 43,
+    "pot_then_dg_within3s_pct": 71,
+    "pot_to_next_dg_med_s": 0.2
+   },
+   "opener": {
+    "first_dg_med_s": 3.6,
+    "first_dg_le10s_pct": 97,
+    "first_dg_10_25s_pct": 0,
+    "pot_prepull_or_10s_pct": 94,
+    "seq_top3": [
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "고통",
+       "부패의 씨앗",
+       "부패의 씨앗",
+       "암흑시선 소환"
+      ],
+      "n": 3
+     },
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "고통",
+       "부패의 씨앗",
+       "암흑시선 소환",
+       "빛의 잠재력"
+      ],
+      "n": 3
+     },
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "고통",
+       "부패의 씨앗",
+       "빛의 잠재력",
+       "암흑시선 소환"
+      ],
+      "n": 2
+     }
+    ]
+   },
+   "pot_kind": {
+    "빛의잠재력": 53,
+    "무모함의물약": 1
+   },
+   "pot_first_med_s": 3.9,
+   "fights_with_2pots_pct": 62,
+   "hold_dg_arrival_top": [
+    {
+     "t": "2:30",
+     "n": 12
+    },
+    {
+     "t": "5:00",
+     "n": 8
+    },
+    {
+     "t": "5:30",
+     "n": 1
+    }
+   ],
+   "n_holds": 21,
+   "dark_harvest": {
+    "n": 34,
+    "first_med_s": 5.2,
+    "per_min_med": 1.52,
+    "gap": {
+     "n": 285,
+     "p25": 36.8,
+     "med": 40.0,
+     "p75": 43.1,
+     "즉시_pct": 35,
+     "소홀드_pct": 48,
+     "대홀드_pct": 16
+    }
+   },
+   "haunt_per_min_med": 3.39,
+   "dot_refresh": {
+    "agony_18s": {
+     "n": 1576,
+     "med_gap_s": 6.5,
+     "조기클리핑_pct": 90,
+     "정시갱신_pct": 7,
+     "만료후리필_pct": 3,
+     "만료후리필_med_초과분_s": 4.6
+    },
+    "unstable_affliction_8s": {
+     "n": 408,
+     "med_gap_s": 2.8,
+     "조기클리핑_pct": 70,
+     "정시갱신_pct": 8,
+     "만료후리필_pct": 22,
+     "만료후리필_med_초과분_s": 40.5
+    }
+   },
+   "ua_shard_timing": {
+    "ua_total": 442,
+    "ua_per_min_med": 1.85,
+    "ua_in_darkglare_window_pct": 41,
+    "darkglare_window_time_share_pct": 18,
+    "note": "창내비율 > 창시간비율이면 암흑시선 창에 맞춰 조각 소비를 몰아준다는 뜻(홀드 규율 있음)"
+   }
+  },
+  "살라다르": {
+   "encounter_id": 3179,
+   "name_en": "Fallen-King Salhadaar",
+   "kill_med_s": 200,
+   "all": {
+    "n": 34,
+    "first_dg_med_s": 3.8,
+    "first_dg_p25_p75": [
+     2.8,
+     5.9
+    ],
+    "dg_per_min_med": 0.61,
+    "dg_gap": {
+     "n": 39,
+     "p25": 121.0,
+     "med": 122.5,
+     "p75": 127.2,
+     "즉시_pct": 54,
+     "소홀드_pct": 38,
+     "대홀드_pct": 8
+    },
+    "pot_uses": 34,
+    "pot_dg_overlap_med_s": 25.0,
+    "pot_overlap_ge15s_pct": 100,
+    "pot_cast_in_dg_pct": 53,
+    "pot_then_dg_within3s_pct": 88,
+    "pot_to_next_dg_med_s": 0.0
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_dg_med_s": 5.4,
+    "first_dg_p25_p75": [
+     2.7,
+     5.9
+    ],
+    "dg_per_min_med": 0.61,
+    "dg_gap": {
+     "n": 22,
+     "p25": 120.6,
+     "med": 121.4,
+     "p75": 123.8,
+     "즉시_pct": 59,
+     "소홀드_pct": 32,
+     "대홀드_pct": 9
+    },
+    "pot_uses": 20,
+    "pot_dg_overlap_med_s": 25.0,
+    "pot_overlap_ge15s_pct": 100,
+    "pot_cast_in_dg_pct": 55,
+    "pot_then_dg_within3s_pct": 80,
+    "pot_to_next_dg_med_s": 0.2
+   },
+   "rank_21_100": {
+    "n": 14,
+    "first_dg_med_s": 3.8,
+    "first_dg_p25_p75": [
+     3.1,
+     5.2
+    ],
+    "dg_per_min_med": 0.63,
+    "dg_gap": {
+     "n": 17,
+     "p25": 121.8,
+     "med": 123.4,
+     "p75": 129.4,
+     "즉시_pct": 47,
+     "소홀드_pct": 47,
+     "대홀드_pct": 6
+    },
+    "pot_uses": 14,
+    "pot_dg_overlap_med_s": 25.0,
+    "pot_overlap_ge15s_pct": 100,
+    "pot_cast_in_dg_pct": 50,
+    "pot_then_dg_within3s_pct": 100,
+    "pot_to_next_dg_med_s": 0.0
+   },
+   "opener": {
+    "first_dg_med_s": 3.8,
+    "first_dg_le10s_pct": 100,
+    "first_dg_10_25s_pct": 0,
+    "pot_prepull_or_10s_pct": 97,
+    "seq_top3": [
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "빛의 잠재력",
+       "암흑시선 소환",
+       "불안정한 고통",
+       "불안정한 고통"
+      ],
+      "n": 4
+     },
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "빛의 잠재력",
+       "불안정한 고통",
+       "불안정한 고통",
+       "암흑의 수확"
+      ],
+      "n": 2
+     },
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "암흑시선 소환",
+       "빛의 잠재력",
+       "불안정한 고통",
+       "불안정한 고통"
+      ],
+      "n": 2
+     }
+    ]
+   },
+   "pot_kind": {
+    "빛의잠재력": 32,
+    "무모함의물약": 2
+   },
+   "pot_first_med_s": 3.5,
+   "fights_with_2pots_pct": 0,
+   "hold_dg_arrival_top": [
+    {
+     "t": "2:00",
+     "n": 2
+    },
+    {
+     "t": "2:30",
+     "n": 1
+    }
+   ],
+   "n_holds": 3,
+   "dark_harvest": {
+    "n": 34,
+    "first_med_s": 4.9,
+    "per_min_med": 1.52,
+    "gap": {
+     "n": 143,
+     "p25": 39.0,
+     "med": 41.2,
+     "p75": 45.3,
+     "즉시_pct": 23,
+     "소홀드_pct": 62,
+     "대홀드_pct": 15
+    }
+   },
+   "haunt_per_min_med": 3.4,
+   "dot_refresh": {
+    "agony_18s": {
+     "n": 821,
+     "med_gap_s": 6.6,
+     "조기클리핑_pct": 86,
+     "정시갱신_pct": 11,
+     "만료후리필_pct": 3,
+     "만료후리필_med_초과분_s": 3.2
+    },
+    "unstable_affliction_8s": {
+     "n": 2166,
+     "med_gap_s": 2.2,
+     "조기클리핑_pct": 88,
+     "정시갱신_pct": 9,
+     "만료후리필_pct": 3,
+     "만료후리필_med_초과분_s": 3.8
+    }
+   },
+   "ua_shard_timing": {
+    "ua_total": 2200,
+    "ua_per_min_med": 18.92,
+    "ua_in_darkglare_window_pct": 30,
+    "darkglare_window_time_share_pct": 25,
+    "note": "창내비율 > 창시간비율이면 암흑시선 창에 맞춰 조각 소비를 몰아준다는 뜻(홀드 규율 있음)"
+   }
+  },
+  "선봉대": {
+   "encounter_id": 3180,
+   "name_en": "Lightblinded Vanguard",
+   "kill_med_s": 389,
+   "all": {
+    "n": 33,
+    "first_dg_med_s": 4.8,
+    "first_dg_p25_p75": [
+     3.0,
+     6.5
+    ],
+    "dg_per_min_med": 0.59,
+    "dg_gap": {
+     "n": 87,
+     "p25": 120.6,
+     "med": 121.3,
+     "p75": 122.9,
+     "즉시_pct": 75,
+     "소홀드_pct": 21,
+     "대홀드_pct": 5
+    },
+    "pot_uses": 62,
+    "pot_dg_overlap_med_s": 19.6,
+    "pot_overlap_ge15s_pct": 65,
+    "pot_cast_in_dg_pct": 42,
+    "pot_then_dg_within3s_pct": 58,
+    "pot_to_next_dg_med_s": 0.3
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_dg_med_s": 4.8,
+    "first_dg_p25_p75": [
+     3.3,
+     6.2
+    ],
+    "dg_per_min_med": 0.59,
+    "dg_gap": {
+     "n": 52,
+     "p25": 120.6,
+     "med": 121.3,
+     "p75": 124.0,
+     "즉시_pct": 73,
+     "소홀드_pct": 21,
+     "대홀드_pct": 6
+    },
+    "pot_uses": 37,
+    "pot_dg_overlap_med_s": 19.8,
+    "pot_overlap_ge15s_pct": 73,
+    "pot_cast_in_dg_pct": 51,
+    "pot_then_dg_within3s_pct": 62,
+    "pot_to_next_dg_med_s": 0.0
+   },
+   "rank_21_100": {
+    "n": 13,
+    "first_dg_med_s": 4.5,
+    "first_dg_p25_p75": [
+     2.4,
+     6.5
+    ],
+    "dg_per_min_med": 0.59,
+    "dg_gap": {
+     "n": 35,
+     "p25": 120.6,
+     "med": 121.4,
+     "p75": 122.9,
+     "즉시_pct": 77,
+     "소홀드_pct": 20,
+     "대홀드_pct": 3
+    },
+    "pot_uses": 25,
+    "pot_dg_overlap_med_s": 19.4,
+    "pot_overlap_ge15s_pct": 52,
+    "pot_cast_in_dg_pct": 28,
+    "pot_then_dg_within3s_pct": 52,
+    "pot_to_next_dg_med_s": 0.6
+   },
+   "opener": {
+    "first_dg_med_s": 4.8,
+    "first_dg_le10s_pct": 100,
+    "first_dg_10_25s_pct": 0,
+    "pot_prepull_or_10s_pct": 100,
+    "seq_top3": [
+     {
+      "seq": [
+       "유령 출몰",
+       "부패의 씨앗",
+       "고통",
+       "고통",
+       "부패의 씨앗",
+       "암흑시선 소환"
+      ],
+      "n": 2
+     },
+     {
+      "seq": [
+       "불안정한 고통",
+       "고통",
+       "부패의 씨앗",
+       "암흑시선 소환",
+       "빛의 잠재력",
+       "암흑의 수확"
+      ],
+      "n": 2
+     },
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "고통",
+       "부패의 씨앗",
+       "빛의 잠재력",
+       "암흑시선 소환"
+      ],
+      "n": 2
+     }
+    ]
+   },
+   "pot_kind": {
+    "빛의잠재력": 60,
+    "무모함의물약": 2
+   },
+   "pot_first_med_s": 5.0,
+   "fights_with_2pots_pct": 88,
+   "hold_dg_arrival_top": [
+    {
+     "t": "2:30",
+     "n": 2
+    },
+    {
+     "t": "5:30",
+     "n": 1
+    },
+    {
+     "t": "4:00",
+     "n": 1
+    }
+   ],
+   "n_holds": 4,
+   "dark_harvest": {
+    "n": 33,
+    "first_med_s": 6.2,
+    "per_min_med": 1.59,
+    "gap": {
+     "n": 299,
+     "p25": 36.1,
+     "med": 37.7,
+     "p75": 40.1,
+     "즉시_pct": 62,
+     "소홀드_pct": 34,
+     "대홀드_pct": 4
+    }
+   },
+   "haunt_per_min_med": 3.5,
+   "dot_refresh": {
+    "agony_18s": {
+     "n": 1592,
+     "med_gap_s": 6.5,
+     "조기클리핑_pct": 90,
+     "정시갱신_pct": 8,
+     "만료후리필_pct": 2,
+     "만료후리필_med_초과분_s": 3.3
+    },
+    "unstable_affliction_8s": {
+     "n": 132,
+     "med_gap_s": 2.3,
+     "조기클리핑_pct": 66,
+     "정시갱신_pct": 10,
+     "만료후리필_pct": 24,
+     "만료후리필_med_초과분_s": 59.9
+    }
+   },
+   "ua_shard_timing": {
+    "ua_total": 163,
+    "ua_per_min_med": 0.82,
+    "ua_in_darkglare_window_pct": 11,
+    "darkglare_window_time_share_pct": 19,
+    "note": "창내비율 > 창시간비율이면 암흑시선 창에 맞춰 조각 소비를 몰아준다는 뜻(홀드 규율 있음)"
+   }
+  },
+  "우주의 왕관": {
+   "encounter_id": 3181,
+   "name_en": "Crown of the Cosmos",
+   "kill_med_s": 465,
+   "all": {
+    "n": 33,
+    "first_dg_med_s": 8.8,
+    "first_dg_p25_p75": [
+     6.3,
+     14.5
+    ],
+    "dg_per_min_med": 0.47,
+    "dg_gap": {
+     "n": 86,
+     "p25": 123.1,
+     "med": 154.3,
+     "p75": 173.6,
+     "즉시_pct": 24,
+     "소홀드_pct": 14,
+     "대홀드_pct": 62
+    },
+    "pot_uses": 54,
+    "pot_dg_overlap_med_s": 24.8,
+    "pot_overlap_ge15s_pct": 91,
+    "pot_cast_in_dg_pct": 61,
+    "pot_then_dg_within3s_pct": 70,
+    "pot_to_next_dg_med_s": 0.1
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_dg_med_s": 7.7,
+    "first_dg_p25_p75": [
+     6.0,
+     11.9
+    ],
+    "dg_per_min_med": 0.47,
+    "dg_gap": {
+     "n": 51,
+     "p25": 124.2,
+     "med": 163.8,
+     "p75": 174.9,
+     "즉시_pct": 22,
+     "소홀드_pct": 12,
+     "대홀드_pct": 67
+    },
+    "pot_uses": 35,
+    "pot_dg_overlap_med_s": 25.0,
+    "pot_overlap_ge15s_pct": 86,
+    "pot_cast_in_dg_pct": 57,
+    "pot_then_dg_within3s_pct": 69,
+    "pot_to_next_dg_med_s": 0.3
+   },
+   "rank_21_100": {
+    "n": 13,
+    "first_dg_med_s": 10.4,
+    "first_dg_p25_p75": [
+     6.7,
+     15.4
+    ],
+    "dg_per_min_med": 0.48,
+    "dg_gap": {
+     "n": 35,
+     "p25": 121.8,
+     "med": 143.2,
+     "p75": 168.3,
+     "즉시_pct": 29,
+     "소홀드_pct": 17,
+     "대홀드_pct": 54
+    },
+    "pot_uses": 19,
+    "pot_dg_overlap_med_s": 24.3,
+    "pot_overlap_ge15s_pct": 100,
+    "pot_cast_in_dg_pct": 68,
+    "pot_then_dg_within3s_pct": 74,
+    "pot_to_next_dg_med_s": 0.0
+   },
+   "opener": {
+    "first_dg_med_s": 8.8,
+    "first_dg_le10s_pct": 52,
+    "first_dg_10_25s_pct": 42,
+    "pot_prepull_or_10s_pct": 24,
+    "seq_top3": [
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "고통",
+       "고통",
+       "불안정한 고통",
+       "불안정한 고통"
+      ],
+      "n": 3
+     },
+     {
+      "seq": [
+       "유령 출몰",
+       "불안정한 고통",
+       "불안정한 고통",
+       "불안정한 고통",
+       "고통",
+       "고통"
+      ],
+      "n": 2
+     },
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "불안정한 고통",
+       "불안정한 고통",
+       "고통",
+       "불안정한 고통"
+      ],
+      "n": 2
+     }
+    ]
+   },
+   "pot_kind": {
+    "빛의잠재력": 49,
+    "무모함의물약": 5
+   },
+   "pot_first_med_s": 15.3,
+   "fights_with_2pots_pct": 67,
+   "hold_dg_arrival_top": [
+    {
+     "t": "3:00",
+     "n": 20
+    },
+    {
+     "t": "5:30",
+     "n": 14
+    },
+    {
+     "t": "2:30",
+     "n": 13
+    },
+    {
+     "t": "6:00",
+     "n": 3
+    },
+    {
+     "t": "5:00",
+     "n": 2
+    }
+   ],
+   "n_holds": 53,
+   "dark_harvest": {
+    "n": 33,
+    "first_med_s": 11.3,
+    "per_min_med": 1.26,
+    "gap": {
+     "n": 290,
+     "p25": 40.5,
+     "med": 42.9,
+     "p75": 50.8,
+     "즉시_pct": 11,
+     "소홀드_pct": 62,
+     "대홀드_pct": 27
+    }
+   },
+   "haunt_per_min_med": 3.13,
+   "dot_refresh": {
+    "agony_18s": {
+     "n": 1865,
+     "med_gap_s": 6.7,
+     "조기클리핑_pct": 89,
+     "정시갱신_pct": 8,
+     "만료후리필_pct": 2,
+     "만료후리필_med_초과분_s": 3.4
+    },
+    "unstable_affliction_8s": {
+     "n": 4173,
+     "med_gap_s": 2.2,
+     "조기클리핑_pct": 85,
+     "정시갱신_pct": 11,
+     "만료후리필_pct": 4,
+     "만료후리필_med_초과분_s": 4.9
+    }
+   },
+   "ua_shard_timing": {
+    "ua_total": 4206,
+    "ua_per_min_med": 16.63,
+    "ua_in_darkglare_window_pct": 27,
+    "darkglare_window_time_share_pct": 19,
+    "note": "창내비율 > 창시간비율이면 암흑시선 창에 맞춰 조각 소비를 몰아준다는 뜻(홀드 규율 있음)"
+   }
+  },
+  "벨로렌": {
+   "encounter_id": 3182,
+   "name_en": "Belo'ren, Child of Al'ar",
+   "kill_med_s": 302,
+   "all": {
+    "n": 33,
+    "first_dg_med_s": 3.7,
+    "first_dg_p25_p75": [
+     2.5,
+     6.8
+    ],
+    "dg_per_min_med": 0.58,
+    "dg_gap": {
+     "n": 58,
+     "p25": 120.6,
+     "med": 125.0,
+     "p75": 150.1,
+     "즉시_pct": 47,
+     "소홀드_pct": 9,
+     "대홀드_pct": 45
+    },
+    "pot_uses": 33,
+    "pot_dg_overlap_med_s": 24.7,
+    "pot_overlap_ge15s_pct": 97,
+    "pot_cast_in_dg_pct": 55,
+    "pot_then_dg_within3s_pct": 64,
+    "pot_to_next_dg_med_s": 0.4
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_dg_med_s": 3.7,
+    "first_dg_p25_p75": [
+     2.4,
+     5.2
+    ],
+    "dg_per_min_med": 0.59,
+    "dg_gap": {
+     "n": 37,
+     "p25": 120.5,
+     "med": 127.3,
+     "p75": 150.1,
+     "즉시_pct": 49,
+     "소홀드_pct": 5,
+     "대홀드_pct": 46
+    },
+    "pot_uses": 20,
+    "pot_dg_overlap_med_s": 24.8,
+    "pot_overlap_ge15s_pct": 100,
+    "pot_cast_in_dg_pct": 55,
+    "pot_then_dg_within3s_pct": 60,
+    "pot_to_next_dg_med_s": 0.5
+   },
+   "rank_21_100": {
+    "n": 13,
+    "first_dg_med_s": 3.7,
+    "first_dg_p25_p75": [
+     2.6,
+     84.6
+    ],
+    "dg_per_min_med": 0.58,
+    "dg_gap": {
+     "n": 21,
+     "p25": 121.0,
+     "med": 125.0,
+     "p75": 147.7,
+     "즉시_pct": 43,
+     "소홀드_pct": 14,
+     "대홀드_pct": 43
+    },
+    "pot_uses": 13,
+    "pot_dg_overlap_med_s": 24.7,
+    "pot_overlap_ge15s_pct": 92,
+    "pot_cast_in_dg_pct": 54,
+    "pot_then_dg_within3s_pct": 69,
+    "pot_to_next_dg_med_s": 0.4
+   },
+   "opener": {
+    "first_dg_med_s": 3.7,
+    "first_dg_le10s_pct": 79,
+    "first_dg_10_25s_pct": 0,
+    "pot_prepull_or_10s_pct": 9,
+    "seq_top3": [
+     {
+      "seq": [
+       "불안정한 고통",
+       "고통",
+       "암흑시선 소환",
+       "암흑의 수확",
+       "불안정한 고통",
+       "불안정한 고통"
+      ],
+      "n": 3
+     },
+     {
+      "seq": [
+       "고통",
+       "암흑시선 소환",
+       "불안정한 고통",
+       "불안정한 고통",
+       "암흑의 수확",
+       "불안정한 고통"
+      ],
+      "n": 3
+     },
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "암흑시선 소환",
+       "불안정한 고통",
+       "불안정한 고통",
+       "불안정한 고통"
+      ],
+      "n": 2
+     }
+    ]
+   },
+   "pot_kind": {
+    "빛의잠재력": 30,
+    "무모함의물약": 3
+   },
+   "pot_first_med_s": 121.7,
+   "fights_with_2pots_pct": 0,
+   "hold_dg_arrival_top": [
+    {
+     "t": "4:30",
+     "n": 18
+    },
+    {
+     "t": "4:00",
+     "n": 5
+    },
+    {
+     "t": "3:30",
+     "n": 3
+    }
+   ],
+   "n_holds": 26,
+   "dark_harvest": {
+    "n": 33,
+    "first_med_s": 6.0,
+    "per_min_med": 1.28,
+    "gap": {
+     "n": 175,
+     "p25": 41.7,
+     "med": 45.9,
+     "p75": 53.6,
+     "즉시_pct": 6,
+     "소홀드_pct": 62,
+     "대홀드_pct": 32
+    }
+   },
+   "haunt_per_min_med": 3.27,
+   "dot_refresh": {
+    "agony_18s": {
+     "n": 1109,
+     "med_gap_s": 7.2,
+     "조기클리핑_pct": 89,
+     "정시갱신_pct": 10,
+     "만료후리필_pct": 2,
+     "만료후리필_med_초과분_s": 3.0
+    },
+    "unstable_affliction_8s": {
+     "n": 2577,
+     "med_gap_s": 2.2,
+     "조기클리핑_pct": 84,
+     "정시갱신_pct": 11,
+     "만료후리필_pct": 6,
+     "만료후리필_med_초과분_s": 6.8
+    }
+   },
+   "ua_shard_timing": {
+    "ua_total": 2610,
+    "ua_per_min_med": 16.61,
+    "ua_in_darkglare_window_pct": 34,
+    "darkglare_window_time_share_pct": 23,
+    "note": "창내비율 > 창시간비율이면 암흑시선 창에 맞춰 조각 소비를 몰아준다는 뜻(홀드 규율 있음)"
+   }
+  },
+  "한밤의 도래(르우라)": {
+   "encounter_id": 3183,
+   "name_en": "Midnight Falls",
+   "kill_med_s": 518,
+   "all": {
+    "n": 33,
+    "first_dg_med_s": 4.2,
+    "first_dg_p25_p75": [
+     3.1,
+     6.6
+    ],
+    "dg_per_min_med": 0.58,
+    "dg_gap": {
+     "n": 130,
+     "p25": 120.6,
+     "med": 121.3,
+     "p75": 123.8,
+     "즉시_pct": 71,
+     "소홀드_pct": 28,
+     "대홀드_pct": 1
+    },
+    "pot_uses": 66,
+    "pot_dg_overlap_med_s": 24.8,
+    "pot_overlap_ge15s_pct": 100,
+    "pot_cast_in_dg_pct": 56,
+    "pot_then_dg_within3s_pct": 86,
+    "pot_to_next_dg_med_s": 0.0
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_dg_med_s": 4.7,
+    "first_dg_p25_p75": [
+     3.3,
+     6.5
+    ],
+    "dg_per_min_med": 0.57,
+    "dg_gap": {
+     "n": 78,
+     "p25": 120.5,
+     "med": 121.2,
+     "p75": 123.8,
+     "즉시_pct": 71,
+     "소홀드_pct": 29,
+     "대홀드_pct": 0
+    },
+    "pot_uses": 40,
+    "pot_dg_overlap_med_s": 24.7,
+    "pot_overlap_ge15s_pct": 100,
+    "pot_cast_in_dg_pct": 65,
+    "pot_then_dg_within3s_pct": 88,
+    "pot_to_next_dg_med_s": -0.2
+   },
+   "rank_21_100": {
+    "n": 13,
+    "first_dg_med_s": 3.4,
+    "first_dg_p25_p75": [
+     3.1,
+     6.8
+    ],
+    "dg_per_min_med": 0.58,
+    "dg_gap": {
+     "n": 52,
+     "p25": 121.0,
+     "med": 121.5,
+     "p75": 123.3,
+     "즉시_pct": 71,
+     "소홀드_pct": 27,
+     "대홀드_pct": 2
+    },
+    "pot_uses": 26,
+    "pot_dg_overlap_med_s": 25.0,
+    "pot_overlap_ge15s_pct": 100,
+    "pot_cast_in_dg_pct": 42,
+    "pot_then_dg_within3s_pct": 85,
+    "pot_to_next_dg_med_s": 0.2
+   },
+   "opener": {
+    "first_dg_med_s": 4.2,
+    "first_dg_le10s_pct": 91,
+    "first_dg_10_25s_pct": 9,
+    "pot_prepull_or_10s_pct": 94,
+    "seq_top3": [
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "암흑시선 소환",
+       "빛의 잠재력",
+       "불안정한 고통",
+       "불안정한 고통"
+      ],
+      "n": 4
+     },
+     {
+      "seq": [
+       "불안정한 고통",
+       "고통",
+       "불안정한 고통",
+       "암흑의 수확",
+       "암흑시선 소환",
+       "빛의 잠재력"
+      ],
+      "n": 3
+     },
+     {
+      "seq": [
+       "불안정한 고통",
+       "고통",
+       "빛의 잠재력",
+       "암흑시선 소환",
+       "불안정한 고통",
+       "암흑의 수확"
+      ],
+      "n": 3
+     }
+    ]
+   },
+   "pot_kind": {
+    "빛의잠재력": 62,
+    "무모함의물약": 4
+   },
+   "pot_first_med_s": 4.0,
+   "fights_with_2pots_pct": 100,
+   "hold_dg_arrival_top": [
+    {
+     "t": "2:00",
+     "n": 1
+    }
+   ],
+   "n_holds": 1,
+   "dark_harvest": {
+    "n": 33,
+    "first_med_s": 6.3,
+    "per_min_med": 1.36,
+    "gap": {
+     "n": 353,
+     "p25": 40.5,
+     "med": 42.8,
+     "p75": 48.5,
+     "즉시_pct": 9,
+     "소홀드_pct": 71,
+     "대홀드_pct": 20
+    }
+   },
+   "haunt_per_min_med": 3.23,
+   "dot_refresh": {
+    "agony_18s": {
+     "n": 1522,
+     "med_gap_s": 11.5,
+     "조기클리핑_pct": 73,
+     "정시갱신_pct": 21,
+     "만료후리필_pct": 6,
+     "만료후리필_med_초과분_s": 3.0
+    },
+    "unstable_affliction_8s": {
+     "n": 4626,
+     "med_gap_s": 2.5,
+     "조기클리핑_pct": 83,
+     "정시갱신_pct": 12,
+     "만료후리필_pct": 5,
+     "만료후리필_med_초과분_s": 4.2
+    }
+   },
+   "ua_shard_timing": {
+    "ua_total": 4659,
+    "ua_per_min_med": 16.22,
+    "ua_in_darkglare_window_pct": 30,
+    "darkglare_window_time_share_pct": 22,
+    "note": "창내비율 > 창시간비율이면 암흑시선 창에 맞춰 조각 소비를 몰아준다는 뜻(홀드 규율 있음)"
+   }
+  },
+  "카이메루스": {
+   "encounter_id": 3306,
+   "name_en": "Chimaerus, the Undreamt God",
+   "kill_med_s": 145,
+   "all": {
+    "n": 33,
+    "first_dg_med_s": 4.0,
+    "first_dg_p25_p75": [
+     2.7,
+     5.7
+    ],
+    "dg_per_min_med": 0.83,
+    "dg_gap": {
+     "n": 34,
+     "p25": 120.1,
+     "med": 120.9,
+     "p75": 122.7,
+     "즉시_pct": 79,
+     "소홀드_pct": 21,
+     "대홀드_pct": 0
+    },
+    "pot_uses": 34,
+    "pot_dg_overlap_med_s": 25.0,
+    "pot_overlap_ge15s_pct": 97,
+    "pot_cast_in_dg_pct": 50,
+    "pot_then_dg_within3s_pct": 94,
+    "pot_to_next_dg_med_s": 0.0
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_dg_med_s": 3.8,
+    "first_dg_p25_p75": [
+     2.6,
+     5.4
+    ],
+    "dg_per_min_med": 0.82,
+    "dg_gap": {
+     "n": 21,
+     "p25": 120.2,
+     "med": 120.9,
+     "p75": 122.7,
+     "즉시_pct": 81,
+     "소홀드_pct": 19,
+     "대홀드_pct": 0
+    },
+    "pot_uses": 21,
+    "pot_dg_overlap_med_s": 25.0,
+    "pot_overlap_ge15s_pct": 95,
+    "pot_cast_in_dg_pct": 43,
+    "pot_then_dg_within3s_pct": 95,
+    "pot_to_next_dg_med_s": 0.2
+   },
+   "rank_21_100": {
+    "n": 13,
+    "first_dg_med_s": 4.1,
+    "first_dg_p25_p75": [
+     3.9,
+     6.5
+    ],
+    "dg_per_min_med": 0.83,
+    "dg_gap": {
+     "n": 13,
+     "p25": 120.1,
+     "med": 120.9,
+     "p75": 122.1,
+     "즉시_pct": 77,
+     "소홀드_pct": 23,
+     "대홀드_pct": 0
+    },
+    "pot_uses": 13,
+    "pot_dg_overlap_med_s": 25.0,
+    "pot_overlap_ge15s_pct": 100,
+    "pot_cast_in_dg_pct": 62,
+    "pot_then_dg_within3s_pct": 92,
+    "pot_to_next_dg_med_s": 0.0
+   },
+   "opener": {
+    "first_dg_med_s": 4.0,
+    "first_dg_le10s_pct": 97,
+    "first_dg_10_25s_pct": 3,
+    "pot_prepull_or_10s_pct": 100,
+    "seq_top3": [
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "빛의 잠재력",
+       "암흑시선 소환",
+       "불안정한 고통",
+       "불안정한 고통"
+      ],
+      "n": 3
+     },
+     {
+      "seq": [
+       "유령 출몰",
+       "고통",
+       "불안정한 고통",
+       "암흑시선 소환",
+       "빛의 잠재력",
+       "암흑의 수확"
+      ],
+      "n": 2
+     },
+     {
+      "seq": [
+       "고통",
+       "불안정한 고통",
+       "불안정한 고통",
+       "불안정한 고통",
+       "불안정한 고통",
+       "암흑의 수확"
+      ],
+      "n": 2
+     }
+    ]
+   },
+   "pot_kind": {
+    "빛의잠재력": 28,
+    "무모함의물약": 6
+   },
+   "pot_first_med_s": 3.9,
+   "fights_with_2pots_pct": 3,
+   "hold_dg_arrival_top": [],
+   "n_holds": 0,
+   "dark_harvest": {
+    "n": 33,
+    "first_med_s": 5.0,
+    "per_min_med": 1.66,
+    "gap": {
+     "n": 102,
+     "p25": 39.1,
+     "med": 40.4,
+     "p75": 42.6,
+     "즉시_pct": 18,
+     "소홀드_pct": 79,
+     "대홀드_pct": 3
+    }
+   },
+   "haunt_per_min_med": 3.62,
+   "dot_refresh": {
+    "agony_18s": {
+     "n": 432,
+     "med_gap_s": 11.8,
+     "조기클리핑_pct": 76,
+     "정시갱신_pct": 20,
+     "만료후리필_pct": 5,
+     "만료후리필_med_초과분_s": 2.9
+    },
+    "unstable_affliction_8s": {
+     "n": 1601,
+     "med_gap_s": 2.1,
+     "조기클리핑_pct": 90,
+     "정시갱신_pct": 8,
+     "만료후리필_pct": 2,
+     "만료후리필_med_초과분_s": 3.9
+    }
+   },
+   "ua_shard_timing": {
+    "ua_total": 1634,
+    "ua_per_min_med": 21.25,
+    "ua_in_darkglare_window_pct": 39,
+    "darkglare_window_time_share_pct": 29,
+    "note": "창내비율 > 창시간비율이면 암흑시선 창에 맞춰 조각 소비를 몰아준다는 뜻(홀드 규율 있음)"
+   }
+  }
+ }
+}
