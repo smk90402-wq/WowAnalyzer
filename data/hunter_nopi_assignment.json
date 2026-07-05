@@ -1,0 +1,404 @@
+{
+ "_meta": {
+  "date": "2026-07-05",
+  "premise": "PI(마력 주입) 불가 공대 전제. 목표=파스 99~100 안정 달성.",
+  "sources": [
+   "rankings_zone46_mythic_dps_top100_pi.csv",
+   "bm/mm_parse100_gap.json",
+   "mm_talent_splits.json",
+   "bm_target_split.json(WCL 실측 12로그)",
+   "mm_target_split.json(기존 48로그)"
+  ],
+  "vanguard_note": "선봉대는 3넴드 의회형 — 대상 전원 type=Boss라 쫄 패딩 개념 없음(상시 3타겟 클리브)."
+ },
+ "아베르지안": {
+  "bm": {
+   "top20_pi_rate": 21,
+   "top100_pi_rate": 24,
+   "best_nopi_rank": 1,
+   "best_nopi_dps_vs_rank1_pct": 100.0,
+   "nopi_in_top20": 15,
+   "nopi_in_top20_known": 19,
+   "killtime_note": "상위1-5 킬 213s vs 전체중앙 216s (-1.5%) — 킬타임 중립",
+   "downtime_s_per_min_r1_5": 1.47
+  },
+  "mm": {
+   "top20_pi_rate": 25,
+   "top100_pi_rate": 27,
+   "best_nopi_rank": 1,
+   "best_nopi_dps_vs_rank1_pct": 100.0,
+   "nopi_in_top20": 15,
+   "nopi_in_top20_known": 20,
+   "killtime_note": "상위1-5 킬 188s vs 전체중앙 219s (-14.2%) — 빠른 컷 전제",
+   "downtime_s_per_min_r1_5": 13.78,
+   "hero": {
+    "어둠 순찰자": 54,
+    "파수꾼": 46
+   }
+  },
+  "add_padding": {
+   "bm_boss_pct_med": 56.5,
+   "bm_add_pct_med": 43.5,
+   "bm_logs": [
+    {
+     "rank": 1,
+     "pi": "False",
+     "dur_s": 194.2,
+     "boss_pct": 51.1
+    },
+    {
+     "rank": 4,
+     "pi": "False",
+     "dur_s": 221.1,
+     "boss_pct": 56.5
+    },
+    {
+     "rank": 5,
+     "pi": "False",
+     "dur_s": 208.2,
+     "boss_pct": 65.3
+    }
+   ],
+   "mm_boss_pct_mean_by_hero": {
+    "DR": 62.4,
+    "SEN": 56.4
+   },
+   "판정": "쫄딜 35~49% — 상위 파스 절반 가까이가 쫄 패딩. MM 어순 37.6%/파수꾼 43.6%로 둘 다 패딩형."
+  },
+  "추천": {
+   "추천": "야냥",
+   "확신": "높음",
+   "근거": "양쪽 다 노PI 1위 실존(top20 PI 21%/25%)이지만 MM은 빠른 컷 전제(-14%)·다운타임 13.8s/min, BM은 킬타임 중립·완전 이동딜. 쫄딜 44%로 BM 패딩도 잘 됨."
+  }
+ },
+ "보라시우스": {
+  "bm": {
+   "top20_pi_rate": 60,
+   "top100_pi_rate": 52,
+   "best_nopi_rank": 10,
+   "best_nopi_dps_vs_rank1_pct": 95.7,
+   "nopi_in_top20": 8,
+   "nopi_in_top20_known": 20,
+   "killtime_note": "상위1-5 킬 195s vs 전체중앙 204s (-4.2%) — 킬타임 중립",
+   "downtime_s_per_min_r1_5": 0.0
+  },
+  "mm": {
+   "top20_pi_rate": 55,
+   "top100_pi_rate": 27,
+   "best_nopi_rank": 4,
+   "best_nopi_dps_vs_rank1_pct": 99.0,
+   "nopi_in_top20": 9,
+   "nopi_in_top20_known": 20,
+   "killtime_note": "상위1-5 킬 209s vs 전체중앙 221s (-5.6%) — 킬타임 중립",
+   "downtime_s_per_min_r1_5": 13.99,
+   "hero": {
+    "어둠 순찰자": 100
+   }
+  },
+  "추천": {
+   "추천": "어순 격냥",
+   "확신": "낮음(애매)",
+   "근거": "둘 다 top20 PI 55~60%로 PI 의존 최악 보스. 노PI 천장은 MM(4위·1위 dps의 99%)이 BM(10위·95.7%)보다 좋음. MM 영웅은 어순 100%. 어느 쪽이든 노PI 99+는 이 보스가 제일 어려움."
+  }
+ },
+ "바엘고어": {
+  "bm": {
+   "top20_pi_rate": 40,
+   "top100_pi_rate": 36,
+   "best_nopi_rank": 1,
+   "best_nopi_dps_vs_rank1_pct": 100.0,
+   "nopi_in_top20": 12,
+   "nopi_in_top20_known": 20,
+   "killtime_note": "상위1-5 킬 387s vs 전체중앙 394s (-2.0%) — 킬타임 중립",
+   "downtime_s_per_min_r1_5": 3.51
+  },
+  "mm": {
+   "top20_pi_rate": 60,
+   "top100_pi_rate": 44,
+   "best_nopi_rank": 2,
+   "best_nopi_dps_vs_rank1_pct": 99.5,
+   "nopi_in_top20": 8,
+   "nopi_in_top20_known": 20,
+   "killtime_note": "상위1-5 킬 379s vs 전체중앙 374s (+1.2%) — 킬타임 중립",
+   "downtime_s_per_min_r1_5": 18.66,
+   "hero": {
+    "파수꾼": 97
+   }
+  },
+  "add_padding": {
+   "bm_boss_pct_med": 41.0,
+   "bm_add_pct_med": 59.0,
+   "bm_logs": [
+    {
+     "rank": 1,
+     "pi": "False",
+     "dur_s": 385.5,
+     "boss_pct": 42.6
+    },
+    {
+     "rank": 2,
+     "pi": "False",
+     "dur_s": 411.4,
+     "boss_pct": 37.3
+    },
+    {
+     "rank": 3,
+     "pi": "False",
+     "dur_s": 391.6,
+     "boss_pct": 41.0
+    }
+   ],
+   "mm_boss_pct_mean_by_hero": {
+    "SEN": 65.2
+   },
+   "판정": "BM 상위 노PI 쫄딜 57~63%(공허구슬 단일 최대 타겟) — 패딩 의존 최상. MM 파수꾼도 34.7%."
+  },
+  "추천": {
+   "추천": "야냥(→못 가면 파수꾼 격냥)",
+   "확신": "중간",
+   "근거": "BM 노PI 1위 실존, top20 노PI 12/20 vs MM 8/20(PI 60%). BM 상위 노PI가 쫄딜 57~63%(공허구슬 패딩) — 패딩 접근성 좋음. MM 가면 파수꾼 97%가 표준."
+  }
+ },
+ "살라다르": {
+  "bm": {
+   "top20_pi_rate": 40,
+   "top100_pi_rate": 34,
+   "best_nopi_rank": 1,
+   "best_nopi_dps_vs_rank1_pct": 100.0,
+   "nopi_in_top20": 12,
+   "nopi_in_top20_known": 20,
+   "killtime_note": "상위1-5 킬 321s vs 전체중앙 217s (+47.7%) — 긴 킬 유리(상위10 중 70%가 중앙보다 느림)",
+   "downtime_s_per_min_r1_5": 4.27
+  },
+  "mm": {
+   "top20_pi_rate": 35,
+   "top100_pi_rate": 21,
+   "best_nopi_rank": 2,
+   "best_nopi_dps_vs_rank1_pct": 87.3,
+   "nopi_in_top20": 13,
+   "nopi_in_top20_known": 20,
+   "killtime_note": "상위1-5 킬 202s vs 전체중앙 232s (-12.9%) — 빠른 컷 전제",
+   "downtime_s_per_min_r1_5": 12.34,
+   "hero": {
+    "어둠 순찰자": 54,
+    "파수꾼": 46
+   }
+  },
+  "add_padding": {
+   "bm_boss_pct_med": 39.7,
+   "bm_add_pct_med": 60.3,
+   "bm_logs": [
+    {
+     "rank": 1,
+     "pi": "False",
+     "dur_s": 325.8,
+     "boss_pct": 54.3
+    },
+    {
+     "rank": 2,
+     "pi": "False",
+     "dur_s": 320.7,
+     "boss_pct": 39.7
+    },
+    {
+     "rank": 4,
+     "pi": "False",
+     "dur_s": 329.3,
+     "boss_pct": 35.6
+    }
+   ],
+   "mm_boss_pct_mean_by_hero": {
+    "DR": 80.6,
+    "SEN": 67.5
+   },
+   "판정": "확인됨: BM 노PI 1·2·4위 전부 320s+ 긴 킬이고 쫄딜 46~64% — 100점은 쫄 패딩에서 온다. MM도 파수꾼이 쫄딜 32.5%로 어순(19.4%)보다 분산형."
+  },
+  "추천": {
+   "추천": "야냥",
+   "확신": "높음(단, 킬타임 조건부)",
+   "근거": "BM 노PI 1·2·4위 전부 320s+ 긴 킬 & 쫄딜 46~64% — 100점이 쫄 패딩에서 옴을 실측 확인. 공대가 쫄 웨이브를 오래 보는 킬이면 BM 확정. 빠른 컷(200s)이면 BM 100점 불가·MM(빠른컷 전제)로 전환 고려."
+  }
+ },
+ "선봉대": {
+  "bm": {
+   "top20_pi_rate": 25,
+   "top100_pi_rate": 26,
+   "best_nopi_rank": 1,
+   "best_nopi_dps_vs_rank1_pct": 100.0,
+   "nopi_in_top20": 15,
+   "nopi_in_top20_known": 20,
+   "killtime_note": "상위1-5 킬 356s vs 전체중앙 388s (-8.1%) — 빠른 컷 전제",
+   "downtime_s_per_min_r1_5": 1.67
+  },
+  "mm": {
+   "top20_pi_rate": 79,
+   "top100_pi_rate": 68,
+   "best_nopi_rank": 8,
+   "best_nopi_dps_vs_rank1_pct": 94.2,
+   "nopi_in_top20": 4,
+   "nopi_in_top20_known": 19,
+   "killtime_note": "상위1-5 킬 293s vs 전체중앙 394s (-25.4%) — 빠른 컷 전제",
+   "downtime_s_per_min_r1_5": 17.61,
+   "hero": {
+    "파수꾼": 99
+   }
+  },
+  "add_padding": {
+   "bm_boss_pct_med": 100.0,
+   "bm_add_pct_med": 0.0,
+   "bm_logs": [
+    {
+     "rank": 3,
+     "pi": "False",
+     "dur_s": 393.0,
+     "boss_pct": 100.0
+    },
+    {
+     "rank": 5,
+     "pi": "False",
+     "dur_s": 356.5,
+     "boss_pct": 100.0
+    },
+    {
+     "rank": 6,
+     "pi": "False",
+     "dur_s": 353.9,
+     "boss_pct": 100.0
+    }
+   ],
+   "mm_boss_pct_mean_by_hero": {
+    "SEN": 100.0
+   },
+   "판정": "쫄 패딩 아님 — 3넴드 전원 Boss 타입 상시 클리브. 분배 좋은 스펙이 유리한 구조."
+  },
+  "추천": {
+   "추천": "야냥",
+   "확신": "높음",
+   "근거": "MM top20 PI 79%로 사실상 PI 필수(노PI 최고 8위·94.2%). BM은 top20 PI 25%·노PI 1위 실존. 3넴드 상시 클리브 + BM 이동딜(다운타임 1.7 vs MM 17.6s/min)."
+  }
+ },
+ "우주의 왕관": {
+  "bm": {
+   "top20_pi_rate": 42,
+   "top100_pi_rate": 47,
+   "best_nopi_rank": 4,
+   "best_nopi_dps_vs_rank1_pct": 97.4,
+   "nopi_in_top20": 11,
+   "nopi_in_top20_known": 19,
+   "killtime_note": "상위1-5 킬 449s vs 전체중앙 466s (-3.6%) — 킬타임 중립",
+   "downtime_s_per_min_r1_5": 6.46
+  },
+  "mm": {
+   "top20_pi_rate": 35,
+   "top100_pi_rate": 21,
+   "best_nopi_rank": 3,
+   "best_nopi_dps_vs_rank1_pct": 94.6,
+   "nopi_in_top20": 13,
+   "nopi_in_top20_known": 20,
+   "killtime_note": "상위1-5 킬 434s vs 전체중앙 483s (-10.1%) — 빠른 컷 전제",
+   "downtime_s_per_min_r1_5": 17.01,
+   "hero": {
+    "파수꾼": 80,
+    "어둠 순찰자": 20
+   }
+  },
+  "추천": {
+   "추천": "야냥(근소)",
+   "확신": "낮음(애매)",
+   "근거": "BM 노PI 4위(97.4%)·킬타임 중립 vs MM 노PI 3위(94.6%)·빠른컷 전제(-10%). top20 PI율 42% vs 35%로 비슷. 차이 작음 — 편한 쪽."
+  }
+ },
+ "벨로렌": {
+  "bm": {
+   "top20_pi_rate": 21,
+   "top100_pi_rate": 26,
+   "best_nopi_rank": 2,
+   "best_nopi_dps_vs_rank1_pct": 93.0,
+   "nopi_in_top20": 15,
+   "nopi_in_top20_known": 19,
+   "killtime_note": "상위1-5 킬 250s vs 전체중앙 285s (-12.2%) — 빠른 컷 전제",
+   "downtime_s_per_min_r1_5": 4.26
+  },
+  "mm": {
+   "top20_pi_rate": 40,
+   "top100_pi_rate": 23,
+   "best_nopi_rank": 3,
+   "best_nopi_dps_vs_rank1_pct": 91.4,
+   "nopi_in_top20": 12,
+   "nopi_in_top20_known": 20,
+   "killtime_note": "상위1-5 킬 319s vs 전체중앙 318s (+0.2%) — 킬타임 중립",
+   "downtime_s_per_min_r1_5": 18.05,
+   "hero": {
+    "파수꾼": 96,
+    "어둠 순찰자": 4
+   }
+  },
+  "추천": {
+   "추천": "야냥(근소) / 느린 공대면 파수꾼 격냥",
+   "확신": "낮음(애매)",
+   "근거": "BM top20 노PI 15/19로 노PI 천장 우위지만 빠른 컷 전제(-12%). MM은 킬타임 중립·파수꾼 96% 표준이나 top20 PI 40%·다운타임 18s/min(무빙 보스에서 캐스팅 손해)."
+  }
+ },
+ "한밤의 도래(르우라)": {
+  "bm": {
+   "top20_pi_rate": 65,
+   "top100_pi_rate": 41,
+   "best_nopi_rank": 5,
+   "best_nopi_dps_vs_rank1_pct": 97.3,
+   "nopi_in_top20": 7,
+   "nopi_in_top20_known": 20,
+   "killtime_note": "상위1-5 킬 563s vs 전체중앙 565s (-0.4%) — 킬타임 중립",
+   "downtime_s_per_min_r1_5": 2.74
+  },
+  "mm": {
+   "top20_pi_rate": 40,
+   "top100_pi_rate": 37,
+   "best_nopi_rank": 2,
+   "best_nopi_dps_vs_rank1_pct": 96.5,
+   "nopi_in_top20": 12,
+   "nopi_in_top20_known": 20,
+   "killtime_note": "상위1-5 킬 526s vs 전체중앙 547s (-3.8%) — 킬타임 중립",
+   "downtime_s_per_min_r1_5": 15.86,
+   "hero": {
+    "어둠 순찰자": 94,
+    "파수꾼": 6
+   }
+  },
+  "추천": {
+   "추천": "어순 격냥",
+   "확신": "중간",
+   "근거": "BM top20 PI 65%로 전 보스 중 BM PI 의존 최고(노PI 최고 5위·top20 노PI 7/20). MM은 PI 40%·노PI 2위(96.5%)·어순 94% 표준. 노PI 제약에서 MM이 명확히 유리."
+  }
+ },
+ "카이메루스": {
+  "bm": {
+   "top20_pi_rate": 40,
+   "top100_pi_rate": 27,
+   "best_nopi_rank": 1,
+   "best_nopi_dps_vs_rank1_pct": 100.0,
+   "nopi_in_top20": 12,
+   "nopi_in_top20_known": 20,
+   "killtime_note": "상위1-5 킬 148s vs 전체중앙 145s (+1.8%) — 킬타임 중립",
+   "downtime_s_per_min_r1_5": 1.47
+  },
+  "mm": {
+   "top20_pi_rate": 32,
+   "top100_pi_rate": 26,
+   "best_nopi_rank": 2,
+   "best_nopi_dps_vs_rank1_pct": 99.0,
+   "nopi_in_top20": 13,
+   "nopi_in_top20_known": 19,
+   "killtime_note": "상위1-5 킬 145s vs 전체중앙 146s (-0.4%) — 킬타임 중립",
+   "downtime_s_per_min_r1_5": 9.28,
+   "hero": {
+    "어둠 순찰자": 93,
+    "파수꾼": 7
+   }
+  },
+  "추천": {
+   "추천": "야냥(근소) 또는 어순 격냥",
+   "확신": "낮음(둘 다 됨)",
+   "근거": "145s 단기 폭딜전. BM 노PI 1위, MM 노PI 2위(99.0%) — 둘 다 노PI 천장 뚫려 있음. MM 어순 93% 표준. 본캐 숙련도로 결정해도 됨."
+  }
+ }
+}

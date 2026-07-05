@@ -1,0 +1,235 @@
+[
+ {
+  "boss": "Fallen-King Salhadaar",
+  "char": "雾岛丷",
+  "rank": 1,
+  "pi": "False",
+  "dur_s": 325.8,
+  "total": 56367988,
+  "boss_pct": 54.3,
+  "add_pct": 45.7,
+  "by_type": {
+   "NPC": 25777449,
+   "Boss": 30590539
+  },
+  "by_name": {
+   "Fallen-King Salhadaar": 30590539,
+   "Enduring Void": 22567610,
+   "Concentrated Void": 3209839
+  }
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "char": "女侠且慢",
+  "rank": 2,
+  "pi": "False",
+  "dur_s": 320.7,
+  "total": 55015776,
+  "boss_pct": 39.7,
+  "add_pct": 60.3,
+  "by_type": {
+   "Boss": 21823278,
+   "NPC": 33192498
+  },
+  "by_name": {
+   "Enduring Void": 27830840,
+   "Fallen-King Salhadaar": 21823278,
+   "Concentrated Void": 5361658
+  }
+ },
+ {
+  "boss": "Fallen-King Salhadaar",
+  "char": "火大",
+  "rank": 4,
+  "pi": "False",
+  "dur_s": 329.3,
+  "total": 53744343,
+  "boss_pct": 35.6,
+  "add_pct": 64.4,
+  "by_type": {
+   "NPC": 34613412,
+   "Boss": 19130931
+  },
+  "by_name": {
+   "Enduring Void": 30475308,
+   "Fallen-King Salhadaar": 19130931,
+   "Concentrated Void": 4138104
+  }
+ },
+ {
+  "boss": "Imperator Averzian",
+  "char": "時來运转",
+  "rank": 1,
+  "pi": "False",
+  "dur_s": 194.2,
+  "total": 33085739,
+  "boss_pct": 51.1,
+  "add_pct": 48.9,
+  "by_type": {
+   "NPC": 16182893,
+   "Boss": 16902846
+  },
+  "by_name": {
+   "Imperator Averzian": 16902846,
+   "Voidbound Annihilator": 6467416,
+   "Abyssal Voidshaper": 5550570,
+   "Voidmaw": 4164907
+  }
+ },
+ {
+  "boss": "Imperator Averzian",
+  "char": "三春丽三",
+  "rank": 4,
+  "pi": "False",
+  "dur_s": 221.1,
+  "total": 36299794,
+  "boss_pct": 56.5,
+  "add_pct": 43.5,
+  "by_type": {
+   "Boss": 20507402,
+   "NPC": 15792392
+  },
+  "by_name": {
+   "Imperator Averzian": 20507402,
+   "Abyssal Voidshaper": 6619564,
+   "Voidbound Annihilator": 6096679,
+   "Voidmaw": 3052138,
+   "Shadowguard Stalwart": 24011
+  }
+ },
+ {
+  "boss": "Imperator Averzian",
+  "char": "脱缰疯芶",
+  "rank": 5,
+  "pi": "False",
+  "dur_s": 208.2,
+  "total": 33950807,
+  "boss_pct": 65.3,
+  "add_pct": 34.7,
+  "by_type": {
+   "NPC": 11765453,
+   "Boss": 22185354
+  },
+  "by_name": {
+   "Imperator Averzian": 22185354,
+   "Abyssal Voidshaper": 4574410,
+   "Voidbound Annihilator": 3819267,
+   "Voidmaw": 3295754,
+   "Shadowguard Stalwart": 76022
+  }
+ },
+ {
+  "boss": "Lightblinded Vanguard",
+  "char": "은칩",
+  "rank": 3,
+  "pi": "False",
+  "dur_s": 393.0,
+  "total": 82654023,
+  "boss_pct": 100.0,
+  "add_pct": 0.0,
+  "by_type": {
+   "Boss": 82654023
+  },
+  "by_name": {
+   "General Amias Bellamy": 30193869,
+   "War Chaplain Senn": 28773610,
+   "Commander Venel Lightblood": 23686544
+  }
+ },
+ {
+  "boss": "Lightblinded Vanguard",
+  "char": "养啥都死",
+  "rank": 5,
+  "pi": "False",
+  "dur_s": 356.5,
+  "total": 73946600,
+  "boss_pct": 100.0,
+  "add_pct": 0.0,
+  "by_type": {
+   "Boss": 73946600
+  },
+  "by_name": {
+   "War Chaplain Senn": 27138872,
+   "General Amias Bellamy": 27079853,
+   "Commander Venel Lightblood": 19727875
+  }
+ },
+ {
+  "boss": "Lightblinded Vanguard",
+  "char": "赫卡特丶",
+  "rank": 6,
+  "pi": "False",
+  "dur_s": 353.9,
+  "total": 73393585,
+  "boss_pct": 100.0,
+  "add_pct": 0.0,
+  "by_type": {
+   "Boss": 73393585
+  },
+  "by_name": {
+   "War Chaplain Senn": 26862919,
+   "General Amias Bellamy": 25818288,
+   "Commander Venel Lightblood": 20712378
+  }
+ },
+ {
+  "boss": "Vaelgor & Ezzorak",
+  "char": "载物零零号",
+  "rank": 1,
+  "pi": "False",
+  "dur_s": 385.5,
+  "total": 94872824,
+  "boss_pct": 42.6,
+  "add_pct": 57.4,
+  "by_type": {
+   "Boss": 40414902,
+   "NPC": 54457922
+  },
+  "by_name": {
+   "Voidorb": 47428853,
+   "Vaelgor": 28078580,
+   "Ezzorak": 12336322,
+   "Manifestation of Midnight": 7029069
+  }
+ },
+ {
+  "boss": "Vaelgor & Ezzorak",
+  "char": "Linshanlr",
+  "rank": 2,
+  "pi": "False",
+  "dur_s": 411.4,
+  "total": 95821181,
+  "boss_pct": 37.3,
+  "add_pct": 62.7,
+  "by_type": {
+   "Boss": 35693834,
+   "NPC": 60127347
+  },
+  "by_name": {
+   "Voidorb": 55526542,
+   "Ezzorak": 18893577,
+   "Vaelgor": 16800257,
+   "Manifestation of Midnight": 4600805
+  }
+ },
+ {
+  "boss": "Vaelgor & Ezzorak",
+  "char": "无限压制",
+  "rank": 3,
+  "pi": "False",
+  "dur_s": 391.6,
+  "total": 91064001,
+  "boss_pct": 41.0,
+  "add_pct": 59.0,
+  "by_type": {
+   "Boss": 37377123,
+   "NPC": 53686878
+  },
+  "by_name": {
+   "Voidorb": 45863638,
+   "Vaelgor": 25903606,
+   "Ezzorak": 11473517,
+   "Manifestation of Midnight": 7823240
+  }
+ }
+]
