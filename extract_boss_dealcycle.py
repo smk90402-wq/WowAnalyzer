@@ -52,7 +52,7 @@ SPEC_CONFIG = {
     },
     ("Hunter", "Marksmanship"): {
         "cooldowns": {288613: "정조준", 466930: "검은 화살"},
-        "track_buffs": {257622: "속사포"},
+        "track_buffs": {257622: "교묘한 사격"},  # spell_db 검증: 257622=교묘한 사격(Trick Shots). 기존 "속사포" 오표기 정정
         "build_node": None, "build_label": (None, None),
     },
     ("Hunter", "Survival"): {
@@ -67,6 +67,27 @@ SPEC_CONFIG = {
         "cooldowns": {84714: "얼어붙은 구슬", 205021: "서리 광선"},
         "track_buffs": {190446: "두뇌 빙결", 44544: "서리의 손가락"},
         "build_node": None, "build_label": (None, None),  # 주문술사 단일빌드
+    },
+    ("Warlock", "Demonology"): {
+        # 캐시 교차검증(악흑 302판): 악마 폭군 소환(265187) 302/302 판, 1분 쿨.
+        # 흑마법서: 임프 군주(1276452)는 선택노드(110197, 흑마법서: 지옥 유린자와 양자택일)에서
+        # 임프 군주 쪽이 사실상 표준이고 255/302판 시전(84%) — 지옥 유린자는 정화 유틸이라 미채택.
+        # 어둠의 서약(108416, Dark Pact)·잿불날개 열파(1250508, 장신구 효과)는 딜쿨기 아니라 제외.
+        "cooldowns": {265187: "악마 폭군 소환", 1276452: "흑마법서: 임프 군주"},
+        # 악마의 핵(264173, Demonic Core) — 굴단의 손 무료화 프록, 302/302판 관측. 스택형(applybuff/stack~remove/stack)
+        "track_buffs": {264173: "악마의 핵"},
+        "build_node": None, "build_label": (None, None),
+    },
+    ("Warlock", "Affliction"): {
+        # 캐시 교차검증(고통 301판): 암흑시선 소환(205180) 301/301판, 실측 재사용 약 40s대(캐스트당 3회 중앙값).
+        # 지옥 지배(악마학자 심연의 지배 계열, 333889)는 8/301판만 채택돼 제외 — 메커니즘 확인≠채택 확인.
+        # 영혼 수확자(Soulharvester)가 875/876(99%) — 지옥소환사(적개심=442726) 표본 1판이라 추적 제외.
+        "cooldowns": {205180: "암흑시선 소환"},
+        # 일몰(부패 적중 시 다음 어둠의 화살/재앙의 손아귀 강화, spec트리 72047 만장일치 노드)은
+        # 판마다 264571 또는 1260279 둘 중 하나로만 관측(상호배타 랭크쌍, 동일 버프) → 합쳐서 추적.
+        # 조각의 불안정성(1260269)은 영혼 흡수/어둠의 화살 적중 시 불안정한 고통 무료화 프록.
+        "track_buffs": {(264571, 1260279): "일몰", 1260269: "조각의 불안정성"},
+        "build_node": None, "build_label": (None, None),
     },
 }
 
@@ -205,7 +226,7 @@ def analyze(df, pf, ev, meta, cls, spec, cfg):
             "cooldowns": cds,
             "lust": {"cover": f"{len(lust_t)}/{n}", "first_s": round(float(np.median(lust_t)))} if lust_t else None,
             "potion": {"cover": f"{len(pot_t)}/{n}", "first_s": round(float(np.median(pot_t)))} if pot_t else None,
-            "buff_uptime": [{"buff": nm(bid), "pct": round(float(np.median(v)))}
+            "buff_uptime": [{"buff": nm(bid[0] if isinstance(bid, tuple) else bid), "pct": round(float(np.median(v)))}
                             for bid, v in buff_up.items() if v],
             "build": build_info,
         }
@@ -250,8 +271,12 @@ def _gcd_collapse(seq, n=8, gap_ms=750):
 
 
 def _uptime(buffs, bid, t0, t1):
-    """간이 업타임: applybuff~removebuff 구간 합 / 전투시간."""
-    evs = sorted((b[0], b[2]) for b in buffs if len(b) >= 3 and b[1] == bid)
+    """간이 업타임: applybuff~removebuff 구간 합 / 전투시간.
+
+    bid 는 단일 스펠ID 또는 튜플(동일 버프의 상호배타 랭크ID 묶음 — 예: 고통 흑마 '일몰').
+    """
+    ids = bid if isinstance(bid, tuple) else (bid,)
+    evs = sorted((b[0], b[2]) for b in buffs if len(b) >= 3 and b[1] in ids)
     if not evs:
         return None
     total = 0.0

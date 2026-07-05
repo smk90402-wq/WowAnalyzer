@@ -1,0 +1,1725 @@
+{
+  "_meta": {
+    "generated_at": "2026-07-05T15:50:57",
+    "zone_id": 46,
+    "zone": "VS / DR / MQD",
+    "difficulty": "mythic",
+    "partition": 3,
+    "partition_name": "12.0.7",
+    "topn": 100,
+    "top_band": 25,
+    "notes": [
+      "DPS 보정값은 템렙과 전투시간 영향을 뺀 값 기준입니다.",
+      "장신구 목록은 하드코딩 없이 사격 상위권 장비에 실제로 나온 것만 집계합니다.",
+      "추천은 평균 딜보다 상위권 채택률을 더 크게 봅니다. 킬마다 딜이 들쭉날쭉한 표본이라 작은 차이는 무시하세요."
+    ]
+  },
+  "Hunter|Marksmanship": {
+    "3176": {
+      "encounter_id": "3176",
+      "boss": "전제군주 아베르지안",
+      "encounter_name": "Imperator Averzian",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "어둠 순찰자": 54,
+        "파수꾼": 46
+      },
+      "failures": 0,
+      "cache_hits": 99,
+      "live_fetches": 1,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 205.5,
+      "top_ilvl": 290.4,
+      "top_stats": {
+        "crit": 1484.7,
+        "haste": 375.1,
+        "mastery": 1345.9,
+        "vers": 133.7
+      },
+      "trinket_pool": [
+        {
+          "id": 193701,
+          "label": "알게타르 수수께끼 상자",
+          "n": 87
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 55
+        },
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 26
+        },
+        {
+          "id": 249344,
+          "label": "빛의 부대기",
+          "n": 10
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 9
+        },
+        {
+          "id": 249806,
+          "label": "광휘의 꽁지깃",
+          "n": 7
+        },
+        {
+          "id": 252420,
+          "label": "태양섬광 분광경",
+          "n": 3
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 2
+        },
+        {
+          "id": 248583,
+          "label": "새로운 유대의 북",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "알게타르 수수께끼 상자",
+          23
+        ],
+        [
+          "암영의 꽁지깃",
+          20
+        ],
+        [
+          "알른 선견자의 응시",
+          3
+        ],
+        [
+          "포자군주의 진균 휘장",
+          2
+        ],
+        [
+          "빛의 부대기",
+          1
+        ],
+        [
+          "광휘의 꽁지깃",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "암영의 꽁지깃": 80,
+        "알게타르 수수께끼 상자": 92,
+        "포자군주의 진균 휘장": 8,
+        "알른 선견자의 응시": 12,
+        "빛의 부대기": 4,
+        "광휘의 꽁지깃": 4
+      },
+      "top_combos": [
+        {
+          "combo": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+          "n": 18,
+          "pct": 72
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 알른 선견자의 응시",
+          "n": 3,
+          "pct": 12
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 포자군주의 진균 휘장",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "빛의 부대기 + 암영의 꽁지깃",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "암영의 꽁지깃 + 포자군주의 진균 휘장",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "광휘의 꽁지깃 + 알게타르 수수께끼 상자",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "193701": {
+          "label": "알게타르 수수께끼 상자",
+          "n": 87,
+          "pct": 87,
+          "avg_rank": 48.9,
+          "avg_dps": 167731.6,
+          "avg_adjusted_dps": -10.8,
+          "others_adjusted_dps": 72.5
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 55,
+          "pct": 55,
+          "avg_rank": 43.9,
+          "avg_dps": 169315.6,
+          "avg_adjusted_dps": 1425.0,
+          "others_adjusted_dps": -1741.6
+        },
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 26,
+          "pct": 26,
+          "avg_rank": 62.0,
+          "avg_dps": 164361.7,
+          "avg_adjusted_dps": -2572.1,
+          "others_adjusted_dps": 903.7
+        },
+        "249344": {
+          "label": "빛의 부대기",
+          "n": 10,
+          "pct": 10,
+          "avg_rank": 68.4,
+          "avg_dps": 163617.7,
+          "avg_adjusted_dps": -1372.2,
+          "others_adjusted_dps": 152.5
+        },
+        "268292": {
+          "label": "포자군주의 진균 휘장",
+          "n": 9,
+          "pct": 9,
+          "avg_rank": 52.1,
+          "avg_dps": 167256.5,
+          "avg_adjusted_dps": 2086.4,
+          "others_adjusted_dps": -206.4
+        },
+        "249806": {
+          "label": "광휘의 꽁지깃",
+          "n": 7,
+          "pct": 7,
+          "avg_rank": 47.0,
+          "avg_dps": 166354.5,
+          "avg_adjusted_dps": -1381.5,
+          "others_adjusted_dps": 104.0
+        },
+        "252420": {
+          "label": "태양섬광 분광경",
+          "n": 3,
+          "pct": 3,
+          "avg_rank": 61.3,
+          "avg_dps": 163838.9,
+          "avg_adjusted_dps": -1632.5,
+          "others_adjusted_dps": 50.5
+        }
+      },
+      "recommendation": {
+        "pick": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 72%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": -83.3
+      }
+    },
+    "3177": {
+      "encounter_id": "3177",
+      "boss": "보라시우스",
+      "encounter_name": "Vorasius",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "어둠 순찰자": 100
+      },
+      "failures": 0,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 208.8,
+      "top_ilvl": 291.0,
+      "top_stats": {
+        "crit": 1574.5,
+        "haste": 399.0,
+        "mastery": 1313.0,
+        "vers": 116.8
+      },
+      "trinket_pool": [
+        {
+          "id": 193701,
+          "label": "알게타르 수수께끼 상자",
+          "n": 99
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 63
+        },
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 24
+        },
+        {
+          "id": 249806,
+          "label": "광휘의 꽁지깃",
+          "n": 8
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 3
+        },
+        {
+          "id": 252420,
+          "label": "태양섬광 분광경",
+          "n": 2
+        },
+        {
+          "id": 171646,
+          "label": "행렬 재안정기",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "알게타르 수수께끼 상자",
+          25
+        ],
+        [
+          "암영의 꽁지깃",
+          20
+        ],
+        [
+          "알른 선견자의 응시",
+          5
+        ]
+      ],
+      "top_item_pct": {
+        "알게타르 수수께끼 상자": 100,
+        "암영의 꽁지깃": 80,
+        "알른 선견자의 응시": 20
+      },
+      "top_combos": [
+        {
+          "combo": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+          "n": 20,
+          "pct": 80
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 알른 선견자의 응시",
+          "n": 5,
+          "pct": 20
+        }
+      ],
+      "groups": {
+        "193701": {
+          "label": "알게타르 수수께끼 상자",
+          "n": 99,
+          "pct": 99,
+          "avg_rank": 50.1,
+          "avg_dps": 140533.4,
+          "avg_adjusted_dps": 25.9,
+          "others_adjusted_dps": null
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 63,
+          "pct": 63,
+          "avg_rank": 47.8,
+          "avg_dps": 140938.2,
+          "avg_adjusted_dps": 58.2,
+          "others_adjusted_dps": -99.1
+        },
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 24,
+          "pct": 24,
+          "avg_rank": 51.2,
+          "avg_dps": 140443.0,
+          "avg_adjusted_dps": 702.5,
+          "others_adjusted_dps": -221.8
+        },
+        "249806": {
+          "label": "광휘의 꽁지깃",
+          "n": 8,
+          "pct": 8,
+          "avg_rank": 63.6,
+          "avg_dps": 138064.5,
+          "avg_adjusted_dps": -1827.2,
+          "others_adjusted_dps": 158.9
+        },
+        "268292": {
+          "label": "포자군주의 진균 휘장",
+          "n": 3,
+          "pct": 3,
+          "avg_rank": 50.7,
+          "avg_dps": 140167.0,
+          "avg_adjusted_dps": 681.2,
+          "others_adjusted_dps": -21.1
+        }
+      },
+      "recommendation": {
+        "pick": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 80%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": null
+      }
+    },
+    "3178": {
+      "encounter_id": "3178",
+      "boss": "바엘고어와 에조라크",
+      "encounter_name": "Vaelgor & Ezzorak",
+      "rankings_n": 100,
+      "sample_n": 98,
+      "hero_counts": {
+        "파수꾼": 97,
+        "unknown": 1
+      },
+      "failures": 2,
+      "cache_hits": 99,
+      "live_fetches": 1,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 378.5,
+      "top_ilvl": 290.0,
+      "top_stats": {
+        "crit": 1382.7,
+        "haste": 438.4,
+        "mastery": 915.2,
+        "vers": 115.6
+      },
+      "trinket_pool": [
+        {
+          "id": 193701,
+          "label": "알게타르 수수께끼 상자",
+          "n": 82
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 52
+        },
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 28
+        },
+        {
+          "id": 249344,
+          "label": "빛의 부대기",
+          "n": 12
+        },
+        {
+          "id": 249806,
+          "label": "광휘의 꽁지깃",
+          "n": 9
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 7
+        },
+        {
+          "id": 252420,
+          "label": "태양섬광 분광경",
+          "n": 3
+        },
+        {
+          "id": 249805,
+          "label": "꿈결을 벗어난 신의 수액이 흐르는 자취",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "알게타르 수수께끼 상자",
+          24
+        ],
+        [
+          "암영의 꽁지깃",
+          18
+        ],
+        [
+          "알른 선견자의 응시",
+          4
+        ],
+        [
+          "포자군주의 진균 휘장",
+          2
+        ],
+        [
+          "꿈결을 벗어난 신의 수액이 흐르는 자취",
+          1
+        ],
+        [
+          "빛의 부대기",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "암영의 꽁지깃": 72,
+        "알게타르 수수께끼 상자": 96,
+        "알른 선견자의 응시": 16,
+        "꿈결을 벗어난 신의 수액이 흐르는 자취": 4,
+        "포자군주의 진균 휘장": 8,
+        "빛의 부대기": 4
+      },
+      "top_combos": [
+        {
+          "combo": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+          "n": 18,
+          "pct": 72
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 알른 선견자의 응시",
+          "n": 3,
+          "pct": 12
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 포자군주의 진균 휘장",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "꿈결을 벗어난 신의 수액이 흐르는 자취 + 알게타르 수수께끼 상자",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "빛의 부대기 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "193701": {
+          "label": "알게타르 수수께끼 상자",
+          "n": 82,
+          "pct": 84,
+          "avg_rank": 48.9,
+          "avg_dps": 217939.9,
+          "avg_adjusted_dps": 558.0,
+          "others_adjusted_dps": -2859.9
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 52,
+          "pct": 53,
+          "avg_rank": 44.2,
+          "avg_dps": 219228.5,
+          "avg_adjusted_dps": 1911.0,
+          "others_adjusted_dps": -2160.2
+        },
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 28,
+          "pct": 29,
+          "avg_rank": 55.5,
+          "avg_dps": 215358.7,
+          "avg_adjusted_dps": -2118.6,
+          "others_adjusted_dps": 847.5
+        },
+        "249344": {
+          "label": "빛의 부대기",
+          "n": 12,
+          "pct": 12,
+          "avg_rank": 51.3,
+          "avg_dps": 215235.7,
+          "avg_adjusted_dps": -2084.1,
+          "others_adjusted_dps": 290.8
+        },
+        "249806": {
+          "label": "광휘의 꽁지깃",
+          "n": 9,
+          "pct": 9,
+          "avg_rank": 58.9,
+          "avg_dps": 213869.4,
+          "avg_adjusted_dps": -3445.0,
+          "others_adjusted_dps": 348.4
+        },
+        "268292": {
+          "label": "포자군주의 진균 휘장",
+          "n": 7,
+          "pct": 7,
+          "avg_rank": 54.6,
+          "avg_dps": 216393.4,
+          "avg_adjusted_dps": -1566.4,
+          "others_adjusted_dps": 120.5
+        },
+        "252420": {
+          "label": "태양섬광 분광경",
+          "n": 3,
+          "pct": 3,
+          "avg_rank": 64.7,
+          "avg_dps": 213023.3,
+          "avg_adjusted_dps": -3806.5,
+          "others_adjusted_dps": 120.2
+        }
+      },
+      "recommendation": {
+        "pick": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 72%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": 3417.9
+      }
+    },
+    "3179": {
+      "encounter_id": "3179",
+      "boss": "몰락왕 살라다르",
+      "encounter_name": "Fallen-King Salhadaar",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "어둠 순찰자": 55,
+        "파수꾼": 45
+      },
+      "failures": 0,
+      "cache_hits": 99,
+      "live_fetches": 1,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 242.3,
+      "top_ilvl": 290.6,
+      "top_stats": {
+        "crit": 1443.0,
+        "haste": 442.6,
+        "mastery": 1223.1,
+        "vers": 110.3
+      },
+      "trinket_pool": [
+        {
+          "id": 193701,
+          "label": "알게타르 수수께끼 상자",
+          "n": 90
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 50
+        },
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 34
+        },
+        {
+          "id": 249806,
+          "label": "광휘의 꽁지깃",
+          "n": 10
+        },
+        {
+          "id": 249344,
+          "label": "빛의 부대기",
+          "n": 7
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 5
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 1
+        },
+        {
+          "id": 248583,
+          "label": "새로운 유대의 북",
+          "n": 1
+        },
+        {
+          "id": 252420,
+          "label": "태양섬광 분광경",
+          "n": 1
+        },
+        {
+          "id": 249345,
+          "label": "순찰대장의 오색 휘장",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "알게타르 수수께끼 상자",
+          23
+        ],
+        [
+          "암영의 꽁지깃",
+          17
+        ],
+        [
+          "알른 선견자의 응시",
+          4
+        ],
+        [
+          "광휘의 꽁지깃",
+          4
+        ],
+        [
+          "포자군주의 진균 휘장",
+          2
+        ]
+      ],
+      "top_item_pct": {
+        "알게타르 수수께끼 상자": 92,
+        "암영의 꽁지깃": 68,
+        "포자군주의 진균 휘장": 8,
+        "알른 선견자의 응시": 16,
+        "광휘의 꽁지깃": 16
+      },
+      "top_combos": [
+        {
+          "combo": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+          "n": 17,
+          "pct": 68
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 포자군주의 진균 휘장",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 알른 선견자의 응시",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "광휘의 꽁지깃 + 알게타르 수수께끼 상자",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "광휘의 꽁지깃 + 알른 선견자의 응시",
+          "n": 2,
+          "pct": 8
+        }
+      ],
+      "groups": {
+        "193701": {
+          "label": "알게타르 수수께끼 상자",
+          "n": 90,
+          "pct": 90,
+          "avg_rank": 49.4,
+          "avg_dps": 159267.0,
+          "avg_adjusted_dps": 260.5,
+          "others_adjusted_dps": -2344.2
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 50,
+          "pct": 50,
+          "avg_rank": 47.8,
+          "avg_dps": 160297.8,
+          "avg_adjusted_dps": 779.4,
+          "others_adjusted_dps": -779.4
+        },
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 34,
+          "pct": 34,
+          "avg_rank": 55.6,
+          "avg_dps": 157046.7,
+          "avg_adjusted_dps": -1627.9,
+          "others_adjusted_dps": 838.6
+        },
+        "249806": {
+          "label": "광휘의 꽁지깃",
+          "n": 10,
+          "pct": 10,
+          "avg_rank": 43.3,
+          "avg_dps": 159317.8,
+          "avg_adjusted_dps": 762.6,
+          "others_adjusted_dps": -84.7
+        },
+        "249344": {
+          "label": "빛의 부대기",
+          "n": 7,
+          "pct": 7,
+          "avg_rank": 76.0,
+          "avg_dps": 153574.4,
+          "avg_adjusted_dps": -5409.7,
+          "others_adjusted_dps": 407.2
+        },
+        "268292": {
+          "label": "포자군주의 진균 휘장",
+          "n": 5,
+          "pct": 5,
+          "avg_rank": 33.8,
+          "avg_dps": 163387.9,
+          "avg_adjusted_dps": 5055.8,
+          "others_adjusted_dps": -266.1
+        }
+      },
+      "recommendation": {
+        "pick": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 68%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": 2604.7
+      }
+    },
+    "3180": {
+      "encounter_id": "3180",
+      "boss": "빛눈먼 선봉대",
+      "encounter_name": "Lightblinded Vanguard",
+      "rankings_n": 100,
+      "sample_n": 99,
+      "hero_counts": {
+        "파수꾼": 99
+      },
+      "failures": 1,
+      "cache_hits": 98,
+      "live_fetches": 2,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 344.4,
+      "top_ilvl": 290.7,
+      "top_stats": {
+        "crit": 1455.9,
+        "haste": 444.1,
+        "mastery": 965.0,
+        "vers": 83.4
+      },
+      "trinket_pool": [
+        {
+          "id": 193701,
+          "label": "알게타르 수수께끼 상자",
+          "n": 78
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 50
+        },
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 34
+        },
+        {
+          "id": 249344,
+          "label": "빛의 부대기",
+          "n": 14
+        },
+        {
+          "id": 249806,
+          "label": "광휘의 꽁지깃",
+          "n": 10
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 7
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 3
+        },
+        {
+          "id": 252420,
+          "label": "태양섬광 분광경",
+          "n": 2
+        }
+      ],
+      "top_items": [
+        [
+          "알게타르 수수께끼 상자",
+          20
+        ],
+        [
+          "암영의 꽁지깃",
+          15
+        ],
+        [
+          "알른 선견자의 응시",
+          6
+        ],
+        [
+          "빛의 부대기",
+          4
+        ],
+        [
+          "광휘의 꽁지깃",
+          4
+        ],
+        [
+          "태양섬광 분광경",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "암영의 꽁지깃": 60,
+        "알게타르 수수께끼 상자": 80,
+        "알른 선견자의 응시": 24,
+        "빛의 부대기": 16,
+        "광휘의 꽁지깃": 16,
+        "태양섬광 분광경": 4
+      },
+      "top_combos": [
+        {
+          "combo": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+          "n": 14,
+          "pct": 56
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 알른 선견자의 응시",
+          "n": 3,
+          "pct": 12
+        },
+        {
+          "combo": "광휘의 꽁지깃 + 빛의 부대기",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "빛의 부대기 + 알른 선견자의 응시",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "광휘의 꽁지깃 + 알게타르 수수께끼 상자",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 태양섬광 분광경",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "알른 선견자의 응시 + 암영의 꽁지깃",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "193701": {
+          "label": "알게타르 수수께끼 상자",
+          "n": 78,
+          "pct": 79,
+          "avg_rank": 50.9,
+          "avg_dps": 244933.1,
+          "avg_adjusted_dps": -372.4,
+          "others_adjusted_dps": 1383.2
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 50,
+          "pct": 51,
+          "avg_rank": 45.9,
+          "avg_dps": 245928.5,
+          "avg_adjusted_dps": 128.1,
+          "others_adjusted_dps": -130.7
+        },
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 34,
+          "pct": 34,
+          "avg_rank": 58.4,
+          "avg_dps": 243156.8,
+          "avg_adjusted_dps": 108.3,
+          "others_adjusted_dps": -56.7
+        },
+        "249344": {
+          "label": "빛의 부대기",
+          "n": 14,
+          "pct": 14,
+          "avg_rank": 51.6,
+          "avg_dps": 244188.8,
+          "avg_adjusted_dps": 1793.3,
+          "others_adjusted_dps": -295.4
+        },
+        "249806": {
+          "label": "광휘의 꽁지깃",
+          "n": 10,
+          "pct": 10,
+          "avg_rank": 39.5,
+          "avg_dps": 246143.2,
+          "avg_adjusted_dps": 585.6,
+          "others_adjusted_dps": -65.8
+        },
+        "268292": {
+          "label": "포자군주의 진균 휘장",
+          "n": 7,
+          "pct": 7,
+          "avg_rank": 73.0,
+          "avg_dps": 240105.0,
+          "avg_adjusted_dps": -3458.0,
+          "others_adjusted_dps": 263.1
+        },
+        "250144": {
+          "label": "잿불날개 깃털",
+          "n": 3,
+          "pct": 3,
+          "avg_rank": 57.7,
+          "avg_dps": 242127.1,
+          "avg_adjusted_dps": -845.7,
+          "others_adjusted_dps": 26.4
+        }
+      },
+      "recommendation": {
+        "pick": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+        "risk_profile": "우세 세팅",
+        "reason": "상위권에서 제일 많이 쓰는 조합(56%)입니다. 차선은 알게타르 수수께끼 상자 + 알른 선견자의 응시(12%)입니다.",
+        "top_adjusted_delta": -1755.6
+      }
+    },
+    "3181": {
+      "encounter_id": "3181",
+      "boss": "우주의 왕관",
+      "encounter_name": "Crown of the Cosmos",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "파수꾼": 80,
+        "어둠 순찰자": 20
+      },
+      "failures": 0,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 479.9,
+      "top_ilvl": 290.2,
+      "top_stats": {
+        "crit": 1378.6,
+        "haste": 396.6,
+        "mastery": 950.7,
+        "vers": 94.6
+      },
+      "trinket_pool": [
+        {
+          "id": 193701,
+          "label": "알게타르 수수께끼 상자",
+          "n": 79
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 53
+        },
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 37
+        },
+        {
+          "id": 249344,
+          "label": "빛의 부대기",
+          "n": 15
+        },
+        {
+          "id": 249806,
+          "label": "광휘의 꽁지깃",
+          "n": 6
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 3
+        },
+        {
+          "id": 249345,
+          "label": "순찰대장의 오색 휘장",
+          "n": 3
+        },
+        {
+          "id": 248583,
+          "label": "새로운 유대의 북",
+          "n": 1
+        },
+        {
+          "id": 250256,
+          "label": "바람의 심장",
+          "n": 1
+        },
+        {
+          "id": 265657,
+          "label": "살아있는 고뇌의 섬유",
+          "n": 1
+        },
+        {
+          "id": 252420,
+          "label": "태양섬광 분광경",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "알게타르 수수께끼 상자",
+          20
+        ],
+        [
+          "암영의 꽁지깃",
+          11
+        ],
+        [
+          "알른 선견자의 응시",
+          7
+        ],
+        [
+          "광휘의 꽁지깃",
+          4
+        ],
+        [
+          "빛의 부대기",
+          3
+        ],
+        [
+          "포자군주의 진균 휘장",
+          2
+        ],
+        [
+          "순찰대장의 오색 휘장",
+          2
+        ],
+        [
+          "새로운 유대의 북",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "알게타르 수수께끼 상자": 80,
+        "광휘의 꽁지깃": 16,
+        "알른 선견자의 응시": 28,
+        "암영의 꽁지깃": 44,
+        "포자군주의 진균 휘장": 8,
+        "순찰대장의 오색 휘장": 8,
+        "새로운 유대의 북": 4,
+        "빛의 부대기": 12
+      },
+      "top_combos": [
+        {
+          "combo": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+          "n": 9,
+          "pct": 36
+        },
+        {
+          "combo": "광휘의 꽁지깃 + 알게타르 수수께끼 상자",
+          "n": 4,
+          "pct": 16
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 알른 선견자의 응시",
+          "n": 4,
+          "pct": 16
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 포자군주의 진균 휘장",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "빛의 부대기 + 암영의 꽁지깃",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "순찰대장의 오색 휘장 + 알게타르 수수께끼 상자",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "새로운 유대의 북 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "순찰대장의 오색 휘장 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "193701": {
+          "label": "알게타르 수수께끼 상자",
+          "n": 79,
+          "pct": 79,
+          "avg_rank": 51.3,
+          "avg_dps": 152841.4,
+          "avg_adjusted_dps": -133.7,
+          "others_adjusted_dps": 503.1
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 53,
+          "pct": 53,
+          "avg_rank": 52.3,
+          "avg_dps": 152277.1,
+          "avg_adjusted_dps": -884.2,
+          "others_adjusted_dps": 997.1
+        },
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 37,
+          "pct": 37,
+          "avg_rank": 55.0,
+          "avg_dps": 151632.6,
+          "avg_adjusted_dps": -717.8,
+          "others_adjusted_dps": 421.6
+        },
+        "249344": {
+          "label": "빛의 부대기",
+          "n": 15,
+          "pct": 15,
+          "avg_rank": 51.3,
+          "avg_dps": 152007.2,
+          "avg_adjusted_dps": -14.9,
+          "others_adjusted_dps": 2.6
+        },
+        "249806": {
+          "label": "광휘의 꽁지깃",
+          "n": 6,
+          "pct": 6,
+          "avg_rank": 24.8,
+          "avg_dps": 160769.5,
+          "avg_adjusted_dps": 8267.3,
+          "others_adjusted_dps": -527.7
+        },
+        "268292": {
+          "label": "포자군주의 진균 휘장",
+          "n": 3,
+          "pct": 3,
+          "avg_rank": 15.3,
+          "avg_dps": 160135.5,
+          "avg_adjusted_dps": 6989.7,
+          "others_adjusted_dps": -216.2
+        },
+        "249345": {
+          "label": "순찰대장의 오색 휘장",
+          "n": 3,
+          "pct": 3,
+          "avg_rank": 23.7,
+          "avg_dps": 157206.0,
+          "avg_adjusted_dps": 4558.7,
+          "others_adjusted_dps": -141.0
+        }
+      },
+      "recommendation": {
+        "pick": "보유 고템렙 우선",
+        "risk_profile": "혼합",
+        "reason": "상위권 세팅이 갈립니다. 킬마다 딜이 들쭉날쭉한 표본이라 작은 차이는 무시하고, 보유한 장신구 중 템렙 높은 쪽을 먼저 쓰세요. 많이 보이는 조합은 알게타르 수수께끼 상자 + 암영의 꽁지깃(36%), 광휘의 꽁지깃 + 알게타르 수수께끼 상자(16%)입니다.",
+        "top_adjusted_delta": -636.8
+      }
+    },
+    "3182": {
+      "encounter_id": "3182",
+      "boss": "벨로렌",
+      "encounter_name": "Belo'ren, Child of Al'ar",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "파수꾼": 96,
+        "어둠 순찰자": 4
+      },
+      "failures": 0,
+      "cache_hits": 97,
+      "live_fetches": 3,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 318.6,
+      "top_ilvl": 290.3,
+      "top_stats": {
+        "crit": 1479.4,
+        "haste": 423.0,
+        "mastery": 1575.8,
+        "vers": 89.4
+      },
+      "trinket_pool": [
+        {
+          "id": 193701,
+          "label": "알게타르 수수께끼 상자",
+          "n": 90
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 64
+        },
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 26
+        },
+        {
+          "id": 249806,
+          "label": "광휘의 꽁지깃",
+          "n": 10
+        },
+        {
+          "id": 249344,
+          "label": "빛의 부대기",
+          "n": 5
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 3
+        },
+        {
+          "id": 249345,
+          "label": "순찰대장의 오색 휘장",
+          "n": 2
+        }
+      ],
+      "top_items": [
+        [
+          "알게타르 수수께끼 상자",
+          24
+        ],
+        [
+          "암영의 꽁지깃",
+          21
+        ],
+        [
+          "알른 선견자의 응시",
+          4
+        ],
+        [
+          "순찰대장의 오색 휘장",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "알게타르 수수께끼 상자": 96,
+        "암영의 꽁지깃": 84,
+        "알른 선견자의 응시": 16,
+        "순찰대장의 오색 휘장": 4
+      },
+      "top_combos": [
+        {
+          "combo": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+          "n": 20,
+          "pct": 80
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 알른 선견자의 응시",
+          "n": 4,
+          "pct": 16
+        },
+        {
+          "combo": "순찰대장의 오색 휘장 + 암영의 꽁지깃",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "193701": {
+          "label": "알게타르 수수께끼 상자",
+          "n": 90,
+          "pct": 90,
+          "avg_rank": 49.1,
+          "avg_dps": 140605.1,
+          "avg_adjusted_dps": 250.5,
+          "others_adjusted_dps": -2254.3
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 64,
+          "pct": 64,
+          "avg_rank": 45.1,
+          "avg_dps": 141375.2,
+          "avg_adjusted_dps": 1055.4,
+          "others_adjusted_dps": -1876.3
+        },
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 26,
+          "pct": 26,
+          "avg_rank": 57.5,
+          "avg_dps": 138940.3,
+          "avg_adjusted_dps": -1516.4,
+          "others_adjusted_dps": 532.8
+        },
+        "249806": {
+          "label": "광휘의 꽁지깃",
+          "n": 10,
+          "pct": 10,
+          "avg_rank": 69.8,
+          "avg_dps": 137060.6,
+          "avg_adjusted_dps": -3224.5,
+          "others_adjusted_dps": 358.3
+        },
+        "249344": {
+          "label": "빛의 부대기",
+          "n": 5,
+          "pct": 5,
+          "avg_rank": 71.4,
+          "avg_dps": 136860.6,
+          "avg_adjusted_dps": -3497.7,
+          "others_adjusted_dps": 184.1
+        },
+        "268292": {
+          "label": "포자군주의 진균 휘장",
+          "n": 3,
+          "pct": 3,
+          "avg_rank": 56.3,
+          "avg_dps": 138358.5,
+          "avg_adjusted_dps": -1782.7,
+          "others_adjusted_dps": 55.1
+        }
+      },
+      "recommendation": {
+        "pick": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 80%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": 2504.8
+      }
+    },
+    "3183": {
+      "encounter_id": "3183",
+      "boss": "한밤의 도래",
+      "encounter_name": "Midnight Falls",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "어둠 순찰자": 94,
+        "파수꾼": 6
+      },
+      "failures": 0,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 552.3,
+      "top_ilvl": 291.0,
+      "top_stats": {
+        "crit": 1473.8,
+        "haste": 402.5,
+        "mastery": 917.3,
+        "vers": 118.6
+      },
+      "trinket_pool": [
+        {
+          "id": 193701,
+          "label": "알게타르 수수께끼 상자",
+          "n": 94
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 65
+        },
+        {
+          "id": 249806,
+          "label": "광휘의 꽁지깃",
+          "n": 17
+        },
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 14
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 5
+        },
+        {
+          "id": 249345,
+          "label": "순찰대장의 오색 휘장",
+          "n": 5
+        }
+      ],
+      "top_items": [
+        [
+          "알게타르 수수께끼 상자",
+          25
+        ],
+        [
+          "암영의 꽁지깃",
+          21
+        ],
+        [
+          "포자군주의 진균 휘장",
+          2
+        ],
+        [
+          "알른 선견자의 응시",
+          1
+        ],
+        [
+          "광휘의 꽁지깃",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "알게타르 수수께끼 상자": 100,
+        "암영의 꽁지깃": 84,
+        "포자군주의 진균 휘장": 8,
+        "알른 선견자의 응시": 4,
+        "광휘의 꽁지깃": 4
+      },
+      "top_combos": [
+        {
+          "combo": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+          "n": 21,
+          "pct": 84
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 포자군주의 진균 휘장",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "광휘의 꽁지깃 + 알게타르 수수께끼 상자",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "193701": {
+          "label": "알게타르 수수께끼 상자",
+          "n": 94,
+          "pct": 94,
+          "avg_rank": 48.8,
+          "avg_dps": 188415.1,
+          "avg_adjusted_dps": 391.8,
+          "others_adjusted_dps": -6137.8
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 65,
+          "pct": 65,
+          "avg_rank": 43.8,
+          "avg_dps": 189661.7,
+          "avg_adjusted_dps": 1398.9,
+          "others_adjusted_dps": -2597.9
+        },
+        "249806": {
+          "label": "광휘의 꽁지깃",
+          "n": 17,
+          "pct": 17,
+          "avg_rank": 62.9,
+          "avg_dps": 184616.7,
+          "avg_adjusted_dps": -2239.9,
+          "others_adjusted_dps": 458.8
+        },
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 14,
+          "pct": 14,
+          "avg_rank": 66.6,
+          "avg_dps": 184214.4,
+          "avg_adjusted_dps": -4034.2,
+          "others_adjusted_dps": 656.7
+        },
+        "268292": {
+          "label": "포자군주의 진균 휘장",
+          "n": 5,
+          "pct": 5,
+          "avg_rank": 48.6,
+          "avg_dps": 188862.9,
+          "avg_adjusted_dps": -247.4,
+          "others_adjusted_dps": 13.0
+        },
+        "249345": {
+          "label": "순찰대장의 오색 휘장",
+          "n": 5,
+          "pct": 5,
+          "avg_rank": 85.4,
+          "avg_dps": 180529.2,
+          "avg_adjusted_dps": -6391.6,
+          "others_adjusted_dps": 336.4
+        }
+      },
+      "recommendation": {
+        "pick": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 84%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": 6529.6
+      }
+    },
+    "3306": {
+      "encounter_id": "3306",
+      "boss": "카이메루스",
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "어둠 순찰자": 93,
+        "파수꾼": 7
+      },
+      "failures": 0,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 145.0,
+      "top_ilvl": 291.0,
+      "top_stats": {
+        "crit": 1500.0,
+        "haste": 377.4,
+        "mastery": 1416.6,
+        "vers": 123.3
+      },
+      "trinket_pool": [
+        {
+          "id": 193701,
+          "label": "알게타르 수수께끼 상자",
+          "n": 98
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 61
+        },
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 15
+        },
+        {
+          "id": 252420,
+          "label": "태양섬광 분광경",
+          "n": 11
+        },
+        {
+          "id": 249806,
+          "label": "광휘의 꽁지깃",
+          "n": 9
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 4
+        },
+        {
+          "id": 250144,
+          "label": "잿불날개 깃털",
+          "n": 2
+        }
+      ],
+      "top_items": [
+        [
+          "알게타르 수수께끼 상자",
+          25
+        ],
+        [
+          "암영의 꽁지깃",
+          15
+        ],
+        [
+          "알른 선견자의 응시",
+          6
+        ],
+        [
+          "태양섬광 분광경",
+          2
+        ],
+        [
+          "광휘의 꽁지깃",
+          1
+        ],
+        [
+          "포자군주의 진균 휘장",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "알게타르 수수께끼 상자": 100,
+        "암영의 꽁지깃": 60,
+        "광휘의 꽁지깃": 4,
+        "알른 선견자의 응시": 24,
+        "태양섬광 분광경": 8,
+        "포자군주의 진균 휘장": 4
+      },
+      "top_combos": [
+        {
+          "combo": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+          "n": 15,
+          "pct": 60
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 알른 선견자의 응시",
+          "n": 6,
+          "pct": 24
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 태양섬광 분광경",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "광휘의 꽁지깃 + 알게타르 수수께끼 상자",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "알게타르 수수께끼 상자 + 포자군주의 진균 휘장",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "193701": {
+          "label": "알게타르 수수께끼 상자",
+          "n": 98,
+          "pct": 98,
+          "avg_rank": 49.6,
+          "avg_dps": 162313.2,
+          "avg_adjusted_dps": 81.6,
+          "others_adjusted_dps": -3999.7
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 61,
+          "pct": 61,
+          "avg_rank": 47.4,
+          "avg_dps": 162627.0,
+          "avg_adjusted_dps": 240.4,
+          "others_adjusted_dps": -376.1
+        },
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 15,
+          "pct": 15,
+          "avg_rank": 41.9,
+          "avg_dps": 163921.6,
+          "avg_adjusted_dps": 1800.1,
+          "others_adjusted_dps": -317.7
+        },
+        "252420": {
+          "label": "태양섬광 분광경",
+          "n": 11,
+          "pct": 11,
+          "avg_rank": 55.9,
+          "avg_dps": 160682.4,
+          "avg_adjusted_dps": -1871.6,
+          "others_adjusted_dps": 231.3
+        },
+        "249806": {
+          "label": "광휘의 꽁지깃",
+          "n": 9,
+          "pct": 9,
+          "avg_rank": 67.3,
+          "avg_dps": 159808.9,
+          "avg_adjusted_dps": -2085.4,
+          "others_adjusted_dps": 206.2
+        },
+        "268292": {
+          "label": "포자군주의 진균 휘장",
+          "n": 4,
+          "pct": 4,
+          "avg_rank": 77.8,
+          "avg_dps": 158232.6,
+          "avg_adjusted_dps": -578.0,
+          "others_adjusted_dps": 24.1
+        }
+      },
+      "recommendation": {
+        "pick": "알게타르 수수께끼 상자 + 암영의 꽁지깃",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 60%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": 4081.3
+      }
+    }
+  }
+}

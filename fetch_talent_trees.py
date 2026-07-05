@@ -41,6 +41,7 @@ OUT = DATA / "talent_trees.json"
 # (display key, class tree ID, spec ID) — Blizzard 의 specID
 SPECS = [
     ("Warlock/Demonology",     720, 266),   # Warlock 흑마법사 tree=720, Demo spec=266
+    ("Warlock/Affliction",     720, 265),   # 고통 흑마 가이드용 (2026-07-05). tree=720, Affl spec=265.
     ("Druid/Balance",          793, 102),   # Druid tree=793, Balance spec=102
     ("Hunter/Beast Mastery",   774, 253),
     ("Hunter/Marksmanship",    774, 254),   # 어둠순찰자 서브빌드 노드 매핑용 (2026-06-11)

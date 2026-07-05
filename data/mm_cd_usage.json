@@ -1,0 +1,2658 @@
+{
+ "meta": {
+  "date": "2026-07-05",
+  "n_kills": 341,
+  "hero_adoption": {
+   "어둠 순찰자": 169,
+   "파수꾼": 172
+  },
+  "eff_cd_s": {
+   "trueshot": 120.4,
+   "volley": 45.3
+  },
+  "spells": {
+   "trueshot": 288613,
+   "volley": 260243,
+   "wailing_arrow_dr": 392060,
+   "chakram_sen": 1264949,
+   "puzzle_box": 383781,
+   "potions": {
+    "1236616": "빛의잠재력",
+    "1236998": "방종의비약",
+    "1236994": "무모함의물약"
+   }
+  },
+  "notes": [
+   "정조준(288613) 간격 p5=120s → 실효 2분 쿨. DR/SEN 공통.",
+   "울부짖는 화살(392060, DR 전용)·달빛 회전 표창(1264949, SEN 전용) 모두 간격 p5≈114~117s로 정조준 주기와 동기 — 각 영웅특성의 '정조준 연동 버스트'로 확정.",
+   "연발 공격(260243) 간격 p5=45s → 정조준과 별개의 짧은 광역 쿨기(1분 미만 티어).",
+   "검은 화살(466930)은 간격 p5=2.1s(스팸형 소모기)라 홀드 채굴 대상에서 제외.",
+   "블러드/영웅심 계열 335/341킬에서 관측 — BM 데이터셋(0/362)과 달리 이 데이터셋엔 블러드 존재."
+  ]
+ },
+ "overall": {
+  "rank_1_20": {
+   "n": 177,
+   "first_ts_med_s": 5.5,
+   "first_ts_p25_p75": [
+    3.9,
+    8.1
+   ],
+   "ts_per_min_med": 0.57,
+   "ts_gap": {
+    "n": 349,
+    "p25": 122.5,
+    "med": 125.7,
+    "p75": 140.9,
+    "즉시_pct": 33,
+    "소홀드_pct": 42,
+    "대홀드_pct": 25
+   },
+   "first_volley_med_s": 11.5,
+   "volley_per_min_med": 1.12,
+   "volley_gap": {
+    "n": 841,
+    "p25": 47.9,
+    "med": 54.9,
+    "p75": 66.7,
+    "즉시_pct": 27,
+    "소홀드_pct": 46,
+    "대홀드_pct": 27
+   },
+   "wailing_uses": 250,
+   "wailing_in_ts_window_pct": 100,
+   "chakram_uses": 264,
+   "chakram_in_ts_window_pct": 100,
+   "pot_uses": 225,
+   "pot_ts_overlap_med_s": 15.0,
+   "pot_cast_in_ts_pct": 27,
+   "pot_then_ts_within3s_pct": 70,
+   "pot_to_next_ts_med_s": 1.4,
+   "box_uses": 430,
+   "box_ts_overlap_med_s": 15.0,
+   "box_cast_in_ts_pct": 3,
+   "box_then_ts_within3s_pct": 69,
+   "lust_events": 14,
+   "lust_cast_in_ts_pct": 7,
+   "lust_then_ts_within3s_pct": 7,
+   "lust_to_next_ts_med_s": 5.0
+  },
+  "rank_21_100": {
+   "n": 164,
+   "first_ts_med_s": 5.5,
+   "first_ts_p25_p75": [
+    3.3,
+    7.8
+   ],
+   "ts_per_min_med": 0.58,
+   "ts_gap": {
+    "n": 319,
+    "p25": 122.1,
+    "med": 124.9,
+    "p75": 136.6,
+    "즉시_pct": 38,
+    "소홀드_pct": 39,
+    "대홀드_pct": 24
+   },
+   "first_volley_med_s": 10.6,
+   "volley_per_min_med": 1.09,
+   "volley_gap": {
+    "n": 739,
+    "p25": 48.4,
+    "med": 56.5,
+    "p75": 68.3,
+    "즉시_pct": 25,
+    "소홀드_pct": 46,
+    "대홀드_pct": 29
+   },
+   "wailing_uses": 192,
+   "wailing_in_ts_window_pct": 100,
+   "chakram_uses": 269,
+   "chakram_in_ts_window_pct": 100,
+   "pot_uses": 206,
+   "pot_ts_overlap_med_s": 16.8,
+   "pot_cast_in_ts_pct": 34,
+   "pot_then_ts_within3s_pct": 74,
+   "pot_to_next_ts_med_s": 0.2,
+   "box_uses": 360,
+   "box_ts_overlap_med_s": 15.0,
+   "box_cast_in_ts_pct": 2,
+   "box_then_ts_within3s_pct": 73,
+   "lust_events": 10,
+   "lust_cast_in_ts_pct": 0,
+   "lust_then_ts_within3s_pct": 0,
+   "lust_to_next_ts_med_s": 5.9
+  },
+  "all": {
+   "n": 341,
+   "first_ts_med_s": 5.5,
+   "first_ts_p25_p75": [
+    3.7,
+    7.9
+   ],
+   "ts_per_min_med": 0.57,
+   "ts_gap": {
+    "n": 668,
+    "p25": 122.3,
+    "med": 125.4,
+    "p75": 139.3,
+    "즉시_pct": 35,
+    "소홀드_pct": 40,
+    "대홀드_pct": 25
+   },
+   "first_volley_med_s": 11.4,
+   "volley_per_min_med": 1.11,
+   "volley_gap": {
+    "n": 1580,
+    "p25": 48.1,
+    "med": 55.6,
+    "p75": 67.3,
+    "즉시_pct": 26,
+    "소홀드_pct": 46,
+    "대홀드_pct": 28
+   },
+   "wailing_uses": 442,
+   "wailing_in_ts_window_pct": 100,
+   "chakram_uses": 533,
+   "chakram_in_ts_window_pct": 100,
+   "pot_uses": 431,
+   "pot_ts_overlap_med_s": 15.1,
+   "pot_cast_in_ts_pct": 30,
+   "pot_then_ts_within3s_pct": 72,
+   "pot_to_next_ts_med_s": 0.4,
+   "box_uses": 790,
+   "box_ts_overlap_med_s": 15.0,
+   "box_cast_in_ts_pct": 3,
+   "box_then_ts_within3s_pct": 71,
+   "lust_events": 24,
+   "lust_cast_in_ts_pct": 4,
+   "lust_then_ts_within3s_pct": 4,
+   "lust_to_next_ts_med_s": 5.9
+  },
+  "hero_어둠 순찰자": {
+   "n": 169,
+   "first_ts_med_s": 5.6,
+   "first_ts_p25_p75": [
+    3.9,
+    7.1
+   ],
+   "ts_per_min_med": 0.6,
+   "ts_gap": {
+    "n": 298,
+    "p25": 122.4,
+    "med": 124.8,
+    "p75": 131.7,
+    "즉시_pct": 34,
+    "소홀드_pct": 51,
+    "대홀드_pct": 15
+   },
+   "first_volley_med_s": 10.3,
+   "volley_per_min_med": 1.12,
+   "volley_gap": {
+    "n": 656,
+    "p25": 48.1,
+    "med": 56.8,
+    "p75": 68.0,
+    "즉시_pct": 26,
+    "소홀드_pct": 45,
+    "대홀드_pct": 29
+   },
+   "wailing_uses": 442,
+   "wailing_in_ts_window_pct": 100,
+   "chakram_uses": 0,
+   "chakram_in_ts_window_pct": null,
+   "pot_uses": 187,
+   "pot_ts_overlap_med_s": 15.0,
+   "pot_cast_in_ts_pct": 27,
+   "pot_then_ts_within3s_pct": 67,
+   "pot_to_next_ts_med_s": 2.0,
+   "box_uses": 386,
+   "box_ts_overlap_med_s": 15.0,
+   "box_cast_in_ts_pct": 2,
+   "box_then_ts_within3s_pct": 65,
+   "lust_events": 17,
+   "lust_cast_in_ts_pct": 6,
+   "lust_then_ts_within3s_pct": 6,
+   "lust_to_next_ts_med_s": 5.9
+  },
+  "hero_파수꾼": {
+   "n": 172,
+   "first_ts_med_s": 5.4,
+   "first_ts_p25_p75": [
+    3.6,
+    19.9
+   ],
+   "ts_per_min_med": 0.55,
+   "ts_gap": {
+    "n": 370,
+    "p25": 122.2,
+    "med": 127.2,
+    "p75": 157.3,
+    "즉시_pct": 36,
+    "소홀드_pct": 31,
+    "대홀드_pct": 32
+   },
+   "first_volley_med_s": 13.0,
+   "volley_per_min_med": 1.1,
+   "volley_gap": {
+    "n": 924,
+    "p25": 48.2,
+    "med": 54.9,
+    "p75": 66.8,
+    "즉시_pct": 25,
+    "소홀드_pct": 47,
+    "대홀드_pct": 28
+   },
+   "wailing_uses": 0,
+   "wailing_in_ts_window_pct": null,
+   "chakram_uses": 533,
+   "chakram_in_ts_window_pct": 100,
+   "pot_uses": 244,
+   "pot_ts_overlap_med_s": 17.0,
+   "pot_cast_in_ts_pct": 32,
+   "pot_then_ts_within3s_pct": 75,
+   "pot_to_next_ts_med_s": 0.2,
+   "box_uses": 404,
+   "box_ts_overlap_med_s": 17.0,
+   "box_cast_in_ts_pct": 3,
+   "box_then_ts_within3s_pct": 76,
+   "lust_events": 7,
+   "lust_cast_in_ts_pct": 0,
+   "lust_then_ts_within3s_pct": 0,
+   "lust_to_next_ts_med_s": 4.7
+  }
+ },
+ "per_boss": {
+  "아베르지안": {
+   "encounter_id": 3176,
+   "name_en": "Imperator Averzian",
+   "kill_med_s": 209,
+   "all": {
+    "n": 39,
+    "first_ts_med_s": 4.9,
+    "first_ts_p25_p75": [
+     3.7,
+     6.4
+    ],
+    "ts_per_min_med": 0.62,
+    "ts_gap": {
+     "n": 52,
+     "p25": 122.1,
+     "med": 128.5,
+     "p75": 131.7,
+     "즉시_pct": 38,
+     "소홀드_pct": 62,
+     "대홀드_pct": 0
+    },
+    "first_volley_med_s": 3.4,
+    "volley_per_min_med": 1.1,
+    "volley_gap": {
+     "n": 120,
+     "p25": 50.8,
+     "med": 59.4,
+     "p75": 78.4,
+     "즉시_pct": 15,
+     "소홀드_pct": 50,
+     "대홀드_pct": 35
+    },
+    "wailing_uses": 48,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 41,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 37,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 24,
+    "pot_then_ts_within3s_pct": 70,
+    "pot_to_next_ts_med_s": 2.4,
+    "box_uses": 64,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 2,
+    "box_then_ts_within3s_pct": 59,
+    "lust_events": 2,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 4.6
+   },
+   "hero_어둠 순찰자": {
+    "n": 25,
+    "first_ts_med_s": 4.6,
+    "first_ts_p25_p75": [
+     3.6,
+     5.8
+    ],
+    "ts_per_min_med": 0.6,
+    "ts_gap": {
+     "n": 25,
+     "p25": 130.6,
+     "med": 132.0,
+     "p75": 133.6,
+     "즉시_pct": 0,
+     "소홀드_pct": 100,
+     "대홀드_pct": 0
+    },
+    "first_volley_med_s": 4.0,
+    "volley_per_min_med": 1.15,
+    "volley_gap": {
+     "n": 65,
+     "p25": 50.8,
+     "med": 59.3,
+     "p75": 80.0,
+     "즉시_pct": 17,
+     "소홀드_pct": 43,
+     "대홀드_pct": 40
+    },
+    "wailing_uses": 48,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 0,
+    "chakram_in_ts_window_pct": null,
+    "pot_uses": 22,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 27,
+    "pot_then_ts_within3s_pct": 64,
+    "pot_to_next_ts_med_s": 2.6,
+    "box_uses": 34,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 0,
+    "box_then_ts_within3s_pct": 59,
+    "lust_events": 2,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 4.6
+   },
+   "hero_파수꾼": {
+    "n": 14,
+    "first_ts_med_s": 5.9,
+    "first_ts_p25_p75": [
+     4.3,
+     6.5
+    ],
+    "ts_per_min_med": 0.64,
+    "ts_gap": {
+     "n": 27,
+     "p25": 120.8,
+     "med": 122.1,
+     "p75": 123.8,
+     "즉시_pct": 74,
+     "소홀드_pct": 26,
+     "대홀드_pct": 0
+    },
+    "first_volley_med_s": 2.6,
+    "volley_per_min_med": 1.08,
+    "volley_gap": {
+     "n": 55,
+     "p25": 53.3,
+     "med": 59.4,
+     "p75": 73.7,
+     "즉시_pct": 13,
+     "소홀드_pct": 58,
+     "대홀드_pct": 29
+    },
+    "wailing_uses": 0,
+    "wailing_in_ts_window_pct": null,
+    "chakram_uses": 41,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 15,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 20,
+    "pot_then_ts_within3s_pct": 80,
+    "pot_to_next_ts_med_s": 2.2,
+    "box_uses": 30,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 3,
+    "box_then_ts_within3s_pct": 60,
+    "lust_events": 0,
+    "lust_cast_in_ts_pct": null,
+    "lust_then_ts_within3s_pct": null,
+    "lust_to_next_ts_med_s": null
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_ts_med_s": 4.8,
+    "first_ts_p25_p75": [
+     3.7,
+     5.8
+    ],
+    "ts_per_min_med": 0.62,
+    "ts_gap": {
+     "n": 25,
+     "p25": 123.8,
+     "med": 129.7,
+     "p75": 133.5,
+     "즉시_pct": 24,
+     "소홀드_pct": 76,
+     "대홀드_pct": 0
+    },
+    "first_volley_med_s": 2.7,
+    "volley_per_min_med": 1.15,
+    "volley_gap": {
+     "n": 61,
+     "p25": 50.8,
+     "med": 59.3,
+     "p75": 79.5,
+     "즉시_pct": 13,
+     "소홀드_pct": 52,
+     "대홀드_pct": 34
+    },
+    "wailing_uses": 29,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 15,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 20,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 20,
+    "pot_then_ts_within3s_pct": 65,
+    "pot_to_next_ts_med_s": 2.4,
+    "box_uses": 29,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 0,
+    "box_then_ts_within3s_pct": 52,
+    "lust_events": 1,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 4.6
+   },
+   "rank_21_100": {
+    "n": 19,
+    "first_ts_med_s": 5.2,
+    "first_ts_p25_p75": [
+     2.0,
+     6.6
+    ],
+    "ts_per_min_med": 0.63,
+    "ts_gap": {
+     "n": 27,
+     "p25": 121.7,
+     "med": 123.3,
+     "p75": 131.2,
+     "즉시_pct": 52,
+     "소홀드_pct": 48,
+     "대홀드_pct": 0
+    },
+    "first_volley_med_s": 3.5,
+    "volley_per_min_med": 1.09,
+    "volley_gap": {
+     "n": 59,
+     "p25": 50.3,
+     "med": 59.7,
+     "p75": 77.7,
+     "즉시_pct": 17,
+     "소홀드_pct": 47,
+     "대홀드_pct": 36
+    },
+    "wailing_uses": 19,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 26,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 17,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 29,
+    "pot_then_ts_within3s_pct": 76,
+    "pot_to_next_ts_med_s": 0.3,
+    "box_uses": 35,
+    "box_ts_overlap_med_s": 15.9,
+    "box_cast_in_ts_pct": 3,
+    "box_then_ts_within3s_pct": 66,
+    "lust_events": 1,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 5.9
+   },
+   "opener": {
+    "first_ts_med_s": 4.9,
+    "first_ts_le5s_pct": 51,
+    "box_precast_pct": 50,
+    "pot_prepull_or_10s_pct": 100,
+    "seq_top3": [
+     {
+      "seq": [
+       "조준 사격",
+       "검은 화살",
+       "연발 공격",
+       "속사",
+       "검은 화살"
+      ],
+      "n": 4
+     },
+     {
+      "seq": [
+       "조준 사격",
+       "신비한 사격",
+       "연발 공격",
+       "알게타르 수수께끼",
+       "속사"
+      ],
+      "n": 4
+     },
+     {
+      "seq": [
+       "조준 사격",
+       "검은 화살",
+       "속사",
+       "검은 화살",
+       "정조준"
+      ],
+      "n": 3
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 36,
+    "80-90%": 1
+   },
+   "pot_kind": {
+    "빛의잠재력": 37
+   },
+   "pot_first_med_s": 2.6,
+   "pot_second_med_s": 327.9,
+   "fights_with_2pots_pct": 3,
+   "hold_ts_arrival_top": [],
+   "n_holds": 0
+  },
+  "보라시우스": {
+   "encounter_id": 3177,
+   "name_en": "Vorasius",
+   "kill_med_s": 210,
+   "all": {
+    "n": 39,
+    "first_ts_med_s": 5.2,
+    "first_ts_p25_p75": [
+     4.0,
+     6.2
+    ],
+    "ts_per_min_med": 0.61,
+    "ts_gap": {
+     "n": 50,
+     "p25": 122.4,
+     "med": 125.2,
+     "p75": 156.8,
+     "즉시_pct": 32,
+     "소홀드_pct": 34,
+     "대홀드_pct": 34
+    },
+    "first_volley_med_s": 2.7,
+    "volley_per_min_med": 1.14,
+    "volley_gap": {
+     "n": 116,
+     "p25": 49.8,
+     "med": 57.2,
+     "p75": 69.6,
+     "즉시_pct": 16,
+     "소홀드_pct": 44,
+     "대홀드_pct": 40
+    },
+    "wailing_uses": 86,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 0,
+    "chakram_in_ts_window_pct": null,
+    "pot_uses": 32,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 25,
+    "pot_then_ts_within3s_pct": 62,
+    "pot_to_next_ts_med_s": 0.3,
+    "box_uses": 67,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 0,
+    "box_then_ts_within3s_pct": 54,
+    "lust_events": 2,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 3.5
+   },
+   "hero_어둠 순찰자": {
+    "n": 39,
+    "first_ts_med_s": 5.2,
+    "first_ts_p25_p75": [
+     4.0,
+     6.2
+    ],
+    "ts_per_min_med": 0.61,
+    "ts_gap": {
+     "n": 50,
+     "p25": 122.4,
+     "med": 125.2,
+     "p75": 156.8,
+     "즉시_pct": 32,
+     "소홀드_pct": 34,
+     "대홀드_pct": 34
+    },
+    "first_volley_med_s": 2.7,
+    "volley_per_min_med": 1.14,
+    "volley_gap": {
+     "n": 116,
+     "p25": 49.8,
+     "med": 57.2,
+     "p75": 69.6,
+     "즉시_pct": 16,
+     "소홀드_pct": 44,
+     "대홀드_pct": 40
+    },
+    "wailing_uses": 86,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 0,
+    "chakram_in_ts_window_pct": null,
+    "pot_uses": 32,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 25,
+    "pot_then_ts_within3s_pct": 62,
+    "pot_to_next_ts_med_s": 0.3,
+    "box_uses": 67,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 0,
+    "box_then_ts_within3s_pct": 54,
+    "lust_events": 2,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 3.5
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_ts_med_s": 6.0,
+    "first_ts_p25_p75": [
+     4.7,
+     6.3
+    ],
+    "ts_per_min_med": 0.63,
+    "ts_gap": {
+     "n": 24,
+     "p25": 123.3,
+     "med": 125.4,
+     "p75": 151.8,
+     "즉시_pct": 29,
+     "소홀드_pct": 38,
+     "대홀드_pct": 33
+    },
+    "first_volley_med_s": 3.1,
+    "volley_per_min_med": 1.15,
+    "volley_gap": {
+     "n": 63,
+     "p25": 49.6,
+     "med": 54.8,
+     "p75": 69.4,
+     "즉시_pct": 17,
+     "소홀드_pct": 46,
+     "대홀드_pct": 37
+    },
+    "wailing_uses": 43,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 0,
+    "chakram_in_ts_window_pct": null,
+    "pot_uses": 18,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 22,
+    "pot_then_ts_within3s_pct": 56,
+    "pot_to_next_ts_med_s": 2.6,
+    "box_uses": 34,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 0,
+    "box_then_ts_within3s_pct": 38,
+    "lust_events": 1,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 6.2
+   },
+   "rank_21_100": {
+    "n": 19,
+    "first_ts_med_s": 5.1,
+    "first_ts_p25_p75": [
+     2.8,
+     5.9
+    ],
+    "ts_per_min_med": 0.61,
+    "ts_gap": {
+     "n": 26,
+     "p25": 121.9,
+     "med": 125.2,
+     "p75": 157.9,
+     "즉시_pct": 35,
+     "소홀드_pct": 31,
+     "대홀드_pct": 35
+    },
+    "first_volley_med_s": 2.6,
+    "volley_per_min_med": 1.1,
+    "volley_gap": {
+     "n": 53,
+     "p25": 50.4,
+     "med": 60.0,
+     "p75": 70.7,
+     "즉시_pct": 15,
+     "소홀드_pct": 42,
+     "대홀드_pct": 43
+    },
+    "wailing_uses": 43,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 0,
+    "chakram_in_ts_window_pct": null,
+    "pot_uses": 14,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 29,
+    "pot_then_ts_within3s_pct": 71,
+    "pot_to_next_ts_med_s": 0.2,
+    "box_uses": 33,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 0,
+    "box_then_ts_within3s_pct": 70,
+    "lust_events": 1,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 3.5
+   },
+   "opener": {
+    "first_ts_med_s": 5.2,
+    "first_ts_le5s_pct": 41,
+    "box_precast_pct": 54,
+    "pot_prepull_or_10s_pct": 95,
+    "seq_top3": [
+     {
+      "seq": [
+       "조준 사격",
+       "검은 화살",
+       "연발 공격",
+       "속사",
+       "검은 화살"
+      ],
+      "n": 8
+     },
+     {
+      "seq": [
+       "조준 사격",
+       "검은 화살",
+       "알게타르 수수께끼",
+       "연발 공격",
+       "속사"
+      ],
+      "n": 4
+     },
+     {
+      "seq": [
+       "조준 사격",
+       "검은 화살",
+       "연발 공격",
+       "알게타르 수수께끼",
+       "속사"
+      ],
+      "n": 4
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 30,
+    "70-80%": 1,
+    "80-90%": 1
+   },
+   "pot_kind": {
+    "빛의잠재력": 31,
+    "방종의비약": 1
+   },
+   "pot_first_med_s": 3.9,
+   "pot_second_med_s": null,
+   "fights_with_2pots_pct": 0,
+   "hold_ts_arrival_top": [
+    {
+     "t": "2:30",
+     "n": 10
+    },
+    {
+     "t": "3:00",
+     "n": 5
+    },
+    {
+     "t": "2:00",
+     "n": 2
+    }
+   ],
+   "n_holds": 17
+  },
+  "바엘고어&에조라크": {
+   "encounter_id": 3178,
+   "name_en": "Vaelgor & Ezzorak",
+   "kill_med_s": 387,
+   "all": {
+    "n": 40,
+    "first_ts_med_s": 5.7,
+    "first_ts_p25_p75": [
+     5.2,
+     7.5
+    ],
+    "ts_per_min_med": 0.46,
+    "ts_gap": {
+     "n": 77,
+     "p25": 135.6,
+     "med": 160.0,
+     "p75": 179.0,
+     "즉시_pct": 8,
+     "소홀드_pct": 23,
+     "대홀드_pct": 69
+    },
+    "first_volley_med_s": 10.5,
+    "volley_per_min_med": 0.93,
+    "volley_gap": {
+     "n": 196,
+     "p25": 50.1,
+     "med": 66.5,
+     "p75": 75.1,
+     "즉시_pct": 22,
+     "소홀드_pct": 24,
+     "대홀드_pct": 54
+    },
+    "wailing_uses": 0,
+    "wailing_in_ts_window_pct": null,
+    "chakram_uses": 114,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 71,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 30,
+    "pot_then_ts_within3s_pct": 72,
+    "pot_to_next_ts_med_s": 0.2,
+    "box_uses": 97,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 3,
+    "box_then_ts_within3s_pct": 77,
+    "lust_events": 1,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 5.0
+   },
+   "hero_파수꾼": {
+    "n": 40,
+    "first_ts_med_s": 5.7,
+    "first_ts_p25_p75": [
+     5.2,
+     7.5
+    ],
+    "ts_per_min_med": 0.46,
+    "ts_gap": {
+     "n": 77,
+     "p25": 135.6,
+     "med": 160.0,
+     "p75": 179.0,
+     "즉시_pct": 8,
+     "소홀드_pct": 23,
+     "대홀드_pct": 69
+    },
+    "first_volley_med_s": 10.5,
+    "volley_per_min_med": 0.93,
+    "volley_gap": {
+     "n": 196,
+     "p25": 50.1,
+     "med": 66.5,
+     "p75": 75.1,
+     "즉시_pct": 22,
+     "소홀드_pct": 24,
+     "대홀드_pct": 54
+    },
+    "wailing_uses": 0,
+    "wailing_in_ts_window_pct": null,
+    "chakram_uses": 114,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 71,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 30,
+    "pot_then_ts_within3s_pct": 72,
+    "pot_to_next_ts_med_s": 0.2,
+    "box_uses": 97,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 3,
+    "box_then_ts_within3s_pct": 77,
+    "lust_events": 1,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 5.0
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_ts_med_s": 5.9,
+    "first_ts_p25_p75": [
+     5.3,
+     30.4
+    ],
+    "ts_per_min_med": 0.46,
+    "ts_gap": {
+     "n": 37,
+     "p25": 134.7,
+     "med": 160.8,
+     "p75": 195.2,
+     "즉시_pct": 5,
+     "소홀드_pct": 27,
+     "대홀드_pct": 68
+    },
+    "first_volley_med_s": 10.5,
+    "volley_per_min_med": 0.95,
+    "volley_gap": {
+     "n": 98,
+     "p25": 48.6,
+     "med": 65.9,
+     "p75": 74.2,
+     "즉시_pct": 24,
+     "소홀드_pct": 23,
+     "대홀드_pct": 52
+    },
+    "wailing_uses": 0,
+    "wailing_in_ts_window_pct": null,
+    "chakram_uses": 57,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 34,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 26,
+    "pot_then_ts_within3s_pct": 68,
+    "pot_to_next_ts_med_s": 0.6,
+    "box_uses": 57,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 2,
+    "box_then_ts_within3s_pct": 88,
+    "lust_events": 1,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 5.0
+   },
+   "rank_21_100": {
+    "n": 20,
+    "first_ts_med_s": 5.4,
+    "first_ts_p25_p75": [
+     4.7,
+     6.0
+    ],
+    "ts_per_min_med": 0.47,
+    "ts_gap": {
+     "n": 40,
+     "p25": 138.7,
+     "med": 159.8,
+     "p75": 176.5,
+     "즉시_pct": 10,
+     "소홀드_pct": 20,
+     "대홀드_pct": 70
+    },
+    "first_volley_med_s": 10.6,
+    "volley_per_min_med": 0.93,
+    "volley_gap": {
+     "n": 98,
+     "p25": 54.5,
+     "med": 66.8,
+     "p75": 75.8,
+     "즉시_pct": 20,
+     "소홀드_pct": 24,
+     "대홀드_pct": 55
+    },
+    "wailing_uses": 0,
+    "wailing_in_ts_window_pct": null,
+    "chakram_uses": 57,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 37,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 32,
+    "pot_then_ts_within3s_pct": 76,
+    "pot_to_next_ts_med_s": 0.1,
+    "box_uses": 40,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 5,
+    "box_then_ts_within3s_pct": 62,
+    "lust_events": 0,
+    "lust_cast_in_ts_pct": null,
+    "lust_then_ts_within3s_pct": null,
+    "lust_to_next_ts_med_s": null
+   },
+   "opener": {
+    "first_ts_med_s": 5.7,
+    "first_ts_le5s_pct": 25,
+    "box_precast_pct": 3,
+    "pot_prepull_or_10s_pct": 72,
+    "seq_top3": [
+     {
+      "seq": [
+       "조준 사격",
+       "신비한 사격",
+       "속사",
+       "신비한 사격",
+       "조준 사격"
+      ],
+      "n": 10
+     },
+     {
+      "seq": [
+       "조준 사격",
+       "폭발 사격",
+       "알게타르 수수께끼",
+       "속사",
+       "정조준"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "조준 사격",
+       "폭발 사격",
+       "알게타르 수수께끼",
+       "속사",
+       "신비한 사격"
+      ],
+      "n": 4
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 39,
+    "70-80%": 1,
+    "80-90%": 13,
+    "90-100%": 18
+   },
+   "pot_kind": {
+    "빛의잠재력": 71
+   },
+   "pot_first_med_s": 5.2,
+   "pot_second_med_s": 355.5,
+   "fights_with_2pots_pct": 78,
+   "hold_ts_arrival_top": [
+    {
+     "t": "2:30",
+     "n": 29
+    },
+    {
+     "t": "6:00",
+     "n": 17
+    },
+    {
+     "t": "5:30",
+     "n": 6
+    },
+    {
+     "t": "5:00",
+     "n": 1
+    }
+   ],
+   "n_holds": 53
+  },
+  "살라다르": {
+   "encounter_id": 3179,
+   "name_en": "Fallen-King Salhadaar",
+   "kill_med_s": 214,
+   "all": {
+    "n": 41,
+    "first_ts_med_s": 5.9,
+    "first_ts_p25_p75": [
+     4.6,
+     8.3
+    ],
+    "ts_per_min_med": 0.6,
+    "ts_gap": {
+     "n": 60,
+     "p25": 122.2,
+     "med": 125.1,
+     "p75": 130.8,
+     "즉시_pct": 37,
+     "소홀드_pct": 47,
+     "대홀드_pct": 17
+    },
+    "first_volley_med_s": 4.8,
+    "volley_per_min_med": 1.13,
+    "volley_gap": {
+     "n": 144,
+     "p25": 47.1,
+     "med": 59.8,
+     "p75": 74.2,
+     "즉시_pct": 32,
+     "소홀드_pct": 27,
+     "대홀드_pct": 41
+    },
+    "wailing_uses": 44,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 54,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 39,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 23,
+    "pot_then_ts_within3s_pct": 72,
+    "pot_to_next_ts_med_s": 2.4,
+    "box_uses": 77,
+    "box_ts_overlap_med_s": 15.8,
+    "box_cast_in_ts_pct": 1,
+    "box_then_ts_within3s_pct": 68,
+    "lust_events": 2,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 3.9
+   },
+   "hero_어둠 순찰자": {
+    "n": 22,
+    "first_ts_med_s": 5.5,
+    "first_ts_p25_p75": [
+     4.1,
+     7.0
+    ],
+    "ts_per_min_med": 0.59,
+    "ts_gap": {
+     "n": 25,
+     "p25": 125.7,
+     "med": 130.8,
+     "p75": 159.3,
+     "즉시_pct": 16,
+     "소홀드_pct": 48,
+     "대홀드_pct": 36
+    },
+    "first_volley_med_s": 4.2,
+    "volley_per_min_med": 1.14,
+    "volley_gap": {
+     "n": 65,
+     "p25": 47.2,
+     "med": 57.2,
+     "p75": 71.2,
+     "즉시_pct": 35,
+     "소홀드_pct": 29,
+     "대홀드_pct": 35
+    },
+    "wailing_uses": 44,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 0,
+    "chakram_in_ts_window_pct": null,
+    "pot_uses": 19,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 16,
+    "pot_then_ts_within3s_pct": 47,
+    "pot_to_next_ts_med_s": 3.4,
+    "box_uses": 37,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 0,
+    "box_then_ts_within3s_pct": 68,
+    "lust_events": 2,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 3.9
+   },
+   "hero_파수꾼": {
+    "n": 19,
+    "first_ts_med_s": 8.0,
+    "first_ts_p25_p75": [
+     5.2,
+     9.5
+    ],
+    "ts_per_min_med": 0.6,
+    "ts_gap": {
+     "n": 35,
+     "p25": 121.8,
+     "med": 123.1,
+     "p75": 127.2,
+     "즉시_pct": 51,
+     "소홀드_pct": 46,
+     "대홀드_pct": 3
+    },
+    "first_volley_med_s": 4.9,
+    "volley_per_min_med": 1.08,
+    "volley_gap": {
+     "n": 79,
+     "p25": 47.0,
+     "med": 61.6,
+     "p75": 75.1,
+     "즉시_pct": 29,
+     "소홀드_pct": 25,
+     "대홀드_pct": 46
+    },
+    "wailing_uses": 0,
+    "wailing_in_ts_window_pct": null,
+    "chakram_uses": 54,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 20,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 30,
+    "pot_then_ts_within3s_pct": 95,
+    "pot_to_next_ts_med_s": 2.1,
+    "box_uses": 40,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 2,
+    "box_then_ts_within3s_pct": 68,
+    "lust_events": 0,
+    "lust_cast_in_ts_pct": null,
+    "lust_then_ts_within3s_pct": null,
+    "lust_to_next_ts_med_s": null
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_ts_med_s": 5.5,
+    "first_ts_p25_p75": [
+     4.1,
+     7.9
+    ],
+    "ts_per_min_med": 0.6,
+    "ts_gap": {
+     "n": 29,
+     "p25": 122.5,
+     "med": 124.4,
+     "p75": 129.7,
+     "즉시_pct": 31,
+     "소홀드_pct": 52,
+     "대홀드_pct": 17
+    },
+    "first_volley_med_s": 4.8,
+    "volley_per_min_med": 1.13,
+    "volley_gap": {
+     "n": 70,
+     "p25": 47.5,
+     "med": 61.6,
+     "p75": 72.8,
+     "즉시_pct": 29,
+     "소홀드_pct": 29,
+     "대홀드_pct": 43
+    },
+    "wailing_uses": 26,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 21,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 17,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 12,
+    "pot_then_ts_within3s_pct": 76,
+    "pot_to_next_ts_med_s": 2.1,
+    "box_uses": 37,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 3,
+    "box_then_ts_within3s_pct": 70,
+    "lust_events": 2,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 3.9
+   },
+   "rank_21_100": {
+    "n": 21,
+    "first_ts_med_s": 7.0,
+    "first_ts_p25_p75": [
+     5.5,
+     8.3
+    ],
+    "ts_per_min_med": 0.6,
+    "ts_gap": {
+     "n": 31,
+     "p25": 122.2,
+     "med": 127.2,
+     "p75": 132.0,
+     "즉시_pct": 42,
+     "소홀드_pct": 42,
+     "대홀드_pct": 16
+    },
+    "first_volley_med_s": 4.9,
+    "volley_per_min_med": 1.12,
+    "volley_gap": {
+     "n": 74,
+     "p25": 46.5,
+     "med": 57.0,
+     "p75": 75.6,
+     "즉시_pct": 35,
+     "소홀드_pct": 26,
+     "대홀드_pct": 39
+    },
+    "wailing_uses": 18,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 33,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 22,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 32,
+    "pot_then_ts_within3s_pct": 68,
+    "pot_to_next_ts_med_s": 2.5,
+    "box_uses": 40,
+    "box_ts_overlap_med_s": 16.1,
+    "box_cast_in_ts_pct": 0,
+    "box_then_ts_within3s_pct": 65,
+    "lust_events": 0,
+    "lust_cast_in_ts_pct": null,
+    "lust_then_ts_within3s_pct": null,
+    "lust_to_next_ts_med_s": null
+   },
+   "opener": {
+    "first_ts_med_s": 5.9,
+    "first_ts_le5s_pct": 29,
+    "box_precast_pct": 32,
+    "pot_prepull_or_10s_pct": 80,
+    "seq_top3": [
+     {
+      "seq": [
+       "조준 사격",
+       "신비한 사격",
+       "조준 사격",
+       "알게타르 수수께끼",
+       "연발 공격"
+      ],
+      "n": 6
+     },
+     {
+      "seq": [
+       "조준 사격",
+       "검은 화살",
+       "알게타르 수수께끼",
+       "연발 공격",
+       "속사"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "조준 사격",
+       "검은 화살",
+       "속사",
+       "검은 화살",
+       "조준 사격"
+      ],
+      "n": 5
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 37,
+    "80-90%": 1,
+    "90-100%": 1
+   },
+   "pot_kind": {
+    "빛의잠재력": 39
+   },
+   "pot_first_med_s": 4.5,
+   "pot_second_med_s": 311.9,
+   "fights_with_2pots_pct": 2,
+   "hold_ts_arrival_top": [
+    {
+     "t": "2:30",
+     "n": 7
+    },
+    {
+     "t": "3:00",
+     "n": 1
+    },
+    {
+     "t": "2:00",
+     "n": 1
+    },
+    {
+     "t": "5:00",
+     "n": 1
+    }
+   ],
+   "n_holds": 10
+  },
+  "선봉대": {
+   "encounter_id": 3180,
+   "name_en": "Lightblinded Vanguard",
+   "kill_med_s": 346,
+   "all": {
+    "n": 34,
+    "first_ts_med_s": 4.6,
+    "first_ts_p25_p75": [
+     3.7,
+     5.3
+    ],
+    "ts_per_min_med": 0.59,
+    "ts_gap": {
+     "n": 82,
+     "p25": 121.9,
+     "med": 123.5,
+     "p75": 128.2,
+     "즉시_pct": 48,
+     "소홀드_pct": 51,
+     "대홀드_pct": 1
+    },
+    "first_volley_med_s": 7.8,
+    "volley_per_min_med": 1.21,
+    "volley_gap": {
+     "n": 209,
+     "p25": 47.4,
+     "med": 51.1,
+     "p75": 56.4,
+     "즉시_pct": 33,
+     "소홀드_pct": 63,
+     "대홀드_pct": 5
+    },
+    "wailing_uses": 0,
+    "wailing_in_ts_window_pct": null,
+    "chakram_uses": 113,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 55,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 40,
+    "pot_then_ts_within3s_pct": 67,
+    "pot_to_next_ts_med_s": 0.0,
+    "box_uses": 85,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 4,
+    "box_then_ts_within3s_pct": 88,
+    "lust_events": 3,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 4.6
+   },
+   "hero_파수꾼": {
+    "n": 34,
+    "first_ts_med_s": 4.6,
+    "first_ts_p25_p75": [
+     3.7,
+     5.3
+    ],
+    "ts_per_min_med": 0.59,
+    "ts_gap": {
+     "n": 82,
+     "p25": 121.9,
+     "med": 123.5,
+     "p75": 128.2,
+     "즉시_pct": 48,
+     "소홀드_pct": 51,
+     "대홀드_pct": 1
+    },
+    "first_volley_med_s": 7.8,
+    "volley_per_min_med": 1.21,
+    "volley_gap": {
+     "n": 209,
+     "p25": 47.4,
+     "med": 51.1,
+     "p75": 56.4,
+     "즉시_pct": 33,
+     "소홀드_pct": 63,
+     "대홀드_pct": 5
+    },
+    "wailing_uses": 0,
+    "wailing_in_ts_window_pct": null,
+    "chakram_uses": 113,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 55,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 40,
+    "pot_then_ts_within3s_pct": 67,
+    "pot_to_next_ts_med_s": 0.0,
+    "box_uses": 85,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 4,
+    "box_then_ts_within3s_pct": 88,
+    "lust_events": 3,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 4.6
+   },
+   "rank_1_20": {
+    "n": 19,
+    "first_ts_med_s": 5.1,
+    "first_ts_p25_p75": [
+     4.4,
+     5.4
+    ],
+    "ts_per_min_med": 0.58,
+    "ts_gap": {
+     "n": 44,
+     "p25": 121.3,
+     "med": 123.2,
+     "p75": 129.6,
+     "즉시_pct": 52,
+     "소홀드_pct": 45,
+     "대홀드_pct": 2
+    },
+    "first_volley_med_s": 7.8,
+    "volley_per_min_med": 1.22,
+    "volley_gap": {
+     "n": 114,
+     "p25": 47.0,
+     "med": 51.1,
+     "p75": 56.4,
+     "즉시_pct": 35,
+     "소홀드_pct": 61,
+     "대홀드_pct": 4
+    },
+    "wailing_uses": 0,
+    "wailing_in_ts_window_pct": null,
+    "chakram_uses": 61,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 30,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 30,
+    "pot_then_ts_within3s_pct": 63,
+    "pot_to_next_ts_med_s": 0.3,
+    "box_uses": 50,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 6,
+    "box_then_ts_within3s_pct": 82,
+    "lust_events": 1,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 3.3
+   },
+   "rank_21_100": {
+    "n": 15,
+    "first_ts_med_s": 4.4,
+    "first_ts_p25_p75": [
+     3.2,
+     4.6
+    ],
+    "ts_per_min_med": 0.59,
+    "ts_gap": {
+     "n": 38,
+     "p25": 122.0,
+     "med": 123.6,
+     "p75": 126.0,
+     "즉시_pct": 42,
+     "소홀드_pct": 58,
+     "대홀드_pct": 0
+    },
+    "first_volley_med_s": 8.1,
+    "volley_per_min_med": 1.2,
+    "volley_gap": {
+     "n": 95,
+     "p25": 48.0,
+     "med": 51.2,
+     "p75": 56.3,
+     "즉시_pct": 29,
+     "소홀드_pct": 64,
+     "대홀드_pct": 6
+    },
+    "wailing_uses": 0,
+    "wailing_in_ts_window_pct": null,
+    "chakram_uses": 52,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 25,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 52,
+    "pot_then_ts_within3s_pct": 72,
+    "pot_to_next_ts_med_s": 0.0,
+    "box_uses": 35,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 0,
+    "box_then_ts_within3s_pct": 97,
+    "lust_events": 2,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 4.6
+   },
+   "opener": {
+    "first_ts_med_s": 4.6,
+    "first_ts_le5s_pct": 62,
+    "box_precast_pct": 11,
+    "pot_prepull_or_10s_pct": 100,
+    "seq_top3": [
+     {
+      "seq": [
+       "조준 사격",
+       "폭발 사격",
+       "신비한 사격",
+       "알게타르 수수께끼",
+       "속사"
+      ],
+      "n": 3
+     },
+     {
+      "seq": [
+       "조준 사격",
+       "신비한 사격",
+       "폭발 사격",
+       "속사",
+       "신비한 사격"
+      ],
+      "n": 3
+     },
+     {
+      "seq": [
+       "조준 사격",
+       "신비한 사격",
+       "알게타르 수수께끼",
+       "속사",
+       "신비한 사격"
+      ],
+      "n": 3
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 32,
+    "80-90%": 4,
+    "90-100%": 19
+   },
+   "pot_kind": {
+    "빛의잠재력": 55
+   },
+   "pot_first_med_s": 4.0,
+   "pot_second_med_s": 367.1,
+   "fights_with_2pots_pct": 62,
+   "hold_ts_arrival_top": [
+    {
+     "t": "4:00",
+     "n": 1
+    }
+   ],
+   "n_holds": 1
+  },
+  "우주의 왕관": {
+   "encounter_id": 3181,
+   "name_en": "Crown of the Cosmos",
+   "kill_med_s": 480,
+   "all": {
+    "n": 37,
+    "first_ts_med_s": 23.8,
+    "first_ts_p25_p75": [
+     21.2,
+     26.1
+    ],
+    "ts_per_min_med": 0.49,
+    "ts_gap": {
+     "n": 101,
+     "p25": 122.8,
+     "med": 136.5,
+     "p75": 157.1,
+     "즉시_pct": 28,
+     "소홀드_pct": 25,
+     "대홀드_pct": 48
+    },
+    "first_volley_med_s": 21.2,
+    "volley_per_min_med": 1.07,
+    "volley_gap": {
+     "n": 267,
+     "p25": 49.7,
+     "med": 55.1,
+     "p75": 68.1,
+     "즉시_pct": 21,
+     "소홀드_pct": 50,
+     "대홀드_pct": 29
+    },
+    "wailing_uses": 25,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 110,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 54,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 31,
+    "pot_then_ts_within3s_pct": 83,
+    "pot_to_next_ts_med_s": 0.3,
+    "box_uses": 102,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 3,
+    "box_then_ts_within3s_pct": 79,
+    "lust_events": 1,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 4.4
+   },
+   "hero_어둠 순찰자": {
+    "n": 7,
+    "first_ts_med_s": 23.1,
+    "first_ts_p25_p75": [
+     21.1,
+     23.8
+    ],
+    "ts_per_min_med": 0.46,
+    "ts_gap": {
+     "n": 19,
+     "p25": 121.2,
+     "med": 150.8,
+     "p75": 157.0,
+     "즉시_pct": 26,
+     "소홀드_pct": 16,
+     "대홀드_pct": 58
+    },
+    "first_volley_med_s": 22.8,
+    "volley_per_min_med": 0.92,
+    "volley_gap": {
+     "n": 45,
+     "p25": 50.9,
+     "med": 56.6,
+     "p75": 77.9,
+     "즉시_pct": 7,
+     "소홀드_pct": 58,
+     "대홀드_pct": 36
+    },
+    "wailing_uses": 25,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 0,
+    "chakram_in_ts_window_pct": null,
+    "pot_uses": 9,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 11,
+    "pot_then_ts_within3s_pct": 78,
+    "pot_to_next_ts_med_s": 0.2,
+    "box_uses": 26,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 0,
+    "box_then_ts_within3s_pct": 81,
+    "lust_events": 0,
+    "lust_cast_in_ts_pct": null,
+    "lust_then_ts_within3s_pct": null,
+    "lust_to_next_ts_med_s": null
+   },
+   "hero_파수꾼": {
+    "n": 30,
+    "first_ts_med_s": 23.8,
+    "first_ts_p25_p75": [
+     21.6,
+     27.1
+    ],
+    "ts_per_min_med": 0.49,
+    "ts_gap": {
+     "n": 82,
+     "p25": 122.8,
+     "med": 136.1,
+     "p75": 157.4,
+     "즉시_pct": 28,
+     "소홀드_pct": 27,
+     "대홀드_pct": 45
+    },
+    "first_volley_med_s": 21.2,
+    "volley_per_min_med": 1.09,
+    "volley_gap": {
+     "n": 222,
+     "p25": 48.7,
+     "med": 55.1,
+     "p75": 67.5,
+     "즉시_pct": 23,
+     "소홀드_pct": 49,
+     "대홀드_pct": 28
+    },
+    "wailing_uses": 0,
+    "wailing_in_ts_window_pct": null,
+    "chakram_uses": 110,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 45,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 36,
+    "pot_then_ts_within3s_pct": 84,
+    "pot_to_next_ts_med_s": 0.3,
+    "box_uses": 76,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 4,
+    "box_then_ts_within3s_pct": 79,
+    "lust_events": 1,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 4.4
+   },
+   "rank_1_20": {
+    "n": 19,
+    "first_ts_med_s": 23.0,
+    "first_ts_p25_p75": [
+     21.2,
+     26.1
+    ],
+    "ts_per_min_med": 0.49,
+    "ts_gap": {
+     "n": 51,
+     "p25": 122.6,
+     "med": 147.4,
+     "p75": 157.5,
+     "즉시_pct": 29,
+     "소홀드_pct": 18,
+     "대홀드_pct": 53
+    },
+    "first_volley_med_s": 17.4,
+    "volley_per_min_med": 1.07,
+    "volley_gap": {
+     "n": 136,
+     "p25": 49.2,
+     "med": 54.8,
+     "p75": 68.1,
+     "즉시_pct": 23,
+     "소홀드_pct": 47,
+     "대홀드_pct": 30
+    },
+    "wailing_uses": 14,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 54,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 28,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 36,
+    "pot_then_ts_within3s_pct": 93,
+    "pot_to_next_ts_med_s": 0.3,
+    "box_uses": 58,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 5,
+    "box_then_ts_within3s_pct": 76,
+    "lust_events": 0,
+    "lust_cast_in_ts_pct": null,
+    "lust_then_ts_within3s_pct": null,
+    "lust_to_next_ts_med_s": null
+   },
+   "rank_21_100": {
+    "n": 18,
+    "first_ts_med_s": 24.3,
+    "first_ts_p25_p75": [
+     21.1,
+     27.1
+    ],
+    "ts_per_min_med": 0.48,
+    "ts_gap": {
+     "n": 50,
+     "p25": 122.9,
+     "med": 136.0,
+     "p75": 156.7,
+     "즉시_pct": 26,
+     "소홀드_pct": 32,
+     "대홀드_pct": 42
+    },
+    "first_volley_med_s": 22.2,
+    "volley_per_min_med": 1.02,
+    "volley_gap": {
+     "n": 131,
+     "p25": 50.3,
+     "med": 56.1,
+     "p75": 68.4,
+     "즉시_pct": 18,
+     "소홀드_pct": 53,
+     "대홀드_pct": 28
+    },
+    "wailing_uses": 11,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 56,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 26,
+    "pot_ts_overlap_med_s": 16.8,
+    "pot_cast_in_ts_pct": 27,
+    "pot_then_ts_within3s_pct": 73,
+    "pot_to_next_ts_med_s": 0.3,
+    "box_uses": 44,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 0,
+    "box_then_ts_within3s_pct": 84,
+    "lust_events": 1,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 4.4
+   },
+   "opener": {
+    "first_ts_med_s": 23.8,
+    "first_ts_le5s_pct": 0,
+    "box_precast_pct": 0,
+    "pot_prepull_or_10s_pct": 0,
+    "seq_top3": [
+     {
+      "seq": [
+       "조준 사격",
+       "신비한 사격",
+       "속사",
+       "신비한 사격",
+       "조준 사격"
+      ],
+      "n": 8
+     },
+     {
+      "seq": [
+       "조준 사격",
+       "신비한 사격",
+       "조준 사격",
+       "속사",
+       "신비한 사격"
+      ],
+      "n": 7
+     },
+     {
+      "seq": [
+       "조준 사격",
+       "폭발 사격",
+       "속사",
+       "조준 사격",
+       "신비한 사격"
+      ],
+      "n": 6
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 5,
+    "10-20%": 4,
+    "30-40%": 23,
+    "40-50%": 3,
+    "70-80%": 4,
+    "80-90%": 5,
+    "90-100%": 10
+   },
+   "pot_kind": {
+    "빛의잠재력": 54
+   },
+   "pot_first_med_s": 176.2,
+   "pot_second_med_s": 440.9,
+   "fights_with_2pots_pct": 46,
+   "hold_ts_arrival_top": [
+    {
+     "t": "2:30",
+     "n": 24
+    },
+    {
+     "t": "3:00",
+     "n": 8
+    },
+    {
+     "t": "6:00",
+     "n": 7
+    },
+    {
+     "t": "5:30",
+     "n": 7
+    },
+    {
+     "t": "5:00",
+     "n": 2
+    }
+   ],
+   "n_holds": 48
+  },
+  "벨로렌": {
+   "encounter_id": 3182,
+   "name_en": "Belo'ren, Child of Al'ar",
+   "kill_med_s": 319,
+   "all": {
+    "n": 36,
+    "first_ts_med_s": 1.9,
+    "first_ts_p25_p75": [
+     1.0,
+     2.2
+    ],
+    "ts_per_min_med": 0.56,
+    "ts_gap": {
+     "n": 70,
+     "p25": 121.9,
+     "med": 127.4,
+     "p75": 166.7,
+     "즉시_pct": 46,
+     "소홀드_pct": 14,
+     "대홀드_pct": 40
+    },
+    "first_volley_med_s": 31.9,
+    "volley_per_min_med": 1.12,
+    "volley_gap": {
+     "n": 169,
+     "p25": 48.2,
+     "med": 51.1,
+     "p75": 62.4,
+     "즉시_pct": 25,
+     "소홀드_pct": 59,
+     "대홀드_pct": 16
+    },
+    "wailing_uses": 5,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 99,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 40,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 30,
+    "pot_then_ts_within3s_pct": 68,
+    "pot_to_next_ts_med_s": 0.1,
+    "box_uses": 74,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 4,
+    "box_then_ts_within3s_pct": 68,
+    "lust_events": 2,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 17.3
+   },
+   "hero_파수꾼": {
+    "n": 34,
+    "first_ts_med_s": 1.9,
+    "first_ts_p25_p75": [
+     1.0,
+     2.2
+    ],
+    "ts_per_min_med": 0.56,
+    "ts_gap": {
+     "n": 66,
+     "p25": 122.0,
+     "med": 128.8,
+     "p75": 167.8,
+     "즉시_pct": 42,
+     "소홀드_pct": 15,
+     "대홀드_pct": 42
+    },
+    "first_volley_med_s": 31.9,
+    "volley_per_min_med": 1.11,
+    "volley_gap": {
+     "n": 160,
+     "p25": 48.4,
+     "med": 51.4,
+     "p75": 62.4,
+     "즉시_pct": 24,
+     "소홀드_pct": 60,
+     "대홀드_pct": 16
+    },
+    "wailing_uses": 0,
+    "wailing_in_ts_window_pct": null,
+    "chakram_uses": 99,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 38,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 29,
+    "pot_then_ts_within3s_pct": 71,
+    "pot_to_next_ts_med_s": 0.0,
+    "box_uses": 74,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 4,
+    "box_then_ts_within3s_pct": 68,
+    "lust_events": 2,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 17.3
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_ts_med_s": 1.9,
+    "first_ts_p25_p75": [
+     1.1,
+     2.2
+    ],
+    "ts_per_min_med": 0.57,
+    "ts_gap": {
+     "n": 40,
+     "p25": 122.1,
+     "med": 128.8,
+     "p75": 166.6,
+     "즉시_pct": 40,
+     "소홀드_pct": 18,
+     "대홀드_pct": 42
+    },
+    "first_volley_med_s": 32.6,
+    "volley_per_min_med": 1.13,
+    "volley_gap": {
+     "n": 97,
+     "p25": 47.5,
+     "med": 50.3,
+     "p75": 60.2,
+     "즉시_pct": 32,
+     "소홀드_pct": 55,
+     "대홀드_pct": 13
+    },
+    "wailing_uses": 2,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 56,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 22,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 9,
+    "pot_then_ts_within3s_pct": 59,
+    "pot_to_next_ts_med_s": 1.9,
+    "box_uses": 42,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 5,
+    "box_then_ts_within3s_pct": 62,
+    "lust_events": 2,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 17.3
+   },
+   "rank_21_100": {
+    "n": 16,
+    "first_ts_med_s": 2.0,
+    "first_ts_p25_p75": [
+     1.0,
+     2.2
+    ],
+    "ts_per_min_med": 0.56,
+    "ts_gap": {
+     "n": 30,
+     "p25": 121.7,
+     "med": 122.7,
+     "p75": 166.7,
+     "즉시_pct": 53,
+     "소홀드_pct": 10,
+     "대홀드_pct": 37
+    },
+    "first_volley_med_s": 26.8,
+    "volley_per_min_med": 1.11,
+    "volley_gap": {
+     "n": 72,
+     "p25": 49.0,
+     "med": 52.7,
+     "p75": 63.3,
+     "즉시_pct": 17,
+     "소홀드_pct": 64,
+     "대홀드_pct": 19
+    },
+    "wailing_uses": 3,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 43,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 18,
+    "pot_ts_overlap_med_s": 17.0,
+    "pot_cast_in_ts_pct": 56,
+    "pot_then_ts_within3s_pct": 78,
+    "pot_to_next_ts_med_s": 0.0,
+    "box_uses": 32,
+    "box_ts_overlap_med_s": 17.0,
+    "box_cast_in_ts_pct": 3,
+    "box_then_ts_within3s_pct": 75,
+    "lust_events": 0,
+    "lust_cast_in_ts_pct": null,
+    "lust_then_ts_within3s_pct": null,
+    "lust_to_next_ts_med_s": null
+   },
+   "opener": {
+    "first_ts_med_s": 1.9,
+    "first_ts_le5s_pct": 86,
+    "box_precast_pct": 74,
+    "pot_prepull_or_10s_pct": 11,
+    "seq_top3": [
+     {
+      "seq": [
+       "조준 사격",
+       "정조준",
+       "속사",
+       "조준 사격",
+       "신비한 사격"
+      ],
+      "n": 7
+     },
+     {
+      "seq": [
+       "속사",
+       "정조준",
+       "조준 사격",
+       "신비한 사격",
+       "조준 사격"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "정조준",
+       "조준 사격",
+       "신비한 사격",
+       "조준 사격",
+       "신비한 사격"
+      ],
+      "n": 5
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 5,
+    "30-40%": 25,
+    "40-50%": 4,
+    "60-70%": 1,
+    "90-100%": 5
+   },
+   "pot_kind": {
+    "빛의잠재력": 40
+   },
+   "pot_first_med_s": 123.1,
+   "pot_second_med_s": 303.7,
+   "fights_with_2pots_pct": 11,
+   "hold_ts_arrival_top": [
+    {
+     "t": "4:30",
+     "n": 23
+    },
+    {
+     "t": "5:00",
+     "n": 5
+    }
+   ],
+   "n_holds": 28
+  },
+  "한밤의 도래(르우라)": {
+   "encounter_id": 3183,
+   "name_en": "Midnight Falls",
+   "kill_med_s": 552,
+   "all": {
+    "n": 34,
+    "first_ts_med_s": 8.1,
+    "first_ts_p25_p75": [
+     6.7,
+     9.0
+    ],
+    "ts_per_min_med": 0.54,
+    "ts_gap": {
+     "n": 135,
+     "p25": 122.6,
+     "med": 124.2,
+     "p75": 126.6,
+     "즉시_pct": 33,
+     "소홀드_pct": 61,
+     "대홀드_pct": 5
+    },
+    "first_volley_med_s": 12.6,
+    "volley_per_min_med": 1.06,
+    "volley_gap": {
+     "n": 290,
+     "p25": 47.5,
+     "med": 57.4,
+     "p75": 64.3,
+     "즉시_pct": 28,
+     "소홀드_pct": 50,
+     "대홀드_pct": 21
+    },
+    "wailing_uses": 157,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 0,
+    "chakram_in_ts_window_pct": null,
+    "pot_uses": 68,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 28,
+    "pot_then_ts_within3s_pct": 72,
+    "pot_to_next_ts_med_s": 1.8,
+    "box_uses": 166,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 1,
+    "box_then_ts_within3s_pct": 72,
+    "lust_events": 8,
+    "lust_cast_in_ts_pct": 12,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 10.8
+   },
+   "hero_어둠 순찰자": {
+    "n": 34,
+    "first_ts_med_s": 8.1,
+    "first_ts_p25_p75": [
+     6.7,
+     9.0
+    ],
+    "ts_per_min_med": 0.54,
+    "ts_gap": {
+     "n": 135,
+     "p25": 122.6,
+     "med": 124.2,
+     "p75": 126.6,
+     "즉시_pct": 33,
+     "소홀드_pct": 61,
+     "대홀드_pct": 5
+    },
+    "first_volley_med_s": 12.6,
+    "volley_per_min_med": 1.06,
+    "volley_gap": {
+     "n": 290,
+     "p25": 47.5,
+     "med": 57.4,
+     "p75": 64.3,
+     "즉시_pct": 28,
+     "소홀드_pct": 50,
+     "대홀드_pct": 21
+    },
+    "wailing_uses": 157,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 0,
+    "chakram_in_ts_window_pct": null,
+    "pot_uses": 68,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 28,
+    "pot_then_ts_within3s_pct": 72,
+    "pot_to_next_ts_med_s": 1.8,
+    "box_uses": 166,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 1,
+    "box_then_ts_within3s_pct": 72,
+    "lust_events": 8,
+    "lust_cast_in_ts_pct": 12,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 10.8
+   },
+   "rank_1_20": {
+    "n": 20,
+    "first_ts_med_s": 8.1,
+    "first_ts_p25_p75": [
+     6.7,
+     8.9
+    ],
+    "ts_per_min_med": 0.54,
+    "ts_gap": {
+     "n": 80,
+     "p25": 123.0,
+     "med": 124.2,
+     "p75": 126.5,
+     "즉시_pct": 32,
+     "소홀드_pct": 61,
+     "대홀드_pct": 6
+    },
+    "first_volley_med_s": 12.8,
+    "volley_per_min_med": 1.06,
+    "volley_gap": {
+     "n": 169,
+     "p25": 47.6,
+     "med": 59.0,
+     "p75": 63.5,
+     "즉시_pct": 25,
+     "소홀드_pct": 52,
+     "대홀드_pct": 22
+    },
+    "wailing_uses": 99,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 0,
+    "chakram_in_ts_window_pct": null,
+    "pot_uses": 40,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 38,
+    "pot_then_ts_within3s_pct": 70,
+    "pot_to_next_ts_med_s": 2.0,
+    "box_uses": 97,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 2,
+    "box_then_ts_within3s_pct": 69,
+    "lust_events": 4,
+    "lust_cast_in_ts_pct": 25,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 9.9
+   },
+   "rank_21_100": {
+    "n": 14,
+    "first_ts_med_s": 8.1,
+    "first_ts_p25_p75": [
+     6.9,
+     9.0
+    ],
+    "ts_per_min_med": 0.54,
+    "ts_gap": {
+     "n": 55,
+     "p25": 122.6,
+     "med": 124.2,
+     "p75": 126.6,
+     "즉시_pct": 35,
+     "소홀드_pct": 62,
+     "대홀드_pct": 4
+    },
+    "first_volley_med_s": 12.6,
+    "volley_per_min_med": 1.06,
+    "volley_gap": {
+     "n": 121,
+     "p25": 47.4,
+     "med": 55.6,
+     "p75": 64.4,
+     "즉시_pct": 32,
+     "소홀드_pct": 48,
+     "대홀드_pct": 20
+    },
+    "wailing_uses": 58,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 0,
+    "chakram_in_ts_window_pct": null,
+    "pot_uses": 28,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 14,
+    "pot_then_ts_within3s_pct": 75,
+    "pot_to_next_ts_med_s": 1.8,
+    "box_uses": 69,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 0,
+    "box_then_ts_within3s_pct": 75,
+    "lust_events": 4,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 16.0
+   },
+   "opener": {
+    "first_ts_med_s": 8.1,
+    "first_ts_le5s_pct": 3,
+    "box_precast_pct": 0,
+    "pot_prepull_or_10s_pct": 94,
+    "seq_top3": [
+     {
+      "seq": [
+       "조준 사격",
+       "검은 화살",
+       "고정 사격",
+       "알게타르 수수께끼",
+       "속사"
+      ],
+      "n": 14
+     },
+     {
+      "seq": [
+       "조준 사격",
+       "검은 화살",
+       "고정 사격",
+       "고정 사격",
+       "알게타르 수수께끼"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "고정 사격",
+       "고정 사격",
+       "알게타르 수수께끼",
+       "정조준",
+       "조준 사격"
+      ],
+      "n": 3
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 34,
+    "60-70%": 19,
+    "70-80%": 15
+   },
+   "pot_kind": {
+    "빛의잠재력": 68
+   },
+   "pot_first_med_s": 5.9,
+   "pot_second_med_s": 378.8,
+   "fights_with_2pots_pct": 100,
+   "hold_ts_arrival_top": [
+    {
+     "t": "8:30",
+     "n": 7
+    }
+   ],
+   "n_holds": 7
+  },
+  "카이메루스": {
+   "encounter_id": 3306,
+   "name_en": "Chimaerus, the Undreamt God",
+   "kill_med_s": 144,
+   "all": {
+    "n": 41,
+    "first_ts_med_s": 4.0,
+    "first_ts_p25_p75": [
+     2.0,
+     5.2
+    ],
+    "ts_per_min_med": 0.83,
+    "ts_gap": {
+     "n": 41,
+     "p25": 120.9,
+     "med": 122.1,
+     "p75": 124.3,
+     "즉시_pct": 68,
+     "소홀드_pct": 32,
+     "대홀드_pct": 0
+    },
+    "first_volley_med_s": 29.7,
+    "volley_per_min_med": 1.23,
+    "volley_gap": {
+     "n": 69,
+     "p25": 46.8,
+     "med": 50.7,
+     "p75": 68.3,
+     "즉시_pct": 43,
+     "소홀드_pct": 29,
+     "대홀드_pct": 28
+    },
+    "wailing_uses": 77,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 2,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 35,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 37,
+    "pot_then_ts_within3s_pct": 74,
+    "pot_to_next_ts_med_s": 2.0,
+    "box_uses": 58,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 7,
+    "box_then_ts_within3s_pct": 57,
+    "lust_events": 3,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 33,
+    "lust_to_next_ts_med_s": 3.6
+   },
+   "hero_어둠 순찰자": {
+    "n": 40,
+    "first_ts_med_s": 4.0,
+    "first_ts_p25_p75": [
+     2.0,
+     5.2
+    ],
+    "ts_per_min_med": 0.83,
+    "ts_gap": {
+     "n": 40,
+     "p25": 120.9,
+     "med": 122.3,
+     "p75": 124.3,
+     "즉시_pct": 68,
+     "소홀드_pct": 32,
+     "대홀드_pct": 0
+    },
+    "first_volley_med_s": 29.7,
+    "volley_per_min_med": 1.23,
+    "volley_gap": {
+     "n": 66,
+     "p25": 46.8,
+     "med": 51.0,
+     "p75": 69.3,
+     "즉시_pct": 41,
+     "소홀드_pct": 30,
+     "대홀드_pct": 29
+    },
+    "wailing_uses": 77,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 0,
+    "chakram_in_ts_window_pct": null,
+    "pot_uses": 35,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 37,
+    "pot_then_ts_within3s_pct": 74,
+    "pot_to_next_ts_med_s": 2.0,
+    "box_uses": 56,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 7,
+    "box_then_ts_within3s_pct": 55,
+    "lust_events": 3,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 33,
+    "lust_to_next_ts_med_s": 3.6
+   },
+   "rank_1_20": {
+    "n": 19,
+    "first_ts_med_s": 3.6,
+    "first_ts_p25_p75": [
+     1.8,
+     4.7
+    ],
+    "ts_per_min_med": 0.83,
+    "ts_gap": {
+     "n": 19,
+     "p25": 120.9,
+     "med": 122.3,
+     "p75": 125.9,
+     "즉시_pct": 63,
+     "소홀드_pct": 37,
+     "대홀드_pct": 0
+    },
+    "first_volley_med_s": 29.9,
+    "volley_per_min_med": 1.21,
+    "volley_gap": {
+     "n": 33,
+     "p25": 46.2,
+     "med": 49.5,
+     "p75": 71.8,
+     "즉시_pct": 45,
+     "소홀드_pct": 27,
+     "대홀드_pct": 27
+    },
+    "wailing_uses": 37,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 0,
+    "chakram_in_ts_window_pct": null,
+    "pot_uses": 16,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 31,
+    "pot_then_ts_within3s_pct": 75,
+    "pot_to_next_ts_med_s": 2.2,
+    "box_uses": 26,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 4,
+    "box_then_ts_within3s_pct": 50,
+    "lust_events": 2,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 50,
+    "lust_to_next_ts_med_s": 2.7
+   },
+   "rank_21_100": {
+    "n": 22,
+    "first_ts_med_s": 4.4,
+    "first_ts_p25_p75": [
+     2.0,
+     5.7
+    ],
+    "ts_per_min_med": 0.83,
+    "ts_gap": {
+     "n": 22,
+     "p25": 120.9,
+     "med": 122.1,
+     "p75": 123.4,
+     "즉시_pct": 73,
+     "소홀드_pct": 27,
+     "대홀드_pct": 0
+    },
+    "first_volley_med_s": 27.3,
+    "volley_per_min_med": 1.24,
+    "volley_gap": {
+     "n": 36,
+     "p25": 47.3,
+     "med": 52.0,
+     "p75": 67.8,
+     "즉시_pct": 42,
+     "소홀드_pct": 31,
+     "대홀드_pct": 28
+    },
+    "wailing_uses": 40,
+    "wailing_in_ts_window_pct": 100,
+    "chakram_uses": 2,
+    "chakram_in_ts_window_pct": 100,
+    "pot_uses": 19,
+    "pot_ts_overlap_med_s": 15.0,
+    "pot_cast_in_ts_pct": 42,
+    "pot_then_ts_within3s_pct": 74,
+    "pot_to_next_ts_med_s": 1.2,
+    "box_uses": 32,
+    "box_ts_overlap_med_s": 15.0,
+    "box_cast_in_ts_pct": 9,
+    "box_then_ts_within3s_pct": 62,
+    "lust_events": 1,
+    "lust_cast_in_ts_pct": 0,
+    "lust_then_ts_within3s_pct": 0,
+    "lust_to_next_ts_med_s": 5.9
+   },
+   "opener": {
+    "first_ts_med_s": 4.0,
+    "first_ts_le5s_pct": 71,
+    "box_precast_pct": 59,
+    "pot_prepull_or_10s_pct": 98,
+    "seq_top3": [
+     {
+      "seq": [
+       "조준 사격",
+       "검은 화살",
+       "정조준",
+       "속사",
+       "검은 화살"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "조준 사격",
+       "검은 화살",
+       "속사",
+       "검은 화살",
+       "정조준"
+      ],
+      "n": 5
+     },
+     {
+      "seq": [
+       "조준 사격",
+       "검은 화살",
+       "정조준",
+       "조준 사격",
+       "검은 화살"
+      ],
+      "n": 3
+     }
+    ]
+   },
+   "pot_time_decile_hist": {
+    "0-10%": 35
+   },
+   "pot_kind": {
+    "빛의잠재력": 34,
+    "무모함의물약": 1
+   },
+   "pot_first_med_s": 1.3,
+   "pot_second_med_s": null,
+   "fights_with_2pots_pct": 0,
+   "hold_ts_arrival_top": [],
+   "n_holds": 0
+  }
+ }
+}

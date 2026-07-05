@@ -1,0 +1,378 @@
+{
+  "_meta": {
+    "date": "2026-07-05",
+    "spec": "Hunter/Marksmanship (12.0.7)",
+    "source": "rankings_zone46_mythic_dps_top100.csv (900 rows, 9 boss × 100)",
+    "hero_detection": "player_fight nodes ∩ talent_trees hero node-set (>=8 overlap)",
+    "unmatched_player_fight": 3,
+    "DATA_LIMITATION": "v2_cache_events.json 에는 damage 이벤트도, cast target GUID 도 없음(캐스트 102351건 전부 3-튜플). v2_cache_damage.json 은 어빌리티별 총피해 표로 target 차원 부재. 따라서 Q2(타겟전환 손해·조준/검은화살 target 분포·검은화살 DoT 유지)와 Q3(넴드 vs 쫄 피해 분배)는 실측 불가 → '미해결'."
+  },
+  "Q1_hero_adoption": {
+    "overall": {
+      "top20_pooled": {
+        "n": 180,
+        "어둠 순찰자": 93,
+        "파수꾼": 86,
+        "불명": 1,
+        "어둠순찰자_pct": 51.7,
+        "파수꾼_pct": 47.8
+      },
+      "full_pooled": {
+        "n": 900,
+        "어둠 순찰자": 419,
+        "파수꾼": 477,
+        "불명": 4,
+        "어둠순찰자_pct": 46.6,
+        "파수꾼_pct": 53.0
+      }
+    },
+    "per_boss": {
+      "아베르지안": {
+        "eid": "3176",
+        "top20": {
+          "n": 20,
+          "어둠 순찰자": 15,
+          "파수꾼": 5,
+          "어둠순찰자_pct": 75.0,
+          "파수꾼_pct": 25.0
+        },
+        "full100": {
+          "n": 100,
+          "어둠 순찰자": 54,
+          "파수꾼": 46,
+          "어둠순찰자_pct": 54.0,
+          "파수꾼_pct": 46.0
+        }
+      },
+      "보라시우스": {
+        "eid": "3177",
+        "top20": {
+          "n": 20,
+          "어둠 순찰자": 20,
+          "어둠순찰자_pct": 100.0,
+          "파수꾼_pct": 0.0
+        },
+        "full100": {
+          "n": 100,
+          "어둠 순찰자": 100,
+          "어둠순찰자_pct": 100.0,
+          "파수꾼_pct": 0.0
+        }
+      },
+      "바엘고어": {
+        "eid": "3178",
+        "top20": {
+          "n": 20,
+          "파수꾼": 20,
+          "어둠순찰자_pct": 0.0,
+          "파수꾼_pct": 100.0
+        },
+        "full100": {
+          "n": 100,
+          "파수꾼": 97,
+          "불명": 3,
+          "어둠순찰자_pct": 0.0,
+          "파수꾼_pct": 97.0
+        }
+      },
+      "살라다르": {
+        "eid": "3179",
+        "top20": {
+          "n": 20,
+          "어둠 순찰자": 13,
+          "파수꾼": 7,
+          "어둠순찰자_pct": 65.0,
+          "파수꾼_pct": 35.0
+        },
+        "full100": {
+          "n": 100,
+          "어둠 순찰자": 54,
+          "파수꾼": 46,
+          "어둠순찰자_pct": 54.0,
+          "파수꾼_pct": 46.0
+        }
+      },
+      "선봉대": {
+        "eid": "3180",
+        "top20": {
+          "n": 20,
+          "파수꾼": 19,
+          "불명": 1,
+          "어둠순찰자_pct": 0.0,
+          "파수꾼_pct": 95.0
+        },
+        "full100": {
+          "n": 100,
+          "파수꾼": 99,
+          "불명": 1,
+          "어둠순찰자_pct": 0.0,
+          "파수꾼_pct": 99.0
+        }
+      },
+      "우주의 왕관": {
+        "eid": "3181",
+        "top20": {
+          "n": 20,
+          "어둠 순찰자": 4,
+          "파수꾼": 16,
+          "어둠순찰자_pct": 20.0,
+          "파수꾼_pct": 80.0
+        },
+        "full100": {
+          "n": 100,
+          "어둠 순찰자": 20,
+          "파수꾼": 80,
+          "어둠순찰자_pct": 20.0,
+          "파수꾼_pct": 80.0
+        }
+      },
+      "벨로렌": {
+        "eid": "3182",
+        "top20": {
+          "n": 20,
+          "어둠 순찰자": 1,
+          "파수꾼": 19,
+          "어둠순찰자_pct": 5.0,
+          "파수꾼_pct": 95.0
+        },
+        "full100": {
+          "n": 100,
+          "어둠 순찰자": 4,
+          "파수꾼": 96,
+          "어둠순찰자_pct": 4.0,
+          "파수꾼_pct": 96.0
+        }
+      },
+      "한밤의 도래(르우라)": {
+        "eid": "3183",
+        "top20": {
+          "n": 20,
+          "어둠 순찰자": 20,
+          "어둠순찰자_pct": 100.0,
+          "파수꾼_pct": 0.0
+        },
+        "full100": {
+          "n": 100,
+          "어둠 순찰자": 94,
+          "파수꾼": 6,
+          "어둠순찰자_pct": 94.0,
+          "파수꾼_pct": 6.0
+        }
+      },
+      "카이메루스": {
+        "eid": "3306",
+        "top20": {
+          "n": 20,
+          "어둠 순찰자": 20,
+          "어둠순찰자_pct": 100.0,
+          "파수꾼_pct": 0.0
+        },
+        "full100": {
+          "n": 100,
+          "어둠 순찰자": 93,
+          "파수꾼": 7,
+          "어둠순찰자_pct": 93.0,
+          "파수꾼_pct": 7.0
+        }
+      }
+    },
+    "boss_character_PRIOR_unvalidated": {
+      "아베르지안": "다중/쫄",
+      "보라시우스": "단일",
+      "바엘고어": "다중/쫄",
+      "살라다르": "다중/쫄",
+      "선봉대": "다중/쫄",
+      "우주의 왕관": "혼합",
+      "벨로렌": "단일",
+      "한밤의 도래(르우라)": "혼합",
+      "카이메루스": "다중/쫄"
+    },
+    "boss_character_note": "이 라벨은 도메인 사전지식이며 본 캐스트-only 캐시로는 검증 불가(연발 공격율이 보스 무관 균일). 단일/다중 판정 근거로 과신하지 말 것.",
+    "single_target_bosses_darkranger_check": {
+      "보라시우스": {
+        "top20_어둠순찰자_pct": 100.0,
+        "full100_어둠순찰자_pct": 100.0
+      },
+      "벨로렌": {
+        "top20_어둠순찰자_pct": 5.0,
+        "full100_어둠순찰자_pct": 4.0
+      }
+    }
+  },
+  "Q1_proxy_casts_per_min": {
+    "note": "target GUID 부재로 넴드/쫄 분리 불가. 아래는 판당 분당 캐스트율.",
+    "finding_volley_not_discriminative": "연발 공격(260243) 캐스트율이 모든 보스·양 영웅에서 1.0~1.2/min 로 거의 동일 (고정 ~45s 쿨을 쿨마다 소진). 따라서 연발 공격율로는 단일/다중 보스를 구분할 수 없다. 위 boss_character 라벨은 이 데이터로 검증되지 않은 '외부/도메인 사전지식'이며, 본 캐시(캐스트-only)로는 보스의 단일/다중 성격을 실측 검증할 수 없다.",
+    "finding_gcd_tradeoff": "실측 가능한 유일한 확정 신호: 어둠 순찰자는 검은 화살(466930)에 GCD를 쓰느라 조준 사격 캐스트율이 낮고(약 17~21/min), 파수꾼은 검은 화살 0 + 조준 사격 높음(약 22~26/min). 검은 화살은 어둠 순찰자 전용(파수꾼 0.0/min 확인).",
+    "by_hero_all_bosses": {
+      "어둠 순찰자": {
+        "fights_with_events": 169,
+        "volley_per_min": 1.06,
+        "black_arrow_per_min": 8.29,
+        "aimed_per_min": 19.72
+      },
+      "파수꾼": {
+        "fights_with_events": 172,
+        "volley_per_min": 1.07,
+        "black_arrow_per_min": 0.0,
+        "aimed_per_min": 24.31
+      }
+    },
+    "per_boss": {
+      "아베르지안": {
+        "boss": "아베르지안",
+        "prior_label": "다중/쫄",
+        "prior_note": "임페라토르 아베르지안 — 소환 쫄 페이즈 존재",
+        "by_hero": {
+          "어둠 순찰자": {
+            "fights_with_events": 25,
+            "volley_per_min": 1.08,
+            "black_arrow_per_min": 8.41,
+            "aimed_per_min": 20.0
+          },
+          "파수꾼": {
+            "fights_with_events": 14,
+            "volley_per_min": 1.05,
+            "black_arrow_per_min": 0.0,
+            "aimed_per_min": 26.03
+          }
+        }
+      },
+      "보라시우스": {
+        "boss": "보라시우스",
+        "prior_label": "단일",
+        "prior_note": "보라시우스 — 사실상 순수 단일 성격",
+        "by_hero": {
+          "어둠 순찰자": {
+            "fights_with_events": 39,
+            "volley_per_min": 1.05,
+            "black_arrow_per_min": 8.39,
+            "aimed_per_min": 20.69
+          }
+        }
+      },
+      "바엘고어": {
+        "boss": "바엘고어",
+        "prior_label": "다중/쫄",
+        "prior_note": "바엘고어&에조라크 — 2대상 + 분열체",
+        "by_hero": {
+          "파수꾼": {
+            "fights_with_events": 40,
+            "volley_per_min": 0.97,
+            "black_arrow_per_min": 0.0,
+            "aimed_per_min": 24.83
+          }
+        }
+      },
+      "살라다르": {
+        "boss": "살라다르",
+        "prior_label": "다중/쫄",
+        "prior_note": "살라다르 — 페이즈 쫄/무기 다중",
+        "by_hero": {
+          "어둠 순찰자": {
+            "fights_with_events": 22,
+            "volley_per_min": 1.13,
+            "black_arrow_per_min": 8.27,
+            "aimed_per_min": 19.99
+          },
+          "파수꾼": {
+            "fights_with_events": 19,
+            "volley_per_min": 1.09,
+            "black_arrow_per_min": 0.0,
+            "aimed_per_min": 25.33
+          }
+        }
+      },
+      "선봉대": {
+        "boss": "선봉대",
+        "prior_label": "다중/쫄",
+        "prior_note": "선봉대 — 다중 적 광역",
+        "by_hero": {
+          "파수꾼": {
+            "fights_with_events": 34,
+            "volley_per_min": 1.21,
+            "black_arrow_per_min": 0.0,
+            "aimed_per_min": 26.22
+          }
+        }
+      },
+      "우주의 왕관": {
+        "boss": "우주의 왕관",
+        "prior_label": "혼합",
+        "prior_note": "우주의 왕관 — 별도 오브젝트/분산",
+        "by_hero": {
+          "어둠 순찰자": {
+            "fights_with_events": 7,
+            "volley_per_min": 0.95,
+            "black_arrow_per_min": 7.54,
+            "aimed_per_min": 17.02
+          },
+          "파수꾼": {
+            "fights_with_events": 30,
+            "volley_per_min": 1.06,
+            "black_arrow_per_min": 0.0,
+            "aimed_per_min": 22.39
+          }
+        }
+      },
+      "벨로렌": {
+        "boss": "벨로렌",
+        "prior_label": "단일",
+        "prior_note": "벨로렌 — 사실상 단일 집중",
+        "by_hero": {
+          "어둠 순찰자": {
+            "fights_with_events": 2,
+            "volley_per_min": 1.19,
+            "black_arrow_per_min": 7.76,
+            "aimed_per_min": 18.32
+          },
+          "파수꾼": {
+            "fights_with_events": 34,
+            "volley_per_min": 1.09,
+            "black_arrow_per_min": 0.0,
+            "aimed_per_min": 22.82
+          }
+        }
+      },
+      "한밤의 도래(르우라)": {
+        "boss": "한밤의 도래(르우라)",
+        "prior_label": "혼합",
+        "prior_note": "한밤의 도래(르우라) — 페이즈 전환/이동",
+        "by_hero": {
+          "어둠 순찰자": {
+            "fights_with_events": 34,
+            "volley_per_min": 1.05,
+            "black_arrow_per_min": 8.21,
+            "aimed_per_min": 19.15
+          }
+        }
+      },
+      "카이메루스": {
+        "boss": "카이메루스",
+        "prior_label": "다중/쫄",
+        "prior_note": "카이메루스 — 다두/쫄 성격",
+        "by_hero": {
+          "어둠 순찰자": {
+            "fights_with_events": 40,
+            "volley_per_min": 1.08,
+            "black_arrow_per_min": 8.77,
+            "aimed_per_min": 21.29
+          },
+          "파수꾼": {
+            "fights_with_events": 1,
+            "volley_per_min": 1.63,
+            "black_arrow_per_min": 0.0,
+            "aimed_per_min": 26.55
+          }
+        }
+      }
+    }
+  },
+  "Q2_target_switch_loss": {
+    "verdict": "미해결 (UNRESOLVED)",
+    "reason": "조준 사격(19434)·검은 화살(466930) 캐스트에 target GUID 가 이벤트 캐시에 존재하지 않음(0/102351). 한 대상 집중 vs 분산, 검은 화살 DoT 대상별 유지 패턴을 실측할 방법이 현 캐시로 없음. 판정하려면 targetID 포함 damage/cast 이벤트 재수집 필요."
+  },
+  "Q3_damage_split_boss_vs_adds": {
+    "verdict": "미해결 (UNRESOLVED)",
+    "reason": "피해 이벤트 및 적(넴드/쫄) 액터 GUID 테이블이 캐시에 없음. per-target 피해 비중을 산출할 소스가 전무. 판정하려면 target 포함 damage 이벤트 또는 타겟별 damage-done 표 필요."
+  }
+}

@@ -1328,6 +1328,248 @@
       "files": [
         "data/spec_meta_ranking.csv"
       ]
+    },
+    {
+      "ts": "2026-07-05T05:34:06",
+      "host": "SmkDesktop",
+      "action": "fetch_rankings_v2",
+      "params": {
+        "difficulty": 5,
+        "label": "mythic",
+        "zone": 46,
+        "top_n": 100,
+        "partition": 3
+      },
+      "result": {
+        "rows": 24090,
+        "api_pts": 246.4
+      },
+      "files": [
+        "data/rankings_zone46_mythic_dps_top100.csv"
+      ]
+    },
+    {
+      "ts": "2026-07-05T05:42:01",
+      "host": "SmkDesktop",
+      "action": "backfill_v2",
+      "params": {
+        "limit": null,
+        "processed": 351,
+        "scanned": 2678,
+        "missing_only": true,
+        "max_new": null,
+        "pf_all": false,
+        "no_events": true
+      },
+      "result": {
+        "pf_new": 345,
+        "pf_fail": 6,
+        "ev_new": 0,
+        "ev_fail": 0,
+        "ev_skip": 351,
+        "rate_end": 954.43
+      },
+      "files": [
+        "data/v2_cache_player_fight.json",
+        "data/v2_cache_events.json"
+      ]
+    },
+    {
+      "ts": "2026-07-05T06:12:44",
+      "host": "SmkDesktop",
+      "action": "backfill_v2",
+      "params": {
+        "limit": null,
+        "processed": 859,
+        "scanned": 900,
+        "missing_only": true,
+        "max_new": null,
+        "pf_all": false,
+        "no_events": false
+      },
+      "result": {
+        "pf_new": 858,
+        "pf_fail": 1,
+        "ev_new": 855,
+        "ev_fail": 4,
+        "ev_skip": 0,
+        "rate_end": 3289.7
+      },
+      "files": [
+        "data/v2_cache_player_fight.json",
+        "data/v2_cache_events.json"
+      ]
+    },
+    {
+      "ts": "2026-07-05T06:14:07",
+      "host": "SmkDesktop",
+      "action": "fetch_talent_trees",
+      "params": {
+        "specs_requested": 11
+      },
+      "result": {
+        "specs_built": 11
+      },
+      "files": [
+        "data/talent_trees.json"
+      ]
+    },
+    {
+      "ts": "2026-07-05T07:03:59",
+      "host": "SmkDesktop",
+      "action": "fetch_pi_all",
+      "params": {
+        "difficulty": 5,
+        "label": "mythic",
+        "limit": null
+      },
+      "result": {
+        "fights_done": 1830,
+        "fights_fail": 19,
+        "rows_matched": 23836,
+        "pi_received": 7398,
+        "points": -735.0
+      },
+      "files": [
+        "data/rankings_zone46_mythic_dps_top100_pi.csv",
+        "data/v2_cache_pi_fight.json"
+      ]
+    },
+    {
+      "ts": "2026-07-05T15:11:24",
+      "host": "SmkDesktop",
+      "action": "analyze_demo_stat_recommendations",
+      "params": {
+        "topn": 100,
+        "top_band": 20
+      },
+      "result": {
+        "bosses": 9
+      },
+      "files": [
+        "C:/Users/smk90/OneDrive/바탕 화면/LogAnalyze/data/demo_stat_recommendations.json"
+      ]
+    },
+    {
+      "ts": "2026-07-05T15:11:40",
+      "host": "SmkDesktop",
+      "action": "analyze_demo_trinket_recommendations",
+      "params": {
+        "topn": 100,
+        "top_band": 25
+      },
+      "result": {
+        "bosses": 9
+      },
+      "files": [
+        "C:/Users/smk90/OneDrive/바탕 화면/LogAnalyze/data/demo_trinket_recommendations.json"
+      ]
+    },
+    {
+      "ts": "2026-07-05T15:12:32",
+      "host": "SmkDesktop",
+      "action": "analyze_aff_stat_recommendations",
+      "params": {
+        "topn": 100,
+        "top_band": 20
+      },
+      "result": {
+        "bosses": 9
+      },
+      "files": [
+        "C:/Users/smk90/OneDrive/바탕 화면/LogAnalyze/data/aff_stat_recommendations.json"
+      ]
+    },
+    {
+      "ts": "2026-07-05T15:46:38",
+      "host": "SmkDesktop",
+      "action": "analyze_demo_stat_recommendations",
+      "params": {
+        "topn": 100,
+        "top_band": 20
+      },
+      "result": {
+        "bosses": 9
+      },
+      "files": [
+        "C:/Users/smk90/OneDrive/바탕 화면/LogAnalyze/data/demo_stat_recommendations.json"
+      ]
+    },
+    {
+      "ts": "2026-07-05T15:46:39",
+      "host": "SmkDesktop",
+      "action": "analyze_aff_trinket_recommendations",
+      "params": {
+        "topn": 100,
+        "top_band": 25
+      },
+      "result": {
+        "bosses": 9
+      },
+      "files": [
+        "C:/Users/smk90/OneDrive/바탕 화면/LogAnalyze/data/aff_trinket_recommendations.json"
+      ]
+    },
+    {
+      "ts": "2026-07-05T15:46:51",
+      "host": "SmkDesktop",
+      "action": "analyze_demo_trinket_recommendations",
+      "params": {
+        "topn": 100,
+        "top_band": 25
+      },
+      "result": {
+        "bosses": 9
+      },
+      "files": [
+        "C:/Users/smk90/OneDrive/바탕 화면/LogAnalyze/data/demo_trinket_recommendations.json"
+      ]
+    },
+    {
+      "ts": "2026-07-05T15:47:31",
+      "host": "SmkDesktop",
+      "action": "analyze_aff_stat_recommendations",
+      "params": {
+        "topn": 100,
+        "top_band": 20
+      },
+      "result": {
+        "bosses": 9
+      },
+      "files": [
+        "C:/Users/smk90/OneDrive/바탕 화면/LogAnalyze/data/aff_stat_recommendations.json"
+      ]
+    },
+    {
+      "ts": "2026-07-05T15:50:42",
+      "host": "SmkDesktop",
+      "action": "analyze_mm_stat_recommendations",
+      "params": {
+        "topn": 100,
+        "top_band": 20
+      },
+      "result": {
+        "bosses": 9
+      },
+      "files": [
+        "C:/Users/smk90/OneDrive/바탕 화면/LogAnalyze/data/mm_stat_recommendations.json"
+      ]
+    },
+    {
+      "ts": "2026-07-05T15:51:11",
+      "host": "SmkDesktop",
+      "action": "analyze_mm_trinket_recommendations",
+      "params": {
+        "topn": 100,
+        "top_band": 25,
+        "partition": 3
+      },
+      "result": {
+        "bosses": 9
+      },
+      "files": [
+        "C:/Users/smk90/OneDrive/바탕 화면/LogAnalyze/data/mm_trinket_recommendations.json"
+      ]
     }
   ]
 }

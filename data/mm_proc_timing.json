@@ -1,0 +1,3655 @@
+{
+ "meta": {
+  "date": "2026-07-05",
+  "n_kills": 341,
+  "hero_adoption": {
+   "total": {
+    "어둠 순찰자": 418,
+    "파수꾼": 476,
+    "불명": 1
+   },
+   "band": {
+    "rank_1_20": {
+     "어둠 순찰자": 92,
+     "파수꾼": 85
+    },
+    "rank_21_100": {
+     "어둠 순찰자": 326,
+     "파수꾼": 391,
+     "불명": 1
+    }
+   },
+   "per_boss": {
+    "Belo'ren, Child of Al'ar": {
+     "파수꾼": 96,
+     "어둠 순찰자": 4
+    },
+    "Chimaerus, the Undreamt God": {
+     "어둠 순찰자": 92,
+     "파수꾼": 7
+    },
+    "Crown of the Cosmos": {
+     "파수꾼": 79,
+     "어둠 순찰자": 20
+    },
+    "Fallen-King Salhadaar": {
+     "어둠 순찰자": 54,
+     "파수꾼": 46
+    },
+    "Imperator Averzian": {
+     "어둠 순찰자": 54,
+     "파수꾼": 46
+    },
+    "Lightblinded Vanguard": {
+     "파수꾼": 99
+    },
+    "Midnight Falls": {
+     "어둠 순찰자": 94,
+     "파수꾼": 6
+    },
+    "Vaelgor & Ezzorak": {
+     "파수꾼": 97,
+     "불명": 1
+    },
+    "Vorasius": {
+     "어둠 순찰자": 100
+    }
+   }
+  },
+  "procs": {
+   "죽음의 강타": {
+    "buff_ids": [
+     378770,
+     343248
+    ],
+    "consumer_ids": [
+     466930
+    ],
+    "note": "마무리 사격(DR: 검은 화살) 쿨 초기화+조건 해제 (DR 핵심). 실측: removebuff는 466930 캐스트와 0ms 일치"
+   },
+   "정밀 사격": {
+    "buff_ids": [
+     260242
+    ],
+    "consumer_ids": [
+     185358,
+     257620,
+     466930
+    ],
+    "note": "조준 사격 사용 시 다음 신비한 사격 또는 일제 사격 강화(집중감소+피증). DR은 검은 화살도 소모창구로 실측됨"
+   },
+   "실탄 장전": {
+    "buff_ids": [
+     194594
+    ],
+    "consumer_ids": [
+     19434
+    ],
+    "note": "다음 조준 사격 무료·즉시"
+   },
+   "연타 공격": {
+    "buff_ids": [
+     260402,
+     473370
+    ],
+    "consumer_ids": [
+     19434,
+     257044
+    ],
+    "note": "정조준·연발 후 다음 조준/속사 강화"
+   },
+   "부패의 사격": {
+    "buff_ids": [
+     466990,
+     466991
+    ],
+    "consumer_ids": [],
+    "note": "야수의 격노 후 10초 창(soft) — 소모형 아님"
+   }
+  },
+  "expiry_threshold_s": {
+   "죽음의 강타": 7.4,
+   "정밀 사격": 3.6,
+   "실탄 장전": 8.5,
+   "연타 공격": 5.8,
+   "부패의 사격": 14.8
+  },
+  "note": "hold=획득→제거(초). waste=덮어쓰기+자연만료/총획득. consumed_confirmed=제거 ±0.35s 내 소모 캐스트 확인."
+ },
+ "segments": {
+  "어둠 순찰자": {
+   "all": {
+    "죽음의 강타": {
+     "n_fights": 169,
+     "gains": 6294,
+     "gains_per_min": 8.15,
+     "hold_s_median": 1.76,
+     "hold_s_p75": 1.96,
+     "hold_s_p90": 2.42,
+     "used_within_2s_pct": 80.8,
+     "used_within_4s_pct": 97.1,
+     "consumed_confirmed": 5562,
+     "overwrites": 682,
+     "expired": 32,
+     "waste_pct": 11.3
+    },
+    "정밀 사격": {
+     "n_fights": 169,
+     "gains": 10756,
+     "gains_per_min": 13.92,
+     "hold_s_median": 1.37,
+     "hold_s_p75": 1.8,
+     "hold_s_p90": 2.0,
+     "used_within_2s_pct": 90.4,
+     "used_within_4s_pct": 99.4,
+     "consumed_confirmed": 9991,
+     "overwrites": 709,
+     "expired": 83,
+     "waste_pct": 7.4
+    },
+    "실탄 장전": {
+     "n_fights": 169,
+     "gains": 2449,
+     "gains_per_min": 3.17,
+     "hold_s_median": 1.45,
+     "hold_s_p75": 2.73,
+     "hold_s_p90": 4.12,
+     "used_within_2s_pct": 59.1,
+     "used_within_4s_pct": 89.3,
+     "consumed_confirmed": 2314,
+     "overwrites": 109,
+     "expired": 16,
+     "waste_pct": 5.1
+    },
+    "연타 공격": {
+     "n_fights": 169,
+     "gains": 1276,
+     "gains_per_min": 1.65,
+     "hold_s_median": 1.63,
+     "hold_s_p75": 2.73,
+     "hold_s_p90": 3.62,
+     "used_within_2s_pct": 60.2,
+     "used_within_4s_pct": 95.8,
+     "consumed_confirmed": 1245,
+     "overwrites": 22,
+     "expired": 11,
+     "waste_pct": 2.6
+    },
+    "부패의 사격": {
+     "n_fights": 169,
+     "gains": 467,
+     "gains_per_min": 0.6,
+     "hold_s_median": 15.01,
+     "hold_s_p75": 15.01,
+     "hold_s_p90": 15.02,
+     "used_within_2s_pct": 0.0,
+     "used_within_4s_pct": 0.0,
+     "consumed_confirmed": 0,
+     "overwrites": 0,
+     "expired": 436,
+     "waste_pct": 93.4
+    },
+    "_stacks": {
+     "총알 세례": {
+      "max_stack_p50": 27,
+      "max_stack_max": 9401
+     },
+     "별바라기": {
+      "max_stack_p50": 0,
+      "max_stack_max": 0
+     }
+    },
+    "_n": 169
+   },
+   "rank_1_20": {
+    "죽음의 강타": {
+     "n_fights": 92,
+     "gains": 3485,
+     "gains_per_min": 8.09,
+     "hold_s_median": 1.75,
+     "hold_s_p75": 1.94,
+     "hold_s_p90": 2.29,
+     "used_within_2s_pct": 81.9,
+     "used_within_4s_pct": 97.6,
+     "consumed_confirmed": 3097,
+     "overwrites": 360,
+     "expired": 14,
+     "waste_pct": 10.7
+    },
+    "정밀 사격": {
+     "n_fights": 92,
+     "gains": 5954,
+     "gains_per_min": 13.82,
+     "hold_s_median": 1.38,
+     "hold_s_p75": 1.8,
+     "hold_s_p90": 1.99,
+     "used_within_2s_pct": 90.5,
+     "used_within_4s_pct": 99.4,
+     "consumed_confirmed": 5533,
+     "overwrites": 387,
+     "expired": 44,
+     "waste_pct": 7.2
+    },
+    "실탄 장전": {
+     "n_fights": 92,
+     "gains": 1370,
+     "gains_per_min": 3.18,
+     "hold_s_median": 1.53,
+     "hold_s_p75": 2.77,
+     "hold_s_p90": 4.26,
+     "used_within_2s_pct": 57.6,
+     "used_within_4s_pct": 88.1,
+     "consumed_confirmed": 1288,
+     "overwrites": 68,
+     "expired": 9,
+     "waste_pct": 5.6
+    },
+    "연타 공격": {
+     "n_fights": 92,
+     "gains": 723,
+     "gains_per_min": 1.68,
+     "hold_s_median": 1.71,
+     "hold_s_p75": 2.76,
+     "hold_s_p90": 3.64,
+     "used_within_2s_pct": 58.3,
+     "used_within_4s_pct": 95.9,
+     "consumed_confirmed": 708,
+     "overwrites": 9,
+     "expired": 5,
+     "waste_pct": 1.9
+    },
+    "부패의 사격": {
+     "n_fights": 92,
+     "gains": 257,
+     "gains_per_min": 0.6,
+     "hold_s_median": 15.01,
+     "hold_s_p75": 15.01,
+     "hold_s_p90": 15.02,
+     "used_within_2s_pct": 0.0,
+     "used_within_4s_pct": 0.0,
+     "consumed_confirmed": 0,
+     "overwrites": 0,
+     "expired": 240,
+     "waste_pct": 93.4
+    },
+    "_stacks": {
+     "총알 세례": {
+      "max_stack_p50": 60,
+      "max_stack_max": 9401
+     },
+     "별바라기": {
+      "max_stack_p50": 0,
+      "max_stack_max": 0
+     }
+    },
+    "_n": 92
+   },
+   "rank_21_100": {
+    "죽음의 강타": {
+     "n_fights": 77,
+     "gains": 2809,
+     "gains_per_min": 8.22,
+     "hold_s_median": 1.78,
+     "hold_s_p75": 1.96,
+     "hold_s_p90": 2.54,
+     "used_within_2s_pct": 79.5,
+     "used_within_4s_pct": 96.6,
+     "consumed_confirmed": 2465,
+     "overwrites": 322,
+     "expired": 18,
+     "waste_pct": 12.1
+    },
+    "정밀 사격": {
+     "n_fights": 77,
+     "gains": 4802,
+     "gains_per_min": 14.05,
+     "hold_s_median": 1.36,
+     "hold_s_p75": 1.8,
+     "hold_s_p90": 2.0,
+     "used_within_2s_pct": 90.3,
+     "used_within_4s_pct": 99.4,
+     "consumed_confirmed": 4458,
+     "overwrites": 322,
+     "expired": 39,
+     "waste_pct": 7.5
+    },
+    "실탄 장전": {
+     "n_fights": 77,
+     "gains": 1079,
+     "gains_per_min": 3.16,
+     "hold_s_median": 1.39,
+     "hold_s_p75": 2.71,
+     "hold_s_p90": 3.92,
+     "used_within_2s_pct": 61.1,
+     "used_within_4s_pct": 90.8,
+     "consumed_confirmed": 1026,
+     "overwrites": 41,
+     "expired": 7,
+     "waste_pct": 4.4
+    },
+    "연타 공격": {
+     "n_fights": 77,
+     "gains": 553,
+     "gains_per_min": 1.62,
+     "hold_s_median": 1.54,
+     "hold_s_p75": 2.65,
+     "hold_s_p90": 3.58,
+     "used_within_2s_pct": 62.6,
+     "used_within_4s_pct": 95.7,
+     "consumed_confirmed": 537,
+     "overwrites": 13,
+     "expired": 6,
+     "waste_pct": 3.4
+    },
+    "부패의 사격": {
+     "n_fights": 77,
+     "gains": 210,
+     "gains_per_min": 0.61,
+     "hold_s_median": 15.01,
+     "hold_s_p75": 15.01,
+     "hold_s_p90": 15.02,
+     "used_within_2s_pct": 0.0,
+     "used_within_4s_pct": 0.0,
+     "consumed_confirmed": 0,
+     "overwrites": 0,
+     "expired": 196,
+     "waste_pct": 93.3
+    },
+    "_stacks": {
+     "총알 세례": {
+      "max_stack_p50": 18,
+      "max_stack_max": 1426
+     },
+     "별바라기": {
+      "max_stack_p50": 0,
+      "max_stack_max": 0
+     }
+    },
+    "_n": 77
+   }
+  },
+  "파수꾼": {
+   "all": {
+    "죽음의 강타": {
+     "n_fights": 172,
+     "gains": 2,
+     "gains_per_min": 0.0,
+     "hold_s_median": 2.72,
+     "hold_s_p75": 2.75,
+     "hold_s_p90": 2.75,
+     "used_within_2s_pct": 0.0,
+     "used_within_4s_pct": 100.0,
+     "consumed_confirmed": 0,
+     "overwrites": 0,
+     "expired": 0,
+     "waste_pct": 0.0
+    },
+    "정밀 사격": {
+     "n_fights": 172,
+     "gains": 16238,
+     "gains_per_min": 15.91,
+     "hold_s_median": 0.14,
+     "hold_s_p75": 1.35,
+     "hold_s_p90": 1.92,
+     "used_within_2s_pct": 93.8,
+     "used_within_4s_pct": 99.7,
+     "consumed_confirmed": 13827,
+     "overwrites": 2305,
+     "expired": 59,
+     "waste_pct": 14.6
+    },
+    "실탄 장전": {
+     "n_fights": 172,
+     "gains": 3863,
+     "gains_per_min": 3.79,
+     "hold_s_median": 1.36,
+     "hold_s_p75": 2.6,
+     "hold_s_p90": 3.73,
+     "used_within_2s_pct": 62.7,
+     "used_within_4s_pct": 91.1,
+     "consumed_confirmed": 3678,
+     "overwrites": 165,
+     "expired": 18,
+     "waste_pct": 4.7
+    },
+    "연타 공격": {
+     "n_fights": 172,
+     "gains": 1638,
+     "gains_per_min": 1.61,
+     "hold_s_median": 1.44,
+     "hold_s_p75": 2.63,
+     "hold_s_p90": 3.53,
+     "used_within_2s_pct": 64.7,
+     "used_within_4s_pct": 98.3,
+     "consumed_confirmed": 1615,
+     "overwrites": 14,
+     "expired": 5,
+     "waste_pct": 1.2
+    },
+    "부패의 사격": {
+     "n_fights": 172,
+     "gains": 0,
+     "gains_per_min": 0.0,
+     "hold_s_median": null,
+     "hold_s_p75": null,
+     "hold_s_p90": null,
+     "used_within_2s_pct": null,
+     "used_within_4s_pct": null,
+     "consumed_confirmed": 0,
+     "overwrites": 0,
+     "expired": 0,
+     "waste_pct": null
+    },
+    "_stacks": {
+     "총알 세례": {
+      "max_stack_p50": 32,
+      "max_stack_max": 9401
+     },
+     "별바라기": {
+      "max_stack_p50": 32,
+      "max_stack_max": 9401
+     }
+    },
+    "_n": 172
+   },
+   "rank_1_20": {
+    "죽음의 강타": {
+     "n_fights": 85,
+     "gains": 2,
+     "gains_per_min": 0.0,
+     "hold_s_median": 2.72,
+     "hold_s_p75": 2.75,
+     "hold_s_p90": 2.75,
+     "used_within_2s_pct": 0.0,
+     "used_within_4s_pct": 100.0,
+     "consumed_confirmed": 0,
+     "overwrites": 0,
+     "expired": 0,
+     "waste_pct": 0.0
+    },
+    "정밀 사격": {
+     "n_fights": 85,
+     "gains": 8162,
+     "gains_per_min": 16.1,
+     "hold_s_median": 0.15,
+     "hold_s_p75": 1.36,
+     "hold_s_p90": 1.92,
+     "used_within_2s_pct": 94.0,
+     "used_within_4s_pct": 99.7,
+     "consumed_confirmed": 6892,
+     "overwrites": 1219,
+     "expired": 28,
+     "waste_pct": 15.3
+    },
+    "실탄 장전": {
+     "n_fights": 85,
+     "gains": 1942,
+     "gains_per_min": 3.83,
+     "hold_s_median": 1.36,
+     "hold_s_p75": 2.6,
+     "hold_s_p90": 3.73,
+     "used_within_2s_pct": 62.5,
+     "used_within_4s_pct": 91.1,
+     "consumed_confirmed": 1851,
+     "overwrites": 83,
+     "expired": 7,
+     "waste_pct": 4.6
+    },
+    "연타 공격": {
+     "n_fights": 85,
+     "gains": 821,
+     "gains_per_min": 1.62,
+     "hold_s_median": 1.47,
+     "hold_s_p75": 2.67,
+     "hold_s_p90": 3.54,
+     "used_within_2s_pct": 61.9,
+     "used_within_4s_pct": 98.4,
+     "consumed_confirmed": 812,
+     "overwrites": 5,
+     "expired": 3,
+     "waste_pct": 1.0
+    },
+    "부패의 사격": {
+     "n_fights": 85,
+     "gains": 0,
+     "gains_per_min": 0.0,
+     "hold_s_median": null,
+     "hold_s_p75": null,
+     "hold_s_p90": null,
+     "used_within_2s_pct": null,
+     "used_within_4s_pct": null,
+     "consumed_confirmed": 0,
+     "overwrites": 0,
+     "expired": 0,
+     "waste_pct": null
+    },
+    "_stacks": {
+     "총알 세례": {
+      "max_stack_p50": 21,
+      "max_stack_max": 1959
+     },
+     "별바라기": {
+      "max_stack_p50": 21,
+      "max_stack_max": 1959
+     }
+    },
+    "_n": 85
+   },
+   "rank_21_100": {
+    "죽음의 강타": {
+     "n_fights": 87,
+     "gains": 0,
+     "gains_per_min": 0.0,
+     "hold_s_median": null,
+     "hold_s_p75": null,
+     "hold_s_p90": null,
+     "used_within_2s_pct": null,
+     "used_within_4s_pct": null,
+     "consumed_confirmed": 0,
+     "overwrites": 0,
+     "expired": 0,
+     "waste_pct": null
+    },
+    "정밀 사격": {
+     "n_fights": 87,
+     "gains": 8076,
+     "gains_per_min": 15.73,
+     "hold_s_median": 0.12,
+     "hold_s_p75": 1.35,
+     "hold_s_p90": 1.92,
+     "used_within_2s_pct": 93.7,
+     "used_within_4s_pct": 99.7,
+     "consumed_confirmed": 6935,
+     "overwrites": 1086,
+     "expired": 31,
+     "waste_pct": 13.8
+    },
+    "실탄 장전": {
+     "n_fights": 87,
+     "gains": 1921,
+     "gains_per_min": 3.74,
+     "hold_s_median": 1.35,
+     "hold_s_p75": 2.6,
+     "hold_s_p90": 3.72,
+     "used_within_2s_pct": 63.0,
+     "used_within_4s_pct": 91.1,
+     "consumed_confirmed": 1827,
+     "overwrites": 82,
+     "expired": 11,
+     "waste_pct": 4.8
+    },
+    "연타 공격": {
+     "n_fights": 87,
+     "gains": 817,
+     "gains_per_min": 1.59,
+     "hold_s_median": 1.4,
+     "hold_s_p75": 2.58,
+     "hold_s_p90": 3.51,
+     "used_within_2s_pct": 67.5,
+     "used_within_4s_pct": 98.3,
+     "consumed_confirmed": 803,
+     "overwrites": 9,
+     "expired": 2,
+     "waste_pct": 1.3
+    },
+    "부패의 사격": {
+     "n_fights": 87,
+     "gains": 0,
+     "gains_per_min": 0.0,
+     "hold_s_median": null,
+     "hold_s_p75": null,
+     "hold_s_p90": null,
+     "used_within_2s_pct": null,
+     "used_within_4s_pct": null,
+     "consumed_confirmed": 0,
+     "overwrites": 0,
+     "expired": 0,
+     "waste_pct": null
+    },
+    "_stacks": {
+     "총알 세례": {
+      "max_stack_p50": 38,
+      "max_stack_max": 9401
+     },
+     "별바라기": {
+      "max_stack_p50": 38,
+      "max_stack_max": 9401
+     }
+    },
+    "_n": 87
+   }
+  }
+ },
+ "per_boss": {
+  "Fallen-King Salhadaar": {
+   "어둠 순찰자": {
+    "all": {
+     "죽음의 강타": {
+      "n_fights": 22,
+      "gains": 622,
+      "gains_per_min": 8.1,
+      "hold_s_median": 1.78,
+      "hold_s_p75": 1.96,
+      "hold_s_p90": 2.33,
+      "used_within_2s_pct": 79.6,
+      "used_within_4s_pct": 96.9,
+      "consumed_confirmed": 579,
+      "overwrites": 37,
+      "expired": 4,
+      "waste_pct": 6.6
+     },
+     "정밀 사격": {
+      "n_fights": 22,
+      "gains": 1095,
+      "gains_per_min": 14.27,
+      "hold_s_median": 1.36,
+      "hold_s_p75": 1.81,
+      "hold_s_p90": 1.99,
+      "used_within_2s_pct": 90.6,
+      "used_within_4s_pct": 99.7,
+      "consumed_confirmed": 1000,
+      "overwrites": 88,
+      "expired": 4,
+      "waste_pct": 8.4
+     },
+     "실탄 장전": {
+      "n_fights": 22,
+      "gains": 210,
+      "gains_per_min": 2.74,
+      "hold_s_median": 2.04,
+      "hold_s_p75": 3.38,
+      "hold_s_p90": 4.83,
+      "used_within_2s_pct": 49.7,
+      "used_within_4s_pct": 82.9,
+      "consumed_confirmed": 199,
+      "overwrites": 8,
+      "expired": 1,
+      "waste_pct": 4.3
+     },
+     "연타 공격": {
+      "n_fights": 22,
+      "gains": 134,
+      "gains_per_min": 1.75,
+      "hold_s_median": 1.62,
+      "hold_s_p75": 2.47,
+      "hold_s_p90": 3.55,
+      "used_within_2s_pct": 64.7,
+      "used_within_4s_pct": 97.7,
+      "consumed_confirmed": 131,
+      "overwrites": 1,
+      "expired": 0,
+      "waste_pct": 0.7
+     },
+     "부패의 사격": {
+      "n_fights": 22,
+      "gains": 47,
+      "gains_per_min": 0.61,
+      "hold_s_median": 15.01,
+      "hold_s_p75": 15.01,
+      "hold_s_p90": 15.02,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 45,
+      "waste_pct": 95.7
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 19,
+       "max_stack_max": 1198
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 22
+    },
+    "rank_1_20": {
+     "죽음의 강타": {
+      "n_fights": 13,
+      "gains": 387,
+      "gains_per_min": 8.26,
+      "hold_s_median": 1.73,
+      "hold_s_p75": 1.92,
+      "hold_s_p90": 2.12,
+      "used_within_2s_pct": 82.6,
+      "used_within_4s_pct": 97.2,
+      "consumed_confirmed": 356,
+      "overwrites": 27,
+      "expired": 3,
+      "waste_pct": 7.8
+     },
+     "정밀 사격": {
+      "n_fights": 13,
+      "gains": 672,
+      "gains_per_min": 14.34,
+      "hold_s_median": 1.35,
+      "hold_s_p75": 1.76,
+      "hold_s_p90": 1.96,
+      "used_within_2s_pct": 92.3,
+      "used_within_4s_pct": 99.5,
+      "consumed_confirmed": 607,
+      "overwrites": 60,
+      "expired": 3,
+      "waste_pct": 9.4
+     },
+     "실탄 장전": {
+      "n_fights": 13,
+      "gains": 129,
+      "gains_per_min": 2.75,
+      "hold_s_median": 2.36,
+      "hold_s_p75": 3.43,
+      "hold_s_p90": 5.0,
+      "used_within_2s_pct": 44.6,
+      "used_within_4s_pct": 80.2,
+      "consumed_confirmed": 121,
+      "overwrites": 6,
+      "expired": 1,
+      "waste_pct": 5.4
+     },
+     "연타 공격": {
+      "n_fights": 13,
+      "gains": 82,
+      "gains_per_min": 1.75,
+      "hold_s_median": 1.56,
+      "hold_s_p75": 2.37,
+      "hold_s_p90": 3.48,
+      "used_within_2s_pct": 69.1,
+      "used_within_4s_pct": 100.0,
+      "consumed_confirmed": 79,
+      "overwrites": 1,
+      "expired": 0,
+      "waste_pct": 1.2
+     },
+     "부패의 사격": {
+      "n_fights": 13,
+      "gains": 28,
+      "gains_per_min": 0.6,
+      "hold_s_median": 15.01,
+      "hold_s_p75": 15.02,
+      "hold_s_p90": 15.02,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 26,
+      "waste_pct": 92.9
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 60,
+       "max_stack_max": 1198
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 13
+    },
+    "rank_21_100": {
+     "죽음의 강타": {
+      "n_fights": 9,
+      "gains": 235,
+      "gains_per_min": 7.87,
+      "hold_s_median": 1.85,
+      "hold_s_p75": 1.99,
+      "hold_s_p90": 2.6,
+      "used_within_2s_pct": 74.9,
+      "used_within_4s_pct": 96.4,
+      "consumed_confirmed": 223,
+      "overwrites": 10,
+      "expired": 1,
+      "waste_pct": 4.7
+     },
+     "정밀 사격": {
+      "n_fights": 9,
+      "gains": 423,
+      "gains_per_min": 14.16,
+      "hold_s_median": 1.38,
+      "hold_s_p75": 1.85,
+      "hold_s_p90": 2.06,
+      "used_within_2s_pct": 88.1,
+      "used_within_4s_pct": 100.0,
+      "consumed_confirmed": 393,
+      "overwrites": 28,
+      "expired": 1,
+      "waste_pct": 6.9
+     },
+     "실탄 장전": {
+      "n_fights": 9,
+      "gains": 81,
+      "gains_per_min": 2.71,
+      "hold_s_median": 1.39,
+      "hold_s_p75": 3.37,
+      "hold_s_p90": 4.06,
+      "used_within_2s_pct": 57.7,
+      "used_within_4s_pct": 87.2,
+      "consumed_confirmed": 78,
+      "overwrites": 2,
+      "expired": 0,
+      "waste_pct": 2.5
+     },
+     "연타 공격": {
+      "n_fights": 9,
+      "gains": 52,
+      "gains_per_min": 1.74,
+      "hold_s_median": 1.88,
+      "hold_s_p75": 2.49,
+      "hold_s_p90": 3.59,
+      "used_within_2s_pct": 57.7,
+      "used_within_4s_pct": 94.2,
+      "consumed_confirmed": 52,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": 0.0
+     },
+     "부패의 사격": {
+      "n_fights": 9,
+      "gains": 19,
+      "gains_per_min": 0.64,
+      "hold_s_median": 15.01,
+      "hold_s_p75": 15.01,
+      "hold_s_p90": 15.02,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 19,
+      "waste_pct": 100.0
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 18,
+       "max_stack_max": 309
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 9
+    }
+   },
+   "파수꾼": {
+    "all": {
+     "죽음의 강타": {
+      "n_fights": 19,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "정밀 사격": {
+      "n_fights": 19,
+      "gains": 1495,
+      "gains_per_min": 16.6,
+      "hold_s_median": 0.08,
+      "hold_s_p75": 1.35,
+      "hold_s_p90": 1.91,
+      "used_within_2s_pct": 94.3,
+      "used_within_4s_pct": 100.0,
+      "consumed_confirmed": 1252,
+      "overwrites": 238,
+      "expired": 1,
+      "waste_pct": 16.0
+     },
+     "실탄 장전": {
+      "n_fights": 19,
+      "gains": 359,
+      "gains_per_min": 3.99,
+      "hold_s_median": 1.34,
+      "hold_s_p75": 2.44,
+      "hold_s_p90": 3.31,
+      "used_within_2s_pct": 64.8,
+      "used_within_4s_pct": 93.5,
+      "consumed_confirmed": 352,
+      "overwrites": 4,
+      "expired": 0,
+      "waste_pct": 1.1
+     },
+     "연타 공격": {
+      "n_fights": 19,
+      "gains": 152,
+      "gains_per_min": 1.69,
+      "hold_s_median": 1.38,
+      "hold_s_p75": 2.24,
+      "hold_s_p90": 3.51,
+      "used_within_2s_pct": 71.8,
+      "used_within_4s_pct": 97.3,
+      "consumed_confirmed": 148,
+      "overwrites": 2,
+      "expired": 1,
+      "waste_pct": 2.0
+     },
+     "부패의 사격": {
+      "n_fights": 19,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 23,
+       "max_stack_max": 9401
+      },
+      "별바라기": {
+       "max_stack_p50": 23,
+       "max_stack_max": 9401
+      }
+     },
+     "_n": 19
+    },
+    "rank_1_20": {
+     "죽음의 강타": {
+      "n_fights": 7,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "정밀 사격": {
+      "n_fights": 7,
+      "gains": 584,
+      "gains_per_min": 17.15,
+      "hold_s_median": 0.08,
+      "hold_s_p75": 1.34,
+      "hold_s_p90": 1.88,
+      "used_within_2s_pct": 95.0,
+      "used_within_4s_pct": 100.0,
+      "consumed_confirmed": 478,
+      "overwrites": 104,
+      "expired": 0,
+      "waste_pct": 17.8
+     },
+     "실탄 장전": {
+      "n_fights": 7,
+      "gains": 137,
+      "gains_per_min": 4.02,
+      "hold_s_median": 1.33,
+      "hold_s_p75": 2.46,
+      "hold_s_p90": 3.41,
+      "used_within_2s_pct": 65.2,
+      "used_within_4s_pct": 92.6,
+      "consumed_confirmed": 135,
+      "overwrites": 2,
+      "expired": 0,
+      "waste_pct": 1.5
+     },
+     "연타 공격": {
+      "n_fights": 7,
+      "gains": 57,
+      "gains_per_min": 1.67,
+      "hold_s_median": 1.33,
+      "hold_s_p75": 1.61,
+      "hold_s_p90": 3.28,
+      "used_within_2s_pct": 78.6,
+      "used_within_4s_pct": 98.2,
+      "consumed_confirmed": 56,
+      "overwrites": 1,
+      "expired": 1,
+      "waste_pct": 3.5
+     },
+     "부패의 사격": {
+      "n_fights": 7,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 14,
+       "max_stack_max": 173
+      },
+      "별바라기": {
+       "max_stack_p50": 14,
+       "max_stack_max": 173
+      }
+     },
+     "_n": 7
+    },
+    "rank_21_100": {
+     "죽음의 강타": {
+      "n_fights": 12,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "정밀 사격": {
+      "n_fights": 12,
+      "gains": 911,
+      "gains_per_min": 16.26,
+      "hold_s_median": 0.06,
+      "hold_s_p75": 1.36,
+      "hold_s_p90": 1.93,
+      "used_within_2s_pct": 93.9,
+      "used_within_4s_pct": 100.0,
+      "consumed_confirmed": 774,
+      "overwrites": 134,
+      "expired": 1,
+      "waste_pct": 14.8
+     },
+     "실탄 장전": {
+      "n_fights": 12,
+      "gains": 222,
+      "gains_per_min": 3.96,
+      "hold_s_median": 1.34,
+      "hold_s_p75": 2.37,
+      "hold_s_p90": 3.24,
+      "used_within_2s_pct": 64.5,
+      "used_within_4s_pct": 94.0,
+      "consumed_confirmed": 217,
+      "overwrites": 2,
+      "expired": 0,
+      "waste_pct": 0.9
+     },
+     "연타 공격": {
+      "n_fights": 12,
+      "gains": 95,
+      "gains_per_min": 1.7,
+      "hold_s_median": 1.41,
+      "hold_s_p75": 2.61,
+      "hold_s_p90": 3.54,
+      "used_within_2s_pct": 67.7,
+      "used_within_4s_pct": 96.8,
+      "consumed_confirmed": 92,
+      "overwrites": 1,
+      "expired": 0,
+      "waste_pct": 1.1
+     },
+     "부패의 사격": {
+      "n_fights": 12,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 26,
+       "max_stack_max": 9401
+      },
+      "별바라기": {
+       "max_stack_p50": 26,
+       "max_stack_max": 9401
+      }
+     },
+     "_n": 12
+    }
+   }
+  },
+  "Chimaerus, the Undreamt God": {
+   "어둠 순찰자": {
+    "all": {
+     "죽음의 강타": {
+      "n_fights": 40,
+      "gains": 854,
+      "gains_per_min": 8.9,
+      "hold_s_median": 1.58,
+      "hold_s_p75": 1.92,
+      "hold_s_p90": 2.17,
+      "used_within_2s_pct": 84.6,
+      "used_within_4s_pct": 98.1,
+      "consumed_confirmed": 781,
+      "overwrites": 59,
+      "expired": 1,
+      "waste_pct": 7.0
+     },
+     "정밀 사격": {
+      "n_fights": 40,
+      "gains": 1462,
+      "gains_per_min": 15.24,
+      "hold_s_median": 1.32,
+      "hold_s_p75": 1.61,
+      "hold_s_p90": 1.96,
+      "used_within_2s_pct": 92.5,
+      "used_within_4s_pct": 99.8,
+      "consumed_confirmed": 1359,
+      "overwrites": 86,
+      "expired": 5,
+      "waste_pct": 6.2
+     },
+     "실탄 장전": {
+      "n_fights": 40,
+      "gains": 294,
+      "gains_per_min": 3.07,
+      "hold_s_median": 1.4,
+      "hold_s_p75": 2.75,
+      "hold_s_p90": 3.98,
+      "used_within_2s_pct": 60.1,
+      "used_within_4s_pct": 90.1,
+      "consumed_confirmed": 273,
+      "overwrites": 15,
+      "expired": 0,
+      "waste_pct": 5.1
+     },
+     "연타 공격": {
+      "n_fights": 40,
+      "gains": 180,
+      "gains_per_min": 1.88,
+      "hold_s_median": 1.66,
+      "hold_s_p75": 2.68,
+      "hold_s_p90": 3.61,
+      "used_within_2s_pct": 62.3,
+      "used_within_4s_pct": 95.4,
+      "consumed_confirmed": 175,
+      "overwrites": 4,
+      "expired": 2,
+      "waste_pct": 3.3
+     },
+     "부패의 사격": {
+      "n_fights": 40,
+      "gains": 80,
+      "gains_per_min": 0.83,
+      "hold_s_median": 15.01,
+      "hold_s_p75": 15.01,
+      "hold_s_p90": 15.02,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 65,
+      "waste_pct": 81.2
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 102,
+       "max_stack_max": 1745
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 40
+    },
+    "rank_1_20": {
+     "죽음의 강타": {
+      "n_fights": 19,
+      "gains": 404,
+      "gains_per_min": 8.86,
+      "hold_s_median": 1.58,
+      "hold_s_p75": 1.93,
+      "hold_s_p90": 2.21,
+      "used_within_2s_pct": 82.4,
+      "used_within_4s_pct": 97.3,
+      "consumed_confirmed": 374,
+      "overwrites": 23,
+      "expired": 1,
+      "waste_pct": 5.9
+     },
+     "정밀 사격": {
+      "n_fights": 19,
+      "gains": 676,
+      "gains_per_min": 14.82,
+      "hold_s_median": 1.35,
+      "hold_s_p75": 1.62,
+      "hold_s_p90": 1.97,
+      "used_within_2s_pct": 91.4,
+      "used_within_4s_pct": 99.8,
+      "consumed_confirmed": 628,
+      "overwrites": 38,
+      "expired": 2,
+      "waste_pct": 5.9
+     },
+     "실탄 장전": {
+      "n_fights": 19,
+      "gains": 149,
+      "gains_per_min": 3.27,
+      "hold_s_median": 1.39,
+      "hold_s_p75": 2.79,
+      "hold_s_p90": 3.84,
+      "used_within_2s_pct": 60.4,
+      "used_within_4s_pct": 89.9,
+      "consumed_confirmed": 139,
+      "overwrites": 7,
+      "expired": 0,
+      "waste_pct": 4.7
+     },
+     "연타 공격": {
+      "n_fights": 19,
+      "gains": 90,
+      "gains_per_min": 1.97,
+      "hold_s_median": 1.58,
+      "hold_s_p75": 2.77,
+      "hold_s_p90": 3.57,
+      "used_within_2s_pct": 65.2,
+      "used_within_4s_pct": 96.6,
+      "consumed_confirmed": 89,
+      "overwrites": 1,
+      "expired": 1,
+      "waste_pct": 2.2
+     },
+     "부패의 사격": {
+      "n_fights": 19,
+      "gains": 38,
+      "gains_per_min": 0.83,
+      "hold_s_median": 15.01,
+      "hold_s_p75": 15.02,
+      "hold_s_p90": 15.02,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 30,
+      "waste_pct": 78.9
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 148,
+       "max_stack_max": 1745
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 19
+    },
+    "rank_21_100": {
+     "죽음의 강타": {
+      "n_fights": 21,
+      "gains": 450,
+      "gains_per_min": 8.95,
+      "hold_s_median": 1.57,
+      "hold_s_p75": 1.92,
+      "hold_s_p90": 2.08,
+      "used_within_2s_pct": 86.7,
+      "used_within_4s_pct": 98.8,
+      "consumed_confirmed": 407,
+      "overwrites": 36,
+      "expired": 0,
+      "waste_pct": 8.0
+     },
+     "정밀 사격": {
+      "n_fights": 21,
+      "gains": 786,
+      "gains_per_min": 15.63,
+      "hold_s_median": 1.27,
+      "hold_s_p75": 1.61,
+      "hold_s_p90": 1.95,
+      "used_within_2s_pct": 93.4,
+      "used_within_4s_pct": 99.7,
+      "consumed_confirmed": 731,
+      "overwrites": 48,
+      "expired": 3,
+      "waste_pct": 6.5
+     },
+     "실탄 장전": {
+      "n_fights": 21,
+      "gains": 145,
+      "gains_per_min": 2.88,
+      "hold_s_median": 1.49,
+      "hold_s_p75": 2.75,
+      "hold_s_p90": 3.98,
+      "used_within_2s_pct": 59.7,
+      "used_within_4s_pct": 90.3,
+      "consumed_confirmed": 134,
+      "overwrites": 8,
+      "expired": 0,
+      "waste_pct": 5.5
+     },
+     "연타 공격": {
+      "n_fights": 21,
+      "gains": 90,
+      "gains_per_min": 1.79,
+      "hold_s_median": 1.76,
+      "hold_s_p75": 2.68,
+      "hold_s_p90": 3.66,
+      "used_within_2s_pct": 59.3,
+      "used_within_4s_pct": 94.2,
+      "consumed_confirmed": 86,
+      "overwrites": 3,
+      "expired": 1,
+      "waste_pct": 4.4
+     },
+     "부패의 사격": {
+      "n_fights": 21,
+      "gains": 42,
+      "gains_per_min": 0.84,
+      "hold_s_median": 15.01,
+      "hold_s_p75": 15.01,
+      "hold_s_p90": 15.02,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 35,
+      "waste_pct": 83.3
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 18,
+       "max_stack_max": 1113
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 21
+    }
+   }
+  },
+  "Vaelgor & Ezzorak": {
+   "파수꾼": {
+    "all": {
+     "죽음의 강타": {
+      "n_fights": 40,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "정밀 사격": {
+      "n_fights": 40,
+      "gains": 3975,
+      "gains_per_min": 16.28,
+      "hold_s_median": 0.12,
+      "hold_s_p75": 1.36,
+      "hold_s_p90": 1.93,
+      "used_within_2s_pct": 93.8,
+      "used_within_4s_pct": 99.6,
+      "consumed_confirmed": 3355,
+      "overwrites": 605,
+      "expired": 16,
+      "waste_pct": 15.6
+     },
+     "실탄 장전": {
+      "n_fights": 40,
+      "gains": 940,
+      "gains_per_min": 3.85,
+      "hold_s_median": 1.48,
+      "hold_s_p75": 2.64,
+      "hold_s_p90": 3.73,
+      "used_within_2s_pct": 60.4,
+      "used_within_4s_pct": 91.1,
+      "consumed_confirmed": 889,
+      "overwrites": 49,
+      "expired": 3,
+      "waste_pct": 5.5
+     },
+     "연타 공격": {
+      "n_fights": 40,
+      "gains": 353,
+      "gains_per_min": 1.45,
+      "hold_s_median": 1.44,
+      "hold_s_p75": 2.56,
+      "hold_s_p90": 3.34,
+      "used_within_2s_pct": 65.9,
+      "used_within_4s_pct": 98.3,
+      "consumed_confirmed": 346,
+      "overwrites": 7,
+      "expired": 2,
+      "waste_pct": 2.5
+     },
+     "부패의 사격": {
+      "n_fights": 40,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 212,
+       "max_stack_max": 1959
+      },
+      "별바라기": {
+       "max_stack_p50": 212,
+       "max_stack_max": 1959
+      }
+     },
+     "_n": 40
+    },
+    "rank_1_20": {
+     "죽음의 강타": {
+      "n_fights": 20,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "정밀 사격": {
+      "n_fights": 20,
+      "gains": 1987,
+      "gains_per_min": 16.53,
+      "hold_s_median": 0.16,
+      "hold_s_p75": 1.38,
+      "hold_s_p90": 1.93,
+      "used_within_2s_pct": 93.8,
+      "used_within_4s_pct": 99.6,
+      "consumed_confirmed": 1649,
+      "overwrites": 329,
+      "expired": 9,
+      "waste_pct": 17.0
+     },
+     "실탄 장전": {
+      "n_fights": 20,
+      "gains": 473,
+      "gains_per_min": 3.93,
+      "hold_s_median": 1.5,
+      "hold_s_p75": 2.64,
+      "hold_s_p90": 3.73,
+      "used_within_2s_pct": 61.1,
+      "used_within_4s_pct": 90.9,
+      "consumed_confirmed": 450,
+      "overwrites": 22,
+      "expired": 1,
+      "waste_pct": 4.9
+     },
+     "연타 공격": {
+      "n_fights": 20,
+      "gains": 175,
+      "gains_per_min": 1.46,
+      "hold_s_median": 1.5,
+      "hold_s_p75": 2.63,
+      "hold_s_p90": 3.46,
+      "used_within_2s_pct": 60.9,
+      "used_within_4s_pct": 97.7,
+      "consumed_confirmed": 174,
+      "overwrites": 1,
+      "expired": 2,
+      "waste_pct": 1.7
+     },
+     "부패의 사격": {
+      "n_fights": 20,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 249,
+       "max_stack_max": 1959
+      },
+      "별바라기": {
+       "max_stack_p50": 249,
+       "max_stack_max": 1959
+      }
+     },
+     "_n": 20
+    },
+    "rank_21_100": {
+     "죽음의 강타": {
+      "n_fights": 20,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "정밀 사격": {
+      "n_fights": 20,
+      "gains": 1988,
+      "gains_per_min": 16.05,
+      "hold_s_median": 0.08,
+      "hold_s_p75": 1.35,
+      "hold_s_p90": 1.94,
+      "used_within_2s_pct": 93.7,
+      "used_within_4s_pct": 99.6,
+      "consumed_confirmed": 1706,
+      "overwrites": 276,
+      "expired": 7,
+      "waste_pct": 14.2
+     },
+     "실탄 장전": {
+      "n_fights": 20,
+      "gains": 467,
+      "gains_per_min": 3.77,
+      "hold_s_median": 1.42,
+      "hold_s_p75": 2.64,
+      "hold_s_p90": 3.72,
+      "used_within_2s_pct": 59.7,
+      "used_within_4s_pct": 91.3,
+      "consumed_confirmed": 439,
+      "overwrites": 27,
+      "expired": 2,
+      "waste_pct": 6.2
+     },
+     "연타 공격": {
+      "n_fights": 20,
+      "gains": 178,
+      "gains_per_min": 1.44,
+      "hold_s_median": 1.4,
+      "hold_s_p75": 2.15,
+      "hold_s_p90": 3.03,
+      "used_within_2s_pct": 70.9,
+      "used_within_4s_pct": 98.8,
+      "consumed_confirmed": 172,
+      "overwrites": 6,
+      "expired": 0,
+      "waste_pct": 3.4
+     },
+     "부패의 사격": {
+      "n_fights": 20,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 154,
+       "max_stack_max": 1637
+      },
+      "별바라기": {
+       "max_stack_p50": 154,
+       "max_stack_max": 1637
+      }
+     },
+     "_n": 20
+    }
+   }
+  },
+  "Imperator Averzian": {
+   "어둠 순찰자": {
+    "all": {
+     "죽음의 강타": {
+      "n_fights": 25,
+      "gains": 691,
+      "gains_per_min": 8.31,
+      "hold_s_median": 1.7,
+      "hold_s_p75": 1.96,
+      "hold_s_p90": 2.12,
+      "used_within_2s_pct": 81.7,
+      "used_within_4s_pct": 97.9,
+      "consumed_confirmed": 624,
+      "overwrites": 61,
+      "expired": 3,
+      "waste_pct": 9.3
+     },
+     "정밀 사격": {
+      "n_fights": 25,
+      "gains": 1176,
+      "gains_per_min": 14.15,
+      "hold_s_median": 1.38,
+      "hold_s_p75": 1.8,
+      "hold_s_p90": 2.01,
+      "used_within_2s_pct": 89.2,
+      "used_within_4s_pct": 99.8,
+      "consumed_confirmed": 1100,
+      "overwrites": 69,
+      "expired": 3,
+      "waste_pct": 6.1
+     },
+     "실탄 장전": {
+      "n_fights": 25,
+      "gains": 221,
+      "gains_per_min": 2.66,
+      "hold_s_median": 1.52,
+      "hold_s_p75": 2.64,
+      "hold_s_p90": 3.64,
+      "used_within_2s_pct": 59.3,
+      "used_within_4s_pct": 95.3,
+      "consumed_confirmed": 214,
+      "overwrites": 4,
+      "expired": 1,
+      "waste_pct": 2.3
+     },
+     "연타 공격": {
+      "n_fights": 25,
+      "gains": 140,
+      "gains_per_min": 1.68,
+      "hold_s_median": 1.94,
+      "hold_s_p75": 2.76,
+      "hold_s_p90": 3.73,
+      "used_within_2s_pct": 54.8,
+      "used_within_4s_pct": 91.1,
+      "consumed_confirmed": 134,
+      "overwrites": 4,
+      "expired": 5,
+      "waste_pct": 6.4
+     },
+     "부패의 사격": {
+      "n_fights": 25,
+      "gains": 50,
+      "gains_per_min": 0.6,
+      "hold_s_median": 15.01,
+      "hold_s_p75": 15.01,
+      "hold_s_p90": 15.02,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 50,
+      "waste_pct": 100.0
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 20,
+       "max_stack_max": 1486
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 25
+    },
+    "rank_1_20": {
+     "죽음의 강타": {
+      "n_fights": 15,
+      "gains": 412,
+      "gains_per_min": 8.42,
+      "hold_s_median": 1.66,
+      "hold_s_p75": 1.97,
+      "hold_s_p90": 2.12,
+      "used_within_2s_pct": 81.9,
+      "used_within_4s_pct": 98.4,
+      "consumed_confirmed": 364,
+      "overwrites": 43,
+      "expired": 1,
+      "waste_pct": 10.7
+     },
+     "정밀 사격": {
+      "n_fights": 15,
+      "gains": 687,
+      "gains_per_min": 14.03,
+      "hold_s_median": 1.39,
+      "hold_s_p75": 1.8,
+      "hold_s_p90": 2.01,
+      "used_within_2s_pct": 88.2,
+      "used_within_4s_pct": 99.8,
+      "consumed_confirmed": 633,
+      "overwrites": 47,
+      "expired": 1,
+      "waste_pct": 7.0
+     },
+     "실탄 장전": {
+      "n_fights": 15,
+      "gains": 129,
+      "gains_per_min": 2.64,
+      "hold_s_median": 1.44,
+      "hold_s_p75": 2.64,
+      "hold_s_p90": 3.58,
+      "used_within_2s_pct": 61.3,
+      "used_within_4s_pct": 96.0,
+      "consumed_confirmed": 124,
+      "overwrites": 3,
+      "expired": 1,
+      "waste_pct": 3.1
+     },
+     "연타 공격": {
+      "n_fights": 15,
+      "gains": 84,
+      "gains_per_min": 1.72,
+      "hold_s_median": 1.96,
+      "hold_s_p75": 2.76,
+      "hold_s_p90": 3.7,
+      "used_within_2s_pct": 54.3,
+      "used_within_4s_pct": 93.8,
+      "consumed_confirmed": 80,
+      "overwrites": 2,
+      "expired": 1,
+      "waste_pct": 3.6
+     },
+     "부패의 사격": {
+      "n_fights": 15,
+      "gains": 30,
+      "gains_per_min": 0.61,
+      "hold_s_median": 15.01,
+      "hold_s_p75": 15.02,
+      "hold_s_p90": 15.03,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 30,
+      "waste_pct": 100.0
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 31,
+       "max_stack_max": 1486
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 15
+    },
+    "rank_21_100": {
+     "죽음의 강타": {
+      "n_fights": 10,
+      "gains": 279,
+      "gains_per_min": 8.17,
+      "hold_s_median": 1.75,
+      "hold_s_p75": 1.96,
+      "hold_s_p90": 2.12,
+      "used_within_2s_pct": 81.5,
+      "used_within_4s_pct": 97.3,
+      "consumed_confirmed": 260,
+      "overwrites": 18,
+      "expired": 2,
+      "waste_pct": 7.2
+     },
+     "정밀 사격": {
+      "n_fights": 10,
+      "gains": 489,
+      "gains_per_min": 14.32,
+      "hold_s_median": 1.36,
+      "hold_s_p75": 1.79,
+      "hold_s_p90": 1.99,
+      "used_within_2s_pct": 90.6,
+      "used_within_4s_pct": 99.8,
+      "consumed_confirmed": 467,
+      "overwrites": 22,
+      "expired": 2,
+      "waste_pct": 4.9
+     },
+     "실탄 장전": {
+      "n_fights": 10,
+      "gains": 92,
+      "gains_per_min": 2.69,
+      "hold_s_median": 1.77,
+      "hold_s_p75": 2.64,
+      "hold_s_p90": 3.7,
+      "used_within_2s_pct": 56.7,
+      "used_within_4s_pct": 94.4,
+      "consumed_confirmed": 90,
+      "overwrites": 1,
+      "expired": 0,
+      "waste_pct": 1.1
+     },
+     "연타 공격": {
+      "n_fights": 10,
+      "gains": 56,
+      "gains_per_min": 1.64,
+      "hold_s_median": 1.69,
+      "hold_s_p75": 3.48,
+      "hold_s_p90": 4.34,
+      "used_within_2s_pct": 55.6,
+      "used_within_4s_pct": 87.0,
+      "consumed_confirmed": 54,
+      "overwrites": 2,
+      "expired": 4,
+      "waste_pct": 10.7
+     },
+     "부패의 사격": {
+      "n_fights": 10,
+      "gains": 20,
+      "gains_per_min": 0.59,
+      "hold_s_median": 15.01,
+      "hold_s_p75": 15.01,
+      "hold_s_p90": 15.01,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 20,
+      "waste_pct": 100.0
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 17,
+       "max_stack_max": 657
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 10
+    }
+   },
+   "파수꾼": {
+    "all": {
+     "죽음의 강타": {
+      "n_fights": 14,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "정밀 사격": {
+      "n_fights": 14,
+      "gains": 1117,
+      "gains_per_min": 16.94,
+      "hold_s_median": 0.36,
+      "hold_s_p75": 1.34,
+      "hold_s_p90": 1.89,
+      "used_within_2s_pct": 94.1,
+      "used_within_4s_pct": 99.5,
+      "consumed_confirmed": 949,
+      "overwrites": 164,
+      "expired": 5,
+      "waste_pct": 15.1
+     },
+     "실탄 장전": {
+      "n_fights": 14,
+      "gains": 272,
+      "gains_per_min": 4.13,
+      "hold_s_median": 1.32,
+      "hold_s_p75": 2.29,
+      "hold_s_p90": 3.29,
+      "used_within_2s_pct": 68.9,
+      "used_within_4s_pct": 94.1,
+      "consumed_confirmed": 254,
+      "overwrites": 14,
+      "expired": 0,
+      "waste_pct": 5.1
+     },
+     "연타 공격": {
+      "n_fights": 14,
+      "gains": 110,
+      "gains_per_min": 1.67,
+      "hold_s_median": 1.38,
+      "hold_s_p75": 2.41,
+      "hold_s_p90": 3.47,
+      "used_within_2s_pct": 69.7,
+      "used_within_4s_pct": 100.0,
+      "consumed_confirmed": 108,
+      "overwrites": 1,
+      "expired": 0,
+      "waste_pct": 0.9
+     },
+     "부패의 사격": {
+      "n_fights": 14,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 32,
+       "max_stack_max": 1083
+      },
+      "별바라기": {
+       "max_stack_p50": 32,
+       "max_stack_max": 1083
+      }
+     },
+     "_n": 14
+    },
+    "rank_1_20": {
+     "죽음의 강타": {
+      "n_fights": 5,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "정밀 사격": {
+      "n_fights": 5,
+      "gains": 432,
+      "gains_per_min": 17.25,
+      "hold_s_median": 0.1,
+      "hold_s_p75": 1.36,
+      "hold_s_p90": 1.86,
+      "used_within_2s_pct": 95.8,
+      "used_within_4s_pct": 99.2,
+      "consumed_confirmed": 355,
+      "overwrites": 75,
+      "expired": 3,
+      "waste_pct": 18.1
+     },
+     "실탄 장전": {
+      "n_fights": 5,
+      "gains": 110,
+      "gains_per_min": 4.39,
+      "hold_s_median": 1.33,
+      "hold_s_p75": 2.51,
+      "hold_s_p90": 3.29,
+      "used_within_2s_pct": 66.0,
+      "used_within_4s_pct": 95.0,
+      "consumed_confirmed": 100,
+      "overwrites": 8,
+      "expired": 0,
+      "waste_pct": 7.3
+     },
+     "연타 공격": {
+      "n_fights": 5,
+      "gains": 42,
+      "gains_per_min": 1.68,
+      "hold_s_median": 1.33,
+      "hold_s_p75": 1.68,
+      "hold_s_p90": 3.48,
+      "used_within_2s_pct": 78.6,
+      "used_within_4s_pct": 100.0,
+      "consumed_confirmed": 41,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": 0.0
+     },
+     "부패의 사격": {
+      "n_fights": 5,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 12,
+       "max_stack_max": 1083
+      },
+      "별바라기": {
+       "max_stack_p50": 12,
+       "max_stack_max": 1083
+      }
+     },
+     "_n": 5
+    },
+    "rank_21_100": {
+     "죽음의 강타": {
+      "n_fights": 9,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "정밀 사격": {
+      "n_fights": 9,
+      "gains": 685,
+      "gains_per_min": 16.76,
+      "hold_s_median": 0.43,
+      "hold_s_p75": 1.34,
+      "hold_s_p90": 1.92,
+      "used_within_2s_pct": 93.1,
+      "used_within_4s_pct": 99.7,
+      "consumed_confirmed": 594,
+      "overwrites": 89,
+      "expired": 2,
+      "waste_pct": 13.3
+     },
+     "실탄 장전": {
+      "n_fights": 9,
+      "gains": 162,
+      "gains_per_min": 3.96,
+      "hold_s_median": 1.32,
+      "hold_s_p75": 2.23,
+      "hold_s_p90": 3.21,
+      "used_within_2s_pct": 70.8,
+      "used_within_4s_pct": 93.5,
+      "consumed_confirmed": 154,
+      "overwrites": 6,
+      "expired": 0,
+      "waste_pct": 3.7
+     },
+     "연타 공격": {
+      "n_fights": 9,
+      "gains": 68,
+      "gains_per_min": 1.66,
+      "hold_s_median": 1.46,
+      "hold_s_p75": 2.6,
+      "hold_s_p90": 3.43,
+      "used_within_2s_pct": 64.2,
+      "used_within_4s_pct": 100.0,
+      "consumed_confirmed": 67,
+      "overwrites": 1,
+      "expired": 0,
+      "waste_pct": 1.5
+     },
+     "부패의 사격": {
+      "n_fights": 9,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 44,
+       "max_stack_max": 382
+      },
+      "별바라기": {
+       "max_stack_p50": 44,
+       "max_stack_max": 382
+      }
+     },
+     "_n": 9
+    }
+   }
+  },
+  "Vorasius": {
+   "어둠 순찰자": {
+    "all": {
+     "죽음의 강타": {
+      "n_fights": 39,
+      "gains": 1175,
+      "gains_per_min": 8.13,
+      "hold_s_median": 1.69,
+      "hold_s_p75": 1.93,
+      "hold_s_p90": 2.09,
+      "used_within_2s_pct": 85.7,
+      "used_within_4s_pct": 99.4,
+      "consumed_confirmed": 1096,
+      "overwrites": 75,
+      "expired": 1,
+      "waste_pct": 6.5
+     },
+     "정밀 사격": {
+      "n_fights": 39,
+      "gains": 2140,
+      "gains_per_min": 14.81,
+      "hold_s_median": 1.36,
+      "hold_s_p75": 1.75,
+      "hold_s_p90": 1.98,
+      "used_within_2s_pct": 91.6,
+      "used_within_4s_pct": 99.6,
+      "consumed_confirmed": 2007,
+      "overwrites": 126,
+      "expired": 13,
+      "waste_pct": 6.5
+     },
+     "실탄 장전": {
+      "n_fights": 39,
+      "gains": 470,
+      "gains_per_min": 3.25,
+      "hold_s_median": 1.38,
+      "hold_s_p75": 2.61,
+      "hold_s_p90": 3.71,
+      "used_within_2s_pct": 66.6,
+      "used_within_4s_pct": 90.9,
+      "consumed_confirmed": 449,
+      "overwrites": 17,
+      "expired": 1,
+      "waste_pct": 3.8
+     },
+     "연타 공격": {
+      "n_fights": 39,
+      "gains": 234,
+      "gains_per_min": 1.62,
+      "hold_s_median": 1.43,
+      "hold_s_p75": 2.67,
+      "hold_s_p90": 3.63,
+      "used_within_2s_pct": 66.5,
+      "used_within_4s_pct": 99.1,
+      "consumed_confirmed": 232,
+      "overwrites": 1,
+      "expired": 0,
+      "waste_pct": 0.4
+     },
+     "부패의 사격": {
+      "n_fights": 39,
+      "gains": 89,
+      "gains_per_min": 0.62,
+      "hold_s_median": 15.01,
+      "hold_s_p75": 15.01,
+      "hold_s_p90": 15.02,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 84,
+      "waste_pct": 94.4
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 31,
+       "max_stack_max": 9401
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 39
+    },
+    "rank_1_20": {
+     "죽음의 강타": {
+      "n_fights": 20,
+      "gains": 581,
+      "gains_per_min": 8.09,
+      "hold_s_median": 1.7,
+      "hold_s_p75": 1.93,
+      "hold_s_p90": 2.07,
+      "used_within_2s_pct": 86.1,
+      "used_within_4s_pct": 99.3,
+      "consumed_confirmed": 539,
+      "overwrites": 40,
+      "expired": 0,
+      "waste_pct": 6.9
+     },
+     "정밀 사격": {
+      "n_fights": 20,
+      "gains": 1036,
+      "gains_per_min": 14.42,
+      "hold_s_median": 1.36,
+      "hold_s_p75": 1.75,
+      "hold_s_p90": 1.98,
+      "used_within_2s_pct": 91.8,
+      "used_within_4s_pct": 99.4,
+      "consumed_confirmed": 992,
+      "overwrites": 41,
+      "expired": 7,
+      "waste_pct": 4.6
+     },
+     "실탄 장전": {
+      "n_fights": 20,
+      "gains": 234,
+      "gains_per_min": 3.26,
+      "hold_s_median": 1.37,
+      "hold_s_p75": 2.49,
+      "hold_s_p90": 4.11,
+      "used_within_2s_pct": 68.6,
+      "used_within_4s_pct": 89.7,
+      "consumed_confirmed": 223,
+      "overwrites": 9,
+      "expired": 1,
+      "waste_pct": 4.3
+     },
+     "연타 공격": {
+      "n_fights": 20,
+      "gains": 127,
+      "gains_per_min": 1.77,
+      "hold_s_median": 1.47,
+      "hold_s_p75": 2.67,
+      "hold_s_p90": 3.64,
+      "used_within_2s_pct": 67.5,
+      "used_within_4s_pct": 99.2,
+      "consumed_confirmed": 125,
+      "overwrites": 1,
+      "expired": 0,
+      "waste_pct": 0.8
+     },
+     "부패의 사격": {
+      "n_fights": 20,
+      "gains": 44,
+      "gains_per_min": 0.61,
+      "hold_s_median": 15.01,
+      "hold_s_p75": 15.02,
+      "hold_s_p90": 15.02,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 42,
+      "waste_pct": 95.5
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 175,
+       "max_stack_max": 9401
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 20
+    },
+    "rank_21_100": {
+     "죽음의 강타": {
+      "n_fights": 19,
+      "gains": 594,
+      "gains_per_min": 8.17,
+      "hold_s_median": 1.67,
+      "hold_s_p75": 1.93,
+      "hold_s_p90": 2.1,
+      "used_within_2s_pct": 85.3,
+      "used_within_4s_pct": 99.5,
+      "consumed_confirmed": 557,
+      "overwrites": 35,
+      "expired": 1,
+      "waste_pct": 6.1
+     },
+     "정밀 사격": {
+      "n_fights": 19,
+      "gains": 1104,
+      "gains_per_min": 15.19,
+      "hold_s_median": 1.35,
+      "hold_s_p75": 1.75,
+      "hold_s_p90": 1.98,
+      "used_within_2s_pct": 91.4,
+      "used_within_4s_pct": 99.8,
+      "consumed_confirmed": 1015,
+      "overwrites": 85,
+      "expired": 6,
+      "waste_pct": 8.2
+     },
+     "실탄 장전": {
+      "n_fights": 19,
+      "gains": 236,
+      "gains_per_min": 3.25,
+      "hold_s_median": 1.41,
+      "hold_s_p75": 2.71,
+      "hold_s_p90": 3.65,
+      "used_within_2s_pct": 64.6,
+      "used_within_4s_pct": 92.0,
+      "consumed_confirmed": 226,
+      "overwrites": 8,
+      "expired": 0,
+      "waste_pct": 3.4
+     },
+     "연타 공격": {
+      "n_fights": 19,
+      "gains": 107,
+      "gains_per_min": 1.47,
+      "hold_s_median": 1.43,
+      "hold_s_p75": 2.71,
+      "hold_s_p90": 3.47,
+      "used_within_2s_pct": 65.4,
+      "used_within_4s_pct": 99.1,
+      "consumed_confirmed": 107,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": 0.0
+     },
+     "부패의 사격": {
+      "n_fights": 19,
+      "gains": 45,
+      "gains_per_min": 0.62,
+      "hold_s_median": 15.01,
+      "hold_s_p75": 15.01,
+      "hold_s_p90": 15.02,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 42,
+      "waste_pct": 93.3
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 18,
+       "max_stack_max": 1426
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 19
+    }
+   }
+  },
+  "Crown of the Cosmos": {
+   "어둠 순찰자": {
+    "all": {
+     "죽음의 강타": {
+      "n_fights": 7,
+      "gains": 381,
+      "gains_per_min": 6.94,
+      "hold_s_median": 1.86,
+      "hold_s_p75": 2.03,
+      "hold_s_p90": 2.69,
+      "used_within_2s_pct": 71.6,
+      "used_within_4s_pct": 96.2,
+      "consumed_confirmed": 339,
+      "overwrites": 40,
+      "expired": 4,
+      "waste_pct": 11.5
+     },
+     "정밀 사격": {
+      "n_fights": 7,
+      "gains": 671,
+      "gains_per_min": 12.23,
+      "hold_s_median": 1.38,
+      "hold_s_p75": 1.91,
+      "hold_s_p90": 2.11,
+      "used_within_2s_pct": 83.3,
+      "used_within_4s_pct": 98.2,
+      "consumed_confirmed": 626,
+      "overwrites": 43,
+      "expired": 13,
+      "waste_pct": 8.3
+     },
+     "실탄 장전": {
+      "n_fights": 7,
+      "gains": 154,
+      "gains_per_min": 2.81,
+      "hold_s_median": 2.05,
+      "hold_s_p75": 3.21,
+      "hold_s_p90": 5.02,
+      "used_within_2s_pct": 49.7,
+      "used_within_4s_pct": 83.0,
+      "consumed_confirmed": 146,
+      "overwrites": 6,
+      "expired": 3,
+      "waste_pct": 5.8
+     },
+     "연타 공격": {
+      "n_fights": 7,
+      "gains": 78,
+      "gains_per_min": 1.42,
+      "hold_s_median": 1.51,
+      "hold_s_p75": 2.72,
+      "hold_s_p90": 3.52,
+      "used_within_2s_pct": 61.5,
+      "used_within_4s_pct": 100.0,
+      "consumed_confirmed": 78,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": 0.0
+     },
+     "부패의 사격": {
+      "n_fights": 7,
+      "gains": 26,
+      "gains_per_min": 0.47,
+      "hold_s_median": 15.01,
+      "hold_s_p75": 15.01,
+      "hold_s_p90": 15.02,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 25,
+      "waste_pct": 96.2
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 71,
+       "max_stack_max": 622
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 7
+    },
+    "rank_1_20": {
+     "죽음의 강타": {
+      "n_fights": 4,
+      "gains": 219,
+      "gains_per_min": 7.23,
+      "hold_s_median": 1.87,
+      "hold_s_p75": 2.12,
+      "hold_s_p90": 2.95,
+      "used_within_2s_pct": 63.7,
+      "used_within_4s_pct": 96.8,
+      "consumed_confirmed": 188,
+      "overwrites": 29,
+      "expired": 2,
+      "waste_pct": 14.2
+     },
+     "정밀 사격": {
+      "n_fights": 4,
+      "gains": 377,
+      "gains_per_min": 12.45,
+      "hold_s_median": 1.4,
+      "hold_s_p75": 1.88,
+      "hold_s_p90": 2.09,
+      "used_within_2s_pct": 84.0,
+      "used_within_4s_pct": 99.2,
+      "consumed_confirmed": 356,
+      "overwrites": 21,
+      "expired": 4,
+      "waste_pct": 6.6
+     },
+     "실탄 장전": {
+      "n_fights": 4,
+      "gains": 91,
+      "gains_per_min": 3.01,
+      "hold_s_median": 1.38,
+      "hold_s_p75": 3.33,
+      "hold_s_p90": 4.73,
+      "used_within_2s_pct": 56.5,
+      "used_within_4s_pct": 84.7,
+      "consumed_confirmed": 85,
+      "overwrites": 5,
+      "expired": 1,
+      "waste_pct": 6.6
+     },
+     "연타 공격": {
+      "n_fights": 4,
+      "gains": 42,
+      "gains_per_min": 1.39,
+      "hold_s_median": 1.86,
+      "hold_s_p75": 2.74,
+      "hold_s_p90": 3.63,
+      "used_within_2s_pct": 52.4,
+      "used_within_4s_pct": 100.0,
+      "consumed_confirmed": 42,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": 0.0
+     },
+     "부패의 사격": {
+      "n_fights": 4,
+      "gains": 14,
+      "gains_per_min": 0.46,
+      "hold_s_median": 15.01,
+      "hold_s_p75": 15.01,
+      "hold_s_p90": 15.01,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 14,
+      "waste_pct": 100.0
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 281,
+       "max_stack_max": 350
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 4
+    },
+    "rank_21_100": {
+     "죽음의 강타": {
+      "n_fights": 3,
+      "gains": 162,
+      "gains_per_min": 6.59,
+      "hold_s_median": 1.82,
+      "hold_s_p75": 1.97,
+      "hold_s_p90": 2.18,
+      "used_within_2s_pct": 81.5,
+      "used_within_4s_pct": 95.4,
+      "consumed_confirmed": 151,
+      "overwrites": 11,
+      "expired": 2,
+      "waste_pct": 8.0
+     },
+     "정밀 사격": {
+      "n_fights": 3,
+      "gains": 294,
+      "gains_per_min": 11.95,
+      "hold_s_median": 1.35,
+      "hold_s_p75": 1.94,
+      "hold_s_p90": 2.18,
+      "used_within_2s_pct": 82.3,
+      "used_within_4s_pct": 97.0,
+      "consumed_confirmed": 270,
+      "overwrites": 22,
+      "expired": 9,
+      "waste_pct": 10.5
+     },
+     "실탄 장전": {
+      "n_fights": 3,
+      "gains": 63,
+      "gains_per_min": 2.56,
+      "hold_s_median": 2.14,
+      "hold_s_p75": 3.05,
+      "hold_s_p90": 6.54,
+      "used_within_2s_pct": 40.3,
+      "used_within_4s_pct": 80.6,
+      "consumed_confirmed": 61,
+      "overwrites": 1,
+      "expired": 2,
+      "waste_pct": 4.8
+     },
+     "연타 공격": {
+      "n_fights": 3,
+      "gains": 36,
+      "gains_per_min": 1.46,
+      "hold_s_median": 1.45,
+      "hold_s_p75": 2.1,
+      "hold_s_p90": 3.52,
+      "used_within_2s_pct": 72.2,
+      "used_within_4s_pct": 100.0,
+      "consumed_confirmed": 36,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": 0.0
+     },
+     "부패의 사격": {
+      "n_fights": 3,
+      "gains": 12,
+      "gains_per_min": 0.49,
+      "hold_s_median": 15.01,
+      "hold_s_p75": 15.01,
+      "hold_s_p90": 15.02,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 11,
+      "waste_pct": 91.7
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 71,
+       "max_stack_max": 622
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 3
+    }
+   },
+   "파수꾼": {
+    "all": {
+     "죽음의 강타": {
+      "n_fights": 30,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "정밀 사격": {
+      "n_fights": 30,
+      "gains": 3506,
+      "gains_per_min": 14.71,
+      "hold_s_median": 0.15,
+      "hold_s_p75": 1.36,
+      "hold_s_p90": 1.94,
+      "used_within_2s_pct": 92.8,
+      "used_within_4s_pct": 99.5,
+      "consumed_confirmed": 2982,
+      "overwrites": 467,
+      "expired": 17,
+      "waste_pct": 13.8
+     },
+     "실탄 장전": {
+      "n_fights": 30,
+      "gains": 815,
+      "gains_per_min": 3.42,
+      "hold_s_median": 1.51,
+      "hold_s_p75": 2.69,
+      "hold_s_p90": 4.23,
+      "used_within_2s_pct": 58.6,
+      "used_within_4s_pct": 88.2,
+      "consumed_confirmed": 779,
+      "overwrites": 30,
+      "expired": 8,
+      "waste_pct": 4.7
+     },
+     "연타 공격": {
+      "n_fights": 30,
+      "gains": 364,
+      "gains_per_min": 1.53,
+      "hold_s_median": 1.4,
+      "hold_s_p75": 2.57,
+      "hold_s_p90": 3.53,
+      "used_within_2s_pct": 67.1,
+      "used_within_4s_pct": 98.9,
+      "consumed_confirmed": 357,
+      "overwrites": 2,
+      "expired": 0,
+      "waste_pct": 0.5
+     },
+     "부패의 사격": {
+      "n_fights": 30,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 25,
+       "max_stack_max": 1065
+      },
+      "별바라기": {
+       "max_stack_p50": 25,
+       "max_stack_max": 1065
+      }
+     },
+     "_n": 30
+    },
+    "rank_1_20": {
+     "죽음의 강타": {
+      "n_fights": 15,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "정밀 사격": {
+      "n_fights": 15,
+      "gains": 1752,
+      "gains_per_min": 14.82,
+      "hold_s_median": 0.17,
+      "hold_s_p75": 1.37,
+      "hold_s_p90": 1.94,
+      "used_within_2s_pct": 92.8,
+      "used_within_4s_pct": 99.6,
+      "consumed_confirmed": 1471,
+      "overwrites": 260,
+      "expired": 7,
+      "waste_pct": 15.2
+     },
+     "실탄 장전": {
+      "n_fights": 15,
+      "gains": 419,
+      "gains_per_min": 3.54,
+      "hold_s_median": 1.63,
+      "hold_s_p75": 2.69,
+      "hold_s_p90": 4.12,
+      "used_within_2s_pct": 56.8,
+      "used_within_4s_pct": 89.0,
+      "consumed_confirmed": 400,
+      "overwrites": 17,
+      "expired": 2,
+      "waste_pct": 4.5
+     },
+     "연타 공격": {
+      "n_fights": 15,
+      "gains": 183,
+      "gains_per_min": 1.55,
+      "hold_s_median": 1.44,
+      "hold_s_p75": 2.63,
+      "hold_s_p90": 3.54,
+      "used_within_2s_pct": 63.1,
+      "used_within_4s_pct": 99.4,
+      "consumed_confirmed": 178,
+      "overwrites": 2,
+      "expired": 0,
+      "waste_pct": 1.1
+     },
+     "부패의 사격": {
+      "n_fights": 15,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 22,
+       "max_stack_max": 1065
+      },
+      "별바라기": {
+       "max_stack_p50": 22,
+       "max_stack_max": 1065
+      }
+     },
+     "_n": 15
+    },
+    "rank_21_100": {
+     "죽음의 강타": {
+      "n_fights": 15,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "정밀 사격": {
+      "n_fights": 15,
+      "gains": 1754,
+      "gains_per_min": 14.61,
+      "hold_s_median": 0.1,
+      "hold_s_p75": 1.34,
+      "hold_s_p90": 1.94,
+      "used_within_2s_pct": 92.9,
+      "used_within_4s_pct": 99.5,
+      "consumed_confirmed": 1511,
+      "overwrites": 207,
+      "expired": 10,
+      "waste_pct": 12.4
+     },
+     "실탄 장전": {
+      "n_fights": 15,
+      "gains": 396,
+      "gains_per_min": 3.3,
+      "hold_s_median": 1.36,
+      "hold_s_p75": 2.71,
+      "hold_s_p90": 4.52,
+      "used_within_2s_pct": 60.6,
+      "used_within_4s_pct": 87.4,
+      "consumed_confirmed": 379,
+      "overwrites": 13,
+      "expired": 6,
+      "waste_pct": 4.8
+     },
+     "연타 공격": {
+      "n_fights": 15,
+      "gains": 181,
+      "gains_per_min": 1.51,
+      "hold_s_median": 1.39,
+      "hold_s_p75": 2.56,
+      "hold_s_p90": 3.51,
+      "used_within_2s_pct": 71.1,
+      "used_within_4s_pct": 98.3,
+      "consumed_confirmed": 179,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": 0.0
+     },
+     "부패의 사격": {
+      "n_fights": 15,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 27,
+       "max_stack_max": 752
+      },
+      "별바라기": {
+       "max_stack_p50": 27,
+       "max_stack_max": 752
+      }
+     },
+     "_n": 15
+    }
+   }
+  },
+  "Belo'ren, Child of Al'ar": {
+   "파수꾼": {
+    "all": {
+     "죽음의 강타": {
+      "n_fights": 34,
+      "gains": 2,
+      "gains_per_min": 0.01,
+      "hold_s_median": 2.72,
+      "hold_s_p75": 2.75,
+      "hold_s_p90": 2.75,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 100.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": 0.0
+     },
+     "정밀 사격": {
+      "n_fights": 34,
+      "gains": 2664,
+      "gains_per_min": 14.96,
+      "hold_s_median": 0.1,
+      "hold_s_p75": 1.33,
+      "hold_s_p90": 1.91,
+      "used_within_2s_pct": 93.7,
+      "used_within_4s_pct": 99.4,
+      "consumed_confirmed": 2121,
+      "overwrites": 526,
+      "expired": 15,
+      "waste_pct": 20.3
+     },
+     "실탄 장전": {
+      "n_fights": 34,
+      "gains": 639,
+      "gains_per_min": 3.59,
+      "hold_s_median": 1.33,
+      "hold_s_p75": 2.5,
+      "hold_s_p90": 3.62,
+      "used_within_2s_pct": 67.0,
+      "used_within_4s_pct": 90.9,
+      "consumed_confirmed": 606,
+      "overwrites": 31,
+      "expired": 6,
+      "waste_pct": 5.8
+     },
+     "연타 공격": {
+      "n_fights": 34,
+      "gains": 294,
+      "gains_per_min": 1.65,
+      "hold_s_median": 1.45,
+      "hold_s_p75": 2.65,
+      "hold_s_p90": 3.56,
+      "used_within_2s_pct": 61.0,
+      "used_within_4s_pct": 96.6,
+      "consumed_confirmed": 291,
+      "overwrites": 2,
+      "expired": 2,
+      "waste_pct": 1.4
+     },
+     "부패의 사격": {
+      "n_fights": 34,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 21,
+       "max_stack_max": 1319
+      },
+      "별바라기": {
+       "max_stack_p50": 21,
+       "max_stack_max": 1319
+      }
+     },
+     "_n": 34
+    },
+    "rank_1_20": {
+     "죽음의 강타": {
+      "n_fights": 19,
+      "gains": 2,
+      "gains_per_min": 0.02,
+      "hold_s_median": 2.72,
+      "hold_s_p75": 2.75,
+      "hold_s_p90": 2.75,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 100.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": 0.0
+     },
+     "정밀 사격": {
+      "n_fights": 19,
+      "gains": 1521,
+      "gains_per_min": 15.25,
+      "hold_s_median": 0.1,
+      "hold_s_p75": 1.33,
+      "hold_s_p90": 1.93,
+      "used_within_2s_pct": 92.8,
+      "used_within_4s_pct": 99.6,
+      "consumed_confirmed": 1200,
+      "overwrites": 310,
+      "expired": 7,
+      "waste_pct": 20.8
+     },
+     "실탄 장전": {
+      "n_fights": 19,
+      "gains": 356,
+      "gains_per_min": 3.57,
+      "hold_s_median": 1.33,
+      "hold_s_p75": 2.26,
+      "hold_s_p90": 3.51,
+      "used_within_2s_pct": 68.2,
+      "used_within_4s_pct": 91.7,
+      "consumed_confirmed": 337,
+      "overwrites": 17,
+      "expired": 3,
+      "waste_pct": 5.6
+     },
+     "연타 공격": {
+      "n_fights": 19,
+      "gains": 168,
+      "gains_per_min": 1.68,
+      "hold_s_median": 1.46,
+      "hold_s_p75": 2.65,
+      "hold_s_p90": 3.57,
+      "used_within_2s_pct": 60.5,
+      "used_within_4s_pct": 96.4,
+      "consumed_confirmed": 167,
+      "overwrites": 1,
+      "expired": 0,
+      "waste_pct": 0.6
+     },
+     "부패의 사격": {
+      "n_fights": 19,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 16,
+       "max_stack_max": 1319
+      },
+      "별바라기": {
+       "max_stack_p50": 16,
+       "max_stack_max": 1319
+      }
+     },
+     "_n": 19
+    },
+    "rank_21_100": {
+     "죽음의 강타": {
+      "n_fights": 15,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "정밀 사격": {
+      "n_fights": 15,
+      "gains": 1143,
+      "gains_per_min": 14.58,
+      "hold_s_median": 0.11,
+      "hold_s_p75": 1.34,
+      "hold_s_p90": 1.87,
+      "used_within_2s_pct": 94.8,
+      "used_within_4s_pct": 99.2,
+      "consumed_confirmed": 921,
+      "overwrites": 216,
+      "expired": 8,
+      "waste_pct": 19.6
+     },
+     "실탄 장전": {
+      "n_fights": 15,
+      "gains": 283,
+      "gains_per_min": 3.61,
+      "hold_s_median": 1.33,
+      "hold_s_p75": 2.55,
+      "hold_s_p90": 3.88,
+      "used_within_2s_pct": 65.4,
+      "used_within_4s_pct": 90.0,
+      "consumed_confirmed": 269,
+      "overwrites": 14,
+      "expired": 3,
+      "waste_pct": 6.0
+     },
+     "연타 공격": {
+      "n_fights": 15,
+      "gains": 126,
+      "gains_per_min": 1.61,
+      "hold_s_median": 1.43,
+      "hold_s_p75": 2.63,
+      "hold_s_p90": 3.54,
+      "used_within_2s_pct": 61.6,
+      "used_within_4s_pct": 96.8,
+      "consumed_confirmed": 124,
+      "overwrites": 1,
+      "expired": 2,
+      "waste_pct": 2.4
+     },
+     "부패의 사격": {
+      "n_fights": 15,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 51,
+       "max_stack_max": 551
+      },
+      "별바라기": {
+       "max_stack_p50": 51,
+       "max_stack_max": 551
+      }
+     },
+     "_n": 15
+    }
+   }
+  },
+  "Lightblinded Vanguard": {
+   "파수꾼": {
+    "all": {
+     "죽음의 강타": {
+      "n_fights": 34,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "정밀 사격": {
+      "n_fights": 34,
+      "gains": 3439,
+      "gains_per_min": 17.07,
+      "hold_s_median": 0.15,
+      "hold_s_p75": 1.36,
+      "hold_s_p90": 1.9,
+      "used_within_2s_pct": 94.7,
+      "used_within_4s_pct": 99.9,
+      "consumed_confirmed": 3127,
+      "overwrites": 304,
+      "expired": 5,
+      "waste_pct": 9.0
+     },
+     "실탄 장전": {
+      "n_fights": 34,
+      "gains": 827,
+      "gains_per_min": 4.11,
+      "hold_s_median": 1.36,
+      "hold_s_p75": 2.53,
+      "hold_s_p90": 3.49,
+      "used_within_2s_pct": 62.8,
+      "used_within_4s_pct": 92.3,
+      "consumed_confirmed": 788,
+      "overwrites": 37,
+      "expired": 1,
+      "waste_pct": 4.6
+     },
+     "연타 공격": {
+      "n_fights": 34,
+      "gains": 359,
+      "gains_per_min": 1.78,
+      "hold_s_median": 1.63,
+      "hold_s_p75": 3.41,
+      "hold_s_p90": 3.54,
+      "used_within_2s_pct": 59.3,
+      "used_within_4s_pct": 99.2,
+      "consumed_confirmed": 359,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": 0.0
+     },
+     "부패의 사격": {
+      "n_fights": 34,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 18,
+       "max_stack_max": 886
+      },
+      "별바라기": {
+       "max_stack_p50": 18,
+       "max_stack_max": 886
+      }
+     },
+     "_n": 34
+    },
+    "rank_1_20": {
+     "죽음의 강타": {
+      "n_fights": 19,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "정밀 사격": {
+      "n_fights": 19,
+      "gains": 1886,
+      "gains_per_min": 17.18,
+      "hold_s_median": 0.17,
+      "hold_s_p75": 1.36,
+      "hold_s_p90": 1.9,
+      "used_within_2s_pct": 95.3,
+      "used_within_4s_pct": 99.9,
+      "consumed_confirmed": 1739,
+      "overwrites": 141,
+      "expired": 2,
+      "waste_pct": 7.6
+     },
+     "실탄 장전": {
+      "n_fights": 19,
+      "gains": 447,
+      "gains_per_min": 4.07,
+      "hold_s_median": 1.35,
+      "hold_s_p75": 2.52,
+      "hold_s_p90": 3.69,
+      "used_within_2s_pct": 62.9,
+      "used_within_4s_pct": 91.6,
+      "consumed_confirmed": 429,
+      "overwrites": 17,
+      "expired": 1,
+      "waste_pct": 4.0
+     },
+     "연타 공격": {
+      "n_fights": 19,
+      "gains": 196,
+      "gains_per_min": 1.79,
+      "hold_s_median": 1.74,
+      "hold_s_p75": 3.44,
+      "hold_s_p90": 3.54,
+      "used_within_2s_pct": 54.6,
+      "used_within_4s_pct": 99.5,
+      "consumed_confirmed": 196,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": 0.0
+     },
+     "부패의 사격": {
+      "n_fights": 19,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 19,
+       "max_stack_max": 886
+      },
+      "별바라기": {
+       "max_stack_p50": 19,
+       "max_stack_max": 886
+      }
+     },
+     "_n": 19
+    },
+    "rank_21_100": {
+     "죽음의 강타": {
+      "n_fights": 15,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "정밀 사격": {
+      "n_fights": 15,
+      "gains": 1553,
+      "gains_per_min": 16.95,
+      "hold_s_median": 0.11,
+      "hold_s_p75": 1.36,
+      "hold_s_p90": 1.91,
+      "used_within_2s_pct": 94.0,
+      "used_within_4s_pct": 99.9,
+      "consumed_confirmed": 1388,
+      "overwrites": 163,
+      "expired": 3,
+      "waste_pct": 10.7
+     },
+     "실탄 장전": {
+      "n_fights": 15,
+      "gains": 380,
+      "gains_per_min": 4.15,
+      "hold_s_median": 1.37,
+      "hold_s_p75": 2.57,
+      "hold_s_p90": 3.34,
+      "used_within_2s_pct": 62.7,
+      "used_within_4s_pct": 93.0,
+      "consumed_confirmed": 359,
+      "overwrites": 20,
+      "expired": 0,
+      "waste_pct": 5.3
+     },
+     "연타 공격": {
+      "n_fights": 15,
+      "gains": 163,
+      "gains_per_min": 1.78,
+      "hold_s_median": 1.48,
+      "hold_s_p75": 3.31,
+      "hold_s_p90": 3.54,
+      "used_within_2s_pct": 65.0,
+      "used_within_4s_pct": 98.8,
+      "consumed_confirmed": 163,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": 0.0
+     },
+     "부패의 사격": {
+      "n_fights": 15,
+      "gains": 0,
+      "gains_per_min": 0.0,
+      "hold_s_median": null,
+      "hold_s_p75": null,
+      "hold_s_p90": null,
+      "used_within_2s_pct": null,
+      "used_within_4s_pct": null,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 0,
+      "waste_pct": null
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 18,
+       "max_stack_max": 393
+      },
+      "별바라기": {
+       "max_stack_p50": 18,
+       "max_stack_max": 393
+      }
+     },
+     "_n": 15
+    }
+   }
+  },
+  "Midnight Falls": {
+   "어둠 순찰자": {
+    "all": {
+     "죽음의 강타": {
+      "n_fights": 34,
+      "gains": 2491,
+      "gains_per_min": 8.08,
+      "hold_s_median": 1.79,
+      "hold_s_p75": 1.96,
+      "hold_s_p90": 2.9,
+      "used_within_2s_pct": 78.7,
+      "used_within_4s_pct": 95.7,
+      "consumed_confirmed": 2086,
+      "overwrites": 389,
+      "expired": 17,
+      "waste_pct": 16.3
+     },
+     "정밀 사격": {
+      "n_fights": 34,
+      "gains": 4094,
+      "gains_per_min": 13.29,
+      "hold_s_median": 1.38,
+      "hold_s_p75": 1.81,
+      "hold_s_p90": 1.98,
+      "used_within_2s_pct": 90.8,
+      "used_within_4s_pct": 99.1,
+      "consumed_confirmed": 3796,
+      "overwrites": 282,
+      "expired": 42,
+      "waste_pct": 7.9
+     },
+     "실탄 장전": {
+      "n_fights": 34,
+      "gains": 1054,
+      "gains_per_min": 3.42,
+      "hold_s_median": 1.48,
+      "hold_s_p75": 2.72,
+      "hold_s_p90": 4.14,
+      "used_within_2s_pct": 58.0,
+      "used_within_4s_pct": 89.1,
+      "consumed_confirmed": 989,
+      "overwrites": 57,
+      "expired": 10,
+      "waste_pct": 6.4
+     },
+     "연타 공격": {
+      "n_fights": 34,
+      "gains": 493,
+      "gains_per_min": 1.6,
+      "hold_s_median": 1.8,
+      "hold_s_p75": 2.78,
+      "hold_s_p90": 3.62,
+      "used_within_2s_pct": 55.4,
+      "used_within_4s_pct": 94.6,
+      "consumed_confirmed": 479,
+      "overwrites": 11,
+      "expired": 4,
+      "waste_pct": 3.0
+     },
+     "부패의 사격": {
+      "n_fights": 34,
+      "gains": 169,
+      "gains_per_min": 0.55,
+      "hold_s_median": 15.0,
+      "hold_s_p75": 15.01,
+      "hold_s_p90": 15.02,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 161,
+      "waste_pct": 95.3
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 20,
+       "max_stack_max": 1764
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 34
+    },
+    "rank_1_20": {
+     "죽음의 강타": {
+      "n_fights": 20,
+      "gains": 1445,
+      "gains_per_min": 7.92,
+      "hold_s_median": 1.75,
+      "hold_s_p75": 1.93,
+      "hold_s_p90": 2.59,
+      "used_within_2s_pct": 82.9,
+      "used_within_4s_pct": 97.0,
+      "consumed_confirmed": 1249,
+      "overwrites": 188,
+      "expired": 7,
+      "waste_pct": 13.5
+     },
+     "정밀 사격": {
+      "n_fights": 20,
+      "gains": 2442,
+      "gains_per_min": 13.39,
+      "hold_s_median": 1.38,
+      "hold_s_p75": 1.8,
+      "hold_s_p90": 1.97,
+      "used_within_2s_pct": 91.3,
+      "used_within_4s_pct": 99.1,
+      "consumed_confirmed": 2259,
+      "overwrites": 174,
+      "expired": 26,
+      "waste_pct": 8.2
+     },
+     "실탄 장전": {
+      "n_fights": 20,
+      "gains": 615,
+      "gains_per_min": 3.37,
+      "hold_s_median": 1.79,
+      "hold_s_p75": 2.77,
+      "hold_s_p90": 4.33,
+      "used_within_2s_pct": 54.4,
+      "used_within_4s_pct": 87.7,
+      "consumed_confirmed": 574,
+      "overwrites": 37,
+      "expired": 5,
+      "waste_pct": 6.8
+     },
+     "연타 공격": {
+      "n_fights": 20,
+      "gains": 289,
+      "gains_per_min": 1.58,
+      "hold_s_median": 1.94,
+      "hold_s_p75": 3.22,
+      "hold_s_p90": 3.67,
+      "used_within_2s_pct": 50.5,
+      "used_within_4s_pct": 93.3,
+      "consumed_confirmed": 285,
+      "overwrites": 3,
+      "expired": 3,
+      "waste_pct": 2.1
+     },
+     "부패의 사격": {
+      "n_fights": 20,
+      "gains": 100,
+      "gains_per_min": 0.55,
+      "hold_s_median": 15.0,
+      "hold_s_p75": 15.01,
+      "hold_s_p90": 15.02,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 95,
+      "waste_pct": 95.0
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 36,
+       "max_stack_max": 1764
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 20
+    },
+    "rank_21_100": {
+     "죽음의 강타": {
+      "n_fights": 14,
+      "gains": 1046,
+      "gains_per_min": 8.32,
+      "hold_s_median": 1.85,
+      "hold_s_p75": 2.04,
+      "hold_s_p90": 3.61,
+      "used_within_2s_pct": 72.3,
+      "used_within_4s_pct": 93.7,
+      "consumed_confirmed": 837,
+      "overwrites": 201,
+      "expired": 10,
+      "waste_pct": 20.2
+     },
+     "정밀 사격": {
+      "n_fights": 14,
+      "gains": 1652,
+      "gains_per_min": 13.14,
+      "hold_s_median": 1.38,
+      "hold_s_p75": 1.84,
+      "hold_s_p90": 2.0,
+      "used_within_2s_pct": 90.1,
+      "used_within_4s_pct": 99.2,
+      "consumed_confirmed": 1537,
+      "overwrites": 108,
+      "expired": 16,
+      "waste_pct": 7.5
+     },
+     "실탄 장전": {
+      "n_fights": 14,
+      "gains": 439,
+      "gains_per_min": 3.49,
+      "hold_s_median": 1.36,
+      "hold_s_p75": 2.71,
+      "hold_s_p90": 3.83,
+      "used_within_2s_pct": 62.8,
+      "used_within_4s_pct": 91.1,
+      "consumed_confirmed": 415,
+      "overwrites": 20,
+      "expired": 5,
+      "waste_pct": 5.7
+     },
+     "연타 공격": {
+      "n_fights": 14,
+      "gains": 204,
+      "gains_per_min": 1.62,
+      "hold_s_median": 1.55,
+      "hold_s_p75": 2.64,
+      "hold_s_p90": 3.51,
+      "used_within_2s_pct": 62.6,
+      "used_within_4s_pct": 96.4,
+      "consumed_confirmed": 194,
+      "overwrites": 8,
+      "expired": 1,
+      "waste_pct": 4.4
+     },
+     "부패의 사격": {
+      "n_fights": 14,
+      "gains": 69,
+      "gains_per_min": 0.55,
+      "hold_s_median": 15.01,
+      "hold_s_p75": 15.01,
+      "hold_s_p90": 15.02,
+      "used_within_2s_pct": 0.0,
+      "used_within_4s_pct": 0.0,
+      "consumed_confirmed": 0,
+      "overwrites": 0,
+      "expired": 66,
+      "waste_pct": 95.7
+     },
+     "_stacks": {
+      "총알 세례": {
+       "max_stack_p50": 13,
+       "max_stack_max": 350
+      },
+      "별바라기": {
+       "max_stack_p50": 0,
+       "max_stack_max": 0
+      }
+     },
+     "_n": 14
+    }
+   }
+  }
+ }
+}

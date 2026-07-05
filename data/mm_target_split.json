@@ -1,0 +1,3669 @@
+{
+ "_verdict": {
+  "date": "2026-07-05",
+  "q1_boss_vs_add": "DR은 쫄보스에서도 보스집중형(보스 80-85%). 같은보스 A/B: 아베르지안 DR 62%/SEN 56%, 살하다르 DR 81%/SEN 68% — DR이 항상 보스에 더 몰빵. 검은화살은 91.5%가 보스로.",
+  "q2_headaim_471363": "471363(머리 조준)은 1.5GB 이벤트캐시·직접 Debuffs쿼리 어디에도 아우라로 안 나타남(플레이어버프X, 적디버프X). 10중첩 램프라는 전제는 이 데이터로 확인 불가(미해결/전제오류). 실제 중첩 메커닉은 총알세례(389020) 20중첩 캡, DR/SEN 둘 다 도달.",
+  "q3_verdict": "쫄많은 보스에서 파수꾼 선호는 (a)DR 보스집중형이라 쫄딜 손해 (b)머리조준 중첩손해 때문이 아님(471363 아우라 부재). 파수꾼 선호 근거는 광역분배·달빛폭풍 등 실제 쫄딜 스킬로 봐야 함.",
+  "boss_build_means": {
+   "Chimaerus, the Undreamt God|DR": {
+    "n": 6,
+    "boss_pct": 85.0,
+    "add_pct": 15.0
+   },
+   "Imperator Averzian|DR": {
+    "n": 6,
+    "boss_pct": 62.4,
+    "add_pct": 37.6
+   },
+   "Imperator Averzian|SEN": {
+    "n": 6,
+    "boss_pct": 56.4,
+    "add_pct": 43.6
+   },
+   "Fallen-King Salhadaar|DR": {
+    "n": 6,
+    "boss_pct": 80.6,
+    "add_pct": 19.4
+   },
+   "Fallen-King Salhadaar|SEN": {
+    "n": 6,
+    "boss_pct": 67.5,
+    "add_pct": 32.5
+   },
+   "Lightblinded Vanguard|SEN": {
+    "n": 6,
+    "boss_pct": 100.0,
+    "add_pct": 0.0
+   },
+   "Vaelgor & Ezzorak|SEN": {
+    "n": 6,
+    "boss_pct": 65.2,
+    "add_pct": 34.7
+   },
+   "Midnight Falls|DR": {
+    "n": 6,
+    "boss_pct": 84.2,
+    "add_pct": 15.8
+   }
+  }
+ },
+ "logs": [
+  {
+   "boss": "Chimaerus, the Undreamt God",
+   "build": "DR",
+   "char": "陈年风褛",
+   "rank": 1,
+   "dur_s": 145.7,
+   "total": 26167148,
+   "boss_pct": 84.4,
+   "add_pct": 15.6,
+   "by_type": {
+    "NPC": 4081387,
+    "Boss": 22085761
+   },
+   "by_name": {
+    "Chimaerus": 22085761,
+    "Swarming Shade": 2424668,
+    "Colossal Horror": 1656719
+   },
+   "name_type": {
+    "Swarming Shade": "NPC",
+    "Chimaerus": "Boss",
+    "Colossal Horror": "NPC"
+   },
+   "abil_type": {
+    "Volley": {
+     "NPC": 267938,
+     "Boss": 171620
+    },
+    "Wailing Arrow": {
+     "Boss": 882639
+    },
+    "Let Fly!": {
+     "Boss": 159623,
+     "NPC": 19637
+    },
+    "Rapid Fire": {
+     "Boss": 1467802,
+     "NPC": 441659
+    },
+    "Aimed Shot": {
+     "Boss": 5537672,
+     "NPC": 1592189
+    },
+    "Black Arrow": {
+     "Boss": 9573600,
+     "NPC": 1014791
+    },
+    "Master Marksman": {
+     "Boss": 1768477,
+     "NPC": 150126
+    },
+    "Bleak Arrows": {
+     "Boss": 421837,
+     "NPC": 80597
+    },
+    "Omnium Folio": {
+     "Boss": 59364,
+     "NPC": 12801
+    },
+    "Arcane Shot": {
+     "Boss": 900230,
+     "NPC": 381803
+    },
+    "Steady Shot": {
+     "Boss": 315701,
+     "NPC": 119846
+    },
+    "Dark Minion": {
+     "Boss": 631761
+    },
+    "Explosive Shot": {
+     "Boss": 195435
+    }
+   }
+  },
+  {
+   "boss": "Chimaerus, the Undreamt God",
+   "build": "DR",
+   "char": "Sorensonhall",
+   "rank": 2,
+   "dur_s": 139.7,
+   "total": 24853481,
+   "boss_pct": 85.4,
+   "add_pct": 14.6,
+   "by_type": {
+    "Boss": 21226550,
+    "NPC": 3626931
+   },
+   "by_name": {
+    "Chimaerus": 21226550,
+    "Swarming Shade": 2496411,
+    "Colossal Horror": 1130520
+   },
+   "name_type": {
+    "Chimaerus": "Boss",
+    "Swarming Shade": "NPC",
+    "Colossal Horror": "NPC"
+   },
+   "abil_type": {
+    "Rapid Fire": {
+     "Boss": 1550176,
+     "NPC": 247263
+    },
+    "Volley": {
+     "NPC": 419932,
+     "Boss": 131768
+    },
+    "Black Arrow": {
+     "Boss": 8292238,
+     "NPC": 653149
+    },
+    "Explosive Shot": {
+     "Boss": 82700,
+     "NPC": 74939
+    },
+    "Arcane Shot": {
+     "Boss": 1041749,
+     "NPC": 200338
+    },
+    "Wailing Arrow": {
+     "Boss": 789173
+    },
+    "Bleak Arrows": {
+     "Boss": 399281,
+     "NPC": 25452
+    },
+    "Steady Shot": {
+     "Boss": 299583
+    },
+    "Omnium Folio": {
+     "Boss": 59383,
+     "NPC": 19215
+    },
+    "Dark Minion": {
+     "Boss": 909888,
+     "NPC": 435215
+    },
+    "Let Fly!": {
+     "Boss": 91307,
+     "NPC": 25099
+    },
+    "Aimed Shot": {
+     "Boss": 5877320,
+     "NPC": 1410737
+    },
+    "Rotmire's Sporeheart": {
+     "Boss": 15747
+    },
+    "Master Marksman": {
+     "Boss": 1686237,
+     "NPC": 115592
+    }
+   }
+  },
+  {
+   "boss": "Chimaerus, the Undreamt God",
+   "build": "DR",
+   "char": "Stripples",
+   "rank": 3,
+   "dur_s": 145.2,
+   "total": 25701498,
+   "boss_pct": 79.5,
+   "add_pct": 20.5,
+   "by_type": {
+    "Boss": 20429448,
+    "NPC": 5272050
+   },
+   "by_name": {
+    "Chimaerus": 20429448,
+    "Swarming Shade": 4264935,
+    "Colossal Horror": 1007115
+   },
+   "name_type": {
+    "Chimaerus": "Boss",
+    "Swarming Shade": "NPC",
+    "Colossal Horror": "NPC"
+   },
+   "abil_type": {
+    "Steady Shot": {
+     "Boss": 351739,
+     "NPC": 11503
+    },
+    "Master Marksman": {
+     "Boss": 1595353,
+     "NPC": 223330
+    },
+    "Bleak Arrows": {
+     "Boss": 447221,
+     "NPC": 99346
+    },
+    "Arcane Shot": {
+     "Boss": 1291162,
+     "NPC": 395242
+    },
+    "Black Arrow": {
+     "Boss": 7319945,
+     "NPC": 1114499
+    },
+    "Let Fly!": {
+     "Boss": 130283,
+     "NPC": 32697
+    },
+    "Wailing Arrow": {
+     "Boss": 889940
+    },
+    "Dark Minion": {
+     "Boss": 665536,
+     "NPC": 661698
+    },
+    "Aimed Shot": {
+     "Boss": 5746162,
+     "NPC": 2150286
+    },
+    "Explosive Shot": {
+     "Boss": 388336,
+     "NPC": 31500
+    },
+    "Rapid Fire": {
+     "Boss": 1257787,
+     "NPC": 337918
+    },
+    "Omnium Folio": {
+     "Boss": 59861,
+     "NPC": 9593
+    },
+    "Volley": {
+     "Boss": 286123,
+     "NPC": 204438
+    }
+   }
+  },
+  {
+   "boss": "Chimaerus, the Undreamt God",
+   "build": "DR",
+   "char": "特蕾西娅",
+   "rank": 4,
+   "dur_s": 149.7,
+   "total": 26281315,
+   "boss_pct": 79.6,
+   "add_pct": 20.4,
+   "by_type": {
+    "Boss": 20930429,
+    "NPC": 5350886
+   },
+   "by_name": {
+    "Chimaerus": 20930429,
+    "Swarming Shade": 5200759,
+    "Colossal Horror": 150127
+   },
+   "name_type": {
+    "Chimaerus": "Boss",
+    "Swarming Shade": "NPC",
+    "Colossal Horror": "NPC"
+   },
+   "abil_type": {
+    "Black Arrow": {
+     "Boss": 6488377,
+     "NPC": 591207
+    },
+    "Arcane Shot": {
+     "Boss": 1240062,
+     "NPC": 112531
+    },
+    "Aimed Shot": {
+     "Boss": 6484736,
+     "NPC": 2202353
+    },
+    "Wailing Arrow": {
+     "Boss": 810288
+    },
+    "Dark Minion": {
+     "NPC": 1709888,
+     "Boss": 1260915
+    },
+    "Master Marksman": {
+     "Boss": 1522129,
+     "NPC": 159205
+    },
+    "Omnium Folio": {
+     "Boss": 66760,
+     "NPC": 6465
+    },
+    "Rotmire's Sporeheart": {
+     "Boss": 15806
+    },
+    "Rapid Fire": {
+     "Boss": 1195418,
+     "NPC": 229006
+    },
+    "Steady Shot": {
+     "Boss": 542668
+    },
+    "Let Fly!": {
+     "Boss": 133753,
+     "NPC": 23481
+    },
+    "Bleak Arrows": {
+     "Boss": 536800,
+     "NPC": 25477
+    },
+    "Explosive Shot": {
+     "Boss": 266201,
+     "NPC": 33521
+    },
+    "Volley": {
+     "Boss": 366516,
+     "NPC": 257752
+    }
+   }
+  },
+  {
+   "boss": "Chimaerus, the Undreamt God",
+   "build": "DR",
+   "char": "치즈시니",
+   "rank": 5,
+   "dur_s": 140.2,
+   "total": 24310376,
+   "boss_pct": 83.6,
+   "add_pct": 16.4,
+   "by_type": {
+    "Boss": 20326699,
+    "NPC": 3983677
+   },
+   "by_name": {
+    "Chimaerus": 20326699,
+    "Colossal Horror": 2034405,
+    "Swarming Shade": 1949272
+   },
+   "name_type": {
+    "Chimaerus": "Boss",
+    "Colossal Horror": "NPC",
+    "Swarming Shade": "NPC"
+   },
+   "abil_type": {
+    "Black Arrow": {
+     "Boss": 7971141,
+     "NPC": 548204
+    },
+    "Arcane Shot": {
+     "Boss": 1088312,
+     "NPC": 127002
+    },
+    "Steady Shot": {
+     "Boss": 202141,
+     "NPC": 15979
+    },
+    "Aimed Shot": {
+     "Boss": 5288047,
+     "NPC": 2101654
+    },
+    "Omnium Folio": {
+     "Boss": 97572,
+     "NPC": 6515
+    },
+    "Let Fly!": {
+     "Boss": 94008,
+     "NPC": 25153
+    },
+    "Bleak Arrows": {
+     "Boss": 398831,
+     "NPC": 67299
+    },
+    "Dark Minion": {
+     "Boss": 922106,
+     "NPC": 184511
+    },
+    "Rapid Fire": {
+     "Boss": 1165375,
+     "NPC": 264650
+    },
+    "Volley": {
+     "Boss": 297838,
+     "NPC": 375258
+    },
+    "Wailing Arrow": {
+     "Boss": 928183
+    },
+    "Master Marksman": {
+     "Boss": 1549704,
+     "NPC": 267452
+    },
+    "Explosive Shot": {
+     "Boss": 323441
+    }
+   }
+  },
+  {
+   "boss": "Chimaerus, the Undreamt God",
+   "build": "DR",
+   "char": "Омгг",
+   "rank": 6,
+   "dur_s": 148.4,
+   "total": 25696587,
+   "boss_pct": 97.7,
+   "add_pct": 2.3,
+   "by_type": {
+    "Boss": 25112738,
+    "NPC": 583849
+   },
+   "by_name": {
+    "Chimaerus": 25112738,
+    "Swarming Shade": 501099,
+    "Colossal Horror": 82750
+   },
+   "name_type": {
+    "Chimaerus": "Boss",
+    "Swarming Shade": "NPC",
+    "Colossal Horror": "NPC"
+   },
+   "abil_type": {
+    "Let Fly!": {
+     "Boss": 164925,
+     "NPC": 12366
+    },
+    "Black Arrow": {
+     "Boss": 9888917
+    },
+    "Steady Shot": {
+     "Boss": 280742
+    },
+    "Arcane Shot": {
+     "Boss": 1629155,
+     "NPC": 13315
+    },
+    "Omnium Folio": {
+     "Boss": 83007,
+     "NPC": 3224
+    },
+    "Aimed Shot": {
+     "Boss": 6268422,
+     "NPC": 60956
+    },
+    "Dark Minion": {
+     "Boss": 724868
+    },
+    "Master Marksman": {
+     "Boss": 2020693,
+     "NPC": 13200
+    },
+    "Rotmire's Sporeheart": {
+     "Boss": 22719
+    },
+    "Volley": {
+     "NPC": 480788,
+     "Boss": 181654
+    },
+    "Bleak Arrows": {
+     "Boss": 456625
+    },
+    "Rapid Fire": {
+     "Boss": 2156934
+    },
+    "Wailing Arrow": {
+     "Boss": 1012724
+    },
+    "Explosive Shot": {
+     "Boss": 221353
+    }
+   }
+  },
+  {
+   "boss": "Imperator Averzian",
+   "build": "DR",
+   "char": "파개왕태우스",
+   "rank": 1,
+   "dur_s": 188.0,
+   "total": 36195327,
+   "boss_pct": 69.4,
+   "add_pct": 30.6,
+   "by_type": {
+    "Boss": 25104434,
+    "NPC": 11090893
+   },
+   "by_name": {
+    "Imperator Averzian": 25104434,
+    "Abyssal Voidshaper": 4504753,
+    "Voidbound Annihilator": 4145893,
+    "Voidmaw": 2440247
+   },
+   "name_type": {
+    "Imperator Averzian": "Boss",
+    "Voidbound Annihilator": "NPC",
+    "Abyssal Voidshaper": "NPC",
+    "Voidmaw": "NPC"
+   },
+   "abil_type": {
+    "Dark Minion": {
+     "Boss": 987959,
+     "NPC": 1229842
+    },
+    "Rapid Fire": {
+     "Boss": 1781446,
+     "NPC": 135963
+    },
+    "Aimed Shot": {
+     "Boss": 7154521,
+     "NPC": 4965994
+    },
+    "Bleak Arrows": {
+     "Boss": 469062,
+     "NPC": 44226
+    },
+    "Rotmire's Sporeheart": {
+     "Boss": 6727
+    },
+    "Omnium Folio": {
+     "Boss": 69875,
+     "NPC": 6461
+    },
+    "Wailing Arrow": {
+     "Boss": 526837,
+     "NPC": 678568
+    },
+    "Let Fly!": {
+     "NPC": 120700,
+     "Boss": 93100
+    },
+    "Black Arrow": {
+     "Boss": 9591968,
+     "NPC": 1504171
+    },
+    "Volley": {
+     "NPC": 1860418,
+     "Boss": 472128
+    },
+    "Master Marksman": {
+     "Boss": 1949900,
+     "NPC": 385483
+    },
+    "Arcane Shot": {
+     "Boss": 1401927,
+     "NPC": 86973
+    },
+    "Steady Shot": {
+     "Boss": 598984,
+     "NPC": 72094
+    }
+   }
+  },
+  {
+   "boss": "Imperator Averzian",
+   "build": "DR",
+   "char": "Balrougex",
+   "rank": 2,
+   "dur_s": 184.3,
+   "total": 34835075,
+   "boss_pct": 54.1,
+   "add_pct": 45.9,
+   "by_type": {
+    "Boss": 18840011,
+    "NPC": 15995064
+   },
+   "by_name": {
+    "Imperator Averzian": 18840011,
+    "Abyssal Voidshaper": 7514071,
+    "Voidbound Annihilator": 5827483,
+    "Voidmaw": 2360582,
+    "Shadowguard Stalwart": 292928
+   },
+   "name_type": {
+    "Imperator Averzian": "Boss",
+    "Abyssal Voidshaper": "NPC",
+    "Voidbound Annihilator": "NPC",
+    "Voidmaw": "NPC",
+    "Shadowguard Stalwart": "NPC"
+   },
+   "abil_type": {
+    "Rotmire's Sporeheart": {
+     "Boss": 31938
+    },
+    "Rapid Fire": {
+     "Boss": 1257502,
+     "NPC": 635395
+    },
+    "Let Fly!": {
+     "Boss": 126173,
+     "NPC": 203746
+    },
+    "Omnium Folio": {
+     "Boss": 67071,
+     "NPC": 22749
+    },
+    "Dark Minion": {
+     "NPC": 1631761,
+     "Boss": 587315
+    },
+    "Bleak Arrows": {
+     "Boss": 430677,
+     "NPC": 133947
+    },
+    "Black Arrow": {
+     "Boss": 6083695,
+     "NPC": 2622371
+    },
+    "Explosive Shot": {
+     "Boss": 335025,
+     "NPC": 633796
+    },
+    "Master Marksman": {
+     "Boss": 1483008,
+     "NPC": 582455
+    },
+    "Arcane Shot": {
+     "Boss": 1472757,
+     "NPC": 311098
+    },
+    "Aimed Shot": {
+     "Boss": 5762277,
+     "NPC": 6711620
+    },
+    "Volley": {
+     "NPC": 1763772,
+     "Boss": 283835
+    },
+    "Steady Shot": {
+     "Boss": 479393,
+     "NPC": 29924
+    },
+    "Wailing Arrow": {
+     "Boss": 439345,
+     "NPC": 712430
+    }
+   }
+  },
+  {
+   "boss": "Imperator Averzian",
+   "build": "DR",
+   "char": "陈年风褛",
+   "rank": 3,
+   "dur_s": 194.2,
+   "total": 36550799,
+   "boss_pct": 59.1,
+   "add_pct": 40.9,
+   "by_type": {
+    "Boss": 21596516,
+    "NPC": 14954283
+   },
+   "by_name": {
+    "Imperator Averzian": 21596516,
+    "Voidbound Annihilator": 7342206,
+    "Abyssal Voidshaper": 5523549,
+    "Voidmaw": 1994940,
+    "Shadowguard Stalwart": 93588
+   },
+   "name_type": {
+    "Imperator Averzian": "Boss",
+    "Abyssal Voidshaper": "NPC",
+    "Voidbound Annihilator": "NPC",
+    "Voidmaw": "NPC",
+    "Shadowguard Stalwart": "NPC"
+   },
+   "abil_type": {
+    "Black Arrow": {
+     "Boss": 6887243,
+     "NPC": 2668360
+    },
+    "Wailing Arrow": {
+     "NPC": 671990,
+     "Boss": 564837
+    },
+    "Volley": {
+     "NPC": 2146503,
+     "Boss": 416683
+    },
+    "Let Fly!": {
+     "Boss": 129980,
+     "NPC": 12930
+    },
+    "Arcane Shot": {
+     "Boss": 1746051,
+     "NPC": 411041
+    },
+    "Aimed Shot": {
+     "Boss": 6436754,
+     "NPC": 6551337
+    },
+    "Master Marksman": {
+     "Boss": 1631242,
+     "NPC": 474979
+    },
+    "Rapid Fire": {
+     "Boss": 1494728,
+     "NPC": 458086
+    },
+    "Bleak Arrows": {
+     "Boss": 525189,
+     "NPC": 90662
+    },
+    "Dark Minion": {
+     "Boss": 1043578,
+     "NPC": 1415476
+    },
+    "Omnium Folio": {
+     "Boss": 114475,
+     "NPC": 20567
+    },
+    "Steady Shot": {
+     "Boss": 605756,
+     "NPC": 32352
+    }
+   }
+  },
+  {
+   "boss": "Imperator Averzian",
+   "build": "DR",
+   "char": "최진이정유미",
+   "rank": 4,
+   "dur_s": 178.7,
+   "total": 33600792,
+   "boss_pct": 65.1,
+   "add_pct": 34.9,
+   "by_type": {
+    "Boss": 21869207,
+    "NPC": 11731585
+   },
+   "by_name": {
+    "Imperator Averzian": 21869207,
+    "Abyssal Voidshaper": 4401202,
+    "Voidmaw": 3820631,
+    "Voidbound Annihilator": 3509752
+   },
+   "name_type": {
+    "Imperator Averzian": "Boss",
+    "Abyssal Voidshaper": "NPC",
+    "Voidbound Annihilator": "NPC",
+    "Voidmaw": "NPC"
+   },
+   "abil_type": {
+    "Rapid Fire": {
+     "Boss": 1455385,
+     "NPC": 321109
+    },
+    "Wailing Arrow": {
+     "Boss": 519135,
+     "NPC": 330197
+    },
+    "Steady Shot": {
+     "Boss": 471571
+    },
+    "Master Marksman": {
+     "Boss": 1756289,
+     "NPC": 291021
+    },
+    "Aimed Shot": {
+     "Boss": 6292210,
+     "NPC": 4580878
+    },
+    "Bleak Arrows": {
+     "Boss": 460025,
+     "NPC": 63633
+    },
+    "Let Fly!": {
+     "Boss": 96457,
+     "NPC": 11838
+    },
+    "Dark Minion": {
+     "NPC": 2544861,
+     "Boss": 1087919
+    },
+    "Arcane Shot": {
+     "Boss": 1167884,
+     "NPC": 83431
+    },
+    "Omnium Folio": {
+     "Boss": 65485,
+     "NPC": 3201
+    },
+    "Volley": {
+     "NPC": 968712,
+     "Boss": 356490
+    },
+    "Explosive Shot": {
+     "NPC": 726305,
+     "Boss": 252854
+    },
+    "Black Arrow": {
+     "Boss": 7887503,
+     "NPC": 1806399
+    }
+   }
+  },
+  {
+   "boss": "Imperator Averzian",
+   "build": "DR",
+   "char": "Deadshot",
+   "rank": 6,
+   "dur_s": 216.1,
+   "total": 39843246,
+   "boss_pct": 61.5,
+   "add_pct": 38.5,
+   "by_type": {
+    "Boss": 24520381,
+    "NPC": 15322865
+   },
+   "by_name": {
+    "Imperator Averzian": 24520381,
+    "Abyssal Voidshaper": 7537290,
+    "Voidbound Annihilator": 6226044,
+    "Voidmaw": 1553199,
+    "Shadowguard Stalwart": 6332
+   },
+   "name_type": {
+    "Imperator Averzian": "Boss",
+    "Abyssal Voidshaper": "NPC",
+    "Shadowguard Stalwart": "NPC",
+    "Voidbound Annihilator": "NPC",
+    "Voidmaw": "NPC"
+   },
+   "abil_type": {
+    "Omnium Folio": {
+     "Boss": 118826,
+     "NPC": 23617
+    },
+    "Aimed Shot": {
+     "Boss": 7146431,
+     "NPC": 5411333
+    },
+    "Let Fly!": {
+     "Boss": 93327,
+     "NPC": 20086
+    },
+    "Volley": {
+     "NPC": 1275368,
+     "Boss": 409653
+    },
+    "Black Arrow": {
+     "Boss": 8664605,
+     "NPC": 2334995
+    },
+    "Wailing Arrow": {
+     "NPC": 739644,
+     "Boss": 569085
+    },
+    "Rotmire's Sporeheart": {
+     "Boss": 6727
+    },
+    "Dark Minion": {
+     "NPC": 3731086,
+     "Boss": 886792
+    },
+    "Arcane Shot": {
+     "Boss": 1707629,
+     "NPC": 86560
+    },
+    "Explosive Shot": {
+     "Boss": 330045,
+     "NPC": 607981
+    },
+    "Bleak Arrows": {
+     "Boss": 531978,
+     "NPC": 87322
+    },
+    "Steady Shot": {
+     "Boss": 548205,
+     "NPC": 112979
+    },
+    "Rapid Fire": {
+     "Boss": 1529615,
+     "NPC": 472295
+    },
+    "Master Marksman": {
+     "Boss": 1977463,
+     "NPC": 419599
+    }
+   }
+  },
+  {
+   "boss": "Imperator Averzian",
+   "build": "DR",
+   "char": "Miin",
+   "rank": 9,
+   "dur_s": 208.2,
+   "total": 37518935,
+   "boss_pct": 65.1,
+   "add_pct": 34.9,
+   "by_type": {
+    "Boss": 24417137,
+    "NPC": 13101798
+   },
+   "by_name": {
+    "Imperator Averzian": 24417137,
+    "Voidbound Annihilator": 4959416,
+    "Abyssal Voidshaper": 4954335,
+    "Voidmaw": 3169528,
+    "Shadowguard Stalwart": 12187,
+    "Obscurion Endwalker": 6332
+   },
+   "name_type": {
+    "Imperator Averzian": "Boss",
+    "Voidmaw": "NPC",
+    "Abyssal Voidshaper": "NPC",
+    "Voidbound Annihilator": "NPC",
+    "Obscurion Endwalker": "NPC",
+    "Shadowguard Stalwart": "NPC"
+   },
+   "abil_type": {
+    "Explosive Shot": {
+     "Boss": 293448,
+     "NPC": 310369
+    },
+    "Steady Shot": {
+     "Boss": 394630
+    },
+    "Arcane Shot": {
+     "Boss": 1873137,
+     "NPC": 256618
+    },
+    "Omnium Folio": {
+     "Boss": 132210,
+     "NPC": 43276
+    },
+    "Rapid Fire": {
+     "Boss": 1992731,
+     "NPC": 665364
+    },
+    "Bleak Arrows": {
+     "Boss": 496655,
+     "NPC": 72361
+    },
+    "Volley": {
+     "NPC": 1758519,
+     "Boss": 333664
+    },
+    "Wailing Arrow": {
+     "NPC": 987594,
+     "Boss": 188425
+    },
+    "Aimed Shot": {
+     "Boss": 7060669,
+     "NPC": 4768017
+    },
+    "Let Fly!": {
+     "Boss": 225095,
+     "NPC": 6275
+    },
+    "Master Marksman": {
+     "Boss": 1891750,
+     "NPC": 429943
+    },
+    "Black Arrow": {
+     "Boss": 8539693,
+     "NPC": 2306189
+    },
+    "Dark Minion": {
+     "Boss": 995030,
+     "NPC": 1497273
+    }
+   }
+  },
+  {
+   "boss": "Imperator Averzian",
+   "build": "SEN",
+   "char": "小菠在哪里",
+   "rank": 5,
+   "dur_s": 268.6,
+   "total": 49663822,
+   "boss_pct": 58.9,
+   "add_pct": 41.1,
+   "by_type": {
+    "Boss": 29250639,
+    "NPC": 20413183
+   },
+   "by_name": {
+    "Imperator Averzian": 29250639,
+    "Abyssal Malus": 7105821,
+    "Voidmaw": 5668308,
+    "Abyssal Voidshaper": 4731374,
+    "Voidbound Annihilator": 2907680
+   },
+   "name_type": {
+    "Imperator Averzian": "Boss",
+    "Abyssal Malus": "NPC",
+    "Voidmaw": "NPC",
+    "Abyssal Voidshaper": "NPC",
+    "Voidbound Annihilator": "NPC"
+   },
+   "abil_type": {
+    "Aimed Shot": {
+     "Boss": 13569710,
+     "NPC": 11136768
+    },
+    "Lunar Storm": {
+     "Boss": 2289689,
+     "NPC": 2193107
+    },
+    "Moonlight Chakram": {
+     "Boss": 1115883,
+     "NPC": 817777
+    },
+    "Steady Shot": {
+     "Boss": 364794
+    },
+    "Rapid Fire": {
+     "Boss": 2625076,
+     "NPC": 863466
+    },
+    "Prismatic Focusing Iris": {
+     "Boss": 152483,
+     "NPC": 28595
+    },
+    "Let Fly!": {
+     "Boss": 363850,
+     "NPC": 278417
+    },
+    "Arcane Shot": {
+     "Boss": 5028694,
+     "NPC": 1209617
+    },
+    "Omnium Folio": {
+     "Boss": 136378,
+     "NPC": 19439
+    },
+    "Auto Shot": {
+     "Boss": 198189,
+     "NPC": 40173
+    },
+    "Master Marksman": {
+     "Boss": 2253903,
+     "NPC": 672301
+    },
+    "Volley": {
+     "NPC": 2736451,
+     "Boss": 823324
+    },
+    "Explosive Shot": {
+     "NPC": 417072,
+     "Boss": 328666
+    }
+   }
+  },
+  {
+   "boss": "Imperator Averzian",
+   "build": "SEN",
+   "char": "Jxh",
+   "rank": 7,
+   "dur_s": 306.8,
+   "total": 55866376,
+   "boss_pct": 54.6,
+   "add_pct": 45.4,
+   "by_type": {
+    "Boss": 30527896,
+    "NPC": 25338480
+   },
+   "by_name": {
+    "Imperator Averzian": 30527896,
+    "Abyssal Malus": 8232579,
+    "Voidmaw": 6650836,
+    "Voidbound Annihilator": 5454321,
+    "Abyssal Voidshaper": 5000744
+   },
+   "name_type": {
+    "Imperator Averzian": "Boss",
+    "Abyssal Voidshaper": "NPC",
+    "Voidmaw": "NPC",
+    "Abyssal Malus": "NPC",
+    "Voidbound Annihilator": "NPC"
+   },
+   "abil_type": {
+    "Steady Shot": {
+     "Boss": 468399,
+     "NPC": 15443
+    },
+    "Explosive Shot": {
+     "Boss": 380718,
+     "NPC": 798391
+    },
+    "Omnium Folio": {
+     "Boss": 81642,
+     "NPC": 26449
+    },
+    "Rapid Fire": {
+     "Boss": 2717398,
+     "NPC": 1565664
+    },
+    "Prismatic Focusing Iris": {
+     "Boss": 300999,
+     "NPC": 25856
+    },
+    "Lunar Storm": {
+     "Boss": 2933697,
+     "NPC": 3898434
+    },
+    "Auto Shot": {
+     "Boss": 238163,
+     "NPC": 72931
+    },
+    "Volley": {
+     "NPC": 2576344,
+     "Boss": 947428
+    },
+    "Aimed Shot": {
+     "Boss": 13873575,
+     "NPC": 12194067
+    },
+    "Arcane Shot": {
+     "Boss": 5129246,
+     "NPC": 1841893
+    },
+    "Moonlight Chakram": {
+     "Boss": 888273,
+     "NPC": 939235
+    },
+    "Let Fly!": {
+     "Boss": 307884,
+     "NPC": 371344
+    },
+    "Rotmire's Sporeheart": {
+     "Boss": 10725,
+     "NPC": 43
+    },
+    "Master Marksman": {
+     "Boss": 2249749,
+     "NPC": 1012386
+    }
+   }
+  },
+  {
+   "boss": "Imperator Averzian",
+   "build": "SEN",
+   "char": "米咕咕饲养员",
+   "rank": 8,
+   "dur_s": 278.2,
+   "total": 50455241,
+   "boss_pct": 57.3,
+   "add_pct": 42.7,
+   "by_type": {
+    "Boss": 28897176,
+    "NPC": 21558065
+   },
+   "by_name": {
+    "Imperator Averzian": 28897176,
+    "Abyssal Malus": 6609250,
+    "Abyssal Voidshaper": 6072367,
+    "Voidmaw": 5626654,
+    "Voidbound Annihilator": 3237128,
+    "Shadowguard Stalwart": 6333,
+    "Obscurion Endwalker": 6333
+   },
+   "name_type": {
+    "Imperator Averzian": "Boss",
+    "Abyssal Malus": "NPC",
+    "Voidmaw": "NPC",
+    "Abyssal Voidshaper": "NPC",
+    "Voidbound Annihilator": "NPC",
+    "Shadowguard Stalwart": "NPC",
+    "Obscurion Endwalker": "NPC"
+   },
+   "abil_type": {
+    "Lunar Storm": {
+     "Boss": 2831291,
+     "NPC": 2604147
+    },
+    "Volley": {
+     "NPC": 2506617,
+     "Boss": 734284
+    },
+    "Arcane Shot": {
+     "Boss": 4868647,
+     "NPC": 1393412
+    },
+    "Rapid Fire": {
+     "Boss": 2915850,
+     "NPC": 954524
+    },
+    "Explosive Shot": {
+     "NPC": 933918,
+     "Boss": 495512
+    },
+    "Steady Shot": {
+     "Boss": 619262
+    },
+    "Aimed Shot": {
+     "Boss": 12936006,
+     "NPC": 10789135
+    },
+    "Moonlight Chakram": {
+     "Boss": 594372,
+     "NPC": 1231356
+    },
+    "Master Marksman": {
+     "Boss": 2211429,
+     "NPC": 729945
+    },
+    "Auto Shot": {
+     "Boss": 218037,
+     "NPC": 50438
+    },
+    "Let Fly!": {
+     "Boss": 292826,
+     "NPC": 332190
+    },
+    "Omnium Folio": {
+     "Boss": 179660,
+     "NPC": 32383
+    }
+   }
+  },
+  {
+   "boss": "Imperator Averzian",
+   "build": "SEN",
+   "char": "小黑五号",
+   "rank": 13,
+   "dur_s": 282.9,
+   "total": 50004666,
+   "boss_pct": 62.6,
+   "add_pct": 37.4,
+   "by_type": {
+    "Boss": 31280541,
+    "NPC": 18724125
+   },
+   "by_name": {
+    "Imperator Averzian": 31280541,
+    "Abyssal Malus": 5701735,
+    "Abyssal Voidshaper": 5344444,
+    "Voidmaw": 5005070,
+    "Voidbound Annihilator": 2672876
+   },
+   "name_type": {
+    "Imperator Averzian": "Boss",
+    "Voidmaw": "NPC",
+    "Abyssal Voidshaper": "NPC",
+    "Voidbound Annihilator": "NPC",
+    "Abyssal Malus": "NPC"
+   },
+   "abil_type": {
+    "Moonlight Chakram": {
+     "Boss": 1451478,
+     "NPC": 239897
+    },
+    "Rotmire's Sporeheart": {
+     "Boss": 4440
+    },
+    "Explosive Shot": {
+     "Boss": 365641,
+     "NPC": 256166
+    },
+    "Let Fly!": {
+     "Boss": 384520,
+     "NPC": 209133
+    },
+    "Lunar Storm": {
+     "Boss": 3370218,
+     "NPC": 2541401
+    },
+    "Rapid Fire": {
+     "Boss": 2541930,
+     "NPC": 1021786
+    },
+    "Volley": {
+     "NPC": 2744558,
+     "Boss": 369338
+    },
+    "Steady Shot": {
+     "Boss": 470672
+    },
+    "Omnium Folio": {
+     "Boss": 129870,
+     "NPC": 29038
+    },
+    "Auto Shot": {
+     "Boss": 216246,
+     "NPC": 60809
+    },
+    "Arcane Shot": {
+     "Boss": 5030320,
+     "NPC": 1581393
+    },
+    "Aimed Shot": {
+     "Boss": 14512642,
+     "NPC": 9359225
+    },
+    "Master Marksman": {
+     "Boss": 2433226,
+     "NPC": 680719
+    }
+   }
+  },
+  {
+   "boss": "Imperator Averzian",
+   "build": "SEN",
+   "char": "哈哈冷酷杀手",
+   "rank": 17,
+   "dur_s": 365.8,
+   "total": 64020136,
+   "boss_pct": 51.0,
+   "add_pct": 49.0,
+   "by_type": {
+    "Boss": 32637956,
+    "NPC": 31382180
+   },
+   "by_name": {
+    "Imperator Averzian": 32637956,
+    "Abyssal Malus": 12610370,
+    "Voidmaw": 8115723,
+    "Abyssal Voidshaper": 8005983,
+    "Voidbound Annihilator": 2650104
+   },
+   "name_type": {
+    "Imperator Averzian": "Boss",
+    "Abyssal Malus": "NPC",
+    "Abyssal Voidshaper": "NPC",
+    "Voidbound Annihilator": "NPC",
+    "Voidmaw": "NPC"
+   },
+   "abil_type": {
+    "Arcane Shot": {
+     "Boss": 5209432,
+     "NPC": 2546603
+    },
+    "Steady Shot": {
+     "Boss": 655889,
+     "NPC": 240752
+    },
+    "Lunar Storm": {
+     "Boss": 2761649,
+     "NPC": 3376057
+    },
+    "Auto Shot": {
+     "Boss": 253318,
+     "NPC": 84932
+    },
+    "Aimed Shot": {
+     "Boss": 15519797,
+     "NPC": 15752218
+    },
+    "Volley": {
+     "NPC": 3899380,
+     "Boss": 655470
+    },
+    "Rapid Fire": {
+     "Boss": 2737899,
+     "NPC": 2387509
+    },
+    "Let Fly!": {
+     "Boss": 269967,
+     "NPC": 314560
+    },
+    "Explosive Shot": {
+     "Boss": 565023,
+     "NPC": 797036
+    },
+    "Moonlight Chakram": {
+     "Boss": 1336090,
+     "NPC": 541676
+    },
+    "Master Marksman": {
+     "Boss": 2513637,
+     "NPC": 1399365
+    },
+    "Omnium Folio": {
+     "Boss": 159785,
+     "NPC": 42092
+    }
+   }
+  },
+  {
+   "boss": "Imperator Averzian",
+   "build": "SEN",
+   "char": "德强隆冬齐",
+   "rank": 22,
+   "dur_s": 277.8,
+   "total": 46681111,
+   "boss_pct": 54.2,
+   "add_pct": 45.8,
+   "by_type": {
+    "Boss": 25323799,
+    "NPC": 21357312
+   },
+   "by_name": {
+    "Imperator Averzian": 25323799,
+    "Abyssal Voidshaper": 7464031,
+    "Abyssal Malus": 7159713,
+    "Voidmaw": 5103380,
+    "Voidbound Annihilator": 1266892,
+    "Obscurion Endwalker": 363296
+   },
+   "name_type": {
+    "Imperator Averzian": "Boss",
+    "Abyssal Malus": "NPC",
+    "Abyssal Voidshaper": "NPC",
+    "Obscurion Endwalker": "NPC",
+    "Voidbound Annihilator": "NPC",
+    "Voidmaw": "NPC"
+   },
+   "abil_type": {
+    "Master Marksman": {
+     "Boss": 1961140,
+     "NPC": 1010281
+    },
+    "Rapid Fire": {
+     "Boss": 2385373,
+     "NPC": 997873
+    },
+    "Omnium Folio": {
+     "Boss": 85753,
+     "NPC": 19118
+    },
+    "Let Fly!": {
+     "Boss": 244621,
+     "NPC": 427632
+    },
+    "Explosive Shot": {
+     "NPC": 717825,
+     "Boss": 298350
+    },
+    "Volley": {
+     "NPC": 2267531,
+     "Boss": 429194
+    },
+    "Aimed Shot": {
+     "Boss": 11759321,
+     "NPC": 9712530
+    },
+    "Moonlight Chakram": {
+     "Boss": 1508765,
+     "NPC": 690695
+    },
+    "Arcane Shot": {
+     "Boss": 4032154,
+     "NPC": 1913246
+    },
+    "Auto Shot": {
+     "Boss": 199721,
+     "NPC": 55188
+    },
+    "Lunar Storm": {
+     "Boss": 2057334,
+     "NPC": 3497477
+    },
+    "Steady Shot": {
+     "Boss": 362073,
+     "NPC": 47916
+    }
+   }
+  },
+  {
+   "boss": "Fallen-King Salhadaar",
+   "build": "DR",
+   "char": "陈年风褛",
+   "rank": 1,
+   "dur_s": 179.1,
+   "total": 36856544,
+   "boss_pct": 78.8,
+   "add_pct": 21.2,
+   "by_type": {
+    "Boss": 29057999,
+    "NPC": 7798545
+   },
+   "by_name": {
+    "Fallen-King Salhadaar": 29057999,
+    "Enduring Void": 3656026,
+    "Concentrated Void": 2176928,
+    "Terrace Watcher": 1965591
+   },
+   "name_type": {
+    "Fallen-King Salhadaar": "Boss",
+    "Terrace Watcher": "NPC",
+    "Concentrated Void": "NPC",
+    "Enduring Void": "NPC"
+   },
+   "abil_type": {
+    "Wailing Arrow": {
+     "Boss": 893044,
+     "NPC": 184653
+    },
+    "Dark Minion": {
+     "Boss": 1726676,
+     "NPC": 496054
+    },
+    "Black Arrow": {
+     "Boss": 9388347,
+     "NPC": 467329
+    },
+    "Let Fly!": {
+     "Boss": 233249,
+     "NPC": 31010
+    },
+    "Omnium Folio": {
+     "Boss": 104876,
+     "NPC": 33192
+    },
+    "Master Marksman": {
+     "Boss": 2313091,
+     "NPC": 222763
+    },
+    "Volley": {
+     "NPC": 964631,
+     "Boss": 600747
+    },
+    "Rapid Fire": {
+     "Boss": 1864362,
+     "NPC": 422141
+    },
+    "Arcane Shot": {
+     "Boss": 2269292,
+     "NPC": 339336
+    },
+    "Bleak Arrows": {
+     "Boss": 572993,
+     "NPC": 36030
+    },
+    "Aimed Shot": {
+     "Boss": 8462534,
+     "NPC": 4556689
+    },
+    "Steady Shot": {
+     "Boss": 628788,
+     "NPC": 44717
+    }
+   }
+  },
+  {
+   "boss": "Fallen-King Salhadaar",
+   "build": "DR",
+   "char": "태우스",
+   "rank": 2,
+   "dur_s": 199.0,
+   "total": 35743955,
+   "boss_pct": 84.2,
+   "add_pct": 15.8,
+   "by_type": {
+    "Boss": 30094827,
+    "NPC": 5649128
+   },
+   "by_name": {
+    "Fallen-King Salhadaar": 30094827,
+    "Enduring Void": 4054723,
+    "Concentrated Void": 1594405
+   },
+   "name_type": {
+    "Fallen-King Salhadaar": "Boss",
+    "Concentrated Void": "NPC",
+    "Enduring Void": "NPC"
+   },
+   "abil_type": {
+    "Dark Minion": {
+     "Boss": 1072476,
+     "NPC": 149495
+    },
+    "Sporecaller's Blooming Loop": {
+     "Boss": 87448
+    },
+    "Black Arrow": {
+     "Boss": 11821091,
+     "NPC": 247618
+    },
+    "Steady Shot": {
+     "Boss": 637066
+    },
+    "Arcane Shot": {
+     "Boss": 1540140,
+     "NPC": 86408
+    },
+    "Bleak Arrows": {
+     "Boss": 562466
+    },
+    "Let Fly!": {
+     "Boss": 84299,
+     "NPC": 57764
+    },
+    "Wailing Arrow": {
+     "Boss": 835749
+    },
+    "Omnium Folio": {
+     "Boss": 138351,
+     "NPC": 3261
+    },
+    "Volley": {
+     "NPC": 1125037,
+     "Boss": 465991
+    },
+    "Rapid Fire": {
+     "Boss": 2326163,
+     "NPC": 215876
+    },
+    "Aimed Shot": {
+     "Boss": 8141082,
+     "NPC": 3601905
+    },
+    "Master Marksman": {
+     "Boss": 2382505,
+     "NPC": 161764
+    }
+   }
+  },
+  {
+   "boss": "Fallen-King Salhadaar",
+   "build": "DR",
+   "char": "Мусенито",
+   "rank": 3,
+   "dur_s": 201.6,
+   "total": 35366927,
+   "boss_pct": 88.3,
+   "add_pct": 11.7,
+   "by_type": {
+    "Boss": 31223376,
+    "NPC": 4143551
+   },
+   "by_name": {
+    "Fallen-King Salhadaar": 31223376,
+    "Concentrated Void": 3031357,
+    "Enduring Void": 1112194
+   },
+   "name_type": {
+    "Fallen-King Salhadaar": "Boss",
+    "Concentrated Void": "NPC",
+    "Enduring Void": "NPC"
+   },
+   "abil_type": {
+    "Arcane Shot": {
+     "Boss": 2276566,
+     "NPC": 236852
+    },
+    "Master Marksman": {
+     "Boss": 2539251,
+     "NPC": 183349
+    },
+    "Explosive Shot": {
+     "Boss": 554071
+    },
+    "Dark Minion": {
+     "Boss": 830068,
+     "NPC": 254745
+    },
+    "Steady Shot": {
+     "Boss": 566174
+    },
+    "Black Arrow": {
+     "Boss": 10966796,
+     "NPC": 462398
+    },
+    "Let Fly!": {
+     "Boss": 188930,
+     "NPC": 60493
+    },
+    "Omnium Folio": {
+     "Boss": 154260,
+     "NPC": 11001
+    },
+    "Bleak Arrows": {
+     "Boss": 714138
+    },
+    "Volley": {
+     "NPC": 590918,
+     "Boss": 237230
+    },
+    "Aimed Shot": {
+     "Boss": 9410957,
+     "NPC": 1996869
+    },
+    "Wailing Arrow": {
+     "Boss": 760556
+    },
+    "Rapid Fire": {
+     "Boss": 2024379,
+     "NPC": 346926
+    }
+   }
+  },
+  {
+   "boss": "Fallen-King Salhadaar",
+   "build": "DR",
+   "char": "Johnwickc",
+   "rank": 5,
+   "dur_s": 204.9,
+   "total": 35130527,
+   "boss_pct": 82.0,
+   "add_pct": 18.0,
+   "by_type": {
+    "Boss": 28817172,
+    "NPC": 6313355
+   },
+   "by_name": {
+    "Fallen-King Salhadaar": 28817172,
+    "Concentrated Void": 3319422,
+    "Enduring Void": 2993933
+   },
+   "name_type": {
+    "Fallen-King Salhadaar": "Boss",
+    "Concentrated Void": "NPC",
+    "Enduring Void": "NPC"
+   },
+   "abil_type": {
+    "Rapid Fire": {
+     "Boss": 2197687,
+     "NPC": 450301
+    },
+    "Black Arrow": {
+     "Boss": 10454061,
+     "NPC": 679391
+    },
+    "Let Fly!": {
+     "Boss": 153707,
+     "NPC": 41915
+    },
+    "Wailing Arrow": {
+     "Boss": 711160,
+     "NPC": 124848
+    },
+    "Aimed Shot": {
+     "Boss": 7949055,
+     "NPC": 3382868
+    },
+    "Volley": {
+     "NPC": 1025513,
+     "Boss": 569186
+    },
+    "Shadow Dagger": {
+     "Boss": 121
+    },
+    "Dark Minion": {
+     "Boss": 1327856,
+     "NPC": 256199
+    },
+    "Arcane Shot": {
+     "Boss": 1693998,
+     "NPC": 121435
+    },
+    "Steady Shot": {
+     "Boss": 749692
+    },
+    "Omnium Folio": {
+     "Boss": 80828,
+     "NPC": 3203
+    },
+    "Master Marksman": {
+     "Boss": 2338130,
+     "NPC": 227682
+    },
+    "Bleak Arrows": {
+     "Boss": 591691
+    }
+   }
+  },
+  {
+   "boss": "Fallen-King Salhadaar",
+   "build": "DR",
+   "char": "칩금",
+   "rank": 8,
+   "dur_s": 209.3,
+   "total": 35596789,
+   "boss_pct": 80.9,
+   "add_pct": 19.1,
+   "by_type": {
+    "Boss": 28789963,
+    "NPC": 6806826
+   },
+   "by_name": {
+    "Fallen-King Salhadaar": 28789963,
+    "Enduring Void": 4213965,
+    "Concentrated Void": 2592861
+   },
+   "name_type": {
+    "Fallen-King Salhadaar": "Boss",
+    "Concentrated Void": "NPC",
+    "Enduring Void": "NPC"
+   },
+   "abil_type": {
+    "Dark Minion": {
+     "Boss": 1249081,
+     "NPC": 316930
+    },
+    "Bleak Arrows": {
+     "Boss": 595925,
+     "NPC": 17879
+    },
+    "Master Marksman": {
+     "Boss": 2259816,
+     "NPC": 182388
+    },
+    "Aimed Shot": {
+     "Boss": 8221445,
+     "NPC": 3819616
+    },
+    "Steady Shot": {
+     "Boss": 685707
+    },
+    "Shadow Dagger": {
+     "NPC": 117
+    },
+    "Arcane Shot": {
+     "Boss": 1999553,
+     "NPC": 369059
+    },
+    "Omnium Folio": {
+     "Boss": 74136,
+     "NPC": 9406
+    },
+    "Volley": {
+     "NPC": 1094769,
+     "Boss": 382823
+    },
+    "Rapid Fire": {
+     "Boss": 2053836,
+     "NPC": 351499
+    },
+    "Let Fly!": {
+     "Boss": 186181,
+     "NPC": 60391
+    },
+    "Black Arrow": {
+     "Boss": 10565675,
+     "NPC": 584772
+    },
+    "Wailing Arrow": {
+     "Boss": 515785
+    }
+   }
+  },
+  {
+   "boss": "Fallen-King Salhadaar",
+   "build": "DR",
+   "char": "Johnnwick",
+   "rank": 9,
+   "dur_s": 264.7,
+   "total": 44735069,
+   "boss_pct": 69.4,
+   "add_pct": 30.6,
+   "by_type": {
+    "Boss": 31029604,
+    "NPC": 13705465
+   },
+   "by_name": {
+    "Fallen-King Salhadaar": 31029604,
+    "Enduring Void": 9825952,
+    "Concentrated Void": 3879513
+   },
+   "name_type": {
+    "Fallen-King Salhadaar": "Boss",
+    "Concentrated Void": "NPC",
+    "Enduring Void": "NPC"
+   },
+   "abil_type": {
+    "Arcane Shot": {
+     "Boss": 2110576,
+     "NPC": 323250
+    },
+    "Volley": {
+     "NPC": 1877474,
+     "Boss": 226567
+    },
+    "Omnium Folio": {
+     "Boss": 81578,
+     "NPC": 41903
+    },
+    "Let Fly!": {
+     "Boss": 220388,
+     "NPC": 84739
+    },
+    "Wailing Arrow": {
+     "Boss": 788806,
+     "NPC": 47276
+    },
+    "Explosive Shot": {
+     "Boss": 519444,
+     "NPC": 166033
+    },
+    "Master Marksman": {
+     "Boss": 2323250,
+     "NPC": 371961
+    },
+    "Black Arrow": {
+     "Boss": 10213284,
+     "NPC": 1827934
+    },
+    "Aimed Shot": {
+     "Boss": 8959668,
+     "NPC": 8167344
+    },
+    "Dark Minion": {
+     "Boss": 1237391,
+     "NPC": 227270
+    },
+    "Rapid Fire": {
+     "Boss": 2836058,
+     "NPC": 436452
+    },
+    "Steady Shot": {
+     "Boss": 824640,
+     "NPC": 39649
+    },
+    "Bleak Arrows": {
+     "Boss": 687954,
+     "NPC": 94180
+    }
+   }
+  },
+  {
+   "boss": "Fallen-King Salhadaar",
+   "build": "SEN",
+   "char": "米咕咕饲养员",
+   "rank": 4,
+   "dur_s": 323.2,
+   "total": 55758411,
+   "boss_pct": 68.2,
+   "add_pct": 31.8,
+   "by_type": {
+    "Boss": 38034767,
+    "NPC": 17723644
+   },
+   "by_name": {
+    "Fallen-King Salhadaar": 38034767,
+    "Enduring Void": 13377204,
+    "Concentrated Void": 4346440
+   },
+   "name_type": {
+    "Fallen-King Salhadaar": "Boss",
+    "Enduring Void": "NPC",
+    "Concentrated Void": "NPC"
+   },
+   "abil_type": {
+    "Auto Shot": {
+     "Boss": 300950,
+     "NPC": 11318
+    },
+    "Steady Shot": {
+     "Boss": 308427
+    },
+    "Rapid Fire": {
+     "Boss": 3742181,
+     "NPC": 757413
+    },
+    "Let Fly!": {
+     "Boss": 539748,
+     "NPC": 90845
+    },
+    "Explosive Shot": {
+     "Boss": 775379
+    },
+    "Aimed Shot": {
+     "Boss": 16730458,
+     "NPC": 8522313
+    },
+    "Volley": {
+     "NPC": 4681721,
+     "Boss": 340788
+    },
+    "Arcane Shot": {
+     "Boss": 6989580,
+     "NPC": 963779
+    },
+    "Omnium Folio": {
+     "Boss": 165530,
+     "NPC": 35439
+    },
+    "Lunar Storm": {
+     "Boss": 2882464,
+     "NPC": 1959076
+    },
+    "Moonlight Chakram": {
+     "Boss": 2200301
+    },
+    "Master Marksman": {
+     "Boss": 3058961,
+     "NPC": 701740
+    }
+   }
+  },
+  {
+   "boss": "Fallen-King Salhadaar",
+   "build": "SEN",
+   "char": "小菠来咯",
+   "rank": 6,
+   "dur_s": 277.6,
+   "total": 47445269,
+   "boss_pct": 67.2,
+   "add_pct": 32.8,
+   "by_type": {
+    "NPC": 15543144,
+    "Boss": 31902125
+   },
+   "by_name": {
+    "Fallen-King Salhadaar": 31902125,
+    "Enduring Void": 12441656,
+    "Concentrated Void": 3101488
+   },
+   "name_type": {
+    "Enduring Void": "NPC",
+    "Fallen-King Salhadaar": "Boss",
+    "Concentrated Void": "NPC"
+   },
+   "abil_type": {
+    "Explosive Shot": {
+     "NPC": 1225176,
+     "Boss": 400409
+    },
+    "Volley": {
+     "NPC": 2888570,
+     "Boss": 427637
+    },
+    "Lunar Storm": {
+     "Boss": 2410607,
+     "NPC": 1020304
+    },
+    "Moonlight Chakram": {
+     "Boss": 2118894
+    },
+    "Let Fly!": {
+     "Boss": 381472,
+     "NPC": 115367
+    },
+    "Rapid Fire": {
+     "Boss": 3012292,
+     "NPC": 507961
+    },
+    "Omnium Folio": {
+     "Boss": 157009,
+     "NPC": 46298
+    },
+    "Master Marksman": {
+     "Boss": 2473080,
+     "NPC": 542897
+    },
+    "Aimed Shot": {
+     "Boss": 13909179,
+     "NPC": 8633742
+    },
+    "Auto Shot": {
+     "Boss": 260255,
+     "NPC": 16802
+    },
+    "Steady Shot": {
+     "Boss": 353927
+    },
+    "Arcane Shot": {
+     "Boss": 5997364,
+     "NPC": 546027
+    }
+   }
+  },
+  {
+   "boss": "Fallen-King Salhadaar",
+   "build": "SEN",
+   "char": "抱走猫猫",
+   "rank": 7,
+   "dur_s": 282.5,
+   "total": 48236602,
+   "boss_pct": 71.6,
+   "add_pct": 28.4,
+   "by_type": {
+    "Boss": 34533863,
+    "NPC": 13702739
+   },
+   "by_name": {
+    "Fallen-King Salhadaar": 34533863,
+    "Enduring Void": 10711503,
+    "Concentrated Void": 2991236
+   },
+   "name_type": {
+    "Fallen-King Salhadaar": "Boss",
+    "Concentrated Void": "NPC",
+    "Enduring Void": "NPC"
+   },
+   "abil_type": {
+    "Steady Shot": {
+     "Boss": 401127,
+     "NPC": 15481
+    },
+    "Moonlight Chakram": {
+     "Boss": 1668699
+    },
+    "Aimed Shot": {
+     "Boss": 16202643,
+     "NPC": 6381798
+    },
+    "Omnium Folio": {
+     "Boss": 189032,
+     "NPC": 52517
+    },
+    "Explosive Shot": {
+     "Boss": 705077,
+     "NPC": 347550
+    },
+    "Prismatic Focusing Iris": {
+     "Boss": 245164
+    },
+    "Volley": {
+     "NPC": 2651552,
+     "Boss": 425078
+    },
+    "Rapid Fire": {
+     "Boss": 3072262,
+     "NPC": 1994400
+    },
+    "Arcane Shot": {
+     "Boss": 5379068,
+     "NPC": 643503
+    },
+    "Let Fly!": {
+     "Boss": 406406,
+     "NPC": 156794
+    },
+    "Auto Shot": {
+     "Boss": 248433,
+     "NPC": 16791
+    },
+    "Master Marksman": {
+     "Boss": 2629416,
+     "NPC": 434512
+    },
+    "Lunar Storm": {
+     "Boss": 2961458,
+     "NPC": 1007841
+    }
+   }
+  },
+  {
+   "boss": "Fallen-King Salhadaar",
+   "build": "SEN",
+   "char": "反诈",
+   "rank": 10,
+   "dur_s": 288.7,
+   "total": 48497268,
+   "boss_pct": 68.2,
+   "add_pct": 31.8,
+   "by_type": {
+    "Boss": 33098717,
+    "NPC": 15398551
+   },
+   "by_name": {
+    "Fallen-King Salhadaar": 33098717,
+    "Enduring Void": 11155650,
+    "Concentrated Void": 4242901
+   },
+   "name_type": {
+    "Fallen-King Salhadaar": "Boss",
+    "Concentrated Void": "NPC",
+    "Enduring Void": "NPC"
+   },
+   "abil_type": {
+    "Steady Shot": {
+     "Boss": 593997,
+     "NPC": 35351
+    },
+    "Explosive Shot": {
+     "NPC": 935762,
+     "Boss": 390683
+    },
+    "Rapid Fire": {
+     "Boss": 3354067,
+     "NPC": 1026652
+    },
+    "Aimed Shot": {
+     "Boss": 14652253,
+     "NPC": 9115996
+    },
+    "Lunar Storm": {
+     "Boss": 2384583,
+     "NPC": 932469
+    },
+    "Moonlight Chakram": {
+     "Boss": 2294546
+    },
+    "Auto Shot": {
+     "Boss": 272950,
+     "NPC": 18700
+    },
+    "Volley": {
+     "NPC": 1978036,
+     "Boss": 424924
+    },
+    "Arcane Shot": {
+     "Boss": 5497306,
+     "NPC": 910927
+    },
+    "Let Fly!": {
+     "Boss": 511321,
+     "NPC": 44280
+    },
+    "Omnium Folio": {
+     "Boss": 105374,
+     "NPC": 9786
+    },
+    "Master Marksman": {
+     "Boss": 2616713,
+     "NPC": 390592
+    }
+   }
+  },
+  {
+   "boss": "Fallen-King Salhadaar",
+   "build": "SEN",
+   "char": "Sova",
+   "rank": 15,
+   "dur_s": 304.2,
+   "total": 50223317,
+   "boss_pct": 64.9,
+   "add_pct": 35.1,
+   "by_type": {
+    "Boss": 32595782,
+    "NPC": 17627535
+   },
+   "by_name": {
+    "Fallen-King Salhadaar": 32595782,
+    "Enduring Void": 10862598,
+    "Concentrated Void": 6764937
+   },
+   "name_type": {
+    "Fallen-King Salhadaar": "Boss",
+    "Enduring Void": "NPC",
+    "Concentrated Void": "NPC"
+   },
+   "abil_type": {
+    "Rapid Fire": {
+     "Boss": 3393523,
+     "NPC": 1309870
+    },
+    "Volley": {
+     "NPC": 2626347,
+     "Boss": 123042
+    },
+    "Arcane Shot": {
+     "Boss": 5484108,
+     "NPC": 943890
+    },
+    "Explosive Shot": {
+     "Boss": 420798,
+     "NPC": 221153
+    },
+    "Aimed Shot": {
+     "Boss": 15920342,
+     "NPC": 8919045
+    },
+    "Lunar Storm": {
+     "Boss": 2973272,
+     "NPC": 2149412
+    },
+    "Auto Shot": {
+     "Boss": 266608,
+     "NPC": 13638
+    },
+    "Master Marksman": {
+     "Boss": 2480453,
+     "NPC": 594688
+    },
+    "Let Fly!": {
+     "Boss": 351024,
+     "NPC": 294354
+    },
+    "Omnium Folio": {
+     "Boss": 112231,
+     "NPC": 6315
+    },
+    "Steady Shot": {
+     "Boss": 543489
+    },
+    "Moonlight Chakram": {
+     "NPC": 548823,
+     "Boss": 526892
+    }
+   }
+  },
+  {
+   "boss": "Fallen-King Salhadaar",
+   "build": "SEN",
+   "char": "Autonomy",
+   "rank": 17,
+   "dur_s": 293.0,
+   "total": 48325469,
+   "boss_pct": 65.0,
+   "add_pct": 35.0,
+   "by_type": {
+    "Boss": 31403373,
+    "NPC": 16922096
+   },
+   "by_name": {
+    "Fallen-King Salhadaar": 31403373,
+    "Enduring Void": 13653575,
+    "Concentrated Void": 3268521
+   },
+   "name_type": {
+    "Fallen-King Salhadaar": "Boss",
+    "Concentrated Void": "NPC",
+    "Enduring Void": "NPC"
+   },
+   "abil_type": {
+    "Arcane Shot": {
+     "Boss": 5092210,
+     "NPC": 958870
+    },
+    "Explosive Shot": {
+     "NPC": 909248,
+     "Boss": 508047
+    },
+    "Prismatic Focusing Iris": {
+     "Boss": 449428,
+     "NPC": 51640
+    },
+    "Let Fly!": {
+     "NPC": 432375,
+     "Boss": 276140
+    },
+    "Volley": {
+     "NPC": 1859807,
+     "Boss": 271952
+    },
+    "Rapid Fire": {
+     "Boss": 2779847,
+     "NPC": 2125594
+    },
+    "Moonlight Chakram": {
+     "Boss": 1517649
+    },
+    "Auto Shot": {
+     "Boss": 251081,
+     "NPC": 9682
+    },
+    "Aimed Shot": {
+     "Boss": 14797385,
+     "NPC": 9035231
+    },
+    "Steady Shot": {
+     "Boss": 535634
+    },
+    "Master Marksman": {
+     "Boss": 2367667,
+     "NPC": 860922
+    },
+    "Lunar Storm": {
+     "Boss": 2556333,
+     "NPC": 678727
+    }
+   }
+  },
+  {
+   "boss": "Lightblinded Vanguard",
+   "build": "SEN",
+   "char": "파개왕태우스",
+   "rank": 1,
+   "dur_s": 302.0,
+   "total": 82023368,
+   "boss_pct": 100.0,
+   "add_pct": 0.0,
+   "by_type": {
+    "Boss": 82023368
+   },
+   "by_name": {
+    "General Amias Bellamy": 34661799,
+    "Commander Venel Lightblood": 24069365,
+    "War Chaplain Senn": 23292204
+   },
+   "name_type": {
+    "General Amias Bellamy": "Boss",
+    "War Chaplain Senn": "Boss",
+    "Commander Venel Lightblood": "Boss"
+   },
+   "abil_type": {
+    "Omnium Folio": {
+     "Boss": 120109
+    },
+    "Rapid Fire": {
+     "Boss": 5533253
+    },
+    "Steady Shot": {
+     "Boss": 314375
+    },
+    "Master Marksman": {
+     "Boss": 6171711
+    },
+    "Moonlight Chakram": {
+     "Boss": 1994128
+    },
+    "Rotmire's Sporeheart": {
+     "Boss": 6531
+    },
+    "Explosive Shot": {
+     "Boss": 1625025
+    },
+    "Auto Shot": {
+     "Boss": 335507
+    },
+    "Lunar Storm": {
+     "Boss": 13109055
+    },
+    "Aimed Shot": {
+     "Boss": 38930824
+    },
+    "Let Fly!": {
+     "Boss": 1089228
+    },
+    "Arcane Shot": {
+     "Boss": 10350858
+    },
+    "Volley": {
+     "Boss": 2442764
+    }
+   }
+  },
+  {
+   "boss": "Lightblinded Vanguard",
+   "build": "SEN",
+   "char": "Scampen",
+   "rank": 2,
+   "dur_s": 283.0,
+   "total": 76476706,
+   "boss_pct": 100.0,
+   "add_pct": 0.0,
+   "by_type": {
+    "Boss": 76476706
+   },
+   "by_name": {
+    "General Amias Bellamy": 29734832,
+    "Commander Venel Lightblood": 23782239,
+    "War Chaplain Senn": 22959635
+   },
+   "name_type": {
+    "General Amias Bellamy": "Boss",
+    "Commander Venel Lightblood": "Boss",
+    "War Chaplain Senn": "Boss"
+   },
+   "abil_type": {
+    "Auto Shot": {
+     "Boss": 297487
+    },
+    "Master Marksman": {
+     "Boss": 5493811
+    },
+    "Rapid Fire": {
+     "Boss": 6880157
+    },
+    "Arcane Shot": {
+     "Boss": 9630799
+    },
+    "Volley": {
+     "Boss": 3022734
+    },
+    "Explosive Shot": {
+     "Boss": 1163285
+    },
+    "Steady Shot": {
+     "Boss": 466822
+    },
+    "Moonlight Chakram": {
+     "Boss": 1305045
+    },
+    "Aimed Shot": {
+     "Boss": 34717420
+    },
+    "Omnium Folio": {
+     "Boss": 276888
+    },
+    "Let Fly!": {
+     "Boss": 763665
+    },
+    "Lunar Storm": {
+     "Boss": 12458593
+    }
+   }
+  },
+  {
+   "boss": "Lightblinded Vanguard",
+   "build": "SEN",
+   "char": "Huntoper",
+   "rank": 3,
+   "dur_s": 309.5,
+   "total": 82096717,
+   "boss_pct": 100.0,
+   "add_pct": 0.0,
+   "by_type": {
+    "Boss": 82096717
+   },
+   "by_name": {
+    "General Amias Bellamy": 30286260,
+    "War Chaplain Senn": 25915767,
+    "Commander Venel Lightblood": 25894690
+   },
+   "name_type": {
+    "General Amias Bellamy": "Boss",
+    "War Chaplain Senn": "Boss",
+    "Commander Venel Lightblood": "Boss"
+   },
+   "abil_type": {
+    "Arcane Shot": {
+     "Boss": 9819469
+    },
+    "Steady Shot": {
+     "Boss": 433380
+    },
+    "Omnium Folio": {
+     "Boss": 310528
+    },
+    "Auto Shot": {
+     "Boss": 333076
+    },
+    "Explosive Shot": {
+     "Boss": 776743
+    },
+    "Rapid Fire": {
+     "Boss": 5868523
+    },
+    "Lunar Storm": {
+     "Boss": 13945949
+    },
+    "Master Marksman": {
+     "Boss": 5971072
+    },
+    "Volley": {
+     "Boss": 2929729
+    },
+    "Aimed Shot": {
+     "Boss": 38318709
+    },
+    "Let Fly!": {
+     "Boss": 1091602
+    },
+    "Moonlight Chakram": {
+     "Boss": 2297937
+    }
+   }
+  },
+  {
+   "boss": "Lightblinded Vanguard",
+   "build": "SEN",
+   "char": "Eiwowo",
+   "rank": 4,
+   "dur_s": 293.5,
+   "total": 77427265,
+   "boss_pct": 100.0,
+   "add_pct": 0.0,
+   "by_type": {
+    "Boss": 77427265
+   },
+   "by_name": {
+    "General Amias Bellamy": 30098943,
+    "Commander Venel Lightblood": 25959379,
+    "War Chaplain Senn": 21368943
+   },
+   "name_type": {
+    "General Amias Bellamy": "Boss",
+    "War Chaplain Senn": "Boss",
+    "Commander Venel Lightblood": "Boss"
+   },
+   "abil_type": {
+    "Explosive Shot": {
+     "Boss": 1454156
+    },
+    "Steady Shot": {
+     "Boss": 313393
+    },
+    "Rapid Fire": {
+     "Boss": 6785061
+    },
+    "Master Marksman": {
+     "Boss": 5657336
+    },
+    "Arcane Shot": {
+     "Boss": 9491043
+    },
+    "Auto Shot": {
+     "Boss": 300152
+    },
+    "Let Fly!": {
+     "Boss": 1166077
+    },
+    "Lunar Storm": {
+     "Boss": 13481321
+    },
+    "Volley": {
+     "Boss": 2973088
+    },
+    "Moonlight Chakram": {
+     "Boss": 1893139
+    },
+    "Aimed Shot": {
+     "Boss": 33800038
+    },
+    "Omnium Folio": {
+     "Boss": 112461
+    }
+   }
+  },
+  {
+   "boss": "Lightblinded Vanguard",
+   "build": "SEN",
+   "char": "Мусенито",
+   "rank": 6,
+   "dur_s": 359.8,
+   "total": 93370099,
+   "boss_pct": 100.0,
+   "add_pct": 0.0,
+   "by_type": {
+    "Boss": 93370099
+   },
+   "by_name": {
+    "War Chaplain Senn": 33422501,
+    "General Amias Bellamy": 33298757,
+    "Commander Venel Lightblood": 26648841
+   },
+   "name_type": {
+    "General Amias Bellamy": "Boss",
+    "War Chaplain Senn": "Boss",
+    "Commander Venel Lightblood": "Boss"
+   },
+   "abil_type": {
+    "Explosive Shot": {
+     "Boss": 1693228
+    },
+    "Let Fly!": {
+     "Boss": 1568643
+    },
+    "Volley": {
+     "Boss": 3020894
+    },
+    "Moonlight Chakram": {
+     "Boss": 1892152
+    },
+    "Rapid Fire": {
+     "Boss": 6022486
+    },
+    "Arcane Shot": {
+     "Boss": 11493525
+    },
+    "Auto Shot": {
+     "Boss": 399028
+    },
+    "Omnium Folio": {
+     "Boss": 262673
+    },
+    "Aimed Shot": {
+     "Boss": 44231404
+    },
+    "Steady Shot": {
+     "Boss": 674430
+    },
+    "Lunar Storm": {
+     "Boss": 15211772
+    },
+    "Master Marksman": {
+     "Boss": 6899864
+    }
+   }
+  },
+  {
+   "boss": "Lightblinded Vanguard",
+   "build": "SEN",
+   "char": "一气化三餐",
+   "rank": 7,
+   "dur_s": 391.3,
+   "total": 100241438,
+   "boss_pct": 100.0,
+   "add_pct": 0.0,
+   "by_type": {
+    "Boss": 100241438
+   },
+   "by_name": {
+    "General Amias Bellamy": 40897150,
+    "War Chaplain Senn": 30112666,
+    "Commander Venel Lightblood": 29231622
+   },
+   "name_type": {
+    "General Amias Bellamy": "Boss",
+    "War Chaplain Senn": "Boss",
+    "Commander Venel Lightblood": "Boss"
+   },
+   "abil_type": {
+    "Auto Shot": {
+     "Boss": 451244
+    },
+    "Rapid Fire": {
+     "Boss": 6369371
+    },
+    "Master Marksman": {
+     "Boss": 7120907
+    },
+    "Moonlight Chakram": {
+     "Boss": 2462942
+    },
+    "Omnium Folio": {
+     "Boss": 195210
+    },
+    "Aimed Shot": {
+     "Boss": 48853271
+    },
+    "Arcane Shot": {
+     "Boss": 11257243
+    },
+    "Steady Shot": {
+     "Boss": 857875
+    },
+    "Lunar Storm": {
+     "Boss": 15927451
+    },
+    "Let Fly!": {
+     "Boss": 1095697
+    },
+    "Volley": {
+     "Boss": 4104295
+    },
+    "Explosive Shot": {
+     "Boss": 1545932
+    }
+   }
+  },
+  {
+   "boss": "Vaelgor & Ezzorak",
+   "build": "SEN",
+   "char": "파개왕태우스",
+   "rank": 1,
+   "dur_s": 288.3,
+   "total": 71518609,
+   "boss_pct": 77.5,
+   "add_pct": 22.5,
+   "by_type": {
+    "Boss": 55435240,
+    "NPC": 16083369
+   },
+   "by_name": {
+    "Ezzorak": 31549962,
+    "Vaelgor": 23885278,
+    "Voidorb": 13392514,
+    "Manifestation of Midnight": 2690855
+   },
+   "name_type": {
+    "Ezzorak": "Boss",
+    "Vaelgor": "Boss",
+    "Manifestation of Midnight": "NPC",
+    "Voidorb": "NPC"
+   },
+   "abil_type": {
+    "Auto Shot": {
+     "Boss": 232346,
+     "NPC": 42654
+    },
+    "Let Fly!": {
+     "Boss": 685253,
+     "NPC": 32937
+    },
+    "Explosive Shot": {
+     "NPC": 2409141,
+     "Boss": 918237
+    },
+    "Volley": {
+     "NPC": 3737585,
+     "Boss": 1549139
+    },
+    "Omnium Folio": {
+     "Boss": 168373,
+     "NPC": 29300
+    },
+    "Master Marksman": {
+     "Boss": 4081833,
+     "NPC": 439372
+    },
+    "Arcane Shot": {
+     "Boss": 7307745,
+     "NPC": 723230
+    },
+    "Rapid Fire": {
+     "Boss": 4297550,
+     "NPC": 317411
+    },
+    "Aimed Shot": {
+     "Boss": 26831296,
+     "NPC": 7446928
+    },
+    "Lunar Storm": {
+     "Boss": 7870107,
+     "NPC": 297355
+    },
+    "Moonlight Chakram": {
+     "Boss": 1119164,
+     "NPC": 529633
+    },
+    "Rotmire's Sporeheart": {
+     "NPC": 21975,
+     "Boss": 23313
+    },
+    "Steady Shot": {
+     "Boss": 350884,
+     "NPC": 55848
+    }
+   }
+  },
+  {
+   "boss": "Vaelgor & Ezzorak",
+   "build": "SEN",
+   "char": "태우스",
+   "rank": 2,
+   "dur_s": 260.8,
+   "total": 64393738,
+   "boss_pct": 76.1,
+   "add_pct": 23.9,
+   "by_type": {
+    "Boss": 49002897,
+    "NPC": 15390841
+   },
+   "by_name": {
+    "Ezzorak": 27154597,
+    "Vaelgor": 21848300,
+    "Voidorb": 13382057,
+    "Manifestation of Midnight": 2008784
+   },
+   "name_type": {
+    "Ezzorak": "Boss",
+    "Vaelgor": "Boss",
+    "Voidorb": "NPC",
+    "Manifestation of Midnight": "NPC"
+   },
+   "abil_type": {
+    "Lunar Storm": {
+     "Boss": 7870035,
+     "NPC": 228611
+    },
+    "Volley": {
+     "NPC": 3434711,
+     "Boss": 1143914
+    },
+    "Moonlight Chakram": {
+     "Boss": 813916
+    },
+    "Aimed Shot": {
+     "Boss": 22671315,
+     "NPC": 7226820
+    },
+    "Rapid Fire": {
+     "Boss": 3862812,
+     "NPC": 276130
+    },
+    "Arcane Shot": {
+     "Boss": 6730200,
+     "NPC": 784165
+    },
+    "Omnium Folio": {
+     "Boss": 163252,
+     "NPC": 17175
+    },
+    "Explosive Shot": {
+     "NPC": 2549122,
+     "Boss": 749445
+    },
+    "Auto Shot": {
+     "Boss": 195102,
+     "NPC": 34863
+    },
+    "Steady Shot": {
+     "Boss": 407624,
+     "NPC": 104280
+    },
+    "Let Fly!": {
+     "NPC": 382459,
+     "Boss": 654662
+    },
+    "Sporecaller's Blooming Loop": {
+     "Boss": 139212
+    },
+    "Master Marksman": {
+     "Boss": 3601408,
+     "NPC": 352505
+    }
+   }
+  },
+  {
+   "boss": "Vaelgor & Ezzorak",
+   "build": "SEN",
+   "char": "刍狗",
+   "rank": 3,
+   "dur_s": 393.7,
+   "total": 95206594,
+   "boss_pct": 62.1,
+   "add_pct": 37.9,
+   "by_type": {
+    "Boss": 59117223,
+    "NPC": 36089371
+   },
+   "by_name": {
+    "Ezzorak": 38285069,
+    "Voidorb": 30518266,
+    "Vaelgor": 20832154,
+    "Manifestation of Midnight": 5571105
+   },
+   "name_type": {
+    "Ezzorak": "Boss",
+    "Vaelgor": "Boss",
+    "Manifestation of Midnight": "NPC",
+    "Voidorb": "NPC"
+   },
+   "abil_type": {
+    "Lunar Storm": {
+     "Boss": 7673216,
+     "NPC": 448263
+    },
+    "Prismatic Focusing Iris": {
+     "Boss": 620573,
+     "NPC": 126211
+    },
+    "Rapid Fire": {
+     "Boss": 5383536,
+     "NPC": 1158953
+    },
+    "Moonlight Chakram": {
+     "Boss": 1685722,
+     "NPC": 542822
+    },
+    "Arcane Shot": {
+     "Boss": 8383075,
+     "NPC": 1356585
+    },
+    "Auto Shot": {
+     "Boss": 270178,
+     "NPC": 87353
+    },
+    "Explosive Shot": {
+     "NPC": 3980670,
+     "Boss": 1193842
+    },
+    "Master Marksman": {
+     "Boss": 4431548,
+     "NPC": 987120
+    },
+    "Let Fly!": {
+     "Boss": 822420,
+     "NPC": 436266
+    },
+    "Aimed Shot": {
+     "Boss": 25871453,
+     "NPC": 18959943
+    },
+    "Steady Shot": {
+     "Boss": 470813,
+     "NPC": 276287
+    },
+    "Omnium Folio": {
+     "Boss": 117603,
+     "NPC": 26051
+    },
+    "Volley": {
+     "NPC": 7702847,
+     "Boss": 2193244
+    }
+   }
+  },
+  {
+   "boss": "Vaelgor & Ezzorak",
+   "build": "SEN",
+   "char": "Jxx",
+   "rank": 4,
+   "dur_s": 387.3,
+   "total": 93393465,
+   "boss_pct": 57.1,
+   "add_pct": 42.9,
+   "by_type": {
+    "Boss": 53328413,
+    "NPC": 40065052
+   },
+   "by_name": {
+    "Voidorb": 35332528,
+    "Ezzorak": 34185188,
+    "Vaelgor": 19143225,
+    "Manifestation of Midnight": 4732524
+   },
+   "name_type": {
+    "Ezzorak": "Boss",
+    "Vaelgor": "Boss",
+    "Manifestation of Midnight": "NPC",
+    "Voidorb": "NPC"
+   },
+   "abil_type": {
+    "Arcane Shot": {
+     "Boss": 6714776,
+     "NPC": 1479217
+    },
+    "Moonlight Chakram": {
+     "NPC": 1141534,
+     "Boss": 1084992
+    },
+    "Aimed Shot": {
+     "NPC": 20620953,
+     "Boss": 24711157
+    },
+    "Master Marksman": {
+     "Boss": 3747888,
+     "NPC": 1088251
+    },
+    "Omnium Folio": {
+     "Boss": 105331,
+     "NPC": 35808
+    },
+    "Rapid Fire": {
+     "Boss": 5022475,
+     "NPC": 1389274
+    },
+    "Steady Shot": {
+     "Boss": 525758,
+     "NPC": 134968
+    },
+    "Let Fly!": {
+     "NPC": 410085,
+     "Boss": 658290
+    },
+    "Auto Shot": {
+     "Boss": 236713,
+     "NPC": 95052
+    },
+    "Volley": {
+     "NPC": 8012922,
+     "Boss": 2320716
+    },
+    "Prismatic Focusing Iris": {
+     "Boss": 408272,
+     "NPC": 157378
+    },
+    "Lunar Storm": {
+     "Boss": 6929933,
+     "NPC": 1525929
+    },
+    "Explosive Shot": {
+     "NPC": 3973681,
+     "Boss": 862112
+    }
+   }
+  },
+  {
+   "boss": "Vaelgor & Ezzorak",
+   "build": "SEN",
+   "char": "Jxz",
+   "rank": 5,
+   "dur_s": 378.5,
+   "total": 90738149,
+   "boss_pct": 54.8,
+   "add_pct": 45.2,
+   "by_type": {
+    "NPC": 41036535,
+    "Boss": 49701614
+   },
+   "by_name": {
+    "Voidorb": 35991537,
+    "Ezzorak": 31045558,
+    "Vaelgor": 18656056,
+    "Manifestation of Midnight": 5044998
+   },
+   "name_type": {
+    "Voidorb": "NPC",
+    "Ezzorak": "Boss",
+    "Vaelgor": "Boss",
+    "Manifestation of Midnight": "NPC"
+   },
+   "abil_type": {
+    "Volley": {
+     "NPC": 7563499,
+     "Boss": 1852642
+    },
+    "Auto Shot": {
+     "Boss": 264778,
+     "NPC": 90142
+    },
+    "Moonlight Chakram": {
+     "NPC": 2013728,
+     "Boss": 473121
+    },
+    "Arcane Shot": {
+     "Boss": 7189086,
+     "NPC": 1795456
+    },
+    "Lunar Storm": {
+     "Boss": 6809274,
+     "NPC": 1094791
+    },
+    "Steady Shot": {
+     "Boss": 507345,
+     "NPC": 167766
+    },
+    "Rapid Fire": {
+     "Boss": 4227508,
+     "NPC": 1815526
+    },
+    "Explosive Shot": {
+     "NPC": 3829607,
+     "Boss": 728599
+    },
+    "Master Marksman": {
+     "Boss": 3520141,
+     "NPC": 1235304
+    },
+    "Aimed Shot": {
+     "NPC": 21063302,
+     "Boss": 23271616
+    },
+    "Prismatic Focusing Iris": {
+     "Boss": 237183,
+     "NPC": 64010
+    },
+    "Let Fly!": {
+     "Boss": 620321,
+     "NPC": 303404
+    }
+   }
+  },
+  {
+   "boss": "Vaelgor & Ezzorak",
+   "build": "SEN",
+   "char": "打睡着了",
+   "rank": 6,
+   "dur_s": 411.3,
+   "total": 95078294,
+   "boss_pct": 63.9,
+   "add_pct": 36.1,
+   "by_type": {
+    "Boss": 60790814,
+    "NPC": 34287480
+   },
+   "by_name": {
+    "Ezzorak": 31587776,
+    "Vaelgor": 29203038,
+    "Voidorb": 28810974,
+    "Manifestation of Midnight": 5476506
+   },
+   "name_type": {
+    "Ezzorak": "Boss",
+    "Vaelgor": "Boss",
+    "Manifestation of Midnight": "NPC",
+    "Voidorb": "NPC"
+   },
+   "abil_type": {
+    "Rapid Fire": {
+     "Boss": 6043360,
+     "NPC": 1506668
+    },
+    "Explosive Shot": {
+     "NPC": 3416361,
+     "Boss": 1315607
+    },
+    "Prismatic Focusing Iris": {
+     "Boss": 580887,
+     "NPC": 218262
+    },
+    "Aimed Shot": {
+     "NPC": 17628598,
+     "Boss": 27058765
+    },
+    "Let Fly!": {
+     "Boss": 775624,
+     "NPC": 370908
+    },
+    "Auto Shot": {
+     "Boss": 253106,
+     "NPC": 94148
+    },
+    "Volley": {
+     "NPC": 5835782,
+     "Boss": 2235849
+    },
+    "Moonlight Chakram": {
+     "NPC": 1282344,
+     "Boss": 642081
+    },
+    "Arcane Shot": {
+     "Boss": 8164105,
+     "NPC": 1366463
+    },
+    "Steady Shot": {
+     "Boss": 476952,
+     "NPC": 175630
+    },
+    "Master Marksman": {
+     "Boss": 4397428,
+     "NPC": 747965
+    },
+    "Omnium Folio": {
+     "Boss": 112481,
+     "NPC": 35838
+    },
+    "Lunar Storm": {
+     "Boss": 8734569,
+     "NPC": 1608513
+    }
+   }
+  },
+  {
+   "boss": "Midnight Falls",
+   "build": "DR",
+   "char": "Geethdwarf",
+   "rank": 1,
+   "dur_s": 511.0,
+   "total": 92422913,
+   "boss_pct": 82.6,
+   "add_pct": 17.4,
+   "by_type": {
+    "Boss": 76326849,
+    "NPC": 16096064
+   },
+   "by_name": {
+    "L'ura": 76326849,
+    "Midnight Crystal": 16096064
+   },
+   "name_type": {
+    "L'ura": "Boss",
+    "Midnight Crystal": "NPC"
+   },
+   "abil_type": {
+    "Black Arrow": {
+     "Boss": 26857479,
+     "NPC": 1519215
+    },
+    "Volley": {
+     "NPC": 3185717,
+     "Boss": 1465399
+    },
+    "Master Marksman": {
+     "Boss": 6140794,
+     "NPC": 439312
+    },
+    "Bleak Arrows": {
+     "Boss": 1662579
+    },
+    "Shadow Dagger": {
+     "Boss": 137
+    },
+    "Omnium Folio": {
+     "Boss": 185892
+    },
+    "Steady Shot": {
+     "Boss": 1482085
+    },
+    "Explosive Shot": {
+     "NPC": 1827966,
+     "Boss": 1023760
+    },
+    "Rapid Fire": {
+     "Boss": 5456934,
+     "NPC": 107931
+    },
+    "Wailing Arrow": {
+     "Boss": 2431531
+    },
+    "Arcane Shot": {
+     "Boss": 4939748
+    },
+    "Dark Minion": {
+     "Boss": 3227629
+    },
+    "Rotmire's Sporeheart": {
+     "Boss": 89344,
+     "NPC": 84767
+    },
+    "Aimed Shot": {
+     "Boss": 21363538,
+     "NPC": 8931156
+    }
+   }
+  },
+  {
+   "boss": "Midnight Falls",
+   "build": "DR",
+   "char": "米咕咕饲养员",
+   "rank": 2,
+   "dur_s": 551.8,
+   "total": 97080089,
+   "boss_pct": 86.2,
+   "add_pct": 13.8,
+   "by_type": {
+    "Boss": 83721092,
+    "NPC": 13358997
+   },
+   "by_name": {
+    "L'ura": 83721092,
+    "Midnight Crystal": 13358997
+   },
+   "name_type": {
+    "L'ura": "Boss",
+    "Midnight Crystal": "NPC"
+   },
+   "abil_type": {
+    "Omnium Folio": {
+     "Boss": 405089
+    },
+    "Arcane Shot": {
+     "Boss": 4357853
+    },
+    "Bleak Arrows": {
+     "Boss": 1797836
+    },
+    "Explosive Shot": {
+     "NPC": 1538502,
+     "Boss": 1344515
+    },
+    "Let Fly!": {
+     "Boss": 541412
+    },
+    "Aimed Shot": {
+     "Boss": 25143702,
+     "NPC": 7411444
+    },
+    "Shadow Dagger": {
+     "Boss": 303
+    },
+    "Steady Shot": {
+     "Boss": 1193444
+    },
+    "Volley": {
+     "NPC": 2360626,
+     "Boss": 1558592
+    },
+    "Dark Minion": {
+     "Boss": 3520349
+    },
+    "Wailing Arrow": {
+     "Boss": 1017929
+    },
+    "Black Arrow": {
+     "Boss": 30481468,
+     "NPC": 1553514
+    },
+    "Master Marksman": {
+     "Boss": 6303248,
+     "NPC": 452036
+    },
+    "Rapid Fire": {
+     "Boss": 6055352,
+     "NPC": 42875
+    }
+   }
+  },
+  {
+   "boss": "Midnight Falls",
+   "build": "DR",
+   "char": "냥에카",
+   "rank": 3,
+   "dur_s": 526.3,
+   "total": 92281555,
+   "boss_pct": 80.1,
+   "add_pct": 19.9,
+   "by_type": {
+    "Boss": 73894921,
+    "NPC": 18386634
+   },
+   "by_name": {
+    "L'ura": 73894921,
+    "Midnight Crystal": 18386634
+   },
+   "name_type": {
+    "L'ura": "Boss",
+    "Midnight Crystal": "NPC"
+   },
+   "abil_type": {
+    "Let Fly!": {
+     "Boss": 356290
+    },
+    "Black Arrow": {
+     "Boss": 22117146,
+     "NPC": 1164989
+    },
+    "Dark Minion": {
+     "Boss": 4175788
+    },
+    "Bleak Arrows": {
+     "Boss": 1808740
+    },
+    "Omnium Folio": {
+     "Boss": 279596,
+     "NPC": 6448
+    },
+    "Shadow Dagger": {
+     "Boss": 126
+    },
+    "Wailing Arrow": {
+     "NPC": 2293335,
+     "Boss": 2199475
+    },
+    "Arcane Shot": {
+     "Boss": 5871026
+    },
+    "Aimed Shot": {
+     "Boss": 22564203,
+     "NPC": 10362373
+    },
+    "Steady Shot": {
+     "Boss": 2380026
+    },
+    "Sporecaller's Blooming Loop": {
+     "Boss": 39965
+    },
+    "Rotmire's Sporeheart": {
+     "Boss": 101233
+    },
+    "Master Marksman": {
+     "Boss": 5701683,
+     "NPC": 487975
+    },
+    "Rapid Fire": {
+     "Boss": 4802643,
+     "NPC": 357419
+    },
+    "Volley": {
+     "NPC": 3714095,
+     "Boss": 1496981
+    }
+   }
+  },
+  {
+   "boss": "Midnight Falls",
+   "build": "DR",
+   "char": "Frekzzy",
+   "rank": 4,
+   "dur_s": 512.4,
+   "total": 89078513,
+   "boss_pct": 85.8,
+   "add_pct": 14.2,
+   "by_type": {
+    "Boss": 76418136,
+    "NPC": 12660377
+   },
+   "by_name": {
+    "L'ura": 76418136,
+    "Midnight Crystal": 12660377
+   },
+   "name_type": {
+    "L'ura": "Boss",
+    "Midnight Crystal": "NPC"
+   },
+   "abil_type": {
+    "Aimed Shot": {
+     "Boss": 20833425,
+     "NPC": 6169000
+    },
+    "Steady Shot": {
+     "Boss": 1045599
+    },
+    "Rotmire's Sporeheart": {
+     "Boss": 83364
+    },
+    "Omnium Folio": {
+     "Boss": 497870,
+     "NPC": 15087
+    },
+    "Master Marksman": {
+     "Boss": 6137638,
+     "NPC": 250731
+    },
+    "Rapid Fire": {
+     "Boss": 5004966
+    },
+    "Bleak Arrows": {
+     "Boss": 1532572
+    },
+    "Wailing Arrow": {
+     "Boss": 2847168,
+     "NPC": 1240804
+    },
+    "Let Fly!": {
+     "Boss": 475622,
+     "NPC": 65286
+    },
+    "Arcane Shot": {
+     "Boss": 4934022,
+     "NPC": 31759
+    },
+    "Dark Minion": {
+     "Boss": 2951569
+    },
+    "Explosive Shot": {
+     "Boss": 1053499
+    },
+    "Black Arrow": {
+     "Boss": 27253203,
+     "NPC": 2047301
+    },
+    "Volley": {
+     "NPC": 2840409,
+     "Boss": 1767619
+    }
+   }
+  },
+  {
+   "boss": "Midnight Falls",
+   "build": "DR",
+   "char": "Autonomy",
+   "rank": 5,
+   "dur_s": 554.8,
+   "total": 97471423,
+   "boss_pct": 87.1,
+   "add_pct": 12.9,
+   "by_type": {
+    "Boss": 84944578,
+    "NPC": 12526845
+   },
+   "by_name": {
+    "L'ura": 84944578,
+    "Midnight Crystal": 12526845
+   },
+   "name_type": {
+    "L'ura": "Boss",
+    "Midnight Crystal": "NPC"
+   },
+   "abil_type": {
+    "Steady Shot": {
+     "Boss": 1727878
+    },
+    "Aimed Shot": {
+     "Boss": 22946812,
+     "NPC": 5417577
+    },
+    "Explosive Shot": {
+     "NPC": 1414573,
+     "Boss": 1281177
+    },
+    "Black Arrow": {
+     "Boss": 31564650,
+     "NPC": 1349996
+    },
+    "Rapid Fire": {
+     "Boss": 5915270,
+     "NPC": 345908
+    },
+    "Prismatic Focusing Iris": {
+     "Boss": 1393153
+    },
+    "Bleak Arrows": {
+     "Boss": 1754141
+    },
+    "Wailing Arrow": {
+     "Boss": 1925063,
+     "NPC": 775317
+    },
+    "Shadow Dagger": {
+     "Boss": 239
+    },
+    "Arcane Shot": {
+     "Boss": 4662697
+    },
+    "Dark Minion": {
+     "Boss": 2677532
+    },
+    "Omnium Folio": {
+     "Boss": 402972,
+     "NPC": 3258
+    },
+    "Volley": {
+     "NPC": 2837833,
+     "Boss": 1887459
+    },
+    "Let Fly!": {
+     "Boss": 292043
+    },
+    "Master Marksman": {
+     "Boss": 6513492,
+     "NPC": 382383
+    }
+   }
+  },
+  {
+   "boss": "Midnight Falls",
+   "build": "DR",
+   "char": "파개왕태우스",
+   "rank": 6,
+   "dur_s": 542.5,
+   "total": 94169258,
+   "boss_pct": 83.6,
+   "add_pct": 16.4,
+   "by_type": {
+    "Boss": 78764253,
+    "NPC": 15405005
+   },
+   "by_name": {
+    "L'ura": 78764253,
+    "Midnight Crystal": 15405005
+   },
+   "name_type": {
+    "L'ura": "Boss",
+    "Midnight Crystal": "NPC"
+   },
+   "abil_type": {
+    "Steady Shot": {
+     "Boss": 1638041
+    },
+    "Black Arrow": {
+     "Boss": 26570957,
+     "NPC": 1136704
+    },
+    "Wailing Arrow": {
+     "NPC": 1602659,
+     "Boss": 2540452
+    },
+    "Arcane Shot": {
+     "Boss": 4573571
+    },
+    "Let Fly!": {
+     "Boss": 432458,
+     "NPC": 38100
+    },
+    "Rotmire's Sporeheart": {
+     "Boss": 68583
+    },
+    "Master Marksman": {
+     "Boss": 6055707,
+     "NPC": 422747
+    },
+    "Aimed Shot": {
+     "Boss": 23216058,
+     "NPC": 7197091
+    },
+    "Shadow Dagger": {
+     "Boss": 238
+    },
+    "Bleak Arrows": {
+     "Boss": 1687577
+    },
+    "Dark Minion": {
+     "Boss": 3330187
+    },
+    "Rapid Fire": {
+     "Boss": 5596540,
+     "NPC": 253748
+    },
+    "Omnium Folio": {
+     "Boss": 365460,
+     "NPC": 9379
+    },
+    "Volley": {
+     "NPC": 3397133,
+     "Boss": 1422677
+    },
+    "Explosive Shot": {
+     "NPC": 1347444,
+     "Boss": 1265747
+    }
+   }
+  }
+ ]
+}
