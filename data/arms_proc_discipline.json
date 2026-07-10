@@ -1,0 +1,1921 @@
+{
+ "meta": {
+  "date": "2026-07-11",
+  "spec": "Warrior/Arms",
+  "n_kills": 296,
+  "hero_adoption": {
+   "학살자": 204,
+   "거신": 92
+  },
+  "ids": {
+   "heroic_strike_cast": 1269383,
+   "heroic_strike_proc_buff": 1269391,
+   "mortal_strike": 12294,
+   "overpower": 7384,
+   "sudden_death_buff": 52437,
+   "execute_casts": [
+    281000,
+    163201,
+    5308
+   ],
+   "rend": 772,
+   "slam": 1464,
+   "colossus_smash": 167105
+  },
+  "evidence": "HS_PROC=1269391 확정 근거: 영일 캐스트 8847건 중 8825건(99.8%)이 1269391 removebuff ±150ms 일치, 제거 9519건 중 8825건(92.7%)이 영일 소모. 영일은 자체 GCD 점유(최근접 타 캐스트 ≥0.7s). next_gcd 비율은 프록 활성 조건만 통제(분노량·다른 프록 미통제) — 빈도이지 단정 아님."
+ },
+ "segments": {
+  "all": {
+   "n": 296,
+   "q5_heroic_strike_proc": {
+    "gains": 9603,
+    "gains_per_min": 5.88,
+    "consumed_pct": 91.9,
+    "wasted_pct": 7.2,
+    "consume_delay_s_med": 1.24,
+    "consume_delay_s_p75": 2.41,
+    "consume_within_2s_pct": 59.7,
+    "next_gcd_total": 9553,
+    "next_gcd_hs_pct": 49.8,
+    "next_gcd_ms_pct": 21.5,
+    "next_gcd_top6": [
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 4758
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 2057
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 749
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 678
+     },
+     {
+      "id": 845,
+      "name": "회전베기",
+      "n": 502
+     },
+     {
+      "id": 167105,
+      "name": "거인의 강타",
+      "n": 255
+     }
+    ],
+    "gcds_before_consume": {
+     "0": 4767,
+     "1": 2205,
+     "2": 870,
+     "3": 359,
+     "4": 624
+    }
+   },
+   "q6_sudden_death": {
+    "gains": 7786,
+    "gains_per_min": 4.77,
+    "consumed": 6579,
+    "consumed_pct": 84.5,
+    "consume_delay_s_med": 1.85,
+    "consume_within_3s_pct": 72.6,
+    "refresh_overwrites": 878,
+    "expired": 22,
+    "expiry_threshold_s": 16.5,
+    "waste_pct": 11.6
+   },
+   "q7_overpower_weave": {
+    "ms_casts": 24130,
+    "op_casts": 16151,
+    "ms_prev_gcd_is_op_pct": 26.5,
+    "op_next_gcd_is_ms_pct": 39.6,
+    "ms_prev_gcd_top5": [
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 6342
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 4530
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 2704
+     },
+     {
+      "id": 1464,
+      "name": "격돌",
+      "n": 2257
+     },
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 2198
+     }
+    ]
+   },
+   "q8_execute_window_last25pct_time": {
+    "note": "보스 HP 실측 불가 → 전투 마지막 25% '시간' 근사. 학살자 급살 프록 처형은 전 구간 발생 유의.",
+    "cpm_early_vs_late": {
+     "mortal_strike": [
+      14.81,
+      14.63
+     ],
+     "execute": [
+      5.95,
+      13.51
+     ],
+     "overpower": [
+      10.24,
+      8.82
+     ],
+     "heroic_strike": [
+      5.41,
+      5.42
+     ],
+     "slam": [
+      4.75,
+      1.6
+     ],
+     "rend": [
+      2.3,
+      0.51
+     ],
+     "colossus_smash": [
+      1.9,
+      2.07
+     ]
+    },
+    "last_rend_at_fight_frac_med": 0.701,
+    "last_rend_at_fight_frac_p75": 0.867,
+    "rend_stopped_before_75pct_share": 59.8
+   }
+  },
+  "rank_1_20": {
+   "n": 177,
+   "q5_heroic_strike_proc": {
+    "gains": 5823,
+    "gains_per_min": 5.88,
+    "consumed_pct": 91.5,
+    "wasted_pct": 7.7,
+    "consume_delay_s_med": 1.23,
+    "consume_delay_s_p75": 2.4,
+    "consume_within_2s_pct": 60.0,
+    "next_gcd_total": 5786,
+    "next_gcd_hs_pct": 49.7,
+    "next_gcd_ms_pct": 22.0,
+    "next_gcd_top6": [
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 2873
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 1272
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 461
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 405
+     },
+     {
+      "id": 845,
+      "name": "회전베기",
+      "n": 301
+     },
+     {
+      "id": 167105,
+      "name": "거인의 강타",
+      "n": 139
+     }
+    ],
+    "gcds_before_consume": {
+     "0": 2881,
+     "1": 1361,
+     "2": 533,
+     "3": 195,
+     "4": 359
+    }
+   },
+   "q6_sudden_death": {
+    "gains": 4724,
+    "gains_per_min": 4.77,
+    "consumed": 3969,
+    "consumed_pct": 84.0,
+    "consume_delay_s_med": 1.86,
+    "consume_within_3s_pct": 72.4,
+    "refresh_overwrites": 545,
+    "expired": 15,
+    "expiry_threshold_s": 15.8,
+    "waste_pct": 11.9
+   },
+   "q7_overpower_weave": {
+    "ms_casts": 14605,
+    "op_casts": 9749,
+    "ms_prev_gcd_is_op_pct": 27.1,
+    "op_next_gcd_is_ms_pct": 40.6,
+    "ms_prev_gcd_top5": [
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 3924
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 2693
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 1571
+     },
+     {
+      "id": 1464,
+      "name": "격돌",
+      "n": 1382
+     },
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 1338
+     }
+    ]
+   },
+   "q8_execute_window_last25pct_time": {
+    "note": "보스 HP 실측 불가 → 전투 마지막 25% '시간' 근사. 학살자 급살 프록 처형은 전 구간 발생 유의.",
+    "cpm_early_vs_late": {
+     "mortal_strike": [
+      14.81,
+      14.58
+     ],
+     "execute": [
+      5.89,
+      13.23
+     ],
+     "overpower": [
+      10.15,
+      8.94
+     ],
+     "heroic_strike": [
+      5.39,
+      5.41
+     ],
+     "slam": [
+      4.7,
+      1.66
+     ],
+     "rend": [
+      2.3,
+      0.55
+     ],
+     "colossus_smash": [
+      1.89,
+      2.05
+     ]
+    },
+    "last_rend_at_fight_frac_med": 0.71,
+    "last_rend_at_fight_frac_p75": 0.869,
+    "rend_stopped_before_75pct_share": 56.5
+   }
+  },
+  "rank_21_100": {
+   "n": 119,
+   "q5_heroic_strike_proc": {
+    "gains": 3780,
+    "gains_per_min": 5.87,
+    "consumed_pct": 92.5,
+    "wasted_pct": 6.6,
+    "consume_delay_s_med": 1.25,
+    "consume_delay_s_p75": 2.43,
+    "consume_within_2s_pct": 59.2,
+    "next_gcd_total": 3767,
+    "next_gcd_hs_pct": 50.0,
+    "next_gcd_ms_pct": 20.8,
+    "next_gcd_top6": [
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 1885
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 785
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 288
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 273
+     },
+     {
+      "id": 845,
+      "name": "회전베기",
+      "n": 201
+     },
+     {
+      "id": 167105,
+      "name": "거인의 강타",
+      "n": 116
+     }
+    ],
+    "gcds_before_consume": {
+     "0": 1886,
+     "1": 844,
+     "2": 337,
+     "3": 164,
+     "4": 265
+    }
+   },
+   "q6_sudden_death": {
+    "gains": 3062,
+    "gains_per_min": 4.76,
+    "consumed": 2610,
+    "consumed_pct": 85.2,
+    "consume_delay_s_med": 1.84,
+    "consume_within_3s_pct": 73.0,
+    "refresh_overwrites": 333,
+    "expired": 8,
+    "expiry_threshold_s": 17.8,
+    "waste_pct": 11.1
+   },
+   "q7_overpower_weave": {
+    "ms_casts": 9525,
+    "op_casts": 6402,
+    "ms_prev_gcd_is_op_pct": 25.6,
+    "op_next_gcd_is_ms_pct": 38.1,
+    "ms_prev_gcd_top5": [
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 2418
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 1837
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 1133
+     },
+     {
+      "id": 1464,
+      "name": "격돌",
+      "n": 875
+     },
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 860
+     }
+    ]
+   },
+   "q8_execute_window_last25pct_time": {
+    "note": "보스 HP 실측 불가 → 전투 마지막 25% '시간' 근사. 학살자 급살 프록 처형은 전 구간 발생 유의.",
+    "cpm_early_vs_late": {
+     "mortal_strike": [
+      14.82,
+      14.71
+     ],
+     "execute": [
+      6.03,
+      13.93
+     ],
+     "overpower": [
+      10.38,
+      8.64
+     ],
+     "heroic_strike": [
+      5.44,
+      5.44
+     ],
+     "slam": [
+      4.84,
+      1.52
+     ],
+     "rend": [
+      2.29,
+      0.45
+     ],
+     "colossus_smash": [
+      1.91,
+      2.09
+     ]
+    },
+    "last_rend_at_fight_frac_med": 0.686,
+    "last_rend_at_fight_frac_p75": 0.859,
+    "rend_stopped_before_75pct_share": 64.7
+   }
+  },
+  "hero_거신": {
+   "n": 92,
+   "q5_heroic_strike_proc": {
+    "gains": 3208,
+    "gains_per_min": 5.73,
+    "consumed_pct": 79.8,
+    "wasted_pct": 19.8,
+    "consume_delay_s_med": 1.84,
+    "consume_delay_s_p75": 2.82,
+    "consume_within_2s_pct": 52.6,
+    "next_gcd_total": 3196,
+    "next_gcd_hs_pct": 38.6,
+    "next_gcd_ms_pct": 22.4,
+    "next_gcd_top6": [
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 1233
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 717
+     },
+     {
+      "id": 845,
+      "name": "회전베기",
+      "n": 490
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 330
+     },
+     {
+      "id": 436358,
+      "name": "쇄파",
+      "n": 107
+     },
+     {
+      "id": 260708,
+      "name": "휩쓸기 일격",
+      "n": 87
+     }
+    ],
+    "gcds_before_consume": {
+     "0": 1234,
+     "1": 727,
+     "2": 329,
+     "3": 142,
+     "4": 129
+    }
+   },
+   "q6_sudden_death": {
+    "gains": 1568,
+    "gains_per_min": 2.8,
+    "consumed": 1074,
+    "consumed_pct": 68.5,
+    "consume_delay_s_med": 3.5,
+    "consume_within_3s_pct": 43.1,
+    "refresh_overwrites": 217,
+    "expired": 6,
+    "expiry_threshold_s": 23.2,
+    "waste_pct": 14.2
+   },
+   "q7_overpower_weave": {
+    "ms_casts": 7472,
+    "op_casts": 5711,
+    "ms_prev_gcd_is_op_pct": 48.1,
+    "op_next_gcd_is_ms_pct": 62.8,
+    "ms_prev_gcd_top5": [
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 3556
+     },
+     {
+      "id": 845,
+      "name": "회전베기",
+      "n": 1420
+     },
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 569
+     },
+     {
+      "id": 1464,
+      "name": "격돌",
+      "n": 437
+     },
+     {
+      "id": 163201,
+      "name": "마무리 일격",
+      "n": 335
+     }
+    ]
+   },
+   "q8_execute_window_last25pct_time": {
+    "note": "보스 HP 실측 불가 → 전투 마지막 25% '시간' 근사. 학살자 급살 프록 처형은 전 구간 발생 유의.",
+    "cpm_early_vs_late": {
+     "mortal_strike": [
+      13.47,
+      13.0
+     ],
+     "execute": [
+      1.99,
+      4.13
+     ],
+     "overpower": [
+      10.18,
+      10.28
+     ],
+     "heroic_strike": [
+      4.54,
+      4.72
+     ],
+     "slam": [
+      2.63,
+      2.07
+     ],
+     "rend": [
+      2.56,
+      0.64
+     ],
+     "colossus_smash": [
+      1.8,
+      1.79
+     ]
+    },
+    "last_rend_at_fight_frac_med": 0.789,
+    "last_rend_at_fight_frac_p75": 0.865,
+    "rend_stopped_before_75pct_share": 37.0
+   }
+  },
+  "hero_학살자": {
+   "n": 204,
+   "q5_heroic_strike_proc": {
+    "gains": 6395,
+    "gains_per_min": 5.95,
+    "consumed_pct": 98.0,
+    "wasted_pct": 0.9,
+    "consume_delay_s_med": 1.22,
+    "consume_delay_s_p75": 2.38,
+    "consume_within_2s_pct": 62.6,
+    "next_gcd_total": 6357,
+    "next_gcd_hs_pct": 55.5,
+    "next_gcd_ms_pct": 21.1,
+    "next_gcd_top6": [
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 3525
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 1340
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 749
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 348
+     },
+     {
+      "id": 167105,
+      "name": "거인의 강타",
+      "n": 170
+     },
+     {
+      "id": 772,
+      "name": "분쇄",
+      "n": 70
+     }
+    ],
+    "gcds_before_consume": {
+     "0": 3533,
+     "1": 1478,
+     "2": 541,
+     "3": 217,
+     "4": 495
+    }
+   },
+   "q6_sudden_death": {
+    "gains": 6218,
+    "gains_per_min": 5.79,
+    "consumed": 5505,
+    "consumed_pct": 88.5,
+    "consume_delay_s_med": 1.75,
+    "consume_within_3s_pct": 78.4,
+    "refresh_overwrites": 661,
+    "expired": 21,
+    "expiry_threshold_s": 11.7,
+    "waste_pct": 11.0
+   },
+   "q7_overpower_weave": {
+    "ms_casts": 16658,
+    "op_casts": 10440,
+    "ms_prev_gcd_is_op_pct": 16.8,
+    "op_next_gcd_is_ms_pct": 27.0,
+    "ms_prev_gcd_top5": [
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 4529
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 2786
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 2704
+     },
+     {
+      "id": 1464,
+      "name": "격돌",
+      "n": 1820
+     },
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 1629
+     }
+    ]
+   },
+   "q8_execute_window_last25pct_time": {
+    "note": "보스 HP 실측 불가 → 전투 마지막 25% '시간' 근사. 학살자 급살 프록 처형은 전 구간 발생 유의.",
+    "cpm_early_vs_late": {
+     "mortal_strike": [
+      15.51,
+      15.48
+     ],
+     "execute": [
+      8.01,
+      18.39
+     ],
+     "overpower": [
+      10.27,
+      8.06
+     ],
+     "heroic_strike": [
+      5.86,
+      5.79
+     ],
+     "slam": [
+      5.86,
+      1.36
+     ],
+     "rend": [
+      2.16,
+      0.44
+     ],
+     "colossus_smash": [
+      1.95,
+      2.21
+     ]
+    },
+    "last_rend_at_fight_frac_med": 0.655,
+    "last_rend_at_fight_frac_p75": 0.869,
+    "rend_stopped_before_75pct_share": 70.1
+   }
+  }
+ },
+ "per_boss": {
+  "아베르지안": {
+   "n": 29,
+   "q5_heroic_strike_proc": {
+    "gains": 682,
+    "gains_per_min": 6.22,
+    "consumed_pct": 96.6,
+    "wasted_pct": 2.3,
+    "consume_delay_s_med": 1.21,
+    "consume_delay_s_p75": 2.37,
+    "consume_within_2s_pct": 65.1,
+    "next_gcd_total": 682,
+    "next_gcd_hs_pct": 56.5,
+    "next_gcd_ms_pct": 21.6,
+    "next_gcd_top6": [
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 385
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 147
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 60
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 36
+     },
+     {
+      "id": 167105,
+      "name": "거인의 강타",
+      "n": 15
+     },
+     {
+      "id": 772,
+      "name": "분쇄",
+      "n": 12
+     }
+    ],
+    "gcds_before_consume": {
+     "0": 385,
+     "1": 157,
+     "2": 53,
+     "3": 18,
+     "4": 46
+    }
+   },
+   "q6_sudden_death": {
+    "gains": 510,
+    "gains_per_min": 4.65,
+    "consumed": 450,
+    "consumed_pct": 88.2,
+    "consume_delay_s_med": 1.77,
+    "consume_within_3s_pct": 79.1,
+    "refresh_overwrites": 52,
+    "expired": 0,
+    "expiry_threshold_s": 15.8,
+    "waste_pct": 10.2
+   },
+   "q7_overpower_weave": {
+    "ms_casts": 1712,
+    "op_casts": 1220,
+    "ms_prev_gcd_is_op_pct": 31.1,
+    "op_next_gcd_is_ms_pct": 43.9,
+    "ms_prev_gcd_top5": [
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 532
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 262
+     },
+     {
+      "id": 1464,
+      "name": "격돌",
+      "n": 192
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 192
+     },
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 153
+     }
+    ]
+   },
+   "q8_execute_window_last25pct_time": {
+    "note": "보스 HP 실측 불가 → 전투 마지막 25% '시간' 근사. 학살자 급살 프록 처형은 전 구간 발생 유의.",
+    "cpm_early_vs_late": {
+     "mortal_strike": [
+      15.8,
+      15.07
+     ],
+     "execute": [
+      6.02,
+      14.08
+     ],
+     "overpower": [
+      11.78,
+      9.16
+     ],
+     "heroic_strike": [
+      6.34,
+      5.03
+     ],
+     "slam": [
+      6.2,
+      0.8
+     ],
+     "rend": [
+      2.36,
+      0.22
+     ],
+     "colossus_smash": [
+      1.99,
+      2.08
+     ]
+    },
+    "last_rend_at_fight_frac_med": 0.589,
+    "last_rend_at_fight_frac_p75": 0.717,
+    "rend_stopped_before_75pct_share": 79.3
+   }
+  },
+  "보라시우스": {
+   "n": 34,
+   "q5_heroic_strike_proc": {
+    "gains": 751,
+    "gains_per_min": 6.41,
+    "consumed_pct": 98.3,
+    "wasted_pct": 0.4,
+    "consume_delay_s_med": 1.23,
+    "consume_delay_s_p75": 2.36,
+    "consume_within_2s_pct": 60.4,
+    "next_gcd_total": 748,
+    "next_gcd_hs_pct": 49.9,
+    "next_gcd_ms_pct": 22.7,
+    "next_gcd_top6": [
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 373
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 170
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 115
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 46
+     },
+     {
+      "id": 167105,
+      "name": "거인의 강타",
+      "n": 20
+     },
+     {
+      "id": 446035,
+      "name": "칼날폭풍",
+      "n": 8
+     }
+    ],
+    "gcds_before_consume": {
+     "0": 376,
+     "1": 210,
+     "2": 72,
+     "3": 22,
+     "4": 58
+    }
+   },
+   "q6_sudden_death": {
+    "gains": 760,
+    "gains_per_min": 6.49,
+    "consumed": 679,
+    "consumed_pct": 89.3,
+    "consume_delay_s_med": 1.69,
+    "consume_within_3s_pct": 82.8,
+    "refresh_overwrites": 76,
+    "expired": 0,
+    "expiry_threshold_s": 9.3,
+    "waste_pct": 10.0
+   },
+   "q7_overpower_weave": {
+    "ms_casts": 2000,
+    "op_casts": 1254,
+    "ms_prev_gcd_is_op_pct": 17.5,
+    "op_next_gcd_is_ms_pct": 28.0,
+    "ms_prev_gcd_top5": [
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 556
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 350
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 288
+     },
+     {
+      "id": 1464,
+      "name": "격돌",
+      "n": 227
+     },
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 214
+     }
+    ]
+   },
+   "q8_execute_window_last25pct_time": {
+    "note": "보스 HP 실측 불가 → 전투 마지막 25% '시간' 근사. 학살자 급살 프록 처형은 전 구간 발생 유의.",
+    "cpm_early_vs_late": {
+     "mortal_strike": [
+      17.51,
+      15.78
+     ],
+     "execute": [
+      8.68,
+      20.77
+     ],
+     "overpower": [
+      11.66,
+      7.86
+     ],
+     "heroic_strike": [
+      6.36,
+      6.15
+     ],
+     "slam": [
+      7.45,
+      0.07
+     ],
+     "rend": [
+      2.16,
+      0.03
+     ],
+     "colossus_smash": [
+      2.25,
+      2.25
+     ]
+    },
+    "last_rend_at_fight_frac_med": 0.562,
+    "last_rend_at_fight_frac_p75": 0.585,
+    "rend_stopped_before_75pct_share": 97.1
+   }
+  },
+  "바엘고어&에조라크": {
+   "n": 34,
+   "q5_heroic_strike_proc": {
+    "gains": 1219,
+    "gains_per_min": 5.68,
+    "consumed_pct": 83.3,
+    "wasted_pct": 16.2,
+    "consume_delay_s_med": 2.11,
+    "consume_delay_s_p75": 3.23,
+    "consume_within_2s_pct": 49.0,
+    "next_gcd_total": 1215,
+    "next_gcd_hs_pct": 37.4,
+    "next_gcd_ms_pct": 24.5,
+    "next_gcd_top6": [
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 455
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 298
+     },
+     {
+      "id": 845,
+      "name": "회전베기",
+      "n": 204
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 112
+     },
+     {
+      "id": 260708,
+      "name": "휩쓸기 일격",
+      "n": 33
+     },
+     {
+      "id": 772,
+      "name": "분쇄",
+      "n": 32
+     }
+    ],
+    "gcds_before_consume": {
+     "0": 455,
+     "1": 288,
+     "2": 157,
+     "3": 64,
+     "4": 52
+    }
+   },
+   "q6_sudden_death": {
+    "gains": 599,
+    "gains_per_min": 2.79,
+    "consumed": 413,
+    "consumed_pct": 68.9,
+    "consume_delay_s_med": 3.83,
+    "consume_within_3s_pct": 38.3,
+    "refresh_overwrites": 80,
+    "expired": 2,
+    "expiry_threshold_s": 22.0,
+    "waste_pct": 13.7
+   },
+   "q7_overpower_weave": {
+    "ms_casts": 2783,
+    "op_casts": 2155,
+    "ms_prev_gcd_is_op_pct": 47.7,
+    "op_next_gcd_is_ms_pct": 61.4,
+    "ms_prev_gcd_top5": [
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 1313
+     },
+     {
+      "id": 845,
+      "name": "회전베기",
+      "n": 598
+     },
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 208
+     },
+     {
+      "id": 772,
+      "name": "분쇄",
+      "n": 151
+     },
+     {
+      "id": 1464,
+      "name": "격돌",
+      "n": 148
+     }
+    ]
+   },
+   "q8_execute_window_last25pct_time": {
+    "note": "보스 HP 실측 불가 → 전투 마지막 25% '시간' 근사. 학살자 급살 프록 처형은 전 구간 발생 유의.",
+    "cpm_early_vs_late": {
+     "mortal_strike": [
+      13.08,
+      12.59
+     ],
+     "execute": [
+      2.1,
+      3.37
+     ],
+     "overpower": [
+      10.18,
+      9.59
+     ],
+     "heroic_strike": [
+      4.81,
+      4.53
+     ],
+     "slam": [
+      2.35,
+      1.97
+     ],
+     "rend": [
+      2.52,
+      0.88
+     ],
+     "colossus_smash": [
+      1.76,
+      1.6
+     ]
+    },
+    "last_rend_at_fight_frac_med": 0.8,
+    "last_rend_at_fight_frac_p75": 0.929,
+    "rend_stopped_before_75pct_share": 23.5
+   }
+  },
+  "살라다르": {
+   "n": 33,
+   "q5_heroic_strike_proc": {
+    "gains": 764,
+    "gains_per_min": 6.65,
+    "consumed_pct": 97.6,
+    "wasted_pct": 0.4,
+    "consume_delay_s_med": 1.22,
+    "consume_delay_s_p75": 2.41,
+    "consume_within_2s_pct": 61.4,
+    "next_gcd_total": 762,
+    "next_gcd_hs_pct": 53.7,
+    "next_gcd_ms_pct": 20.1,
+    "next_gcd_top6": [
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 409
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 153
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 112
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 45
+     },
+     {
+      "id": 167105,
+      "name": "거인의 강타",
+      "n": 19
+     },
+     {
+      "id": 446035,
+      "name": "칼날폭풍",
+      "n": 8
+     }
+    ],
+    "gcds_before_consume": {
+     "0": 408,
+     "1": 180,
+     "2": 64,
+     "3": 27,
+     "4": 67
+    }
+   },
+   "q6_sudden_death": {
+    "gains": 720,
+    "gains_per_min": 6.27,
+    "consumed": 639,
+    "consumed_pct": 88.8,
+    "consume_delay_s_med": 1.62,
+    "consume_within_3s_pct": 81.1,
+    "refresh_overwrites": 76,
+    "expired": 0,
+    "expiry_threshold_s": 10.3,
+    "waste_pct": 10.6
+   },
+   "q7_overpower_weave": {
+    "ms_casts": 1901,
+    "op_casts": 1160,
+    "ms_prev_gcd_is_op_pct": 16.2,
+    "op_next_gcd_is_ms_pct": 26.6,
+    "ms_prev_gcd_top5": [
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 536
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 308
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 300
+     },
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 224
+     },
+     {
+      "id": 1464,
+      "name": "격돌",
+      "n": 190
+     }
+    ]
+   },
+   "q8_execute_window_last25pct_time": {
+    "note": "보스 HP 실측 불가 → 전투 마지막 25% '시간' 근사. 학살자 급살 프록 처형은 전 구간 발생 유의.",
+    "cpm_early_vs_late": {
+     "mortal_strike": [
+      16.87,
+      15.56
+     ],
+     "execute": [
+      9.72,
+      20.89
+     ],
+     "overpower": [
+      11.01,
+      7.35
+     ],
+     "heroic_strike": [
+      6.64,
+      6.2
+     ],
+     "slam": [
+      6.31,
+      0.0
+     ],
+     "rend": [
+      2.03,
+      0.03
+     ],
+     "colossus_smash": [
+      2.22,
+      2.33
+     ]
+    },
+    "last_rend_at_fight_frac_med": 0.542,
+    "last_rend_at_fight_frac_p75": 0.576,
+    "rend_stopped_before_75pct_share": 97.0
+   }
+  },
+  "선봉대": {
+   "n": 33,
+   "q5_heroic_strike_proc": {
+    "gains": 1282,
+    "gains_per_min": 6.2,
+    "consumed_pct": 72.0,
+    "wasted_pct": 27.8,
+    "consume_delay_s_med": 1.83,
+    "consume_delay_s_p75": 2.82,
+    "consume_within_2s_pct": 52.7,
+    "next_gcd_total": 1282,
+    "next_gcd_hs_pct": 34.2,
+    "next_gcd_ms_pct": 20.8,
+    "next_gcd_top6": [
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 439
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 267
+     },
+     {
+      "id": 845,
+      "name": "회전베기",
+      "n": 226
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 138
+     },
+     {
+      "id": 436358,
+      "name": "쇄파",
+      "n": 66
+     },
+     {
+      "id": 260708,
+      "name": "휩쓸기 일격",
+      "n": 47
+     }
+    ],
+    "gcds_before_consume": {
+     "0": 438,
+     "1": 276,
+     "2": 108,
+     "3": 47,
+     "4": 54
+    }
+   },
+   "q6_sudden_death": {
+    "gains": 618,
+    "gains_per_min": 2.99,
+    "consumed": 375,
+    "consumed_pct": 60.7,
+    "consume_delay_s_med": 4.17,
+    "consume_within_3s_pct": 37.3,
+    "refresh_overwrites": 101,
+    "expired": 2,
+    "expiry_threshold_s": 30.3,
+    "waste_pct": 16.7
+   },
+   "q7_overpower_weave": {
+    "ms_casts": 2855,
+    "op_casts": 2083,
+    "ms_prev_gcd_is_op_pct": 47.0,
+    "op_next_gcd_is_ms_pct": 64.5,
+    "ms_prev_gcd_top5": [
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 1337
+     },
+     {
+      "id": 845,
+      "name": "회전베기",
+      "n": 590
+     },
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 231
+     },
+     {
+      "id": 436358,
+      "name": "쇄파",
+      "n": 125
+     },
+     {
+      "id": 260708,
+      "name": "휩쓸기 일격",
+      "n": 120
+     }
+    ]
+   },
+   "q8_execute_window_last25pct_time": {
+    "note": "보스 HP 실측 불가 → 전투 마지막 25% '시간' 근사. 학살자 급살 프록 처형은 전 구간 발생 유의.",
+    "cpm_early_vs_late": {
+     "mortal_strike": [
+      13.97,
+      13.31
+     ],
+     "execute": [
+      1.8,
+      3.64
+     ],
+     "overpower": [
+      9.96,
+      10.4
+     ],
+     "heroic_strike": [
+      4.28,
+      5.03
+     ],
+     "slam": [
+      1.56,
+      1.84
+     ],
+     "rend": [
+      2.54,
+      0.39
+     ],
+     "colossus_smash": [
+      1.97,
+      1.91
+     ]
+    },
+    "last_rend_at_fight_frac_med": 0.714,
+    "last_rend_at_fight_frac_p75": 0.865,
+    "rend_stopped_before_75pct_share": 54.5
+   }
+  },
+  "우주의 왕관": {
+   "n": 34,
+   "q5_heroic_strike_proc": {
+    "gains": 1433,
+    "gains_per_min": 5.3,
+    "consumed_pct": 97.7,
+    "wasted_pct": 1.5,
+    "consume_delay_s_med": 1.23,
+    "consume_delay_s_p75": 2.42,
+    "consume_within_2s_pct": 61.1,
+    "next_gcd_total": 1417,
+    "next_gcd_hs_pct": 57.5,
+    "next_gcd_ms_pct": 20.5,
+    "next_gcd_top6": [
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 815
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 290
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 158
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 62
+     },
+     {
+      "id": 167105,
+      "name": "거인의 강타",
+      "n": 39
+     },
+     {
+      "id": 772,
+      "name": "분쇄",
+      "n": 18
+     }
+    ],
+    "gcds_before_consume": {
+     "0": 816,
+     "1": 301,
+     "2": 122,
+     "3": 55,
+     "4": 106
+    }
+   },
+   "q6_sudden_death": {
+    "gains": 1308,
+    "gains_per_min": 4.84,
+    "consumed": 1155,
+    "consumed_pct": 88.3,
+    "consume_delay_s_med": 1.73,
+    "consume_within_3s_pct": 77.9,
+    "refresh_overwrites": 136,
+    "expired": 10,
+    "expiry_threshold_s": 11.7,
+    "waste_pct": 11.2
+   },
+   "q7_overpower_weave": {
+    "ms_casts": 3608,
+    "op_casts": 2009,
+    "ms_prev_gcd_is_op_pct": 15.7,
+    "op_next_gcd_is_ms_pct": 28.3,
+    "ms_prev_gcd_top5": [
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 998
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 597
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 558
+     },
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 364
+     },
+     {
+      "id": 1464,
+      "name": "격돌",
+      "n": 325
+     }
+    ]
+   },
+   "q8_execute_window_last25pct_time": {
+    "note": "보스 HP 실측 불가 → 전투 마지막 25% '시간' 근사. 학살자 급살 프록 처형은 전 구간 발생 유의.",
+    "cpm_early_vs_late": {
+     "mortal_strike": [
+      13.02,
+      14.34
+     ],
+     "execute": [
+      6.29,
+      18.96
+     ],
+     "overpower": [
+      7.72,
+      6.59
+     ],
+     "heroic_strike": [
+      5.07,
+      5.62
+     ],
+     "slam": [
+      4.69,
+      0.38
+     ],
+     "rend": [
+      2.11,
+      0.1
+     ],
+     "colossus_smash": [
+      1.63,
+      2.21
+     ]
+    },
+    "last_rend_at_fight_frac_med": 0.714,
+    "last_rend_at_fight_frac_p75": 0.731,
+    "rend_stopped_before_75pct_share": 82.4
+   }
+  },
+  "벨로렌": {
+   "n": 33,
+   "q5_heroic_strike_proc": {
+    "gains": 947,
+    "gains_per_min": 5.83,
+    "consumed_pct": 95.4,
+    "wasted_pct": 3.3,
+    "consume_delay_s_med": 1.94,
+    "consume_delay_s_p75": 3.41,
+    "consume_within_2s_pct": 50.4,
+    "next_gcd_total": 940,
+    "next_gcd_hs_pct": 43.3,
+    "next_gcd_ms_pct": 22.8,
+    "next_gcd_top6": [
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 407
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 214
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 184
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 68
+     },
+     {
+      "id": 167105,
+      "name": "거인의 강타",
+      "n": 27
+     },
+     {
+      "id": 772,
+      "name": "분쇄",
+      "n": 13
+     }
+    ],
+    "gcds_before_consume": {
+     "0": 408,
+     "1": 225,
+     "2": 131,
+     "3": 47,
+     "4": 92
+    }
+   },
+   "q6_sudden_death": {
+    "gains": 909,
+    "gains_per_min": 5.6,
+    "consumed": 823,
+    "consumed_pct": 90.5,
+    "consume_delay_s_med": 1.61,
+    "consume_within_3s_pct": 83.2,
+    "refresh_overwrites": 77,
+    "expired": 6,
+    "expiry_threshold_s": 11.7,
+    "waste_pct": 9.1
+   },
+   "q7_overpower_weave": {
+    "ms_casts": 2449,
+    "op_casts": 1520,
+    "ms_prev_gcd_is_op_pct": 16.9,
+    "op_next_gcd_is_ms_pct": 27.4,
+    "ms_prev_gcd_top5": [
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 686
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 463
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 412
+     },
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 234
+     },
+     {
+      "id": 1464,
+      "name": "격돌",
+      "n": 204
+     }
+    ]
+   },
+   "q8_execute_window_last25pct_time": {
+    "note": "보스 HP 실측 불가 → 전투 마지막 25% '시간' 근사. 학살자 급살 프록 처형은 전 구간 발생 유의.",
+    "cpm_early_vs_late": {
+     "mortal_strike": [
+      15.37,
+      14.21
+     ],
+     "execute": [
+      10.4,
+      17.29
+     ],
+     "overpower": [
+      10.14,
+      7.02
+     ],
+     "heroic_strike": [
+      5.78,
+      4.92
+     ],
+     "slam": [
+      4.74,
+      0.71
+     ],
+     "rend": [
+      1.75,
+      0.62
+     ],
+     "colossus_smash": [
+      2.04,
+      2.07
+     ]
+    },
+    "last_rend_at_fight_frac_med": 0.859,
+    "last_rend_at_fight_frac_p75": 0.88,
+    "rend_stopped_before_75pct_share": 42.4
+   }
+  },
+  "한밤의 도래(르우라)": {
+   "n": 33,
+   "q5_heroic_strike_proc": {
+    "gains": 1828,
+    "gains_per_min": 6.0,
+    "consumed_pct": 99.3,
+    "wasted_pct": 0.1,
+    "consume_delay_s_med": 1.2,
+    "consume_delay_s_p75": 2.32,
+    "consume_within_2s_pct": 68.7,
+    "next_gcd_total": 1819,
+    "next_gcd_hs_pct": 61.2,
+    "next_gcd_ms_pct": 21.5,
+    "next_gcd_top6": [
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 1114
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 391
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 117
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 84
+     },
+     {
+      "id": 167105,
+      "name": "거인의 강타",
+      "n": 50
+     },
+     {
+      "id": 446035,
+      "name": "칼날폭풍",
+      "n": 22
+     }
+    ],
+    "gcds_before_consume": {
+     "0": 1118,
+     "1": 411,
+     "2": 110,
+     "3": 50,
+     "4": 126
+    }
+   },
+   "q6_sudden_death": {
+    "gains": 1867,
+    "gains_per_min": 6.13,
+    "consumed": 1624,
+    "consumed_pct": 87.0,
+    "consume_delay_s_med": 1.91,
+    "consume_within_3s_pct": 71.4,
+    "refresh_overwrites": 233,
+    "expired": 5,
+    "expiry_threshold_s": 10.5,
+    "waste_pct": 12.7
+   },
+   "q7_overpower_weave": {
+    "ms_casts": 4972,
+    "op_casts": 3408,
+    "ms_prev_gcd_is_op_pct": 17.9,
+    "op_next_gcd_is_ms_pct": 26.2,
+    "ms_prev_gcd_top5": [
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 1290
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 883
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 756
+     },
+     {
+      "id": 1464,
+      "name": "격돌",
+      "n": 686
+     },
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 404
+     }
+    ]
+   },
+   "q8_execute_window_last25pct_time": {
+    "note": "보스 HP 실측 불가 → 전투 마지막 25% '시간' 근사. 학살자 급살 프록 처형은 전 구간 발생 유의.",
+    "cpm_early_vs_late": {
+     "mortal_strike": [
+      16.2,
+      16.64
+     ],
+     "execute": [
+      7.04,
+      15.76
+     ],
+     "overpower": [
+      11.36,
+      10.64
+     ],
+     "heroic_strike": [
+      5.88,
+      6.18
+     ],
+     "slam": [
+      6.31,
+      3.95
+     ],
+     "rend": [
+      2.45,
+      1.08
+     ],
+     "colossus_smash": [
+      1.91,
+      2.15
+     ]
+    },
+    "last_rend_at_fight_frac_med": 0.938,
+    "last_rend_at_fight_frac_p75": 0.946,
+    "rend_stopped_before_75pct_share": 3.0
+   }
+  },
+  "카이메루스": {
+   "n": 33,
+   "q5_heroic_strike_proc": {
+    "gains": 697,
+    "gains_per_min": 5.23,
+    "consumed_pct": 89.7,
+    "wasted_pct": 9.0,
+    "consume_delay_s_med": 1.23,
+    "consume_delay_s_p75": 2.4,
+    "consume_within_2s_pct": 62.9,
+    "next_gcd_total": 688,
+    "next_gcd_hs_pct": 52.5,
+    "next_gcd_ms_pct": 18.5,
+    "next_gcd_top6": [
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 361
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 127
+     },
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 63
+     },
+     {
+      "id": 845,
+      "name": "회전베기",
+      "n": 50
+     },
+     {
+      "id": 281000,
+      "name": "마무리 일격",
+      "n": 27
+     },
+     {
+      "id": 167105,
+      "name": "거인의 강타",
+      "n": 17
+     }
+    ],
+    "gcds_before_consume": {
+     "0": 363,
+     "1": 157,
+     "2": 53,
+     "3": 29,
+     "4": 23
+    }
+   },
+   "q6_sudden_death": {
+    "gains": 495,
+    "gains_per_min": 3.71,
+    "consumed": 421,
+    "consumed_pct": 85.1,
+    "consume_delay_s_med": 1.87,
+    "consume_within_3s_pct": 71.3,
+    "refresh_overwrites": 47,
+    "expired": 18,
+    "expiry_threshold_s": 11.7,
+    "waste_pct": 13.1
+   },
+   "q7_overpower_weave": {
+    "ms_casts": 1850,
+    "op_casts": 1342,
+    "ms_prev_gcd_is_op_pct": 35.8,
+    "op_next_gcd_is_ms_pct": 49.0,
+    "ms_prev_gcd_top5": [
+     {
+      "id": 7384,
+      "name": "제압",
+      "n": 649
+     },
+     {
+      "id": 12294,
+      "name": "필사의 일격",
+      "n": 202
+     },
+     {
+      "id": 1464,
+      "name": "격돌",
+      "n": 201
+     },
+     {
+      "id": 1269383,
+      "name": "영웅의 일격",
+      "n": 166
+     },
+     {
+      "id": 845,
+      "name": "회전베기",
+      "n": 165
+     }
+    ]
+   },
+   "q8_execute_window_last25pct_time": {
+    "note": "보스 HP 실측 불가 → 전투 마지막 25% '시간' 근사. 학살자 급살 프록 처형은 전 구간 발생 유의.",
+    "cpm_early_vs_late": {
+     "mortal_strike": [
+      13.75,
+      14.29
+     ],
+     "execute": [
+      4.24,
+      11.11
+     ],
+     "overpower": [
+      10.26,
+      9.48
+     ],
+     "heroic_strike": [
+      4.65,
+      4.95
+     ],
+     "slam": [
+      5.28,
+      2.19
+     ],
+     "rend": [
+      2.55,
+      0.54
+     ],
+     "colossus_smash": [
+      1.7,
+      2.16
+     ]
+    },
+    "last_rend_at_fight_frac_med": 0.68,
+    "last_rend_at_fight_frac_p75": 0.794,
+    "rend_stopped_before_75pct_share": 60.6
+   }
+  }
+ }
+}

@@ -1,0 +1,2277 @@
+{
+ "meta": {
+  "date": "2026-07-11",
+  "spec": "Warrior/Arms",
+  "n_kills": 296,
+  "hero_adoption": {
+   "학살자": 204,
+   "거신": 92
+  },
+  "spells": {
+   "107574": "투신",
+   "167105": "거인의 강타",
+   "446035": "칼날폭풍",
+   "228920": "쇠날발톱",
+   "436358": "쇄파"
+  },
+  "eff_cd_s": {
+   "투신": 50.4,
+   "거인의 강타": 24.4,
+   "칼날폭풍": 36.0,
+   "쇠날발톱": 90.4,
+   "쇄파": 14.9
+  },
+  "excluded_zero_cast": [
+   {
+    "id": 227847,
+    "name": "칼날폭풍(특성ID)",
+    "reason": "캐스트 0회 — 실제 캐스트 ID는 446035"
+   },
+   {
+    "id": 152277,
+    "name": "파괴전차(구 ID)",
+    "reason": "캐스트 0회 — 현행 ID는 228920 쇠날발톱"
+   },
+   {
+    "id": 64382,
+    "name": "분쇄의 투척",
+    "reason": "296킬 중 1캐스트 (사실상 미사용)"
+   },
+   {
+    "id": 376079,
+    "name": "용사의 창",
+    "reason": "캐스트 0회"
+   }
+  ]
+ },
+ "overall": {
+  "all": {
+   "n": 296,
+   "투신": {
+    "출현판_pct": 100,
+    "uses_med": 5,
+    "first_med_s": 2.8,
+    "first_p25_p75": [
+     2.0,
+     4.2
+    ],
+    "opener10s_pct": 79,
+    "gap": {
+     "n": 1391,
+     "p25": 55.9,
+     "med": 59.7,
+     "p75": 66.4,
+     "즉시_pct": 13,
+     "소홀드_pct": 65,
+     "대홀드_pct": 21
+    }
+   },
+   "거인의 강타": {
+    "출현판_pct": 100,
+    "uses_med": 10,
+    "first_med_s": 2.7,
+    "first_p25_p75": [
+     2.2,
+     4.0
+    ],
+    "opener10s_pct": 83,
+    "gap": {
+     "n": 2875,
+     "p25": 27.3,
+     "med": 29.9,
+     "p75": 33.5,
+     "즉시_pct": 26,
+     "소홀드_pct": 67,
+     "대홀드_pct": 7
+    }
+   },
+   "칼날폭풍": {
+    "출현판_pct": 69,
+    "uses_med": 4,
+    "first_med_s": 3.9,
+    "first_p25_p75": [
+     3.3,
+     5.8
+    ],
+    "opener10s_pct": 79,
+    "gap": {
+     "n": 992,
+     "p25": 52.3,
+     "med": 58.3,
+     "p75": 63.9,
+     "즉시_pct": 7,
+     "소홀드_pct": 34,
+     "대홀드_pct": 59
+    }
+   },
+   "쇠날발톱": {
+    "출현판_pct": 31,
+    "uses_med": 0,
+    "first_med_s": 26.7,
+    "first_p25_p75": [
+     6.0,
+     37.9
+    ],
+    "opener10s_pct": 39,
+    "gap": {
+     "n": 230,
+     "p25": 97.0,
+     "med": 113.9,
+     "p75": 132.6,
+     "즉시_pct": 18,
+     "소홀드_pct": 26,
+     "대홀드_pct": 57
+    }
+   },
+   "쇄파": {
+    "출현판_pct": 31,
+    "uses_med": 0,
+    "first_med_s": 4.7,
+    "first_p25_p75": [
+     4.1,
+     8.7
+    ],
+    "opener10s_pct": 80,
+    "gap": {
+     "n": 1149,
+     "p25": 20.0,
+     "med": 25.6,
+     "p75": 34.0,
+     "즉시_pct": 16,
+     "소홀드_pct": 63,
+     "대홀드_pct": 21
+    }
+   },
+   "align": {
+    "cs_uses": 3171,
+    "cs_in_avatar_win_pct": 51,
+    "bladestorm_uses": 1196,
+    "bladestorm_in_cs_win_pct": 90,
+    "bladestorm_in_avatar_win_pct": 83,
+    "ravager_uses": 322,
+    "ravager_in_cs_win_pct": 31,
+    "ravager_in_avatar_win_pct": 28,
+    "demolish_uses": 1241,
+    "demolish_in_cs_win_pct": 63,
+    "demolish_in_avatar_win_pct": 47
+   }
+  },
+  "rank_1_20": {
+   "n": 177,
+   "투신": {
+    "출현판_pct": 100,
+    "uses_med": 5,
+    "first_med_s": 2.8,
+    "first_p25_p75": [
+     2.0,
+     4.3
+    ],
+    "opener10s_pct": 77,
+    "gap": {
+     "n": 837,
+     "p25": 56.1,
+     "med": 59.5,
+     "p75": 68.3,
+     "즉시_pct": 13,
+     "소홀드_pct": 64,
+     "대홀드_pct": 23
+    }
+   },
+   "거인의 강타": {
+    "출현판_pct": 100,
+    "uses_med": 10,
+    "first_med_s": 2.7,
+    "first_p25_p75": [
+     2.2,
+     4.0
+    ],
+    "opener10s_pct": 82,
+    "gap": {
+     "n": 1735,
+     "p25": 27.4,
+     "med": 30.0,
+     "p75": 33.7,
+     "즉시_pct": 25,
+     "소홀드_pct": 67,
+     "대홀드_pct": 8
+    }
+   },
+   "칼날폭풍": {
+    "출현판_pct": 67,
+    "uses_med": 4,
+    "first_med_s": 4.0,
+    "first_p25_p75": [
+     3.3,
+     5.6
+    ],
+    "opener10s_pct": 78,
+    "gap": {
+     "n": 588,
+     "p25": 52.4,
+     "med": 58.0,
+     "p75": 63.1,
+     "즉시_pct": 8,
+     "소홀드_pct": 33,
+     "대홀드_pct": 59
+    }
+   },
+   "쇠날발톱": {
+    "출현판_pct": 33,
+    "uses_med": 0,
+    "first_med_s": 26.2,
+    "first_p25_p75": [
+     5.8,
+     37.8
+    ],
+    "opener10s_pct": 36,
+    "gap": {
+     "n": 147,
+     "p25": 95.2,
+     "med": 113.9,
+     "p75": 132.3,
+     "즉시_pct": 21,
+     "소홀드_pct": 24,
+     "대홀드_pct": 55
+    }
+   },
+   "쇄파": {
+    "출현판_pct": 33,
+    "uses_med": 0,
+    "first_med_s": 4.7,
+    "first_p25_p75": [
+     4.2,
+     9.0
+    ],
+    "opener10s_pct": 78,
+    "gap": {
+     "n": 714,
+     "p25": 20.0,
+     "med": 25.6,
+     "p75": 34.6,
+     "즉시_pct": 16,
+     "소홀드_pct": 61,
+     "대홀드_pct": 23
+    }
+   },
+   "align": {
+    "cs_uses": 1912,
+    "cs_in_avatar_win_pct": 51,
+    "bladestorm_uses": 707,
+    "bladestorm_in_cs_win_pct": 90,
+    "bladestorm_in_avatar_win_pct": 81,
+    "ravager_uses": 205,
+    "ravager_in_cs_win_pct": 30,
+    "ravager_in_avatar_win_pct": 24,
+    "demolish_uses": 772,
+    "demolish_in_cs_win_pct": 63,
+    "demolish_in_avatar_win_pct": 47
+   }
+  },
+  "rank_21_100": {
+   "n": 119,
+   "투신": {
+    "출현판_pct": 100,
+    "uses_med": 5,
+    "first_med_s": 2.8,
+    "first_p25_p75": [
+     1.9,
+     4.1
+    ],
+    "opener10s_pct": 81,
+    "gap": {
+     "n": 554,
+     "p25": 55.6,
+     "med": 59.8,
+     "p75": 65.4,
+     "즉시_pct": 14,
+     "소홀드_pct": 67,
+     "대홀드_pct": 19
+    }
+   },
+   "거인의 강타": {
+    "출현판_pct": 100,
+    "uses_med": 10,
+    "first_med_s": 2.7,
+    "first_p25_p75": [
+     2.2,
+     4.1
+    ],
+    "opener10s_pct": 86,
+    "gap": {
+     "n": 1140,
+     "p25": 27.2,
+     "med": 29.8,
+     "p75": 33.0,
+     "즉시_pct": 26,
+     "소홀드_pct": 67,
+     "대홀드_pct": 6
+    }
+   },
+   "칼날폭풍": {
+    "출현판_pct": 71,
+    "uses_med": 4,
+    "first_med_s": 3.7,
+    "first_p25_p75": [
+     3.1,
+     6.1
+    ],
+    "opener10s_pct": 80,
+    "gap": {
+     "n": 404,
+     "p25": 52.2,
+     "med": 58.7,
+     "p75": 64.7,
+     "즉시_pct": 6,
+     "소홀드_pct": 34,
+     "대홀드_pct": 59
+    }
+   },
+   "쇠날발톱": {
+    "출현판_pct": 29,
+    "uses_med": 0,
+    "first_med_s": 26.8,
+    "first_p25_p75": [
+     6.1,
+     38.0
+    ],
+    "opener10s_pct": 44,
+    "gap": {
+     "n": 83,
+     "p25": 100.3,
+     "med": 115.0,
+     "p75": 132.8,
+     "즉시_pct": 12,
+     "소홀드_pct": 29,
+     "대홀드_pct": 59
+    }
+   },
+   "쇄파": {
+    "출현판_pct": 29,
+    "uses_med": 0,
+    "first_med_s": 4.6,
+    "first_p25_p75": [
+     4.0,
+     6.5
+    ],
+    "opener10s_pct": 85,
+    "gap": {
+     "n": 435,
+     "p25": 19.9,
+     "med": 25.6,
+     "p75": 32.5,
+     "즉시_pct": 17,
+     "소홀드_pct": 65,
+     "대홀드_pct": 18
+    }
+   },
+   "align": {
+    "cs_uses": 1259,
+    "cs_in_avatar_win_pct": 51,
+    "bladestorm_uses": 489,
+    "bladestorm_in_cs_win_pct": 89,
+    "bladestorm_in_avatar_win_pct": 85,
+    "ravager_uses": 117,
+    "ravager_in_cs_win_pct": 32,
+    "ravager_in_avatar_win_pct": 34,
+    "demolish_uses": 469,
+    "demolish_in_cs_win_pct": 63,
+    "demolish_in_avatar_win_pct": 47
+   }
+  },
+  "hero_학살자": {
+   "n": 204,
+   "투신": {
+    "출현판_pct": 100,
+    "uses_med": 5,
+    "first_med_s": 2.5,
+    "first_p25_p75": [
+     1.7,
+     3.6
+    ],
+    "opener10s_pct": 81,
+    "gap": {
+     "n": 956,
+     "p25": 54.4,
+     "med": 58.5,
+     "p75": 63.1,
+     "즉시_pct": 19,
+     "소홀드_pct": 66,
+     "대홀드_pct": 14
+    }
+   },
+   "거인의 강타": {
+    "출현판_pct": 100,
+    "uses_med": 9,
+    "first_med_s": 2.4,
+    "first_p25_p75": [
+     1.9,
+     3.2
+    ],
+    "opener10s_pct": 84,
+    "gap": {
+     "n": 1963,
+     "p25": 26.5,
+     "med": 28.9,
+     "p75": 31.6,
+     "즉시_pct": 34,
+     "소홀드_pct": 59,
+     "대홀드_pct": 6
+    }
+   },
+   "칼날폭풍": {
+    "출현판_pct": 100,
+    "uses_med": 5,
+    "first_med_s": 3.9,
+    "first_p25_p75": [
+     3.3,
+     5.8
+    ],
+    "opener10s_pct": 79,
+    "gap": {
+     "n": 992,
+     "p25": 52.3,
+     "med": 58.3,
+     "p75": 63.9,
+     "즉시_pct": 7,
+     "소홀드_pct": 34,
+     "대홀드_pct": 59
+    }
+   },
+   "쇠날발톱": null,
+   "쇄파": null,
+   "align": {
+    "cs_uses": 2167,
+    "cs_in_avatar_win_pct": 53,
+    "bladestorm_uses": 1196,
+    "bladestorm_in_cs_win_pct": 90,
+    "bladestorm_in_avatar_win_pct": 83,
+    "ravager_uses": 0,
+    "ravager_in_cs_win_pct": null,
+    "ravager_in_avatar_win_pct": null,
+    "demolish_uses": 0,
+    "demolish_in_cs_win_pct": null,
+    "demolish_in_avatar_win_pct": null
+   }
+  },
+  "hero_거신": {
+   "n": 92,
+   "투신": {
+    "출현판_pct": 100,
+    "uses_med": 6,
+    "first_med_s": 3.5,
+    "first_p25_p75": [
+     3.0,
+     11.2
+    ],
+    "opener10s_pct": 74,
+    "gap": {
+     "n": 435,
+     "p25": 58.3,
+     "med": 62.4,
+     "p75": 74.9,
+     "즉시_pct": 0,
+     "소홀드_pct": 64,
+     "대홀드_pct": 36
+    }
+   },
+   "거인의 강타": {
+    "출현판_pct": 100,
+    "uses_med": 11,
+    "first_med_s": 3.7,
+    "first_p25_p75": [
+     3.1,
+     4.6
+    ],
+    "opener10s_pct": 82,
+    "gap": {
+     "n": 912,
+     "p25": 29.6,
+     "med": 32.3,
+     "p75": 37.9,
+     "즉시_pct": 7,
+     "소홀드_pct": 83,
+     "대홀드_pct": 9
+    }
+   },
+   "칼날폭풍": null,
+   "쇠날발톱": {
+    "출현판_pct": 100,
+    "uses_med": 4,
+    "first_med_s": 26.7,
+    "first_p25_p75": [
+     6.0,
+     37.9
+    ],
+    "opener10s_pct": 39,
+    "gap": {
+     "n": 230,
+     "p25": 97.0,
+     "med": 113.9,
+     "p75": 132.6,
+     "즉시_pct": 18,
+     "소홀드_pct": 26,
+     "대홀드_pct": 57
+    }
+   },
+   "쇄파": {
+    "출현판_pct": 100,
+    "uses_med": 13,
+    "first_med_s": 4.7,
+    "first_p25_p75": [
+     4.1,
+     8.7
+    ],
+    "opener10s_pct": 80,
+    "gap": {
+     "n": 1149,
+     "p25": 20.0,
+     "med": 25.6,
+     "p75": 34.0,
+     "즉시_pct": 16,
+     "소홀드_pct": 63,
+     "대홀드_pct": 21
+    }
+   },
+   "align": {
+    "cs_uses": 1004,
+    "cs_in_avatar_win_pct": 48,
+    "bladestorm_uses": 0,
+    "bladestorm_in_cs_win_pct": null,
+    "bladestorm_in_avatar_win_pct": null,
+    "ravager_uses": 322,
+    "ravager_in_cs_win_pct": 31,
+    "ravager_in_avatar_win_pct": 28,
+    "demolish_uses": 1241,
+    "demolish_in_cs_win_pct": 63,
+    "demolish_in_avatar_win_pct": 47
+   }
+  }
+ },
+ "per_boss": {
+  "아베르지안": {
+   "encounter_id": 3176,
+   "name_en": "Imperator Averzian",
+   "kill_med_s": 209,
+   "all": {
+    "n": 29,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 2.4,
+     "first_p25_p75": [
+      1.5,
+      3.1
+     ],
+     "opener10s_pct": 97,
+     "gap": {
+      "n": 82,
+      "p25": 55.6,
+      "med": 60.2,
+      "p75": 80.0,
+      "즉시_pct": 13,
+      "소홀드_pct": 48,
+      "대홀드_pct": 39
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 8,
+     "first_med_s": 2.4,
+     "first_p25_p75": [
+      1.6,
+      3.1
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 192,
+      "p25": 26.7,
+      "med": 29.2,
+      "p75": 33.0,
+      "즉시_pct": 30,
+      "소홀드_pct": 56,
+      "대홀드_pct": 14
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 66,
+     "uses_med": 3,
+     "first_med_s": 3.3,
+     "first_p25_p75": [
+      2.7,
+      4.5
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 53,
+      "p25": 54.8,
+      "med": 58.5,
+      "p75": 61.7,
+      "즉시_pct": 6,
+      "소홀드_pct": 28,
+      "대홀드_pct": 66
+     }
+    },
+    "쇠날발톱": {
+     "출현판_pct": 34,
+     "uses_med": 0,
+     "first_med_s": 62.3,
+     "first_p25_p75": [
+      61.6,
+      62.7
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 11,
+      "p25": 183.7,
+      "med": 186.5,
+      "p75": 187.0,
+      "즉시_pct": 18,
+      "소홀드_pct": 0,
+      "대홀드_pct": 82
+     }
+    },
+    "쇄파": {
+     "출현판_pct": 34,
+     "uses_med": 0,
+     "first_med_s": 4.0,
+     "first_p25_p75": [
+      3.9,
+      4.2
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 89,
+      "p25": 23.9,
+      "med": 29.5,
+      "p75": 33.9,
+      "즉시_pct": 8,
+      "소홀드_pct": 72,
+      "대홀드_pct": 20
+     }
+    },
+    "align": {
+     "cs_uses": 221,
+     "cs_in_avatar_win_pct": 50,
+     "bladestorm_uses": 72,
+     "bladestorm_in_cs_win_pct": 96,
+     "bladestorm_in_avatar_win_pct": 90,
+     "ravager_uses": 21,
+     "ravager_in_cs_win_pct": 10,
+     "ravager_in_avatar_win_pct": 19,
+     "demolish_uses": 99,
+     "demolish_in_cs_win_pct": 68,
+     "demolish_in_avatar_win_pct": 46
+    }
+   },
+   "hero_학살자": {
+    "n": 19,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 1.6,
+     "first_p25_p75": [
+      1.3,
+      2.8
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 52,
+      "p25": 54.4,
+      "med": 56.8,
+      "p75": 61.1,
+      "즉시_pct": 21,
+      "소홀드_pct": 56,
+      "대홀드_pct": 23
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 7,
+     "first_med_s": 1.8,
+     "first_p25_p75": [
+      1.4,
+      2.5
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 114,
+      "p25": 26.3,
+      "med": 28.1,
+      "p75": 30.5,
+      "즉시_pct": 39,
+      "소홀드_pct": 52,
+      "대홀드_pct": 9
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 3.3,
+     "first_p25_p75": [
+      2.7,
+      4.5
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 53,
+      "p25": 54.8,
+      "med": 58.5,
+      "p75": 61.7,
+      "즉시_pct": 6,
+      "소홀드_pct": 28,
+      "대홀드_pct": 66
+     }
+    },
+    "쇠날발톱": null,
+    "쇄파": null,
+    "align": {
+     "cs_uses": 133,
+     "cs_in_avatar_win_pct": 53,
+     "bladestorm_uses": 72,
+     "bladestorm_in_cs_win_pct": 96,
+     "bladestorm_in_avatar_win_pct": 90,
+     "ravager_uses": 0,
+     "ravager_in_cs_win_pct": null,
+     "ravager_in_avatar_win_pct": null,
+     "demolish_uses": 0,
+     "demolish_in_cs_win_pct": null,
+     "demolish_in_avatar_win_pct": null
+    }
+   },
+   "hero_거신": {
+    "n": 10,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 2.6,
+     "first_p25_p75": [
+      2.6,
+      3.1
+     ],
+     "opener10s_pct": 90,
+     "gap": {
+      "n": 30,
+      "p25": 60.7,
+      "med": 80.1,
+      "p75": 106.1,
+      "즉시_pct": 0,
+      "소홀드_pct": 33,
+      "대홀드_pct": 67
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 9,
+     "first_med_s": 3.1,
+     "first_p25_p75": [
+      2.6,
+      3.3
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 78,
+      "p25": 29.0,
+      "med": 30.5,
+      "p75": 43.7,
+      "즉시_pct": 17,
+      "소홀드_pct": 62,
+      "대홀드_pct": 22
+     }
+    },
+    "칼날폭풍": null,
+    "쇠날발톱": {
+     "출현판_pct": 100,
+     "uses_med": 2,
+     "first_med_s": 62.3,
+     "first_p25_p75": [
+      61.6,
+      62.7
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 11,
+      "p25": 183.7,
+      "med": 186.5,
+      "p75": 187.0,
+      "즉시_pct": 18,
+      "소홀드_pct": 0,
+      "대홀드_pct": 82
+     }
+    },
+    "쇄파": {
+     "출현판_pct": 100,
+     "uses_med": 10,
+     "first_med_s": 4.0,
+     "first_p25_p75": [
+      3.9,
+      4.2
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 89,
+      "p25": 23.9,
+      "med": 29.5,
+      "p75": 33.9,
+      "즉시_pct": 8,
+      "소홀드_pct": 72,
+      "대홀드_pct": 20
+     }
+    },
+    "align": {
+     "cs_uses": 88,
+     "cs_in_avatar_win_pct": 45,
+     "bladestorm_uses": 0,
+     "bladestorm_in_cs_win_pct": null,
+     "bladestorm_in_avatar_win_pct": null,
+     "ravager_uses": 21,
+     "ravager_in_cs_win_pct": 10,
+     "ravager_in_avatar_win_pct": 19,
+     "demolish_uses": 99,
+     "demolish_in_cs_win_pct": 68,
+     "demolish_in_avatar_win_pct": 46
+    }
+   }
+  },
+  "보라시우스": {
+   "encounter_id": 3177,
+   "name_en": "Vorasius",
+   "kill_med_s": 196,
+   "all": {
+    "n": 34,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 2.1,
+     "first_p25_p75": [
+      1.7,
+      2.6
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 111,
+      "p25": 52.3,
+      "med": 55.2,
+      "p75": 59.0,
+      "즉시_pct": 38,
+      "소홀드_pct": 59,
+      "대홀드_pct": 3
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 7,
+     "first_med_s": 2.3,
+     "first_p25_p75": [
+      2.0,
+      2.9
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 230,
+      "p25": 26.0,
+      "med": 27.4,
+      "p75": 29.5,
+      "즉시_pct": 50,
+      "소홀드_pct": 50,
+      "대홀드_pct": 0
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 3.7,
+     "first_p25_p75": [
+      3.1,
+      4.5
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 119,
+      "p25": 50.2,
+      "med": 54.8,
+      "p75": 58.1,
+      "즉시_pct": 9,
+      "소홀드_pct": 51,
+      "대홀드_pct": 39
+     }
+    },
+    "쇠날발톱": null,
+    "쇄파": null,
+    "align": {
+     "cs_uses": 264,
+     "cs_in_avatar_win_pct": 54,
+     "bladestorm_uses": 153,
+     "bladestorm_in_cs_win_pct": 90,
+     "bladestorm_in_avatar_win_pct": 81,
+     "ravager_uses": 0,
+     "ravager_in_cs_win_pct": null,
+     "ravager_in_avatar_win_pct": null,
+     "demolish_uses": 0,
+     "demolish_in_cs_win_pct": null,
+     "demolish_in_avatar_win_pct": null
+    }
+   },
+   "hero_학살자": {
+    "n": 34,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 2.1,
+     "first_p25_p75": [
+      1.7,
+      2.6
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 111,
+      "p25": 52.3,
+      "med": 55.2,
+      "p75": 59.0,
+      "즉시_pct": 38,
+      "소홀드_pct": 59,
+      "대홀드_pct": 3
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 7,
+     "first_med_s": 2.3,
+     "first_p25_p75": [
+      2.0,
+      2.9
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 230,
+      "p25": 26.0,
+      "med": 27.4,
+      "p75": 29.5,
+      "즉시_pct": 50,
+      "소홀드_pct": 50,
+      "대홀드_pct": 0
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 3.7,
+     "first_p25_p75": [
+      3.1,
+      4.5
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 119,
+      "p25": 50.2,
+      "med": 54.8,
+      "p75": 58.1,
+      "즉시_pct": 9,
+      "소홀드_pct": 51,
+      "대홀드_pct": 39
+     }
+    },
+    "쇠날발톱": null,
+    "쇄파": null,
+    "align": {
+     "cs_uses": 264,
+     "cs_in_avatar_win_pct": 54,
+     "bladestorm_uses": 153,
+     "bladestorm_in_cs_win_pct": 90,
+     "bladestorm_in_avatar_win_pct": 81,
+     "ravager_uses": 0,
+     "ravager_in_cs_win_pct": null,
+     "ravager_in_avatar_win_pct": null,
+     "demolish_uses": 0,
+     "demolish_in_cs_win_pct": null,
+     "demolish_in_avatar_win_pct": null
+    }
+   }
+  },
+  "바엘고어&에조라크": {
+   "encounter_id": 3178,
+   "name_en": "Vaelgor & Ezzorak",
+   "kill_med_s": 389,
+   "all": {
+    "n": 34,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 6,
+     "first_med_s": 3.8,
+     "first_p25_p75": [
+      3.2,
+      5.1
+     ],
+     "opener10s_pct": 76,
+     "gap": {
+      "n": 162,
+      "p25": 61.4,
+      "med": 71.3,
+      "p75": 75.5,
+      "즉시_pct": 0,
+      "소홀드_pct": 48,
+      "대홀드_pct": 52
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 11,
+     "first_med_s": 3.8,
+     "first_p25_p75": [
+      3.6,
+      4.3
+     ],
+     "opener10s_pct": 94,
+     "gap": {
+      "n": 336,
+      "p25": 30.7,
+      "med": 34.8,
+      "p75": 39.8,
+      "즉시_pct": 2,
+      "소홀드_pct": 90,
+      "대홀드_pct": 8
+     }
+    },
+    "칼날폭풍": null,
+    "쇠날발톱": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 37.7,
+     "first_p25_p75": [
+      37.1,
+      38.4
+     ],
+     "opener10s_pct": 9,
+     "gap": {
+      "n": 87,
+      "p25": 97.7,
+      "med": 115.6,
+      "p75": 132.6,
+      "즉시_pct": 23,
+      "소홀드_pct": 11,
+      "대홀드_pct": 66
+     }
+    },
+    "쇄파": {
+     "출현판_pct": 100,
+     "uses_med": 12,
+     "first_med_s": 4.8,
+     "first_p25_p75": [
+      4.5,
+      5.5
+     ],
+     "opener10s_pct": 91,
+     "gap": {
+      "n": 392,
+      "p25": 22.5,
+      "med": 31.9,
+      "p75": 39.6,
+      "즉시_pct": 9,
+      "소홀드_pct": 52,
+      "대홀드_pct": 40
+     }
+    },
+    "align": {
+     "cs_uses": 370,
+     "cs_in_avatar_win_pct": 51,
+     "bladestorm_uses": 0,
+     "bladestorm_in_cs_win_pct": null,
+     "bladestorm_in_avatar_win_pct": null,
+     "ravager_uses": 121,
+     "ravager_in_cs_win_pct": 18,
+     "ravager_in_avatar_win_pct": 26,
+     "demolish_uses": 426,
+     "demolish_in_cs_win_pct": 70,
+     "demolish_in_avatar_win_pct": 48
+    }
+   },
+   "hero_거신": {
+    "n": 34,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 6,
+     "first_med_s": 3.8,
+     "first_p25_p75": [
+      3.2,
+      5.1
+     ],
+     "opener10s_pct": 76,
+     "gap": {
+      "n": 162,
+      "p25": 61.4,
+      "med": 71.3,
+      "p75": 75.5,
+      "즉시_pct": 0,
+      "소홀드_pct": 48,
+      "대홀드_pct": 52
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 11,
+     "first_med_s": 3.8,
+     "first_p25_p75": [
+      3.6,
+      4.3
+     ],
+     "opener10s_pct": 94,
+     "gap": {
+      "n": 336,
+      "p25": 30.7,
+      "med": 34.8,
+      "p75": 39.8,
+      "즉시_pct": 2,
+      "소홀드_pct": 90,
+      "대홀드_pct": 8
+     }
+    },
+    "칼날폭풍": null,
+    "쇠날발톱": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 37.7,
+     "first_p25_p75": [
+      37.1,
+      38.4
+     ],
+     "opener10s_pct": 9,
+     "gap": {
+      "n": 87,
+      "p25": 97.7,
+      "med": 115.6,
+      "p75": 132.6,
+      "즉시_pct": 23,
+      "소홀드_pct": 11,
+      "대홀드_pct": 66
+     }
+    },
+    "쇄파": {
+     "출현판_pct": 100,
+     "uses_med": 12,
+     "first_med_s": 4.8,
+     "first_p25_p75": [
+      4.5,
+      5.5
+     ],
+     "opener10s_pct": 91,
+     "gap": {
+      "n": 392,
+      "p25": 22.5,
+      "med": 31.9,
+      "p75": 39.6,
+      "즉시_pct": 9,
+      "소홀드_pct": 52,
+      "대홀드_pct": 40
+     }
+    },
+    "align": {
+     "cs_uses": 370,
+     "cs_in_avatar_win_pct": 51,
+     "bladestorm_uses": 0,
+     "bladestorm_in_cs_win_pct": null,
+     "bladestorm_in_avatar_win_pct": null,
+     "ravager_uses": 121,
+     "ravager_in_cs_win_pct": 18,
+     "ravager_in_avatar_win_pct": 26,
+     "demolish_uses": 426,
+     "demolish_in_cs_win_pct": 70,
+     "demolish_in_avatar_win_pct": 48
+    }
+   }
+  },
+  "살라다르": {
+   "encounter_id": 3179,
+   "name_en": "Fallen-King Salhadaar",
+   "kill_med_s": 201,
+   "all": {
+    "n": 33,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 1.7,
+     "first_p25_p75": [
+      1.4,
+      2.4
+     ],
+     "opener10s_pct": 97,
+     "gap": {
+      "n": 106,
+      "p25": 52.7,
+      "med": 55.8,
+      "p75": 60.1,
+      "즉시_pct": 29,
+      "소홀드_pct": 67,
+      "대홀드_pct": 4
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 8,
+     "first_med_s": 2.0,
+     "first_p25_p75": [
+      1.7,
+      2.3
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 225,
+      "p25": 26.0,
+      "med": 27.7,
+      "p75": 30.1,
+      "즉시_pct": 46,
+      "소홀드_pct": 53,
+      "대홀드_pct": 1
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 3.2,
+     "first_p25_p75": [
+      2.8,
+      4.0
+     ],
+     "opener10s_pct": 97,
+     "gap": {
+      "n": 109,
+      "p25": 47.5,
+      "med": 55.4,
+      "p75": 61.2,
+      "즉시_pct": 13,
+      "소홀드_pct": 39,
+      "대홀드_pct": 48
+     }
+    },
+    "쇠날발톱": null,
+    "쇄파": null,
+    "align": {
+     "cs_uses": 258,
+     "cs_in_avatar_win_pct": 53,
+     "bladestorm_uses": 142,
+     "bladestorm_in_cs_win_pct": 85,
+     "bladestorm_in_avatar_win_pct": 75,
+     "ravager_uses": 0,
+     "ravager_in_cs_win_pct": null,
+     "ravager_in_avatar_win_pct": null,
+     "demolish_uses": 0,
+     "demolish_in_cs_win_pct": null,
+     "demolish_in_avatar_win_pct": null
+    }
+   },
+   "hero_학살자": {
+    "n": 33,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 1.7,
+     "first_p25_p75": [
+      1.4,
+      2.4
+     ],
+     "opener10s_pct": 97,
+     "gap": {
+      "n": 106,
+      "p25": 52.7,
+      "med": 55.8,
+      "p75": 60.1,
+      "즉시_pct": 29,
+      "소홀드_pct": 67,
+      "대홀드_pct": 4
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 8,
+     "first_med_s": 2.0,
+     "first_p25_p75": [
+      1.7,
+      2.3
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 225,
+      "p25": 26.0,
+      "med": 27.7,
+      "p75": 30.1,
+      "즉시_pct": 46,
+      "소홀드_pct": 53,
+      "대홀드_pct": 1
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 3.2,
+     "first_p25_p75": [
+      2.8,
+      4.0
+     ],
+     "opener10s_pct": 97,
+     "gap": {
+      "n": 109,
+      "p25": 47.5,
+      "med": 55.4,
+      "p75": 61.2,
+      "즉시_pct": 13,
+      "소홀드_pct": 39,
+      "대홀드_pct": 48
+     }
+    },
+    "쇠날발톱": null,
+    "쇄파": null,
+    "align": {
+     "cs_uses": 258,
+     "cs_in_avatar_win_pct": 53,
+     "bladestorm_uses": 142,
+     "bladestorm_in_cs_win_pct": 85,
+     "bladestorm_in_avatar_win_pct": 75,
+     "ravager_uses": 0,
+     "ravager_in_cs_win_pct": null,
+     "ravager_in_avatar_win_pct": null,
+     "demolish_uses": 0,
+     "demolish_in_cs_win_pct": null,
+     "demolish_in_avatar_win_pct": null
+    }
+   }
+  },
+  "선봉대": {
+   "encounter_id": 3180,
+   "name_en": "Lightblinded Vanguard",
+   "kill_med_s": 393,
+   "all": {
+    "n": 33,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 7,
+     "first_med_s": 3.0,
+     "first_p25_p75": [
+      2.5,
+      3.5
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 187,
+      "p25": 57.0,
+      "med": 58.5,
+      "p75": 60.5,
+      "즉시_pct": 1,
+      "소홀드_pct": 91,
+      "대홀드_pct": 7
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 12,
+     "first_med_s": 3.1,
+     "first_p25_p75": [
+      2.9,
+      3.8
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 371,
+      "p25": 29.0,
+      "med": 30.7,
+      "p75": 33.5,
+      "즉시_pct": 11,
+      "소홀드_pct": 87,
+      "대홀드_pct": 2
+     }
+    },
+    "칼날폭풍": null,
+    "쇠날발톱": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 5.7,
+     "first_p25_p75": [
+      5.0,
+      6.1
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 97,
+      "p25": 96.8,
+      "med": 109.9,
+      "p75": 116.3,
+      "즉시_pct": 15,
+      "소홀드_pct": 35,
+      "대홀드_pct": 49
+     }
+    },
+    "쇄파": {
+     "출현판_pct": 100,
+     "uses_med": 17,
+     "first_med_s": 4.4,
+     "first_p25_p75": [
+      3.7,
+      5.7
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 533,
+      "p25": 17.5,
+      "med": 20.8,
+      "p75": 26.3,
+      "즉시_pct": 27,
+      "소홀드_pct": 70,
+      "대홀드_pct": 3
+     }
+    },
+    "align": {
+     "cs_uses": 404,
+     "cs_in_avatar_win_pct": 46,
+     "bladestorm_uses": 0,
+     "bladestorm_in_cs_win_pct": null,
+     "bladestorm_in_avatar_win_pct": null,
+     "ravager_uses": 130,
+     "ravager_in_cs_win_pct": 56,
+     "ravager_in_avatar_win_pct": 41,
+     "demolish_uses": 566,
+     "demolish_in_cs_win_pct": 54,
+     "demolish_in_avatar_win_pct": 47
+    }
+   },
+   "hero_거신": {
+    "n": 33,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 7,
+     "first_med_s": 3.0,
+     "first_p25_p75": [
+      2.5,
+      3.5
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 187,
+      "p25": 57.0,
+      "med": 58.5,
+      "p75": 60.5,
+      "즉시_pct": 1,
+      "소홀드_pct": 91,
+      "대홀드_pct": 7
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 12,
+     "first_med_s": 3.1,
+     "first_p25_p75": [
+      2.9,
+      3.8
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 371,
+      "p25": 29.0,
+      "med": 30.7,
+      "p75": 33.5,
+      "즉시_pct": 11,
+      "소홀드_pct": 87,
+      "대홀드_pct": 2
+     }
+    },
+    "칼날폭풍": null,
+    "쇠날발톱": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 5.7,
+     "first_p25_p75": [
+      5.0,
+      6.1
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 97,
+      "p25": 96.8,
+      "med": 109.9,
+      "p75": 116.3,
+      "즉시_pct": 15,
+      "소홀드_pct": 35,
+      "대홀드_pct": 49
+     }
+    },
+    "쇄파": {
+     "출현판_pct": 100,
+     "uses_med": 17,
+     "first_med_s": 4.4,
+     "first_p25_p75": [
+      3.7,
+      5.7
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 533,
+      "p25": 17.5,
+      "med": 20.8,
+      "p75": 26.3,
+      "즉시_pct": 27,
+      "소홀드_pct": 70,
+      "대홀드_pct": 3
+     }
+    },
+    "align": {
+     "cs_uses": 404,
+     "cs_in_avatar_win_pct": 46,
+     "bladestorm_uses": 0,
+     "bladestorm_in_cs_win_pct": null,
+     "bladestorm_in_avatar_win_pct": null,
+     "ravager_uses": 130,
+     "ravager_in_cs_win_pct": 56,
+     "ravager_in_avatar_win_pct": 41,
+     "demolish_uses": 566,
+     "demolish_in_cs_win_pct": 54,
+     "demolish_in_avatar_win_pct": 47
+    }
+   }
+  },
+  "우주의 왕관": {
+   "encounter_id": 3181,
+   "name_en": "Crown of the Cosmos",
+   "kill_med_s": 488,
+   "all": {
+    "n": 34,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 8,
+     "first_med_s": 19.2,
+     "first_p25_p75": [
+      3.9,
+      23.1
+     ],
+     "opener10s_pct": 32,
+     "gap": {
+      "n": 223,
+      "p25": 56.0,
+      "med": 61.0,
+      "p75": 71.2,
+      "즉시_pct": 13,
+      "소홀드_pct": 60,
+      "대홀드_pct": 27
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 14,
+     "first_med_s": 4.2,
+     "first_p25_p75": [
+      2.4,
+      20.1
+     ],
+     "opener10s_pct": 56,
+     "gap": {
+      "n": 446,
+      "p25": 27.4,
+      "med": 29.7,
+      "p75": 33.5,
+      "즉시_pct": 25,
+      "소홀드_pct": 62,
+      "대홀드_pct": 13
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 8,
+     "first_med_s": 22.0,
+     "first_p25_p75": [
+      6.6,
+      25.5
+     ],
+     "opener10s_pct": 29,
+     "gap": {
+      "n": 225,
+      "p25": 55.4,
+      "med": 61.2,
+      "p75": 72.3,
+      "즉시_pct": 4,
+      "소홀드_pct": 28,
+      "대홀드_pct": 68
+     }
+    },
+    "쇠날발톱": null,
+    "쇄파": null,
+    "align": {
+     "cs_uses": 480,
+     "cs_in_avatar_win_pct": 53,
+     "bladestorm_uses": 259,
+     "bladestorm_in_cs_win_pct": 90,
+     "bladestorm_in_avatar_win_pct": 88,
+     "ravager_uses": 0,
+     "ravager_in_cs_win_pct": null,
+     "ravager_in_avatar_win_pct": null,
+     "demolish_uses": 0,
+     "demolish_in_cs_win_pct": null,
+     "demolish_in_avatar_win_pct": null
+    }
+   },
+   "hero_학살자": {
+    "n": 34,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 8,
+     "first_med_s": 19.2,
+     "first_p25_p75": [
+      3.9,
+      23.1
+     ],
+     "opener10s_pct": 32,
+     "gap": {
+      "n": 223,
+      "p25": 56.0,
+      "med": 61.0,
+      "p75": 71.2,
+      "즉시_pct": 13,
+      "소홀드_pct": 60,
+      "대홀드_pct": 27
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 14,
+     "first_med_s": 4.2,
+     "first_p25_p75": [
+      2.4,
+      20.1
+     ],
+     "opener10s_pct": 56,
+     "gap": {
+      "n": 446,
+      "p25": 27.4,
+      "med": 29.7,
+      "p75": 33.5,
+      "즉시_pct": 25,
+      "소홀드_pct": 62,
+      "대홀드_pct": 13
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 8,
+     "first_med_s": 22.0,
+     "first_p25_p75": [
+      6.6,
+      25.5
+     ],
+     "opener10s_pct": 29,
+     "gap": {
+      "n": 225,
+      "p25": 55.4,
+      "med": 61.2,
+      "p75": 72.3,
+      "즉시_pct": 4,
+      "소홀드_pct": 28,
+      "대홀드_pct": 68
+     }
+    },
+    "쇠날발톱": null,
+    "쇄파": null,
+    "align": {
+     "cs_uses": 480,
+     "cs_in_avatar_win_pct": 53,
+     "bladestorm_uses": 259,
+     "bladestorm_in_cs_win_pct": 90,
+     "bladestorm_in_avatar_win_pct": 88,
+     "ravager_uses": 0,
+     "ravager_in_cs_win_pct": null,
+     "ravager_in_avatar_win_pct": null,
+     "demolish_uses": 0,
+     "demolish_in_cs_win_pct": null,
+     "demolish_in_avatar_win_pct": null
+    }
+   }
+  },
+  "벨로렌": {
+   "encounter_id": 3182,
+   "name_en": "Belo'ren, Child of Al'ar",
+   "kill_med_s": 311,
+   "all": {
+    "n": 33,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 6,
+     "first_med_s": 2.0,
+     "first_p25_p75": [
+      1.6,
+      2.7
+     ],
+     "opener10s_pct": 97,
+     "gap": {
+      "n": 144,
+      "p25": 55.5,
+      "med": 57.9,
+      "p75": 61.3,
+      "즉시_pct": 7,
+      "소홀드_pct": 83,
+      "대홀드_pct": 10
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 10,
+     "first_med_s": 2.4,
+     "first_p25_p75": [
+      2.1,
+      2.7
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 299,
+      "p25": 26.5,
+      "med": 29.0,
+      "p75": 32.1,
+      "즉시_pct": 34,
+      "소홀드_pct": 61,
+      "대홀드_pct": 6
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 6,
+     "first_med_s": 3.6,
+     "first_p25_p75": [
+      3.5,
+      4.9
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 149,
+      "p25": 54.0,
+      "med": 58.3,
+      "p75": 63.3,
+      "즉시_pct": 6,
+      "소홀드_pct": 31,
+      "대홀드_pct": 63
+     }
+    },
+    "쇠날발톱": null,
+    "쇄파": null,
+    "align": {
+     "cs_uses": 332,
+     "cs_in_avatar_win_pct": 52,
+     "bladestorm_uses": 182,
+     "bladestorm_in_cs_win_pct": 91,
+     "bladestorm_in_avatar_win_pct": 85,
+     "ravager_uses": 0,
+     "ravager_in_cs_win_pct": null,
+     "ravager_in_avatar_win_pct": null,
+     "demolish_uses": 0,
+     "demolish_in_cs_win_pct": null,
+     "demolish_in_avatar_win_pct": null
+    }
+   },
+   "hero_학살자": {
+    "n": 33,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 6,
+     "first_med_s": 2.0,
+     "first_p25_p75": [
+      1.6,
+      2.7
+     ],
+     "opener10s_pct": 97,
+     "gap": {
+      "n": 144,
+      "p25": 55.5,
+      "med": 57.9,
+      "p75": 61.3,
+      "즉시_pct": 7,
+      "소홀드_pct": 83,
+      "대홀드_pct": 10
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 10,
+     "first_med_s": 2.4,
+     "first_p25_p75": [
+      2.1,
+      2.7
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 299,
+      "p25": 26.5,
+      "med": 29.0,
+      "p75": 32.1,
+      "즉시_pct": 34,
+      "소홀드_pct": 61,
+      "대홀드_pct": 6
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 6,
+     "first_med_s": 3.6,
+     "first_p25_p75": [
+      3.5,
+      4.9
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 149,
+      "p25": 54.0,
+      "med": 58.3,
+      "p75": 63.3,
+      "즉시_pct": 6,
+      "소홀드_pct": 31,
+      "대홀드_pct": 63
+     }
+    },
+    "쇠날발톱": null,
+    "쇄파": null,
+    "align": {
+     "cs_uses": 332,
+     "cs_in_avatar_win_pct": 52,
+     "bladestorm_uses": 182,
+     "bladestorm_in_cs_win_pct": 91,
+     "bladestorm_in_avatar_win_pct": 85,
+     "ravager_uses": 0,
+     "ravager_in_cs_win_pct": null,
+     "ravager_in_avatar_win_pct": null,
+     "demolish_uses": 0,
+     "demolish_in_cs_win_pct": null,
+     "demolish_in_avatar_win_pct": null
+    }
+   }
+  },
+  "한밤의 도래(르우라)": {
+   "encounter_id": 3183,
+   "name_en": "Midnight Falls",
+   "kill_med_s": 563,
+   "all": {
+    "n": 33,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 10,
+     "first_med_s": 3.0,
+     "first_p25_p75": [
+      2.8,
+      12.7
+     ],
+     "opener10s_pct": 61,
+     "gap": {
+      "n": 284,
+      "p25": 55.4,
+      "med": 61.0,
+      "p75": 64.2,
+      "즉시_pct": 20,
+      "소홀드_pct": 64,
+      "대홀드_pct": 15
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 18,
+     "first_med_s": 12.5,
+     "first_p25_p75": [
+      2.3,
+      13.4
+     ],
+     "opener10s_pct": 48,
+     "gap": {
+      "n": 567,
+      "p25": 26.6,
+      "med": 29.9,
+      "p75": 32.0,
+      "즉시_pct": 29,
+      "소홀드_pct": 64,
+      "대홀드_pct": 7
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 10,
+     "first_med_s": 13.7,
+     "first_p25_p75": [
+      3.5,
+      14.7
+     ],
+     "opener10s_pct": 48,
+     "gap": {
+      "n": 297,
+      "p25": 51.8,
+      "med": 60.7,
+      "p75": 63.7,
+      "즉시_pct": 8,
+      "소홀드_pct": 29,
+      "대홀드_pct": 64
+     }
+    },
+    "쇠날발톱": null,
+    "쇄파": null,
+    "align": {
+     "cs_uses": 600,
+     "cs_in_avatar_win_pct": 52,
+     "bladestorm_uses": 330,
+     "bladestorm_in_cs_win_pct": 91,
+     "bladestorm_in_avatar_win_pct": 82,
+     "ravager_uses": 0,
+     "ravager_in_cs_win_pct": null,
+     "ravager_in_avatar_win_pct": null,
+     "demolish_uses": 0,
+     "demolish_in_cs_win_pct": null,
+     "demolish_in_avatar_win_pct": null
+    }
+   },
+   "hero_학살자": {
+    "n": 33,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 10,
+     "first_med_s": 3.0,
+     "first_p25_p75": [
+      2.8,
+      12.7
+     ],
+     "opener10s_pct": 61,
+     "gap": {
+      "n": 284,
+      "p25": 55.4,
+      "med": 61.0,
+      "p75": 64.2,
+      "즉시_pct": 20,
+      "소홀드_pct": 64,
+      "대홀드_pct": 15
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 18,
+     "first_med_s": 12.5,
+     "first_p25_p75": [
+      2.3,
+      13.4
+     ],
+     "opener10s_pct": 48,
+     "gap": {
+      "n": 567,
+      "p25": 26.6,
+      "med": 29.9,
+      "p75": 32.0,
+      "즉시_pct": 29,
+      "소홀드_pct": 64,
+      "대홀드_pct": 7
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 10,
+     "first_med_s": 13.7,
+     "first_p25_p75": [
+      3.5,
+      14.7
+     ],
+     "opener10s_pct": 48,
+     "gap": {
+      "n": 297,
+      "p25": 51.8,
+      "med": 60.7,
+      "p75": 63.7,
+      "즉시_pct": 8,
+      "소홀드_pct": 29,
+      "대홀드_pct": 64
+     }
+    },
+    "쇠날발톱": null,
+    "쇄파": null,
+    "align": {
+     "cs_uses": 600,
+     "cs_in_avatar_win_pct": 52,
+     "bladestorm_uses": 330,
+     "bladestorm_in_cs_win_pct": 91,
+     "bladestorm_in_avatar_win_pct": 82,
+     "ravager_uses": 0,
+     "ravager_in_cs_win_pct": null,
+     "ravager_in_avatar_win_pct": null,
+     "demolish_uses": 0,
+     "demolish_in_cs_win_pct": null,
+     "demolish_in_avatar_win_pct": null
+    }
+   }
+  },
+  "카이메루스": {
+   "encounter_id": 3306,
+   "name_en": "Chimaerus, the Undreamt God",
+   "kill_med_s": 149,
+   "all": {
+    "n": 33,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 3,
+     "first_med_s": 2.9,
+     "first_p25_p75": [
+      2.0,
+      26.7
+     ],
+     "opener10s_pct": 52,
+     "gap": {
+      "n": 92,
+      "p25": 57.3,
+      "med": 65.3,
+      "p75": 79.9,
+      "즉시_pct": 5,
+      "소홀드_pct": 53,
+      "대홀드_pct": 41
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 6,
+     "first_med_s": 2.9,
+     "first_p25_p75": [
+      2.2,
+      27.2
+     ],
+     "opener10s_pct": 55,
+     "gap": {
+      "n": 209,
+      "p25": 28.0,
+      "med": 30.7,
+      "p75": 36.6,
+      "즉시_pct": 21,
+      "소홀드_pct": 64,
+      "대홀드_pct": 15
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 55,
+     "uses_med": 3,
+     "first_med_s": 3.3,
+     "first_p25_p75": [
+      2.9,
+      4.1
+     ],
+     "opener10s_pct": 94,
+     "gap": {
+      "n": 40,
+      "p25": 48.4,
+      "med": 54.1,
+      "p75": 57.5,
+      "즉시_pct": 10,
+      "소홀드_pct": 58,
+      "대홀드_pct": 32
+     }
+    },
+    "쇠날발톱": {
+     "출현판_pct": 45,
+     "uses_med": 0,
+     "first_med_s": 26.4,
+     "first_p25_p75": [
+      25.8,
+      26.7
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 35,
+      "p25": 97.4,
+      "med": 105.0,
+      "p75": 152.4,
+      "즉시_pct": 11,
+      "소홀드_pct": 43,
+      "대홀드_pct": 46
+     }
+    },
+    "쇄파": {
+     "출현판_pct": 45,
+     "uses_med": 0,
+     "first_med_s": 28.4,
+     "first_p25_p75": [
+      27.8,
+      28.5
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 135,
+      "p25": 25.6,
+      "med": 34.1,
+      "p75": 46.5,
+      "즉시_pct": 0,
+      "소홀드_pct": 61,
+      "대홀드_pct": 39
+     }
+    },
+    "align": {
+     "cs_uses": 242,
+     "cs_in_avatar_win_pct": 51,
+     "bladestorm_uses": 58,
+     "bladestorm_in_cs_win_pct": 83,
+     "bladestorm_in_avatar_win_pct": 74,
+     "ravager_uses": 50,
+     "ravager_in_cs_win_pct": 4,
+     "ravager_in_avatar_win_pct": 2,
+     "demolish_uses": 150,
+     "demolish_in_cs_win_pct": 73,
+     "demolish_in_avatar_win_pct": 47
+    }
+   },
+   "hero_학살자": {
+    "n": 18,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 3,
+     "first_med_s": 2.0,
+     "first_p25_p75": [
+      1.5,
+      2.4
+     ],
+     "opener10s_pct": 94,
+     "gap": {
+      "n": 36,
+      "p25": 54.6,
+      "med": 56.1,
+      "p75": 58.5,
+      "즉시_pct": 14,
+      "소홀드_pct": 86,
+      "대홀드_pct": 0
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 6,
+     "first_med_s": 2.2,
+     "first_p25_p75": [
+      1.8,
+      2.6
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 82,
+      "p25": 25.5,
+      "med": 28.0,
+      "p75": 30.7,
+      "즉시_pct": 43,
+      "소홀드_pct": 57,
+      "대홀드_pct": 0
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 3,
+     "first_med_s": 3.3,
+     "first_p25_p75": [
+      2.9,
+      4.1
+     ],
+     "opener10s_pct": 94,
+     "gap": {
+      "n": 40,
+      "p25": 48.4,
+      "med": 54.1,
+      "p75": 57.5,
+      "즉시_pct": 10,
+      "소홀드_pct": 58,
+      "대홀드_pct": 32
+     }
+    },
+    "쇠날발톱": null,
+    "쇄파": null,
+    "align": {
+     "cs_uses": 100,
+     "cs_in_avatar_win_pct": 53,
+     "bladestorm_uses": 58,
+     "bladestorm_in_cs_win_pct": 83,
+     "bladestorm_in_avatar_win_pct": 74,
+     "ravager_uses": 0,
+     "ravager_in_cs_win_pct": null,
+     "ravager_in_avatar_win_pct": null,
+     "demolish_uses": 0,
+     "demolish_in_cs_win_pct": null,
+     "demolish_in_avatar_win_pct": null
+    }
+   },
+   "hero_거신": {
+    "n": 15,
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 5,
+     "first_med_s": 26.8,
+     "first_p25_p75": [
+      26.5,
+      27.1
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 56,
+      "p25": 68.8,
+      "med": 77.0,
+      "p75": 94.1,
+      "즉시_pct": 0,
+      "소홀드_pct": 32,
+      "대홀드_pct": 68
+     }
+    },
+    "거인의 강타": {
+     "출현판_pct": 100,
+     "uses_med": 10,
+     "first_med_s": 27.4,
+     "first_p25_p75": [
+      26.9,
+      27.7
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 127,
+      "p25": 29.9,
+      "med": 34.2,
+      "p75": 44.3,
+      "즉시_pct": 6,
+      "소홀드_pct": 69,
+      "대홀드_pct": 25
+     }
+    },
+    "칼날폭풍": null,
+    "쇠날발톱": {
+     "출현판_pct": 100,
+     "uses_med": 3,
+     "first_med_s": 26.4,
+     "first_p25_p75": [
+      25.8,
+      26.7
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 35,
+      "p25": 97.4,
+      "med": 105.0,
+      "p75": 152.4,
+      "즉시_pct": 11,
+      "소홀드_pct": 43,
+      "대홀드_pct": 46
+     }
+    },
+    "쇄파": {
+     "출현판_pct": 100,
+     "uses_med": 10,
+     "first_med_s": 28.4,
+     "first_p25_p75": [
+      27.8,
+      28.5
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 135,
+      "p25": 25.6,
+      "med": 34.1,
+      "p75": 46.5,
+      "즉시_pct": 0,
+      "소홀드_pct": 61,
+      "대홀드_pct": 39
+     }
+    },
+    "align": {
+     "cs_uses": 142,
+     "cs_in_avatar_win_pct": 50,
+     "bladestorm_uses": 0,
+     "bladestorm_in_cs_win_pct": null,
+     "bladestorm_in_avatar_win_pct": null,
+     "ravager_uses": 50,
+     "ravager_in_cs_win_pct": 4,
+     "ravager_in_avatar_win_pct": 2,
+     "demolish_uses": 150,
+     "demolish_in_cs_win_pct": 73,
+     "demolish_in_avatar_win_pct": 47
+    }
+   }
+  }
+ }
+}

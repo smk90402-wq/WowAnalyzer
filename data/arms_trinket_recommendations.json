@@ -1,0 +1,1234 @@
+{
+  "_meta": {
+    "generated_at": "2026-07-11T01:28:56",
+    "zone_id": 46,
+    "zone": "VS / DR / MQD",
+    "difficulty": "mythic",
+    "partition": 3,
+    "partition_name": "12.0.7",
+    "topn": 100,
+    "top_band": 25,
+    "notes": [
+      "DPS 보정값은 템렙과 전투시간 영향을 뺀 값 기준입니다.",
+      "장신구 목록은 하드코딩 없이 무기 상위권 장비에 실제로 나온 것만 집계합니다.",
+      "추천은 평균 딜보다 상위권 채택률을 더 크게 봅니다. 킬마다 딜이 들쭉날쭉한 표본이라 작은 차이는 무시하세요."
+    ]
+  },
+  "Warrior|Arms": {
+    "3176": {
+      "encounter_id": "3176",
+      "boss": "전제군주 아베르지안",
+      "encounter_name": "Imperator Averzian",
+      "rankings_n": 100,
+      "sample_n": 94,
+      "hero_counts": {
+        "학살자": 74,
+        "거신": 19,
+        "unknown": 1
+      },
+      "failures": 6,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 210.7,
+      "top_ilvl": 291.0,
+      "top_stats": {
+        "crit": 1158.5,
+        "haste": 1076.6,
+        "mastery": 452.4,
+        "vers": 35.8
+      },
+      "trinket_pool": [
+        {
+          "id": 249342,
+          "label": "고대의 허기 심장",
+          "n": 89
+        },
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 85
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 11
+        },
+        {
+          "id": 249344,
+          "label": "빛의 부대기",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "고대의 허기 심장",
+          25
+        ],
+        [
+          "알른 선견자의 응시",
+          22
+        ],
+        [
+          "암영의 꽁지깃",
+          3
+        ]
+      ],
+      "top_item_pct": {
+        "고대의 허기 심장": 100,
+        "알른 선견자의 응시": 88,
+        "암영의 꽁지깃": 12
+      },
+      "top_combos": [
+        {
+          "combo": "고대의 허기 심장 + 알른 선견자의 응시",
+          "n": 22,
+          "pct": 88
+        },
+        {
+          "combo": "고대의 허기 심장 + 암영의 꽁지깃",
+          "n": 3,
+          "pct": 12
+        }
+      ],
+      "groups": {
+        "249342": {
+          "label": "고대의 허기 심장",
+          "n": 89,
+          "pct": 95,
+          "avg_rank": 51.3,
+          "avg_dps": 152429.0,
+          "avg_adjusted_dps": 109.0,
+          "others_adjusted_dps": -1939.3
+        },
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 85,
+          "pct": 90,
+          "avg_rank": 52.1,
+          "avg_dps": 152154.9,
+          "avg_adjusted_dps": -138.8,
+          "others_adjusted_dps": 1311.2
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 11,
+          "pct": 12,
+          "avg_rank": 49.1,
+          "avg_dps": 153317.9,
+          "avg_adjusted_dps": 886.1,
+          "others_adjusted_dps": -117.4
+        }
+      },
+      "recommendation": {
+        "pick": "고대의 허기 심장 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 88%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": 2048.3
+      }
+    },
+    "3177": {
+      "encounter_id": "3177",
+      "boss": "보라시우스",
+      "encounter_name": "Vorasius",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "학살자": 100
+      },
+      "failures": 0,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 196.5,
+      "top_ilvl": 291.5,
+      "top_stats": {
+        "crit": 1123.2,
+        "haste": 1089.4,
+        "mastery": 485.1,
+        "vers": 24.4
+      },
+      "trinket_pool": [
+        {
+          "id": 249342,
+          "label": "고대의 허기 심장",
+          "n": 96
+        },
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 96
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 5
+        },
+        {
+          "id": 249344,
+          "label": "빛의 부대기",
+          "n": 2
+        },
+        {
+          "id": 252420,
+          "label": "태양섬광 분광경",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "고대의 허기 심장",
+          25
+        ],
+        [
+          "알른 선견자의 응시",
+          24
+        ],
+        [
+          "암영의 꽁지깃",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "고대의 허기 심장": 100,
+        "알른 선견자의 응시": 96,
+        "암영의 꽁지깃": 4
+      },
+      "top_combos": [
+        {
+          "combo": "고대의 허기 심장 + 알른 선견자의 응시",
+          "n": 24,
+          "pct": 96
+        },
+        {
+          "combo": "고대의 허기 심장 + 암영의 꽁지깃",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "249342": {
+          "label": "고대의 허기 심장",
+          "n": 96,
+          "pct": 96,
+          "avg_rank": 49.9,
+          "avg_dps": 143924.6,
+          "avg_adjusted_dps": 68.7,
+          "others_adjusted_dps": -1648.1
+        },
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 96,
+          "pct": 96,
+          "avg_rank": 50.3,
+          "avg_dps": 143882.0,
+          "avg_adjusted_dps": 66.6,
+          "others_adjusted_dps": -1598.5
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 5,
+          "pct": 5,
+          "avg_rank": 50.6,
+          "avg_dps": 143236.9,
+          "avg_adjusted_dps": -1145.4,
+          "others_adjusted_dps": 60.3
+        }
+      },
+      "recommendation": {
+        "pick": "고대의 허기 심장 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 96%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": 1716.8
+      }
+    },
+    "3178": {
+      "encounter_id": "3178",
+      "boss": "바엘고어와 에조라크",
+      "encounter_name": "Vaelgor & Ezzorak",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "거신": 98,
+        "학살자": 1,
+        "unknown": 1
+      },
+      "failures": 0,
+      "cache_hits": 99,
+      "live_fetches": 1,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 390.2,
+      "top_ilvl": 290.6,
+      "top_stats": {
+        "crit": 1194.4,
+        "haste": 1013.1,
+        "mastery": 436.5,
+        "vers": 50.5
+      },
+      "trinket_pool": [
+        {
+          "id": 249342,
+          "label": "고대의 허기 심장",
+          "n": 95
+        },
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 89
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 6
+        },
+        {
+          "id": 252420,
+          "label": "태양섬광 분광경",
+          "n": 4
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 1
+        },
+        {
+          "id": 248583,
+          "label": "새로운 유대의 북",
+          "n": 1
+        },
+        {
+          "id": 250256,
+          "label": "바람의 심장",
+          "n": 1
+        },
+        {
+          "id": 249344,
+          "label": "빛의 부대기",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "고대의 허기 심장",
+          24
+        ],
+        [
+          "알른 선견자의 응시",
+          22
+        ],
+        [
+          "암영의 꽁지깃",
+          2
+        ],
+        [
+          "태양섬광 분광경",
+          1
+        ],
+        [
+          "포자군주의 진균 휘장",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "알른 선견자의 응시": 88,
+        "고대의 허기 심장": 96,
+        "암영의 꽁지깃": 8,
+        "태양섬광 분광경": 4,
+        "포자군주의 진균 휘장": 4
+      },
+      "top_combos": [
+        {
+          "combo": "고대의 허기 심장 + 알른 선견자의 응시",
+          "n": 22,
+          "pct": 88
+        },
+        {
+          "combo": "고대의 허기 심장 + 암영의 꽁지깃",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "태양섬광 분광경 + 포자군주의 진균 휘장",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "249342": {
+          "label": "고대의 허기 심장",
+          "n": 95,
+          "pct": 95,
+          "avg_rank": 50.6,
+          "avg_dps": 231744.6,
+          "avg_adjusted_dps": 139.8,
+          "others_adjusted_dps": -2656.0
+        },
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 89,
+          "pct": 89,
+          "avg_rank": 50.0,
+          "avg_dps": 231941.1,
+          "avg_adjusted_dps": 293.4,
+          "others_adjusted_dps": -2374.2
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 6,
+          "pct": 6,
+          "avg_rank": 57.5,
+          "avg_dps": 227877.6,
+          "avg_adjusted_dps": -3028.1,
+          "others_adjusted_dps": 193.3
+        },
+        "252420": {
+          "label": "태양섬광 분광경",
+          "n": 4,
+          "pct": 4,
+          "avg_rank": 41.0,
+          "avg_dps": 231434.7,
+          "avg_adjusted_dps": 385.2,
+          "others_adjusted_dps": -16.1
+        }
+      },
+      "recommendation": {
+        "pick": "고대의 허기 심장 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 88%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": 2795.8
+      }
+    },
+    "3179": {
+      "encounter_id": "3179",
+      "boss": "몰락왕 살라다르",
+      "encounter_name": "Fallen-King Salhadaar",
+      "rankings_n": 100,
+      "sample_n": 99,
+      "hero_counts": {
+        "학살자": 99
+      },
+      "failures": 1,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 199.9,
+      "top_ilvl": 291.4,
+      "top_stats": {
+        "crit": 1177.2,
+        "haste": 1098.5,
+        "mastery": 448.5,
+        "vers": 19.5
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 97
+        },
+        {
+          "id": 249342,
+          "label": "고대의 허기 심장",
+          "n": 97
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 3
+        },
+        {
+          "id": 252420,
+          "label": "태양섬광 분광경",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "알른 선견자의 응시",
+          24
+        ],
+        [
+          "고대의 허기 심장",
+          24
+        ],
+        [
+          "암영의 꽁지깃",
+          2
+        ]
+      ],
+      "top_item_pct": {
+        "알른 선견자의 응시": 96,
+        "고대의 허기 심장": 96,
+        "암영의 꽁지깃": 8
+      },
+      "top_combos": [
+        {
+          "combo": "고대의 허기 심장 + 알른 선견자의 응시",
+          "n": 23,
+          "pct": 92
+        },
+        {
+          "combo": "고대의 허기 심장 + 암영의 꽁지깃",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "알른 선견자의 응시 + 암영의 꽁지깃",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 97,
+          "pct": 98,
+          "avg_rank": 50.3,
+          "avg_dps": 163823.4,
+          "avg_adjusted_dps": -28.5,
+          "others_adjusted_dps": 1381.6
+        },
+        "249342": {
+          "label": "고대의 허기 심장",
+          "n": 97,
+          "pct": 98,
+          "avg_rank": 50.1,
+          "avg_dps": 163855.1,
+          "avg_adjusted_dps": -52.6,
+          "others_adjusted_dps": 2551.0
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 3,
+          "pct": 3,
+          "avg_rank": 31.7,
+          "avg_dps": 168927.0,
+          "avg_adjusted_dps": 3109.7,
+          "others_adjusted_dps": -97.2
+        }
+      },
+      "recommendation": {
+        "pick": "고대의 허기 심장 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 92%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": -1410.1
+      }
+    },
+    "3180": {
+      "encounter_id": "3180",
+      "boss": "빛눈먼 선봉대",
+      "encounter_name": "Lightblinded Vanguard",
+      "rankings_n": 100,
+      "sample_n": 98,
+      "hero_counts": {
+        "거신": 98
+      },
+      "failures": 2,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 374.3,
+      "top_ilvl": 291.0,
+      "top_stats": {
+        "crit": 1272.1,
+        "haste": 1055.4,
+        "mastery": 436.7,
+        "vers": 20.6
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 91
+        },
+        {
+          "id": 249342,
+          "label": "고대의 허기 심장",
+          "n": 87
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 14
+        },
+        {
+          "id": 252420,
+          "label": "태양섬광 분광경",
+          "n": 2
+        },
+        {
+          "id": 248583,
+          "label": "새로운 유대의 북",
+          "n": 1
+        },
+        {
+          "id": 250256,
+          "label": "바람의 심장",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "알른 선견자의 응시",
+          24
+        ],
+        [
+          "고대의 허기 심장",
+          22
+        ],
+        [
+          "암영의 꽁지깃",
+          3
+        ],
+        [
+          "새로운 유대의 북",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "고대의 허기 심장": 88,
+        "알른 선견자의 응시": 96,
+        "암영의 꽁지깃": 12,
+        "새로운 유대의 북": 4
+      },
+      "top_combos": [
+        {
+          "combo": "고대의 허기 심장 + 알른 선견자의 응시",
+          "n": 21,
+          "pct": 84
+        },
+        {
+          "combo": "알른 선견자의 응시 + 암영의 꽁지깃",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "고대의 허기 심장 + 암영의 꽁지깃",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "새로운 유대의 북 + 알른 선견자의 응시",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 91,
+          "pct": 93,
+          "avg_rank": 49.6,
+          "avg_dps": 255712.3,
+          "avg_adjusted_dps": 69.3,
+          "others_adjusted_dps": -900.7
+        },
+        "249342": {
+          "label": "고대의 허기 심장",
+          "n": 87,
+          "pct": 89,
+          "avg_rank": 49.3,
+          "avg_dps": 255822.0,
+          "avg_adjusted_dps": 166.8,
+          "others_adjusted_dps": -1319.3
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 14,
+          "pct": 14,
+          "avg_rank": 52.1,
+          "avg_dps": 255119.2,
+          "avg_adjusted_dps": -531.2,
+          "others_adjusted_dps": 88.5
+        }
+      },
+      "recommendation": {
+        "pick": "고대의 허기 심장 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 84%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": 970.0
+      }
+    },
+    "3181": {
+      "encounter_id": "3181",
+      "boss": "우주의 왕관",
+      "encounter_name": "Crown of the Cosmos",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "학살자": 100
+      },
+      "failures": 0,
+      "cache_hits": 99,
+      "live_fetches": 1,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 491.5,
+      "top_ilvl": 290.8,
+      "top_stats": {
+        "crit": 1198.7,
+        "haste": 1068.1,
+        "mastery": 412.2,
+        "vers": 32.6
+      },
+      "trinket_pool": [
+        {
+          "id": 249342,
+          "label": "고대의 허기 심장",
+          "n": 93
+        },
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 91
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 13
+        },
+        {
+          "id": 252420,
+          "label": "태양섬광 분광경",
+          "n": 2
+        },
+        {
+          "id": 264507,
+          "label": "뒤틀린 마력의 도가니",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "고대의 허기 심장",
+          23
+        ],
+        [
+          "알른 선견자의 응시",
+          23
+        ],
+        [
+          "암영의 꽁지깃",
+          3
+        ],
+        [
+          "태양섬광 분광경",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "고대의 허기 심장": 92,
+        "알른 선견자의 응시": 92,
+        "암영의 꽁지깃": 12,
+        "태양섬광 분광경": 4
+      },
+      "top_combos": [
+        {
+          "combo": "고대의 허기 심장 + 알른 선견자의 응시",
+          "n": 21,
+          "pct": 84
+        },
+        {
+          "combo": "고대의 허기 심장 + 암영의 꽁지깃",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "알른 선견자의 응시 + 암영의 꽁지깃",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "알른 선견자의 응시 + 태양섬광 분광경",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "249342": {
+          "label": "고대의 허기 심장",
+          "n": 93,
+          "pct": 93,
+          "avg_rank": 50.1,
+          "avg_dps": 131723.2,
+          "avg_adjusted_dps": 53.3,
+          "others_adjusted_dps": -708.3
+        },
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 91,
+          "pct": 91,
+          "avg_rank": 50.5,
+          "avg_dps": 131669.9,
+          "avg_adjusted_dps": 15.5,
+          "others_adjusted_dps": -157.0
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 13,
+          "pct": 13,
+          "avg_rank": 50.7,
+          "avg_dps": 131187.9,
+          "avg_adjusted_dps": -311.1,
+          "others_adjusted_dps": 46.5
+        }
+      },
+      "recommendation": {
+        "pick": "고대의 허기 심장 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 84%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": 761.6
+      }
+    },
+    "3182": {
+      "encounter_id": "3182",
+      "boss": "벨로렌",
+      "encounter_name": "Belo'ren, Child of Al'ar",
+      "rankings_n": 100,
+      "sample_n": 99,
+      "hero_counts": {
+        "학살자": 99
+      },
+      "failures": 1,
+      "cache_hits": 99,
+      "live_fetches": 1,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 312.3,
+      "top_ilvl": 290.4,
+      "top_stats": {
+        "crit": 1189.6,
+        "haste": 1073.4,
+        "mastery": 417.1,
+        "vers": 30.9
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 94
+        },
+        {
+          "id": 249342,
+          "label": "고대의 허기 심장",
+          "n": 92
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 10
+        },
+        {
+          "id": 250256,
+          "label": "바람의 심장",
+          "n": 1
+        },
+        {
+          "id": 252420,
+          "label": "태양섬광 분광경",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "고대의 허기 심장",
+          24
+        ],
+        [
+          "알른 선견자의 응시",
+          22
+        ],
+        [
+          "암영의 꽁지깃",
+          4
+        ]
+      ],
+      "top_item_pct": {
+        "알른 선견자의 응시": 88,
+        "고대의 허기 심장": 96,
+        "암영의 꽁지깃": 16
+      },
+      "top_combos": [
+        {
+          "combo": "고대의 허기 심장 + 알른 선견자의 응시",
+          "n": 21,
+          "pct": 84
+        },
+        {
+          "combo": "고대의 허기 심장 + 암영의 꽁지깃",
+          "n": 3,
+          "pct": 12
+        },
+        {
+          "combo": "알른 선견자의 응시 + 암영의 꽁지깃",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 94,
+          "pct": 95,
+          "avg_rank": 50.7,
+          "avg_dps": 146694.9,
+          "avg_adjusted_dps": -41.0,
+          "others_adjusted_dps": 770.8
+        },
+        "249342": {
+          "label": "고대의 허기 심장",
+          "n": 92,
+          "pct": 93,
+          "avg_rank": 49.9,
+          "avg_dps": 146825.1,
+          "avg_adjusted_dps": 69.6,
+          "others_adjusted_dps": -915.3
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 10,
+          "pct": 10,
+          "avg_rank": 49.5,
+          "avg_dps": 146580.5,
+          "avg_adjusted_dps": 186.2,
+          "others_adjusted_dps": -20.9
+        }
+      },
+      "recommendation": {
+        "pick": "고대의 허기 심장 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 84%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": -811.8
+      }
+    },
+    "3183": {
+      "encounter_id": "3183",
+      "boss": "한밤의 도래",
+      "encounter_name": "Midnight Falls",
+      "rankings_n": 100,
+      "sample_n": 99,
+      "hero_counts": {
+        "학살자": 99
+      },
+      "failures": 1,
+      "cache_hits": 100,
+      "live_fetches": 0,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 562.7,
+      "top_ilvl": 290.6,
+      "top_stats": {
+        "crit": 1200.8,
+        "haste": 1095.6,
+        "mastery": 396.2,
+        "vers": 16.3
+      },
+      "trinket_pool": [
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 91
+        },
+        {
+          "id": 249342,
+          "label": "고대의 허기 심장",
+          "n": 91
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 14
+        },
+        {
+          "id": 252420,
+          "label": "태양섬광 분광경",
+          "n": 1
+        },
+        {
+          "id": 248583,
+          "label": "새로운 유대의 북",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "고대의 허기 심장",
+          25
+        ],
+        [
+          "알른 선견자의 응시",
+          22
+        ],
+        [
+          "암영의 꽁지깃",
+          3
+        ]
+      ],
+      "top_item_pct": {
+        "알른 선견자의 응시": 88,
+        "고대의 허기 심장": 100,
+        "암영의 꽁지깃": 12
+      },
+      "top_combos": [
+        {
+          "combo": "고대의 허기 심장 + 알른 선견자의 응시",
+          "n": 22,
+          "pct": 88
+        },
+        {
+          "combo": "고대의 허기 심장 + 암영의 꽁지깃",
+          "n": 3,
+          "pct": 12
+        }
+      ],
+      "groups": {
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 91,
+          "pct": 92,
+          "avg_rank": 50.3,
+          "avg_dps": 179110.0,
+          "avg_adjusted_dps": -11.4,
+          "others_adjusted_dps": 129.4
+        },
+        "249342": {
+          "label": "고대의 허기 심장",
+          "n": 91,
+          "pct": 92,
+          "avg_rank": 49.1,
+          "avg_dps": 179279.9,
+          "avg_adjusted_dps": 189.6,
+          "others_adjusted_dps": -2156.8
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 14,
+          "pct": 14,
+          "avg_rank": 57.0,
+          "avg_dps": 178080.7,
+          "avg_adjusted_dps": -1102.8,
+          "others_adjusted_dps": 181.6
+        }
+      },
+      "recommendation": {
+        "pick": "고대의 허기 심장 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 88%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": -140.8
+      }
+    },
+    "3306": {
+      "encounter_id": "3306",
+      "boss": "카이메루스",
+      "encounter_name": "Chimaerus, the Undreamt God",
+      "rankings_n": 100,
+      "sample_n": 100,
+      "hero_counts": {
+        "거신": 19,
+        "학살자": 81
+      },
+      "failures": 0,
+      "cache_hits": 98,
+      "live_fetches": 2,
+      "skipped_uncached": 0,
+      "top_n": 25,
+      "top_kill_s": 360.8,
+      "top_ilvl": 290.6,
+      "top_stats": {
+        "crit": 1251.9,
+        "haste": 1029.6,
+        "mastery": 409.8,
+        "vers": 46.6
+      },
+      "trinket_pool": [
+        {
+          "id": 249342,
+          "label": "고대의 허기 심장",
+          "n": 89
+        },
+        {
+          "id": 249343,
+          "label": "알른 선견자의 응시",
+          "n": 82
+        },
+        {
+          "id": 260235,
+          "label": "암영의 꽁지깃",
+          "n": 10
+        },
+        {
+          "id": 268292,
+          "label": "포자군주의 진균 휘장",
+          "n": 5
+        },
+        {
+          "id": 252420,
+          "label": "태양섬광 분광경",
+          "n": 4
+        },
+        {
+          "id": 250256,
+          "label": "바람의 심장",
+          "n": 3
+        },
+        {
+          "id": 248583,
+          "label": "새로운 유대의 북",
+          "n": 2
+        },
+        {
+          "id": 193701,
+          "label": "알게타르 수수께끼 상자",
+          "n": 2
+        },
+        {
+          "id": 251792,
+          "label": "영광스러운 성전사의 기념품",
+          "n": 1
+        },
+        {
+          "id": 265657,
+          "label": "살아있는 고뇌의 섬유",
+          "n": 1
+        },
+        {
+          "id": 264507,
+          "label": "뒤틀린 마력의 도가니",
+          "n": 1
+        }
+      ],
+      "top_items": [
+        [
+          "고대의 허기 심장",
+          24
+        ],
+        [
+          "알른 선견자의 응시",
+          20
+        ],
+        [
+          "포자군주의 진균 휘장",
+          3
+        ],
+        [
+          "영광스러운 성전사의 기념품",
+          1
+        ],
+        [
+          "새로운 유대의 북",
+          1
+        ],
+        [
+          "살아있는 고뇌의 섬유",
+          1
+        ]
+      ],
+      "top_item_pct": {
+        "알른 선견자의 응시": 80,
+        "고대의 허기 심장": 96,
+        "영광스러운 성전사의 기념품": 4,
+        "포자군주의 진균 휘장": 12,
+        "새로운 유대의 북": 4,
+        "살아있는 고뇌의 섬유": 4
+      },
+      "top_combos": [
+        {
+          "combo": "고대의 허기 심장 + 알른 선견자의 응시",
+          "n": 19,
+          "pct": 76
+        },
+        {
+          "combo": "고대의 허기 심장 + 포자군주의 진균 휘장",
+          "n": 2,
+          "pct": 8
+        },
+        {
+          "combo": "고대의 허기 심장 + 영광스러운 성전사의 기념품",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "알른 선견자의 응시 + 포자군주의 진균 휘장",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "고대의 허기 심장 + 새로운 유대의 북",
+          "n": 1,
+          "pct": 4
+        },
+        {
+          "combo": "고대의 허기 심장 + 살아있는 고뇌의 섬유",
+          "n": 1,
+          "pct": 4
+        }
+      ],
+      "groups": {
+        "249342": {
+          "label": "고대의 허기 심장",
+          "n": 89,
+          "pct": 89,
+          "avg_rank": 48.6,
+          "avg_dps": 152788.0,
+          "avg_adjusted_dps": 152.0,
+          "others_adjusted_dps": -1229.7
+        },
+        "249343": {
+          "label": "알른 선견자의 응시",
+          "n": 82,
+          "pct": 82,
+          "avg_rank": 50.7,
+          "avg_dps": 152371.1,
+          "avg_adjusted_dps": 473.8,
+          "others_adjusted_dps": -2158.4
+        },
+        "260235": {
+          "label": "암영의 꽁지깃",
+          "n": 10,
+          "pct": 10,
+          "avg_rank": 58.7,
+          "avg_dps": 149969.1,
+          "avg_adjusted_dps": -1588.6,
+          "others_adjusted_dps": 176.5
+        },
+        "268292": {
+          "label": "포자군주의 진균 휘장",
+          "n": 5,
+          "pct": 5,
+          "avg_rank": 29.0,
+          "avg_dps": 158218.6,
+          "avg_adjusted_dps": 786.7,
+          "others_adjusted_dps": -41.4
+        },
+        "252420": {
+          "label": "태양섬광 분광경",
+          "n": 4,
+          "pct": 4,
+          "avg_rank": 69.5,
+          "avg_dps": 148149.9,
+          "avg_adjusted_dps": -2404.5,
+          "others_adjusted_dps": 100.2
+        },
+        "250256": {
+          "label": "바람의 심장",
+          "n": 3,
+          "pct": 3,
+          "avg_rank": 88.3,
+          "avg_dps": 146667.0,
+          "avg_adjusted_dps": -6958.5,
+          "others_adjusted_dps": 215.2
+        }
+      },
+      "recommendation": {
+        "pick": "고대의 허기 심장 + 알른 선견자의 응시",
+        "risk_profile": "대세 세팅",
+        "reason": "상위권 76%가 같은 조합을 씁니다. 특별한 이유가 없으면 같이 가는 게 99 확률에 유리합니다.",
+        "top_adjusted_delta": 1381.7
+      }
+    }
+  }
+}

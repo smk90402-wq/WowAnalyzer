@@ -34,9 +34,8 @@ LOCK_FILE = DATA / ".backfill_v2.lock"
 
 # 풀 데이터 (talents + gear + casts + buffs)
 PRIMARY_TARGETS = {
-    ("Warlock", "Demonology"),
-    ("Warlock", "Affliction"),
-    ("Hunter",  "Marksmanship"),
+    ("Warrior", "Fury"),
+    ("Warrior", "Arms"),
 }
 # 트리 분석 비교용 — talents 만 필요 (같은 클래스 다른 DPS 스펙)
 TREE_COMP_TARGETS = set()

@@ -1,0 +1,2008 @@
+{
+ "meta": {
+  "date": "2026-07-11",
+  "spec": "Warrior/Fury",
+  "n_kills": 296,
+  "hero_adoption": {
+   "학살자": 155,
+   "산왕": 141
+  },
+  "spells": {
+   "1719": "무모한 희생",
+   "107574": "투신",
+   "385059": "오딘의 격노",
+   "446035": "칼날폭풍"
+  },
+  "eff_cd_s": {
+   "무모한 희생": 40.5,
+   "투신": 41.8,
+   "오딘의 격노": 20.6,
+   "칼날폭풍": 33.9
+  },
+  "excluded_zero_cast": [
+   {
+    "id": 227847,
+    "name": "칼날폭풍(특성ID)",
+    "reason": "캐스트 0회 — 실제 캐스트 ID는 446035"
+   },
+   {
+    "id": 64382,
+    "name": "분쇄의 투척",
+    "reason": "296킬 중 2캐스트 (사실상 미사용)"
+   },
+   {
+    "id": 376079,
+    "name": "용사의 창",
+    "reason": "캐스트 0회"
+   }
+  ]
+ },
+ "overall": {
+  "all": {
+   "n": 296,
+   "무모한 희생": {
+    "출현판_pct": 100,
+    "uses_med": 6,
+    "first_med_s": 2.7,
+    "first_p25_p75": [
+     1.0,
+     18.0
+    ],
+    "opener10s_pct": 62,
+    "gap": {
+     "n": 1657,
+     "p25": 44.3,
+     "med": 47.1,
+     "p75": 52.6,
+     "즉시_pct": 18,
+     "소홀드_pct": 68,
+     "대홀드_pct": 14
+    }
+   },
+   "투신": {
+    "출현판_pct": 48,
+    "uses_med": 0,
+    "first_med_s": 4.1,
+    "first_p25_p75": [
+     1.2,
+     20.1
+    ],
+    "opener10s_pct": 56,
+    "gap": {
+     "n": 800,
+     "p25": 44.9,
+     "med": 47.1,
+     "p75": 50.5,
+     "즉시_pct": 24,
+     "소홀드_pct": 69,
+     "대홀드_pct": 7
+    }
+   },
+   "오딘의 격노": {
+    "출현판_pct": 100,
+    "uses_med": 10,
+    "first_med_s": 2.7,
+    "first_p25_p75": [
+     1.5,
+     5.3
+    ],
+    "opener10s_pct": 83,
+    "gap": {
+     "n": 2903,
+     "p25": 24.3,
+     "med": 27.4,
+     "p75": 33.7,
+     "즉시_pct": 20,
+     "소홀드_pct": 68,
+     "대홀드_pct": 12
+    }
+   },
+   "칼날폭풍": {
+    "출현판_pct": 52,
+    "uses_med": 3,
+    "first_med_s": 6.5,
+    "first_p25_p75": [
+     3.2,
+     15.0
+    ],
+    "opener10s_pct": 54,
+    "gap": {
+     "n": 839,
+     "p25": 42.8,
+     "med": 49.4,
+     "p75": 60.4,
+     "즉시_pct": 9,
+     "소홀드_pct": 53,
+     "대홀드_pct": 38
+    }
+   },
+   "align": {
+    "reck_uses": 1953,
+    "reck_with_avatar_3s_pct": 48,
+    "bladestorm_uses": 994,
+    "bladestorm_in_reck_win_pct": 90,
+    "bladestorm_in_avatar_win_pct": 0,
+    "odyns_fury_uses": 3199,
+    "odyns_fury_in_reck_win_pct": 52,
+    "odyns_fury_in_avatar_win_pct": 34
+   }
+  },
+  "rank_1_20": {
+   "n": 179,
+   "무모한 희생": {
+    "출현판_pct": 100,
+    "uses_med": 6,
+    "first_med_s": 2.6,
+    "first_p25_p75": [
+     1.1,
+     19.2
+    ],
+    "opener10s_pct": 61,
+    "gap": {
+     "n": 1013,
+     "p25": 44.3,
+     "med": 47.1,
+     "p75": 52.6,
+     "즉시_pct": 18,
+     "소홀드_pct": 67,
+     "대홀드_pct": 15
+    }
+   },
+   "투신": {
+    "출현판_pct": 47,
+    "uses_med": 0,
+    "first_med_s": 4.0,
+    "first_p25_p75": [
+     1.3,
+     20.0
+    ],
+    "opener10s_pct": 55,
+    "gap": {
+     "n": 495,
+     "p25": 44.9,
+     "med": 47.0,
+     "p75": 50.3,
+     "즉시_pct": 25,
+     "소홀드_pct": 68,
+     "대홀드_pct": 7
+    }
+   },
+   "오딘의 격노": {
+    "출현판_pct": 100,
+    "uses_med": 10,
+    "first_med_s": 2.7,
+    "first_p25_p75": [
+     1.5,
+     5.2
+    ],
+    "opener10s_pct": 84,
+    "gap": {
+     "n": 1778,
+     "p25": 24.2,
+     "med": 27.3,
+     "p75": 34.3,
+     "즉시_pct": 21,
+     "소홀드_pct": 66,
+     "대홀드_pct": 13
+    }
+   },
+   "칼날폭풍": {
+    "출현판_pct": 53,
+    "uses_med": 3,
+    "first_med_s": 6.5,
+    "first_p25_p75": [
+     3.2,
+     15.3
+    ],
+    "opener10s_pct": 53,
+    "gap": {
+     "n": 507,
+     "p25": 42.9,
+     "med": 50.0,
+     "p75": 60.8,
+     "즉시_pct": 9,
+     "소홀드_pct": 52,
+     "대홀드_pct": 38
+    }
+   },
+   "align": {
+    "reck_uses": 1192,
+    "reck_with_avatar_3s_pct": 49,
+    "bladestorm_uses": 601,
+    "bladestorm_in_reck_win_pct": 89,
+    "bladestorm_in_avatar_win_pct": 0,
+    "odyns_fury_uses": 1957,
+    "odyns_fury_in_reck_win_pct": 52,
+    "odyns_fury_in_avatar_win_pct": 35
+   }
+  },
+  "rank_21_100": {
+   "n": 117,
+   "무모한 희생": {
+    "출현판_pct": 100,
+    "uses_med": 6,
+    "first_med_s": 2.7,
+    "first_p25_p75": [
+     1.0,
+     17.0
+    ],
+    "opener10s_pct": 63,
+    "gap": {
+     "n": 644,
+     "p25": 44.3,
+     "med": 47.2,
+     "p75": 52.4,
+     "즉시_pct": 19,
+     "소홀드_pct": 69,
+     "대홀드_pct": 13
+    }
+   },
+   "투신": {
+    "출현판_pct": 48,
+    "uses_med": 0,
+    "first_med_s": 4.7,
+    "first_p25_p75": [
+     1.2,
+     20.3
+    ],
+    "opener10s_pct": 57,
+    "gap": {
+     "n": 305,
+     "p25": 45.1,
+     "med": 47.3,
+     "p75": 50.7,
+     "즉시_pct": 22,
+     "소홀드_pct": 70,
+     "대홀드_pct": 8
+    }
+   },
+   "오딘의 격노": {
+    "출현판_pct": 100,
+    "uses_med": 10,
+    "first_med_s": 2.6,
+    "first_p25_p75": [
+     1.5,
+     5.5
+    ],
+    "opener10s_pct": 82,
+    "gap": {
+     "n": 1125,
+     "p25": 24.7,
+     "med": 27.6,
+     "p75": 33.0,
+     "즉시_pct": 18,
+     "소홀드_pct": 71,
+     "대홀드_pct": 11
+    }
+   },
+   "칼날폭풍": {
+    "출현판_pct": 52,
+    "uses_med": 3,
+    "first_med_s": 5.9,
+    "first_p25_p75": [
+     2.8,
+     14.2
+    ],
+    "opener10s_pct": 54,
+    "gap": {
+     "n": 332,
+     "p25": 42.7,
+     "med": 48.9,
+     "p75": 59.9,
+     "즉시_pct": 9,
+     "소홀드_pct": 55,
+     "대홀드_pct": 37
+    }
+   },
+   "align": {
+    "reck_uses": 761,
+    "reck_with_avatar_3s_pct": 47,
+    "bladestorm_uses": 393,
+    "bladestorm_in_reck_win_pct": 91,
+    "bladestorm_in_avatar_win_pct": 0,
+    "odyns_fury_uses": 1242,
+    "odyns_fury_in_reck_win_pct": 52,
+    "odyns_fury_in_avatar_win_pct": 33
+   }
+  },
+  "hero_학살자": {
+   "n": 155,
+   "무모한 희생": {
+    "출현판_pct": 100,
+    "uses_med": 5,
+    "first_med_s": 1.8,
+    "first_p25_p75": [
+     0.8,
+     12.5
+    ],
+    "opener10s_pct": 68,
+    "gap": {
+     "n": 857,
+     "p25": 43.6,
+     "med": 47.1,
+     "p75": 57.3,
+     "즉시_pct": 24,
+     "소홀드_pct": 57,
+     "대홀드_pct": 19
+    }
+   },
+   "투신": null,
+   "오딘의 격노": {
+    "출현판_pct": 100,
+    "uses_med": 9,
+    "first_med_s": 3.9,
+    "first_p25_p75": [
+     1.7,
+     12.6
+    ],
+    "opener10s_pct": 74,
+    "gap": {
+     "n": 1564,
+     "p25": 23.6,
+     "med": 26.3,
+     "p75": 30.8,
+     "즉시_pct": 25,
+     "소홀드_pct": 65,
+     "대홀드_pct": 10
+    }
+   },
+   "칼날폭풍": {
+    "출현판_pct": 100,
+    "uses_med": 5,
+    "first_med_s": 6.5,
+    "first_p25_p75": [
+     3.2,
+     15.0
+    ],
+    "opener10s_pct": 54,
+    "gap": {
+     "n": 839,
+     "p25": 42.8,
+     "med": 49.4,
+     "p75": 60.4,
+     "즉시_pct": 9,
+     "소홀드_pct": 53,
+     "대홀드_pct": 38
+    }
+   },
+   "align": {
+    "reck_uses": 1012,
+    "reck_with_avatar_3s_pct": 0,
+    "bladestorm_uses": 994,
+    "bladestorm_in_reck_win_pct": 90,
+    "bladestorm_in_avatar_win_pct": 0,
+    "odyns_fury_uses": 1719,
+    "odyns_fury_in_reck_win_pct": 52,
+    "odyns_fury_in_avatar_win_pct": 0
+   }
+  },
+  "hero_산왕": {
+   "n": 141,
+   "무모한 희생": {
+    "출현판_pct": 100,
+    "uses_med": 7,
+    "first_med_s": 4.1,
+    "first_p25_p75": [
+     1.2,
+     20.1
+    ],
+    "opener10s_pct": 56,
+    "gap": {
+     "n": 800,
+     "p25": 44.9,
+     "med": 47.1,
+     "p75": 50.5,
+     "즉시_pct": 12,
+     "소홀드_pct": 80,
+     "대홀드_pct": 8
+    }
+   },
+   "투신": {
+    "출현판_pct": 100,
+    "uses_med": 7,
+    "first_med_s": 4.1,
+    "first_p25_p75": [
+     1.2,
+     20.1
+    ],
+    "opener10s_pct": 56,
+    "gap": {
+     "n": 800,
+     "p25": 44.9,
+     "med": 47.1,
+     "p75": 50.5,
+     "즉시_pct": 24,
+     "소홀드_pct": 69,
+     "대홀드_pct": 7
+    }
+   },
+   "오딘의 격노": {
+    "출현판_pct": 100,
+    "uses_med": 10,
+    "first_med_s": 2.1,
+    "first_p25_p75": [
+     1.3,
+     3.4
+    ],
+    "opener10s_pct": 93,
+    "gap": {
+     "n": 1339,
+     "p25": 25.4,
+     "med": 28.3,
+     "p75": 36.2,
+     "즉시_pct": 14,
+     "소홀드_pct": 73,
+     "대홀드_pct": 14
+    }
+   },
+   "칼날폭풍": null,
+   "align": {
+    "reck_uses": 941,
+    "reck_with_avatar_3s_pct": 100,
+    "bladestorm_uses": 0,
+    "bladestorm_in_reck_win_pct": null,
+    "bladestorm_in_avatar_win_pct": null,
+    "odyns_fury_uses": 1480,
+    "odyns_fury_in_reck_win_pct": 51,
+    "odyns_fury_in_avatar_win_pct": 74
+   }
+  }
+ },
+ "per_boss": {
+  "아베르지안": {
+   "encounter_id": 3176,
+   "name_en": "Imperator Averzian",
+   "kill_med_s": 201,
+   "all": {
+    "n": 34,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 1.0,
+     "first_p25_p75": [
+      0.5,
+      1.4
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 116,
+      "p25": 44.9,
+      "med": 50.9,
+      "p75": 60.8,
+      "즉시_pct": 13,
+      "소홀드_pct": 61,
+      "대홀드_pct": 26
+     }
+    },
+    "투신": null,
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 7,
+     "first_med_s": 1.9,
+     "first_p25_p75": [
+      1.4,
+      4.8
+     ],
+     "opener10s_pct": 97,
+     "gap": {
+      "n": 217,
+      "p25": 23.8,
+      "med": 26.8,
+      "p75": 38.3,
+      "즉시_pct": 24,
+      "소홀드_pct": 54,
+      "대홀드_pct": 22
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 3.2,
+     "first_p25_p75": [
+      2.4,
+      3.9
+     ],
+     "opener10s_pct": 94,
+     "gap": {
+      "n": 110,
+      "p25": 46.1,
+      "med": 59.8,
+      "p75": 78.3,
+      "즉시_pct": 5,
+      "소홀드_pct": 33,
+      "대홀드_pct": 62
+     }
+    },
+    "align": {
+     "reck_uses": 150,
+     "reck_with_avatar_3s_pct": 0,
+     "bladestorm_uses": 144,
+     "bladestorm_in_reck_win_pct": 92,
+     "bladestorm_in_avatar_win_pct": 0,
+     "odyns_fury_uses": 251,
+     "odyns_fury_in_reck_win_pct": 53,
+     "odyns_fury_in_avatar_win_pct": 0
+    }
+   },
+   "hero_학살자": {
+    "n": 34,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 1.0,
+     "first_p25_p75": [
+      0.5,
+      1.4
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 116,
+      "p25": 44.9,
+      "med": 50.9,
+      "p75": 60.8,
+      "즉시_pct": 13,
+      "소홀드_pct": 61,
+      "대홀드_pct": 26
+     }
+    },
+    "투신": null,
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 7,
+     "first_med_s": 1.9,
+     "first_p25_p75": [
+      1.4,
+      4.8
+     ],
+     "opener10s_pct": 97,
+     "gap": {
+      "n": 217,
+      "p25": 23.8,
+      "med": 26.8,
+      "p75": 38.3,
+      "즉시_pct": 24,
+      "소홀드_pct": 54,
+      "대홀드_pct": 22
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 4,
+     "first_med_s": 3.2,
+     "first_p25_p75": [
+      2.4,
+      3.9
+     ],
+     "opener10s_pct": 94,
+     "gap": {
+      "n": 110,
+      "p25": 46.1,
+      "med": 59.8,
+      "p75": 78.3,
+      "즉시_pct": 5,
+      "소홀드_pct": 33,
+      "대홀드_pct": 62
+     }
+    },
+    "align": {
+     "reck_uses": 150,
+     "reck_with_avatar_3s_pct": 0,
+     "bladestorm_uses": 144,
+     "bladestorm_in_reck_win_pct": 92,
+     "bladestorm_in_avatar_win_pct": 0,
+     "odyns_fury_uses": 251,
+     "odyns_fury_in_reck_win_pct": 53,
+     "odyns_fury_in_avatar_win_pct": 0
+    }
+   }
+  },
+  "보라시우스": {
+   "encounter_id": 3177,
+   "name_en": "Vorasius",
+   "kill_med_s": 211,
+   "all": {
+    "n": 33,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 5,
+     "first_med_s": 1.2,
+     "first_p25_p75": [
+      0.8,
+      1.4
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 139,
+      "p25": 41.6,
+      "med": 44.1,
+      "p75": 46.6,
+      "즉시_pct": 40,
+      "소홀드_pct": 57,
+      "대홀드_pct": 3
+     }
+    },
+    "투신": {
+     "출현판_pct": 3,
+     "uses_med": 0,
+     "first_med_s": 5.6,
+     "first_p25_p75": [
+      5.6,
+      5.6
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 5,
+      "p25": 45.1,
+      "med": 46.6,
+      "p75": 47.3,
+      "즉시_pct": 20,
+      "소홀드_pct": 80,
+      "대홀드_pct": 0
+     }
+    },
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 8,
+     "first_med_s": 3.7,
+     "first_p25_p75": [
+      1.9,
+      5.3
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 245,
+      "p25": 22.6,
+      "med": 25.3,
+      "p75": 28.3,
+      "즉시_pct": 36,
+      "소홀드_pct": 58,
+      "대홀드_pct": 6
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 97,
+     "uses_med": 5,
+     "first_med_s": 3.1,
+     "first_p25_p75": [
+      2.4,
+      3.7
+     ],
+     "opener10s_pct": 97,
+     "gap": {
+      "n": 128,
+      "p25": 40.9,
+      "med": 45.0,
+      "p75": 51.3,
+      "즉시_pct": 10,
+      "소홀드_pct": 68,
+      "대홀드_pct": 22
+     }
+    },
+    "align": {
+     "reck_uses": 172,
+     "reck_with_avatar_3s_pct": 3,
+     "bladestorm_uses": 160,
+     "bladestorm_in_reck_win_pct": 89,
+     "bladestorm_in_avatar_win_pct": 0,
+     "odyns_fury_uses": 278,
+     "odyns_fury_in_reck_win_pct": 54,
+     "odyns_fury_in_avatar_win_pct": 2
+    }
+   },
+   "hero_학살자": {
+    "n": 32,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 5,
+     "first_med_s": 1.2,
+     "first_p25_p75": [
+      0.8,
+      1.4
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 134,
+      "p25": 41.6,
+      "med": 44.0,
+      "p75": 46.6,
+      "즉시_pct": 41,
+      "소홀드_pct": 56,
+      "대홀드_pct": 3
+     }
+    },
+    "투신": null,
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 8,
+     "first_med_s": 4.7,
+     "first_p25_p75": [
+      1.9,
+      5.3
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 236,
+      "p25": 22.5,
+      "med": 25.2,
+      "p75": 28.3,
+      "즉시_pct": 37,
+      "소홀드_pct": 57,
+      "대홀드_pct": 6
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 5,
+     "first_med_s": 3.1,
+     "first_p25_p75": [
+      2.4,
+      3.7
+     ],
+     "opener10s_pct": 97,
+     "gap": {
+      "n": 128,
+      "p25": 40.9,
+      "med": 45.0,
+      "p75": 51.3,
+      "즉시_pct": 10,
+      "소홀드_pct": 68,
+      "대홀드_pct": 22
+     }
+    },
+    "align": {
+     "reck_uses": 166,
+     "reck_with_avatar_3s_pct": 0,
+     "bladestorm_uses": 160,
+     "bladestorm_in_reck_win_pct": 89,
+     "bladestorm_in_avatar_win_pct": 0,
+     "odyns_fury_uses": 268,
+     "odyns_fury_in_reck_win_pct": 54,
+     "odyns_fury_in_avatar_win_pct": 0
+    }
+   }
+  },
+  "바엘고어&에조라크": {
+   "encounter_id": 3178,
+   "name_en": "Vaelgor & Ezzorak",
+   "kill_med_s": 353,
+   "all": {
+    "n": 31,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 7,
+     "first_med_s": 22.9,
+     "first_p25_p75": [
+      17.8,
+      28.7
+     ],
+     "opener10s_pct": 16,
+     "gap": {
+      "n": 190,
+      "p25": 44.7,
+      "med": 46.9,
+      "p75": 50.3,
+      "즉시_pct": 12,
+      "소홀드_pct": 79,
+      "대홀드_pct": 9
+     }
+    },
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 7,
+     "first_med_s": 22.9,
+     "first_p25_p75": [
+      17.8,
+      28.7
+     ],
+     "opener10s_pct": 16,
+     "gap": {
+      "n": 190,
+      "p25": 44.7,
+      "med": 46.9,
+      "p75": 50.3,
+      "즉시_pct": 29,
+      "소홀드_pct": 63,
+      "대홀드_pct": 8
+     }
+    },
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 10,
+     "first_med_s": 2.9,
+     "first_p25_p75": [
+      2.4,
+      3.4
+     ],
+     "opener10s_pct": 94,
+     "gap": {
+      "n": 288,
+      "p25": 28.8,
+      "med": 35.8,
+      "p75": 39.8,
+      "즉시_pct": 6,
+      "소홀드_pct": 80,
+      "대홀드_pct": 15
+     }
+    },
+    "칼날폭풍": null,
+    "align": {
+     "reck_uses": 221,
+     "reck_with_avatar_3s_pct": 100,
+     "bladestorm_uses": 0,
+     "bladestorm_in_reck_win_pct": null,
+     "bladestorm_in_avatar_win_pct": null,
+     "odyns_fury_uses": 319,
+     "odyns_fury_in_reck_win_pct": 47,
+     "odyns_fury_in_avatar_win_pct": 65
+    }
+   },
+   "hero_산왕": {
+    "n": 31,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 7,
+     "first_med_s": 22.9,
+     "first_p25_p75": [
+      17.8,
+      28.7
+     ],
+     "opener10s_pct": 16,
+     "gap": {
+      "n": 190,
+      "p25": 44.7,
+      "med": 46.9,
+      "p75": 50.3,
+      "즉시_pct": 12,
+      "소홀드_pct": 79,
+      "대홀드_pct": 9
+     }
+    },
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 7,
+     "first_med_s": 22.9,
+     "first_p25_p75": [
+      17.8,
+      28.7
+     ],
+     "opener10s_pct": 16,
+     "gap": {
+      "n": 190,
+      "p25": 44.7,
+      "med": 46.9,
+      "p75": 50.3,
+      "즉시_pct": 29,
+      "소홀드_pct": 63,
+      "대홀드_pct": 8
+     }
+    },
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 10,
+     "first_med_s": 2.9,
+     "first_p25_p75": [
+      2.4,
+      3.4
+     ],
+     "opener10s_pct": 94,
+     "gap": {
+      "n": 288,
+      "p25": 28.8,
+      "med": 35.8,
+      "p75": 39.8,
+      "즉시_pct": 6,
+      "소홀드_pct": 80,
+      "대홀드_pct": 15
+     }
+    },
+    "칼날폭풍": null,
+    "align": {
+     "reck_uses": 221,
+     "reck_with_avatar_3s_pct": 100,
+     "bladestorm_uses": 0,
+     "bladestorm_in_reck_win_pct": null,
+     "bladestorm_in_avatar_win_pct": null,
+     "odyns_fury_uses": 319,
+     "odyns_fury_in_reck_win_pct": 47,
+     "odyns_fury_in_avatar_win_pct": 65
+    }
+   }
+  },
+  "살라다르": {
+   "encounter_id": 3179,
+   "name_en": "Fallen-King Salhadaar",
+   "kill_med_s": 233,
+   "all": {
+    "n": 33,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 6,
+     "first_med_s": 1.0,
+     "first_p25_p75": [
+      0.6,
+      1.2
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 164,
+      "p25": 44.1,
+      "med": 46.5,
+      "p75": 48.4,
+      "즉시_pct": 20,
+      "소홀드_pct": 71,
+      "대홀드_pct": 9
+     }
+    },
+    "투신": {
+     "출현판_pct": 85,
+     "uses_med": 5,
+     "first_med_s": 1.1,
+     "first_p25_p75": [
+      0.7,
+      1.2
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 140,
+      "p25": 44.3,
+      "med": 46.5,
+      "p75": 48.4,
+      "즉시_pct": 29,
+      "소홀드_pct": 62,
+      "대홀드_pct": 9
+     }
+    },
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 9,
+     "first_med_s": 1.3,
+     "first_p25_p75": [
+      1.0,
+      2.2
+     ],
+     "opener10s_pct": 97,
+     "gap": {
+      "n": 261,
+      "p25": 25.1,
+      "med": 27.3,
+      "p75": 37.9,
+      "즉시_pct": 18,
+      "소홀드_pct": 60,
+      "대홀드_pct": 23
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 15,
+     "uses_med": 0,
+     "first_med_s": 5.2,
+     "first_p25_p75": [
+      3.3,
+      5.8
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 25,
+      "p25": 42.3,
+      "med": 45.0,
+      "p75": 46.7,
+      "즉시_pct": 8,
+      "소홀드_pct": 80,
+      "대홀드_pct": 12
+     }
+    },
+    "align": {
+     "reck_uses": 197,
+     "reck_with_avatar_3s_pct": 85,
+     "bladestorm_uses": 30,
+     "bladestorm_in_reck_win_pct": 90,
+     "bladestorm_in_avatar_win_pct": 0,
+     "odyns_fury_uses": 294,
+     "odyns_fury_in_reck_win_pct": 59,
+     "odyns_fury_in_avatar_win_pct": 72
+    }
+   },
+   "hero_학살자": {
+    "n": 5,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 5,
+     "first_med_s": 0.6,
+     "first_p25_p75": [
+      0.6,
+      1.0
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 24,
+      "p25": 43.8,
+      "med": 45.6,
+      "p75": 48.3,
+      "즉시_pct": 25,
+      "소홀드_pct": 67,
+      "대홀드_pct": 8
+     }
+    },
+    "투신": null,
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 8,
+     "first_med_s": 2.2,
+     "first_p25_p75": [
+      1.6,
+      2.5
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 40,
+      "p25": 23.5,
+      "med": 26.9,
+      "p75": 36.0,
+      "즉시_pct": 28,
+      "소홀드_pct": 58,
+      "대홀드_pct": 15
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 5,
+     "first_med_s": 5.2,
+     "first_p25_p75": [
+      3.3,
+      5.8
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 25,
+      "p25": 42.3,
+      "med": 45.0,
+      "p75": 46.7,
+      "즉시_pct": 8,
+      "소홀드_pct": 80,
+      "대홀드_pct": 12
+     }
+    },
+    "align": {
+     "reck_uses": 29,
+     "reck_with_avatar_3s_pct": 0,
+     "bladestorm_uses": 30,
+     "bladestorm_in_reck_win_pct": 90,
+     "bladestorm_in_avatar_win_pct": 0,
+     "odyns_fury_uses": 45,
+     "odyns_fury_in_reck_win_pct": 60,
+     "odyns_fury_in_avatar_win_pct": 0
+    }
+   },
+   "hero_산왕": {
+    "n": 28,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 6,
+     "first_med_s": 1.0,
+     "first_p25_p75": [
+      0.7,
+      1.2
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 140,
+      "p25": 44.1,
+      "med": 46.5,
+      "p75": 48.4,
+      "즉시_pct": 19,
+      "소홀드_pct": 72,
+      "대홀드_pct": 9
+     }
+    },
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 6,
+     "first_med_s": 1.1,
+     "first_p25_p75": [
+      0.7,
+      1.2
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 140,
+      "p25": 44.3,
+      "med": 46.5,
+      "p75": 48.4,
+      "즉시_pct": 29,
+      "소홀드_pct": 62,
+      "대홀드_pct": 9
+     }
+    },
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 9,
+     "first_med_s": 1.2,
+     "first_p25_p75": [
+      1.0,
+      2.0
+     ],
+     "opener10s_pct": 96,
+     "gap": {
+      "n": 221,
+      "p25": 25.1,
+      "med": 27.3,
+      "p75": 38.6,
+      "즉시_pct": 16,
+      "소홀드_pct": 60,
+      "대홀드_pct": 24
+     }
+    },
+    "칼날폭풍": null,
+    "align": {
+     "reck_uses": 168,
+     "reck_with_avatar_3s_pct": 99,
+     "bladestorm_uses": 0,
+     "bladestorm_in_reck_win_pct": null,
+     "bladestorm_in_avatar_win_pct": null,
+     "odyns_fury_uses": 249,
+     "odyns_fury_in_reck_win_pct": 59,
+     "odyns_fury_in_avatar_win_pct": 85
+    }
+   }
+  },
+  "선봉대": {
+   "encounter_id": 3180,
+   "name_en": "Lightblinded Vanguard",
+   "kill_med_s": 344,
+   "all": {
+    "n": 33,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 8,
+     "first_med_s": 2.2,
+     "first_p25_p75": [
+      1.2,
+      2.9
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 221,
+      "p25": 44.3,
+      "med": 46.4,
+      "p75": 48.2,
+      "즉시_pct": 15,
+      "소홀드_pct": 84,
+      "대홀드_pct": 1
+     }
+    },
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 8,
+     "first_med_s": 2.2,
+     "first_p25_p75": [
+      1.2,
+      2.9
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 221,
+      "p25": 44.4,
+      "med": 46.4,
+      "p75": 48.1,
+      "즉시_pct": 30,
+      "소홀드_pct": 69,
+      "대홀드_pct": 1
+     }
+    },
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 13,
+     "first_med_s": 2.5,
+     "first_p25_p75": [
+      1.9,
+      3.5
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 400,
+      "p25": 24.9,
+      "med": 26.7,
+      "p75": 28.8,
+      "즉시_pct": 16,
+      "소홀드_pct": 82,
+      "대홀드_pct": 1
+     }
+    },
+    "칼날폭풍": null,
+    "align": {
+     "reck_uses": 254,
+     "reck_with_avatar_3s_pct": 100,
+     "bladestorm_uses": 0,
+     "bladestorm_in_reck_win_pct": null,
+     "bladestorm_in_avatar_win_pct": null,
+     "odyns_fury_uses": 433,
+     "odyns_fury_in_reck_win_pct": 48,
+     "odyns_fury_in_avatar_win_pct": 74
+    }
+   },
+   "hero_산왕": {
+    "n": 33,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 8,
+     "first_med_s": 2.2,
+     "first_p25_p75": [
+      1.2,
+      2.9
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 221,
+      "p25": 44.3,
+      "med": 46.4,
+      "p75": 48.2,
+      "즉시_pct": 15,
+      "소홀드_pct": 84,
+      "대홀드_pct": 1
+     }
+    },
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 8,
+     "first_med_s": 2.2,
+     "first_p25_p75": [
+      1.2,
+      2.9
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 221,
+      "p25": 44.4,
+      "med": 46.4,
+      "p75": 48.1,
+      "즉시_pct": 30,
+      "소홀드_pct": 69,
+      "대홀드_pct": 1
+     }
+    },
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 13,
+     "first_med_s": 2.5,
+     "first_p25_p75": [
+      1.9,
+      3.5
+     ],
+     "opener10s_pct": 100,
+     "gap": {
+      "n": 400,
+      "p25": 24.9,
+      "med": 26.7,
+      "p75": 28.8,
+      "즉시_pct": 16,
+      "소홀드_pct": 82,
+      "대홀드_pct": 1
+     }
+    },
+    "칼날폭풍": null,
+    "align": {
+     "reck_uses": 254,
+     "reck_with_avatar_3s_pct": 100,
+     "bladestorm_uses": 0,
+     "bladestorm_in_reck_win_pct": null,
+     "bladestorm_in_avatar_win_pct": null,
+     "odyns_fury_uses": 433,
+     "odyns_fury_in_reck_win_pct": 48,
+     "odyns_fury_in_avatar_win_pct": 74
+    }
+   }
+  },
+  "우주의 왕관": {
+   "encounter_id": 3181,
+   "name_en": "Crown of the Cosmos",
+   "kill_med_s": 454,
+   "all": {
+    "n": 33,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 9,
+     "first_med_s": 10.5,
+     "first_p25_p75": [
+      1.0,
+      16.5
+     ],
+     "opener10s_pct": 48,
+     "gap": {
+      "n": 251,
+      "p25": 44.5,
+      "med": 48.1,
+      "p75": 58.0,
+      "즉시_pct": 19,
+      "소홀드_pct": 60,
+      "대홀드_pct": 22
+     }
+    },
+    "투신": {
+     "출현판_pct": 12,
+     "uses_med": 0,
+     "first_med_s": 3.1,
+     "first_p25_p75": [
+      1.3,
+      3.1
+     ],
+     "opener10s_pct": 75,
+     "gap": {
+      "n": 33,
+      "p25": 46.1,
+      "med": 49.7,
+      "p75": 56.4,
+      "즉시_pct": 24,
+      "소홀드_pct": 58,
+      "대홀드_pct": 18
+     }
+    },
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 14,
+     "first_med_s": 3.3,
+     "first_p25_p75": [
+      2.3,
+      5.5
+     ],
+     "opener10s_pct": 94,
+     "gap": {
+      "n": 437,
+      "p25": 24.9,
+      "med": 27.3,
+      "p75": 32.1,
+      "즉시_pct": 17,
+      "소홀드_pct": 69,
+      "대홀드_pct": 14
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 88,
+     "uses_med": 8,
+     "first_med_s": 13.3,
+     "first_p25_p75": [
+      4.9,
+      17.8
+     ],
+     "opener10s_pct": 41,
+     "gap": {
+      "n": 205,
+      "p25": 45.2,
+      "med": 52.0,
+      "p75": 61.8,
+      "즉시_pct": 6,
+      "소홀드_pct": 52,
+      "대홀드_pct": 42
+     }
+    },
+    "align": {
+     "reck_uses": 284,
+     "reck_with_avatar_3s_pct": 13,
+     "bladestorm_uses": 234,
+     "bladestorm_in_reck_win_pct": 89,
+     "bladestorm_in_avatar_win_pct": 0,
+     "odyns_fury_uses": 470,
+     "odyns_fury_in_reck_win_pct": 50,
+     "odyns_fury_in_avatar_win_pct": 10
+    }
+   },
+   "hero_학살자": {
+    "n": 29,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 8,
+     "first_med_s": 11.9,
+     "first_p25_p75": [
+      1.0,
+      16.5
+     ],
+     "opener10s_pct": 45,
+     "gap": {
+      "n": 218,
+      "p25": 44.3,
+      "med": 48.0,
+      "p75": 58.6,
+      "즉시_pct": 19,
+      "소홀드_pct": 59,
+      "대홀드_pct": 22
+     }
+    },
+    "투신": null,
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 14,
+     "first_med_s": 3.2,
+     "first_p25_p75": [
+      2.2,
+      5.5
+     ],
+     "opener10s_pct": 93,
+     "gap": {
+      "n": 383,
+      "p25": 24.8,
+      "med": 27.2,
+      "p75": 31.5,
+      "즉시_pct": 18,
+      "소홀드_pct": 68,
+      "대홀드_pct": 14
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 8,
+     "first_med_s": 13.3,
+     "first_p25_p75": [
+      4.9,
+      17.8
+     ],
+     "opener10s_pct": 41,
+     "gap": {
+      "n": 205,
+      "p25": 45.2,
+      "med": 52.0,
+      "p75": 61.8,
+      "즉시_pct": 6,
+      "소홀드_pct": 52,
+      "대홀드_pct": 42
+     }
+    },
+    "align": {
+     "reck_uses": 247,
+     "reck_with_avatar_3s_pct": 0,
+     "bladestorm_uses": 234,
+     "bladestorm_in_reck_win_pct": 89,
+     "bladestorm_in_avatar_win_pct": 0,
+     "odyns_fury_uses": 412,
+     "odyns_fury_in_reck_win_pct": 50,
+     "odyns_fury_in_avatar_win_pct": 0
+    }
+   }
+  },
+  "벨로렌": {
+   "encounter_id": 3182,
+   "name_en": "Belo'ren, Child of Al'ar",
+   "kill_med_s": 286,
+   "all": {
+    "n": 33,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 6,
+     "first_med_s": 19.8,
+     "first_p25_p75": [
+      18.8,
+      20.6
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 155,
+      "p25": 48.5,
+      "med": 50.4,
+      "p75": 53.5,
+      "즉시_pct": 3,
+      "소홀드_pct": 86,
+      "대홀드_pct": 12
+     }
+    },
+    "투신": {
+     "출현판_pct": 97,
+     "uses_med": 6,
+     "first_med_s": 20.0,
+     "first_p25_p75": [
+      18.8,
+      20.6
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 150,
+      "p25": 48.5,
+      "med": 50.4,
+      "p75": 53.5,
+      "즉시_pct": 6,
+      "소홀드_pct": 85,
+      "대홀드_pct": 9
+     }
+    },
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 9,
+     "first_med_s": 1.7,
+     "first_p25_p75": [
+      1.0,
+      2.2
+     ],
+     "opener10s_pct": 82,
+     "gap": {
+      "n": 274,
+      "p25": 25.4,
+      "med": 29.8,
+      "p75": 39.0,
+      "즉시_pct": 18,
+      "소홀드_pct": 61,
+      "대홀드_pct": 21
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 3,
+     "uses_med": 0,
+     "first_med_s": 21.6,
+     "first_p25_p75": [
+      21.6,
+      21.6
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 5,
+      "p25": 50.2,
+      "med": 55.3,
+      "p75": 58.3,
+      "즉시_pct": 0,
+      "소홀드_pct": 40,
+      "대홀드_pct": 60
+     }
+    },
+    "align": {
+     "reck_uses": 188,
+     "reck_with_avatar_3s_pct": 96,
+     "bladestorm_uses": 6,
+     "bladestorm_in_reck_win_pct": 83,
+     "bladestorm_in_avatar_win_pct": 0,
+     "odyns_fury_uses": 307,
+     "odyns_fury_in_reck_win_pct": 54,
+     "odyns_fury_in_avatar_win_pct": 71
+    }
+   },
+   "hero_산왕": {
+    "n": 32,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 6,
+     "first_med_s": 20.0,
+     "first_p25_p75": [
+      18.8,
+      20.6
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 150,
+      "p25": 48.5,
+      "med": 50.4,
+      "p75": 53.5,
+      "즉시_pct": 3,
+      "소홀드_pct": 86,
+      "대홀드_pct": 11
+     }
+    },
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 6,
+     "first_med_s": 20.0,
+     "first_p25_p75": [
+      18.8,
+      20.6
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 150,
+      "p25": 48.5,
+      "med": 50.4,
+      "p75": 53.5,
+      "즉시_pct": 6,
+      "소홀드_pct": 85,
+      "대홀드_pct": 9
+     }
+    },
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 9,
+     "first_med_s": 1.7,
+     "first_p25_p75": [
+      1.0,
+      2.2
+     ],
+     "opener10s_pct": 81,
+     "gap": {
+      "n": 265,
+      "p25": 25.4,
+      "med": 30.0,
+      "p75": 39.0,
+      "즉시_pct": 18,
+      "소홀드_pct": 61,
+      "대홀드_pct": 21
+     }
+    },
+    "칼날폭풍": null,
+    "align": {
+     "reck_uses": 182,
+     "reck_with_avatar_3s_pct": 99,
+     "bladestorm_uses": 0,
+     "bladestorm_in_reck_win_pct": null,
+     "bladestorm_in_avatar_win_pct": null,
+     "odyns_fury_uses": 297,
+     "odyns_fury_in_reck_win_pct": 54,
+     "odyns_fury_in_avatar_win_pct": 73
+    }
+   }
+  },
+  "한밤의 도래(르우라)": {
+   "encounter_id": 3183,
+   "name_en": "Midnight Falls",
+   "kill_med_s": 516,
+   "all": {
+    "n": 33,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 11,
+     "first_med_s": 9.6,
+     "first_p25_p75": [
+      7.8,
+      12.4
+     ],
+     "opener10s_pct": 52,
+     "gap": {
+      "n": 315,
+      "p25": 44.2,
+      "med": 49.7,
+      "p75": 60.8,
+      "즉시_pct": 23,
+      "소홀드_pct": 51,
+      "대홀드_pct": 26
+     }
+    },
+    "투신": null,
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 19,
+     "first_med_s": 13.4,
+     "first_p25_p75": [
+      13.0,
+      14.1
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 580,
+      "p25": 23.5,
+      "med": 26.2,
+      "p75": 31.1,
+      "즉시_pct": 27,
+      "소홀드_pct": 67,
+      "대홀드_pct": 6
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 11,
+     "first_med_s": 14.2,
+     "first_p25_p75": [
+      13.9,
+      15.0
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 321,
+      "p25": 41.6,
+      "med": 49.5,
+      "p75": 61.1,
+      "즉시_pct": 11,
+      "소홀드_pct": 50,
+      "대홀드_pct": 40
+     }
+    },
+    "align": {
+     "reck_uses": 348,
+     "reck_with_avatar_3s_pct": 0,
+     "bladestorm_uses": 354,
+     "bladestorm_in_reck_win_pct": 91,
+     "bladestorm_in_avatar_win_pct": 0,
+     "odyns_fury_uses": 613,
+     "odyns_fury_in_reck_win_pct": 52,
+     "odyns_fury_in_avatar_win_pct": 0
+    }
+   },
+   "hero_학살자": {
+    "n": 33,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 11,
+     "first_med_s": 9.6,
+     "first_p25_p75": [
+      7.8,
+      12.4
+     ],
+     "opener10s_pct": 52,
+     "gap": {
+      "n": 315,
+      "p25": 44.2,
+      "med": 49.7,
+      "p75": 60.8,
+      "즉시_pct": 23,
+      "소홀드_pct": 51,
+      "대홀드_pct": 26
+     }
+    },
+    "투신": null,
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 19,
+     "first_med_s": 13.4,
+     "first_p25_p75": [
+      13.0,
+      14.1
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 580,
+      "p25": 23.5,
+      "med": 26.2,
+      "p75": 31.1,
+      "즉시_pct": 27,
+      "소홀드_pct": 67,
+      "대홀드_pct": 6
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 11,
+     "first_med_s": 14.2,
+     "first_p25_p75": [
+      13.9,
+      15.0
+     ],
+     "opener10s_pct": 0,
+     "gap": {
+      "n": 321,
+      "p25": 41.6,
+      "med": 49.5,
+      "p75": 61.1,
+      "즉시_pct": 11,
+      "소홀드_pct": 50,
+      "대홀드_pct": 40
+     }
+    },
+    "align": {
+     "reck_uses": 348,
+     "reck_with_avatar_3s_pct": 0,
+     "bladestorm_uses": 354,
+     "bladestorm_in_reck_win_pct": 91,
+     "bladestorm_in_avatar_win_pct": 0,
+     "odyns_fury_uses": 613,
+     "odyns_fury_in_reck_win_pct": 52,
+     "odyns_fury_in_avatar_win_pct": 0
+    }
+   }
+  },
+  "카이메루스": {
+   "encounter_id": 3306,
+   "name_en": "Chimaerus, the Undreamt God",
+   "kill_med_s": 148,
+   "all": {
+    "n": 33,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 3,
+     "first_med_s": 24.8,
+     "first_p25_p75": [
+      1.6,
+      27.1
+     ],
+     "opener10s_pct": 39,
+     "gap": {
+      "n": 106,
+      "p25": 44.1,
+      "med": 46.2,
+      "p75": 49.3,
+      "즉시_pct": 20,
+      "소홀드_pct": 73,
+      "대홀드_pct": 8
+     }
+    },
+    "투신": {
+     "출현판_pct": 36,
+     "uses_med": 0,
+     "first_med_s": 5.7,
+     "first_p25_p75": [
+      1.2,
+      7.9
+     ],
+     "opener10s_pct": 75,
+     "gap": {
+      "n": 61,
+      "p25": 46.0,
+      "med": 47.7,
+      "p75": 52.7,
+      "즉시_pct": 15,
+      "소홀드_pct": 72,
+      "대홀드_pct": 13
+     }
+    },
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 6,
+     "first_med_s": 2.1,
+     "first_p25_p75": [
+      1.2,
+      4.0
+     ],
+     "opener10s_pct": 85,
+     "gap": {
+      "n": 201,
+      "p25": 24.9,
+      "med": 26.8,
+      "p75": 30.2,
+      "즉시_pct": 14,
+      "소홀드_pct": 74,
+      "대홀드_pct": 12
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 64,
+     "uses_med": 3,
+     "first_med_s": 28.2,
+     "first_p25_p75": [
+      27.4,
+      30.0
+     ],
+     "opener10s_pct": 14,
+     "gap": {
+      "n": 45,
+      "p25": 40.7,
+      "med": 45.1,
+      "p75": 48.7,
+      "즉시_pct": 13,
+      "소홀드_pct": 82,
+      "대홀드_pct": 4
+     }
+    },
+    "align": {
+     "reck_uses": 139,
+     "reck_with_avatar_3s_pct": 53,
+     "bladestorm_uses": 66,
+     "bladestorm_in_reck_win_pct": 86,
+     "bladestorm_in_avatar_win_pct": 0,
+     "odyns_fury_uses": 234,
+     "odyns_fury_in_reck_win_pct": 51,
+     "odyns_fury_in_avatar_win_pct": 36
+    }
+   },
+   "hero_학살자": {
+    "n": 21,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 3,
+     "first_med_s": 26.5,
+     "first_p25_p75": [
+      24.8,
+      27.5
+     ],
+     "opener10s_pct": 19,
+     "gap": {
+      "n": 45,
+      "p25": 43.4,
+      "med": 44.2,
+      "p75": 46.4,
+      "즉시_pct": 36,
+      "소홀드_pct": 64,
+      "대홀드_pct": 0
+     }
+    },
+    "투신": null,
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 6,
+     "first_med_s": 2.5,
+     "first_p25_p75": [
+      1.1,
+      4.7
+     ],
+     "opener10s_pct": 81,
+     "gap": {
+      "n": 99,
+      "p25": 24.1,
+      "med": 25.9,
+      "p75": 28.0,
+      "즉시_pct": 21,
+      "소홀드_pct": 77,
+      "대홀드_pct": 2
+     }
+    },
+    "칼날폭풍": {
+     "출현판_pct": 100,
+     "uses_med": 3,
+     "first_med_s": 28.2,
+     "first_p25_p75": [
+      27.4,
+      30.0
+     ],
+     "opener10s_pct": 14,
+     "gap": {
+      "n": 45,
+      "p25": 40.7,
+      "med": 45.1,
+      "p75": 48.7,
+      "즉시_pct": 13,
+      "소홀드_pct": 82,
+      "대홀드_pct": 4
+     }
+    },
+    "align": {
+     "reck_uses": 66,
+     "reck_with_avatar_3s_pct": 0,
+     "bladestorm_uses": 66,
+     "bladestorm_in_reck_win_pct": 86,
+     "bladestorm_in_avatar_win_pct": 0,
+     "odyns_fury_uses": 120,
+     "odyns_fury_in_reck_win_pct": 52,
+     "odyns_fury_in_avatar_win_pct": 0
+    }
+   },
+   "hero_산왕": {
+    "n": 12,
+    "무모한 희생": {
+     "출현판_pct": 100,
+     "uses_med": 7,
+     "first_med_s": 5.7,
+     "first_p25_p75": [
+      1.2,
+      7.9
+     ],
+     "opener10s_pct": 75,
+     "gap": {
+      "n": 61,
+      "p25": 46.0,
+      "med": 47.7,
+      "p75": 52.7,
+      "즉시_pct": 8,
+      "소홀드_pct": 79,
+      "대홀드_pct": 13
+     }
+    },
+    "투신": {
+     "출현판_pct": 100,
+     "uses_med": 7,
+     "first_med_s": 5.7,
+     "first_p25_p75": [
+      1.2,
+      7.9
+     ],
+     "opener10s_pct": 75,
+     "gap": {
+      "n": 61,
+      "p25": 46.0,
+      "med": 47.7,
+      "p75": 52.7,
+      "즉시_pct": 15,
+      "소홀드_pct": 72,
+      "대홀드_pct": 13
+     }
+    },
+    "오딘의 격노": {
+     "출현판_pct": 100,
+     "uses_med": 11,
+     "first_med_s": 2.1,
+     "first_p25_p75": [
+      1.4,
+      2.6
+     ],
+     "opener10s_pct": 92,
+     "gap": {
+      "n": 102,
+      "p25": 25.6,
+      "med": 28.5,
+      "p75": 36.9,
+      "즉시_pct": 7,
+      "소홀드_pct": 72,
+      "대홀드_pct": 22
+     }
+    },
+    "칼날폭풍": null,
+    "align": {
+     "reck_uses": 73,
+     "reck_with_avatar_3s_pct": 100,
+     "bladestorm_uses": 0,
+     "bladestorm_in_reck_win_pct": null,
+     "bladestorm_in_avatar_win_pct": null,
+     "odyns_fury_uses": 114,
+     "odyns_fury_in_reck_win_pct": 50,
+     "odyns_fury_in_avatar_win_pct": 75
+    }
+   }
+  }
+ }
+}

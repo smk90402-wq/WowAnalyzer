@@ -1,0 +1,1231 @@
+{
+ "meta": {
+  "date": "2026-07-11",
+  "spec": "Warrior/Fury",
+  "n_kills": 296,
+  "hero_adoption": {
+   "학살자": 155,
+   "산왕": 141
+  },
+  "ids": {
+   "enrage_buff": 184362,
+   "rampage_cast": 184367,
+   "sudden_death_buff": 52437,
+   "execute_casts": [
+    280735,
+    5308
+   ],
+   "recklessness_buff": 1719,
+   "bloodthirst": 23881,
+   "bloodbath": 335096,
+   "raging_blow": 85288,
+   "crushing_blow": 335097
+  },
+  "note": "격노/무희 창은 buff apply→remove 실측. 급살 소모=제거 ±0.15s 내 마무리 일격 캐스트. 직전 GCD 최빈은 조건(분노량·프록 유무) 통제가 없으므로 빈도이지 우선순위 단정 아님."
+ },
+ "segments": {
+  "all": {
+   "n": 296,
+   "q1_enrage": {
+    "uptime_pct_med": 98.1,
+    "uptime_pct_p25": 95.1,
+    "uptime_pct_p75": 99.2,
+    "gaps_per_min": 0.48,
+    "gap_s_med": 2.05,
+    "drop_to_rampage_s_med": 2.5,
+    "drop_to_rampage_s_p75": 6.96,
+    "n_gaps": 746
+   },
+   "q2_sudden_death": {
+    "gains": 8281,
+    "gains_per_min": 5.31,
+    "consumed": 6933,
+    "consumed_pct": 83.7,
+    "consume_delay_s_med": 1.88,
+    "consume_delay_s_p75": 3.28,
+    "consume_within_3s_pct": 71.7,
+    "refresh_overwrites": 1036,
+    "expired": 11,
+    "expiry_threshold_s": 15.8,
+    "waste_pct": 12.6
+   },
+   "q3_rampage": {
+    "casts": 29071,
+    "interval_s_med": 2.89,
+    "interval_s_p25": 1.85,
+    "interval_s_p75": 3.98,
+    "share_le_3s_pct": 54.7,
+    "share_3_6s_pct": 41.1,
+    "share_gt_8s_pct": 1.5,
+    "cast_while_enraged_pct": 97.9,
+    "prev_gcd_top5": [
+     {
+      "id": 280735,
+      "name": "마무리 일격",
+      "n": 5127
+     },
+     {
+      "id": 335096,
+      "name": "피범벅",
+      "n": 5096
+     },
+     {
+      "id": 23881,
+      "name": "피의 갈증",
+      "n": 4076
+     },
+     {
+      "id": 184367,
+      "name": "광란",
+      "n": 4050
+     },
+     {
+      "id": 435222,
+      "name": "우레 작렬",
+      "n": 3144
+     }
+    ]
+   },
+   "q4_reck_window": {
+    "window_s_total": 34348,
+    "window_share_pct": 36.7,
+    "cpm_in": {
+     "5308": 0.14,
+     "23881": 0.01,
+     "184367": 28.07,
+     "280735": 5.57,
+     "335096": 19.66,
+     "335097": 1.98
+    },
+    "cpm_out": {
+     "5308": 0.27,
+     "23881": 16.83,
+     "85288": 9.3,
+     "184367": 13.16,
+     "280735": 7.57,
+     "335096": 0.01,
+     "335097": 0.0
+    },
+    "bloodbath_share_of_bt_in_pct": 100.0,
+    "bloodbath_share_of_bt_out_pct": 0.0,
+    "crushing_share_of_rb_in_pct": 100.0,
+    "crushing_share_of_rb_out_pct": 0.0
+   }
+  },
+  "rank_1_20": {
+   "n": 179,
+   "q1_enrage": {
+    "uptime_pct_med": 98.2,
+    "uptime_pct_p25": 95.3,
+    "uptime_pct_p75": 99.2,
+    "gaps_per_min": 0.45,
+    "gap_s_med": 2.04,
+    "drop_to_rampage_s_med": 2.56,
+    "drop_to_rampage_s_p75": 7.06,
+    "n_gaps": 429
+   },
+   "q2_sudden_death": {
+    "gains": 5069,
+    "gains_per_min": 5.3,
+    "consumed": 4278,
+    "consumed_pct": 84.4,
+    "consume_delay_s_med": 1.87,
+    "consume_delay_s_p75": 3.27,
+    "consume_within_3s_pct": 71.9,
+    "refresh_overwrites": 625,
+    "expired": 12,
+    "expiry_threshold_s": 14.9,
+    "waste_pct": 12.6
+   },
+   "q3_rampage": {
+    "casts": 17890,
+    "interval_s_med": 2.89,
+    "interval_s_p25": 1.85,
+    "interval_s_p75": 3.98,
+    "share_le_3s_pct": 54.6,
+    "share_3_6s_pct": 41.4,
+    "share_gt_8s_pct": 1.3,
+    "cast_while_enraged_pct": 98.0,
+    "prev_gcd_top5": [
+     {
+      "id": 335096,
+      "name": "피범벅",
+      "n": 3178
+     },
+     {
+      "id": 280735,
+      "name": "마무리 일격",
+      "n": 3101
+     },
+     {
+      "id": 23881,
+      "name": "피의 갈증",
+      "n": 2577
+     },
+     {
+      "id": 184367,
+      "name": "광란",
+      "n": 2493
+     },
+     {
+      "id": 435222,
+      "name": "우레 작렬",
+      "n": 1937
+     }
+    ]
+   },
+   "q4_reck_window": {
+    "window_s_total": 21011,
+    "window_share_pct": 36.6,
+    "cpm_in": {
+     "5308": 0.18,
+     "23881": 0.01,
+     "184367": 28.2,
+     "280735": 5.5,
+     "335096": 19.82,
+     "335097": 1.97
+    },
+    "cpm_out": {
+     "5308": 0.3,
+     "23881": 17.03,
+     "85288": 9.35,
+     "184367": 13.21,
+     "280735": 7.56
+    },
+    "bloodbath_share_of_bt_in_pct": 100.0,
+    "bloodbath_share_of_bt_out_pct": 0.0,
+    "crushing_share_of_rb_in_pct": 100.0,
+    "crushing_share_of_rb_out_pct": 0.0
+   }
+  },
+  "rank_21_100": {
+   "n": 117,
+   "q1_enrage": {
+    "uptime_pct_med": 97.8,
+    "uptime_pct_p25": 94.9,
+    "uptime_pct_p75": 99.1,
+    "gaps_per_min": 0.53,
+    "gap_s_med": 2.08,
+    "drop_to_rampage_s_med": 2.46,
+    "drop_to_rampage_s_p75": 6.66,
+    "n_gaps": 317
+   },
+   "q2_sudden_death": {
+    "gains": 3212,
+    "gains_per_min": 5.32,
+    "consumed": 2655,
+    "consumed_pct": 82.7,
+    "consume_delay_s_med": 1.89,
+    "consume_delay_s_p75": 3.3,
+    "consume_within_3s_pct": 71.5,
+    "refresh_overwrites": 411,
+    "expired": 6,
+    "expiry_threshold_s": 17.8,
+    "waste_pct": 13.0
+   },
+   "q3_rampage": {
+    "casts": 11181,
+    "interval_s_med": 2.9,
+    "interval_s_p25": 1.86,
+    "interval_s_p75": 3.99,
+    "share_le_3s_pct": 54.8,
+    "share_3_6s_pct": 40.6,
+    "share_gt_8s_pct": 1.7,
+    "cast_while_enraged_pct": 97.7,
+    "prev_gcd_top5": [
+     {
+      "id": 280735,
+      "name": "마무리 일격",
+      "n": 2026
+     },
+     {
+      "id": 335096,
+      "name": "피범벅",
+      "n": 1918
+     },
+     {
+      "id": 184367,
+      "name": "광란",
+      "n": 1557
+     },
+     {
+      "id": 23881,
+      "name": "피의 갈증",
+      "n": 1499
+     },
+     {
+      "id": 435222,
+      "name": "우레 작렬",
+      "n": 1207
+     }
+    ]
+   },
+   "q4_reck_window": {
+    "window_s_total": 13337,
+    "window_share_pct": 36.8,
+    "cpm_in": {
+     "5308": 0.07,
+     "23881": 0.01,
+     "184367": 27.87,
+     "280735": 5.68,
+     "335096": 19.42,
+     "335097": 1.99
+    },
+    "cpm_out": {
+     "5308": 0.21,
+     "23881": 16.51,
+     "85288": 9.22,
+     "184367": 13.07,
+     "280735": 7.57,
+     "335096": 0.02,
+     "335097": 0.01
+    },
+    "bloodbath_share_of_bt_in_pct": 100.0,
+    "bloodbath_share_of_bt_out_pct": 0.1,
+    "crushing_share_of_rb_in_pct": 100.0,
+    "crushing_share_of_rb_out_pct": 0.1
+   }
+  },
+  "hero_산왕": {
+   "n": 141,
+   "q1_enrage": {
+    "uptime_pct_med": 98.1,
+    "uptime_pct_p25": 95.8,
+    "uptime_pct_p75": 99.2,
+    "gaps_per_min": 0.46,
+    "gap_s_med": 1.61,
+    "drop_to_rampage_s_med": 2.06,
+    "drop_to_rampage_s_p75": 5.11,
+    "n_gaps": 342
+   },
+   "q2_sudden_death": {
+    "gains": 2425,
+    "gains_per_min": 3.28,
+    "consumed": 1865,
+    "consumed_pct": 76.9,
+    "consume_delay_s_med": 2.82,
+    "consume_delay_s_p75": 5.0,
+    "consume_within_3s_pct": 55.4,
+    "refresh_overwrites": 300,
+    "expired": 4,
+    "expiry_threshold_s": 20.5,
+    "waste_pct": 12.5
+   },
+   "q3_rampage": {
+    "casts": 13503,
+    "interval_s_med": 2.95,
+    "interval_s_p25": 1.94,
+    "interval_s_p75": 4.01,
+    "share_le_3s_pct": 52.5,
+    "share_3_6s_pct": 43.3,
+    "share_gt_8s_pct": 1.3,
+    "cast_while_enraged_pct": 98.1,
+    "prev_gcd_top5": [
+     {
+      "id": 435222,
+      "name": "우레 작렬",
+      "n": 3144
+     },
+     {
+      "id": 335096,
+      "name": "피범벅",
+      "n": 2208
+     },
+     {
+      "id": 23881,
+      "name": "피의 갈증",
+      "n": 1989
+     },
+     {
+      "id": 184367,
+      "name": "광란",
+      "n": 1656
+     },
+     {
+      "id": 6343,
+      "name": "천둥벼락",
+      "n": 1536
+     }
+    ]
+   },
+   "q4_reck_window": {
+    "window_s_total": 16491,
+    "window_share_pct": 37.1,
+    "cpm_in": {
+     "5308": 0.25,
+     "23881": 0.0,
+     "184367": 26.47,
+     "280735": 1.93,
+     "335096": 16.35,
+     "335097": 0.74
+    },
+    "cpm_out": {
+     "5308": 0.52,
+     "23881": 17.78,
+     "85288": 6.47,
+     "184367": 13.38,
+     "280735": 5.95
+    },
+    "bloodbath_share_of_bt_in_pct": 100.0,
+    "bloodbath_share_of_bt_out_pct": 0.0,
+    "crushing_share_of_rb_in_pct": 100.0,
+    "crushing_share_of_rb_out_pct": 0.0
+   }
+  },
+  "hero_학살자": {
+   "n": 155,
+   "q1_enrage": {
+    "uptime_pct_med": 97.9,
+    "uptime_pct_p25": 94.1,
+    "uptime_pct_p75": 99.2,
+    "gaps_per_min": 0.49,
+    "gap_s_med": 2.97,
+    "drop_to_rampage_s_med": 3.36,
+    "drop_to_rampage_s_p75": 8.27,
+    "n_gaps": 404
+   },
+   "q2_sudden_death": {
+    "gains": 5856,
+    "gains_per_min": 7.14,
+    "consumed": 5068,
+    "consumed_pct": 86.5,
+    "consume_delay_s_med": 1.74,
+    "consume_delay_s_p75": 2.84,
+    "consume_within_3s_pct": 77.8,
+    "refresh_overwrites": 736,
+    "expired": 19,
+    "expiry_threshold_s": 11.1,
+    "waste_pct": 12.9
+   },
+   "q3_rampage": {
+    "casts": 15568,
+    "interval_s_med": 2.81,
+    "interval_s_p25": 1.65,
+    "interval_s_p75": 3.96,
+    "share_le_3s_pct": 56.6,
+    "share_3_6s_pct": 39.1,
+    "share_gt_8s_pct": 1.6,
+    "cast_while_enraged_pct": 97.7,
+    "prev_gcd_top5": [
+     {
+      "id": 280735,
+      "name": "마무리 일격",
+      "n": 3796
+     },
+     {
+      "id": 335096,
+      "name": "피범벅",
+      "n": 2888
+     },
+     {
+      "id": 184367,
+      "name": "광란",
+      "n": 2394
+     },
+     {
+      "id": 23881,
+      "name": "피의 갈증",
+      "n": 2087
+     },
+     {
+      "id": 85288,
+      "name": "분노의 강타",
+      "n": 1899
+     }
+    ]
+   },
+   "q4_reck_window": {
+    "window_s_total": 17857,
+    "window_share_pct": 36.3,
+    "cpm_in": {
+     "5308": 0.03,
+     "23881": 0.01,
+     "184367": 29.56,
+     "280735": 8.93,
+     "335096": 22.72,
+     "335097": 3.12
+    },
+    "cpm_out": {
+     "5308": 0.04,
+     "23881": 15.99,
+     "85288": 11.82,
+     "184367": 12.96,
+     "280735": 9.0,
+     "335096": 0.02,
+     "335097": 0.01
+    },
+    "bloodbath_share_of_bt_in_pct": 99.9,
+    "bloodbath_share_of_bt_out_pct": 0.1,
+    "crushing_share_of_rb_in_pct": 100.0,
+    "crushing_share_of_rb_out_pct": 0.0
+   }
+  }
+ },
+ "per_boss": {
+  "아베르지안": {
+   "n": 34,
+   "q1_enrage": {
+    "uptime_pct_med": 99.1,
+    "uptime_pct_p25": 98.9,
+    "uptime_pct_p75": 99.5,
+    "gaps_per_min": 0.22,
+    "gap_s_med": 0.68,
+    "drop_to_rampage_s_med": 0.75,
+    "drop_to_rampage_s_p75": 1.38,
+    "n_gaps": 27
+   },
+   "q2_sudden_death": {
+    "gains": 919,
+    "gains_per_min": 7.46,
+    "consumed": 806,
+    "consumed_pct": 87.7,
+    "consume_delay_s_med": 1.74,
+    "consume_delay_s_p75": 2.73,
+    "consume_within_3s_pct": 79.5,
+    "refresh_overwrites": 110,
+    "expired": 0,
+    "expiry_threshold_s": 8.9,
+    "waste_pct": 12.0
+   },
+   "q3_rampage": {
+    "casts": 2441,
+    "interval_s_med": 2.88,
+    "interval_s_p25": 1.7,
+    "interval_s_p75": 3.96,
+    "share_le_3s_pct": 53.5,
+    "share_3_6s_pct": 43.5,
+    "share_gt_8s_pct": 0.2,
+    "cast_while_enraged_pct": 98.5,
+    "prev_gcd_top5": [
+     {
+      "id": 280735,
+      "name": "마무리 일격",
+      "n": 597
+     },
+     {
+      "id": 335096,
+      "name": "피범벅",
+      "n": 401
+     },
+     {
+      "id": 184367,
+      "name": "광란",
+      "n": 380
+     },
+     {
+      "id": 23881,
+      "name": "피의 갈증",
+      "n": 340
+     },
+     {
+      "id": 85288,
+      "name": "분노의 강타",
+      "n": 314
+     }
+    ]
+   },
+   "q4_reck_window": {
+    "window_s_total": 2621,
+    "window_share_pct": 35.5,
+    "cpm_in": {
+     "5308": 0.21,
+     "184367": 29.65,
+     "280735": 8.38,
+     "335096": 21.93,
+     "335097": 2.66
+    },
+    "cpm_out": {
+     "5308": 0.25,
+     "23881": 17.99,
+     "85288": 13.19,
+     "184367": 14.41,
+     "280735": 10.39,
+     "335096": 0.1,
+     "335097": 0.04
+    },
+    "bloodbath_share_of_bt_in_pct": 100.0,
+    "bloodbath_share_of_bt_out_pct": 0.6,
+    "crushing_share_of_rb_in_pct": 100.0,
+    "crushing_share_of_rb_out_pct": 0.3
+   }
+  },
+  "보라시우스": {
+   "n": 33,
+   "q1_enrage": {
+    "uptime_pct_med": 99.2,
+    "uptime_pct_p25": 98.8,
+    "uptime_pct_p75": 99.3,
+    "gaps_per_min": 0.14,
+    "gap_s_med": 1.2,
+    "drop_to_rampage_s_med": 1.32,
+    "drop_to_rampage_s_p75": 1.97,
+    "n_gaps": 17
+   },
+   "q2_sudden_death": {
+    "gains": 924,
+    "gains_per_min": 7.86,
+    "consumed": 790,
+    "consumed_pct": 85.5,
+    "consume_delay_s_med": 1.75,
+    "consume_delay_s_p75": 2.86,
+    "consume_within_3s_pct": 77.7,
+    "refresh_overwrites": 126,
+    "expired": 1,
+    "expiry_threshold_s": 9.6,
+    "waste_pct": 13.7
+   },
+   "q3_rampage": {
+    "casts": 2567,
+    "interval_s_med": 2.56,
+    "interval_s_p25": 1.61,
+    "interval_s_p75": 3.78,
+    "share_le_3s_pct": 62.3,
+    "share_3_6s_pct": 36.3,
+    "share_gt_8s_pct": 0.1,
+    "cast_while_enraged_pct": 98.7,
+    "prev_gcd_top5": [
+     {
+      "id": 280735,
+      "name": "마무리 일격",
+      "n": 675
+     },
+     {
+      "id": 335096,
+      "name": "피범벅",
+      "n": 564
+     },
+     {
+      "id": 184367,
+      "name": "광란",
+      "n": 365
+     },
+     {
+      "id": 23881,
+      "name": "피의 갈증",
+      "n": 303
+     },
+     {
+      "id": 85288,
+      "name": "분노의 강타",
+      "n": 276
+     }
+    ]
+   },
+   "q4_reck_window": {
+    "window_s_total": 3007,
+    "window_share_pct": 42.6,
+    "cpm_in": {
+     "23881": 0.02,
+     "184367": 31.01,
+     "280735": 9.2,
+     "335096": 23.51,
+     "335097": 3.77
+    },
+    "cpm_out": {
+     "23881": 17.87,
+     "85288": 12.67,
+     "184367": 15.02,
+     "280735": 11.23
+    },
+    "bloodbath_share_of_bt_in_pct": 99.9,
+    "bloodbath_share_of_bt_out_pct": 0.0,
+    "crushing_share_of_rb_in_pct": 100.0,
+    "crushing_share_of_rb_out_pct": 0.0
+   }
+  },
+  "바엘고어&에조라크": {
+   "n": 31,
+   "q1_enrage": {
+    "uptime_pct_med": 98.1,
+    "uptime_pct_p25": 97.5,
+    "uptime_pct_p75": 98.5,
+    "gaps_per_min": 0.52,
+    "gap_s_med": 1.24,
+    "drop_to_rampage_s_med": 1.63,
+    "drop_to_rampage_s_p75": 3.58,
+    "n_gaps": 94
+   },
+   "q2_sudden_death": {
+    "gains": 633,
+    "gains_per_min": 3.53,
+    "consumed": 474,
+    "consumed_pct": 74.9,
+    "consume_delay_s_med": 2.99,
+    "consume_delay_s_p75": 5.5,
+    "consume_within_3s_pct": 50.2,
+    "refresh_overwrites": 89,
+    "expired": 2,
+    "expiry_threshold_s": 20.6,
+    "waste_pct": 14.4
+   },
+   "q3_rampage": {
+    "casts": 3293,
+    "interval_s_med": 2.98,
+    "interval_s_p25": 1.95,
+    "interval_s_p75": 4.01,
+    "share_le_3s_pct": 51.3,
+    "share_3_6s_pct": 44.7,
+    "share_gt_8s_pct": 1.0,
+    "cast_while_enraged_pct": 97.9,
+    "prev_gcd_top5": [
+     {
+      "id": 435222,
+      "name": "우레 작렬",
+      "n": 739
+     },
+     {
+      "id": 6343,
+      "name": "천둥벼락",
+      "n": 606
+     },
+     {
+      "id": 23881,
+      "name": "피의 갈증",
+      "n": 485
+     },
+     {
+      "id": 335096,
+      "name": "피범벅",
+      "n": 411
+     },
+     {
+      "id": 184367,
+      "name": "광란",
+      "n": 384
+     }
+    ]
+   },
+   "q4_reck_window": {
+    "window_s_total": 3859,
+    "window_share_pct": 35.9,
+    "cpm_in": {
+     "5308": 0.39,
+     "184367": 26.25,
+     "280735": 1.93,
+     "335096": 14.07,
+     "335097": 0.79
+    },
+    "cpm_out": {
+     "5308": 0.83,
+     "23881": 17.34,
+     "85288": 6.11,
+     "184367": 13.98,
+     "280735": 5.52
+    },
+    "bloodbath_share_of_bt_in_pct": 100.0,
+    "bloodbath_share_of_bt_out_pct": 0.0,
+    "crushing_share_of_rb_in_pct": 100.0,
+    "crushing_share_of_rb_out_pct": 0.0
+   }
+  },
+  "살라다르": {
+   "n": 33,
+   "q1_enrage": {
+    "uptime_pct_med": 99.2,
+    "uptime_pct_p25": 98.9,
+    "uptime_pct_p75": 99.4,
+    "gaps_per_min": 0.23,
+    "gap_s_med": 0.9,
+    "drop_to_rampage_s_med": 1.1,
+    "drop_to_rampage_s_p75": 2.04,
+    "n_gaps": 34
+   },
+   "q2_sudden_death": {
+    "gains": 556,
+    "gains_per_min": 3.83,
+    "consumed": 472,
+    "consumed_pct": 84.9,
+    "consume_delay_s_med": 1.9,
+    "consume_delay_s_p75": 3.62,
+    "consume_within_3s_pct": 69.7,
+    "refresh_overwrites": 54,
+    "expired": 1,
+    "expiry_threshold_s": 20.2,
+    "waste_pct": 9.9
+   },
+   "q3_rampage": {
+    "casts": 2782,
+    "interval_s_med": 2.97,
+    "interval_s_p25": 1.95,
+    "interval_s_p75": 3.97,
+    "share_le_3s_pct": 51.6,
+    "share_3_6s_pct": 45.4,
+    "share_gt_8s_pct": 0.7,
+    "cast_while_enraged_pct": 98.7,
+    "prev_gcd_top5": [
+     {
+      "id": 435222,
+      "name": "우레 작렬",
+      "n": 528
+     },
+     {
+      "id": 184367,
+      "name": "광란",
+      "n": 418
+     },
+     {
+      "id": 335096,
+      "name": "피범벅",
+      "n": 415
+     },
+     {
+      "id": 23881,
+      "name": "피의 갈증",
+      "n": 403
+     },
+     {
+      "id": 280735,
+      "name": "마무리 일격",
+      "n": 341
+     }
+    ]
+   },
+   "q4_reck_window": {
+    "window_s_total": 3436,
+    "window_share_pct": 39.5,
+    "cpm_in": {
+     "5308": 0.14,
+     "184367": 26.57,
+     "280735": 2.88,
+     "335096": 17.86,
+     "335097": 1.64
+    },
+    "cpm_out": {
+     "5308": 0.47,
+     "23881": 18.47,
+     "85288": 8.04,
+     "184367": 14.37,
+     "280735": 7.73
+    },
+    "bloodbath_share_of_bt_in_pct": 100.0,
+    "bloodbath_share_of_bt_out_pct": 0.0,
+    "crushing_share_of_rb_in_pct": 100.0,
+    "crushing_share_of_rb_out_pct": 0.0
+   }
+  },
+  "선봉대": {
+   "n": 33,
+   "q1_enrage": {
+    "uptime_pct_med": 99.1,
+    "uptime_pct_p25": 98.6,
+    "uptime_pct_p75": 99.3,
+    "gaps_per_min": 0.31,
+    "gap_s_med": 0.91,
+    "drop_to_rampage_s_med": 0.93,
+    "drop_to_rampage_s_p75": 1.85,
+    "n_gaps": 58
+   },
+   "q2_sudden_death": {
+    "gains": 620,
+    "gains_per_min": 3.29,
+    "consumed": 465,
+    "consumed_pct": 75.0,
+    "consume_delay_s_med": 3.08,
+    "consume_delay_s_p75": 5.88,
+    "consume_within_3s_pct": 48.8,
+    "refresh_overwrites": 84,
+    "expired": 3,
+    "expiry_threshold_s": 18.7,
+    "waste_pct": 14.0
+   },
+   "q3_rampage": {
+    "casts": 3581,
+    "interval_s_med": 2.9,
+    "interval_s_p25": 1.93,
+    "interval_s_p75": 3.94,
+    "share_le_3s_pct": 55.7,
+    "share_3_6s_pct": 41.5,
+    "share_gt_8s_pct": 0.4,
+    "cast_while_enraged_pct": 98.5,
+    "prev_gcd_top5": [
+     {
+      "id": 435222,
+      "name": "우레 작렬",
+      "n": 930
+     },
+     {
+      "id": 335096,
+      "name": "피범벅",
+      "n": 708
+     },
+     {
+      "id": 23881,
+      "name": "피의 갈증",
+      "n": 478
+     },
+     {
+      "id": 6343,
+      "name": "천둥벼락",
+      "n": 373
+     },
+     {
+      "id": 184367,
+      "name": "광란",
+      "n": 369
+     }
+    ]
+   },
+   "q4_reck_window": {
+    "window_s_total": 4490,
+    "window_share_pct": 39.7,
+    "cpm_in": {
+     "5308": 0.24,
+     "184367": 26.78,
+     "280735": 1.44,
+     "335096": 17.52,
+     "335097": 0.39
+    },
+    "cpm_out": {
+     "5308": 0.49,
+     "23881": 18.58,
+     "85288": 5.73,
+     "184367": 13.86,
+     "280735": 5.67
+    },
+    "bloodbath_share_of_bt_in_pct": 100.0,
+    "bloodbath_share_of_bt_out_pct": 0.0,
+    "crushing_share_of_rb_in_pct": 100.0,
+    "crushing_share_of_rb_out_pct": 0.0
+   }
+  },
+  "우주의 왕관": {
+   "n": 33,
+   "q1_enrage": {
+    "uptime_pct_med": 84.9,
+    "uptime_pct_p25": 83.4,
+    "uptime_pct_p75": 85.6,
+    "gaps_per_min": 0.85,
+    "gap_s_med": 2.97,
+    "drop_to_rampage_s_med": 3.26,
+    "drop_to_rampage_s_p75": 12.8,
+    "n_gaps": 213
+   },
+   "q2_sudden_death": {
+    "gains": 1368,
+    "gains_per_min": 5.44,
+    "consumed": 1178,
+    "consumed_pct": 86.1,
+    "consume_delay_s_med": 1.82,
+    "consume_delay_s_p75": 3.16,
+    "consume_within_3s_pct": 73.1,
+    "refresh_overwrites": 162,
+    "expired": 14,
+    "expiry_threshold_s": 11.7,
+    "waste_pct": 12.9
+   },
+   "q3_rampage": {
+    "casts": 4161,
+    "interval_s_med": 2.91,
+    "interval_s_p25": 1.71,
+    "interval_s_p75": 4.06,
+    "share_le_3s_pct": 53.9,
+    "share_3_6s_pct": 39.5,
+    "share_gt_8s_pct": 3.0,
+    "cast_while_enraged_pct": 95.9,
+    "prev_gcd_top5": [
+     {
+      "id": 280735,
+      "name": "마무리 일격",
+      "n": 897
+     },
+     {
+      "id": 184367,
+      "name": "광란",
+      "n": 680
+     },
+     {
+      "id": 335096,
+      "name": "피범벅",
+      "n": 639
+     },
+     {
+      "id": 23881,
+      "name": "피의 갈증",
+      "n": 509
+     },
+     {
+      "id": 190411,
+      "name": "소용돌이",
+      "n": 447
+     }
+    ]
+   },
+   "q4_reck_window": {
+    "window_s_total": 5004,
+    "window_share_pct": 33.2,
+    "cpm_in": {
+     "23881": 0.02,
+     "184367": 27.79,
+     "280735": 7.7,
+     "335096": 19.82,
+     "335097": 2.28
+    },
+    "cpm_out": {
+     "23881": 12.72,
+     "85288": 7.81,
+     "184367": 10.97,
+     "280735": 7.23
+    },
+    "bloodbath_share_of_bt_in_pct": 99.9,
+    "bloodbath_share_of_bt_out_pct": 0.0,
+    "crushing_share_of_rb_in_pct": 100.0,
+    "crushing_share_of_rb_out_pct": 0.0
+   }
+  },
+  "벨로렌": {
+   "n": 33,
+   "q1_enrage": {
+    "uptime_pct_med": 95.3,
+    "uptime_pct_p25": 93.2,
+    "uptime_pct_p75": 97.4,
+    "gaps_per_min": 0.65,
+    "gap_s_med": 3.22,
+    "drop_to_rampage_s_med": 4.15,
+    "drop_to_rampage_s_p75": 8.85,
+    "n_gaps": 102
+   },
+   "q2_sudden_death": {
+    "gains": 497,
+    "gains_per_min": 3.17,
+    "consumed": 391,
+    "consumed_pct": 78.7,
+    "consume_delay_s_med": 2.25,
+    "consume_delay_s_p75": 3.95,
+    "consume_within_3s_pct": 65.7,
+    "refresh_overwrites": 45,
+    "expired": 0,
+    "expiry_threshold_s": 19.0,
+    "waste_pct": 9.1
+   },
+   "q3_rampage": {
+    "casts": 2749,
+    "interval_s_med": 2.95,
+    "interval_s_p25": 1.93,
+    "interval_s_p75": 4.06,
+    "share_le_3s_pct": 52.4,
+    "share_3_6s_pct": 41.9,
+    "share_gt_8s_pct": 2.5,
+    "cast_while_enraged_pct": 98.0,
+    "prev_gcd_top5": [
+     {
+      "id": 435222,
+      "name": "우레 작렬",
+      "n": 607
+     },
+     {
+      "id": 335096,
+      "name": "피범벅",
+      "n": 505
+     },
+     {
+      "id": 23881,
+      "name": "피의 갈증",
+      "n": 438
+     },
+     {
+      "id": 280735,
+      "name": "마무리 일격",
+      "n": 319
+     },
+     {
+      "id": 184367,
+      "name": "광란",
+      "n": 310
+     }
+    ]
+   },
+   "q4_reck_window": {
+    "window_s_total": 3297,
+    "window_share_pct": 35.1,
+    "cpm_in": {
+     "5308": 0.11,
+     "23881": 0.02,
+     "184367": 27.02,
+     "280735": 2.62,
+     "335096": 17.49,
+     "335097": 0.71
+    },
+    "cpm_out": {
+     "5308": 0.15,
+     "23881": 17.6,
+     "85288": 7.89,
+     "184367": 12.42,
+     "280735": 6.31
+    },
+    "bloodbath_share_of_bt_in_pct": 99.9,
+    "bloodbath_share_of_bt_out_pct": 0.0,
+    "crushing_share_of_rb_in_pct": 100.0,
+    "crushing_share_of_rb_out_pct": 0.0
+   }
+  },
+  "한밤의 도래(르우라)": {
+   "n": 33,
+   "q1_enrage": {
+    "uptime_pct_med": 95.5,
+    "uptime_pct_p25": 94.8,
+    "uptime_pct_p75": 96.2,
+    "gaps_per_min": 0.51,
+    "gap_s_med": 4.86,
+    "drop_to_rampage_s_med": 5.46,
+    "drop_to_rampage_s_p75": 8.19,
+    "n_gaps": 146
+   },
+   "q2_sudden_death": {
+    "gains": 2159,
+    "gains_per_min": 7.48,
+    "consumed": 1858,
+    "consumed_pct": 86.1,
+    "consume_delay_s_med": 1.72,
+    "consume_delay_s_p75": 2.81,
+    "consume_within_3s_pct": 78.6,
+    "refresh_overwrites": 284,
+    "expired": 8,
+    "expiry_threshold_s": 11.3,
+    "waste_pct": 13.5
+   },
+   "q3_rampage": {
+    "casts": 5460,
+    "interval_s_med": 2.8,
+    "interval_s_p25": 1.64,
+    "interval_s_p75": 4.08,
+    "share_le_3s_pct": 56.2,
+    "share_3_6s_pct": 38.8,
+    "share_gt_8s_pct": 2.2,
+    "cast_while_enraged_pct": 97.9,
+    "prev_gcd_top5": [
+     {
+      "id": 280735,
+      "name": "마무리 일격",
+      "n": 1293
+     },
+     {
+      "id": 335096,
+      "name": "피범벅",
+      "n": 1107
+     },
+     {
+      "id": 23881,
+      "name": "피의 갈증",
+      "n": 834
+     },
+     {
+      "id": 184367,
+      "name": "광란",
+      "n": 822
+     },
+     {
+      "id": 85288,
+      "name": "분노의 강타",
+      "n": 747
+     }
+    ]
+   },
+   "q4_reck_window": {
+    "window_s_total": 6187,
+    "window_share_pct": 35.7,
+    "cpm_in": {
+     "23881": 0.01,
+     "184367": 29.78,
+     "280735": 9.21,
+     "335096": 24.49,
+     "335097": 3.4
+    },
+    "cpm_out": {
+     "23881": 16.97,
+     "85288": 13.57,
+     "184367": 12.88,
+     "280735": 8.23
+    },
+    "bloodbath_share_of_bt_in_pct": 100.0,
+    "bloodbath_share_of_bt_out_pct": 0.0,
+    "crushing_share_of_rb_in_pct": 100.0,
+    "crushing_share_of_rb_out_pct": 0.0
+   }
+  },
+  "카이메루스": {
+   "n": 33,
+   "q1_enrage": {
+    "uptime_pct_med": 96.9,
+    "uptime_pct_p25": 94.1,
+    "uptime_pct_p75": 99.1,
+    "gaps_per_min": 0.5,
+    "gap_s_med": 3.22,
+    "drop_to_rampage_s_med": 3.38,
+    "drop_to_rampage_s_p75": 8.12,
+    "n_gaps": 55
+   },
+   "q2_sudden_death": {
+    "gains": 605,
+    "gains_per_min": 5.5,
+    "consumed": 499,
+    "consumed_pct": 82.5,
+    "consume_delay_s_med": 1.95,
+    "consume_delay_s_p75": 3.35,
+    "consume_within_3s_pct": 69.5,
+    "refresh_overwrites": 82,
+    "expired": 2,
+    "expiry_threshold_s": 13.0,
+    "waste_pct": 13.9
+   },
+   "q3_rampage": {
+    "casts": 2037,
+    "interval_s_med": 2.9,
+    "interval_s_p25": 1.86,
+    "interval_s_p75": 4.06,
+    "share_le_3s_pct": 54.7,
+    "share_3_6s_pct": 40.1,
+    "share_gt_8s_pct": 1.9,
+    "cast_while_enraged_pct": 97.9,
+    "prev_gcd_top5": [
+     {
+      "id": 280735,
+      "name": "마무리 일격",
+      "n": 367
+     },
+     {
+      "id": 335096,
+      "name": "피범벅",
+      "n": 346
+     },
+     {
+      "id": 184367,
+      "name": "광란",
+      "n": 322
+     },
+     {
+      "id": 23881,
+      "name": "피의 갈증",
+      "n": 286
+     },
+     {
+      "id": 435222,
+      "name": "우레 작렬",
+      "n": 206
+     }
+    ]
+   },
+   "q4_reck_window": {
+    "window_s_total": 2448,
+    "window_share_pct": 37.1,
+    "cpm_in": {
+     "5308": 0.29,
+     "184367": 27.82,
+     "280735": 5.59,
+     "335096": 18.19,
+     "335097": 1.84
+    },
+    "cpm_out": {
+     "5308": 0.51,
+     "23881": 17.13,
+     "85288": 8.61,
+     "184367": 13.04,
+     "280735": 7.93
+    },
+    "bloodbath_share_of_bt_in_pct": 100.0,
+    "bloodbath_share_of_bt_out_pct": 0.0,
+    "crushing_share_of_rb_in_pct": 100.0,
+    "crushing_share_of_rb_out_pct": 0.0
+   }
+  }
+ }
+}
