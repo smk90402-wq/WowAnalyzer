@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>race model preview</title>
+<style>body{margin:0;background:#1a2030}#info{position:fixed;top:8px;left:8px;color:#9fd;font:13px monospace;white-space:pre}</style>
+</head>
+<body>
+<div id="info">loading…</div>
+<script type="module">
+import * as THREE from './app/static/vendor/three.module.js';
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x1a2030);
+const cam = new THREE.PerspectiveCamera(45, 4/3, 0.1, 100);
+const renderer = new THREE.WebGLRenderer({antialias:true, preserveDrawingBuffer:true});
+function fit(){
+  const w = Math.max(innerWidth, 640), h = Math.max(innerHeight, 480);
+  renderer.setSize(w, h);
+  cam.aspect = w/h;
+  cam.updateProjectionMatrix();
+}
+document.body.appendChild(renderer.domElement);
+scene.add(new THREE.AmbientLight(0xffffff, 1.4));
+const dl = new THREE.DirectionalLight(0xffffff, 2.0); dl.position.set(2,4,3); scene.add(dl);
+scene.add(new THREE.GridHelper(10, 10, 0x334455, 0x223344));
+
+// 대조군: 같은 재질 계열의 구
+const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 12),
+                              new THREE.MeshLambertMaterial({color: 0xffcc88}));
+sphere.position.set(1.6, 1, 0);
+scene.add(sphere);
+
+const params = new URLSearchParams(location.search);
+const tag = params.get('m') || 'race_1_0';
+const d = await (await fetch(`./data/models/${tag}.json`)).json();
+const geo = new THREE.BufferGeometry();
+geo.setAttribute('position', new THREE.Float32BufferAttribute(d.positions, 3));
+geo.setAttribute('normal', new THREE.Float32BufferAttribute(d.normals, 3));
+geo.setAttribute('uv', new THREE.Float32BufferAttribute(d.uvs, 2));
+geo.setIndex(d.indices);
+const tex = new THREE.TextureLoader().load(`./data/models/${d.tex}`, () => log('tex ok'));
+tex.colorSpace = THREE.SRGBColorSpace;
+tex.flipY = false;
+const mat = new THREE.MeshLambertMaterial({map: tex, side: THREE.DoubleSide});
+const mesh = new THREE.Mesh(geo, mat);
+mesh.rotation.x = -Math.PI/2;   // M2 Z-up → three Y-up
+scene.add(mesh);
+
+Object.assign(window, {__scene: scene, __cam: cam, __renderer: renderer,
+                       __mesh: mesh, __mat: mat, __tex: tex, __sphere: sphere, THREE});
+
+function log(s){ document.getElementById('info').textContent += '\n' + s; }
+geo.computeBoundingBox();
+const bb = geo.boundingBox;
+document.getElementById('info').textContent =
+  `verts ${d.positions.length/3} tris ${d.indices.length/3}\n` +
+  `bbox y[${bb.min.y.toFixed(2)},${bb.max.y.toFixed(2)}] z[${bb.min.z.toFixed(2)},${bb.max.z.toFixed(2)}]`;
+
+let t = 0.6;
+window.__renderOnce = function(){
+  fit();
+  cam.position.set(Math.cos(t)*3.4, 2.0, Math.sin(t)*3.4);
+  cam.lookAt(0, 1, 0);
+  renderer.render(scene, cam);
+};
+window.__spin = v => { t = v; window.__renderOnce(); };
+window.__renderOnce();
+setInterval(window.__renderOnce, 250);   // rAF 스로틀 무관
+</script>
+</body>
+</html>

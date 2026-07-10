@@ -1768,6 +1768,18 @@ def local_replay_detail(replay_id: str) -> JSONResponse:
 
 
 # ── 맵 리플레이 (REPLAY3D_PLAN MVP) ─────────────────────────────────────────
+@app.get("/api/replay/model/{fname}")
+def replay_race_model(fname: str) -> FileResponse:
+    """3D 종족 모델 메시/텍스처 (data/models, fetch_race_models.py 산출물)."""
+    if not re.fullmatch(r"(race_\d+_\d|manifest)\.(json|png)", fname):
+        raise HTTPException(404, "unknown model")
+    path = DATA_DIR / "models" / fname
+    if not path.exists():
+        raise HTTPException(404, f"model not built: {fname}")
+    media = "image/png" if fname.endswith(".png") else "application/json"
+    return FileResponse(path, media_type=media)
+
+
 @app.get("/api/replay/map/{ui_map_id}.png")
 def replay_map_png(ui_map_id: int) -> FileResponse:
     """uiMapID → 스티칭된 맵 PNG (data/maps/ 캐시, 최초 1회 wago.tools 다운로드)."""

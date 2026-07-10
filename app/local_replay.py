@@ -1047,6 +1047,19 @@ def _classify_units(
             u["name"] = f"{u['name']} {i}".strip()
 
     units.extend(picked)
+
+    # 종족/성별 (3D 모델용) — 캐시 우선, 실패는 조용히 생략 (뷰어가 구체 폴백)
+    try:
+        from app.char_race import resolve_races
+        players = [u for u in units if u["kind"] == "player" and u["name"]]
+        races = resolve_races([u["name"] for u in players])
+        for u in players:
+            info = races.get(u["name"])
+            if info:
+                u["race"] = info["race"]
+                u["sex"] = info["sex"]
+    except Exception:
+        pass
     return units
 
 
@@ -1348,12 +1361,22 @@ def _select_boss_events(
     return capped
 
 
+# frames 결과 메모리 캐시: replay_id → (로그파일 시그니처, payload).
+# 로그 파일이 안 바뀌었으면 재파싱 생략 — 리스트에서 판 전환 시 즉시 로드.
+_frames_cache: dict[str, tuple[tuple[str, int, int], dict[str, Any]]] = {}
+_FRAMES_CACHE_MAX = 6
+
+
 def replay_frames(replay_id: str) -> dict[str, Any]:
     """GET /api/replay/{id}/frames 응답 본체 (API 계약 고정 포맷)."""
     from app import replay_map  # 순환 import 방지 겸 지연 로드
 
     cap = _find_capture(replay_id)
     log_path, enc = _find_frames_encounter(cap)
+    sig = _file_sig(log_path)
+    hit = _frames_cache.get(replay_id)
+    if hit and hit[0] == sig:
+        return hit[1]
     start_dt = enc["_start_dt"]
     end_dt = enc.get("_end_dt") or (start_dt + timedelta(seconds=(cap.get("duration") or 0) + 5))
     duration_s = enc.get("duration_s") or round((end_dt - start_dt).total_seconds(), 3)
@@ -1451,7 +1474,7 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
             # 오프라인/미지원 맵 폴백: 좌표 bounds 를 1000px 캔버스에 맞춤
             map_out = _fallback_map(dominant_map, player_world, str(exc))
 
-    return {
+    out = {
         "meta": {
             "encounter": enc.get("encounter") or (cap.get("encounter") or ""),
             "instance_id": _to_int(enc.get("instance_id")),
@@ -1460,7 +1483,8 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
             "map": map_out,
             "units": [
                 {"id": guid_to_id[u["guid"]], "name": u["name"],
-                 "cls": u["cls"], "kind": u["kind"]}
+                 "cls": u["cls"], "kind": u["kind"],
+                 "race": u.get("race"), "sex": u.get("sex")}
                 for u in units
             ],
             "deaths": deaths,
@@ -1470,6 +1494,10 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
         "casts": casts_out,
         "player_events": player_events,
     }
+    if len(_frames_cache) >= _FRAMES_CACHE_MAX:
+        _frames_cache.pop(next(iter(_frames_cache)))
+    _frames_cache[replay_id] = (sig, out)
+    return out
 
 
 def replay_terrain_request(replay_id: str) -> dict[str, Any]:

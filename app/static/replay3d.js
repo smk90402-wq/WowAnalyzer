@@ -132,7 +132,8 @@ window.Replay3D = (() => {
     canvas.addEventListener('contextmenu', e => e.preventDefault());
     canvas.addEventListener('pointerdown', e => {
       if (!ready) return;
-      cam.drag = (e.button === 2 || e.shiftKey) ? 2 : 1;
+      // 좌클릭 = 팬(이동), 우클릭/Shift = 시점 회전 (2026-07-11 사용자 요청으로 스왑)
+      cam.drag = (e.button === 2 || e.shiftKey) ? 1 : 2;
       cam.px = e.clientX; cam.py = e.clientY;
       cam.sx = e.clientX; cam.sy = e.clientY; cam.moved = false;
       try { canvas.setPointerCapture(e.pointerId); } catch (_) {}
@@ -156,10 +157,10 @@ window.Replay3D = (() => {
       scheduleRender();
     });
     canvas.addEventListener('pointerup', e => {
-      const wasRotate = cam.drag === 1;
+      const wasPan = cam.drag === 2;
       cam.drag = 0;
       // 4px 미만 이동 + 좌클릭만 클릭으로 인정 — 카메라 드래그와 충돌 없음
-      if (wasRotate && !cam.moved && ready && e.button === 0 && !e.shiftKey) pickAt(e);
+      if (wasPan && !cam.moved && ready && e.button === 0 && !e.shiftKey) pickAt(e);
     });
     canvas.addEventListener('pointercancel', () => { cam.drag = 0; });
     canvas.addEventListener('wheel', e => {
@@ -207,6 +208,8 @@ window.Replay3D = (() => {
     }
     scene = null; units = {}; skulls = {}; rings = []; selRing = null;
     terrain = null; ready = false; builtFor = null;
+    // 종족 모델 geo/tex 도 위 traverse 에서 dispose 됨 — 캐시 무효화 (다음 씬에서 재로드)
+    for (const k of Object.keys(raceModelCache)) delete raceModelCache[k];
   }
 
   async function fetchTerrain(id) {
@@ -311,6 +314,32 @@ window.Replay3D = (() => {
     return spr;
   }
 
+  // 종족 모델 캐시: tag → Promise<{geo, tex}|null> (404 등 실패는 null — 구체 유지)
+  const raceModelCache = {};
+  function loadRaceModel(tag) {
+    if (!raceModelCache[tag]) {
+      raceModelCache[tag] = fetch(`/api/replay/model/${tag}.json`)
+        .then(r => (r.ok ? r.json() : null))
+        .then(d => {
+          if (!d) return null;
+          const geo = new THREE.BufferGeometry();
+          geo.setAttribute('position', new THREE.Float32BufferAttribute(d.positions, 3));
+          geo.setAttribute('normal', new THREE.Float32BufferAttribute(d.normals, 3));
+          geo.setAttribute('uv', new THREE.Float32BufferAttribute(d.uvs, 2));
+          geo.setIndex(d.indices);
+          // M2(Z-up, 전방 +X) → three(Y-up, 전방 +Z = 그룹 facing 축)로 베이크
+          geo.rotateX(-Math.PI / 2);
+          geo.rotateY(-Math.PI / 2);
+          const tex = new THREE.TextureLoader().load(`/api/replay/model/${d.tex}`);
+          tex.colorSpace = THREE.SRGBColorSpace;
+          tex.flipY = false;
+          return { geo, tex };
+        })
+        .catch(() => null);
+    }
+    return raceModelCache[tag];
+  }
+
   function makeUnit(u) {
     const color = new THREE.Color(rcUnitColor(u));
     const r = u.kind === 'boss' ? 2.4 : (u.kind === 'npc' ? 0.7 : 1.1);
@@ -324,6 +353,20 @@ window.Replay3D = (() => {
     group.userData.uid = u.id;   // 클릭 픽킹에서 유닛 식별
     group.add(body);
     group.add(arrow);
+    if (u.kind === 'player' && u.race != null) {
+      const myEpoch = epoch;
+      loadRaceModel(`race_${u.race}_${u.sex || 0}`).then(md => {
+        const rec = units[u.id];
+        if (!md || myEpoch !== epoch || !rec || rec.group !== group) return;
+        const mmat = new THREE.MeshLambertMaterial({ map: md.tex, transparent: true });
+        const model = new THREE.Mesh(md.geo, mmat);
+        group.remove(body);
+        group.add(model);
+        rec.modelMat = mmat;              // 투명도 갱신용 (스킬/사망 페이드)
+        arrow.scale.setScalar(0.55);      // 모델 위 방향 표시는 작게
+        arrow.position.set(0, 0.35, r + 0.7);
+      });
+    }
     let label = null;
     if (u.kind === 'boss') {
       label = makeTextSprite(`★ ${String(u.name || '').split('-')[0]}`, '#ffd8d8');
@@ -480,6 +523,10 @@ window.Replay3D = (() => {
       rec.mat.opacity = (anyHl && !hl ? 0.25 : 1) * (stale ? 0.5 : 1);
       // 클릭 선택 유닛은 살짝 밝게 (발밑 링은 아래에서)
       rec.mat.emissive.copy(rec.mat.color).multiplyScalar(u.id === rc.selectedUnit ? 0.45 : 0);
+      if (rec.modelMat) {
+        rec.modelMat.opacity = rec.mat.opacity;
+        rec.modelMat.emissive.setScalar(u.id === rc.selectedUnit ? 0.25 : 0);
+      }
       const sc = hl ? 1.35 : 1;
       rec.baseScale = sc;   // 기믹 펄스가 이 값 기준으로 왕복
       rec.group.scale.set(sc, sc, sc);

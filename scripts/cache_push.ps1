@@ -3,7 +3,7 @@
 $ErrorActionPreference = 'Stop'
 
 $Remote = 'r2:wowanalyzer-cache/data'
-$Include = @('v2_cache_*.json', 'cache.db')
+$Include = @('v2_cache_*.json', 'cache.db', 'models/race_*.json', 'models/race_*.png', 'models/manifest.json')
 
 $rclone = (Get-Command rclone -ErrorAction SilentlyContinue).Source
 if (-not $rclone) { $rclone = "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\Rclone.Rclone_Microsoft.Winget.Source_8wekyb3d8bbwe\rclone-v1.74.4-windows-amd64\rclone.exe" }

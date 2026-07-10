@@ -71,6 +71,8 @@ data/icons_med/
 
 # 리플레이 맵 타일 캐시 (wago.tools에서 재생성 가능)
 data/maps/
+# 리플레이 3D 종족 모델 (게임 에셋 추출물 — git 커밋 금지, R2 로 동기화. fetch_race_models.py 로 재생성 가능)
+data/models/
 # 스킬 툴팁 누적 캐시 (wago.tools에서 재생성 가능)
 data/spell_tips.json
 # 리플레이 스파이크 (일회성 증명)
