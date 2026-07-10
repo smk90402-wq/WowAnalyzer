@@ -20,7 +20,7 @@
 
 ```powershell
 git pull
-git lfs pull
+.\scripts\cache_pull.ps1   # R2에서 무거운 캐시 받기 (LFS는 더 이상 안 씀)
 
 # 남은 playerDetails/full-fight damage cache 이어받기
 $env:PYTHONIOENCODING='utf-8'
@@ -34,6 +34,23 @@ python .\prefetch_bm_trinket_deep_cache.py --player-topn 100 --deep-topn 25 --ma
 - `serve.py --api-only --host 0.0.0.0 --port 424` 서버 프로세스는 유지해도 됨
 - 프리패치 중단 시 `Get-CimInstance Win32_Process -Filter "name = 'python.exe'"`로 `prefetch_bm_trinket_deep_cache.py`만 확인하고 중지
 - WCL v2는 집계 분석에 raw events보다 `table(DamageDone)`을 우선 사용
+
+---
+
+## 캐시 동기화: Cloudflare R2 (2026-07-10 구축 완료)
+
+무거운 로컬 캐시(`data/v2_cache_*.json`, `data/cache.db`)는 git 대신 R2 버킷 `wowanalyzer-cache`로 동기화.
+
+- 올리기: `.\scripts\cache_push.ps1` (채굴 세션 끝날 때)
+- 받기: `.\scripts\cache_pull.ps1` (다른 PC에서 이어받기 전)
+- 양방향 모두 `--update`(더 최신 파일만 전송, 삭제 없음)
+
+새 PC 세팅:
+```powershell
+winget install Rclone.Rclone
+rclone config create r2 s3 provider=Cloudflare access_key_id=<KEY> secret_access_key=<SECRET> endpoint=https://<ACCOUNT_ID>.r2.cloudflarestorage.com
+```
+자격증명은 Cloudflare 대시보드 → R2 → API Tokens ("R2 Account Token", Admin Read & Write). Account ID는 대시보드 URL의 32자리 값.
 
 ---
 
