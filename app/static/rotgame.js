@@ -28,6 +28,20 @@
     tblast: { nm: '우레 작렬', ic: 'warrior_talent_icon_bloodandthunder' },
     tclap: { nm: '천둥벼락', ic: 'spell_nature_thunderclap', id: 6343 },
   };
+  // 무기 전사 (아이콘/ID: spell_db 공식, 2026-07-11 실측 확정 ID)
+  const A = {
+    cs: { nm: '거인의 강타', ic: 'inv_warbreaker', id: 167105 },
+    ms: { nm: '필사의 일격', ic: 'ability_warrior_savageblow', id: 12294 },
+    hs: { nm: '영웅의 일격', ic: 'ability_rogue_ambush', id: 1269383 },
+    op: { nm: '제압', ic: 'ability_meleedamage', id: 7384 },
+    slam: { nm: '격돌', ic: 'ability_warrior_decisivestrike', id: 1464 },
+    cleave: { nm: '회전베기', ic: 'ability_warrior_cleave', id: 845 },
+    rend: { nm: '분쇄', ic: 'ability_gouge', id: 772 },
+    execute: { nm: '마무리 일격', ic: 'inv_sword_48', id: 5308 },
+    bstorm: { nm: '칼날폭풍', ic: 'ability_warrior_bladestorm', id: 446035 },
+    demolish: { nm: '쇄파', ic: 'inv_ability_colossuswarrior_demolish', id: 436358 },
+    ravager: { nm: '쇠날발톱', ic: 'warrior_talent_icon_ravager', id: 228920 },
+  };
   const M = {
     flurry: { nm: '진눈깨비', ic: 'ability_deathknight_chillstreak', id: 44614 },
     iceLance: { nm: '얼음창', ic: 'spell_frost_frostblast', id: 30455 },
@@ -40,9 +54,12 @@
   const AURA = {
     enrage: { nm: '격노', ic: 'spell_shadow_unholyfrenzy', id: 184362 },
     reck: { nm: '무모한 희생', ic: 'warrior_talent_icon_innerrage', id: 1719 },
-    suddenDeath: { nm: '급살', ic: 'ability_warrior_improveddisciplines', id: 280776 },
+    suddenDeath: { nm: '급살', ic: 'ability_warrior_improveddisciplines', id: 52437 },
     execute: { nm: '처형 구간', ic: 'inv_sword_48' },
     thunder: { nm: '우레 작렬', ic: 'warrior_talent_icon_bloodandthunder' },
+    csWindow: { nm: '거인의 강타 창', ic: 'inv_warbreaker', id: 167105 },
+    hsProc: { nm: '전쟁의 지배자', ic: 'inv12_apextalent_warrior_masterofwarfare', id: 1269391 },
+    avatar: { nm: '투신', ic: 'warrior_talent_icon_avatar', id: 107574 },
     brainFreeze: { nm: '두뇌 빙결', ic: 'ability_mage_brainfreeze', id: 190446 },
     fingers: { nm: '서리의 손가락', ic: 'ability_mage_wintersgrasp', id: 44544 },
     thermal: { nm: '열기 동공', ic: 'spell_mage_thermalvoid', id: 1247730 },
@@ -97,12 +114,13 @@
     산왕OFF: [
       { k: 'rampage', c: s => (!s.enraged || s.rage > 100) && s.rage >= 80, w: '비격노 또는 분노캡이면 광란입니다.' },
       { k: 'tblast', c: s => s.tbCharges >= 2, w: '우레 작렬 2충전은 오버캡 방지로 최우선권입니다.' },
+      { k: 'odyn', c: s => s.odynCd <= 0, w: '오딘의 격노는 쿨마다 — 4세트 쿨감으로 27초마다 돌아옵니다.' },
       { k: 'bt', c: s => s.btCd <= 0, w: '산왕은 피의 갈증이 엔진입니다.' },
       { k: 'execute', c: s => s.sd || s.exec, w: '급살 프록 또는 처형 구간입니다.' },
       { k: 'tblast', c: s => s.tbCharges >= 1, w: '우레 작렬 1충전을 소모합니다.' },
       { k: 'rampage', c: s => s.rage >= 80, w: '분노가 충분하면 광란입니다.' },
-      { k: 'rblow', c: s => s.rbCharges > 0, w: '분노의 강타 필러입니다.' },
-      { k: 'tclap', c: () => true, w: '남는 글쿨은 천둥벼락입니다.' },
+      { k: 'tclap', c: s => s.tcCd <= 0, w: '산왕은 천둥벼락이 분노의 강타보다 위입니다(벼락 연쇄 엔진).' },
+      { k: 'rblow', c: () => true, w: '천둥벼락도 쿨이면 분노의 강타입니다.' },
     ],
     산왕ON: [
       { k: 'odyn', c: s => s.odynCd <= 0, w: '버스트 진입은 오딘의 격노부터 정렬합니다.' },
@@ -112,29 +130,75 @@
       { k: 'rampage', c: s => s.rage >= 80, w: '분노가 충분하면 광란입니다.' },
       { k: 'tblast', c: s => s.tbCharges >= 1, w: '우레 작렬 1충전을 소모합니다.' },
       { k: 'execute', c: s => s.sd || s.exec, w: '마무리 일격은 뒤쪽입니다.' },
-      { k: 'rblow', c: s => s.rbCharges > 0, w: '분쇄의 타격 필러입니다.' },
-      { k: 'tclap', c: () => true, w: '남는 글쿨은 천둥벼락입니다.' },
+      { k: 'tclap', c: s => s.tcCd <= 0, w: '산왕은 천둥벼락이 분노의 강타보다 위입니다.' },
+      { k: 'rblow', c: () => true, w: '천둥벼락도 쿨이면 분쇄의 타격입니다.' },
     ],
     산왕AOEOFF: [
-      { k: 'tclap', c: s => s.targets >= 6, w: '6타겟 이상 산왕 광특은 천둥벼락을 가장 먼저 누르는 예외 구간입니다.' },
+      { k: 'tclap', c: s => s.targets >= 6 && s.tcCd <= 0, w: '6타겟 이상 산왕 광특은 천둥벼락을 가장 먼저 누르는 예외 구간입니다.' },
       { k: 'tblast', c: s => s.tbCharges > 0, w: '광특 산왕은 우레 작렬을 광역 엔진으로 빠르게 소모합니다.' },
+      { k: 'odyn', c: s => s.odynCd <= 0, w: '오딘의 격노는 광역에서도 쿨마다입니다.' },
       { k: 'rampage', c: s => (!s.enraged || s.rage > 100) && s.rage >= 80, w: '비격노 또는 분노캡이면 광특에서도 광란입니다.' },
       { k: 'bt', c: s => s.btCd <= 0, w: '피의 갈증으로 우레 작렬 프록과 산왕 엔진을 굴립니다.' },
       { k: 'execute', c: s => s.sd || s.exec, w: '급살 프록 또는 처형 구간입니다.' },
       { k: 'rampage', c: s => s.rage >= 80, w: '분노가 충분하면 광란입니다.' },
-      { k: 'rblow', c: s => s.rbCharges > 0, w: '분노의 강타 필러입니다.' },
-      { k: 'tclap', c: () => true, w: '남는 광역 글쿨은 천둥벼락입니다.' },
+      { k: 'tclap', c: s => s.tcCd <= 0, w: '광역 필러는 천둥벼락이 분노의 강타보다 위입니다.' },
+      { k: 'rblow', c: () => true, w: '천둥벼락도 쿨이면 분노의 강타입니다.' },
     ],
     산왕AOEON: [
-      { k: 'tclap', c: s => s.targets >= 6, w: '투신/광역 창에서 6타겟 이상이면 천둥벼락이 가장 앞섭니다.' },
+      { k: 'tclap', c: s => s.targets >= 6 && s.tcCd <= 0, w: '투신/광역 창에서 6타겟 이상이면 천둥벼락이 가장 앞섭니다.' },
       { k: 'odyn', c: s => s.odynCd <= 0, w: '버스트 진입은 오딘의 격노부터 정렬합니다.' },
       { k: 'tblast', c: s => s.tbCharges > 0, w: '우레 작렬 충전을 소모합니다.' },
       { k: 'rampage', c: s => (!s.enraged || s.rage > 100) && s.rage >= 80, w: '비격노 또는 분노캡이면 광란입니다.' },
       { k: 'bt', c: s => s.btCd <= 0, w: '피범벅을 소모합니다.' },
       { k: 'execute', c: s => s.sd || s.exec, w: '마무리 일격은 뒤쪽입니다.' },
       { k: 'rampage', c: s => s.rage >= 80, w: '분노가 충분하면 광란입니다.' },
-      { k: 'rblow', c: s => s.rbCharges > 0, w: '분쇄의 타격 필러입니다.' },
-      { k: 'tclap', c: () => true, w: '남는 광역 글쿨은 천둥벼락입니다.' },
+      { k: 'tclap', c: s => s.tcCd <= 0, w: '광역 필러는 천둥벼락이 분노의 강타보다 위입니다.' },
+      { k: 'rblow', c: () => true, w: '천둥벼락도 쿨이면 분쇄의 타격입니다.' },
+    ],
+  };
+
+  // 무기 전사 — rotation_data.json flow(2026-07-11 실측 가이드)와 1:1 대조 완료 (게이트 1)
+  const armsRules = {
+    학살자: [
+      { k: 'cs', c: s => s.csCd <= 0, w: '거인의 강타는 쿨마다 — 상위권 홀드율 7%뿐입니다.' },
+      { k: 'bstorm', c: s => s.csUp && s.bsCd <= 0, w: '거인의 강타 창이 열렸으면 칼날폭풍부터(상위 로그 90%가 창 안).' },
+      { k: 'hs', c: s => s.hsProc, w: '영웅의 일격 프록은 뭉개면 손해 — 12.0.5부터 필사의 일격보다 위입니다.' },
+      { k: 'ms', c: s => s.msCd <= 0, w: '필사의 일격은 6초마다 — 창 안 첫 글쿨도 필사부터.' },
+      { k: 'execute', c: s => s.sd || (s.exec && s.rage >= 100), w: '급살 프록이거나, 처형 구간에서 분노가 100을 넘보면 마무리 일격입니다.' },
+      { k: 'op', c: s => s.opCharges > 0, w: '제압 순환 — 1충전은 항상 굴립니다.' },
+      { k: 'execute', c: s => s.exec, w: '처형 구간 필러는 마무리 일격입니다(분쇄·격돌 배제).' },
+      { k: 'slam', c: () => true, w: '남는 글쿨은 격돌 — 단 거인의 강타 창 안을 격돌로 채우는 건 최악의 실수입니다.' },
+    ],
+    학살자AOE: [
+      { k: 'rend', c: s => s.rendLeft <= 0 && !s.exec, w: '광역은 분쇄 도포부터(분노 수급) — 처형 구간에는 더 바르지 않습니다.' },
+      { k: 'cs', c: s => s.csCd <= 0, w: '거인의 강타는 광역에서도 쿨마다입니다.' },
+      { k: 'bstorm', c: s => s.csUp && s.bsCd <= 0, w: '창 안 칼날폭풍입니다.' },
+      { k: 'cleave', c: s => s.hsProc, w: '광역 프록 소모는 회전베기 경유 — 영웅의 일격 수동은 손해입니다.' },
+      { k: 'execute', c: s => s.sd, w: '급살 프록 마무리 일격입니다.' },
+      { k: 'op', c: s => s.opCharges > 0, w: '광역에선 제압이 필사의 일격보다 위입니다(광역 파동).' },
+      { k: 'ms', c: s => s.msCd <= 0, w: '필사의 일격 쿨을 굴립니다.' },
+      { k: 'cleave', c: () => true, w: '광역 필러는 회전베기입니다.' },
+    ],
+    거신: [
+      { k: 'cs', c: s => s.csCd <= 0, w: '거인의 강타는 쿨마다입니다.' },
+      { k: 'demolish', c: s => s.csUp && s.demoCd <= 0, w: '쇄파는 거인의 강타 창 안에서 — 채널이 끊길 기믹만 조심.' },
+      { k: 'hs', c: s => s.hsProc, w: '영웅의 일격 프록 — 쇄파 채널 전에 비워둡니다(채널 중 낭비 20% 실측).' },
+      { k: 'ms', c: s => s.msCd <= 0, w: '필사의 일격 — 거인의 힘 최대 중첩이면 쇄파 쿨을 당깁니다.' },
+      { k: 'execute', c: s => s.sd || (s.exec && s.rage >= 100), w: '급살 프록이거나 처형 구간 분노 초과면 마무리입니다.' },
+      { k: 'op', c: s => s.opCharges > 0, w: '제압 순환 — 거신은 제압→필사 교차가 실측 패턴입니다.' },
+      { k: 'execute', c: s => s.exec, w: '처형 구간 필러는 마무리 일격입니다.' },
+      { k: 'slam', c: () => true, w: '남는 글쿨은 격돌입니다.' },
+    ],
+    거신AOE: [
+      { k: 'rend', c: s => s.rendLeft <= 0 && !s.exec, w: '광역은 분쇄 선도포부터입니다.' },
+      { k: 'ravager', c: s => s.ravCd <= 0 && s.csCd <= 0, w: '쇠날발톱은 거인의 강타 직전, 쫄 타이밍에 맞춰 엽니다.' },
+      { k: 'cs', c: s => s.csCd <= 0, w: '거인의 강타는 광역에서도 쿨마다입니다.' },
+      { k: 'demolish', c: s => s.csUp && s.demoCd <= 0, w: '창 안 쇄파입니다.' },
+      { k: 'cleave', c: s => s.hsProc, w: '프록 소모는 회전베기 경유 — 강화 격돌이 자동으로 나갑니다.' },
+      { k: 'ms', c: s => s.msCd <= 0, w: '필사의 일격으로 거인의 힘을 쌓고 쇄파 쿨을 당깁니다.' },
+      { k: 'execute', c: s => s.sd, w: '급살 프록 마무리입니다.' },
+      { k: 'op', c: s => s.opCharges > 0, w: '제압 충전을 굴립니다.' },
+      { k: 'cleave', c: () => true, w: '광역 필러는 회전베기입니다.' },
     ],
   };
 
@@ -188,15 +252,19 @@
       rules: s => warriorRules[`${s.build}${s.profile === 'aoe' ? 'AOE' : ''}${s.reck ? 'ON' : 'OFF'}`],
       random(build, profile) {
         const aoe = profile === 'aoe';
-        return {
+        const hp = 5 + ri(95);
+        const s = {
           kind: 'warrior', build, profile, targets: aoe ? 3 + ri(6) : 1,
-          reck: rb(aoe ? 0.45 : 0.4), exec: rb(0.2),
+          reck: rb(aoe ? 0.45 : 0.4), hp, exec: hp <= 35,
           rage: Math.floor(Math.random() * 13) * 10,
           enraged: rb(0.55), sd: rb(0.4),
           btCd: rb(0.5) ? 0 : 3, odynCd: rb(0.4) ? 0 : 6,
           bsCd: aoe ? (rb(0.55) ? 0 : 10) : 0,
           rbCharges: ri(3), tbCharges: ri(3),
+          tcCd: rb(0.6) ? 0 : 3,
         };
+        if (build === '산왕' && s.tcCd > 0 && s.rbCharges === 0) s.rbCharges = 1; // 폴백 룰 보장
+        return s;
       },
       actionable(s, k) {
         if (k === 'rampage') return s.rage >= 80;
@@ -206,11 +274,23 @@
         if (k === 'odyn') return s.odynCd <= 0;
         if (k === 'bstorm') return s.bsCd <= 0 && (s.reck || s.profile === 'aoe');
         if (k === 'tblast') return s.tbCharges > 0;
+        if (k === 'tclap') return s.tcCd <= 0;
         return true;
+      },
+      cooldown(s, k) {
+        if (k === 'bt') return s.btCd;
+        if (k === 'odyn') return s.odynCd;
+        if (k === 'bstorm' && s.profile === 'aoe') return s.bsCd;
+        if (k === 'tclap') return s.tcCd;
+        return 0;
+      },
+      targetHp(s) {
+        return { pct: s.hp, threshold: 35, label: s.exec ? `${s.hp}% — 처형 구간(대학살 35%)` : `${s.hp}%` };
       },
       marker(s, k) {
         if (k === 'execute' && (s.sd || s.exec)) return '!';
         if (k === 'tblast' && s.tbCharges > 0) return String(s.tbCharges);
+        if (k === 'rblow' && s.rbCharges > 0) return String(s.rbCharges);
         if (k === 'tclap' && s.profile === 'aoe' && s.targets >= 6) return `${s.targets}T`;
         if (k === 'rampage' && s.rage >= 80 && (!s.enraged || s.rage > 100)) return '★';
         return '';
@@ -221,7 +301,6 @@
           { ...AURA.reck, on: s.reck, pulse: s.reck },
         ];
         if (s.sd) out.push({ ...AURA.suddenDeath, on: true, pulse: true, badge: '!' });
-        if (s.exec) out.push({ ...AURA.execute, on: true, pulse: true, badge: '20' });
         if (s.profile === 'aoe') out.push({ ...AURA.targets, on: true, pulse: s.targets >= 6, badge: `${s.targets}T` });
         if (s.build === '산왕') out.push({ ...AURA.thunder, on: s.tbCharges > 0, pulse: s.tbCharges > 0, badge: s.tbCharges || '' });
         return out;
@@ -231,10 +310,94 @@
       },
       unavailable(s, k) {
         if (k === 'rampage') return '분노 80 미만입니다.';
-        if (k === 'bt' || k === 'odyn') return '쿨다운 중입니다.';
-        if (k === 'execute') return '급살 프록도 처형 구간도 아닙니다.';
+        if (k === 'bt' || k === 'odyn' || k === 'tclap') return '쿨다운 중입니다.';
+        if (k === 'execute') return '급살 프록도 처형 구간(35%↓)도 아닙니다.';
         if (k === 'rblow' || k === 'tblast') return '충전이 없습니다.';
         if (k === 'bstorm') return s.profile === 'aoe' ? '쿨다운 중입니다.' : '무모한 희생 창에서만 우선순위에 들어옵니다.';
+        return '지금은 우선순위가 아닙니다.';
+      },
+    },
+    'Warrior|Arms': {
+      supports: build => build === '학살자' || build === '거신',
+      title: s => `${s.build} 무기 전사 · ${PROFILE[s.profile || 'single']}`,
+      bar: s => {
+        if (s.build === '거신') {
+          return s.profile === 'aoe'
+            ? ['rend', 'ravager', 'cs', 'demolish', 'cleave', 'ms', 'execute', 'op', 'slam']
+            : ['cs', 'demolish', 'hs', 'ms', 'execute', 'op', 'slam'];
+        }
+        return s.profile === 'aoe'
+          ? ['rend', 'cs', 'bstorm', 'cleave', 'ms', 'execute', 'op', 'slam']
+          : ['cs', 'bstorm', 'hs', 'ms', 'execute', 'op', 'slam'];
+      },
+      display: (s, k) => A[k],
+      rules: s => armsRules[`${s.build}${s.profile === 'aoe' ? 'AOE' : ''}`],
+      random(build, profile) {
+        const aoe = profile === 'aoe';
+        const hp = 5 + ri(95);
+        const execTh = build === '거신' ? 20 : 35;   // 거신은 대학살 미채택(실측 0%) — 기본 20%
+        const s = {
+          kind: 'arms', build, profile, targets: aoe ? 3 + ri(6) : 1,
+          hp, execTh, exec: hp <= execTh,
+          rage: Math.floor(Math.random() * 13) * 10,
+          csUp: rb(0.45), csCd: 0, sd: rb(0.35), hsProc: rb(0.4),
+          msCd: rb(0.55) ? 0 : 4, bsCd: rb(0.35) ? 0 : 20,
+          demoCd: rb(0.4) ? 0 : 12, ravCd: rb(0.35) ? 0 : 40,
+          opCharges: ri(3), rendLeft: aoe ? (rb(0.5) ? 0 : 8) : 12,
+        };
+        s.csCd = s.csUp ? 18 : (rb(0.5) ? 0 : 9);
+        return s;
+      },
+      actionable(s, k) {
+        if (k === 'cs') return s.csCd <= 0;
+        if (k === 'bstorm') return s.bsCd <= 0;
+        if (k === 'hs') return s.hsProc;
+        if (k === 'ms') return s.msCd <= 0;
+        if (k === 'execute') return s.sd || s.exec;
+        if (k === 'op') return s.opCharges > 0;
+        if (k === 'demolish') return s.demoCd <= 0;
+        if (k === 'ravager') return s.ravCd <= 0;
+        if (k === 'rend') return s.rendLeft <= 0;
+        if (k === 'cleave') return s.profile === 'aoe' || s.hsProc;
+        return true;
+      },
+      cooldown(s, k) {
+        if (k === 'cs') return s.csCd;
+        if (k === 'ms') return s.msCd;
+        if (k === 'bstorm') return s.bsCd;
+        if (k === 'demolish') return s.demoCd;
+        if (k === 'ravager') return s.ravCd;
+        return 0;
+      },
+      targetHp(s) {
+        return { pct: s.hp, threshold: s.execTh, label: s.exec ? `${s.hp}% — 처형 구간(${s.execTh}%↓)` : `${s.hp}%` };
+      },
+      marker(s, k) {
+        if (k === 'execute' && (s.sd || s.exec)) return '!';
+        if (k === 'op' && s.opCharges > 0) return String(s.opCharges);
+        if (k === 'hs' && s.hsProc) return '★';
+        if (k === 'cleave' && s.profile === 'aoe' && s.hsProc) return '★';
+        return '';
+      },
+      stateChips(s) {
+        const out = [
+          { ...AURA.csWindow, on: s.csUp, pulse: s.csUp },
+          { ...AURA.hsProc, on: s.hsProc, pulse: s.hsProc, badge: s.hsProc ? '!' : '' },
+        ];
+        if (s.sd) out.push({ ...AURA.suddenDeath, on: true, pulse: true, badge: '!' });
+        if (s.profile === 'aoe') out.push({ ...AURA.targets, on: true, pulse: s.targets >= 3, badge: `${s.targets}T` });
+        return out;
+      },
+      resource(s) {
+        return { label: '분노', value: s.rage, pct: Math.min(100, s.rage / 1.2), cls: s.rage >= 100 ? 'warn' : '' };
+      },
+      unavailable(s, k) {
+        if (k === 'cs' || k === 'ms' || k === 'bstorm' || k === 'demolish' || k === 'ravager') return '쿨다운 중입니다.';
+        if (k === 'hs') return '전쟁의 지배자 프록이 없습니다(격돌이 영웅의 일격으로 변신하는 프록).';
+        if (k === 'execute') return `급살 프록도 처형 구간(${s.execTh}%↓)도 아닙니다.`;
+        if (k === 'op') return '충전이 없습니다.';
+        if (k === 'rend') return '분쇄가 아직 남아 있습니다.';
+        if (k === 'cleave') return '광역 상황이 아닙니다.';
         return '지금은 우선순위가 아닙니다.';
       },
     },
@@ -334,7 +497,10 @@
 .rg-mode{margin:6px 0 12px;padding:8px 10px;border:1px solid #2b3140;border-radius:7px;background:#10131a;color:#aeb5c3;font-size:12px}.rg-btn.sm{padding:6px 11px;font-size:12px}.rg-btn:disabled{opacity:.55;cursor:default}
 .rg-profiles{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}.rg-prof{cursor:pointer;border:1px solid #384050;background:#191d26;color:#d8ddec;border-radius:7px;padding:7px 13px;font-size:12px;font-weight:800}.rg-prof.active{border-color:#d19b38;background:#493315;color:#fff0c6;box-shadow:0 0 12px rgba(209,155,56,.24)}
 .rg-tip{position:relative}.rg-tooltip{position:fixed;z-index:10050;width:360px;max-width:calc(100vw - 24px);padding:13px 14px;border-radius:8px;border:1px solid #4b5365;background:#070a10;color:#e9ecf4;box-shadow:0 18px 46px rgba(0,0,0,.72);font-size:13px;line-height:1.5;text-align:left;pointer-events:none;opacity:1}.rg-tooltip[hidden]{display:none}.rg-tt-head{display:flex;align-items:center;gap:10px;margin-bottom:9px}.rg-tt-head img{width:34px;height:34px;border-radius:6px;border:1px solid #596173;box-shadow:0 0 10px rgba(255,209,95,.2)}.rg-tt-title{font-size:14px;font-weight:800;color:#fff4c2}.rg-tt-lines{display:grid;gap:4px;color:#dce2ee;white-space:pre-line}.rg-tt-line:first-child{display:none}.rg-tt-wow{margin-top:10px;padding-top:9px;border-top:1px solid #2a2f3b;color:#9fb5d8;font-size:12px}
-.rg-hint{font-size:13px;color:#cdd2dd;margin:0 0 10px}.rg-prog{font-size:12px;color:#9aa0ad}.rg-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(76px,1fr));gap:12px;padding:15px;background:#0d0f15;border:1px solid #252936;border-radius:8px}
+.rg-hint{font-size:13px;color:#cdd2dd;margin:0 0 10px}.rg-prog{font-size:12px;color:#9aa0ad}.rg-bar{display:grid;grid-template-columns:repeat(auto-fit,66px);justify-content:center;gap:8px;padding:14px;background:#0d0f15;border:1px solid #252936;border-radius:8px}
+.rg-hp{position:relative;height:26px;margin:0 0 10px;border:1px solid #6d5a2e;border-radius:4px;background:#191408;overflow:hidden}.rg-hpfill{height:100%;background:linear-gradient(180deg,#e8cf96,#c9a355 55%,#a37c2f);transition:width .15s}.rg-hpth{position:absolute;top:0;bottom:0;width:2px;background:rgba(255,90,90,.9);box-shadow:0 0 6px rgba(255,60,60,.8)}.rg-hptext{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:900;color:#1c1608;text-shadow:0 1px 0 rgba(255,255,255,.25)}
+.rg-cd{position:absolute;inset:0;border-radius:6px;overflow:hidden;pointer-events:none}.rg-cd i{position:absolute;inset:0;background:conic-gradient(rgba(4,6,10,.82) 0 68%,rgba(4,6,10,.35) 68% 100%)}.rg-cd b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;color:#ffd76e;text-shadow:0 0 6px #000,0 0 2px #000}
+.rg-state.rg-under{margin:10px 0 0}
 .rg-tile{text-align:center;cursor:pointer;user-select:none}.rg-ic{width:58px;height:58px;border-radius:8px;margin:0 auto;background-size:cover;background-position:center;border:2px solid #272b35;position:relative;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}.rg-tile.live .rg-ic{border-color:#ffd15f;box-shadow:0 0 10px rgba(255,209,95,.75),0 0 22px rgba(255,176,62,.32),inset 0 0 8px rgba(255,240,174,.25);animation:rg-glow 1.25s ease-in-out infinite}.rg-tile.live .rg-ic:after{content:"";position:absolute;inset:-5px;border-radius:12px;border:1px solid rgba(255,224,122,.55);pointer-events:none}@keyframes rg-glow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.22)}}.rg-tile.dim{cursor:not-allowed}.rg-tile.dim .rg-ic{filter:grayscale(1) brightness(.45);border-color:#20242d}.rg-nm{font-size:11px;margin-top:5px;color:#d7dbe6;line-height:1.15}.rg-tile.dim .rg-nm{color:#6d7380}.rg-mk{position:absolute;top:-8px;right:-8px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:#ffd15f;color:#111;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;border:1px solid #111}
 .rg-msg{text-align:center;font-size:14px;font-weight:700;min-height:22px;margin-top:12px}.rg-ok{color:#69db8f}
 .rg-fail{position:absolute;inset:0;background:rgba(11,9,11,.94);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px;text-align:center;animation:rgpop .2s ease}@keyframes rgpop{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}.rg-failh{font-size:20px;font-weight:800;color:#ff8585;margin-bottom:10px}.rg-answer{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:10px}.rg-mini{width:34px;height:34px;border-radius:5px;border:2px solid #ffd15f;box-shadow:0 0 10px rgba(255,209,95,.55)}.rg-failw{font-size:14px;color:#e9ecf4;line-height:1.6;max-width:590px;margin-bottom:6px}.rg-failsub{font-size:12px;color:#9aa0ad;margin-bottom:18px}.rg-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}.rg-btn{cursor:pointer;background:#282d38;border:1px solid #464d5d;color:#e9ecf4;border-radius:7px;padding:9px 18px;font-size:13px;font-weight:700}.rg-btn.pri{background:#9a6b16;border-color:#bd8a2b;color:#fff0c6}
@@ -510,12 +676,17 @@
     function renderPlay() {
       hideGameTip();
       const res = game.resource(s);
+      const hp = game.targetHp ? game.targetHp(s) : null;
       const tiles = game.bar(s).map(k => {
         const d = game.display(s, k);
         const live = game.actionable(s, k);
         const mk = game.marker(s, k);
+        const cd = (!live && game.cooldown) ? game.cooldown(s, k) : 0;
         return `<div class="rg-tile rg-tip ${live ? 'live' : 'dim'}" data-k="${k}" ${tipAttrs(d, skillTip(game, s, k, live, mk))} tabindex="0">
-          <div class="rg-ic" style="background-image:url('${IMG(d.ic)}')">${mk ? `<span class="rg-mk">${mk}</span>` : ''}</div>
+          <div class="rg-ic" style="background-image:url('${IMG(d.ic)}')">
+            ${cd > 0 ? `<span class="rg-cd"><i></i><b>${cd}</b></span>` : ''}
+            ${mk ? `<span class="rg-mk">${mk}</span>` : ''}
+          </div>
           <div class="rg-nm">${d.nm}</div>
         </div>`;
       }).join('');
@@ -529,15 +700,20 @@
           <button class="rg-x" title="종료">×</button>
         </div>
         ${profileButtons(profile)}
+        ${hp ? `<div class="rg-hp rg-tip" ${tip(`대상 체력 ${hp.label}`)}>
+          <div class="rg-hpfill" style="width:${hp.pct}%"></div>
+          <span class="rg-hpth" style="left:${hp.threshold}%"></span>
+          <span class="rg-hptext">${hp.label}</span>
+        </div>` : ''}
         ${auraHtml(game.stateChips(s))}
-        <div class="rg-state">
+        ${timed ? '<div class="rg-timer"><div class="rg-timerfill"></div></div>' : '<div class="rg-mode">시간 제한 없음 · 버프와 스킬 아이콘에 마우스를 올려 현재 상태를 확인하세요.</div>'}
+        <div class="rg-hint">노란 테두리로 빛나는 아이콘 중 <b>지금 1순위</b>를 클릭</div>
+        <div class="rg-bar">${tiles}</div>
+        <div class="rg-state rg-under">
           <span>${res.label}</span>
           <div class="rg-resbar"><div class="rg-resfill ${res.cls}" style="width:${res.pct}%"></div></div>
           <span>${res.value}</span>
         </div>
-        ${timed ? '<div class="rg-timer"><div class="rg-timerfill"></div></div>' : '<div class="rg-mode">시간 제한 없음 · 버프와 스킬 아이콘에 마우스를 올려 현재 상태를 확인하세요.</div>'}
-        <div class="rg-hint">노란 테두리로 빛나는 아이콘 중 <b>지금 1순위</b>를 클릭</div>
-        <div class="rg-bar">${tiles}</div>
         <div class="rg-msg" id="rg-msg"></div>`;
       box.querySelector('.rg-x').onclick = close;
       box.querySelector('#rg-test').onclick = startTimedTest;
