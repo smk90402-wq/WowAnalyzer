@@ -9,10 +9,13 @@
      "skill": "돌진"
     },
     {
-     "skill": "돌진"
+     "skill": "오딘의 격노"
     },
     {
-     "skill": "광란"
+     "skill": "무모한 희생"
+    },
+    {
+     "skill": "돌진"
     },
     {
      "skill": "광란"
@@ -24,10 +27,16 @@
      "skill": "피범벅"
     },
     {
+     "skill": "피범벅"
+    },
+    {
      "skill": "광란"
     },
     {
-     "skill": "피범벅"
+     "skill": "광란"
+    },
+    {
+     "skill": "광란"
     }
    ],
    "opener_match": 45,
@@ -83,10 +92,13 @@
      "skill": "돌진"
     },
     {
+     "skill": "무모한 희생"
+    },
+    {
      "skill": "돌진"
     },
     {
-     "skill": "광란"
+     "skill": "칼날폭풍"
     },
     {
      "skill": "피범벅"
@@ -95,6 +107,9 @@
      "skill": "피범벅"
     },
     {
+     "skill": "오딘의 격노"
+    },
+    {
      "skill": "광란"
     },
     {
@@ -102,9 +117,12 @@
     },
     {
      "skill": "광란"
+    },
+    {
+     "skill": "피범벅"
     }
    ],
-   "opener_match": 48,
+   "opener_match": 50,
    "box": null,
    "cooldowns": [
     {
@@ -168,22 +186,25 @@
      "skill": "오딘의 격노"
     },
     {
-     "skill": "피의 갈증"
+     "skill": "분노의 강타"
     },
     {
-     "skill": "분노의 강타"
+     "skill": "피의 갈증"
     },
     {
      "skill": "광란"
     },
     {
-     "skill": "피의 갈증"
+     "skill": "천둥벼락"
     },
     {
-     "skill": "분노의 강타"
+     "skill": "마무리 일격"
+    },
+    {
+     "skill": "피의 갈증"
     }
    ],
-   "opener_match": 46,
+   "opener_match": 42,
    "box": null,
    "cooldowns": [
     {
@@ -236,28 +257,37 @@
      "skill": "돌진"
     },
     {
+     "skill": "무모한 희생"
+    },
+    {
+     "skill": "투신"
+    },
+    {
      "skill": "오딘의 격노"
     },
     {
      "skill": "광란"
     },
     {
+     "skill": "광란"
+    },
+    {
      "skill": "우레 작렬"
     },
     {
      "skill": "광란"
     },
     {
-     "skill": "광란"
+     "skill": "피범벅"
     },
     {
-     "skill": "우레 작렬"
+     "skill": "광란"
     },
     {
      "skill": "광란"
     }
    ],
-   "opener_match": 42,
+   "opener_match": 47,
    "box": null,
    "cooldowns": [
     {
@@ -318,6 +348,12 @@
      "skill": "오딘의 격노"
     },
     {
+     "skill": "무모한 희생"
+    },
+    {
+     "skill": "투신"
+    },
+    {
      "skill": "우레 작렬"
     },
     {
@@ -330,13 +366,16 @@
      "skill": "광란"
     },
     {
-     "skill": "피범벅"
+     "skill": "광란"
     },
     {
-     "skill": "광란"
+     "skill": "우레 작렬"
+    },
+    {
+     "skill": "피범벅"
     }
    ],
-   "opener_match": 46,
+   "opener_match": 40,
    "box": null,
    "cooldowns": [
     {
@@ -389,10 +428,19 @@
      "skill": "돌진"
     },
     {
-     "skill": "광란"
+     "skill": "무모한 희생"
     },
     {
      "skill": "오딘의 격노"
+    },
+    {
+     "skill": "돌진"
+    },
+    {
+     "skill": "광란"
+    },
+    {
+     "skill": "광란"
     },
     {
      "skill": "칼날폭풍"
@@ -401,16 +449,16 @@
      "skill": "피범벅"
     },
     {
-     "skill": "광란"
+     "skill": "피범벅"
     },
     {
-     "skill": "피범벅"
+     "skill": "광란"
     },
     {
      "skill": "광란"
     }
    ],
-   "opener_match": 31,
+   "opener_match": 33,
    "box": null,
    "cooldowns": [
     {
@@ -468,28 +516,31 @@
      "skill": "돌진"
     },
     {
-     "skill": "돌진"
+     "skill": "오딘의 격노"
     },
     {
-     "skill": "오딘의 격노"
+     "skill": "피의 갈증"
     },
     {
      "skill": "분노의 강타"
     },
     {
-     "skill": "피의 갈증"
+     "skill": "분노의 강타"
     },
     {
      "skill": "광란"
     },
     {
+     "skill": "피의 갈증"
+    },
+    {
      "skill": "분노의 강타"
     },
     {
-     "skill": "피의 갈증"
+     "skill": "천둥벼락"
     }
    ],
-   "opener_match": 42,
+   "opener_match": 43,
    "box": null,
    "cooldowns": [
     {
@@ -563,7 +614,7 @@
      "skill": "피의 갈증"
     }
    ],
-   "opener_match": 42,
+   "opener_match": 44,
    "box": null,
    "cooldowns": [
     {
@@ -637,7 +688,7 @@
      "skill": "분노의 강타"
     }
    ],
-   "opener_match": 34,
+   "opener_match": 32,
    "box": null,
    "cooldowns": [
     {
@@ -697,13 +748,22 @@
      "skill": "돌진"
     },
     {
-     "skill": "제압"
+     "skill": "투신"
     },
     {
      "skill": "거인의 강타"
     },
     {
-     "skill": "무모함의 물약"
+     "skill": "돌진"
+    },
+    {
+     "skill": "칼날폭풍"
+    },
+    {
+     "skill": "필사의 일격"
+    },
+    {
+     "skill": "필사의 일격"
     },
     {
      "skill": "필사의 일격"
@@ -781,6 +841,12 @@
      "skill": "돌진"
     },
     {
+     "skill": "투신"
+    },
+    {
+     "skill": "거인의 강타"
+    },
+    {
      "skill": "필사의 일격"
     },
     {
@@ -796,10 +862,13 @@
      "skill": "필사의 일격"
     },
     {
-     "skill": "마무리 일격"
+     "skill": "필사의 일격"
+    },
+    {
+     "skill": "제압"
     }
    ],
-   "opener_match": 50,
+   "opener_match": 58,
    "box": null,
    "cooldowns": [
     {
@@ -855,6 +924,9 @@
      "skill": "돌진"
     },
     {
+     "skill": "투신"
+    },
+    {
      "skill": "거인의 강타"
     },
     {
@@ -864,13 +936,19 @@
      "skill": "필사의 일격"
     },
     {
+     "skill": "회전베기"
+    },
+    {
      "skill": "제압"
     },
     {
-     "skill": "회전베기"
+     "skill": "필사의 일격"
+    },
+    {
+     "skill": "영웅의 일격"
     }
    ],
-   "opener_match": 52,
+   "opener_match": 49,
    "box": null,
    "cooldowns": [
     {
@@ -925,7 +1003,10 @@
      "skill": "돌진"
     },
     {
-     "skill": "분쇄"
+     "skill": "돌진"
+    },
+    {
+     "skill": "투신"
     },
     {
      "skill": "거인의 강타"
@@ -943,10 +1024,16 @@
      "skill": "필사의 일격"
     },
     {
+     "skill": "필사의 일격"
+    },
+    {
+     "skill": "제압"
+    },
+    {
      "skill": "제압"
     }
    ],
-   "opener_match": 48,
+   "opener_match": 56,
    "box": null,
    "cooldowns": [
     {
@@ -999,6 +1086,12 @@
      "skill": "돌진"
     },
     {
+     "skill": "분쇄"
+    },
+    {
+     "skill": "투신"
+    },
+    {
      "skill": "거인의 강타"
     },
     {
@@ -1015,9 +1108,15 @@
     },
     {
      "skill": "회전베기"
+    },
+    {
+     "skill": "필사의 일격"
+    },
+    {
+     "skill": "제압"
     }
    ],
-   "opener_match": 52,
+   "opener_match": 49,
    "box": null,
    "cooldowns": [
     {
@@ -1075,25 +1174,25 @@
      "skill": "돌진"
     },
     {
-     "skill": "투신"
-    },
-    {
-     "skill": "칼날폭풍"
+     "skill": "제압"
     },
     {
      "skill": "필사의 일격"
     },
     {
-     "skill": "필사의 일격"
+     "skill": "제압"
     },
     {
-     "skill": "필사의 일격"
+     "skill": "마무리 일격"
+    },
+    {
+     "skill": "영웅의 일격"
     },
     {
      "skill": "필사의 일격"
     }
    ],
-   "opener_match": 41,
+   "opener_match": 36,
    "box": null,
    "cooldowns": [
     {
@@ -1146,6 +1245,9 @@
      "skill": "분쇄"
     },
     {
+     "skill": "투신"
+    },
+    {
      "skill": "거인의 강타"
     },
     {
@@ -1162,9 +1264,15 @@
     },
     {
      "skill": "필사의 일격"
+    },
+    {
+     "skill": "제압"
+    },
+    {
+     "skill": "제압"
     }
    ],
-   "opener_match": 61,
+   "opener_match": 59,
    "box": null,
    "cooldowns": [
     {
@@ -1220,6 +1328,9 @@
      "skill": "거인의 강타"
     },
     {
+     "skill": "투신"
+    },
+    {
      "skill": "칼날폭풍"
     },
     {
@@ -1233,9 +1344,15 @@
     },
     {
      "skill": "필사의 일격"
+    },
+    {
+     "skill": "영웅의 일격"
+    },
+    {
+     "skill": "제압"
     }
    ],
-   "opener_match": 48,
+   "opener_match": 44,
    "box": null,
    "cooldowns": [
     {
@@ -1288,6 +1405,9 @@
      "skill": "돌진"
     },
     {
+     "skill": "투신"
+    },
+    {
      "skill": "거인의 강타"
     },
     {
@@ -1303,10 +1423,16 @@
      "skill": "필사의 일격"
     },
     {
+     "skill": "필사의 일격"
+    },
+    {
+     "skill": "제압"
+    },
+    {
      "skill": "제압"
     }
    ],
-   "opener_match": 49,
+   "opener_match": 47,
    "box": null,
    "cooldowns": [
     {

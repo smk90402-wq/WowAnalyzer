@@ -41,6 +41,8 @@ NOISE_CASTS = {
     781, 186257, 186258,   # 철수, 치타의 상 (이동기)
     264735,                # 적자생존 (생존기/패시브 프록)
     1283818,               # 광포한 야수 (패시브 프록 소환 — 자동인데 cast로 찍힘, 버튼 아님)
+    385060, 385061, 385062,  # 오딘의 격노 하위 이벤트(보조 무기 등) — 385059 본체만 표시
+    107570,                # 폭풍망치 (스턴 유틸 — 딜로테 아님)
 }
 
 # 클래스별 핵심 쿨기/추적버프 (공식 한글 검증됨)
@@ -160,7 +162,7 @@ def analyze(df, pf, ev, meta, cls, spec, cfg):
             # 오프너 — 비딜로테 캐스트 제외 + GCD 페이스 접기 (오프-GCD 노이즈 제거)
             seq = sorted((c[0], c[1]) for c in casts
                          if len(c) >= 3 and c[2] == "cast" and c[1] not in NOISE_CASTS)
-            opener_clean = _gcd_collapse(seq, n=8)
+            opener_clean = _gcd_collapse(seq, keep_ids=set(cfg["cooldowns"]), n=8)
             if opener_clean:
                 openers.append(opener_clean)
             # 쿨기 첫사용 + 횟수
@@ -267,21 +269,31 @@ def _medoid(seqs):
     return best
 
 
-def _gcd_collapse(seq, n=8, gap_ms=750):
+def _gcd_collapse(seq, keep_ids=frozenset(), n=8, gap_ms=750):
     """GCD 페이스로 접기 — 오프-GCD 프록/종족특성/장신구 노이즈 제거.
 
     WoW GCD 최저치=750ms. 그보다 가까운 연속 캐스트는 오프-GCD(펫 프록·종족특성·
     장신구 발동 등)라 GCD 슬롯을 안 먹음 → 첫 것만 남겨 실제 GCD 시퀀스로 정리.
     (살상 명령 충전식 1초 연타 등 ≥750ms 간격 정상 캐스트는 유지.)
+
+    keep_ids(스펙 쿨기): 오프-GCD 로 GCD 사이에 끼워도 오프너 타임라인에 표시 —
+    "쿨기는 아래 설명만 있고 오프닝에 없다" 문제 해결 (2026-07-11 사용자 요청).
+    GCD 슬롯을 소비하지 않으므로 last_t/개수에 안 셈.
     """
     out = []
     last_t = None
+    gcds = 0
     for ts, sid in seq:
+        if sid in keep_ids:
+            if sid not in out:      # 같은 쿨기 중복 표시 방지
+                out.append(sid)
+            continue
         if last_t is not None and ts - last_t < gap_ms:
             continue  # 오프-GCD: 직전 캐스트와 너무 가까움 → 슬롯 안 먹음
         out.append(sid)
         last_t = ts
-        if len(out) >= n:
+        gcds += 1
+        if gcds >= n:
             break
     return out
 
