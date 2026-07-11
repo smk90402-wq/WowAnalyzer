@@ -1670,6 +1670,7 @@ function renderLocalReplayDetail(detail) {
     const vv = $('#rc-view-video');
     const vm = $('#rc-view-map');
     const setView = (mode) => {
+      root.classList.toggle('view-max', !!mode);
       mainEl.classList.toggle('view-video', mode === 'video');
       mainEl.classList.toggle('view-map', mode === 'map');
       vv.classList.toggle('active', mode === 'video');

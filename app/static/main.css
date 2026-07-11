@@ -945,14 +945,19 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   background: #000; border: 1px solid var(--border); border-radius: 4px;
 }
 .replay-no-video { border: 1px solid var(--border); border-radius: 4px; }
-/* 보기 모드 — 영상만/지도만 크게 (아래 이벤트 목록과 같이 보기) */
+/* 보기 모드 — 영상만/지도만 크게. 고정 높이 대신 플렉스로 '남는 공간'을 정확히 채워서
+   아래 컨트롤·이벤트 목록이 절대 잘리지 않게 한다 (이벤트 목록은 자체 스크롤 220px). */
 .replay-main.view-video .replay-canvas-wrap,
 .replay-main.view-map .replay-video-wrap { display: none; }
-.replay-main.view-video, .replay-main.view-map { grid-template-columns: minmax(0, 1fr); }
-.replay-main.view-video .replay-video, .replay-main.view-video .replay-no-video,
-.replay-main.view-map .rc-stage {
-  max-height: max(320px, calc(100vh - 340px));   /* 한 화면만 남으니 세로도 크게 */
+#replay-detail.view-max { overflow: hidden; }              /* 전체 스크롤 대신 내부 맞춤 */
+#replay-detail.view-max > .replay-main { flex: 1 1 auto; min-height: 160px; }
+.replay-main.view-video, .replay-main.view-map { display: flex; }
+.replay-main.view-video .replay-video-wrap { flex: 1 1 auto; min-height: 0; display: flex; }
+.replay-main.view-video .replay-video, .replay-main.view-video .replay-no-video {
+  width: 100%; height: 100%; aspect-ratio: auto; max-height: none;
 }
+.replay-main.view-map .replay-canvas-wrap { flex: 1 1 auto; min-height: 0; }
+.replay-main.view-map .rc-stage { flex: 1 1 auto; min-height: 0; aspect-ratio: auto; max-height: none; }
 .rc-controls .rc-viewbtn.active { border-color: #d19b38; background: #493315; color: #fff0c6; }
 /* 캔버스 리플레이 (전투로그 좌표 재생) */
 .replay-canvas-wrap { display: flex; flex-direction: column; gap: 8px; }
