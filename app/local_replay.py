@@ -134,8 +134,13 @@ def _video_for_json(path: Path) -> Path:
     exact = path.with_suffix(".mp4")
     if exact.exists():
         return exact
-    cands = sorted(path.parent.glob(path.stem + "*.mp4"),
-                   key=lambda p: p.stat().st_size, reverse=True)
+    # glob 금지 — 캡처 파일명의 "[M]" 이 문자 클래스로 해석돼 매칭이 깨짐
+    try:
+        cands = sorted((p for p in path.parent.iterdir()
+                        if p.suffix.lower() == ".mp4" and p.name.startswith(path.stem)),
+                       key=lambda p: p.stat().st_size, reverse=True)
+    except OSError:
+        cands = []
     return cands[0] if cands else exact
 
 
