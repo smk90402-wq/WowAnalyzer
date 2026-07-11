@@ -1,0 +1,4321 @@
+{
+ "_meta": {
+  "generated_by": "tmp_mine_fury_procprio.py",
+  "input": "scratchpad fury_cd_events.json — top100 296킬: 학살자 155(칼날폭풍 446035) / 산왕 141(우레 작렬 435222), 상호배타 실측 확인",
+  "state_defs": {
+   "enr": "격노 184362 활성 (시전 1ms 전 기준)",
+   "sd": "급살 52437 활성",
+   "btr": "피의 갈증 준비 근사 — 마지막 수동 피갈/피범벅 후 경과 >= 킬별 추정 쿨(깨끗한 간격 p25, 2400~4600ms 클램프). 산왕은 폭발적인 힘 437121 활성 시 True 강제",
+   "reck": "무모한 희생 1719 실측 버프 창(applybuff→removebuff, 실측 ~18초)",
+   "phase": "exec = 전투 시간 마지막 25% (대학살 HP<35%의 시간 근사)"
+  },
+  "buttons": {
+   "rampage": 184367,
+   "bt": 23881,
+   "bloodbath": 335096,
+   "rb": 85288,
+   "crushing_blow": 335097,
+   "execute": [
+    280735,
+    5308
+   ],
+   "thunder_clap": 6343,
+   "thunder_blast": 435222,
+   "whirlwind": 190411,
+   "bladestorm": 446035,
+   "avatar": 107574,
+   "odyns_fury": 385059,
+   "recklessness": 1719
+  },
+  "transform_check": "피범벅(335096)·분쇄의 타격(335097)은 무희 버프 창 안에서만 발생(실측: 피범벅 창 밖 0건) — 막무가내 버튼 변신 확정",
+  "auto_bt_removal": "불안정한 정신(386628): 칼폭 채널 중 자동 피갈/피범벅. 격렬한 희열 1270731 applybuff가 칼폭 종료 시점 마커(실측) → [칼폭 시전, 종료+100ms] 창 안의 23881/335096 제외",
+  "odyn_subevents": "385060/385061/385062 = 385059와 동일 타임스탬프 하위 이벤트 — 제외",
+  "caveats": [
+   "분노는 이벤트에 없음 — 특히 Q1(비격노)에서 광란이 안 나간 GCD는 분노<80일 가능성. 분포 그대로 보고.",
+   "피갈 준비(btr)는 시전 간격 기반 근사 — 쿨 4.5초가 가속 스케일이라 킬별 p25로 추정(실측 중앙 ~3.1초). 4.5초 고정 결과를 sensitivity_flat4500에 병기.",
+   "분노의 강타는 2충전+25% 초기화(연마)라 준비 상태 추정 불가 — Q3 '피갈 쿨 X'에서 분강이 나왔다고 분강 쿨이 돌았단 뜻은 아님.",
+   "처형구간은 HP가 아닌 시간(마지막 25%) 근사.",
+   "칼폭 채널 직후 첫 수동 피갈이 채널 창 +100ms에 걸치면 극소수 제외될 수 있음 — 표본 손실, 편향 작음.",
+   "자동 피갈이 피갈 쿨을 실제로 돌리는지 불명(실측 애매) — btr의 last_bt는 수동 시전만 추적."
+  ]
+ },
+ "slayer": {
+  "n_kills": 155,
+  "fight_len_s": {
+   "n": 155,
+   "mean": 316.03,
+   "median": 231.14,
+   "p25": 196.97,
+   "p75": 458.15
+  },
+  "bt_ready_thr_ms": {
+   "med": 2857,
+   "min": 2400,
+   "max": 3950
+  },
+  "Q1_not_enraged": {
+   "설명": "격노 OFF 상태에서 누른 다음 버튼 분포 — '비격노면 광란' 룰의 실측 강도. 분노량 미관측: 광란(분노 80)이 안 나간 GCD는 분노 부족일 수 있음.",
+   "all": {
+    "n": 927,
+    "rampage": {
+     "count": 229,
+     "pct": 24.7
+    },
+    "bt": {
+     "count": 165,
+     "pct": 17.8
+    },
+    "recklessness": {
+     "count": 158,
+     "pct": 17.0
+    },
+    "whirlwind": {
+     "count": 147,
+     "pct": 15.9
+    },
+    "other": {
+     "count": 85,
+     "pct": 9.2
+    },
+    "odyns_fury": {
+     "count": 58,
+     "pct": 6.3
+    },
+    "execute": {
+     "count": 41,
+     "pct": 4.4
+    },
+    "rb": {
+     "count": 33,
+     "pct": 3.6
+    },
+    "bloodbath": {
+     "count": 9,
+     "pct": 1.0
+    },
+    "bladestorm": {
+     "count": 2,
+     "pct": 0.2
+    }
+   },
+   "normal": {
+    "n": 729,
+    "rampage": {
+     "count": 163,
+     "pct": 22.4
+    },
+    "bt": {
+     "count": 137,
+     "pct": 18.8
+    },
+    "recklessness": {
+     "count": 135,
+     "pct": 18.5
+    },
+    "whirlwind": {
+     "count": 108,
+     "pct": 14.8
+    },
+    "other": {
+     "count": 74,
+     "pct": 10.2
+    },
+    "odyns_fury": {
+     "count": 46,
+     "pct": 6.3
+    },
+    "execute": {
+     "count": 32,
+     "pct": 4.4
+    },
+    "rb": {
+     "count": 28,
+     "pct": 3.8
+    },
+    "bloodbath": {
+     "count": 6,
+     "pct": 0.8
+    }
+   },
+   "exec": {
+    "n": 198,
+    "rampage": {
+     "count": 66,
+     "pct": 33.3
+    },
+    "whirlwind": {
+     "count": 39,
+     "pct": 19.7
+    },
+    "bt": {
+     "count": 28,
+     "pct": 14.1
+    },
+    "recklessness": {
+     "count": 23,
+     "pct": 11.6
+    },
+    "odyns_fury": {
+     "count": 12,
+     "pct": 6.1
+    },
+    "other": {
+     "count": 11,
+     "pct": 5.6
+    },
+    "execute": {
+     "count": 9,
+     "pct": 4.5
+    },
+    "rb": {
+     "count": 5,
+     "pct": 2.5
+    },
+    "bloodbath": {
+     "count": 3,
+     "pct": 1.5
+    },
+    "bladestorm": {
+     "count": 2,
+     "pct": 1.0
+    }
+   },
+   "first_button_after_enrage_drop": {
+    "n": 1705,
+    "rampage": {
+     "count": 966,
+     "pct": 56.7
+    },
+    "bt": {
+     "count": 286,
+     "pct": 16.8
+    },
+    "odyns_fury": {
+     "count": 131,
+     "pct": 7.7
+    },
+    "bloodbath": {
+     "count": 129,
+     "pct": 7.6
+    },
+    "whirlwind": {
+     "count": 61,
+     "pct": 3.6
+    },
+    "other": {
+     "count": 53,
+     "pct": 3.1
+    },
+    "recklessness": {
+     "count": 43,
+     "pct": 2.5
+    },
+    "execute": {
+     "count": 24,
+     "pct": 1.4
+    },
+    "rb": {
+     "count": 11,
+     "pct": 0.6
+    },
+    "bladestorm": {
+     "count": 1,
+     "pct": 0.1
+    }
+   },
+   "drop_to_rampage_ms": {
+    "n": 1703,
+    "med": 9,
+    "p75": 1930,
+    "within_1gcd_pct": 68.9
+   }
+  },
+  "Q2_sd_on": {
+   "설명": "급살 프록 활성 상태의 다음 버튼 — 마무리 일격 비율. exec 구간은 대학살로 상시 사용 가능하니 normal이 프록 반응의 순수 지표.",
+   "all": {
+    "n": 13761,
+    "execute": {
+     "count": 5092,
+     "pct": 37.0
+    },
+    "rampage": {
+     "count": 4062,
+     "pct": 29.5
+    },
+    "bt": {
+     "count": 1330,
+     "pct": 9.7
+    },
+    "rb": {
+     "count": 776,
+     "pct": 5.6
+    },
+    "bloodbath": {
+     "count": 759,
+     "pct": 5.5
+    },
+    "whirlwind": {
+     "count": 612,
+     "pct": 4.4
+    },
+    "odyns_fury": {
+     "count": 457,
+     "pct": 3.3
+    },
+    "bladestorm": {
+     "count": 276,
+     "pct": 2.0
+    },
+    "recklessness": {
+     "count": 223,
+     "pct": 1.6
+    },
+    "crushing_blow": {
+     "count": 107,
+     "pct": 0.8
+    },
+    "other": {
+     "count": 67,
+     "pct": 0.5
+    }
+   },
+   "normal": {
+    "n": 10284,
+    "execute": {
+     "count": 3747,
+     "pct": 36.4
+    },
+    "rampage": {
+     "count": 2981,
+     "pct": 29.0
+    },
+    "bt": {
+     "count": 1052,
+     "pct": 10.2
+    },
+    "rb": {
+     "count": 622,
+     "pct": 6.0
+    },
+    "bloodbath": {
+     "count": 573,
+     "pct": 5.6
+    },
+    "whirlwind": {
+     "count": 498,
+     "pct": 4.8
+    },
+    "odyns_fury": {
+     "count": 314,
+     "pct": 3.1
+    },
+    "bladestorm": {
+     "count": 204,
+     "pct": 2.0
+    },
+    "recklessness": {
+     "count": 155,
+     "pct": 1.5
+    },
+    "crushing_blow": {
+     "count": 91,
+     "pct": 0.9
+    },
+    "other": {
+     "count": 47,
+     "pct": 0.5
+    }
+   },
+   "exec": {
+    "n": 3477,
+    "execute": {
+     "count": 1345,
+     "pct": 38.7
+    },
+    "rampage": {
+     "count": 1081,
+     "pct": 31.1
+    },
+    "bt": {
+     "count": 278,
+     "pct": 8.0
+    },
+    "bloodbath": {
+     "count": 186,
+     "pct": 5.3
+    },
+    "rb": {
+     "count": 154,
+     "pct": 4.4
+    },
+    "odyns_fury": {
+     "count": 143,
+     "pct": 4.1
+    },
+    "whirlwind": {
+     "count": 114,
+     "pct": 3.3
+    },
+    "bladestorm": {
+     "count": 72,
+     "pct": 2.1
+    },
+    "recklessness": {
+     "count": 68,
+     "pct": 2.0
+    },
+    "other": {
+     "count": 20,
+     "pct": 0.6
+    },
+    "crushing_blow": {
+     "count": 16,
+     "pct": 0.5
+    }
+   }
+  },
+  "Q2b_sdX_btrO": {
+   "설명": "급살 X · 피의 갈증 준비 O(근사) — 피갈(무희 중 피범벅) 비율.",
+   "all": {
+    "n": 14215,
+    "bt": {
+     "count": 5156,
+     "pct": 36.3
+    },
+    "rampage": {
+     "count": 3937,
+     "pct": 27.7
+    },
+    "bloodbath": {
+     "count": 2040,
+     "pct": 14.4
+    },
+    "whirlwind": {
+     "count": 711,
+     "pct": 5.0
+    },
+    "odyns_fury": {
+     "count": 625,
+     "pct": 4.4
+    },
+    "execute": {
+     "count": 562,
+     "pct": 4.0
+    },
+    "bladestorm": {
+     "count": 498,
+     "pct": 3.5
+    },
+    "recklessness": {
+     "count": 351,
+     "pct": 2.5
+    },
+    "rb": {
+     "count": 192,
+     "pct": 1.4
+    },
+    "other": {
+     "count": 125,
+     "pct": 0.9
+    },
+    "crushing_blow": {
+     "count": 18,
+     "pct": 0.1
+    }
+   },
+   "normal": {
+    "n": 10275,
+    "bt": {
+     "count": 3975,
+     "pct": 38.7
+    },
+    "rampage": {
+     "count": 2733,
+     "pct": 26.6
+    },
+    "bloodbath": {
+     "count": 1465,
+     "pct": 14.3
+    },
+    "whirlwind": {
+     "count": 548,
+     "pct": 5.3
+    },
+    "odyns_fury": {
+     "count": 455,
+     "pct": 4.4
+    },
+    "bladestorm": {
+     "count": 375,
+     "pct": 3.6
+    },
+    "recklessness": {
+     "count": 277,
+     "pct": 2.7
+    },
+    "execute": {
+     "count": 174,
+     "pct": 1.7
+    },
+    "rb": {
+     "count": 158,
+     "pct": 1.5
+    },
+    "other": {
+     "count": 99,
+     "pct": 1.0
+    },
+    "crushing_blow": {
+     "count": 16,
+     "pct": 0.2
+    }
+   },
+   "exec": {
+    "n": 3940,
+    "rampage": {
+     "count": 1204,
+     "pct": 30.6
+    },
+    "bt": {
+     "count": 1181,
+     "pct": 30.0
+    },
+    "bloodbath": {
+     "count": 575,
+     "pct": 14.6
+    },
+    "execute": {
+     "count": 388,
+     "pct": 9.8
+    },
+    "odyns_fury": {
+     "count": 170,
+     "pct": 4.3
+    },
+    "whirlwind": {
+     "count": 163,
+     "pct": 4.1
+    },
+    "bladestorm": {
+     "count": 123,
+     "pct": 3.1
+    },
+    "recklessness": {
+     "count": 74,
+     "pct": 1.9
+    },
+    "rb": {
+     "count": 34,
+     "pct": 0.9
+    },
+    "other": {
+     "count": 26,
+     "pct": 0.7
+    },
+    "crushing_blow": {
+     "count": 2,
+     "pct": 0.1
+    }
+   }
+  },
+  "Q3_all_off": {
+   "설명": "격노 O · 급살 X · 피갈 쿨 X — 필러 선택. 학살자: 분노의 강타 vs 소용돌이.",
+   "all": {
+    "n": 20571,
+    "rampage": {
+     "count": 7526,
+     "pct": 36.6
+    },
+    "rb": {
+     "count": 5191,
+     "pct": 25.2
+    },
+    "execute": {
+     "count": 1734,
+     "pct": 8.4
+    },
+    "whirlwind": {
+     "count": 1696,
+     "pct": 8.2
+    },
+    "bt": {
+     "count": 1454,
+     "pct": 7.1
+    },
+    "crushing_blow": {
+     "count": 808,
+     "pct": 3.9
+    },
+    "bloodbath": {
+     "count": 666,
+     "pct": 3.2
+    },
+    "odyns_fury": {
+     "count": 634,
+     "pct": 3.1
+    },
+    "recklessness": {
+     "count": 429,
+     "pct": 2.1
+    },
+    "bladestorm": {
+     "count": 219,
+     "pct": 1.1
+    },
+    "other": {
+     "count": 214,
+     "pct": 1.0
+    }
+   },
+   "normal": {
+    "n": 15393,
+    "rampage": {
+     "count": 5551,
+     "pct": 36.1
+    },
+    "rb": {
+     "count": 4346,
+     "pct": 28.2
+    },
+    "whirlwind": {
+     "count": 1447,
+     "pct": 9.4
+    },
+    "bt": {
+     "count": 1062,
+     "pct": 6.9
+    },
+    "crushing_blow": {
+     "count": 719,
+     "pct": 4.7
+    },
+    "execute": {
+     "count": 594,
+     "pct": 3.9
+    },
+    "bloodbath": {
+     "count": 551,
+     "pct": 3.6
+    },
+    "odyns_fury": {
+     "count": 492,
+     "pct": 3.2
+    },
+    "recklessness": {
+     "count": 310,
+     "pct": 2.0
+    },
+    "other": {
+     "count": 172,
+     "pct": 1.1
+    },
+    "bladestorm": {
+     "count": 149,
+     "pct": 1.0
+    }
+   },
+   "exec": {
+    "n": 5178,
+    "rampage": {
+     "count": 1975,
+     "pct": 38.1
+    },
+    "execute": {
+     "count": 1140,
+     "pct": 22.0
+    },
+    "rb": {
+     "count": 845,
+     "pct": 16.3
+    },
+    "bt": {
+     "count": 392,
+     "pct": 7.6
+    },
+    "whirlwind": {
+     "count": 249,
+     "pct": 4.8
+    },
+    "odyns_fury": {
+     "count": 142,
+     "pct": 2.7
+    },
+    "recklessness": {
+     "count": 119,
+     "pct": 2.3
+    },
+    "bloodbath": {
+     "count": 115,
+     "pct": 2.2
+    },
+    "crushing_blow": {
+     "count": 89,
+     "pct": 1.7
+    },
+    "bladestorm": {
+     "count": 70,
+     "pct": 1.4
+    },
+    "other": {
+     "count": 42,
+     "pct": 0.8
+    }
+   },
+   "out_of_reck": {
+    "n": 14315,
+    "rb": {
+     "count": 5190,
+     "pct": 36.3
+    },
+    "rampage": {
+     "count": 4001,
+     "pct": 27.9
+    },
+    "bt": {
+     "count": 1453,
+     "pct": 10.2
+    },
+    "whirlwind": {
+     "count": 1397,
+     "pct": 9.8
+    },
+    "execute": {
+     "count": 1311,
+     "pct": 9.2
+    },
+    "odyns_fury": {
+     "count": 389,
+     "pct": 2.7
+    },
+    "recklessness": {
+     "count": 355,
+     "pct": 2.5
+    },
+    "other": {
+     "count": 180,
+     "pct": 1.3
+    },
+    "bladestorm": {
+     "count": 39,
+     "pct": 0.3
+    }
+   },
+   "in_reck": {
+    "n": 6256,
+    "rampage": {
+     "count": 3525,
+     "pct": 56.3
+    },
+    "crushing_blow": {
+     "count": 808,
+     "pct": 12.9
+    },
+    "bloodbath": {
+     "count": 666,
+     "pct": 10.6
+    },
+    "execute": {
+     "count": 423,
+     "pct": 6.8
+    },
+    "whirlwind": {
+     "count": 299,
+     "pct": 4.8
+    },
+    "odyns_fury": {
+     "count": 245,
+     "pct": 3.9
+    },
+    "bladestorm": {
+     "count": 180,
+     "pct": 2.9
+    },
+    "recklessness": {
+     "count": 74,
+     "pct": 1.2
+    },
+    "other": {
+     "count": 34,
+     "pct": 0.5
+    },
+    "rb": {
+     "count": 1,
+     "pct": 0.0
+    },
+    "bt": {
+     "count": 1,
+     "pct": 0.0
+    }
+   }
+  },
+  "Q4_reck_window": {
+   "설명": "무모한 희생 실측 버프 창(~18초) 안/밖 전체 버튼 분포 — 창 안 피범벅/분쇄의 타격/칼폭 비중.",
+   "in_reck": {
+    "n": 18697,
+    "rampage": {
+     "count": 8806,
+     "pct": 47.1
+    },
+    "bloodbath": {
+     "count": 3465,
+     "pct": 18.5
+    },
+    "execute": {
+     "count": 2670,
+     "pct": 14.3
+    },
+    "crushing_blow": {
+     "count": 933,
+     "pct": 5.0
+    },
+    "bladestorm": {
+     "count": 896,
+     "pct": 4.8
+    },
+    "odyns_fury": {
+     "count": 893,
+     "pct": 4.8
+    },
+    "whirlwind": {
+     "count": 782,
+     "pct": 4.2
+    },
+    "recklessness": {
+     "count": 175,
+     "pct": 0.9
+    },
+    "other": {
+     "count": 74,
+     "pct": 0.4
+    },
+    "bt": {
+     "count": 2,
+     "pct": 0.0
+    },
+    "rb": {
+     "count": 1,
+     "pct": 0.0
+    }
+   },
+   "out_of_reck": {
+    "n": 29941,
+    "bt": {
+     "count": 7940,
+     "pct": 26.5
+    },
+    "rampage": {
+     "count": 6762,
+     "pct": 22.6
+    },
+    "rb": {
+     "count": 6176,
+     "pct": 20.6
+    },
+    "execute": {
+     "count": 4720,
+     "pct": 15.8
+    },
+    "whirlwind": {
+     "count": 2243,
+     "pct": 7.5
+    },
+    "recklessness": {
+     "count": 837,
+     "pct": 2.8
+    },
+    "odyns_fury": {
+     "count": 826,
+     "pct": 2.8
+    },
+    "other": {
+     "count": 339,
+     "pct": 1.1
+    },
+    "bladestorm": {
+     "count": 98,
+     "pct": 0.3
+    }
+   }
+  },
+  "sensitivity_flat4500": {
+   "Q2b_sdX_btrO_all": {
+    "n": 6003,
+    "rampage": {
+     "count": 2233,
+     "pct": 37.2
+    },
+    "bt": {
+     "count": 1118,
+     "pct": 18.6
+    },
+    "bloodbath": {
+     "count": 1018,
+     "pct": 17.0
+    },
+    "whirlwind": {
+     "count": 405,
+     "pct": 6.7
+    },
+    "odyns_fury": {
+     "count": 331,
+     "pct": 5.5
+    },
+    "bladestorm": {
+     "count": 295,
+     "pct": 4.9
+    },
+    "execute": {
+     "count": 272,
+     "pct": 4.5
+    },
+    "recklessness": {
+     "count": 199,
+     "pct": 3.3
+    },
+    "other": {
+     "count": 92,
+     "pct": 1.5
+    },
+    "rb": {
+     "count": 31,
+     "pct": 0.5
+    },
+    "crushing_blow": {
+     "count": 9,
+     "pct": 0.1
+    }
+   },
+   "Q3_all_off_all": {
+    "n": 28713,
+    "rampage": {
+     "count": 9195,
+     "pct": 32.0
+    },
+    "bt": {
+     "count": 5471,
+     "pct": 19.1
+    },
+    "rb": {
+     "count": 5346,
+     "pct": 18.6
+    },
+    "execute": {
+     "count": 2023,
+     "pct": 7.0
+    },
+    "whirlwind": {
+     "count": 2000,
+     "pct": 7.0
+    },
+    "bloodbath": {
+     "count": 1687,
+     "pct": 5.9
+    },
+    "odyns_fury": {
+     "count": 928,
+     "pct": 3.2
+    },
+    "crushing_blow": {
+     "count": 817,
+     "pct": 2.8
+    },
+    "recklessness": {
+     "count": 577,
+     "pct": 2.0
+    },
+    "bladestorm": {
+     "count": 422,
+     "pct": 1.5
+    },
+    "other": {
+     "count": 247,
+     "pct": 0.9
+    }
+   }
+  },
+  "other_cast_ids_top": {
+   "772": 226,
+   "386196": 53,
+   "6262": 35,
+   "274738": 20,
+   "1253050": 17,
+   "184364": 8,
+   "1234969": 7,
+   "18499": 7,
+   "26297": 5,
+   "383781": 4,
+   "358733": 4,
+   "1715": 3
+  },
+  "full_state_table": {
+   "enr=0,sd=0,btr=0,reck=0,normal": {
+    "n": 56,
+    "rampage": {
+     "count": 22,
+     "pct": 39.3
+    },
+    "rb": {
+     "count": 15,
+     "pct": 26.8
+    },
+    "other": {
+     "count": 6,
+     "pct": 10.7
+    },
+    "recklessness": {
+     "count": 6,
+     "pct": 10.7
+    },
+    "whirlwind": {
+     "count": 4,
+     "pct": 7.1
+    },
+    "bt": {
+     "count": 1,
+     "pct": 1.8
+    },
+    "odyns_fury": {
+     "count": 1,
+     "pct": 1.8
+    },
+    "execute": {
+     "count": 1,
+     "pct": 1.8
+    }
+   },
+   "enr=0,sd=0,btr=0,reck=0,exec": {
+    "n": 21,
+    "rampage": {
+     "count": 11,
+     "pct": 52.4
+    },
+    "rb": {
+     "count": 3,
+     "pct": 14.3
+    },
+    "whirlwind": {
+     "count": 2,
+     "pct": 9.5
+    },
+    "recklessness": {
+     "count": 1,
+     "pct": 4.8
+    },
+    "other": {
+     "count": 1,
+     "pct": 4.8
+    },
+    "execute": {
+     "count": 1,
+     "pct": 4.8
+    },
+    "bt": {
+     "count": 1,
+     "pct": 4.8
+    },
+    "odyns_fury": {
+     "count": 1,
+     "pct": 4.8
+    }
+   },
+   "enr=0,sd=0,btr=0,reck=1,normal": {
+    "n": 10,
+    "rampage": {
+     "count": 8,
+     "pct": 80.0
+    },
+    "odyns_fury": {
+     "count": 1,
+     "pct": 10.0
+    },
+    "recklessness": {
+     "count": 1,
+     "pct": 10.0
+    }
+   },
+   "enr=0,sd=0,btr=0,reck=1,exec": {
+    "n": 4,
+    "rampage": {
+     "count": 2,
+     "pct": 50.0
+    },
+    "recklessness": {
+     "count": 1,
+     "pct": 25.0
+    },
+    "bladestorm": {
+     "count": 1,
+     "pct": 25.0
+    }
+   },
+   "enr=0,sd=0,btr=1,reck=0,normal": {
+    "n": 458,
+    "bt": {
+     "count": 120,
+     "pct": 26.2
+    },
+    "recklessness": {
+     "count": 97,
+     "pct": 21.2
+    },
+    "whirlwind": {
+     "count": 89,
+     "pct": 19.4
+    },
+    "rampage": {
+     "count": 60,
+     "pct": 13.1
+    },
+    "other": {
+     "count": 58,
+     "pct": 12.7
+    },
+    "odyns_fury": {
+     "count": 18,
+     "pct": 3.9
+    },
+    "rb": {
+     "count": 11,
+     "pct": 2.4
+    },
+    "execute": {
+     "count": 5,
+     "pct": 1.1
+    }
+   },
+   "enr=0,sd=0,btr=1,reck=0,exec": {
+    "n": 113,
+    "whirlwind": {
+     "count": 32,
+     "pct": 28.3
+    },
+    "rampage": {
+     "count": 26,
+     "pct": 23.0
+    },
+    "bt": {
+     "count": 22,
+     "pct": 19.5
+    },
+    "recklessness": {
+     "count": 17,
+     "pct": 15.0
+    },
+    "other": {
+     "count": 7,
+     "pct": 6.2
+    },
+    "odyns_fury": {
+     "count": 5,
+     "pct": 4.4
+    },
+    "execute": {
+     "count": 2,
+     "pct": 1.8
+    },
+    "rb": {
+     "count": 2,
+     "pct": 1.8
+    }
+   },
+   "enr=0,sd=0,btr=1,reck=1,normal": {
+    "n": 97,
+    "rampage": {
+     "count": 44,
+     "pct": 45.4
+    },
+    "odyns_fury": {
+     "count": 24,
+     "pct": 24.7
+    },
+    "recklessness": {
+     "count": 23,
+     "pct": 23.7
+    },
+    "bloodbath": {
+     "count": 4,
+     "pct": 4.1
+    },
+    "whirlwind": {
+     "count": 1,
+     "pct": 1.0
+    },
+    "other": {
+     "count": 1,
+     "pct": 1.0
+    }
+   },
+   "enr=0,sd=0,btr=1,reck=1,exec": {
+    "n": 23,
+    "rampage": {
+     "count": 17,
+     "pct": 73.9
+    },
+    "bloodbath": {
+     "count": 3,
+     "pct": 13.0
+    },
+    "other": {
+     "count": 1,
+     "pct": 4.3
+    },
+    "whirlwind": {
+     "count": 1,
+     "pct": 4.3
+    },
+    "odyns_fury": {
+     "count": 1,
+     "pct": 4.3
+    }
+   },
+   "enr=0,sd=1,btr=0,reck=0,normal": {
+    "n": 17,
+    "execute": {
+     "count": 10,
+     "pct": 58.8
+    },
+    "rampage": {
+     "count": 5,
+     "pct": 29.4
+    },
+    "rb": {
+     "count": 1,
+     "pct": 5.9
+    },
+    "other": {
+     "count": 1,
+     "pct": 5.9
+    }
+   },
+   "enr=0,sd=1,btr=0,reck=0,exec": {
+    "n": 3,
+    "execute": {
+     "count": 2,
+     "pct": 66.7
+    },
+    "recklessness": {
+     "count": 1,
+     "pct": 33.3
+    }
+   },
+   "enr=0,sd=1,btr=0,reck=1,normal": {
+    "n": 1,
+    "execute": {
+     "count": 1,
+     "pct": 100.0
+    }
+   },
+   "enr=0,sd=1,btr=0,reck=1,exec": {
+    "n": 2,
+    "odyns_fury": {
+     "count": 2,
+     "pct": 100.0
+    }
+   },
+   "enr=0,sd=1,btr=1,reck=0,normal": {
+    "n": 75,
+    "rampage": {
+     "count": 17,
+     "pct": 22.7
+    },
+    "bt": {
+     "count": 16,
+     "pct": 21.3
+    },
+    "execute": {
+     "count": 15,
+     "pct": 20.0
+    },
+    "whirlwind": {
+     "count": 13,
+     "pct": 17.3
+    },
+    "other": {
+     "count": 7,
+     "pct": 9.3
+    },
+    "recklessness": {
+     "count": 4,
+     "pct": 5.3
+    },
+    "odyns_fury": {
+     "count": 2,
+     "pct": 2.7
+    },
+    "rb": {
+     "count": 1,
+     "pct": 1.3
+    }
+   },
+   "enr=0,sd=1,btr=1,reck=0,exec": {
+    "n": 24,
+    "rampage": {
+     "count": 6,
+     "pct": 25.0
+    },
+    "bt": {
+     "count": 5,
+     "pct": 20.8
+    },
+    "whirlwind": {
+     "count": 4,
+     "pct": 16.7
+    },
+    "recklessness": {
+     "count": 3,
+     "pct": 12.5
+    },
+    "odyns_fury": {
+     "count": 2,
+     "pct": 8.3
+    },
+    "execute": {
+     "count": 2,
+     "pct": 8.3
+    },
+    "other": {
+     "count": 2,
+     "pct": 8.3
+    }
+   },
+   "enr=0,sd=1,btr=1,reck=1,normal": {
+    "n": 15,
+    "rampage": {
+     "count": 7,
+     "pct": 46.7
+    },
+    "recklessness": {
+     "count": 4,
+     "pct": 26.7
+    },
+    "bloodbath": {
+     "count": 2,
+     "pct": 13.3
+    },
+    "other": {
+     "count": 1,
+     "pct": 6.7
+    },
+    "whirlwind": {
+     "count": 1,
+     "pct": 6.7
+    }
+   },
+   "enr=0,sd=1,btr=1,reck=1,exec": {
+    "n": 8,
+    "rampage": {
+     "count": 4,
+     "pct": 50.0
+    },
+    "execute": {
+     "count": 2,
+     "pct": 25.0
+    },
+    "odyns_fury": {
+     "count": 1,
+     "pct": 12.5
+    },
+    "bladestorm": {
+     "count": 1,
+     "pct": 12.5
+    }
+   },
+   "enr=1,sd=0,btr=0,reck=0,normal": {
+    "n": 10736,
+    "rb": {
+     "count": 4345,
+     "pct": 40.5
+    },
+    "rampage": {
+     "count": 2923,
+     "pct": 27.2
+    },
+    "whirlwind": {
+     "count": 1208,
+     "pct": 11.3
+    },
+    "bt": {
+     "count": 1062,
+     "pct": 9.9
+    },
+    "execute": {
+     "count": 467,
+     "pct": 4.3
+    },
+    "odyns_fury": {
+     "count": 303,
+     "pct": 2.8
+    },
+    "recklessness": {
+     "count": 260,
+     "pct": 2.4
+    },
+    "other": {
+     "count": 148,
+     "pct": 1.4
+    },
+    "bladestorm": {
+     "count": 20,
+     "pct": 0.2
+    }
+   },
+   "enr=1,sd=0,btr=0,reck=0,exec": {
+    "n": 3579,
+    "rampage": {
+     "count": 1078,
+     "pct": 30.1
+    },
+    "rb": {
+     "count": 845,
+     "pct": 23.6
+    },
+    "execute": {
+     "count": 844,
+     "pct": 23.6
+    },
+    "bt": {
+     "count": 391,
+     "pct": 10.9
+    },
+    "whirlwind": {
+     "count": 189,
+     "pct": 5.3
+    },
+    "recklessness": {
+     "count": 95,
+     "pct": 2.7
+    },
+    "odyns_fury": {
+     "count": 86,
+     "pct": 2.4
+    },
+    "other": {
+     "count": 32,
+     "pct": 0.9
+    },
+    "bladestorm": {
+     "count": 19,
+     "pct": 0.5
+    }
+   },
+   "enr=1,sd=0,btr=0,reck=1,normal": {
+    "n": 4657,
+    "rampage": {
+     "count": 2628,
+     "pct": 56.4
+    },
+    "crushing_blow": {
+     "count": 719,
+     "pct": 15.4
+    },
+    "bloodbath": {
+     "count": 551,
+     "pct": 11.8
+    },
+    "whirlwind": {
+     "count": 239,
+     "pct": 5.1
+    },
+    "odyns_fury": {
+     "count": 189,
+     "pct": 4.1
+    },
+    "bladestorm": {
+     "count": 129,
+     "pct": 2.8
+    },
+    "execute": {
+     "count": 127,
+     "pct": 2.7
+    },
+    "recklessness": {
+     "count": 50,
+     "pct": 1.1
+    },
+    "other": {
+     "count": 24,
+     "pct": 0.5
+    },
+    "rb": {
+     "count": 1,
+     "pct": 0.0
+    }
+   },
+   "enr=1,sd=0,btr=0,reck=1,exec": {
+    "n": 1599,
+    "rampage": {
+     "count": 897,
+     "pct": 56.1
+    },
+    "execute": {
+     "count": 296,
+     "pct": 18.5
+    },
+    "bloodbath": {
+     "count": 115,
+     "pct": 7.2
+    },
+    "crushing_blow": {
+     "count": 89,
+     "pct": 5.6
+    },
+    "whirlwind": {
+     "count": 60,
+     "pct": 3.8
+    },
+    "odyns_fury": {
+     "count": 56,
+     "pct": 3.5
+    },
+    "bladestorm": {
+     "count": 51,
+     "pct": 3.2
+    },
+    "recklessness": {
+     "count": 24,
+     "pct": 1.5
+    },
+    "other": {
+     "count": 10,
+     "pct": 0.6
+    },
+    "bt": {
+     "count": 1,
+     "pct": 0.1
+    }
+   },
+   "enr=1,sd=0,btr=1,reck=0,normal": {
+    "n": 5496,
+    "bt": {
+     "count": 3854,
+     "pct": 70.1
+    },
+    "rampage": {
+     "count": 800,
+     "pct": 14.6
+    },
+    "whirlwind": {
+     "count": 260,
+     "pct": 4.7
+    },
+    "odyns_fury": {
+     "count": 165,
+     "pct": 3.0
+    },
+    "rb": {
+     "count": 147,
+     "pct": 2.7
+    },
+    "recklessness": {
+     "count": 128,
+     "pct": 2.3
+    },
+    "execute": {
+     "count": 91,
+     "pct": 1.7
+    },
+    "bladestorm": {
+     "count": 27,
+     "pct": 0.5
+    },
+    "other": {
+     "count": 24,
+     "pct": 0.4
+    }
+   },
+   "enr=1,sd=0,btr=1,reck=0,exec": {
+    "n": 1979,
+    "bt": {
+     "count": 1159,
+     "pct": 58.6
+    },
+    "rampage": {
+     "count": 355,
+     "pct": 17.9
+    },
+    "execute": {
+     "count": 211,
+     "pct": 10.7
+    },
+    "odyns_fury": {
+     "count": 78,
+     "pct": 3.9
+    },
+    "whirlwind": {
+     "count": 68,
+     "pct": 3.4
+    },
+    "recklessness": {
+     "count": 51,
+     "pct": 2.6
+    },
+    "rb": {
+     "count": 32,
+     "pct": 1.6
+    },
+    "bladestorm": {
+     "count": 15,
+     "pct": 0.8
+    },
+    "other": {
+     "count": 10,
+     "pct": 0.5
+    }
+   },
+   "enr=1,sd=0,btr=1,reck=1,normal": {
+    "n": 4224,
+    "rampage": {
+     "count": 1829,
+     "pct": 43.3
+    },
+    "bloodbath": {
+     "count": 1461,
+     "pct": 34.6
+    },
+    "bladestorm": {
+     "count": 348,
+     "pct": 8.2
+    },
+    "odyns_fury": {
+     "count": 248,
+     "pct": 5.9
+    },
+    "whirlwind": {
+     "count": 198,
+     "pct": 4.7
+    },
+    "execute": {
+     "count": 78,
+     "pct": 1.8
+    },
+    "recklessness": {
+     "count": 29,
+     "pct": 0.7
+    },
+    "other": {
+     "count": 16,
+     "pct": 0.4
+    },
+    "crushing_blow": {
+     "count": 16,
+     "pct": 0.4
+    },
+    "bt": {
+     "count": 1,
+     "pct": 0.0
+    }
+   },
+   "enr=1,sd=0,btr=1,reck=1,exec": {
+    "n": 1825,
+    "rampage": {
+     "count": 806,
+     "pct": 44.2
+    },
+    "bloodbath": {
+     "count": 572,
+     "pct": 31.3
+    },
+    "execute": {
+     "count": 175,
+     "pct": 9.6
+    },
+    "bladestorm": {
+     "count": 108,
+     "pct": 5.9
+    },
+    "odyns_fury": {
+     "count": 86,
+     "pct": 4.7
+    },
+    "whirlwind": {
+     "count": 62,
+     "pct": 3.4
+    },
+    "other": {
+     "count": 8,
+     "pct": 0.4
+    },
+    "recklessness": {
+     "count": 6,
+     "pct": 0.3
+    },
+    "crushing_blow": {
+     "count": 2,
+     "pct": 0.1
+    }
+   },
+   "enr=1,sd=1,btr=0,reck=0,normal": {
+    "n": 3819,
+    "execute": {
+     "count": 1738,
+     "pct": 45.5
+    },
+    "rampage": {
+     "count": 824,
+     "pct": 21.6
+    },
+    "rb": {
+     "count": 596,
+     "pct": 15.6
+    },
+    "whirlwind": {
+     "count": 247,
+     "pct": 6.5
+    },
+    "bt": {
+     "count": 226,
+     "pct": 5.9
+    },
+    "recklessness": {
+     "count": 83,
+     "pct": 2.2
+    },
+    "odyns_fury": {
+     "count": 77,
+     "pct": 2.0
+    },
+    "other": {
+     "count": 25,
+     "pct": 0.7
+    },
+    "bladestorm": {
+     "count": 3,
+     "pct": 0.1
+    }
+   },
+   "enr=1,sd=1,btr=0,reck=0,exec": {
+    "n": 1172,
+    "execute": {
+     "count": 557,
+     "pct": 47.5
+    },
+    "rampage": {
+     "count": 285,
+     "pct": 24.3
+    },
+    "rb": {
+     "count": 152,
+     "pct": 13.0
+    },
+    "bt": {
+     "count": 68,
+     "pct": 5.8
+    },
+    "whirlwind": {
+     "count": 41,
+     "pct": 3.5
+    },
+    "recklessness": {
+     "count": 32,
+     "pct": 2.7
+    },
+    "odyns_fury": {
+     "count": 28,
+     "pct": 2.4
+    },
+    "other": {
+     "count": 6,
+     "pct": 0.5
+    },
+    "bladestorm": {
+     "count": 3,
+     "pct": 0.3
+    }
+   },
+   "enr=1,sd=1,btr=0,reck=1,normal": {
+    "n": 2182,
+    "rampage": {
+     "count": 958,
+     "pct": 43.9
+    },
+    "execute": {
+     "count": 785,
+     "pct": 36.0
+    },
+    "bloodbath": {
+     "count": 129,
+     "pct": 5.9
+    },
+    "crushing_blow": {
+     "count": 86,
+     "pct": 3.9
+    },
+    "odyns_fury": {
+     "count": 81,
+     "pct": 3.7
+    },
+    "whirlwind": {
+     "count": 78,
+     "pct": 3.6
+    },
+    "bladestorm": {
+     "count": 51,
+     "pct": 2.3
+    },
+    "recklessness": {
+     "count": 13,
+     "pct": 0.6
+    },
+    "other": {
+     "count": 1,
+     "pct": 0.0
+    }
+   },
+   "enr=1,sd=1,btr=0,reck=1,exec": {
+    "n": 714,
+    "rampage": {
+     "count": 296,
+     "pct": 41.5
+    },
+    "execute": {
+     "count": 276,
+     "pct": 38.7
+    },
+    "odyns_fury": {
+     "count": 39,
+     "pct": 5.5
+    },
+    "bloodbath": {
+     "count": 37,
+     "pct": 5.2
+    },
+    "bladestorm": {
+     "count": 22,
+     "pct": 3.1
+    },
+    "whirlwind": {
+     "count": 17,
+     "pct": 2.4
+    },
+    "recklessness": {
+     "count": 13,
+     "pct": 1.8
+    },
+    "crushing_blow": {
+     "count": 11,
+     "pct": 1.5
+    },
+    "other": {
+     "count": 3,
+     "pct": 0.4
+    }
+   },
+   "enr=1,sd=1,btr=1,reck=0,normal": {
+    "n": 1825,
+    "bt": {
+     "count": 810,
+     "pct": 44.4
+    },
+    "execute": {
+     "count": 560,
+     "pct": 30.7
+    },
+    "rampage": {
+     "count": 263,
+     "pct": 14.4
+    },
+    "whirlwind": {
+     "count": 73,
+     "pct": 4.0
+    },
+    "recklessness": {
+     "count": 40,
+     "pct": 2.2
+    },
+    "odyns_fury": {
+     "count": 38,
+     "pct": 2.1
+    },
+    "rb": {
+     "count": 24,
+     "pct": 1.3
+    },
+    "bladestorm": {
+     "count": 9,
+     "pct": 0.5
+    },
+    "other": {
+     "count": 8,
+     "pct": 0.4
+    }
+   },
+   "enr=1,sd=1,btr=1,reck=0,exec": {
+    "n": 568,
+    "execute": {
+     "count": 214,
+     "pct": 37.7
+    },
+    "bt": {
+     "count": 205,
+     "pct": 36.1
+    },
+    "rampage": {
+     "count": 87,
+     "pct": 15.3
+    },
+    "odyns_fury": {
+     "count": 22,
+     "pct": 3.9
+    },
+    "recklessness": {
+     "count": 19,
+     "pct": 3.3
+    },
+    "whirlwind": {
+     "count": 13,
+     "pct": 2.3
+    },
+    "other": {
+     "count": 4,
+     "pct": 0.7
+    },
+    "bladestorm": {
+     "count": 2,
+     "pct": 0.4
+    },
+    "rb": {
+     "count": 2,
+     "pct": 0.4
+    }
+   },
+   "enr=1,sd=1,btr=1,reck=1,normal": {
+    "n": 2350,
+    "rampage": {
+     "count": 907,
+     "pct": 38.6
+    },
+    "execute": {
+     "count": 638,
+     "pct": 27.1
+    },
+    "bloodbath": {
+     "count": 442,
+     "pct": 18.8
+    },
+    "bladestorm": {
+     "count": 141,
+     "pct": 6.0
+    },
+    "odyns_fury": {
+     "count": 116,
+     "pct": 4.9
+    },
+    "whirlwind": {
+     "count": 86,
+     "pct": 3.7
+    },
+    "recklessness": {
+     "count": 11,
+     "pct": 0.5
+    },
+    "crushing_blow": {
+     "count": 5,
+     "pct": 0.2
+    },
+    "other": {
+     "count": 4,
+     "pct": 0.2
+    }
+   },
+   "enr=1,sd=1,btr=1,reck=1,exec": {
+    "n": 986,
+    "rampage": {
+     "count": 403,
+     "pct": 40.9
+    },
+    "execute": {
+     "count": 292,
+     "pct": 29.6
+    },
+    "bloodbath": {
+     "count": 149,
+     "pct": 15.1
+    },
+    "odyns_fury": {
+     "count": 49,
+     "pct": 5.0
+    },
+    "bladestorm": {
+     "count": 44,
+     "pct": 4.5
+    },
+    "whirlwind": {
+     "count": 39,
+     "pct": 4.0
+    },
+    "other": {
+     "count": 5,
+     "pct": 0.5
+    },
+    "crushing_blow": {
+     "count": 5,
+     "pct": 0.5
+    }
+   }
+  },
+  "auto_bt_removal": {
+   "autos_removed": 3720,
+   "n_bs_casts": 994,
+   "channel_ms": {
+    "med": 2495.5,
+    "p90": 2618,
+    "max": 3000
+   },
+   "end_marker_missing": 4
+  },
+  "drift": {
+   "reck_baseline": {
+    "cast_gap_s": {
+     "n": 857,
+     "mean": 51.71,
+     "median": 47.12,
+     "p25": 43.59,
+     "p75": 57.33
+    },
+    "buff_time_share": 0.364,
+    "설명": "buff_time_share = 무희 창이 전투시간에서 차지하는 비율 — 어떤 쿨기의 '무희 창 안 %'가 이 값 근처면 우연(정렬 안 함), 크게 높으면 의도적 정렬."
+   },
+   "bs_vs_reck": {
+    "n_bs_casts": 994,
+    "in_reck_realbuff_n": 896,
+    "in_reck_realbuff_rate": 0.901,
+    "by_fight_time": {
+     "0-30s": {
+      "n": 150,
+      "in_reck": 150,
+      "in_reck_rate": 1.0
+     },
+     "30-120s": {
+      "n": 220,
+      "in_reck": 191,
+      "in_reck_rate": 0.868
+     },
+     "120s+": {
+      "n": 624,
+      "in_reck": 555,
+      "in_reck_rate": 0.889
+     }
+    },
+    "solo_elapsed_since_reck_cast_dist": {
+     "18-25s": 33,
+     "25-35s": 34,
+     "35-50s": 29,
+     "50-70s": 1,
+     "70s+": 1,
+     "0-18s(창 계산 밖)": 0
+    },
+    "solo_no_prior_reck": 0,
+    "solo_elapsed_summary": {
+     "n": 98,
+     "mean": 30.45,
+     "median": 31.01,
+     "p25": 22.98,
+     "p75": 36.11
+    }
+   },
+   "bs_holds": {
+    "n_bs_intervals": 839,
+    "gap_summary": {
+     "n": 839,
+     "mean": 52.7,
+     "median": 49.41,
+     "p25": 42.81,
+     "p75": 60.41
+    },
+    "gap_histogram": {
+     "<30s": 19,
+     "30-40s": 103,
+     "40-50s": 304,
+     "50-60s": 192,
+     "60-75s": 156,
+     "75-100s": 43,
+     "100s+": 22
+    },
+    "설명": "칼폭 실효 쿨은 붉은돌격대의 무자비함(급살 사용마다 -5초) 때문에 가변 — 임계값은 데이터 분포 기준.",
+    "data_threshold_med+15s": {
+     "threshold_s": 64.4,
+     "holds_n": 99,
+     "holds_share": 0.118,
+     "hold_gap_summary": {
+      "n": 99,
+      "mean": 85.62,
+      "median": 79.7,
+      "p25": 69.04,
+      "p75": 88.62
+     },
+     "hold_end_in_reck": {
+      "n": 99,
+      "in_reck": 86,
+      "in_reck_rate": 0.869
+     },
+     "normal_end_in_reck": {
+      "n": 740,
+      "in_reck": 656,
+      "in_reck_rate": 0.886
+     }
+    },
+    "fixed_threshold_60s": {
+     "threshold_s": 60.0,
+     "holds_n": 221,
+     "holds_share": 0.263,
+     "hold_gap_summary": {
+      "n": 221,
+      "mean": 72.48,
+      "median": 63.17,
+      "p25": 61.69,
+      "p75": 79.01
+     },
+     "hold_end_in_reck": {
+      "n": 221,
+      "in_reck": 201,
+      "in_reck_rate": 0.91
+     },
+     "normal_end_in_reck": {
+      "n": 618,
+      "in_reck": 541,
+      "in_reck_rate": 0.875
+     }
+    }
+   },
+   "odyn": {
+    "n_casts": 1719,
+    "in_reck_realbuff_rate": 0.523,
+    "by_fight_time": {
+     "0-30s": {
+      "n": 254,
+      "in_reck": 136,
+      "in_reck_rate": 0.535
+     },
+     "30-120s": {
+      "n": 428,
+      "in_reck": 210,
+      "in_reck_rate": 0.491
+     },
+     "120s+": {
+      "n": 1037,
+      "in_reck": 553,
+      "in_reck_rate": 0.533
+     }
+    },
+    "gap_summary": {
+     "n": 1564,
+     "mean": 29.64,
+     "median": 26.25,
+     "p25": 23.57,
+     "p75": 30.84
+    },
+    "gap_histogram": {
+     "<40s": 1398,
+     "40-50s": 81,
+     "50-60s": 42,
+     "60-80s": 27,
+     "80s+": 16
+    },
+    "설명": "'오딘은 기다리지 않는다' 검증 — 무희 창(전투의 ~1/3) 밖 사용률이 높으면 쿨마다 즉시 사용."
+   }
+  }
+ },
+ "thane": {
+  "n_kills": 141,
+  "fight_len_s": {
+   "n": 141,
+   "mean": 313.93,
+   "median": 316.64,
+   "p25": 268.01,
+   "p75": 351.21
+  },
+  "bt_ready_thr_ms": {
+   "med": 2850,
+   "min": 2400,
+   "max": 3709
+  },
+  "Q1_not_enraged": {
+   "설명": "격노 OFF 상태에서 누른 다음 버튼 분포 — '비격노면 광란' 룰의 실측 강도. 분노량 미관측: 광란(분노 80)이 안 나간 GCD는 분노 부족일 수 있음.",
+   "all": {
+    "n": 725,
+    "bt": {
+     "count": 156,
+     "pct": 21.5
+    },
+    "rampage": {
+     "count": 134,
+     "pct": 18.5
+    },
+    "thunder_clap": {
+     "count": 87,
+     "pct": 12.0
+    },
+    "odyns_fury": {
+     "count": 85,
+     "pct": 11.7
+    },
+    "recklessness": {
+     "count": 75,
+     "pct": 10.3
+    },
+    "avatar": {
+     "count": 75,
+     "pct": 10.3
+    },
+    "other": {
+     "count": 34,
+     "pct": 4.7
+    },
+    "thunder_blast": {
+     "count": 33,
+     "pct": 4.6
+    },
+    "execute": {
+     "count": 16,
+     "pct": 2.2
+    },
+    "bloodbath": {
+     "count": 13,
+     "pct": 1.8
+    },
+    "rb": {
+     "count": 12,
+     "pct": 1.7
+    },
+    "whirlwind": {
+     "count": 5,
+     "pct": 0.7
+    }
+   },
+   "normal": {
+    "n": 627,
+    "bt": {
+     "count": 132,
+     "pct": 21.1
+    },
+    "rampage": {
+     "count": 102,
+     "pct": 16.3
+    },
+    "odyns_fury": {
+     "count": 81,
+     "pct": 12.9
+    },
+    "recklessness": {
+     "count": 73,
+     "pct": 11.6
+    },
+    "avatar": {
+     "count": 73,
+     "pct": 11.6
+    },
+    "thunder_clap": {
+     "count": 70,
+     "pct": 11.2
+    },
+    "thunder_blast": {
+     "count": 30,
+     "pct": 4.8
+    },
+    "other": {
+     "count": 29,
+     "pct": 4.6
+    },
+    "rb": {
+     "count": 12,
+     "pct": 1.9
+    },
+    "execute": {
+     "count": 11,
+     "pct": 1.8
+    },
+    "bloodbath": {
+     "count": 9,
+     "pct": 1.4
+    },
+    "whirlwind": {
+     "count": 5,
+     "pct": 0.8
+    }
+   },
+   "exec": {
+    "n": 98,
+    "rampage": {
+     "count": 32,
+     "pct": 32.7
+    },
+    "bt": {
+     "count": 24,
+     "pct": 24.5
+    },
+    "thunder_clap": {
+     "count": 17,
+     "pct": 17.3
+    },
+    "other": {
+     "count": 5,
+     "pct": 5.1
+    },
+    "execute": {
+     "count": 5,
+     "pct": 5.1
+    },
+    "odyns_fury": {
+     "count": 4,
+     "pct": 4.1
+    },
+    "bloodbath": {
+     "count": 4,
+     "pct": 4.1
+    },
+    "thunder_blast": {
+     "count": 3,
+     "pct": 3.1
+    },
+    "recklessness": {
+     "count": 2,
+     "pct": 2.0
+    },
+    "avatar": {
+     "count": 2,
+     "pct": 2.0
+    }
+   },
+   "first_button_after_enrage_drop": {
+    "n": 1521,
+    "rampage": {
+     "count": 774,
+     "pct": 50.9
+    },
+    "bt": {
+     "count": 365,
+     "pct": 24.0
+    },
+    "bloodbath": {
+     "count": 170,
+     "pct": 11.2
+    },
+    "odyns_fury": {
+     "count": 101,
+     "pct": 6.6
+    },
+    "thunder_clap": {
+     "count": 43,
+     "pct": 2.8
+    },
+    "other": {
+     "count": 16,
+     "pct": 1.1
+    },
+    "recklessness": {
+     "count": 16,
+     "pct": 1.1
+    },
+    "thunder_blast": {
+     "count": 15,
+     "pct": 1.0
+    },
+    "execute": {
+     "count": 10,
+     "pct": 0.7
+    },
+    "rb": {
+     "count": 6,
+     "pct": 0.4
+    },
+    "avatar": {
+     "count": 4,
+     "pct": 0.3
+    },
+    "whirlwind": {
+     "count": 1,
+     "pct": 0.1
+    }
+   },
+   "drop_to_rampage_ms": {
+    "n": 1514,
+    "med": 743.5,
+    "p75": 1950,
+    "within_1gcd_pct": 65.1
+   }
+  },
+  "Q2_sd_on": {
+   "설명": "급살 프록 활성 상태의 다음 버튼 — 마무리 일격 비율. exec 구간은 대학살로 상시 사용 가능하니 normal이 프록 반응의 순수 지표.",
+   "all": {
+    "n": 10359,
+    "rampage": {
+     "count": 3095,
+     "pct": 29.9
+    },
+    "execute": {
+     "count": 1875,
+     "pct": 18.1
+    },
+    "thunder_blast": {
+     "count": 1348,
+     "pct": 13.0
+    },
+    "bloodbath": {
+     "count": 1347,
+     "pct": 13.0
+    },
+    "bt": {
+     "count": 1239,
+     "pct": 12.0
+    },
+    "thunder_clap": {
+     "count": 749,
+     "pct": 7.2
+    },
+    "odyns_fury": {
+     "count": 307,
+     "pct": 3.0
+    },
+    "avatar": {
+     "count": 128,
+     "pct": 1.2
+    },
+    "recklessness": {
+     "count": 127,
+     "pct": 1.2
+    },
+    "rb": {
+     "count": 104,
+     "pct": 1.0
+    },
+    "other": {
+     "count": 29,
+     "pct": 0.3
+    },
+    "crushing_blow": {
+     "count": 10,
+     "pct": 0.1
+    },
+    "whirlwind": {
+     "count": 1,
+     "pct": 0.0
+    }
+   },
+   "normal": {
+    "n": 7693,
+    "rampage": {
+     "count": 2275,
+     "pct": 29.6
+    },
+    "execute": {
+     "count": 1423,
+     "pct": 18.5
+    },
+    "thunder_blast": {
+     "count": 973,
+     "pct": 12.6
+    },
+    "bt": {
+     "count": 964,
+     "pct": 12.5
+    },
+    "bloodbath": {
+     "count": 956,
+     "pct": 12.4
+    },
+    "thunder_clap": {
+     "count": 576,
+     "pct": 7.5
+    },
+    "odyns_fury": {
+     "count": 237,
+     "pct": 3.1
+    },
+    "avatar": {
+     "count": 88,
+     "pct": 1.1
+    },
+    "recklessness": {
+     "count": 87,
+     "pct": 1.1
+    },
+    "rb": {
+     "count": 87,
+     "pct": 1.1
+    },
+    "other": {
+     "count": 17,
+     "pct": 0.2
+    },
+    "crushing_blow": {
+     "count": 9,
+     "pct": 0.1
+    },
+    "whirlwind": {
+     "count": 1,
+     "pct": 0.0
+    }
+   },
+   "exec": {
+    "n": 2666,
+    "rampage": {
+     "count": 820,
+     "pct": 30.8
+    },
+    "execute": {
+     "count": 452,
+     "pct": 17.0
+    },
+    "bloodbath": {
+     "count": 391,
+     "pct": 14.7
+    },
+    "thunder_blast": {
+     "count": 375,
+     "pct": 14.1
+    },
+    "bt": {
+     "count": 275,
+     "pct": 10.3
+    },
+    "thunder_clap": {
+     "count": 173,
+     "pct": 6.5
+    },
+    "odyns_fury": {
+     "count": 70,
+     "pct": 2.6
+    },
+    "avatar": {
+     "count": 40,
+     "pct": 1.5
+    },
+    "recklessness": {
+     "count": 40,
+     "pct": 1.5
+    },
+    "rb": {
+     "count": 17,
+     "pct": 0.6
+    },
+    "other": {
+     "count": 12,
+     "pct": 0.5
+    },
+    "crushing_blow": {
+     "count": 1,
+     "pct": 0.0
+    }
+   }
+  },
+  "Q2b_sdX_btrO": {
+   "설명": "급살 X · 피의 갈증 준비 O(근사) — 피갈(무희 중 피범벅) 비율.",
+   "all": {
+    "n": 16480,
+    "bt": {
+     "count": 5771,
+     "pct": 35.0
+    },
+    "rampage": {
+     "count": 3957,
+     "pct": 24.0
+    },
+    "bloodbath": {
+     "count": 2486,
+     "pct": 15.1
+    },
+    "thunder_blast": {
+     "count": 1256,
+     "pct": 7.6
+    },
+    "thunder_clap": {
+     "count": 926,
+     "pct": 5.6
+    },
+    "odyns_fury": {
+     "count": 635,
+     "pct": 3.9
+    },
+    "execute": {
+     "count": 386,
+     "pct": 2.3
+    },
+    "recklessness": {
+     "count": 371,
+     "pct": 2.3
+    },
+    "avatar": {
+     "count": 366,
+     "pct": 2.2
+    },
+    "rb": {
+     "count": 218,
+     "pct": 1.3
+    },
+    "other": {
+     "count": 75,
+     "pct": 0.5
+    },
+    "whirlwind": {
+     "count": 18,
+     "pct": 0.1
+    },
+    "crushing_blow": {
+     "count": 15,
+     "pct": 0.1
+    }
+   },
+   "normal": {
+    "n": 12121,
+    "bt": {
+     "count": 4351,
+     "pct": 35.9
+    },
+    "rampage": {
+     "count": 2862,
+     "pct": 23.6
+    },
+    "bloodbath": {
+     "count": 1889,
+     "pct": 15.6
+    },
+    "thunder_blast": {
+     "count": 936,
+     "pct": 7.7
+    },
+    "thunder_clap": {
+     "count": 648,
+     "pct": 5.3
+    },
+    "odyns_fury": {
+     "count": 457,
+     "pct": 3.8
+    },
+    "recklessness": {
+     "count": 279,
+     "pct": 2.3
+    },
+    "avatar": {
+     "count": 277,
+     "pct": 2.3
+    },
+    "rb": {
+     "count": 179,
+     "pct": 1.5
+    },
+    "execute": {
+     "count": 161,
+     "pct": 1.3
+    },
+    "other": {
+     "count": 51,
+     "pct": 0.4
+    },
+    "whirlwind": {
+     "count": 17,
+     "pct": 0.1
+    },
+    "crushing_blow": {
+     "count": 14,
+     "pct": 0.1
+    }
+   },
+   "exec": {
+    "n": 4359,
+    "bt": {
+     "count": 1420,
+     "pct": 32.6
+    },
+    "rampage": {
+     "count": 1095,
+     "pct": 25.1
+    },
+    "bloodbath": {
+     "count": 597,
+     "pct": 13.7
+    },
+    "thunder_blast": {
+     "count": 320,
+     "pct": 7.3
+    },
+    "thunder_clap": {
+     "count": 278,
+     "pct": 6.4
+    },
+    "execute": {
+     "count": 225,
+     "pct": 5.2
+    },
+    "odyns_fury": {
+     "count": 178,
+     "pct": 4.1
+    },
+    "recklessness": {
+     "count": 92,
+     "pct": 2.1
+    },
+    "avatar": {
+     "count": 89,
+     "pct": 2.0
+    },
+    "rb": {
+     "count": 39,
+     "pct": 0.9
+    },
+    "other": {
+     "count": 24,
+     "pct": 0.6
+    },
+    "whirlwind": {
+     "count": 1,
+     "pct": 0.0
+    },
+    "crushing_blow": {
+     "count": 1,
+     "pct": 0.0
+    }
+   }
+  },
+  "Q3_all_off": {
+   "설명": "격노 O · 급살 X · 피갈 쿨 X — 필러 선택. 산왕: 천둥벼락/우레 작렬 vs 분노의 강타 — '천둥벼락>분강' 이론 판정.",
+   "all": {
+    "n": 19546,
+    "rampage": {
+     "count": 6433,
+     "pct": 32.9
+    },
+    "thunder_blast": {
+     "count": 3472,
+     "pct": 17.8
+    },
+    "rb": {
+     "count": 2681,
+     "pct": 13.7
+    },
+    "thunder_clap": {
+     "count": 2002,
+     "pct": 10.2
+    },
+    "execute": {
+     "count": 1349,
+     "pct": 6.9
+    },
+    "bt": {
+     "count": 1256,
+     "pct": 6.4
+    },
+    "bloodbath": {
+     "count": 662,
+     "pct": 3.4
+    },
+    "odyns_fury": {
+     "count": 537,
+     "pct": 2.7
+    },
+    "avatar": {
+     "count": 447,
+     "pct": 2.3
+    },
+    "recklessness": {
+     "count": 443,
+     "pct": 2.3
+    },
+    "crushing_blow": {
+     "count": 179,
+     "pct": 0.9
+    },
+    "other": {
+     "count": 68,
+     "pct": 0.3
+    },
+    "whirlwind": {
+     "count": 17,
+     "pct": 0.1
+    }
+   },
+   "normal": {
+    "n": 15142,
+    "rampage": {
+     "count": 4933,
+     "pct": 32.6
+    },
+    "thunder_blast": {
+     "count": 2699,
+     "pct": 17.8
+    },
+    "rb": {
+     "count": 2422,
+     "pct": 16.0
+    },
+    "thunder_clap": {
+     "count": 1549,
+     "pct": 10.2
+    },
+    "bt": {
+     "count": 1063,
+     "pct": 7.0
+    },
+    "execute": {
+     "count": 583,
+     "pct": 3.9
+    },
+    "bloodbath": {
+     "count": 565,
+     "pct": 3.7
+    },
+    "odyns_fury": {
+     "count": 414,
+     "pct": 2.7
+    },
+    "avatar": {
+     "count": 344,
+     "pct": 2.3
+    },
+    "recklessness": {
+     "count": 343,
+     "pct": 2.3
+    },
+    "crushing_blow": {
+     "count": 165,
+     "pct": 1.1
+    },
+    "other": {
+     "count": 47,
+     "pct": 0.3
+    },
+    "whirlwind": {
+     "count": 15,
+     "pct": 0.1
+    }
+   },
+   "exec": {
+    "n": 4404,
+    "rampage": {
+     "count": 1500,
+     "pct": 34.1
+    },
+    "thunder_blast": {
+     "count": 773,
+     "pct": 17.6
+    },
+    "execute": {
+     "count": 766,
+     "pct": 17.4
+    },
+    "thunder_clap": {
+     "count": 453,
+     "pct": 10.3
+    },
+    "rb": {
+     "count": 259,
+     "pct": 5.9
+    },
+    "bt": {
+     "count": 193,
+     "pct": 4.4
+    },
+    "odyns_fury": {
+     "count": 123,
+     "pct": 2.8
+    },
+    "avatar": {
+     "count": 103,
+     "pct": 2.3
+    },
+    "recklessness": {
+     "count": 100,
+     "pct": 2.3
+    },
+    "bloodbath": {
+     "count": 97,
+     "pct": 2.2
+    },
+    "other": {
+     "count": 21,
+     "pct": 0.5
+    },
+    "crushing_blow": {
+     "count": 14,
+     "pct": 0.3
+    },
+    "whirlwind": {
+     "count": 2,
+     "pct": 0.0
+    }
+   },
+   "out_of_reck": {
+    "n": 13362,
+    "rampage": {
+     "count": 3475,
+     "pct": 26.0
+    },
+    "rb": {
+     "count": 2681,
+     "pct": 20.1
+    },
+    "thunder_blast": {
+     "count": 2096,
+     "pct": 15.7
+    },
+    "thunder_clap": {
+     "count": 1541,
+     "pct": 11.5
+    },
+    "bt": {
+     "count": 1256,
+     "pct": 9.4
+    },
+    "execute": {
+     "count": 1254,
+     "pct": 9.4
+    },
+    "recklessness": {
+     "count": 350,
+     "pct": 2.6
+    },
+    "odyns_fury": {
+     "count": 318,
+     "pct": 2.4
+    },
+    "avatar": {
+     "count": 318,
+     "pct": 2.4
+    },
+    "other": {
+     "count": 56,
+     "pct": 0.4
+    },
+    "whirlwind": {
+     "count": 17,
+     "pct": 0.1
+    }
+   },
+   "in_reck": {
+    "n": 6184,
+    "rampage": {
+     "count": 2958,
+     "pct": 47.8
+    },
+    "thunder_blast": {
+     "count": 1376,
+     "pct": 22.3
+    },
+    "bloodbath": {
+     "count": 662,
+     "pct": 10.7
+    },
+    "thunder_clap": {
+     "count": 461,
+     "pct": 7.5
+    },
+    "odyns_fury": {
+     "count": 219,
+     "pct": 3.5
+    },
+    "crushing_blow": {
+     "count": 179,
+     "pct": 2.9
+    },
+    "avatar": {
+     "count": 129,
+     "pct": 2.1
+    },
+    "execute": {
+     "count": 95,
+     "pct": 1.5
+    },
+    "recklessness": {
+     "count": 93,
+     "pct": 1.5
+    },
+    "other": {
+     "count": 12,
+     "pct": 0.2
+    }
+   }
+  },
+  "Q4_reck_window": {
+   "설명": "무모한 희생 실측 버프 창(~18초) 안/밖 전체 버튼 분포 — 창 안 피범벅/분쇄의 타격/칼폭 비중.",
+   "in_reck": {
+    "n": 18055,
+    "rampage": {
+     "count": 7275,
+     "pct": 40.3
+    },
+    "bloodbath": {
+     "count": 4495,
+     "pct": 24.9
+    },
+    "thunder_blast": {
+     "count": 3117,
+     "pct": 17.3
+    },
+    "thunder_clap": {
+     "count": 1131,
+     "pct": 6.3
+    },
+    "odyns_fury": {
+     "count": 750,
+     "pct": 4.2
+    },
+    "execute": {
+     "count": 599,
+     "pct": 3.3
+    },
+    "avatar": {
+     "count": 266,
+     "pct": 1.5
+    },
+    "crushing_blow": {
+     "count": 204,
+     "pct": 1.1
+    },
+    "recklessness": {
+     "count": 176,
+     "pct": 1.0
+    },
+    "other": {
+     "count": 36,
+     "pct": 0.2
+    },
+    "whirlwind": {
+     "count": 3,
+     "pct": 0.0
+    },
+    "bt": {
+     "count": 3,
+     "pct": 0.0
+    }
+   },
+   "out_of_reck": {
+    "n": 28372,
+    "bt": {
+     "count": 8269,
+     "pct": 29.1
+    },
+    "rampage": {
+     "count": 6228,
+     "pct": 22.0
+    },
+    "rb": {
+     "count": 3012,
+     "pct": 10.6
+    },
+    "execute": {
+     "count": 3012,
+     "pct": 10.6
+    },
+    "thunder_blast": {
+     "count": 2962,
+     "pct": 10.4
+    },
+    "thunder_clap": {
+     "count": 2550,
+     "pct": 9.0
+    },
+    "recklessness": {
+     "count": 765,
+     "pct": 2.7
+    },
+    "odyns_fury": {
+     "count": 730,
+     "pct": 2.6
+    },
+    "avatar": {
+     "count": 675,
+     "pct": 2.4
+    },
+    "other": {
+     "count": 136,
+     "pct": 0.5
+    },
+    "whirlwind": {
+     "count": 33,
+     "pct": 0.1
+    }
+   }
+  },
+  "sensitivity_flat4500": {
+   "Q2b_sdX_btrO_all": {
+    "n": 8486,
+    "rampage": {
+     "count": 2398,
+     "pct": 28.3
+    },
+    "bt": {
+     "count": 2281,
+     "pct": 26.9
+    },
+    "bloodbath": {
+     "count": 1485,
+     "pct": 17.5
+    },
+    "thunder_blast": {
+     "count": 659,
+     "pct": 7.8
+    },
+    "thunder_clap": {
+     "count": 494,
+     "pct": 5.8
+    },
+    "odyns_fury": {
+     "count": 374,
+     "pct": 4.4
+    },
+    "recklessness": {
+     "count": 205,
+     "pct": 2.4
+    },
+    "avatar": {
+     "count": 205,
+     "pct": 2.4
+    },
+    "execute": {
+     "count": 182,
+     "pct": 2.1
+    },
+    "rb": {
+     "count": 135,
+     "pct": 1.6
+    },
+    "other": {
+     "count": 51,
+     "pct": 0.6
+    },
+    "whirlwind": {
+     "count": 9,
+     "pct": 0.1
+    },
+    "crushing_blow": {
+     "count": 8,
+     "pct": 0.1
+    }
+   },
+   "Q3_all_off_all": {
+    "n": 27478,
+    "rampage": {
+     "count": 7973,
+     "pct": 29.0
+    },
+    "bt": {
+     "count": 4729,
+     "pct": 17.2
+    },
+    "thunder_blast": {
+     "count": 4066,
+     "pct": 14.8
+    },
+    "rb": {
+     "count": 2764,
+     "pct": 10.1
+    },
+    "thunder_clap": {
+     "count": 2432,
+     "pct": 8.9
+    },
+    "bloodbath": {
+     "count": 1662,
+     "pct": 6.0
+    },
+    "execute": {
+     "count": 1552,
+     "pct": 5.6
+    },
+    "odyns_fury": {
+     "count": 794,
+     "pct": 2.9
+    },
+    "recklessness": {
+     "count": 605,
+     "pct": 2.2
+    },
+    "avatar": {
+     "count": 604,
+     "pct": 2.2
+    },
+    "crushing_blow": {
+     "count": 186,
+     "pct": 0.7
+    },
+    "other": {
+     "count": 86,
+     "pct": 0.3
+    },
+    "whirlwind": {
+     "count": 25,
+     "pct": 0.1
+    }
+   }
+  },
+  "other_cast_ids_top": {
+   "6262": 30,
+   "386196": 21,
+   "184364": 20,
+   "18499": 20,
+   "274738": 9,
+   "343960": 9,
+   "343963": 9,
+   "46968": 9,
+   "384100": 7,
+   "440837": 6,
+   "1234969": 4,
+   "358733": 3
+  },
+  "full_state_table": {
+   "enr=0,sd=0,btr=0,reck=0,normal": {
+    "n": 35,
+    "rampage": {
+     "count": 14,
+     "pct": 40.0
+    },
+    "rb": {
+     "count": 9,
+     "pct": 25.7
+    },
+    "bt": {
+     "count": 4,
+     "pct": 11.4
+    },
+    "thunder_clap": {
+     "count": 4,
+     "pct": 11.4
+    },
+    "thunder_blast": {
+     "count": 2,
+     "pct": 5.7
+    },
+    "odyns_fury": {
+     "count": 1,
+     "pct": 2.9
+    },
+    "execute": {
+     "count": 1,
+     "pct": 2.9
+    }
+   },
+   "enr=0,sd=0,btr=0,reck=0,exec": {
+    "n": 4,
+    "bt": {
+     "count": 2,
+     "pct": 50.0
+    },
+    "rampage": {
+     "count": 1,
+     "pct": 25.0
+    },
+    "thunder_blast": {
+     "count": 1,
+     "pct": 25.0
+    }
+   },
+   "enr=0,sd=0,btr=0,reck=1,normal": {
+    "n": 2,
+    "rampage": {
+     "count": 2,
+     "pct": 100.0
+    }
+   },
+   "enr=0,sd=0,btr=0,reck=1,exec": {
+    "n": 1,
+    "rampage": {
+     "count": 1,
+     "pct": 100.0
+    }
+   },
+   "enr=0,sd=0,btr=1,reck=0,normal": {
+    "n": 427,
+    "bt": {
+     "count": 121,
+     "pct": 28.3
+    },
+    "thunder_clap": {
+     "count": 62,
+     "pct": 14.5
+    },
+    "recklessness": {
+     "count": 57,
+     "pct": 13.3
+    },
+    "avatar": {
+     "count": 50,
+     "pct": 11.7
+    },
+    "rampage": {
+     "count": 46,
+     "pct": 10.8
+    },
+    "odyns_fury": {
+     "count": 45,
+     "pct": 10.5
+    },
+    "other": {
+     "count": 24,
+     "pct": 5.6
+    },
+    "thunder_blast": {
+     "count": 12,
+     "pct": 2.8
+    },
+    "whirlwind": {
+     "count": 5,
+     "pct": 1.2
+    },
+    "rb": {
+     "count": 3,
+     "pct": 0.7
+    },
+    "execute": {
+     "count": 2,
+     "pct": 0.5
+    }
+   },
+   "enr=0,sd=0,btr=1,reck=0,exec": {
+    "n": 62,
+    "rampage": {
+     "count": 21,
+     "pct": 33.9
+    },
+    "bt": {
+     "count": 17,
+     "pct": 27.4
+    },
+    "thunder_clap": {
+     "count": 12,
+     "pct": 19.4
+    },
+    "execute": {
+     "count": 5,
+     "pct": 8.1
+    },
+    "other": {
+     "count": 4,
+     "pct": 6.5
+    },
+    "odyns_fury": {
+     "count": 2,
+     "pct": 3.2
+    },
+    "recklessness": {
+     "count": 1,
+     "pct": 1.6
+    }
+   },
+   "enr=0,sd=0,btr=1,reck=1,normal": {
+    "n": 110,
+    "odyns_fury": {
+     "count": 33,
+     "pct": 30.0
+    },
+    "avatar": {
+     "count": 20,
+     "pct": 18.2
+    },
+    "rampage": {
+     "count": 20,
+     "pct": 18.2
+    },
+    "recklessness": {
+     "count": 13,
+     "pct": 11.8
+    },
+    "thunder_blast": {
+     "count": 13,
+     "pct": 11.8
+    },
+    "bloodbath": {
+     "count": 7,
+     "pct": 6.4
+    },
+    "other": {
+     "count": 2,
+     "pct": 1.8
+    },
+    "thunder_clap": {
+     "count": 1,
+     "pct": 0.9
+    },
+    "execute": {
+     "count": 1,
+     "pct": 0.9
+    }
+   },
+   "enr=0,sd=0,btr=1,reck=1,exec": {
+    "n": 11,
+    "thunder_clap": {
+     "count": 3,
+     "pct": 27.3
+    },
+    "bloodbath": {
+     "count": 3,
+     "pct": 27.3
+    },
+    "odyns_fury": {
+     "count": 2,
+     "pct": 18.2
+    },
+    "rampage": {
+     "count": 1,
+     "pct": 9.1
+    },
+    "thunder_blast": {
+     "count": 1,
+     "pct": 9.1
+    },
+    "avatar": {
+     "count": 1,
+     "pct": 9.1
+    }
+   },
+   "enr=0,sd=1,btr=0,reck=0,normal": {
+    "n": 11,
+    "rampage": {
+     "count": 4,
+     "pct": 36.4
+    },
+    "execute": {
+     "count": 4,
+     "pct": 36.4
+    },
+    "thunder_blast": {
+     "count": 1,
+     "pct": 9.1
+    },
+    "thunder_clap": {
+     "count": 1,
+     "pct": 9.1
+    },
+    "other": {
+     "count": 1,
+     "pct": 9.1
+    }
+   },
+   "enr=0,sd=1,btr=0,reck=0,exec": {
+    "n": 1,
+    "bt": {
+     "count": 1,
+     "pct": 100.0
+    }
+   },
+   "enr=0,sd=1,btr=0,reck=1,normal": {
+    "n": 1,
+    "rampage": {
+     "count": 1,
+     "pct": 100.0
+    }
+   },
+   "enr=0,sd=1,btr=1,reck=0,normal": {
+    "n": 28,
+    "rampage": {
+     "count": 9,
+     "pct": 32.1
+    },
+    "bt": {
+     "count": 7,
+     "pct": 25.0
+    },
+    "execute": {
+     "count": 3,
+     "pct": 10.7
+    },
+    "recklessness": {
+     "count": 3,
+     "pct": 10.7
+    },
+    "other": {
+     "count": 2,
+     "pct": 7.1
+    },
+    "avatar": {
+     "count": 2,
+     "pct": 7.1
+    },
+    "thunder_blast": {
+     "count": 1,
+     "pct": 3.6
+    },
+    "thunder_clap": {
+     "count": 1,
+     "pct": 3.6
+    }
+   },
+   "enr=0,sd=1,btr=1,reck=0,exec": {
+    "n": 10,
+    "bt": {
+     "count": 4,
+     "pct": 40.0
+    },
+    "thunder_clap": {
+     "count": 2,
+     "pct": 20.0
+    },
+    "rampage": {
+     "count": 2,
+     "pct": 20.0
+    },
+    "other": {
+     "count": 1,
+     "pct": 10.0
+    },
+    "recklessness": {
+     "count": 1,
+     "pct": 10.0
+    }
+   },
+   "enr=0,sd=1,btr=1,reck=1,normal": {
+    "n": 13,
+    "rampage": {
+     "count": 6,
+     "pct": 46.2
+    },
+    "odyns_fury": {
+     "count": 2,
+     "pct": 15.4
+    },
+    "bloodbath": {
+     "count": 2,
+     "pct": 15.4
+    },
+    "avatar": {
+     "count": 1,
+     "pct": 7.7
+    },
+    "thunder_blast": {
+     "count": 1,
+     "pct": 7.7
+    },
+    "thunder_clap": {
+     "count": 1,
+     "pct": 7.7
+    }
+   },
+   "enr=0,sd=1,btr=1,reck=1,exec": {
+    "n": 9,
+    "rampage": {
+     "count": 6,
+     "pct": 66.7
+    },
+    "avatar": {
+     "count": 1,
+     "pct": 11.1
+    },
+    "thunder_blast": {
+     "count": 1,
+     "pct": 11.1
+    },
+    "bloodbath": {
+     "count": 1,
+     "pct": 11.1
+    }
+   },
+   "enr=1,sd=0,btr=0,reck=0,normal": {
+    "n": 10279,
+    "rampage": {
+     "count": 2612,
+     "pct": 25.4
+    },
+    "rb": {
+     "count": 2422,
+     "pct": 23.6
+    },
+    "thunder_blast": {
+     "count": 1619,
+     "pct": 15.8
+    },
+    "thunder_clap": {
+     "count": 1199,
+     "pct": 11.7
+    },
+    "bt": {
+     "count": 1063,
+     "pct": 10.3
+    },
+    "execute": {
+     "count": 550,
+     "pct": 5.4
+    },
+    "recklessness": {
+     "count": 269,
+     "pct": 2.6
+    },
+    "odyns_fury": {
+     "count": 246,
+     "pct": 2.4
+    },
+    "avatar": {
+     "count": 246,
+     "pct": 2.4
+    },
+    "other": {
+     "count": 38,
+     "pct": 0.4
+    },
+    "whirlwind": {
+     "count": 15,
+     "pct": 0.1
+    }
+   },
+   "enr=1,sd=0,btr=0,reck=0,exec": {
+    "n": 3083,
+    "rampage": {
+     "count": 863,
+     "pct": 28.0
+    },
+    "execute": {
+     "count": 704,
+     "pct": 22.8
+    },
+    "thunder_blast": {
+     "count": 477,
+     "pct": 15.5
+    },
+    "thunder_clap": {
+     "count": 342,
+     "pct": 11.1
+    },
+    "rb": {
+     "count": 259,
+     "pct": 8.4
+    },
+    "bt": {
+     "count": 193,
+     "pct": 6.3
+    },
+    "recklessness": {
+     "count": 81,
+     "pct": 2.6
+    },
+    "odyns_fury": {
+     "count": 72,
+     "pct": 2.3
+    },
+    "avatar": {
+     "count": 72,
+     "pct": 2.3
+    },
+    "other": {
+     "count": 18,
+     "pct": 0.6
+    },
+    "whirlwind": {
+     "count": 2,
+     "pct": 0.1
+    }
+   },
+   "enr=1,sd=0,btr=0,reck=1,normal": {
+    "n": 4863,
+    "rampage": {
+     "count": 2321,
+     "pct": 47.7
+    },
+    "thunder_blast": {
+     "count": 1080,
+     "pct": 22.2
+    },
+    "bloodbath": {
+     "count": 565,
+     "pct": 11.6
+    },
+    "thunder_clap": {
+     "count": 350,
+     "pct": 7.2
+    },
+    "odyns_fury": {
+     "count": 168,
+     "pct": 3.5
+    },
+    "crushing_blow": {
+     "count": 165,
+     "pct": 3.4
+    },
+    "avatar": {
+     "count": 98,
+     "pct": 2.0
+    },
+    "recklessness": {
+     "count": 74,
+     "pct": 1.5
+    },
+    "execute": {
+     "count": 33,
+     "pct": 0.7
+    },
+    "other": {
+     "count": 9,
+     "pct": 0.2
+    }
+   },
+   "enr=1,sd=0,btr=0,reck=1,exec": {
+    "n": 1321,
+    "rampage": {
+     "count": 637,
+     "pct": 48.2
+    },
+    "thunder_blast": {
+     "count": 296,
+     "pct": 22.4
+    },
+    "thunder_clap": {
+     "count": 111,
+     "pct": 8.4
+    },
+    "bloodbath": {
+     "count": 97,
+     "pct": 7.3
+    },
+    "execute": {
+     "count": 62,
+     "pct": 4.7
+    },
+    "odyns_fury": {
+     "count": 51,
+     "pct": 3.9
+    },
+    "avatar": {
+     "count": 31,
+     "pct": 2.3
+    },
+    "recklessness": {
+     "count": 19,
+     "pct": 1.4
+    },
+    "crushing_blow": {
+     "count": 14,
+     "pct": 1.1
+    },
+    "other": {
+     "count": 3,
+     "pct": 0.2
+    }
+   },
+   "enr=1,sd=0,btr=1,reck=0,normal": {
+    "n": 6898,
+    "bt": {
+     "count": 4229,
+     "pct": 61.3
+    },
+    "rampage": {
+     "count": 1181,
+     "pct": 17.1
+    },
+    "thunder_clap": {
+     "count": 384,
+     "pct": 5.6
+    },
+    "thunder_blast": {
+     "count": 254,
+     "pct": 3.7
+    },
+    "recklessness": {
+     "count": 179,
+     "pct": 2.6
+    },
+    "rb": {
+     "count": 176,
+     "pct": 2.6
+    },
+    "odyns_fury": {
+     "count": 169,
+     "pct": 2.4
+    },
+    "avatar": {
+     "count": 152,
+     "pct": 2.2
+    },
+    "execute": {
+     "count": 146,
+     "pct": 2.1
+    },
+    "other": {
+     "count": 18,
+     "pct": 0.3
+    },
+    "whirlwind": {
+     "count": 10,
+     "pct": 0.1
+    }
+   },
+   "enr=1,sd=0,btr=1,reck=0,exec": {
+    "n": 2624,
+    "bt": {
+     "count": 1401,
+     "pct": 53.4
+    },
+    "rampage": {
+     "count": 513,
+     "pct": 19.6
+    },
+    "execute": {
+     "count": 192,
+     "pct": 7.3
+    },
+    "thunder_clap": {
+     "count": 156,
+     "pct": 5.9
+    },
+    "thunder_blast": {
+     "count": 92,
+     "pct": 3.5
+    },
+    "odyns_fury": {
+     "count": 85,
+     "pct": 3.2
+    },
+    "recklessness": {
+     "count": 71,
+     "pct": 2.7
+    },
+    "avatar": {
+     "count": 62,
+     "pct": 2.4
+    },
+    "rb": {
+     "count": 39,
+     "pct": 1.5
+    },
+    "other": {
+     "count": 13,
+     "pct": 0.5
+    }
+   },
+   "enr=1,sd=0,btr=1,reck=1,normal": {
+    "n": 4686,
+    "bloodbath": {
+     "count": 1882,
+     "pct": 40.2
+    },
+    "rampage": {
+     "count": 1615,
+     "pct": 34.5
+    },
+    "thunder_blast": {
+     "count": 657,
+     "pct": 14.0
+    },
+    "odyns_fury": {
+     "count": 210,
+     "pct": 4.5
+    },
+    "thunder_clap": {
+     "count": 201,
+     "pct": 4.3
+    },
+    "avatar": {
+     "count": 55,
+     "pct": 1.2
+    },
+    "recklessness": {
+     "count": 30,
+     "pct": 0.6
+    },
+    "crushing_blow": {
+     "count": 14,
+     "pct": 0.3
+    },
+    "execute": {
+     "count": 12,
+     "pct": 0.3
+    },
+    "other": {
+     "count": 7,
+     "pct": 0.1
+    },
+    "whirlwind": {
+     "count": 2,
+     "pct": 0.0
+    },
+    "bt": {
+     "count": 1,
+     "pct": 0.0
+    }
+   },
+   "enr=1,sd=0,btr=1,reck=1,exec": {
+    "n": 1662,
+    "bloodbath": {
+     "count": 594,
+     "pct": 35.7
+    },
+    "rampage": {
+     "count": 560,
+     "pct": 33.7
+    },
+    "thunder_blast": {
+     "count": 227,
+     "pct": 13.7
+    },
+    "thunder_clap": {
+     "count": 107,
+     "pct": 6.4
+    },
+    "odyns_fury": {
+     "count": 89,
+     "pct": 5.4
+    },
+    "execute": {
+     "count": 28,
+     "pct": 1.7
+    },
+    "avatar": {
+     "count": 26,
+     "pct": 1.6
+    },
+    "recklessness": {
+     "count": 20,
+     "pct": 1.2
+    },
+    "other": {
+     "count": 7,
+     "pct": 0.4
+    },
+    "bt": {
+     "count": 2,
+     "pct": 0.1
+    },
+    "whirlwind": {
+     "count": 1,
+     "pct": 0.1
+    },
+    "crushing_blow": {
+     "count": 1,
+     "pct": 0.1
+    }
+   },
+   "enr=1,sd=1,btr=0,reck=0,normal": {
+    "n": 2308,
+    "execute": {
+     "count": 800,
+     "pct": 34.7
+    },
+    "rampage": {
+     "count": 534,
+     "pct": 23.1
+    },
+    "thunder_blast": {
+     "count": 336,
+     "pct": 14.6
+    },
+    "thunder_clap": {
+     "count": 217,
+     "pct": 9.4
+    },
+    "bt": {
+     "count": 197,
+     "pct": 8.5
+    },
+    "rb": {
+     "count": 75,
+     "pct": 3.2
+    },
+    "odyns_fury": {
+     "count": 56,
+     "pct": 2.4
+    },
+    "recklessness": {
+     "count": 47,
+     "pct": 2.0
+    },
+    "avatar": {
+     "count": 39,
+     "pct": 1.7
+    },
+    "other": {
+     "count": 6,
+     "pct": 0.3
+    },
+    "whirlwind": {
+     "count": 1,
+     "pct": 0.0
+    }
+   },
+   "enr=1,sd=1,btr=0,reck=0,exec": {
+    "n": 619,
+    "execute": {
+     "count": 234,
+     "pct": 37.8
+    },
+    "rampage": {
+     "count": 138,
+     "pct": 22.3
+    },
+    "thunder_blast": {
+     "count": 103,
+     "pct": 16.6
+    },
+    "bt": {
+     "count": 42,
+     "pct": 6.8
+    },
+    "thunder_clap": {
+     "count": 38,
+     "pct": 6.1
+    },
+    "recklessness": {
+     "count": 17,
+     "pct": 2.7
+    },
+    "avatar": {
+     "count": 16,
+     "pct": 2.6
+    },
+    "rb": {
+     "count": 16,
+     "pct": 2.6
+    },
+    "odyns_fury": {
+     "count": 12,
+     "pct": 1.9
+    },
+    "other": {
+     "count": 3,
+     "pct": 0.5
+    }
+   },
+   "enr=1,sd=1,btr=0,reck=1,normal": {
+    "n": 2031,
+    "rampage": {
+     "count": 923,
+     "pct": 45.4
+    },
+    "thunder_blast": {
+     "count": 402,
+     "pct": 19.8
+    },
+    "execute": {
+     "count": 252,
+     "pct": 12.4
+    },
+    "bloodbath": {
+     "count": 226,
+     "pct": 11.1
+    },
+    "thunder_clap": {
+     "count": 140,
+     "pct": 6.9
+    },
+    "odyns_fury": {
+     "count": 61,
+     "pct": 3.0
+    },
+    "avatar": {
+     "count": 13,
+     "pct": 0.6
+    },
+    "crushing_blow": {
+     "count": 8,
+     "pct": 0.4
+    },
+    "recklessness": {
+     "count": 5,
+     "pct": 0.2
+    },
+    "other": {
+     "count": 1,
+     "pct": 0.0
+    }
+   },
+   "enr=1,sd=1,btr=0,reck=1,exec": {
+    "n": 790,
+    "rampage": {
+     "count": 372,
+     "pct": 47.1
+    },
+    "thunder_blast": {
+     "count": 155,
+     "pct": 19.6
+    },
+    "execute": {
+     "count": 99,
+     "pct": 12.5
+    },
+    "bloodbath": {
+     "count": 74,
+     "pct": 9.4
+    },
+    "thunder_clap": {
+     "count": 58,
+     "pct": 7.3
+    },
+    "odyns_fury": {
+     "count": 17,
+     "pct": 2.2
+    },
+    "avatar": {
+     "count": 7,
+     "pct": 0.9
+    },
+    "recklessness": {
+     "count": 5,
+     "pct": 0.6
+    },
+    "other": {
+     "count": 2,
+     "pct": 0.3
+    },
+    "crushing_blow": {
+     "count": 1,
+     "pct": 0.1
+    }
+   },
+   "enr=1,sd=1,btr=1,reck=0,normal": {
+    "n": 1506,
+    "bt": {
+     "count": 760,
+     "pct": 50.5
+    },
+    "execute": {
+     "count": 282,
+     "pct": 18.7
+    },
+    "rampage": {
+     "count": 221,
+     "pct": 14.7
+    },
+    "thunder_clap": {
+     "count": 104,
+     "pct": 6.9
+    },
+    "thunder_blast": {
+     "count": 44,
+     "pct": 2.9
+    },
+    "odyns_fury": {
+     "count": 33,
+     "pct": 2.2
+    },
+    "recklessness": {
+     "count": 23,
+     "pct": 1.5
+    },
+    "avatar": {
+     "count": 22,
+     "pct": 1.5
+    },
+    "rb": {
+     "count": 12,
+     "pct": 0.8
+    },
+    "other": {
+     "count": 5,
+     "pct": 0.3
+    }
+   },
+   "enr=1,sd=1,btr=1,reck=0,exec": {
+    "n": 477,
+    "bt": {
+     "count": 228,
+     "pct": 47.8
+    },
+    "execute": {
+     "count": 89,
+     "pct": 18.7
+    },
+    "rampage": {
+     "count": 69,
+     "pct": 14.5
+    },
+    "thunder_clap": {
+     "count": 28,
+     "pct": 5.9
+    },
+    "thunder_blast": {
+     "count": 20,
+     "pct": 4.2
+    },
+    "recklessness": {
+     "count": 16,
+     "pct": 3.4
+    },
+    "avatar": {
+     "count": 14,
+     "pct": 2.9
+    },
+    "odyns_fury": {
+     "count": 9,
+     "pct": 1.9
+    },
+    "other": {
+     "count": 3,
+     "pct": 0.6
+    },
+    "rb": {
+     "count": 1,
+     "pct": 0.2
+    }
+   },
+   "enr=1,sd=1,btr=1,reck=1,normal": {
+    "n": 1795,
+    "bloodbath": {
+     "count": 728,
+     "pct": 40.6
+    },
+    "rampage": {
+     "count": 577,
+     "pct": 32.1
+    },
+    "thunder_blast": {
+     "count": 188,
+     "pct": 10.5
+    },
+    "thunder_clap": {
+     "count": 112,
+     "pct": 6.2
+    },
+    "odyns_fury": {
+     "count": 85,
+     "pct": 4.7
+    },
+    "execute": {
+     "count": 82,
+     "pct": 4.6
+    },
+    "avatar": {
+     "count": 11,
+     "pct": 0.6
+    },
+    "recklessness": {
+     "count": 9,
+     "pct": 0.5
+    },
+    "other": {
+     "count": 2,
+     "pct": 0.1
+    },
+    "crushing_blow": {
+     "count": 1,
+     "pct": 0.1
+    }
+   },
+   "enr=1,sd=1,btr=1,reck=1,exec": {
+    "n": 760,
+    "bloodbath": {
+     "count": 316,
+     "pct": 41.6
+    },
+    "rampage": {
+     "count": 233,
+     "pct": 30.7
+    },
+    "thunder_blast": {
+     "count": 96,
+     "pct": 12.6
+    },
+    "thunder_clap": {
+     "count": 47,
+     "pct": 6.2
+    },
+    "odyns_fury": {
+     "count": 32,
+     "pct": 4.2
+    },
+    "execute": {
+     "count": 30,
+     "pct": 3.9
+    },
+    "other": {
+     "count": 3,
+     "pct": 0.4
+    },
+    "avatar": {
+     "count": 2,
+     "pct": 0.3
+    },
+    "recklessness": {
+     "count": 1,
+     "pct": 0.1
+    }
+   }
+  },
+  "auto_bt_removal": {
+   "autos_removed": 0,
+   "note": "산왕은 불안정한 정신 없음 — 자동 피갈 오염 없음(0이어야 정상)"
+  },
+  "drift": {
+   "reck_baseline": {
+    "cast_gap_s": {
+     "n": 800,
+     "mean": 49.51,
+     "median": 47.12,
+     "p25": 44.94,
+     "p75": 50.47
+    },
+    "buff_time_share": 0.372,
+    "설명": "buff_time_share = 무희 창이 전투시간에서 차지하는 비율 — 어떤 쿨기의 '무희 창 안 %'가 이 값 근처면 우연(정렬 안 함), 크게 높으면 의도적 정렬."
+   },
+   "avatar_vs_reck": {
+    "n_avatar_casts": 941,
+    "in_reck_realbuff_rate": 0.904,
+    "synced_abs3_rate": 0.998,
+    "delta_dist_avatar_minus_reck": {
+     "<-10s": 0,
+     "-10..-3s": 2,
+     "-3..0s": 147,
+     "0..1s": 792,
+     "1..3s": 0,
+     "3..10s": 0,
+     ">10s": 0
+    },
+    "by_fight_time": {
+     "0-30s": {
+      "n": 136,
+      "synced3": 136,
+      "synced3_rate": 1.0
+     },
+     "30-120s": {
+      "n": 255,
+      "synced3": 253,
+      "synced3_rate": 0.992
+     },
+     "120s+": {
+      "n": 550,
+      "synced3": 550,
+      "synced3_rate": 1.0
+     }
+    },
+    "cycles": {
+     "gap_summary": {
+      "n": 800,
+      "mean": 49.51,
+      "median": 47.11,
+      "p25": 44.95,
+      "p75": 50.46
+     },
+     "gap_histogram": {
+      "<80s": 789,
+      "80-95s": 9,
+      "95-110s": 0,
+      "110-130s": 2,
+      "130s+": 0
+     },
+     "by_cycle": {
+      "normal_lt100": {
+       "n": 798,
+       "synced3": 796,
+       "synced3_rate": 0.997
+      },
+      "delayed_ge100": {
+       "n": 2,
+       "synced3": 2,
+       "synced3_rate": 1.0
+      }
+     }
+    },
+    "주의": "투신 시전 이벤트만 집계 — 폭풍의 화신 4초 미니 투신 프록은 시전이 아니라 버프라 여기 안 섞임."
+   },
+   "thunder_blast_2charge": {
+    "n_reach_2stacks": 794,
+    "n_consumed_tracked": 790,
+    "n_lost_no_cast": 0,
+    "consume_delay_s": {
+     "med": 1.47,
+     "p75": 2.07,
+     "p90": 3.66
+    },
+    "within_1gcd_pct": 52.3,
+    "within_3s_pct": 86.8,
+    "overflow_refresh_at_2stacks": 35,
+    "설명": "2충전 도달 -> 다음 우레 작렬 시전까지 지연. overflow = 2충전 상태에서 refreshbuff(새 프록 덮어씀=낭비)."
+   },
+   "odyn": {
+    "n_casts": 1480,
+    "in_reck_realbuff_rate": 0.511,
+    "in_avatar_cast20_rate": 0.545,
+    "gap_summary": {
+     "n": 1339,
+     "mean": 31.44,
+     "median": 28.32,
+     "p25": 25.42,
+     "p75": 36.24
+    }
+   }
+  }
+ }
+}

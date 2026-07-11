@@ -120,8 +120,8 @@
       { k: 'execute', c: s => s.sd || s.exec, w: '급살 프록 또는 처형 구간입니다.' },
       { k: 'tblast', c: s => s.tbCharges >= 1, w: '우레 작렬 1충전을 소모합니다.' },
       { k: 'rampage', c: s => s.rage >= 80, w: '분노가 충분하면 광란입니다.' },
-      { k: 'tclap', c: s => s.tcCd <= 0, w: '산왕은 천둥벼락이 분노의 강타보다 위입니다(벼락 연쇄 엔진).' },
-      { k: 'rblow', c: () => true, w: '천둥벼락도 쿨이면 분노의 강타입니다.' },
+      { k: 'rblow', c: s => s.rbCharges > 0, w: '단일 필러는 분노의 강타 — 맨 천둥벼락보다 위입니다(실측 20% vs 12%). 천둥벼락이 위인 건 우레 작렬로 변신했을 때만.' },
+      { k: 'tclap', c: () => true, w: '전부 쿨이면 맨 천둥벼락입니다.' },
     ],
     산왕ON: [
       { k: 'odyn', c: s => s.odynCd <= 0, w: '버스트 진입은 오딘의 격노부터 정렬합니다.' },
@@ -131,8 +131,8 @@
       { k: 'rampage', c: s => s.rage >= 80, w: '분노가 충분하면 광란입니다.' },
       { k: 'tblast', c: s => s.tbCharges >= 1, w: '우레 작렬 1충전을 소모합니다.' },
       { k: 'execute', c: s => s.sd || s.exec, w: '마무리 일격은 뒤쪽입니다.' },
-      { k: 'tclap', c: s => s.tcCd <= 0, w: '산왕은 천둥벼락이 분노의 강타보다 위입니다.' },
-      { k: 'rblow', c: () => true, w: '천둥벼락도 쿨이면 분쇄의 타격입니다.' },
+      { k: 'rblow', c: s => s.rbCharges > 0, w: '필러는 분쇄의 타격 — 맨 천둥벼락보다 위입니다(우레 작렬로 변신했을 때만 천둥이 위).' },
+      { k: 'tclap', c: () => true, w: '전부 쿨이면 맨 천둥벼락입니다.' },
     ],
     산왕AOEOFF: [
       { k: 'tclap', c: s => s.targets >= 6 && s.tcCd <= 0, w: '6타겟 이상 산왕 광특은 천둥벼락을 가장 먼저 누르는 예외 구간입니다.' },
@@ -275,7 +275,7 @@
           rbCharges: ri(3), tbCharges: ri(3),
           tcCd: rb(0.6) ? 0 : 3,
         };
-        if (build === '산왕' && s.tcCd > 0 && s.rbCharges === 0) s.rbCharges = 1; // 폴백 룰 보장
+        if (build === '산왕' && s.rbCharges === 0 && s.tcCd > 0) s.tcCd = 0; // 폴백(맨 천둥벼락) 보장
         return s;
       },
       actionable(s, k) {
