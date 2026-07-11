@@ -763,14 +763,11 @@
         const m = box.querySelector('#rg-msg');
         if (m) {
           m.className = 'rg-msg rg-ok';
-          m.innerHTML = timed
-            ? `정답 ${answerHtml(game, s, cr.k)}`
-            : `정답 ${answerHtml(game, s, cr.k)} <button class="rg-btn sm" id="rg-ok-next" type="button">다음 문제</button>`;
+          m.innerHTML = `정답 ${answerHtml(game, s, cr.k)}`;
         }
         bindTips(m);
         box.querySelectorAll('.rg-tile').forEach(t => { t.onclick = null; });
-        if (timed) setTimeout(next, 500);
-        else box.querySelector('#rg-ok-next').onclick = next;
+        setTimeout(next, 450);   // 맞추면 바로 다음 — 틀릴 때만 멈추고 설명
         return;
       }
       const why = wrongWhy(k);
