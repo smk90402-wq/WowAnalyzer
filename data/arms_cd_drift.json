@@ -1,0 +1,340 @@
+{
+  "n_kills": 204,
+  "assumptions": {
+    "avatar_window_s": 20.0,
+    "cs_windows_s": [
+      10.0,
+      15.0
+    ],
+    "bs_effective_cd_s": 36,
+    "bs_hold_threshold_s": 56.0,
+    "fight_time_zero": "first cast in kill"
+  },
+  "q1_cs_vs_avatar": {
+    "n_cs_casts": 2167,
+    "no_prior_avatar": 59,
+    "in_avatar_cast20_n": 822,
+    "in_avatar_cast20_rate": 0.379,
+    "in_avatar_realbuff_n": 824,
+    "in_avatar_realbuff_rate": 0.38,
+    "elapsed_since_avatar_dist": {
+      "0-5s": 751,
+      "5-10s": 40,
+      "10-15s": 21,
+      "15-20s": 10,
+      "20-30s": 592,
+      "30-40s": 349,
+      "40s+": 345
+    },
+    "elapsed_since_avatar_summary": {
+      "n": 2108,
+      "mean": 23.09,
+      "median": 26.58,
+      "p25": 0.61,
+      "p75": 31.69
+    }
+  },
+  "q2_avatar_vs_cs": {
+    "n_avatar_casts": 1160,
+    "no_cs_in_kill": 0,
+    "delta_dist_avatar_minus_cs": {
+      "<-10s (avatar way first)": 20,
+      "-10..-3s": 64,
+      "-3..0s (avatar just first)": 692,
+      "0..1s": 345,
+      "1..3s": 11,
+      "3..10s": 13,
+      ">10s (avatar way after)": 15
+    },
+    "synced_abs3_rate": 0.903,
+    "avatar_0to3_after_cs_rate": 0.307
+  },
+  "q2_avatar_cycles": {
+    "gap_summary": {
+      "n": 956,
+      "mean": 61.23,
+      "median": 58.54,
+      "p25": 54.33,
+      "p75": 63.1
+    },
+    "by_cycle": {
+      "normal_lt65": {
+        "n": 767,
+        "synced3": 681,
+        "synced3_rate": 0.888
+      },
+      "delayed_ge65": {
+        "n": 189,
+        "synced3": 172,
+        "synced3_rate": 0.91
+      }
+    }
+  },
+  "q3_bladestorm_classes": {
+    "n_bs_casts": 1196,
+    "cs_window_10s": {
+      "both_avatar_and_cs": 919,
+      "cs_only": 154,
+      "avatar_only_no_cs": 71,
+      "neither": 52,
+      "rates": {
+        "both": 0.768,
+        "cs_only": 0.129,
+        "av_only": 0.059,
+        "neither": 0.043
+      },
+      "outside_cs_rate": 0.103,
+      "solo_elapsed_since_cs_dist": {
+        "10-15s": 80,
+        "15-20s": 28,
+        "20-30s": 14,
+        "30-45s": 0,
+        "45s+": 1
+      },
+      "solo_no_prior_cs": 0,
+      "solo_elapsed_summary": {
+        "n": 123,
+        "mean": 14.22,
+        "median": 12.06,
+        "p25": 10.86,
+        "p75": 16.37
+      }
+    },
+    "cs_window_15s": {
+      "both_avatar_and_cs": 965,
+      "cs_only": 188,
+      "avatar_only_no_cs": 25,
+      "neither": 18,
+      "rates": {
+        "both": 0.807,
+        "cs_only": 0.157,
+        "av_only": 0.021,
+        "neither": 0.015
+      },
+      "outside_cs_rate": 0.036,
+      "solo_elapsed_since_cs_dist": {
+        "15-15s": 0,
+        "15-20s": 28,
+        "20-30s": 14,
+        "30-45s": 0,
+        "45s+": 1
+      },
+      "solo_no_prior_cs": 0,
+      "solo_elapsed_summary": {
+        "n": 43,
+        "mean": 19.29,
+        "median": 17.75,
+        "p25": 15.9,
+        "p75": 21.25
+      }
+    }
+  },
+  "q4_by_fight_time": {
+    "q1_cs_in_avatar20": {
+      "0-30s": {
+        "n": 288,
+        "in20": 146,
+        "in20_rate": 0.507
+      },
+      "30-120s": {
+        "n": 595,
+        "in20": 235,
+        "in20_rate": 0.395
+      },
+      "120s+": {
+        "n": 1284,
+        "in20": 441,
+        "in20_rate": 0.343
+      }
+    },
+    "q3_bs_classes": {
+      "cs_window_10s": {
+        "0-30s": {
+          "n": 198,
+          "both": 191,
+          "cs_only": 2,
+          "outside_cs": 5,
+          "both_rate": 0.965,
+          "cs_only_rate": 0.01,
+          "outside_cs_rate": 0.025
+        },
+        "30-120s": {
+          "n": 283,
+          "both": 213,
+          "cs_only": 38,
+          "outside_cs": 32,
+          "both_rate": 0.753,
+          "cs_only_rate": 0.134,
+          "outside_cs_rate": 0.113
+        },
+        "120s+": {
+          "n": 715,
+          "both": 515,
+          "cs_only": 114,
+          "outside_cs": 86,
+          "both_rate": 0.72,
+          "cs_only_rate": 0.159,
+          "outside_cs_rate": 0.12
+        }
+      },
+      "cs_window_15s": {
+        "0-30s": {
+          "n": 198,
+          "both": 191,
+          "cs_only": 2,
+          "outside_cs": 5,
+          "both_rate": 0.965,
+          "cs_only_rate": 0.01,
+          "outside_cs_rate": 0.025
+        },
+        "30-120s": {
+          "n": 283,
+          "both": 220,
+          "cs_only": 51,
+          "outside_cs": 12,
+          "both_rate": 0.777,
+          "cs_only_rate": 0.18,
+          "outside_cs_rate": 0.042
+        },
+        "120s+": {
+          "n": 715,
+          "both": 554,
+          "cs_only": 135,
+          "outside_cs": 26,
+          "both_rate": 0.775,
+          "cs_only_rate": 0.189,
+          "outside_cs_rate": 0.036
+        }
+      }
+    },
+    "cast_intervals": {
+      "0-30s": {
+        "cs_interval": {
+          "n": 84,
+          "mean": 26.6,
+          "median": 26.67,
+          "p25": 26.06,
+          "p75": 27.36
+        },
+        "cs_interval_gt55s_n": 0,
+        "bs_interval": null,
+        "bs_interval_gt56s_n": 0
+      },
+      "30-120s": {
+        "cs_interval": {
+          "n": 595,
+          "mean": 31.12,
+          "median": 30.04,
+          "p25": 28.19,
+          "p75": 32.22
+        },
+        "cs_interval_gt55s_n": 4,
+        "bs_interval": {
+          "n": 277,
+          "mean": 58.43,
+          "median": 58.87,
+          "p25": 54.11,
+          "p75": 63.19
+        },
+        "bs_interval_gt56s_n": 183
+      },
+      "120s+": {
+        "cs_interval": {
+          "n": 1284,
+          "mean": 31.19,
+          "median": 28.45,
+          "p25": 26.03,
+          "p75": 31.6
+        },
+        "cs_interval_gt55s_n": 45,
+        "bs_interval": {
+          "n": 715,
+          "mean": 59.44,
+          "median": 57.88,
+          "p25": 51.6,
+          "p75": 64.4
+        },
+        "bs_interval_gt56s_n": 400
+      }
+    }
+  },
+  "q5_bs_holds": {
+    "n_bs_intervals": 992,
+    "gap_summary": {
+      "n": 992,
+      "mean": 59.16,
+      "median": 58.28,
+      "p25": 52.32,
+      "p75": 63.97
+    },
+    "gap_histogram": {
+      "<40s": 77,
+      "40-50s": 102,
+      "50-56s": 230,
+      "56-65s": 361,
+      "65-78s": 144,
+      "78-100s": 55,
+      "100s+": 23
+    },
+    "spec_threshold_56s": {
+      "threshold_s": 56.0,
+      "holds_n": 583,
+      "holds_share": 0.588,
+      "hold_gap_summary": {
+        "n": 583,
+        "mean": 67.2,
+        "median": 62.53,
+        "p25": 59.43,
+        "p75": 70.53
+      },
+      "hold_end_alignment": {
+        "n": 583,
+        "in_cs10": 534,
+        "in_cs15": 570,
+        "in_av20": 526,
+        "in_cs10_rate": 0.916,
+        "in_cs15_rate": 0.978,
+        "in_av20_rate": 0.902
+      },
+      "normal_end_alignment": {
+        "n": 409,
+        "in_cs10": 340,
+        "in_cs15": 384,
+        "in_av20": 265,
+        "in_cs10_rate": 0.831,
+        "in_cs15_rate": 0.939,
+        "in_av20_rate": 0.648
+      }
+    },
+    "data_threshold_78s": {
+      "threshold_s": 78.0,
+      "holds_n": 78,
+      "holds_share": 0.079,
+      "hold_gap_summary": {
+        "n": 78,
+        "mean": 93.16,
+        "median": 86.77,
+        "p25": 80.89,
+        "p75": 106.34
+      },
+      "hold_end_alignment": {
+        "n": 78,
+        "in_cs10": 75,
+        "in_cs15": 78,
+        "in_av20": 70,
+        "in_cs10_rate": 0.962,
+        "in_cs15_rate": 1.0,
+        "in_av20_rate": 0.897
+      },
+      "normal_end_alignment": {
+        "n": 914,
+        "in_cs10": 799,
+        "in_cs15": 876,
+        "in_av20": 721,
+        "in_cs10_rate": 0.874,
+        "in_cs15_rate": 0.958,
+        "in_av20_rate": 0.789
+      }
+    }
+  }
+}
