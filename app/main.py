@@ -1741,8 +1741,11 @@ def character_reports(name: str, server: str, region: str = "kr",
 
 
 @app.get("/api/local-replay/list")
-def local_replay_list(limit: int = 80) -> JSONResponse:
+def local_replay_list(limit: int = 80, refresh: int = 0) -> JSONResponse:
     try:
+        if refresh:
+            from app import cctv_sync
+            cctv_sync.invalidate()   # 새로고침 = R2 미러/원격 목록 강제 재동기화
         return JSONResponse(local_replay.list_replays(limit=limit))
     except Exception as e:
         raise HTTPException(500, f"local replay list failed: {e}")

@@ -1380,7 +1380,7 @@ async function loadLocalReplays(force = false) {
   body.innerHTML = '<tr><td colspan="4" class="empty">로딩…</td></tr>';
   if (status) status.textContent = '전투로그/CCTV 스캔 중…';
   try {
-    const r = await fetch('/api/local-replay/list');
+    const r = await fetch(`/api/local-replay/list${force ? '?refresh=1' : ''}`);
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const j = await r.json();
     replayState.rows = j.rows || [];

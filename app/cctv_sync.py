@@ -27,6 +27,19 @@ _TTL_S = 600
 _last_sync = 0.0
 _logs_thread: threading.Thread | None = None
 
+# 창모드(PyInstaller --windowed) 앱에서 stdin 핸들이 무효라 subprocess 가 죽는 함정 —
+# 모든 rclone 호출에 stdin=DEVNULL + 콘솔창 억제 플래그를 강제.
+_RUN_KW: dict = {"stdin": subprocess.DEVNULL}
+if os.name == "nt":
+    _RUN_KW["creationflags"] = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+
+
+def invalidate() -> None:
+    """미러/원격 목록 캐시 무효화 — UI 새로고침에서 강제 재동기화."""
+    global _last_sync, _remote_files
+    _last_sync = 0.0
+    _remote_files = None
+
 
 def _rclone() -> str | None:
     from shutil import which
@@ -51,7 +64,7 @@ def _copy(src: str, dst: Path, *args: str, timeout: int = 900) -> bool:
     dst.mkdir(parents=True, exist_ok=True)
     try:
         r = subprocess.run([exe, "copy", src, str(dst), "--update", *args],
-                           capture_output=True, timeout=timeout)
+                           capture_output=True, timeout=timeout, **_RUN_KW)
         return r.returncode == 0
     except Exception:
         return False
@@ -94,10 +107,12 @@ def remote_files() -> list[str]:
         return []
     try:
         r = subprocess.run([exe, "lsf", f"{REMOTE}/cctv"],
-                           capture_output=True, timeout=60)
-        names = r.stdout.decode("utf-8", "replace").splitlines() if r.returncode == 0 else []
+                           capture_output=True, timeout=60, **_RUN_KW)
+        if r.returncode != 0:
+            return []          # 실패는 캐시하지 않음 — 다음 호출에서 재시도
+        names = r.stdout.decode("utf-8", "replace").splitlines()
     except Exception:
-        names = []
+        return []
     _remote_files = (now, names)
     return names
 
@@ -109,7 +124,7 @@ def presign(name: str, expire: str = "6h") -> str | None:
         return None
     try:
         r = subprocess.run([exe, "link", f"{REMOTE}/cctv/{name}", "--expire", expire],
-                           capture_output=True, timeout=30)
+                           capture_output=True, timeout=30, **_RUN_KW)
         url = r.stdout.decode("utf-8", "replace").strip()
         return url if r.returncode == 0 and url.startswith("http") else None
     except Exception:
