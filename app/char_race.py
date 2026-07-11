@@ -9,13 +9,17 @@ data/char_race_cache.json 에 영구 캐시 (종족 변경은 유료 서비스�
 from __future__ import annotations
 
 import json
+import sys
 import time
 from pathlib import Path
 from typing import Any
 
 import requests
 
-DATA = Path(__file__).resolve().parent.parent / "data"
+if getattr(sys, "frozen", False):
+    DATA = Path(sys.executable).parent / "data"
+else:
+    DATA = Path(__file__).resolve().parent.parent / "data"
 CACHE = DATA / "char_race_cache.json"
 REALMS = DATA / "kr_realm_slugs.json"
 _NEG_TTL = 7 * 86400
@@ -26,9 +30,11 @@ _realms: dict[str, str] | None = None
 
 def _blizzard_token() -> str | None:
     try:
-        import sys
-        sys.path.insert(0, str(DATA.parent))
-        from blizzard import Blizzard
+        try:
+            from blizzard import Blizzard   # frozen exe: hidden-import 로 번들됨
+        except ImportError:
+            sys.path.insert(0, str(DATA.parent))
+            from blizzard import Blizzard
         return Blizzard()._ensure_token()
     except Exception:
         return None

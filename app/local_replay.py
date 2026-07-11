@@ -21,6 +21,9 @@ DEFAULT_LOG_DIR = Path(os.environ.get(
 ))
 DEFAULT_CCTV_DIR = Path(os.environ.get("WARCRAFTCCTV_DIR", r"E:\cctv"))
 
+# 함수 안 지연 임포트만 있으면 PyInstaller 번들 누락 위험 — 최상위에서 명시 임포트
+from app import cctv_sync as _cctv_sync  # noqa: E402
+
 
 def cctv_dir() -> Path:
     """캡처 폴더 해석: 설정/기본 경로가 있으면 그대로, 없으면 R2 미러 폴백."""

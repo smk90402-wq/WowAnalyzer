@@ -10,11 +10,16 @@ from __future__ import annotations
 
 import os
 import subprocess
+import sys
 import threading
 import time
 from pathlib import Path
 
-DATA = Path(__file__).resolve().parent.parent / "data"
+# frozen(PyInstaller exe)에서는 __file__ 이 _internal 안을 가리킴 — repo 표준 패턴 (replay_map 참고)
+if getattr(sys, "frozen", False):
+    DATA = Path(sys.executable).parent / "data"
+else:
+    DATA = Path(__file__).resolve().parent.parent / "data"
 MIRROR = DATA / "cctv_r2"
 REMOTE = "r2:wowanalyzer-cctv"
 _TTL_S = 600

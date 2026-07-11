@@ -21,6 +21,8 @@ python -m PyInstaller --noconfirm --windowed --name LogAnalyze ^
     --hidden-import "clr_loader" --hidden-import "pythonnet" ^
     --hidden-import "bcrypt" --hidden-import "itsdangerous" ^
     --hidden-import "make_cache_manifest" ^
+    --hidden-import "blizzard" ^
+    --hidden-import "app.cctv_sync" --hidden-import "app.char_race" ^
     --exclude-module "PyQt5" --exclude-module "PyQt6" --exclude-module "PySide6" ^
     --exclude-module "torch" --exclude-module "tensorflow" ^
     --exclude-module "matplotlib" --exclude-module "scipy" ^
