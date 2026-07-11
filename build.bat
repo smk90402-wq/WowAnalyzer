@@ -88,5 +88,12 @@ if exist "packaging\dist_server\CloseServer.bat" (
     if errorlevel 1 exit /b 1
 )
 
+rem R2 동기화 스크립트 (ps1) + 더블클릭용 bat 래퍼
+if not exist "%DIST_DIR%\scripts" mkdir "%DIST_DIR%\scripts"
+copy /Y "scripts\*.ps1" "%DIST_DIR%\scripts\" >nul
+for %%B in (CachePush CachePull CctvPush CctvPull CctvPushRTV) do (
+    if exist "packaging\dist_server\%%B.bat" copy /Y "packaging\dist_server\%%B.bat" "%DIST_DIR%\%%B.bat" >nul
+)
+
 echo runtime files copied
 exit /b 0
