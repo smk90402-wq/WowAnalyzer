@@ -26,9 +26,16 @@ from app import cctv_sync as _cctv_sync  # noqa: E402
 
 
 def cctv_dir() -> Path:
-    """캡처 폴더 해석: 설정/기본 경로가 있으면 그대로, 없으면 R2 미러 폴백."""
+    """캡처 폴더 해석: 설정/기본 경로 → 바탕화면 cctvlog → R2 미러 순.
+
+    바탕화면 cctvlog: E:\\cctv 없는 PC(RTV 등)에서 영상+json+전투로그를 한 폴더에
+    몰아넣는 간이 루트 — 로컬 파일이 있으면 스트리밍 대신 그걸 쓴다.
+    """
     if DEFAULT_CCTV_DIR.exists():
         return DEFAULT_CCTV_DIR
+    desk = Path.home() / "Desktop" / "cctvlog"
+    if desk.exists():
+        return desk
     from app import cctv_sync
     return cctv_sync.ensure_mirror()
 
@@ -686,8 +693,9 @@ _ADV_SWING_EVENTS = {"SWING_DAMAGE", "SWING_DAMAGE_LANDED"}
 # 보스 기믹 이벤트 (frames 응답 boss_events)
 _HOSTILE_FLAG = 0x40          # sourceFlags REACTION_HOSTILE — 아군 소환수 제외 핵심
 BOSS_EVENT_TOTAL_CAP = 300    # 풀당 전체 캡
-BOSS_EVENT_SPELL_CAP = 20     # 스펠별 캡 (초과 시 균등 샘플)
-BOSS_HIT_MAX_APPLIED = 15     # 플레이어 디버프: 풀당 적용 횟수 이 이하만 (스팸 컷)
+BOSS_EVENT_SPELL_CAP = 20     # 스펠별 캡 (초과 시 균등 샘플 — hit 은 웨이브 단위)
+BOSS_HIT_MAX_APPLIED = 15     # 플레이어 디버프: 풀당 웨이브 수 이 이하만 (스팸 컷)
+BOSS_HIT_WAVE_GAP_S = 3.0     # 디버프 '같은 웨이브' 판정 간격 (다중 대상 동시 적용 묶음)
 
 # specID → 클래스 토큰 (COMBATANT_INFO 에서 플레이어 직업색 얻기용)
 _SPEC_CLASS = {
@@ -775,6 +783,10 @@ def _candidate_logs(cap_start: datetime, log_dir: Path | None = None) -> list[Pa
     from app import cctv_sync
     if cctv_sync.mirror_log_dir() != log_dir:
         dirs.append(cctv_sync.mirror_log_dir())
+    # 캡처 폴더(cctvlog 간이 루트)에 로그를 같이 두는 경우도 후보에 포함
+    cdir = cctv_dir()
+    if cdir not in dirs:
+        dirs.append(cdir)
     for d in dirs:
         if not d.exists():
             continue
@@ -1344,6 +1356,21 @@ def _select_boss_events(
     castbar_ids = {sid for _, ev, sid, *_ in boss_raw if ev == "SPELL_CAST_START"}
     counts: Counter = Counter((ev, sid) for _, ev, sid, *_ in boss_raw)
 
+    # 다중 대상 디버프(한 번에 6명 등)는 적용 '횟수'가 대상 수만큼 부풀어 저빈도
+    # 필터/캡에 걸림 → AURA_APPLIED 는 3초 군집 = 1웨이브로 세서 판정한다.
+    _aura_ts: dict[int, list[float]] = {}
+    for t, ev, sid, *_ in boss_raw:
+        if ev == "SPELL_AURA_APPLIED":
+            _aura_ts.setdefault(sid, []).append(t)
+    wave_counts: dict[int, int] = {}
+    for sid, ts in _aura_ts.items():
+        ts.sort()
+        waves = 1
+        for a, b in zip(ts, ts[1:]):
+            if b - a > BOSS_HIT_WAVE_GAP_S:
+                waves += 1
+        wave_counts[sid] = waves
+
     # (spell_id, dest_guid) → [(해제 t, 해제 src)] / dest_guid → 사망 시각 (t 오름차순)
     removed_by_key: dict[tuple[int, str], list[tuple[float, str]]] = {}
     for rt, sid, dguid, rsrc in aura_removed or []:
@@ -1364,7 +1391,9 @@ def _select_boss_events(
                 continue  # 틱뎀·평타류 스팸
             kind = "cast"
         else:
-            if counts[(ev, sid)] > BOSS_HIT_MAX_APPLIED and not prio:
+            n = wave_counts.get(sid, counts[(ev, sid)]) if ev == "SPELL_AURA_APPLIED" \
+                else counts[(ev, sid)]
+            if n > BOSS_HIT_MAX_APPLIED and not prio:
                 continue
             kind = "hit"
         item: dict[str, Any] = {
@@ -1409,16 +1438,33 @@ def _select_boss_events(
             item["dest_name"] = dest_name
         picked.append(item)
 
-    # 스펠별 캡 — 초과분은 시간축 균등 샘플 (앞쪽 쏠림 방지)
+    # 스펠별 캡 — 초과분은 시간축 균등 샘플 (앞쪽 쏠림 방지).
+    # 단 hit(디버프)는 개별 샘플이 웨이브를 반토막 내서 "6명 중 3명만 하이라이트"가
+    # 됐던 버그 → 3초 군집(웨이브)을 통째로 유지하고 웨이브 단위로 샘플.
     by_spell: dict[tuple[str, int], list[dict[str, Any]]] = {}
     for item in picked:
         by_spell.setdefault((item["kind"], item["spell_id"]), []).append(item)
     capped: list[dict[str, Any]] = []
-    for items in by_spell.values():
-        if len(items) > BOSS_EVENT_SPELL_CAP:
+    for (kind, _sid), items in by_spell.items():
+        if len(items) <= BOSS_EVENT_SPELL_CAP:
+            capped.extend(items)
+            continue
+        if kind == "hit":
+            waves: list[list[dict[str, Any]]] = [[items[0]]]
+            for it in items[1:]:
+                if it["t"] - waves[-1][-1]["t"] <= BOSS_HIT_WAVE_GAP_S:
+                    waves[-1].append(it)
+                else:
+                    waves.append([it])
+            avg = max(1, round(len(items) / len(waves)))
+            target = max(1, BOSS_EVENT_SPELL_CAP // avg)
+            if len(waves) > target:
+                step = len(waves) / target
+                waves = [waves[int(i * step)] for i in range(target)]
+            capped.extend(it for w in waves for it in w)
+        else:
             step = len(items) / BOSS_EVENT_SPELL_CAP
-            items = [items[int(i * step)] for i in range(BOSS_EVENT_SPELL_CAP)]
-        capped.extend(items)
+            capped.extend(items[int(i * step)] for i in range(BOSS_EVENT_SPELL_CAP))
 
     # 전체 캡 — priority > 보스 소스 > 시간 순으로 남김
     if len(capped) > BOSS_EVENT_TOTAL_CAP:

@@ -945,6 +945,15 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   background: #000; border: 1px solid var(--border); border-radius: 4px;
 }
 .replay-no-video { border: 1px solid var(--border); border-radius: 4px; }
+/* 보기 모드 — 영상만/지도만 크게 (아래 이벤트 목록과 같이 보기) */
+.replay-main.view-video .replay-canvas-wrap,
+.replay-main.view-map .replay-video-wrap { display: none; }
+.replay-main.view-video, .replay-main.view-map { grid-template-columns: minmax(0, 1fr); }
+.replay-main.view-video .replay-video, .replay-main.view-video .replay-no-video,
+.replay-main.view-map .rc-stage {
+  max-height: max(320px, calc(100vh - 340px));   /* 한 화면만 남으니 세로도 크게 */
+}
+.rc-controls .rc-viewbtn.active { border-color: #d19b38; background: #493315; color: #fff0c6; }
 /* 캔버스 리플레이 (전투로그 좌표 재생) */
 .replay-canvas-wrap { display: flex; flex-direction: column; gap: 8px; }
 .rc-stage { position: relative; border: 1px solid var(--border); border-radius: 4px; background: #10141a; }

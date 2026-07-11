@@ -1632,6 +1632,8 @@ function renderLocalReplayDetail(detail) {
       <button id="rc-play" type="button">재생</button>
       <button id="rc-speed" type="button" title="재생 속도">1x</button>
       <button id="rc-3d" type="button" title="지형 위에서 입체로 보기">3D 보기</button>
+      <button id="rc-view-video" class="rc-viewbtn" type="button" title="영상만 크게 — 아래 이벤트 목록과 같이 보기 (다시 누르면 기본)">영상 크게</button>
+      <button id="rc-view-map" class="rc-viewbtn" type="button" title="지도만 크게 — 아래 이벤트 목록과 같이 보기 (다시 누르면 기본)">지도 크게</button>
       ${detail.video?.available ? '<button id="rc-mute" type="button" title="영상 소리 켜고 끄기">소리 끄기</button>' : ''}
       <div class="rc-scrub-wrap">
         <input id="rc-scrub" type="range" min="0" max="0" step="0.1" value="0">
@@ -1662,6 +1664,23 @@ function renderLocalReplayDetail(detail) {
   `;
 
   const video = $('#replay-video');
+  // 보기 모드 — 영상만/지도만 크게 (다시 누르면 기본 2분할)
+  {
+    const mainEl = root.querySelector('.replay-main');
+    const vv = $('#rc-view-video');
+    const vm = $('#rc-view-map');
+    const setView = (mode) => {
+      mainEl.classList.toggle('view-video', mode === 'video');
+      mainEl.classList.toggle('view-map', mode === 'map');
+      vv.classList.toggle('active', mode === 'video');
+      vm.classList.toggle('active', mode === 'map');
+      vv.textContent = mode === 'video' ? '기본 보기' : '영상 크게';
+      vm.textContent = mode === 'map' ? '기본 보기' : '지도 크게';
+      window.dispatchEvent(new Event('resize'));   // 2D/3D 캔버스 크기 재계산
+    };
+    vv.addEventListener('click', () => setView(mainEl.classList.contains('view-video') ? '' : 'video'));
+    vm.addEventListener('click', () => setView(mainEl.classList.contains('view-map') ? '' : 'map'));
+  }
   // 소리 켜기/끄기 — video.muted 토글 (동사형: 누르면 할 일을 표시)
   const muteBtn = $('#rc-mute');
   if (muteBtn && video) {
