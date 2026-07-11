@@ -118,6 +118,27 @@ def _read_cctv_json(path: Path) -> dict[str, Any]:
     raise ReplayError(f"CCTV JSON parse failed: {path.name}: {last_error}")
 
 
+def _video_for_json(path: Path) -> Path:
+    """캡처 json 의 영상 파일. 정확 일치 우선, 없으면 'stem*.mp4' 글롭
+    (OBS 재녹화 등으로 '-003' 접미사가 붙는 실사례 — 가장 큰 파일 채택)."""
+    exact = path.with_suffix(".mp4")
+    if exact.exists():
+        return exact
+    cands = sorted(path.parent.glob(path.stem + "*.mp4"),
+                   key=lambda p: p.stat().st_size, reverse=True)
+    return cands[0] if cands else exact
+
+
+def _remote_video_name(path: Path) -> str | None:
+    """로컬에 영상이 없을 때 R2 쪽 영상 파일명 (프리사인 스트리밍용)."""
+    from app import cctv_sync
+    stem = path.stem
+    for name in cctv_sync.remote_files():
+        if name.endswith(".mp4") and name.startswith(stem):
+            return name
+    return None
+
+
 def _capture_id(path: Path, data: dict[str, Any]) -> str:
     raw = str(data.get("uniqueHash") or "").strip()
     path_hash = hashlib.sha1(str(path).encode("utf-8", errors="ignore")).hexdigest()[:12]
@@ -160,7 +181,7 @@ def _load_captures(cctv_dir_arg: Path | None = None, limit: int = 80) -> list[di
             data = _read_cctv_json(path)
         except ReplayError:
             continue
-        video = path.with_suffix(".mp4")
+        video = _video_for_json(path)
         start_dt = _json_start_local(path, data)
         deaths = data.get("deaths") or []
         combatants = data.get("combatants") or []
@@ -182,6 +203,7 @@ def _load_captures(cctv_dir_arg: Path | None = None, limit: int = 80) -> list[di
             "start": _to_int(data.get("start"), 0) or None,
             "start_local": start_dt.strftime("%Y-%m-%d %H:%M:%S") if start_dt else "",
             "video_exists": video.exists(),
+            "video_remote": (not video.exists()) and bool(_remote_video_name(path)),
             "video_size_mb": round(video.stat().st_size / 1024 / 1024, 1) if video.exists() else 0,
             "_json_path": path,
             "_video_path": video,
@@ -573,10 +595,28 @@ def replay_detail(replay_id: str) -> dict[str, Any]:
             "video_file": str(cap.get("_video_path")) if cap.get("video_exists") else "",
         },
         "video": {
-            "available": bool(cap.get("video_exists")),
-            "url": f"/api/local-replay/video/{replay_id}" if cap.get("video_exists") else "",
+            "available": bool(cap.get("video_exists")) or bool(cap.get("video_remote")),
+            "url": (f"/api/local-replay/video/{replay_id}" if cap.get("video_exists")
+                    else (f"/api/local-replay/video-remote/{replay_id}" if cap.get("video_remote") else "")),
+            "remote": bool(cap.get("video_remote")) and not cap.get("video_exists"),
         },
     }
+
+
+def replay_video_remote_url(replay_id: str) -> str:
+    """로컬에 영상이 없는 캡처의 R2 presigned 스트리밍 URL."""
+    cap = _find_capture(replay_id)
+    json_path = cap.get("_json_path")
+    if not isinstance(json_path, Path):
+        raise ReplayError(f"capture json not found: {replay_id}")
+    name = _remote_video_name(json_path)
+    if not name:
+        raise ReplayError(f"remote video not found: {replay_id}")
+    from app import cctv_sync
+    url = cctv_sync.presign(name)
+    if not url:
+        raise ReplayError("presign 실패 — rclone 설정 확인")
+    return url
 
 
 def replay_video_path(replay_id: str) -> Path:

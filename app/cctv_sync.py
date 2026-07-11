@@ -73,3 +73,39 @@ def ensure_mirror() -> Path:
 
 def mirror_log_dir() -> Path:
     return MIRROR / "logs"
+
+
+_remote_files: tuple[float, list[str]] | None = None
+
+
+def remote_files() -> list[str]:
+    """r2:…/cctv 파일 목록 (10분 캐시) — 원격 영상 존재 확인용. 실패 시 []."""
+    global _remote_files
+    now = time.monotonic()
+    if _remote_files and now - _remote_files[0] < _TTL_S:
+        return _remote_files[1]
+    exe = _rclone()
+    if not exe or not available():
+        return []
+    try:
+        r = subprocess.run([exe, "lsf", f"{REMOTE}/cctv"],
+                           capture_output=True, timeout=60)
+        names = r.stdout.decode("utf-8", "replace").splitlines() if r.returncode == 0 else []
+    except Exception:
+        names = []
+    _remote_files = (now, names)
+    return names
+
+
+def presign(name: str, expire: str = "6h") -> str | None:
+    """cctv/<name> 의 presigned GET URL — 브라우저가 R2에서 직접 스트리밍(구간 요청)."""
+    exe = _rclone()
+    if not exe:
+        return None
+    try:
+        r = subprocess.run([exe, "link", f"{REMOTE}/cctv/{name}", "--expire", expire],
+                           capture_output=True, timeout=30)
+        url = r.stdout.decode("utf-8", "replace").strip()
+        return url if r.returncode == 0 and url.startswith("http") else None
+    except Exception:
+        return None

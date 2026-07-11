@@ -1757,6 +1757,16 @@ def local_replay_video(replay_id: str) -> FileResponse:
     return FileResponse(video, media_type="video/mp4", filename=video.name, content_disposition_type="inline")
 
 
+@app.get("/api/local-replay/video-remote/{replay_id}")
+def local_replay_video_remote(replay_id: str) -> RedirectResponse:
+    """로컬에 없는 영상 — R2 presigned URL 로 302 (브라우저가 직접 스트리밍)."""
+    try:
+        url = local_replay.replay_video_remote_url(replay_id)
+    except local_replay.ReplayError as e:
+        raise HTTPException(404, str(e))
+    return RedirectResponse(url, status_code=302)
+
+
 @app.get("/api/local-replay/{replay_id}")
 def local_replay_detail(replay_id: str) -> JSONResponse:
     try:
