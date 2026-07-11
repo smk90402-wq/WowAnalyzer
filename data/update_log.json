@@ -1722,6 +1722,27 @@
       "files": [
         "C:/Users/MKSEORTV/Desktop/WowAnalyzer/data/arms_trinket_recommendations.json"
       ]
+    },
+    {
+      "ts": "2026-07-11T09:28:22",
+      "host": "RTVMKSEO",
+      "action": "fetch_pi_all",
+      "params": {
+        "difficulty": 5,
+        "label": "mythic",
+        "limit": null
+      },
+      "result": {
+        "fights_done": 16289,
+        "fights_fail": 1,
+        "rows_matched": 24009,
+        "pi_received": 7616,
+        "points": 2697.0
+      },
+      "files": [
+        "data/rankings_zone46_mythic_dps_top100_pi.csv",
+        "data/v2_cache_pi_fight.json"
+      ]
     }
   ]
 }
