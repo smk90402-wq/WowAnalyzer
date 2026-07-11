@@ -30,6 +30,7 @@
   };
   // 무기 전사 (아이콘/ID: spell_db 공식, 2026-07-11 실측 확정 ID)
   const A = {
+    avatar: { nm: '투신', ic: 'warrior_talent_icon_avatar', id: 107574 },
     cs: { nm: '거인의 강타', ic: 'inv_warbreaker', id: 167105 },
     ms: { nm: '필사의 일격', ic: 'ability_warrior_savageblow', id: 12294 },
     hs: { nm: '영웅의 일격', ic: 'ability_rogue_ambush', id: 1269383 },
@@ -158,9 +159,17 @@
   };
 
   // 무기 전사 — rotation_data.json flow(2026-07-11 실측 가이드)와 1:1 대조 완료 (게이트 1)
+  const ARMS_AVATAR_RULES = [
+    { k: 'avatar', c: s => s.avatarCd <= 0 && s.csCd <= 0,
+      w: '투신과 거인의 강타는 묶어 씁니다 — 둘 다 준비됐으면 투신부터.' },
+    { k: 'avatar', c: s => s.avatarCd <= 0 && s.csCd > 5,
+      w: '거인의 강타와 5초 넘게 어긋나 있으면 겹침을 기다리지 말고 투신을 씁니다(사용 횟수 우선 — 실측 표준). 5초 안이면 참았다가 같이.' },
+  ];
+
   const armsRules = {
     학살자: [
-      { k: 'cs', c: s => s.csCd <= 0, w: '거인의 강타는 쿨마다 — 상위권 홀드율 7%뿐입니다.' },
+      ...ARMS_AVATAR_RULES,
+      { k: 'cs', c: s => s.csCd <= 0, w: '거인의 강타는 쿨마다 — 상위권 홀드율 7%뿐입니다. 투신이 준비돼 있으면 투신부터 묶어서.' },
       { k: 'bstorm', c: s => s.csUp && s.bsCd <= 0, w: '거인의 강타 창이 열렸으면 칼날폭풍부터(상위 로그 90%가 창 안).' },
       { k: 'hs', c: s => s.hsProc, w: '영웅의 일격 프록은 뭉개면 손해 — 12.0.5부터 필사의 일격보다 위입니다.' },
       { k: 'ms', c: s => s.msCd <= 0, w: '필사의 일격은 6초마다 — 창 안 첫 글쿨도 필사부터.' },
@@ -170,6 +179,7 @@
       { k: 'slam', c: () => true, w: '남는 글쿨은 격돌 — 단 거인의 강타 창 안을 격돌로 채우는 건 최악의 실수입니다.' },
     ],
     학살자AOE: [
+      ...ARMS_AVATAR_RULES,
       { k: 'rend', c: s => s.rendLeft <= 0 && !s.exec, w: '광역은 분쇄 도포부터(분노 수급) — 처형 구간에는 더 바르지 않습니다.' },
       { k: 'cs', c: s => s.csCd <= 0, w: '거인의 강타는 광역에서도 쿨마다입니다.' },
       { k: 'bstorm', c: s => s.csUp && s.bsCd <= 0, w: '창 안 칼날폭풍입니다.' },
@@ -180,7 +190,8 @@
       { k: 'cleave', c: () => true, w: '광역 필러는 회전베기입니다.' },
     ],
     거신: [
-      { k: 'cs', c: s => s.csCd <= 0, w: '거인의 강타는 쿨마다입니다.' },
+      ...ARMS_AVATAR_RULES,
+      { k: 'cs', c: s => s.csCd <= 0, w: '거인의 강타는 쿨마다입니다. 투신이 준비돼 있으면 투신부터 묶어서.' },
       { k: 'demolish', c: s => s.csUp && s.demoCd <= 0, w: '쇄파는 거인의 강타 창 안에서 — 채널이 끊길 기믹만 조심.' },
       { k: 'hs', c: s => s.hsProc, w: '영웅의 일격 프록 — 쇄파 채널 전에 비워둡니다(채널 중 낭비 20% 실측).' },
       { k: 'ms', c: s => s.msCd <= 0, w: '필사의 일격 — 거인의 힘 최대 중첩이면 쇄파 쿨을 당깁니다.' },
@@ -190,6 +201,7 @@
       { k: 'slam', c: () => true, w: '남는 글쿨은 격돌입니다.' },
     ],
     거신AOE: [
+      ...ARMS_AVATAR_RULES,
       { k: 'rend', c: s => s.rendLeft <= 0 && !s.exec, w: '광역은 분쇄 선도포부터입니다.' },
       { k: 'ravager', c: s => s.ravCd <= 0 && s.csCd <= 0, w: '쇠날발톱은 거인의 강타 직전, 쫄 타이밍에 맞춰 엽니다.' },
       { k: 'cs', c: s => s.csCd <= 0, w: '거인의 강타는 광역에서도 쿨마다입니다.' },
@@ -323,12 +335,12 @@
       bar: s => {
         if (s.build === '거신') {
           return s.profile === 'aoe'
-            ? ['rend', 'ravager', 'cs', 'demolish', 'cleave', 'ms', 'execute', 'op', 'slam']
-            : ['cs', 'demolish', 'hs', 'ms', 'execute', 'op', 'slam'];
+            ? ['rend', 'ravager', 'avatar', 'cs', 'demolish', 'cleave', 'ms', 'execute', 'op', 'slam']
+            : ['avatar', 'cs', 'demolish', 'hs', 'ms', 'execute', 'op', 'slam'];
         }
         return s.profile === 'aoe'
-          ? ['rend', 'cs', 'bstorm', 'cleave', 'ms', 'execute', 'op', 'slam']
-          : ['cs', 'bstorm', 'hs', 'ms', 'execute', 'op', 'slam'];
+          ? ['rend', 'avatar', 'cs', 'bstorm', 'cleave', 'ms', 'execute', 'op', 'slam']
+          : ['avatar', 'cs', 'bstorm', 'hs', 'ms', 'execute', 'op', 'slam'];
       },
       display: (s, k) => A[k],
       rules: s => armsRules[`${s.build}${s.profile === 'aoe' ? 'AOE' : ''}`],
@@ -344,11 +356,15 @@
           msCd: rb(0.55) ? 0 : 4, bsCd: rb(0.35) ? 0 : 20,
           demoCd: rb(0.4) ? 0 : 12, ravCd: rb(0.35) ? 0 : 40,
           opCharges: ri(3), rendLeft: aoe ? (rb(0.5) ? 0 : 8) : 12,
+          avatarCd: rb(0.3) ? 0 : 3 + ri(45),
         };
-        s.csCd = s.csUp ? 18 : (rb(0.5) ? 0 : 9);
+        // csCd 2~11초 구간이 있어야 '투신 5초 홀드' 시나리오가 출제됨
+        s.csCd = s.csUp ? 12 + ri(8) : (rb(0.4) ? 0 : 2 + ri(10));
         return s;
       },
       actionable(s, k) {
+        // 투신: 거인의 강타가 5초 안에 돌아오면 '같이 쓰게 홀드' — 버튼을 잠급니다
+        if (k === 'avatar') return s.avatarCd <= 0 && (s.csCd <= 0 || s.csCd > 5);
         if (k === 'cs') return s.csCd <= 0;
         if (k === 'bstorm') return s.bsCd <= 0;
         if (k === 'hs') return s.hsProc;
@@ -362,6 +378,7 @@
         return true;
       },
       cooldown(s, k) {
+        if (k === 'avatar') return s.avatarCd;
         if (k === 'cs') return s.csCd;
         if (k === 'ms') return s.msCd;
         if (k === 'bstorm') return s.bsCd;
@@ -392,6 +409,10 @@
         return { label: '분노', value: s.rage, pct: Math.min(100, s.rage / 1.2), cls: s.rage >= 100 ? 'warn' : '' };
       },
       unavailable(s, k) {
+        if (k === 'avatar') {
+          return s.avatarCd > 0 ? '쿨다운 중입니다.'
+            : `거인의 강타가 ${s.csCd}초 안에 돌아옵니다 — 같이 쓰게 잠깐 참으세요(묶어 쓰기).`;
+        }
         if (k === 'cs' || k === 'ms' || k === 'bstorm' || k === 'demolish' || k === 'ravager') return '쿨다운 중입니다.';
         if (k === 'hs') return '전쟁의 지배자 프록이 없습니다(격돌이 영웅의 일격으로 변신하는 프록).';
         if (k === 'execute') return `급살 프록도 처형 구간(${s.execTh}%↓)도 아닙니다.`;

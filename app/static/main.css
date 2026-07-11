@@ -972,7 +972,9 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   background: rgba(10, 13, 18, .45); border-radius: 4px;
 }
 /* 통합 조작줄 — 영상·리플레이 두 화면 아래 전체 폭 한 줄 (유일한 타임라인) */
-.rc-controls { display: flex; align-items: center; gap: 8px; padding-top: 12px; /* 위 12px = 보스 기믹 트랙 자리 */ }
+/* 버튼 줄과 타임라인 줄 분리 — 타임라인을 전체 폭으로 자세히 (2026-07-11 사용자 요청) */
+.rc-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-top: 4px; }
+.rc-scrub-wrap { order: 9; flex: 1 1 100% !important; margin-top: 22px; /* 위 여백 = 보스 기믹 트랙 자리 */ }
 .rc-controls button {
   background: var(--bg-1); border: 1px solid var(--border); color: var(--text);
   border-radius: 6px; padding: 5px 11px; cursor: pointer; font-size: 12px;
@@ -984,9 +986,9 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 #rc-deaths { position: absolute; left: 0; right: 0; top: -5px; height: 5px; pointer-events: none; }
 #rc-deaths i { position: absolute; top: 0; width: 2px; height: 5px; background: #e06c6c; }
 /* 보스 기믹 트랙 (죽음 마커 위) — 시전=주황, 플레이어 디버프=보라 */
-#rc-bossevents { position: absolute; left: 0; right: 0; top: -14px; height: 9px; }
+#rc-bossevents { position: absolute; left: 0; right: 0; top: -19px; height: 14px; }
 #rc-bossevents i {
-  position: absolute; bottom: 0; width: 2px; height: 6px;
+  position: absolute; bottom: 0; width: 3px; height: 10px;
   background: #e8a34c; cursor: pointer;
 }
 #rc-bossevents i.hit { background: #b18cf0; }
@@ -1049,12 +1051,16 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 /* 기간형 기믹 남은 시간 — "· 6초 남음" (값은 매 틱 textContent 만 갱신) */
 .rc-panel-row .rem { color: var(--text-mute); font-size: 10.5px; flex: none; font-variant-numeric: tabular-nums; }
 /* '쓴 스킬' 중 블러드/물약/쿨기류로 잡힌 시전은 종류 색으로 강조 */
+/* 유닛 패널 시전 색상 (2026-07-11 사용자 확정): 생존/치유=초록, 죽음=빨강,
+   디버프(.hit)=보라, 딜쿨기·물약=주황, 유틸=하늘 */
 .rc-panel-row .s.pk-bloodlust { color: #e8a34c; }
 .rc-panel-row .s.pk-battleres { color: #f08cc0; }
-.rc-panel-row .s.pk-potion { color: #6fcf7f; }
-.rc-panel-row .s.pk-healthpot { color: #45d0a2; }
-.rc-panel-row .s.pk-offensive { color: #e2c14e; }
-.rc-panel-row .s.pk-defensive { color: #6facf0; }
+.rc-panel-row .s.pk-potion { color: #e8b04c; }
+.rc-panel-row .s.pk-healthpot { color: #57d07f; }
+.rc-panel-row .s.pk-offensive { color: #e8974c; }
+.rc-panel-row .s.pk-utility { color: #6fd6f0; }
+.rc-panel-row.death .s { color: #f06a6a; font-weight: 700; }
+.rc-panel-row .s.pk-defensive { color: #6fcf7f; }
 .rc-panel-none { color: var(--text-dim); font-size: 10.5px; }
 /* 이벤트 영역: 화면 행 아래 별도 행 — 필터+요약 한 줄, 목록은 고정 높이 내부 스크롤 */
 .replay-belt { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin: 10px 0 8px; }
@@ -1095,8 +1101,26 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .k-battleres { --evk: #f08cc0; }
 .k-potion { --evk: #6fcf7f; }
 .k-healthpot { --evk: #45d0a2; }
-.k-offensive { --evk: #e2c14e; }
-.k-defensive { --evk: #6facf0; }
+.k-offensive { --evk: #e8974c; }
+.k-defensive { --evk: #6fcf7f; }
+.k-utility { --evk: #6fd6f0; }
+/* 디버프별 필터 드롭다운 */
+.replay-ev-kinds { position: relative; }
+#rc-debuff-btn {
+  cursor: pointer; border: 1px solid var(--border); background: var(--bg-1);
+  color: var(--text); border-radius: 5px; padding: 3px 9px; font-size: 11.5px;
+}
+#rc-debuff-btn.filtered { border-color: #d19b38; color: #ffd98a; }
+#rc-debuff-pop {
+  position: absolute; top: calc(100% + 4px); right: 0; z-index: 60;
+  min-width: 240px; max-width: 340px; max-height: 280px; overflow-y: auto;
+  background: var(--bg-1); border: 1px solid var(--border); border-radius: 6px;
+  padding: 8px 10px; box-shadow: 0 10px 30px rgba(0,0,0,.5);
+  display: flex; flex-direction: column; gap: 5px; font-size: 12px;
+}
+#rc-debuff-pop label { display: flex; align-items: center; gap: 6px; cursor: pointer; color: #cbb0f0; }
+#rc-debuff-pop label .n { margin-left: auto; color: var(--text-mute); font-size: 11px; }
+#rc-bossevents i.off { display: none; }   /* 디버프별 필터로 꺼진 타임라인 눈금 */
 /* 스킬 툴팁 — 피드 행/기믹 눈금에 마우스 올리면 (앵커 근처 고정, 클릭 방해 X) */
 #rc-tip {
   position: fixed; z-index: 1000; display: none; pointer-events: none;
@@ -1215,7 +1239,7 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .fl-h { font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
 .fl-note { font-size: 12px; color: var(--text-mute); margin-bottom: 10px; }
 .fl-list { display: flex; flex-direction: column; gap: 6px; }
-.fl-row { display: grid; grid-template-columns: 34px 1fr 28px minmax(190px, 240px); gap: 10px;
+.fl-row { display: grid; grid-template-columns: 34px minmax(170px, 210px) 1fr; gap: 10px;
   align-items: center; padding: 9px 12px; border-radius: 8px;
   background: rgba(255,255,255,0.025); border-left: 4px solid var(--border); }
 .fl-row.proc   { border-left-color: #4da3ff; }

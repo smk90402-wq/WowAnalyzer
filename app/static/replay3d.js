@@ -208,8 +208,6 @@ window.Replay3D = (() => {
     }
     scene = null; units = {}; skulls = {}; rings = []; selRing = null;
     terrain = null; ready = false; builtFor = null;
-    // 종족 모델 geo/tex 도 위 traverse 에서 dispose 됨 — 캐시 무효화 (다음 씬에서 재로드)
-    for (const k of Object.keys(raceModelCache)) delete raceModelCache[k];
   }
 
   async function fetchTerrain(id) {
@@ -314,38 +312,20 @@ window.Replay3D = (() => {
     return spr;
   }
 
-  // 종족 모델 캐시: tag → Promise<{geo, tex}|null> (404 등 실패는 null — 구체 유지)
-  const raceModelCache = {};
-  function loadRaceModel(tag) {
-    if (!raceModelCache[tag]) {
-      raceModelCache[tag] = fetch(`/api/replay/model/${tag}.json`)
-        .then(r => (r.ok ? r.json() : null))
-        .then(d => {
-          if (!d) return null;
-          const geo = new THREE.BufferGeometry();
-          geo.setAttribute('position', new THREE.Float32BufferAttribute(d.positions, 3));
-          geo.setAttribute('normal', new THREE.Float32BufferAttribute(d.normals, 3));
-          geo.setAttribute('uv', new THREE.Float32BufferAttribute(d.uvs, 2));
-          geo.setIndex(d.indices);
-          // M2(Z-up, 전방 +X) → three(Y-up, 전방 +Z = 그룹 facing 축)로 베이크
-          geo.rotateX(-Math.PI / 2);
-          geo.rotateY(-Math.PI / 2);
-          const tex = new THREE.TextureLoader().load(`/api/replay/model/${d.tex}`);
-          tex.colorSpace = THREE.SRGBColorSpace;
-          tex.flipY = false;
-          return { geo, tex };
-        })
-        .catch(() => null);
-    }
-    return raceModelCache[tag];
-  }
-
   function makeUnit(u) {
+    // 플레이어 = 직업색 원통 (종족 모델은 정지 포즈라 의미 없어 폐기 — 2026-07-11 사용자 결정),
+    // 보스/NPC = 구체 유지.
     const color = new THREE.Color(rcUnitColor(u));
     const r = u.kind === 'boss' ? 2.4 : (u.kind === 'npc' ? 0.7 : 1.1);
     const mat = new THREE.MeshLambertMaterial({ color, transparent: true });
-    const body = new THREE.Mesh(new THREE.SphereGeometry(r, 20, 14), mat);
-    body.position.y = r + 0.5;            // 바닥에서 0.5yd 띄움
+    let body;
+    if (u.kind === 'player') {
+      body = new THREE.Mesh(new THREE.CylinderGeometry(r * 0.65, r * 0.65, 2.0, 18), mat);
+      body.position.y = 1.0 + 0.3;        // 원통 중심 = 키/2 + 바닥 여유
+    } else {
+      body = new THREE.Mesh(new THREE.SphereGeometry(r, 20, 14), mat);
+      body.position.y = r + 0.5;          // 바닥에서 0.5yd 띄움
+    }
     const arrow = new THREE.Mesh(new THREE.ConeGeometry(r * 0.45, r * 1.3, 10), mat);
     arrow.rotation.x = Math.PI / 2;       // 시선(facing) 방향 = 그룹 +Z
     arrow.position.set(0, r * 0.6 + 0.5, r + 0.9);
@@ -353,20 +333,6 @@ window.Replay3D = (() => {
     group.userData.uid = u.id;   // 클릭 픽킹에서 유닛 식별
     group.add(body);
     group.add(arrow);
-    if (u.kind === 'player' && u.race != null) {
-      const myEpoch = epoch;
-      loadRaceModel(`race_${u.race}_${u.sex || 0}`).then(md => {
-        const rec = units[u.id];
-        if (!md || myEpoch !== epoch || !rec || rec.group !== group) return;
-        const mmat = new THREE.MeshLambertMaterial({ map: md.tex, transparent: true });
-        const model = new THREE.Mesh(md.geo, mmat);
-        group.remove(body);
-        group.add(model);
-        rec.modelMat = mmat;              // 투명도 갱신용 (스킬/사망 페이드)
-        arrow.scale.setScalar(0.55);      // 모델 위 방향 표시는 작게
-        arrow.position.set(0, 0.35, r + 0.7);
-      });
-    }
     let label = null;
     if (u.kind === 'boss') {
       label = makeTextSprite(`★ ${String(u.name || '').split('-')[0]}`, '#ffd8d8');
@@ -523,10 +489,6 @@ window.Replay3D = (() => {
       rec.mat.opacity = (anyHl && !hl ? 0.25 : 1) * (stale ? 0.5 : 1);
       // 클릭 선택 유닛은 살짝 밝게 (발밑 링은 아래에서)
       rec.mat.emissive.copy(rec.mat.color).multiplyScalar(u.id === rc.selectedUnit ? 0.45 : 0);
-      if (rec.modelMat) {
-        rec.modelMat.opacity = rec.mat.opacity;
-        rec.modelMat.emissive.setScalar(u.id === rc.selectedUnit ? 0.25 : 0);
-      }
       const sc = hl ? 1.35 : 1;
       rec.baseScale = sc;   // 기믹 펄스가 이 값 기준으로 왕복
       rec.group.scale.set(sc, sc, sc);

@@ -683,6 +683,7 @@ _SPELL_TYPE_KIND = {
     "Immunities": "defensive",
     "Externals": "defensive",
     "Raid DR": "defensive",
+    "Utility": "utility",     # 유닛 패널 색상 분류용 (피드 기본 OFF)
 }
 
 # 고급 파라미터가 붙는 이벤트 (플랜 §2-2). SWING 계열은 spell prefix 3필드가
@@ -1133,19 +1134,7 @@ def _classify_units(
             u["name"] = f"{u['name']} {i}".strip()
 
     units.extend(picked)
-
-    # 종족/성별 (3D 모델용) — 캐시 우선, 실패는 조용히 생략 (뷰어가 구체 폴백)
-    try:
-        from app.char_race import resolve_races
-        players = [u for u in units if u["kind"] == "player" and u["name"]]
-        races = resolve_races([u["name"] for u in players])
-        for u in players:
-            info = races.get(u["name"])
-            if info:
-                u["race"] = info["race"]
-                u["sex"] = info["sex"]
-    except Exception:
-        pass
+    # (종족 모델은 정지 포즈라 폐기 — 직업색 원통으로 대체. char_race 조회도 중단, 2026-07-11)
     return units
 
 

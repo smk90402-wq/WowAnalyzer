@@ -996,12 +996,12 @@ function renderRotBody() {
     const TONE_LBL = { proc: '프록', cd: '쿨기', hold: '아끼기', spend: '소모', filler: '기본기' };
     const rows = (f.checklist || []).map((c, i) => {
       const tone = TONE_LBL[c.tone] ? c.tone : '';   // 화이트리스트 — class 속성 주입 방지
+      // 답(아이콘+스킬)을 왼쪽에 — 설명과 붙여서 시선 이동 없이 읽히게 (2026-07-11 사용자 요청)
       return `
       <div class="fl-row ${tone}">
         <div class="fl-num">${i + 1}</div>
-        <div class="fl-q">${wsify(esc(c.q))}<div class="fl-why">${wsify(esc(c.why || ''))}</div></div>
-        <div class="fl-arrow">→</div>
         <div class="fl-a">${wsify(esc(c.a))}${tone ? `<span class="fl-tone ${tone}">${TONE_LBL[tone]}</span>` : ''}</div>
+        <div class="fl-q">${wsify(esc(c.q))}<div class="fl-why">${wsify(esc(c.why || ''))}</div></div>
       </div>`;
     }).join('');
     const openerStrip = (steps) => (steps || []).map((o, i) => `
@@ -1498,10 +1498,11 @@ const RC_FEED_KINDS = [
   { key: 'healthpot', label: '치유석·생명력 물약' },
   { key: 'offensive', label: '공격 쿨기' },
   { key: 'defensive', label: '생존기' },
+  { key: 'utility',   label: '유틸기' },
 ];
 const rcFeedOn = {
   boss: true, death: true, bloodlust: true, battleres: true,
-  potion: false, healthpot: false, offensive: false, defensive: false,
+  potion: false, healthpot: false, offensive: false, defensive: false, utility: false,
 };
 const RC_FEED_MAX_ROWS = 2000;   // 전부 켰을 때 DOM 폭주 방지
 
@@ -1519,12 +1520,28 @@ function _feedRow(it) {
   `;
 }
 
+// 디버프별 표시 필터 — 체크 해제한 spell_id 집합 (리플레이 로드 시 초기화)
+const rcDebuffOff = new Set();
+const rcHitShown = (ev) => ev.kind !== 'hit' || !ev.spell_id || !rcDebuffOff.has(ev.spell_id);
+
+// 필터 변경을 모든 표시 경로(피드·타임라인 트랙·링·유닛 패널)에 반영
+function rcApplyDebuffFilter() {
+  renderReplayEventRows();
+  document.querySelectorAll('#rc-bossevents i[data-sid]').forEach(el => {
+    const sid = Number(el.dataset.sid);
+    el.classList.toggle('off', el.classList.contains('hit') && rcDebuffOff.has(sid));
+  });
+  rcPanelKey = '';
+  rcDraw();
+}
+
 // frames 데이터 → 피드 재료 (t 오름차순, 종류 무관 전체)
 function rcBuildFeed() {
   const items = [];
   const nameOf = {};
   for (const u of (rc.meta?.units || [])) nameOf[u.id] = String(u.name || u.id).split('-')[0];
   for (const ev of rc.bossEvents || []) {
+    if (!rcHitShown(ev)) continue;   // 디버프별 필터
     const dest = ev.dest_name ? String(ev.dest_name).split('-')[0] : '';
     const who = dest ? ` → ${dest}` : '';
     // 기간형 디버프(end 있음)는 걸려 있던 시간을 같이 표기 — "(8초)"
@@ -1649,6 +1666,8 @@ function renderLocalReplayDetail(detail) {
             <input type="checkbox" data-evkind="${k.key}" ${rcFeedOn[k.key] ? 'checked' : ''} disabled>
             <i class="dot"></i>${k.label}<span class="n" data-evn="${k.key}"></span>
           </label>`).join('')}
+        <button id="rc-debuff-btn" type="button" title="이 판의 디버프를 개별로 켜고 끄기">디버프 필터 ▾</button>
+        <div id="rc-debuff-pop" hidden></div>
       </div>
       <div class="replay-counts">
         <span>캐스트 ${Number(counts.casts || 0).toLocaleString()}</span>
@@ -1722,6 +1741,35 @@ function renderLocalReplayDetail(detail) {
       rcFeedOn[cb.dataset.evkind] = cb.checked;
       renderReplayEventRows();
     });
+    // 디버프별 필터 드롭다운 — 이 판의 디버프(hit) 스펠을 개별 켜고 끄기
+    const dbtn = evKinds.querySelector('#rc-debuff-btn');
+    const dpop = evKinds.querySelector('#rc-debuff-pop');
+    if (dbtn && dpop) {
+      dbtn.addEventListener('click', () => {
+        if (!dpop.hidden) { dpop.hidden = true; return; }
+        const m = new Map();
+        for (const ev of rc.bossEvents || []) {
+          if (ev.kind !== 'hit' || !ev.spell_id) continue;
+          const cur = m.get(ev.spell_id) || { name: ev.spell || String(ev.spell_id), n: 0 };
+          cur.n++;
+          m.set(ev.spell_id, cur);
+        }
+        const rows = [...m.entries()].sort((a, b) => b[1].n - a[1].n);
+        dpop.innerHTML = rows.length
+          ? rows.map(([sid, v]) => `<label><input type="checkbox" data-dsid="${sid}" ${rcDebuffOff.has(sid) ? '' : 'checked'}> ${esc(v.name)} <span class="n">${v.n}</span></label>`).join('')
+          : '<div class="empty">디버프 이벤트 없음</div>';
+        dpop.hidden = false;
+        dpop.querySelectorAll('input[data-dsid]').forEach(cb => cb.addEventListener('change', () => {
+          const sid = Number(cb.dataset.dsid);
+          if (cb.checked) rcDebuffOff.delete(sid); else rcDebuffOff.add(sid);
+          dbtn.classList.toggle('filtered', rcDebuffOff.size > 0);
+          rcApplyDebuffFilter();
+        }));
+      });
+      document.addEventListener('click', e => {
+        if (!dpop.hidden && !dpop.contains(e.target) && !dbtn.contains(e.target)) dpop.hidden = true;
+      });
+    }
   }
   // initReplayCanvas 가 rc 상태(t·meta)를 리셋한 뒤에 캐시를 만들어야
   // 직전 리플레이 시각 기준의 엉뚱한 하이라이트/스크롤이 안 생긴다
@@ -1838,6 +1886,8 @@ async function initReplayCanvas(replayId) {
   rc.meta = meta;
   rc.duration = Math.max(Number(meta.duration_s) || 0, frames[frames.length - 1].t);
   rc.bossEvents = j.boss_events || [];
+  rcDebuffOff.clear();   // 디버프별 필터는 판마다 초기화 (전체 표시)
+  document.getElementById('rc-debuff-btn')?.classList.remove('filtered');
   // 기간형 검색 창 = 최장 지속 기믹 + 여유 — 장기 디버프도 끝까지 링·패널 유지
   let maxDur = 0;
   for (const ev of rc.bossEvents) {
@@ -1970,7 +2020,7 @@ function rcBuildControls() {
     const dur = Math.max(1, rc.duration);
     bossTrack.innerHTML = rc.bossEvents.map((ev, i) => {
       const cls = `${ev.kind === 'hit' ? 'hit' : 'cast'}${ev.priority ? ' prio' : ''}`;
-      return `<i class="${cls}" data-bi="${i}" style="left:${(Number(ev.t) / dur * 100).toFixed(2)}%"></i>`;
+      return `<i class="${cls}" data-bi="${i}" data-sid="${Number(ev.spell_id) || 0}" style="left:${(Number(ev.t) / dur * 100).toFixed(2)}%"></i>`;
     }).join('');
     bossTrack.addEventListener('click', e => {
       const el = e.target.closest('i[data-bi]');
@@ -2368,6 +2418,7 @@ function rcActiveHitsFor(uid, t) {
     const age = t - Number(ev.t);
     if (age > (rc.evWindow || RC_EV_WINDOW_S)) break;
     if (ev.dest_id !== uid) continue;
+    if (!rcHitShown(ev)) continue;   // 디버프별 필터
     if (ev.end != null) {
       if (t < Number(ev.end)) out.push({ ev, i, end: Number(ev.end) });
     } else if (age <= RC_RING_S) {
@@ -2404,12 +2455,19 @@ function rcUpdatePanel() {
 
   // 지금 걸린 기믹: 기간형은 활성인 것만, 순간형은 3초 (남은 시간은 아래에서 값만 갱신)
   const hits = rcActiveHitsFor(uid, t);
-  // 쓴 스킬: t 이전 최근 10개 (오래된 것 위, 최신 아래)
+  // 쓴 스킬: t 이전 최근 10개 (오래된 것 위, 최신 아래) + 사망 시각을 빨간 줄로 삽입
   const castArr = rc.casts[uid] || [];
   const castEnd = rcUpperIdx(castArr, t, c => Number(c[0]));
-  const castList = castArr.slice(Math.max(0, castEnd - RC_PANEL_CASTS + 1), castEnd + 1);
+  const castRows = castArr.slice(Math.max(0, castEnd - RC_PANEL_CASTS + 1), castEnd + 1)
+    .map(c => ({ t: Number(c[0]), spell: String(c[1] || '') }));
+  let deathCnt = 0;
+  for (const dt of rc.deathsBy[uid] || []) {
+    if (dt <= t) { castRows.push({ t: dt, death: true }); deathCnt++; }
+  }
+  castRows.sort((a, b) => a.t - b.t);
+  const castList = castRows.slice(-RC_PANEL_CASTS);
 
-  const key = [uid, dead ? 1 : 0, hits.map(h => h.i).join(','), castEnd].join('|');
+  const key = [uid, dead ? 1 : 0, hits.map(h => h.i).join(','), castEnd, deathCnt].join('|');
   if (key !== rcPanelKey) {
     rcPanelKey = key;
     const name = String(u.name || u.id).split('-')[0];
@@ -2430,8 +2488,11 @@ function rcUpdatePanel() {
           || '<div class="rc-panel-none">없음</div>'}
         <div class="rc-panel-sec">쓴 스킬 (최근 ${RC_PANEL_CASTS}개)</div>
         ${castList.map(c => {
-          const pk = rcCastEventKind(uid, Number(c[0]), String(c[1] || ''));
-          return `<div class="rc-panel-row"><span class="t">${rcClock(c[0])}</span><span class="s${pk ? ` pk-${pk}` : ''}">${esc(c[1] || '')}</span></div>`;
+          if (c.death) {
+            return `<div class="rc-panel-row death"><span class="t">${rcClock(c.t)}</span><span class="s">💀 사망</span></div>`;
+          }
+          const pk = rcCastEventKind(uid, c.t, c.spell);
+          return `<div class="rc-panel-row"><span class="t">${rcClock(c.t)}</span><span class="s${pk ? ` pk-${pk}` : ''}">${esc(c.spell)}</span></div>`;
         }).join('')
           || '<div class="rc-panel-none">없음</div>'}
       </div>`;
@@ -2474,6 +2535,7 @@ function rcRingEventsAt(t) {
     const age = t - Number(ev.t);
     if (age > (rc.evWindow || RC_EV_WINDOW_S) || durable.length >= RC_RING_MAX) break;
     if (!ev.dest_id || rc.mode[ev.dest_id] === 2) continue;
+    if (!rcHitShown(ev)) continue;   // 디버프별 필터
     if (ev.end != null) {
       const end = Number(ev.end);
       if (t < end) durable.push({ ev, age, durable: true, fade: Math.min(1, (end - t) / RC_RING_FADE_S) });
