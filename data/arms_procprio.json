@@ -1,0 +1,1959 @@
+{
+ "_meta": {
+  "generated_by": "tmp_mine_arms_procprio.py",
+  "input": "scratchpad arms_cd_events.json — top100 296킬 중 학살자 204킬(칼날폭풍 446035 시전 기준)",
+  "state_defs": {
+   "hs": "전쟁의 지배자 프록 1269391 활성 (시전 1ms 전 기준)",
+   "msr": "필사의 일격 준비 근사 — 마지막 수동 12294 후 경과 >= 킬별 추정 쿨(깨끗한 간격 p25, 3600~5500ms 클램프)",
+   "sd": "급살 52437 활성",
+   "ep2": "집행자의 정밀함 386633 >= 2중첩",
+   "phase": "exec = 전투 시간 마지막 25% (대학살 HP<35%의 시간 근사)"
+  },
+  "buttons": {
+   "hs": 1269383,
+   "ms": 12294,
+   "execute": 281000,
+   "op": 7384,
+   "slam": 1464,
+   "rend": 772,
+   "cleave": 845,
+   "cs": 167105,
+   "bladestorm": 446035,
+   "sweep": 260708,
+   "avatar": 107574
+  },
+  "bladestorm_auto_ms": "불안정한 정신(109815) 때문에 칼폭 후 4750ms 안의 12294는 자동 시전으로 간주해 제외 — 칼폭 기준 0.5/1.5/2.5/3.5/4.5초 틱 실측",
+  "ms_ready_thr_ms": {
+   "med": 4284.0,
+   "min": 3600,
+   "max": 5274
+  },
+  "caveats": [
+   "필사 준비는 시전 간격 기반 근사 — 가속 변동(격렬한 희열 등) 창에서 오차. 5.0초 고정 임계값 결과를 sensitivity_flat5000에 병기.",
+   "분노는 이벤트에 없음 — D 조합(모든 프록 X)의 분포는 분노 상태 미상. 단정 대신 분포 그대로 보고.",
+   "처형구간은 HP가 아닌 시간(마지막 25%) 근사.",
+   "칼폭 창 끝자락(4.5~4.75초)의 진짜 수동 필사(잔혹한 마무리 연계)도 일부 같이 제외됨 — 표본 손실이며 편향은 작음."
+  ]
+ },
+ "A_hs_proc_consumption": {
+  "n_procs": 6395,
+  "consumed_pct": 98.0,
+  "within_1gcd_pct_of_consumed": 56.2,
+  "consume_delay_ms_med": 1186
+ },
+ "A_next_button_when_hs": {
+  "n": 11202,
+  "hs": {
+   "count": 6280,
+   "pct": 56.1
+  },
+  "execute": {
+   "count": 1776,
+   "pct": 15.9
+  },
+  "ms": {
+   "count": 1682,
+   "pct": 15.0
+  },
+  "op": {
+   "count": 639,
+   "pct": 5.7
+  },
+  "cs": {
+   "count": 284,
+   "pct": 2.5
+  },
+  "bladestorm": {
+   "count": 157,
+   "pct": 1.4
+  },
+  "avatar": {
+   "count": 132,
+   "pct": 1.2
+  },
+  "rend": {
+   "count": 123,
+   "pct": 1.1
+  },
+  "sweep": {
+   "count": 51,
+   "pct": 0.5
+  },
+  "other": {
+   "count": 44,
+   "pct": 0.4
+  },
+  "cleave": {
+   "count": 34,
+   "pct": 0.3
+  }
+ },
+ "B_hsX_msrO": {
+  "all": {
+   "n": 12864,
+   "ms": {
+    "count": 7259,
+    "pct": 56.4
+   },
+   "execute": {
+    "count": 1952,
+    "pct": 15.2
+   },
+   "op": {
+    "count": 1119,
+    "pct": 8.7
+   },
+   "cs": {
+    "count": 812,
+    "pct": 6.3
+   },
+   "avatar": {
+    "count": 456,
+    "pct": 3.5
+   },
+   "bladestorm": {
+    "count": 442,
+    "pct": 3.4
+   },
+   "rend": {
+    "count": 356,
+    "pct": 2.8
+   },
+   "slam": {
+    "count": 205,
+    "pct": 1.6
+   },
+   "other": {
+    "count": 130,
+    "pct": 1.0
+   },
+   "sweep": {
+    "count": 94,
+    "pct": 0.7
+   },
+   "cleave": {
+    "count": 39,
+    "pct": 0.3
+   }
+  },
+  "normal": {
+   "n": 9251,
+   "ms": {
+    "count": 5575,
+    "pct": 60.3
+   },
+   "execute": {
+    "count": 1019,
+    "pct": 11.0
+   },
+   "op": {
+    "count": 713,
+    "pct": 7.7
+   },
+   "cs": {
+    "count": 583,
+    "pct": 6.3
+   },
+   "avatar": {
+    "count": 352,
+    "pct": 3.8
+   },
+   "rend": {
+    "count": 322,
+    "pct": 3.5
+   },
+   "bladestorm": {
+    "count": 318,
+    "pct": 3.4
+   },
+   "slam": {
+    "count": 183,
+    "pct": 2.0
+   },
+   "other": {
+    "count": 77,
+    "pct": 0.8
+   },
+   "sweep": {
+    "count": 76,
+    "pct": 0.8
+   },
+   "cleave": {
+    "count": 33,
+    "pct": 0.4
+   }
+  },
+  "exec": {
+   "n": 3613,
+   "ms": {
+    "count": 1684,
+    "pct": 46.6
+   },
+   "execute": {
+    "count": 933,
+    "pct": 25.8
+   },
+   "op": {
+    "count": 406,
+    "pct": 11.2
+   },
+   "cs": {
+    "count": 229,
+    "pct": 6.3
+   },
+   "bladestorm": {
+    "count": 124,
+    "pct": 3.4
+   },
+   "avatar": {
+    "count": 104,
+    "pct": 2.9
+   },
+   "other": {
+    "count": 53,
+    "pct": 1.5
+   },
+   "rend": {
+    "count": 34,
+    "pct": 0.9
+   },
+   "slam": {
+    "count": 22,
+    "pct": 0.6
+   },
+   "sweep": {
+    "count": 18,
+    "pct": 0.5
+   },
+   "cleave": {
+    "count": 6,
+    "pct": 0.2
+   }
+  }
+ },
+ "C_hsX_msrX_sdO": {
+  "all": {
+   "n": 6193,
+   "execute": {
+    "count": 3822,
+    "pct": 61.7
+   },
+   "op": {
+    "count": 960,
+    "pct": 15.5
+   },
+   "slam": {
+    "count": 391,
+    "pct": 6.3
+   },
+   "ms": {
+    "count": 326,
+    "pct": 5.3
+   },
+   "cs": {
+    "count": 227,
+    "pct": 3.7
+   },
+   "rend": {
+    "count": 156,
+    "pct": 2.5
+   },
+   "bladestorm": {
+    "count": 130,
+    "pct": 2.1
+   },
+   "avatar": {
+    "count": 124,
+    "pct": 2.0
+   },
+   "sweep": {
+    "count": 38,
+    "pct": 0.6
+   },
+   "other": {
+    "count": 14,
+    "pct": 0.2
+   },
+   "cleave": {
+    "count": 5,
+    "pct": 0.1
+   }
+  },
+  "normal": {
+   "n": 4887,
+   "execute": {
+    "count": 2913,
+    "pct": 59.6
+   },
+   "op": {
+    "count": 784,
+    "pct": 16.0
+   },
+   "slam": {
+    "count": 361,
+    "pct": 7.4
+   },
+   "ms": {
+    "count": 263,
+    "pct": 5.4
+   },
+   "cs": {
+    "count": 175,
+    "pct": 3.6
+   },
+   "rend": {
+    "count": 145,
+    "pct": 3.0
+   },
+   "bladestorm": {
+    "count": 99,
+    "pct": 2.0
+   },
+   "avatar": {
+    "count": 96,
+    "pct": 2.0
+   },
+   "sweep": {
+    "count": 35,
+    "pct": 0.7
+   },
+   "other": {
+    "count": 11,
+    "pct": 0.2
+   },
+   "cleave": {
+    "count": 5,
+    "pct": 0.1
+   }
+  },
+  "exec": {
+   "n": 1306,
+   "execute": {
+    "count": 909,
+    "pct": 69.6
+   },
+   "op": {
+    "count": 176,
+    "pct": 13.5
+   },
+   "ms": {
+    "count": 63,
+    "pct": 4.8
+   },
+   "cs": {
+    "count": 52,
+    "pct": 4.0
+   },
+   "bladestorm": {
+    "count": 31,
+    "pct": 2.4
+   },
+   "slam": {
+    "count": 30,
+    "pct": 2.3
+   },
+   "avatar": {
+    "count": 28,
+    "pct": 2.1
+   },
+   "rend": {
+    "count": 11,
+    "pct": 0.8
+   },
+   "sweep": {
+    "count": 3,
+    "pct": 0.2
+   },
+   "other": {
+    "count": 3,
+    "pct": 0.2
+   }
+  }
+ },
+ "D_hsX_msrX_sdX": {
+  "all": {
+   "n": 21061,
+   "op": {
+    "count": 7722,
+    "pct": 36.7
+   },
+   "slam": {
+    "count": 4491,
+    "pct": 21.3
+   },
+   "execute": {
+    "count": 3844,
+    "pct": 18.3
+   },
+   "ms": {
+    "count": 1792,
+    "pct": 8.5
+   },
+   "rend": {
+    "count": 1224,
+    "pct": 5.8
+   },
+   "cs": {
+    "count": 844,
+    "pct": 4.0
+   },
+   "bladestorm": {
+    "count": 467,
+    "pct": 2.2
+   },
+   "avatar": {
+    "count": 448,
+    "pct": 2.1
+   },
+   "sweep": {
+    "count": 160,
+    "pct": 0.8
+   },
+   "other": {
+    "count": 42,
+    "pct": 0.2
+   },
+   "cleave": {
+    "count": 27,
+    "pct": 0.1
+   }
+  },
+  "normal": {
+   "n": 16083,
+   "op": {
+    "count": 6330,
+    "pct": 39.4
+   },
+   "slam": {
+    "count": 4180,
+    "pct": 26.0
+   },
+   "execute": {
+    "count": 1515,
+    "pct": 9.4
+   },
+   "ms": {
+    "count": 1374,
+    "pct": 8.5
+   },
+   "rend": {
+    "count": 1163,
+    "pct": 7.2
+   },
+   "cs": {
+    "count": 639,
+    "pct": 4.0
+   },
+   "bladestorm": {
+    "count": 365,
+    "pct": 2.3
+   },
+   "avatar": {
+    "count": 327,
+    "pct": 2.0
+   },
+   "sweep": {
+    "count": 137,
+    "pct": 0.9
+   },
+   "other": {
+    "count": 31,
+    "pct": 0.2
+   },
+   "cleave": {
+    "count": 22,
+    "pct": 0.1
+   }
+  },
+  "exec": {
+   "n": 4978,
+   "execute": {
+    "count": 2329,
+    "pct": 46.8
+   },
+   "op": {
+    "count": 1392,
+    "pct": 28.0
+   },
+   "ms": {
+    "count": 418,
+    "pct": 8.4
+   },
+   "slam": {
+    "count": 311,
+    "pct": 6.2
+   },
+   "cs": {
+    "count": 205,
+    "pct": 4.1
+   },
+   "avatar": {
+    "count": 121,
+    "pct": 2.4
+   },
+   "bladestorm": {
+    "count": 102,
+    "pct": 2.0
+   },
+   "rend": {
+    "count": 61,
+    "pct": 1.2
+   },
+   "sweep": {
+    "count": 23,
+    "pct": 0.5
+   },
+   "other": {
+    "count": 11,
+    "pct": 0.2
+   },
+   "cleave": {
+    "count": 5,
+    "pct": 0.1
+   }
+  }
+ },
+ "E_hsO_msrO": {
+  "normal": {
+   "n": 2158,
+   "ms": {
+    "count": 956,
+    "pct": 44.3
+   },
+   "hs": {
+    "count": 707,
+    "pct": 32.8
+   },
+   "execute": {
+    "count": 265,
+    "pct": 12.3
+   },
+   "op": {
+    "count": 66,
+    "pct": 3.1
+   },
+   "cs": {
+    "count": 46,
+    "pct": 2.1
+   },
+   "bladestorm": {
+    "count": 39,
+    "pct": 1.8
+   },
+   "rend": {
+    "count": 26,
+    "pct": 1.2
+   },
+   "avatar": {
+    "count": 22,
+    "pct": 1.0
+   },
+   "sweep": {
+    "count": 11,
+    "pct": 0.5
+   },
+   "cleave": {
+    "count": 10,
+    "pct": 0.5
+   },
+   "other": {
+    "count": 10,
+    "pct": 0.5
+   }
+  },
+  "exec": {
+   "n": 1124,
+   "hs": {
+    "count": 418,
+    "pct": 37.2
+   },
+   "ms": {
+    "count": 329,
+    "pct": 29.3
+   },
+   "execute": {
+    "count": 217,
+    "pct": 19.3
+   },
+   "op": {
+    "count": 46,
+    "pct": 4.1
+   },
+   "cs": {
+    "count": 41,
+    "pct": 3.6
+   },
+   "bladestorm": {
+    "count": 25,
+    "pct": 2.2
+   },
+   "avatar": {
+    "count": 19,
+    "pct": 1.7
+   },
+   "other": {
+    "count": 11,
+    "pct": 1.0
+   },
+   "rend": {
+    "count": 7,
+    "pct": 0.6
+   },
+   "sweep": {
+    "count": 7,
+    "pct": 0.6
+   },
+   "cleave": {
+    "count": 4,
+    "pct": 0.4
+   }
+  }
+ },
+ "E_hsO_msrO_all": {
+  "n": 3282,
+  "ms": {
+   "count": 1285,
+   "pct": 39.2
+  },
+  "hs": {
+   "count": 1125,
+   "pct": 34.3
+  },
+  "execute": {
+   "count": 482,
+   "pct": 14.7
+  },
+  "op": {
+   "count": 112,
+   "pct": 3.4
+  },
+  "cs": {
+   "count": 87,
+   "pct": 2.7
+  },
+  "bladestorm": {
+   "count": 64,
+   "pct": 2.0
+  },
+  "avatar": {
+   "count": 41,
+   "pct": 1.2
+  },
+  "rend": {
+   "count": 33,
+   "pct": 1.0
+  },
+  "other": {
+   "count": 21,
+   "pct": 0.6
+  },
+  "sweep": {
+   "count": 18,
+   "pct": 0.5
+  },
+  "cleave": {
+   "count": 14,
+   "pct": 0.4
+  }
+ },
+ "F_ep2_msrO_exec": {
+  "n": 2835,
+  "ms": {
+   "count": 1565,
+   "pct": 55.2
+  },
+  "op": {
+   "count": 291,
+   "pct": 10.3
+  },
+  "execute": {
+   "count": 254,
+   "pct": 9.0
+  },
+  "hs": {
+   "count": 221,
+   "pct": 7.8
+  },
+  "cs": {
+   "count": 199,
+   "pct": 7.0
+  },
+  "bladestorm": {
+   "count": 112,
+   "pct": 4.0
+  },
+  "avatar": {
+   "count": 92,
+   "pct": 3.2
+  },
+  "other": {
+   "count": 59,
+   "pct": 2.1
+  },
+  "rend": {
+   "count": 15,
+   "pct": 0.5
+  },
+  "sweep": {
+   "count": 13,
+   "pct": 0.5
+  },
+  "slam": {
+   "count": 9,
+   "pct": 0.3
+  },
+  "cleave": {
+   "count": 5,
+   "pct": 0.2
+  }
+ },
+ "F_ref_epLT2_msrO_exec": {
+  "n": 1902,
+  "execute": {
+   "count": 896,
+   "pct": 47.1
+  },
+  "ms": {
+   "count": 448,
+   "pct": 23.6
+  },
+  "hs": {
+   "count": 197,
+   "pct": 10.4
+  },
+  "op": {
+   "count": 161,
+   "pct": 8.5
+  },
+  "cs": {
+   "count": 71,
+   "pct": 3.7
+  },
+  "bladestorm": {
+   "count": 37,
+   "pct": 1.9
+  },
+  "avatar": {
+   "count": 31,
+   "pct": 1.6
+  },
+  "rend": {
+   "count": 26,
+   "pct": 1.4
+  },
+  "slam": {
+   "count": 13,
+   "pct": 0.7
+  },
+  "sweep": {
+   "count": 12,
+   "pct": 0.6
+  },
+  "other": {
+   "count": 5,
+   "pct": 0.3
+  },
+  "cleave": {
+   "count": 5,
+   "pct": 0.3
+  }
+ },
+ "manual_ms_gap_ms": {
+  "n": 10855,
+  "p10": 3609,
+  "p25": 4384,
+  "med": 4774
+ },
+ "other_cast_ids_top": {
+  "386164": 23,
+  "274738": 23,
+  "6262": 19,
+  "316531": 18,
+  "147833": 18,
+  "3411": 18,
+  "1253050": 17,
+  "440837": 15,
+  "71909": 15,
+  "199658": 10,
+  "1680": 10,
+  "1234969": 9,
+  "18499": 7,
+  "26297": 6,
+  "256948": 4
+ },
+ "sensitivity_flat5000": {
+  "B_hsX_msrO_all": {
+   "n": 7607,
+   "ms": {
+    "count": 3611,
+    "pct": 47.5
+   },
+   "execute": {
+    "count": 1302,
+    "pct": 17.1
+   },
+   "op": {
+    "count": 756,
+    "pct": 9.9
+   },
+   "cs": {
+    "count": 571,
+    "pct": 7.5
+   },
+   "avatar": {
+    "count": 391,
+    "pct": 5.1
+   },
+   "bladestorm": {
+    "count": 330,
+    "pct": 4.3
+   },
+   "rend": {
+    "count": 312,
+    "pct": 4.1
+   },
+   "other": {
+    "count": 126,
+    "pct": 1.7
+   },
+   "slam": {
+    "count": 111,
+    "pct": 1.5
+   },
+   "sweep": {
+    "count": 62,
+    "pct": 0.8
+   },
+   "cleave": {
+    "count": 35,
+    "pct": 0.5
+   }
+  },
+  "D_hsX_msrX_sdX_all": {
+   "n": 25339,
+   "op": {
+    "count": 8029,
+    "pct": 31.7
+   },
+   "ms": {
+    "count": 4855,
+    "pct": 19.2
+   },
+   "slam": {
+    "count": 4573,
+    "pct": 18.0
+   },
+   "execute": {
+    "count": 4244,
+    "pct": 16.7
+   },
+   "rend": {
+    "count": 1260,
+    "pct": 5.0
+   },
+   "cs": {
+    "count": 1054,
+    "pct": 4.2
+   },
+   "bladestorm": {
+    "count": 562,
+    "pct": 2.2
+   },
+   "avatar": {
+    "count": 501,
+    "pct": 2.0
+   },
+   "sweep": {
+    "count": 184,
+    "pct": 0.7
+   },
+   "other": {
+    "count": 46,
+    "pct": 0.2
+   },
+   "cleave": {
+    "count": 31,
+    "pct": 0.1
+   }
+  },
+  "E_hsO_msrO_all": {
+   "n": 2300,
+   "ms": {
+    "count": 820,
+    "pct": 35.7
+   },
+   "hs": {
+    "count": 781,
+    "pct": 34.0
+   },
+   "execute": {
+    "count": 430,
+    "pct": 18.7
+   },
+   "op": {
+    "count": 72,
+    "pct": 3.1
+   },
+   "cs": {
+    "count": 48,
+    "pct": 2.1
+   },
+   "bladestorm": {
+    "count": 48,
+    "pct": 2.1
+   },
+   "avatar": {
+    "count": 31,
+    "pct": 1.3
+   },
+   "rend": {
+    "count": 27,
+    "pct": 1.2
+   },
+   "other": {
+    "count": 19,
+    "pct": 0.8
+   },
+   "sweep": {
+    "count": 12,
+    "pct": 0.5
+   },
+   "cleave": {
+    "count": 12,
+    "pct": 0.5
+   }
+  },
+  "F_ep2_msrO_exec": {
+   "n": 2022,
+   "ms": {
+    "count": 1103,
+    "pct": 54.5
+   },
+   "execute": {
+    "count": 209,
+    "pct": 10.3
+   },
+   "op": {
+    "count": 167,
+    "pct": 8.3
+   },
+   "hs": {
+    "count": 146,
+    "pct": 7.2
+   },
+   "cs": {
+    "count": 142,
+    "pct": 7.0
+   },
+   "bladestorm": {
+    "count": 83,
+    "pct": 4.1
+   },
+   "avatar": {
+    "count": 78,
+    "pct": 3.9
+   },
+   "other": {
+    "count": 56,
+    "pct": 2.8
+   },
+   "rend": {
+    "count": 15,
+    "pct": 0.7
+   },
+   "slam": {
+    "count": 9,
+    "pct": 0.4
+   },
+   "sweep": {
+    "count": 9,
+    "pct": 0.4
+   },
+   "cleave": {
+    "count": 5,
+    "pct": 0.2
+   }
+  }
+ },
+ "full_state_table": {
+  "hs=0,msr=0,sd=0,normal": {
+   "n": 16083,
+   "op": {
+    "count": 6330,
+    "pct": 39.4
+   },
+   "slam": {
+    "count": 4180,
+    "pct": 26.0
+   },
+   "execute": {
+    "count": 1515,
+    "pct": 9.4
+   },
+   "ms": {
+    "count": 1374,
+    "pct": 8.5
+   },
+   "rend": {
+    "count": 1163,
+    "pct": 7.2
+   },
+   "cs": {
+    "count": 639,
+    "pct": 4.0
+   },
+   "bladestorm": {
+    "count": 365,
+    "pct": 2.3
+   },
+   "avatar": {
+    "count": 327,
+    "pct": 2.0
+   },
+   "sweep": {
+    "count": 137,
+    "pct": 0.9
+   },
+   "other": {
+    "count": 31,
+    "pct": 0.2
+   },
+   "cleave": {
+    "count": 22,
+    "pct": 0.1
+   }
+  },
+  "hs=0,msr=0,sd=0,exec": {
+   "n": 4978,
+   "execute": {
+    "count": 2329,
+    "pct": 46.8
+   },
+   "op": {
+    "count": 1392,
+    "pct": 28.0
+   },
+   "ms": {
+    "count": 418,
+    "pct": 8.4
+   },
+   "slam": {
+    "count": 311,
+    "pct": 6.2
+   },
+   "cs": {
+    "count": 205,
+    "pct": 4.1
+   },
+   "avatar": {
+    "count": 121,
+    "pct": 2.4
+   },
+   "bladestorm": {
+    "count": 102,
+    "pct": 2.0
+   },
+   "rend": {
+    "count": 61,
+    "pct": 1.2
+   },
+   "sweep": {
+    "count": 23,
+    "pct": 0.5
+   },
+   "other": {
+    "count": 11,
+    "pct": 0.2
+   },
+   "cleave": {
+    "count": 5,
+    "pct": 0.1
+   }
+  },
+  "hs=0,msr=0,sd=1,normal": {
+   "n": 4887,
+   "execute": {
+    "count": 2913,
+    "pct": 59.6
+   },
+   "op": {
+    "count": 784,
+    "pct": 16.0
+   },
+   "slam": {
+    "count": 361,
+    "pct": 7.4
+   },
+   "ms": {
+    "count": 263,
+    "pct": 5.4
+   },
+   "cs": {
+    "count": 175,
+    "pct": 3.6
+   },
+   "rend": {
+    "count": 145,
+    "pct": 3.0
+   },
+   "bladestorm": {
+    "count": 99,
+    "pct": 2.0
+   },
+   "avatar": {
+    "count": 96,
+    "pct": 2.0
+   },
+   "sweep": {
+    "count": 35,
+    "pct": 0.7
+   },
+   "other": {
+    "count": 11,
+    "pct": 0.2
+   },
+   "cleave": {
+    "count": 5,
+    "pct": 0.1
+   }
+  },
+  "hs=0,msr=0,sd=1,exec": {
+   "n": 1306,
+   "execute": {
+    "count": 909,
+    "pct": 69.6
+   },
+   "op": {
+    "count": 176,
+    "pct": 13.5
+   },
+   "ms": {
+    "count": 63,
+    "pct": 4.8
+   },
+   "cs": {
+    "count": 52,
+    "pct": 4.0
+   },
+   "bladestorm": {
+    "count": 31,
+    "pct": 2.4
+   },
+   "slam": {
+    "count": 30,
+    "pct": 2.3
+   },
+   "avatar": {
+    "count": 28,
+    "pct": 2.1
+   },
+   "rend": {
+    "count": 11,
+    "pct": 0.8
+   },
+   "sweep": {
+    "count": 3,
+    "pct": 0.2
+   },
+   "other": {
+    "count": 3,
+    "pct": 0.2
+   }
+  },
+  "hs=0,msr=1,sd=0,normal": {
+   "n": 7346,
+   "ms": {
+    "count": 4610,
+    "pct": 62.8
+   },
+   "op": {
+    "count": 629,
+    "pct": 8.6
+   },
+   "cs": {
+    "count": 498,
+    "pct": 6.8
+   },
+   "execute": {
+    "count": 433,
+    "pct": 5.9
+   },
+   "avatar": {
+    "count": 301,
+    "pct": 4.1
+   },
+   "rend": {
+    "count": 296,
+    "pct": 4.0
+   },
+   "bladestorm": {
+    "count": 264,
+    "pct": 3.6
+   },
+   "slam": {
+    "count": 159,
+    "pct": 2.2
+   },
+   "other": {
+    "count": 68,
+    "pct": 0.9
+   },
+   "sweep": {
+    "count": 66,
+    "pct": 0.9
+   },
+   "cleave": {
+    "count": 22,
+    "pct": 0.3
+   }
+  },
+  "hs=0,msr=1,sd=0,exec": {
+   "n": 2887,
+   "ms": {
+    "count": 1395,
+    "pct": 48.3
+   },
+   "execute": {
+    "count": 651,
+    "pct": 22.5
+   },
+   "op": {
+    "count": 339,
+    "pct": 11.7
+   },
+   "cs": {
+    "count": 198,
+    "pct": 6.9
+   },
+   "bladestorm": {
+    "count": 102,
+    "pct": 3.5
+   },
+   "avatar": {
+    "count": 82,
+    "pct": 2.8
+   },
+   "other": {
+    "count": 49,
+    "pct": 1.7
+   },
+   "rend": {
+    "count": 31,
+    "pct": 1.1
+   },
+   "slam": {
+    "count": 21,
+    "pct": 0.7
+   },
+   "sweep": {
+    "count": 15,
+    "pct": 0.5
+   },
+   "cleave": {
+    "count": 4,
+    "pct": 0.1
+   }
+  },
+  "hs=0,msr=1,sd=1,normal": {
+   "n": 1905,
+   "ms": {
+    "count": 965,
+    "pct": 50.7
+   },
+   "execute": {
+    "count": 586,
+    "pct": 30.8
+   },
+   "cs": {
+    "count": 85,
+    "pct": 4.5
+   },
+   "op": {
+    "count": 84,
+    "pct": 4.4
+   },
+   "bladestorm": {
+    "count": 54,
+    "pct": 2.8
+   },
+   "avatar": {
+    "count": 51,
+    "pct": 2.7
+   },
+   "rend": {
+    "count": 26,
+    "pct": 1.4
+   },
+   "slam": {
+    "count": 24,
+    "pct": 1.3
+   },
+   "cleave": {
+    "count": 11,
+    "pct": 0.6
+   },
+   "sweep": {
+    "count": 10,
+    "pct": 0.5
+   },
+   "other": {
+    "count": 9,
+    "pct": 0.5
+   }
+  },
+  "hs=0,msr=1,sd=1,exec": {
+   "n": 726,
+   "ms": {
+    "count": 289,
+    "pct": 39.8
+   },
+   "execute": {
+    "count": 282,
+    "pct": 38.8
+   },
+   "op": {
+    "count": 67,
+    "pct": 9.2
+   },
+   "cs": {
+    "count": 31,
+    "pct": 4.3
+   },
+   "bladestorm": {
+    "count": 22,
+    "pct": 3.0
+   },
+   "avatar": {
+    "count": 22,
+    "pct": 3.0
+   },
+   "other": {
+    "count": 4,
+    "pct": 0.6
+   },
+   "sweep": {
+    "count": 3,
+    "pct": 0.4
+   },
+   "rend": {
+    "count": 3,
+    "pct": 0.4
+   },
+   "cleave": {
+    "count": 2,
+    "pct": 0.3
+   },
+   "slam": {
+    "count": 1,
+    "pct": 0.1
+   }
+  },
+  "hs=1,msr=0,sd=0,normal": {
+   "n": 4420,
+   "hs": {
+    "count": 3251,
+    "pct": 73.6
+   },
+   "execute": {
+    "count": 330,
+    "pct": 7.5
+   },
+   "op": {
+    "count": 325,
+    "pct": 7.4
+   },
+   "ms": {
+    "count": 220,
+    "pct": 5.0
+   },
+   "cs": {
+    "count": 95,
+    "pct": 2.1
+   },
+   "rend": {
+    "count": 71,
+    "pct": 1.6
+   },
+   "avatar": {
+    "count": 42,
+    "pct": 1.0
+   },
+   "bladestorm": {
+    "count": 41,
+    "pct": 0.9
+   },
+   "sweep": {
+    "count": 21,
+    "pct": 0.5
+   },
+   "other": {
+    "count": 12,
+    "pct": 0.3
+   },
+   "cleave": {
+    "count": 12,
+    "pct": 0.3
+   }
+  },
+  "hs=1,msr=0,sd=0,exec": {
+   "n": 1715,
+   "hs": {
+    "count": 948,
+    "pct": 55.3
+   },
+   "execute": {
+    "count": 397,
+    "pct": 23.1
+   },
+   "op": {
+    "count": 146,
+    "pct": 8.5
+   },
+   "ms": {
+    "count": 86,
+    "pct": 5.0
+   },
+   "cs": {
+    "count": 58,
+    "pct": 3.4
+   },
+   "avatar": {
+    "count": 32,
+    "pct": 1.9
+   },
+   "bladestorm": {
+    "count": 30,
+    "pct": 1.7
+   },
+   "other": {
+    "count": 6,
+    "pct": 0.3
+   },
+   "sweep": {
+    "count": 5,
+    "pct": 0.3
+   },
+   "cleave": {
+    "count": 4,
+    "pct": 0.2
+   },
+   "rend": {
+    "count": 3,
+    "pct": 0.2
+   }
+  },
+  "hs=1,msr=0,sd=1,normal": {
+   "n": 1344,
+   "hs": {
+    "count": 758,
+    "pct": 56.4
+   },
+   "execute": {
+    "count": 387,
+    "pct": 28.8
+   },
+   "ms": {
+    "count": 72,
+    "pct": 5.4
+   },
+   "op": {
+    "count": 44,
+    "pct": 3.3
+   },
+   "cs": {
+    "count": 29,
+    "pct": 2.2
+   },
+   "rend": {
+    "count": 14,
+    "pct": 1.0
+   },
+   "avatar": {
+    "count": 13,
+    "pct": 1.0
+   },
+   "bladestorm": {
+    "count": 13,
+    "pct": 1.0
+   },
+   "sweep": {
+    "count": 5,
+    "pct": 0.4
+   },
+   "other": {
+    "count": 5,
+    "pct": 0.4
+   },
+   "cleave": {
+    "count": 4,
+    "pct": 0.3
+   }
+  },
+  "hs=1,msr=0,sd=1,exec": {
+   "n": 441,
+   "hs": {
+    "count": 198,
+    "pct": 44.9
+   },
+   "execute": {
+    "count": 180,
+    "pct": 40.8
+   },
+   "ms": {
+    "count": 19,
+    "pct": 4.3
+   },
+   "cs": {
+    "count": 15,
+    "pct": 3.4
+   },
+   "op": {
+    "count": 12,
+    "pct": 2.7
+   },
+   "bladestorm": {
+    "count": 9,
+    "pct": 2.0
+   },
+   "avatar": {
+    "count": 4,
+    "pct": 0.9
+   },
+   "rend": {
+    "count": 2,
+    "pct": 0.5
+   },
+   "sweep": {
+    "count": 2,
+    "pct": 0.5
+   }
+  },
+  "hs=1,msr=1,sd=0,normal": {
+   "n": 1571,
+   "ms": {
+    "count": 734,
+    "pct": 46.7
+   },
+   "hs": {
+    "count": 562,
+    "pct": 35.8
+   },
+   "execute": {
+    "count": 82,
+    "pct": 5.2
+   },
+   "op": {
+    "count": 60,
+    "pct": 3.8
+   },
+   "cs": {
+    "count": 38,
+    "pct": 2.4
+   },
+   "bladestorm": {
+    "count": 31,
+    "pct": 2.0
+   },
+   "rend": {
+    "count": 20,
+    "pct": 1.3
+   },
+   "avatar": {
+    "count": 19,
+    "pct": 1.2
+   },
+   "other": {
+    "count": 10,
+    "pct": 0.6
+   },
+   "sweep": {
+    "count": 8,
+    "pct": 0.5
+   },
+   "cleave": {
+    "count": 7,
+    "pct": 0.4
+   }
+  },
+  "hs=1,msr=1,sd=0,exec": {
+   "n": 864,
+   "hs": {
+    "count": 336,
+    "pct": 38.9
+   },
+   "ms": {
+    "count": 254,
+    "pct": 29.4
+   },
+   "execute": {
+    "count": 134,
+    "pct": 15.5
+   },
+   "cs": {
+    "count": 39,
+    "pct": 4.5
+   },
+   "op": {
+    "count": 39,
+    "pct": 4.5
+   },
+   "bladestorm": {
+    "count": 22,
+    "pct": 2.5
+   },
+   "avatar": {
+    "count": 16,
+    "pct": 1.9
+   },
+   "other": {
+    "count": 10,
+    "pct": 1.2
+   },
+   "rend": {
+    "count": 7,
+    "pct": 0.8
+   },
+   "sweep": {
+    "count": 4,
+    "pct": 0.5
+   },
+   "cleave": {
+    "count": 3,
+    "pct": 0.3
+   }
+  },
+  "hs=1,msr=1,sd=1,normal": {
+   "n": 587,
+   "ms": {
+    "count": 222,
+    "pct": 37.8
+   },
+   "execute": {
+    "count": 183,
+    "pct": 31.2
+   },
+   "hs": {
+    "count": 145,
+    "pct": 24.7
+   },
+   "cs": {
+    "count": 8,
+    "pct": 1.4
+   },
+   "bladestorm": {
+    "count": 8,
+    "pct": 1.4
+   },
+   "rend": {
+    "count": 6,
+    "pct": 1.0
+   },
+   "op": {
+    "count": 6,
+    "pct": 1.0
+   },
+   "sweep": {
+    "count": 3,
+    "pct": 0.5
+   },
+   "cleave": {
+    "count": 3,
+    "pct": 0.5
+   },
+   "avatar": {
+    "count": 3,
+    "pct": 0.5
+   }
+  },
+  "hs=1,msr=1,sd=1,exec": {
+   "n": 260,
+   "execute": {
+    "count": 83,
+    "pct": 31.9
+   },
+   "hs": {
+    "count": 82,
+    "pct": 31.5
+   },
+   "ms": {
+    "count": 75,
+    "pct": 28.8
+   },
+   "op": {
+    "count": 7,
+    "pct": 2.7
+   },
+   "avatar": {
+    "count": 3,
+    "pct": 1.2
+   },
+   "sweep": {
+    "count": 3,
+    "pct": 1.2
+   },
+   "bladestorm": {
+    "count": 3,
+    "pct": 1.2
+   },
+   "cs": {
+    "count": 2,
+    "pct": 0.8
+   },
+   "other": {
+    "count": 1,
+    "pct": 0.4
+   },
+   "cleave": {
+    "count": 1,
+    "pct": 0.4
+   }
+  }
+ },
+ "colossus_side_note": {
+  "n_kills": 91,
+  "note": "우선 상태 1개로 접은 요약(hs > msr > sd > none). 전투군주 리셋 때문에 msr 근사 오차 큼 — 참고용.",
+  "A_hs_active": {
+   "n": 6473,
+   "hs": {
+    "count": 2538,
+    "pct": 39.2
+   },
+   "cleave": {
+    "count": 1210,
+    "pct": 18.7
+   },
+   "ms": {
+    "count": 1163,
+    "pct": 18.0
+   },
+   "op": {
+    "count": 516,
+    "pct": 8.0
+   },
+   "demolish": {
+    "count": 303,
+    "pct": 4.7
+   },
+   "cs": {
+    "count": 187,
+    "pct": 2.9
+   },
+   "sweep": {
+    "count": 158,
+    "pct": 2.4
+   },
+   "rend": {
+    "count": 140,
+    "pct": 2.2
+   },
+   "avatar": {
+    "count": 95,
+    "pct": 1.5
+   },
+   "execute": {
+    "count": 84,
+    "pct": 1.3
+   },
+   "other": {
+    "count": 78,
+    "pct": 1.2
+   },
+   "slam": {
+    "count": 1,
+    "pct": 0.0
+   }
+  },
+  "B_hsX_msrO": {
+   "n": 7791,
+   "ms": {
+    "count": 4079,
+    "pct": 52.4
+   },
+   "cleave": {
+    "count": 1443,
+    "pct": 18.5
+   },
+   "op": {
+    "count": 491,
+    "pct": 6.3
+   },
+   "demolish": {
+    "count": 423,
+    "pct": 5.4
+   },
+   "cs": {
+    "count": 331,
+    "pct": 4.2
+   },
+   "rend": {
+    "count": 277,
+    "pct": 3.6
+   },
+   "avatar": {
+    "count": 175,
+    "pct": 2.2
+   },
+   "slam": {
+    "count": 146,
+    "pct": 1.9
+   },
+   "other": {
+    "count": 145,
+    "pct": 1.9
+   },
+   "execute": {
+    "count": 142,
+    "pct": 1.8
+   },
+   "sweep": {
+    "count": 139,
+    "pct": 1.8
+   }
+  },
+  "C_hsX_msrX_sdO": {
+   "n": 3338,
+   "execute": {
+    "count": 900,
+    "pct": 27.0
+   },
+   "op": {
+    "count": 779,
+    "pct": 23.3
+   },
+   "cleave": {
+    "count": 564,
+    "pct": 16.9
+   },
+   "ms": {
+    "count": 500,
+    "pct": 15.0
+   },
+   "rend": {
+    "count": 137,
+    "pct": 4.1
+   },
+   "demolish": {
+    "count": 123,
+    "pct": 3.7
+   },
+   "sweep": {
+    "count": 112,
+    "pct": 3.4
+   },
+   "cs": {
+    "count": 84,
+    "pct": 2.5
+   },
+   "slam": {
+    "count": 61,
+    "pct": 1.8
+   },
+   "avatar": {
+    "count": 45,
+    "pct": 1.3
+   },
+   "other": {
+    "count": 33,
+    "pct": 1.0
+   }
+  },
+  "D_all_X": {
+   "n": 10605,
+   "op": {
+    "count": 3858,
+    "pct": 36.4
+   },
+   "cleave": {
+    "count": 1658,
+    "pct": 15.6
+   },
+   "ms": {
+    "count": 1647,
+    "pct": 15.5
+   },
+   "slam": {
+    "count": 1180,
+    "pct": 11.1
+   },
+   "rend": {
+    "count": 601,
+    "pct": 5.7
+   },
+   "cs": {
+    "count": 391,
+    "pct": 3.7
+   },
+   "demolish": {
+    "count": 376,
+    "pct": 3.5
+   },
+   "execute": {
+    "count": 286,
+    "pct": 2.7
+   },
+   "sweep": {
+    "count": 252,
+    "pct": 2.4
+   },
+   "avatar": {
+    "count": 206,
+    "pct": 1.9
+   },
+   "other": {
+    "count": 150,
+    "pct": 1.4
+   }
+  },
+  "E_hsO_msrO": {
+   "n": 1067,
+   "ms": {
+    "count": 456,
+    "pct": 42.7
+   },
+   "hs": {
+    "count": 267,
+    "pct": 25.0
+   },
+   "cleave": {
+    "count": 150,
+    "pct": 14.1
+   },
+   "demolish": {
+    "count": 60,
+    "pct": 5.6
+   },
+   "cs": {
+    "count": 38,
+    "pct": 3.6
+   },
+   "sweep": {
+    "count": 24,
+    "pct": 2.2
+   },
+   "other": {
+    "count": 22,
+    "pct": 2.1
+   },
+   "avatar": {
+    "count": 19,
+    "pct": 1.8
+   },
+   "rend": {
+    "count": 13,
+    "pct": 1.2
+   },
+   "op": {
+    "count": 10,
+    "pct": 0.9
+   },
+   "execute": {
+    "count": 7,
+    "pct": 0.7
+   },
+   "slam": {
+    "count": 1,
+    "pct": 0.1
+   }
+  }
+ }
+}
