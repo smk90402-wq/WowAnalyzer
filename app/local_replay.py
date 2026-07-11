@@ -21,6 +21,22 @@ DEFAULT_LOG_DIR = Path(os.environ.get(
 ))
 DEFAULT_CCTV_DIR = Path(os.environ.get("WARCRAFTCCTV_DIR", r"E:\cctv"))
 
+
+def cctv_dir() -> Path:
+    """캡처 폴더 해석: 설정/기본 경로가 있으면 그대로, 없으면 R2 미러 폴백."""
+    if DEFAULT_CCTV_DIR.exists():
+        return DEFAULT_CCTV_DIR
+    from app import cctv_sync
+    return cctv_sync.ensure_mirror()
+
+
+def wow_log_dir() -> Path:
+    """전투로그 폴더 해석: WoW 설치 경로가 있으면 그대로, 없으면 R2 미러 폴백."""
+    if DEFAULT_LOG_DIR.exists():
+        return DEFAULT_LOG_DIR
+    from app import cctv_sync
+    return cctv_sync.mirror_log_dir()
+
 _LOG_LINE_RE = re.compile(
     r"^(\d{1,2}/\d{1,2}/\d{4}\s+\d{1,2}:\d{2}:\d{2}\.\d+)\s{2}(.*)$"
 )
@@ -76,7 +92,8 @@ def _flags_int(value: Any) -> int:
         return 0
 
 
-def latest_log_path(log_dir: Path = DEFAULT_LOG_DIR) -> Path | None:
+def latest_log_path(log_dir: Path | None = None) -> Path | None:
+    log_dir = log_dir or wow_log_dir()
     if not log_dir.exists():
         return None
     logs = list(log_dir.glob("WoWCombatLog-*.txt"))
@@ -128,11 +145,12 @@ def _public_capture(cap: dict[str, Any]) -> dict[str, Any]:
     return {k: v for k, v in cap.items() if not k.startswith("_")}
 
 
-def _load_captures(cctv_dir: Path = DEFAULT_CCTV_DIR, limit: int = 80) -> list[dict[str, Any]]:
-    if not cctv_dir.exists():
+def _load_captures(cctv_dir_arg: Path | None = None, limit: int = 80) -> list[dict[str, Any]]:
+    cctv_dir_arg = cctv_dir_arg or cctv_dir()
+    if not cctv_dir_arg.exists():
         return []
     paths = sorted(
-        cctv_dir.glob("*.json"),
+        cctv_dir_arg.glob("*.json"),
         key=lambda p: p.stat().st_mtime_ns,
         reverse=True,
     )[:max(1, limit)]
@@ -276,8 +294,8 @@ def list_replays(limit: int = 80) -> dict[str, Any]:
         rows.append(row)
     return {
         "sources": {
-            "log_dir": str(DEFAULT_LOG_DIR),
-            "cctv_dir": str(DEFAULT_CCTV_DIR),
+            "log_dir": str(wow_log_dir()),
+            "cctv_dir": str(cctv_dir()),
             "log_file": str(log_path) if log_path else "",
             "encounters": len(encounters),
         },
@@ -701,14 +719,19 @@ def _filename_log_start(path: Path) -> datetime | None:
         return None
 
 
-def _candidate_logs(cap_start: datetime, log_dir: Path = DEFAULT_LOG_DIR) -> list[Path]:
-    """캡처 시각을 포함할 수 있는 로그 파일들 (현재 + 아카이브).
+def _candidate_logs(cap_start: datetime, log_dir: Path | None = None) -> list[Path]:
+    """캡처 시각을 포함할 수 있는 로그 파일들 (현재 + 아카이브 + R2 미러).
 
     파일명 시각 <= 캡처 시각 <= mtime 인 파일만 후보 — 1GB 아카이브 전수
     인덱싱을 피하는 1차 필터. 시작 시각이 캡처에 가장 가까운 파일부터 시도.
     """
+    log_dir = log_dir or wow_log_dir()
     cands: list[tuple[datetime, Path]] = []
     dirs = [log_dir, log_dir / ARCHIVE_DIR_NAME]
+    # 로컬 WoW Logs 에 해당 판 로그가 없어도 R2 미러(cctv_sync)가 받아둔 로그를 후보에 포함
+    from app import cctv_sync
+    if cctv_sync.mirror_log_dir() != log_dir:
+        dirs.append(cctv_sync.mirror_log_dir())
     for d in dirs:
         if not d.exists():
             continue
@@ -717,7 +740,10 @@ def _candidate_logs(cap_start: datetime, log_dir: Path = DEFAULT_LOG_DIR) -> lis
             if not file_start:
                 continue
             mtime = datetime.fromtimestamp(p.stat().st_mtime)
-            if file_start - timedelta(minutes=2) <= cap_start <= mtime + timedelta(minutes=2):
+            # 복사/R2 동기화된 파일은 mtime 이 '기록 종료 시각'이라는 가정이 깨짐
+            # (mtime < 파일 시작 시각인 경우) — 그때는 상한을 24시간으로 완화.
+            end_guess = mtime if mtime >= file_start else file_start + timedelta(hours=24)
+            if file_start - timedelta(minutes=2) <= cap_start <= end_guess + timedelta(minutes=2):
                 cands.append((file_start, p))
     cands.sort(key=lambda t: t[0], reverse=True)
     return [p for _, p in cands]

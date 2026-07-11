@@ -73,6 +73,8 @@ data/icons_med/
 data/maps/
 # 리플레이 3D 종족 모델 (게임 에셋 추출물 — git 커밋 금지, R2 로 동기화. fetch_race_models.py 로 재생성 가능)
 data/models/
+# R2 캡처 미러 (E:\cctv 없는 PC 폴백 — app/cctv_sync.py 가 자동 생성)
+data/cctv_r2/
 # 스킬 툴팁 누적 캐시 (wago.tools에서 재생성 가능)
 data/spell_tips.json
 # 리플레이 스파이크 (일회성 증명)

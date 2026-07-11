@@ -116,10 +116,14 @@ def resolve_races(names: list[str]) -> dict[str, dict[str, int]]:
     slugs = _realm_slugs(token)
     changed = False
     for n in misses:
-        if "-" not in n:
+        base = n
+        # 로컬 전투로그 표기 "이름-서버-KR" — 리전 접미사 제거
+        if base.upper().endswith(("-KR", "-US", "-EU", "-TW", "-CN")):
+            base = base[:-3]
+        if "-" not in base:
             cache[n] = {"neg": now}; changed = True
             continue
-        char, realm = n.rsplit("-", 1)
+        char, realm = base.rsplit("-", 1)
         slug = slugs.get(realm)
         if not slug:
             cache[n] = {"neg": now}; changed = True
