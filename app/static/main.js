@@ -1788,7 +1788,8 @@ const RC_TRAIL_S = 3;      // 궤적 잔상 길이(초)
 const RC_STALE_S = 15;     // 이 시간 넘게 샘플 없으면 점 숨김
 const RC_RING_S = 3;       // 보스 기믹: 순간형(end 없음) 대상 링 표시 시간(초)
 const RC_BANNER_S = 4;     // 보스 기믹: 상단 자막 유지 시간(초)
-const RC_RING_MAX = 16;    // 대상 링 동시 표시 상한 — 기간형(end 있음) 우선
+const RC_RING_MAX = 40;    // 대상 링 동시 표시 상한 — 기간형(end 있음) 우선
+                           // (20인 디버프 웨이브가 겹치는 구간까지 커버 — 16이면 일부 잘림)
 const RC_RING_FADE_S = 0.5; // 기간형 링: 풀리기 직전 페이드아웃 시간(초)
 const RC_EV_WINDOW_S = 120; // 기간형 검색 창(초) 기본값 — 실제 창은 rc.evWindow
                             // (최장 지속 기믹에 맞춰 로드 시 확장 — 장기 디버프가

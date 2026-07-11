@@ -698,8 +698,10 @@ _ADV_SWING_EVENTS = {"SWING_DAMAGE", "SWING_DAMAGE_LANDED"}
 
 # 보스 기믹 이벤트 (frames 응답 boss_events)
 _HOSTILE_FLAG = 0x40          # sourceFlags REACTION_HOSTILE — 아군 소환수 제외 핵심
-BOSS_EVENT_TOTAL_CAP = 300    # 풀당 전체 캡
-BOSS_EVENT_SPELL_CAP = 20     # 스펠별 캡 (초과 시 균등 샘플 — hit 은 웨이브 단위)
+BOSS_EVENT_TOTAL_CAP = 600    # 풀당 전체 캡
+BOSS_EVENT_SPELL_CAP = 20     # 캐스트류 스펠별 캡 (초과 시 균등 샘플)
+BOSS_EVENT_HIT_CAP = 120      # 디버프(hit) 스펠별 캡 — 20이면 뒤쪽 웨이브가 통째로
+                              # 샘플에서 탈락해 '나중에 걸린 사람 하이라이트 안 됨' 버그
 BOSS_HIT_MAX_APPLIED = 15     # 플레이어 디버프: 풀당 웨이브 수 이 이하만 (스팸 컷)
 BOSS_HIT_WAVE_GAP_S = 3.0     # 디버프 '같은 웨이브' 판정 간격 (다중 대상 동시 적용 묶음)
 
@@ -1440,7 +1442,8 @@ def _select_boss_events(
         by_spell.setdefault((item["kind"], item["spell_id"]), []).append(item)
     capped: list[dict[str, Any]] = []
     for (kind, _sid), items in by_spell.items():
-        if len(items) <= BOSS_EVENT_SPELL_CAP:
+        cap = BOSS_EVENT_HIT_CAP if kind == "hit" else BOSS_EVENT_SPELL_CAP
+        if len(items) <= cap:
             capped.extend(items)
             continue
         if kind == "hit":
@@ -1451,7 +1454,7 @@ def _select_boss_events(
                 else:
                     waves.append([it])
             avg = max(1, round(len(items) / len(waves)))
-            target = max(1, BOSS_EVENT_SPELL_CAP // avg)
+            target = max(1, cap // avg)
             if len(waves) > target:
                 step = len(waves) / target
                 waves = [waves[int(i * step)] for i in range(target)]
