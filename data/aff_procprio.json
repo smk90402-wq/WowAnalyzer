@@ -1,0 +1,2959 @@
+{
+ "_meta": {
+  "generated_by": "tmp_mine_aff_procprio.py",
+  "input": "scratchpad aff_pp_events.json — v2_cache_events 백필 중 고통 298킬 (pf 캐시 고통 노드 식별, 오늘자 CSV와 (report,fight,char) 키 불일치로 pf/meta 캐시 자체 매칭 — 표본은 2026-07-05 top100 백필분)",
+  "build_markers": {
+   "단일": "109865 자비우스의 계략 + 109852 치명적인 메아리 + 109857 조각의 불안정성 (전원 동반)",
+   "씨앗광": "109854 씨앗 뿌리기 + 109853 최초 감염자 + 109866 파괴의 씨앗 + 109851 밤의 수혜 (조각의 불안정성 X)",
+   "씨앗_조각불안정_변형": "씨앗 마커 + 109857 조각의 불안정성 병행 — 카이메루스 위주 소수 변형",
+   "근거": "data/aff_talent_splits.json swap_relations + 추출 298킬 마커 crosstab — 단일/씨앗 계열 상호 with_rate 0%"
+  },
+  "state_defs": {
+   "sun": "일몰 264571(단일변형)/1260279(씨앗변형) 중첩>=1 (결정시점 1ms 전)",
+   "si": "조각의 불안정성 1260269 활성",
+   "dg": "암흑시선 소환 205180 버프 창(실측 apply→remove)",
+   "phase": "exec = 전투 시간 마지막 25% (죽음의 은총 35% HP 시간 근사)",
+   "결정시점": "하드캐스트(불안정한 고통/부패의 씨앗/어둠의 화살/유령 출몰)는 begincast 시각, 페어 없는 완료는 즉시시전으로 cast 시각"
+  },
+  "buttons": {
+   "agony": {
+    "id": 980,
+    "ko": "고통"
+   },
+   "corruption": {
+    "id": 172,
+    "ko": "부패"
+   },
+   "ua": {
+    "id": 1259790,
+    "ko": "불안정한 고통"
+   },
+   "seed": {
+    "id": 27243,
+    "ko": "부패의 씨앗"
+   },
+   "sbolt": {
+    "id": 686,
+    "ko": "어둠의 화살"
+   },
+   "drain": {
+    "id": 198590,
+    "ko": "영혼 흡수"
+   },
+   "grip": {
+    "id": 1261153,
+    "ko": "재앙의 손아귀"
+   },
+   "haunt": {
+    "id": 48181,
+    "ko": "유령 출몰"
+   },
+   "darkglare": {
+    "id": 205180,
+    "ko": "암흑시선 소환"
+   },
+   "harvest": {
+    "id": 1257052,
+    "ko": "암흑의 수확"
+   }
+  },
+  "caveats": [
+   "영혼의 조각 수는 이벤트에 없음 — 조각 축 관측 불가. UA/씨앗 시전 주기가 조각 수급의 간접 지표.",
+   "대상 디버프 타임라인 없음(자기 버프+캐스트만) — 도트 '남은 시간'은 같은 스킬 재시전 간격으로 근사. 멀티도트 보스에선 대상이 섞여 간격이 압축됨 — 단일 보스(보라시우스/우주의 왕관/벨로렌) 수치가 진짜 갱신 규율.",
+   "처형구간은 HP가 아닌 시간(마지막 25%) 근사.",
+   "빌드 그룹은 보스 구성이 다름(단일=단일 보스, 씨앗광=바엘고어·선봉대) — 상태표 차이에 보스 특성이 섞임.",
+   "표본은 백필 시점(2026-07-05 무렵) top100 스냅샷 — 오늘자 CSV와 (report,fight) 키가 어긋나 랭크 밴드 미부여. 카이메루스는 이 표본에서 단일 16 vs 씨앗변형 18로 갈린 과도기 전략(최신 채택률은 단일 97%).",
+   "즉시시전 판정: begincast+cast 같은 타임스탬프(실측 로그 서명) 또는 begincast 페어 부재. 같은 스킬 ≤50ms 연속 완료는 자동 에코(씨앗 뿌리기 추가 심기 등)로 제거 — echo_auto_events_removed 참조."
+  ],
+  "builds_by_boss": {
+   "단일": {
+    "벨로렌": 36,
+    "살라다르": 36,
+    "우주의 왕관": 35,
+    "보라시우스": 35,
+    "아베르지안": 32,
+    "카이메루스": 17,
+    "한밤의 도래(르우라)": 13
+   },
+   "씨앗광": {
+    "선봉대": 35,
+    "바엘고어": 35,
+    "카이메루스": 4,
+    "한밤의 도래(르우라)": 2
+   },
+   "씨앗_조각불안정_변형": {
+    "카이메루스": 14,
+    "아베르지안": 3,
+    "선봉대": 1
+   }
+  }
+ },
+ "단일": {
+  "n_kills": 204,
+  "total_min": 1056.0,
+  "buttons_per_min": {
+   "불안정한 고통": 17.19,
+   "고통": 7.24,
+   "어둠의 화살": 4.74,
+   "영혼 흡수": 3.72,
+   "유령 출몰": 3.33,
+   "재앙의 손아귀": 2.5,
+   "암흑의 수확": 1.34,
+   "부패": 1.13,
+   "암흑시선 소환": 0.56,
+   "부패의 씨앗": 0.33
+  },
+  "echo_auto_events_removed": {
+   "어둠의 화살": 100
+  },
+  "state_table": {
+   "A_일몰O": {
+    "all": {
+     "n": 23942,
+     "ua": {
+      "count": 9819,
+      "pct": 41.0
+     },
+     "agony": {
+      "count": 3492,
+      "pct": 14.6
+     },
+     "drain": {
+      "count": 2995,
+      "pct": 12.5
+     },
+     "sbolt": {
+      "count": 2748,
+      "pct": 11.5
+     },
+     "grip": {
+      "count": 1729,
+      "pct": 7.2
+     },
+     "haunt": {
+      "count": 1198,
+      "pct": 5.0
+     },
+     "harvest": {
+      "count": 752,
+      "pct": 3.1
+     },
+     "corruption": {
+      "count": 639,
+      "pct": 2.7
+     },
+     "darkglare": {
+      "count": 383,
+      "pct": 1.6
+     },
+     "seed": {
+      "count": 187,
+      "pct": 0.8
+     }
+    },
+    "normal": {
+     "n": 17857,
+     "ua": {
+      "count": 7268,
+      "pct": 40.7
+     },
+     "agony": {
+      "count": 2642,
+      "pct": 14.8
+     },
+     "drain": {
+      "count": 2238,
+      "pct": 12.5
+     },
+     "sbolt": {
+      "count": 2047,
+      "pct": 11.5
+     },
+     "grip": {
+      "count": 1317,
+      "pct": 7.4
+     },
+     "haunt": {
+      "count": 864,
+      "pct": 4.8
+     },
+     "harvest": {
+      "count": 555,
+      "pct": 3.1
+     },
+     "corruption": {
+      "count": 487,
+      "pct": 2.7
+     },
+     "darkglare": {
+      "count": 284,
+      "pct": 1.6
+     },
+     "seed": {
+      "count": 155,
+      "pct": 0.9
+     }
+    },
+    "exec": {
+     "n": 6085,
+     "ua": {
+      "count": 2551,
+      "pct": 41.9
+     },
+     "agony": {
+      "count": 850,
+      "pct": 14.0
+     },
+     "drain": {
+      "count": 757,
+      "pct": 12.4
+     },
+     "sbolt": {
+      "count": 701,
+      "pct": 11.5
+     },
+     "grip": {
+      "count": 412,
+      "pct": 6.8
+     },
+     "haunt": {
+      "count": 334,
+      "pct": 5.5
+     },
+     "harvest": {
+      "count": 197,
+      "pct": 3.2
+     },
+     "corruption": {
+      "count": 152,
+      "pct": 2.5
+     },
+     "darkglare": {
+      "count": 99,
+      "pct": 1.6
+     },
+     "seed": {
+      "count": 32,
+      "pct": 0.5
+     }
+    }
+   },
+   "B_일몰X_조각불안정O": {
+    "all": {
+     "n": 3745,
+     "ua": {
+      "count": 2127,
+      "pct": 56.8
+     },
+     "agony": {
+      "count": 636,
+      "pct": 17.0
+     },
+     "haunt": {
+      "count": 284,
+      "pct": 7.6
+     },
+     "sbolt": {
+      "count": 262,
+      "pct": 7.0
+     },
+     "drain": {
+      "count": 118,
+      "pct": 3.2
+     },
+     "corruption": {
+      "count": 100,
+      "pct": 2.7
+     },
+     "grip": {
+      "count": 81,
+      "pct": 2.2
+     },
+     "harvest": {
+      "count": 70,
+      "pct": 1.9
+     },
+     "seed": {
+      "count": 41,
+      "pct": 1.1
+     },
+     "darkglare": {
+      "count": 26,
+      "pct": 0.7
+     }
+    },
+    "normal": {
+     "n": 2837,
+     "ua": {
+      "count": 1619,
+      "pct": 57.1
+     },
+     "agony": {
+      "count": 477,
+      "pct": 16.8
+     },
+     "haunt": {
+      "count": 223,
+      "pct": 7.9
+     },
+     "sbolt": {
+      "count": 199,
+      "pct": 7.0
+     },
+     "drain": {
+      "count": 86,
+      "pct": 3.0
+     },
+     "corruption": {
+      "count": 75,
+      "pct": 2.6
+     },
+     "grip": {
+      "count": 62,
+      "pct": 2.2
+     },
+     "harvest": {
+      "count": 49,
+      "pct": 1.7
+     },
+     "seed": {
+      "count": 28,
+      "pct": 1.0
+     },
+     "darkglare": {
+      "count": 19,
+      "pct": 0.7
+     }
+    },
+    "exec": {
+     "n": 908,
+     "ua": {
+      "count": 508,
+      "pct": 55.9
+     },
+     "agony": {
+      "count": 159,
+      "pct": 17.5
+     },
+     "sbolt": {
+      "count": 63,
+      "pct": 6.9
+     },
+     "haunt": {
+      "count": 61,
+      "pct": 6.7
+     },
+     "drain": {
+      "count": 32,
+      "pct": 3.5
+     },
+     "corruption": {
+      "count": 25,
+      "pct": 2.8
+     },
+     "harvest": {
+      "count": 21,
+      "pct": 2.3
+     },
+     "grip": {
+      "count": 19,
+      "pct": 2.1
+     },
+     "seed": {
+      "count": 13,
+      "pct": 1.4
+     },
+     "darkglare": {
+      "count": 7,
+      "pct": 0.8
+     }
+    }
+   },
+   "C_일몰O_조각불안정O": {
+    "n": 2345,
+    "ua": {
+     "count": 1247,
+     "pct": 53.2
+    },
+    "agony": {
+     "count": 360,
+     "pct": 15.4
+    },
+    "drain": {
+     "count": 220,
+     "pct": 9.4
+    },
+    "sbolt": {
+     "count": 161,
+     "pct": 6.9
+    },
+    "grip": {
+     "count": 115,
+     "pct": 4.9
+    },
+    "haunt": {
+     "count": 89,
+     "pct": 3.8
+    },
+    "corruption": {
+     "count": 56,
+     "pct": 2.4
+    },
+    "harvest": {
+     "count": 51,
+     "pct": 2.2
+    },
+    "darkglare": {
+     "count": 26,
+     "pct": 1.1
+    },
+    "seed": {
+     "count": 20,
+     "pct": 0.9
+    }
+   },
+   "D_전부꺼짐": {
+    "normal": {
+     "n": 13000,
+     "ua": {
+      "count": 4879,
+      "pct": 37.5
+     },
+     "agony": {
+      "count": 2725,
+      "pct": 21.0
+     },
+     "haunt": {
+      "count": 1552,
+      "pct": 11.9
+     },
+     "sbolt": {
+      "count": 1507,
+      "pct": 11.6
+     },
+     "grip": {
+      "count": 685,
+      "pct": 5.3
+     },
+     "drain": {
+      "count": 602,
+      "pct": 4.6
+     },
+     "harvest": {
+      "count": 466,
+      "pct": 3.6
+     },
+     "corruption": {
+      "count": 360,
+      "pct": 2.8
+     },
+     "darkglare": {
+      "count": 140,
+      "pct": 1.1
+     },
+     "seed": {
+      "count": 84,
+      "pct": 0.6
+     }
+    },
+    "exec": {
+     "n": 3721,
+     "ua": {
+      "count": 1328,
+      "pct": 35.7
+     },
+     "agony": {
+      "count": 789,
+      "pct": 21.2
+     },
+     "sbolt": {
+      "count": 486,
+      "pct": 13.1
+     },
+     "haunt": {
+      "count": 479,
+      "pct": 12.9
+     },
+     "drain": {
+      "count": 209,
+      "pct": 5.6
+     },
+     "grip": {
+      "count": 141,
+      "pct": 3.8
+     },
+     "harvest": {
+      "count": 128,
+      "pct": 3.4
+     },
+     "corruption": {
+      "count": 90,
+      "pct": 2.4
+     },
+     "darkglare": {
+      "count": 38,
+      "pct": 1.0
+     },
+     "seed": {
+      "count": 33,
+      "pct": 0.9
+     }
+    },
+    "암흑시선창_안": {
+     "n": 3967,
+     "ua": {
+      "count": 1699,
+      "pct": 42.8
+     },
+     "grip": {
+      "count": 826,
+      "pct": 20.8
+     },
+     "agony": {
+      "count": 642,
+      "pct": 16.2
+     },
+     "haunt": {
+      "count": 371,
+      "pct": 9.4
+     },
+     "sbolt": {
+      "count": 162,
+      "pct": 4.1
+     },
+     "harvest": {
+      "count": 115,
+      "pct": 2.9
+     },
+     "corruption": {
+      "count": 60,
+      "pct": 1.5
+     },
+     "darkglare": {
+      "count": 38,
+      "pct": 1.0
+     },
+     "seed": {
+      "count": 31,
+      "pct": 0.8
+     },
+     "drain": {
+      "count": 23,
+      "pct": 0.6
+     }
+    },
+    "암흑시선창_밖": {
+     "n": 12754,
+     "ua": {
+      "count": 4508,
+      "pct": 35.3
+     },
+     "agony": {
+      "count": 2872,
+      "pct": 22.5
+     },
+     "sbolt": {
+      "count": 1831,
+      "pct": 14.4
+     },
+     "haunt": {
+      "count": 1660,
+      "pct": 13.0
+     },
+     "drain": {
+      "count": 788,
+      "pct": 6.2
+     },
+     "harvest": {
+      "count": 479,
+      "pct": 3.8
+     },
+     "corruption": {
+      "count": 390,
+      "pct": 3.1
+     },
+     "darkglare": {
+      "count": 140,
+      "pct": 1.1
+     },
+     "seed": {
+      "count": 86,
+      "pct": 0.7
+     }
+    }
+   },
+   "full": {
+    "sun=0,si=0,normal": {
+     "n": 13000,
+     "ua": {
+      "count": 4879,
+      "pct": 37.5
+     },
+     "agony": {
+      "count": 2725,
+      "pct": 21.0
+     },
+     "haunt": {
+      "count": 1552,
+      "pct": 11.9
+     },
+     "sbolt": {
+      "count": 1507,
+      "pct": 11.6
+     },
+     "grip": {
+      "count": 685,
+      "pct": 5.3
+     },
+     "drain": {
+      "count": 602,
+      "pct": 4.6
+     },
+     "harvest": {
+      "count": 466,
+      "pct": 3.6
+     },
+     "corruption": {
+      "count": 360,
+      "pct": 2.8
+     },
+     "darkglare": {
+      "count": 140,
+      "pct": 1.1
+     },
+     "seed": {
+      "count": 84,
+      "pct": 0.6
+     }
+    },
+    "sun=0,si=0,exec": {
+     "n": 3721,
+     "ua": {
+      "count": 1328,
+      "pct": 35.7
+     },
+     "agony": {
+      "count": 789,
+      "pct": 21.2
+     },
+     "sbolt": {
+      "count": 486,
+      "pct": 13.1
+     },
+     "haunt": {
+      "count": 479,
+      "pct": 12.9
+     },
+     "drain": {
+      "count": 209,
+      "pct": 5.6
+     },
+     "grip": {
+      "count": 141,
+      "pct": 3.8
+     },
+     "harvest": {
+      "count": 128,
+      "pct": 3.4
+     },
+     "corruption": {
+      "count": 90,
+      "pct": 2.4
+     },
+     "darkglare": {
+      "count": 38,
+      "pct": 1.0
+     },
+     "seed": {
+      "count": 33,
+      "pct": 0.9
+     }
+    },
+    "sun=0,si=1,normal": {
+     "n": 2837,
+     "ua": {
+      "count": 1619,
+      "pct": 57.1
+     },
+     "agony": {
+      "count": 477,
+      "pct": 16.8
+     },
+     "haunt": {
+      "count": 223,
+      "pct": 7.9
+     },
+     "sbolt": {
+      "count": 199,
+      "pct": 7.0
+     },
+     "drain": {
+      "count": 86,
+      "pct": 3.0
+     },
+     "corruption": {
+      "count": 75,
+      "pct": 2.6
+     },
+     "grip": {
+      "count": 62,
+      "pct": 2.2
+     },
+     "harvest": {
+      "count": 49,
+      "pct": 1.7
+     },
+     "seed": {
+      "count": 28,
+      "pct": 1.0
+     },
+     "darkglare": {
+      "count": 19,
+      "pct": 0.7
+     }
+    },
+    "sun=0,si=1,exec": {
+     "n": 908,
+     "ua": {
+      "count": 508,
+      "pct": 55.9
+     },
+     "agony": {
+      "count": 159,
+      "pct": 17.5
+     },
+     "sbolt": {
+      "count": 63,
+      "pct": 6.9
+     },
+     "haunt": {
+      "count": 61,
+      "pct": 6.7
+     },
+     "drain": {
+      "count": 32,
+      "pct": 3.5
+     },
+     "corruption": {
+      "count": 25,
+      "pct": 2.8
+     },
+     "harvest": {
+      "count": 21,
+      "pct": 2.3
+     },
+     "grip": {
+      "count": 19,
+      "pct": 2.1
+     },
+     "seed": {
+      "count": 13,
+      "pct": 1.4
+     },
+     "darkglare": {
+      "count": 7,
+      "pct": 0.8
+     }
+    },
+    "sun=1,si=0,normal": {
+     "n": 16069,
+     "ua": {
+      "count": 6321,
+      "pct": 39.3
+     },
+     "agony": {
+      "count": 2350,
+      "pct": 14.6
+     },
+     "drain": {
+      "count": 2072,
+      "pct": 12.9
+     },
+     "sbolt": {
+      "count": 1929,
+      "pct": 12.0
+     },
+     "grip": {
+      "count": 1226,
+      "pct": 7.6
+     },
+     "haunt": {
+      "count": 800,
+      "pct": 5.0
+     },
+     "harvest": {
+      "count": 518,
+      "pct": 3.2
+     },
+     "corruption": {
+      "count": 448,
+      "pct": 2.8
+     },
+     "darkglare": {
+      "count": 267,
+      "pct": 1.7
+     },
+     "seed": {
+      "count": 138,
+      "pct": 0.9
+     }
+    },
+    "sun=1,si=0,exec": {
+     "n": 5528,
+     "ua": {
+      "count": 2251,
+      "pct": 40.7
+     },
+     "agony": {
+      "count": 782,
+      "pct": 14.1
+     },
+     "drain": {
+      "count": 703,
+      "pct": 12.7
+     },
+     "sbolt": {
+      "count": 658,
+      "pct": 11.9
+     },
+     "grip": {
+      "count": 388,
+      "pct": 7.0
+     },
+     "haunt": {
+      "count": 309,
+      "pct": 5.6
+     },
+     "harvest": {
+      "count": 183,
+      "pct": 3.3
+     },
+     "corruption": {
+      "count": 135,
+      "pct": 2.4
+     },
+     "darkglare": {
+      "count": 90,
+      "pct": 1.6
+     },
+     "seed": {
+      "count": 29,
+      "pct": 0.5
+     }
+    },
+    "sun=1,si=1,normal": {
+     "n": 1788,
+     "ua": {
+      "count": 947,
+      "pct": 53.0
+     },
+     "agony": {
+      "count": 292,
+      "pct": 16.3
+     },
+     "drain": {
+      "count": 166,
+      "pct": 9.3
+     },
+     "sbolt": {
+      "count": 118,
+      "pct": 6.6
+     },
+     "grip": {
+      "count": 91,
+      "pct": 5.1
+     },
+     "haunt": {
+      "count": 64,
+      "pct": 3.6
+     },
+     "corruption": {
+      "count": 39,
+      "pct": 2.2
+     },
+     "harvest": {
+      "count": 37,
+      "pct": 2.1
+     },
+     "darkglare": {
+      "count": 17,
+      "pct": 1.0
+     },
+     "seed": {
+      "count": 17,
+      "pct": 1.0
+     }
+    },
+    "sun=1,si=1,exec": {
+     "n": 557,
+     "ua": {
+      "count": 300,
+      "pct": 53.9
+     },
+     "agony": {
+      "count": 68,
+      "pct": 12.2
+     },
+     "drain": {
+      "count": 54,
+      "pct": 9.7
+     },
+     "sbolt": {
+      "count": 43,
+      "pct": 7.7
+     },
+     "haunt": {
+      "count": 25,
+      "pct": 4.5
+     },
+     "grip": {
+      "count": 24,
+      "pct": 4.3
+     },
+     "corruption": {
+      "count": 17,
+      "pct": 3.1
+     },
+     "harvest": {
+      "count": 14,
+      "pct": 2.5
+     },
+     "darkglare": {
+      "count": 9,
+      "pct": 1.6
+     },
+     "seed": {
+      "count": 3,
+      "pct": 0.5
+     }
+    }
+   }
+  },
+  "proc_consumption": {
+   "일몰": {
+    "gains": 7750,
+    "consumed_pct": 83.8,
+    "expired_or_wasted_pct": 16.2,
+    "consume_delay_s": {
+     "med": 2.16,
+     "p75": 4.05,
+     "p90": 5.99
+    },
+    "within_2s_pct": 47.9
+   },
+   "조각의_불안정성": {
+    "gains": 3629,
+    "consumed_pct": 94.7,
+    "expired_or_wasted_pct": 5.3,
+    "consume_delay_s": {
+     "med": 1.37,
+     "p75": 2.42,
+     "p90": 4.01
+    },
+    "within_2s_pct": 68.2
+   }
+  },
+  "dots": {
+   "고통_18s": {
+    "n": 7440,
+    "p25": 2.69,
+    "med": 6.95,
+    "p75": 13.05,
+    "p90": 17.07,
+    "remaining_at_recast_s": {
+     "n": 4888,
+     "med": 7.2,
+     "p25": 2.79,
+     "p75": 10.96,
+     "pandemic_창_s": 5.4,
+     "판데믹내_갱신_pct": 29.2,
+     "조기갱신_pct(남은시간>판데믹)": 60.4
+    },
+    "만료후_공백_pct(gap>dur+2s)": 2.8
+   },
+   "고통_추정업타임": {
+    "med_pct": 98.0,
+    "p25_pct": 97.0,
+    "주의": "합집합 근사(대상 구분 없음) — 멀티도트 보스는 과대, 단일 보스만 신뢰"
+   },
+   "불안정한_고통_시전주기": {
+    "n": 17946,
+    "p25": 1.15,
+    "med": 2.26,
+    "p75": 4.5,
+    "p90": 7.02
+   },
+   "부패_판당시전": {
+    "med": 4,
+    "p90": 12,
+    "note": "완전한 부패(무한 지속) 표준 — 1회 깔고 방치가 정상"
+   }
+  },
+  "darkglare": {
+   "n_casts": 587,
+   "first_s_med": 5.82,
+   "gap_s_med": 122.8,
+   "직전_고통갱신_10s내_pct": 83.0,
+   "직전_불안정한고통_6s내_pct": 68.7,
+   "직전_3버튼_top6": [
+    {
+     "seq": [
+      "불안정한 고통",
+      "불안정한 고통",
+      "암흑의 수확"
+     ],
+     "n": 52
+    },
+    {
+     "seq": [
+      "불안정한 고통",
+      "불안정한 고통",
+      "불안정한 고통"
+     ],
+     "n": 31
+    },
+    {
+     "seq": [
+      "유령 출몰",
+      "고통",
+      "부패"
+     ],
+     "n": 24
+    },
+    {
+     "seq": [
+      "고통",
+      "부패",
+      "유령 출몰"
+     ],
+     "n": 23
+    },
+    {
+     "seq": [
+      "고통",
+      "부패",
+      "불안정한 고통"
+     ],
+     "n": 21
+    },
+    {
+     "seq": [
+      "불안정한 고통",
+      "고통",
+      "부패"
+     ],
+     "n": 16
+    }
+   ],
+   "창내_불안정한고통_pct": 30.4,
+   "창_시간비중_pct": 22.5,
+   "재앙의_손아귀_창내_pct": 100.0,
+   "암흑의_수확_창내_pct": 26.5
+  },
+  "hardcast_vs_instant": {
+   "어둠의 화살": {
+    "instant": 3632,
+    "hardcast": 1371,
+    "instant_pct": 72.6
+   },
+   "부패의 씨앗": {
+    "instant": 77,
+    "hardcast": 268,
+    "instant_pct": 22.3
+   },
+   "유령 출몰": {
+    "instant": 104,
+    "hardcast": 3409,
+    "instant_pct": 3.0
+   },
+   "불안정한 고통": {
+    "instant": 3483,
+    "hardcast": 14670,
+    "instant_pct": 19.2
+   }
+  },
+  "filler_choice_kills": {
+   "sbolt": 93,
+   "drain": 109
+  },
+  "rapid_600ms_pairs": {
+   "first_hard->second_instant": 7795,
+   "first_instant->second_instant": 322,
+   "first_instant->second_hard": 77,
+   "first_hard->second_hard": 13
+  },
+  "other_cast_ids_top": {
+   "111771": 192,
+   "442726": 6,
+   "360184": 4,
+   "1264426": 4,
+   "1253103": 3,
+   "447446": 3,
+   "69070": 3,
+   "29893": 3,
+   "234153": 3,
+   "5484": 2
+  },
+  "agony_gap_by_boss": {
+   "우주의 왕관": {
+    "n": 2256,
+    "p25": 2.58,
+    "med": 5.93,
+    "p75": 10.78,
+    "p90": 15.71,
+    "remaining_at_recast_s": {
+     "n": 1415,
+     "med": 8.65,
+     "p25": 4.74,
+     "p75": 11.74,
+     "pandemic_창_s": 5.4,
+     "판데믹내_갱신_pct": 21.1,
+     "조기갱신_pct(남은시간>판데믹)": 72.1
+    },
+    "만료후_공백_pct(gap>dur+2s)": 2.6
+   },
+   "벨로렌": {
+    "n": 1384,
+    "p25": 3.31,
+    "med": 6.67,
+    "p75": 11.28,
+    "p90": 15.25,
+    "remaining_at_recast_s": {
+     "n": 932,
+     "med": 8.47,
+     "p25": 4.69,
+     "p75": 11.49,
+     "pandemic_창_s": 5.4,
+     "판데믹내_갱신_pct": 23.0,
+     "조기갱신_pct(남은시간>판데믹)": 70.5
+    },
+    "만료후_공백_pct(gap>dur+2s)": 2.0
+   },
+   "살라다르": {
+    "n": 1254,
+    "p25": 2.25,
+    "med": 5.63,
+    "p75": 12.12,
+    "p90": 15.86,
+    "remaining_at_recast_s": {
+     "n": 738,
+     "med": 7.28,
+     "p25": 3.4,
+     "p75": 11.12,
+     "pandemic_창_s": 5.4,
+     "판데믹내_갱신_pct": 32.8,
+     "조기갱신_pct(남은시간>판데믹)": 59.9
+    },
+    "만료후_공백_pct(gap>dur+2s)": 1.4
+   },
+   "보라시우스": {
+    "n": 841,
+    "p25": 1.38,
+    "med": 10.04,
+    "p75": 16.36,
+    "p90": 18.83,
+    "remaining_at_recast_s": {
+     "n": 547,
+     "med": 3.06,
+     "p25": 0.16,
+     "p75": 7.48,
+     "pandemic_창_s": 5.4,
+     "판데믹내_갱신_pct": 40.0,
+     "조기갱신_pct(남은시간>판데믹)": 36.0
+    },
+    "만료후_공백_pct(gap>dur+2s)": 4.8
+   },
+   "아베르지안": {
+    "n": 776,
+    "p25": 3.55,
+    "med": 9.01,
+    "p75": 14.3,
+    "p90": 17.26,
+    "remaining_at_recast_s": {
+     "n": 562,
+     "med": 6.07,
+     "p25": 2.3,
+     "p75": 9.89,
+     "pandemic_창_s": 5.4,
+     "판데믹내_갱신_pct": 34.7,
+     "조기갱신_pct(남은시간>판데믹)": 54.6
+    },
+    "만료후_공백_pct(gap>dur+2s)": 2.7
+   },
+   "한밤의 도래(르우라)": {
+    "n": 514,
+    "p25": 6.2,
+    "med": 11.57,
+    "p75": 16.39,
+    "p90": 19.05,
+    "remaining_at_recast_s": {
+     "n": 423,
+     "med": 4.71,
+     "p25": 0.87,
+     "p75": 8.71,
+     "pandemic_창_s": 5.4,
+     "판데믹내_갱신_pct": 35.0,
+     "조기갱신_pct(남은시간>판데믹)": 46.6
+    },
+    "만료후_공백_pct(gap>dur+2s)": 6.4
+   },
+   "카이메루스": {
+    "n": 415,
+    "p25": 2.42,
+    "med": 7.78,
+    "p75": 14.33,
+    "p90": 17.55,
+    "remaining_at_recast_s": {
+     "n": 271,
+     "med": 5.11,
+     "p25": 1.94,
+     "p75": 9.97,
+     "pandemic_창_s": 5.4,
+     "판데믹내_갱신_pct": 40.6,
+     "조기갱신_pct(남은시간>판데믹)": 48.7
+    },
+    "만료후_공백_pct(gap>dur+2s)": 2.4
+   }
+  },
+  "seed_pattern": {
+   "runs_total": 309,
+   "run_len_dist": {
+    "1": {
+     "count": 279,
+     "pct": 90.3
+    },
+    "2": {
+     "count": 26,
+     "pct": 8.4
+    },
+    "3": {
+     "count": 3,
+     "pct": 1.0
+    },
+    "5": {
+     "count": 1,
+     "pct": 0.3
+    }
+   },
+   "run_len_med": 1,
+   "intra_run_gap_s_med": 1.52,
+   "inter_run_gap_s": {
+    "med": 46.06,
+    "p25": 10.96,
+    "p75": 73.38
+   },
+   "instant_seed_pct": 22.3,
+   "note": "run = 순환 버튼 스트림에서 부패의 씨앗 연속 구간. instant = begincast 페어 없는 완료(밤의 수혜 공짜+즉발)"
+  },
+  "guide_lines": [
+   "조각 소비 최우선: 어떤 프록 상태든 다음 버튼 1순위는 불안정한 고통(일몰O 41%·조각의 불안정성O 57%·전부 꺼짐 38%) — 프록보다 영혼의 조각이 항상 위.",
+   "일몰: 분당 7.3회 획득, 84% 소모(중앙 2.2초) — 조각 소비 사이 첫 필러(어둠의 화살/영혼 흡수)를 즉발로. 낭비 16%는 2중첩 허용 덕에 큰 손해 아님.",
+   "조각의 불안정성: 95% 소모, 중앙 1.4초(2초 내 68%) — 뜨면 다음 불안정한 고통이 공짜+즉발이라 즉시 소비.",
+   "고통 갱신: 순수 단일 보스(보라시우스) 실측 '남은 3.1초'에 갱신 — 판데믹 창(5.4초) 안 갱신이 규율, 만료 공백은 5% 미만. 멀티도트 보스는 대상 순회로 간격이 절반쯤으로 압축.",
+   "부패: 완전한 부패(무한 지속)라 판당 중앙 4회 — 개막+대상 교체 시만.",
+   "암흑시선 소환: 첫 사용 중앙 5.8초(고통→부패→불안정한 고통 셋업 직후), 이후 쿨마다(간격 중앙 122.8초). 시전 직전 10초 내 고통 갱신 83%·6초 내 불안정한 고통 69% — 도트 정비를 마치고 창을 연다.",
+   "암흑시선 창 = 조각 몰아쓰기: 창 안 불안정한 고통 비중 30.4% vs 창 시간 비중 22.5%.",
+   "재앙의 손아귀: 시전 100%가 암흑시선 창 안 — 창이 열리면 필러가 재앙의 손아귀로 대체된다(전부 꺼짐·창 안 분포에서 21%).",
+   "필러 선택은 반반(어둠의 화살 연마 93킬 vs 영혼 흡수 109킬) — 순위 구조는 동일.",
+   "유령 출몰: 15초 쿨 거의 쿨마다(3.3/분)."
+  ]
+ },
+ "씨앗광": {
+  "n_kills": 76,
+  "total_min": 500.1,
+  "buttons_per_min": {
+   "부패의 씨앗": 21.62,
+   "고통": 7.5,
+   "유령 출몰": 3.47,
+   "어둠의 화살": 2.55,
+   "불안정한 고통": 1.82,
+   "암흑의 수확": 1.53,
+   "영혼 흡수": 0.94,
+   "암흑시선 소환": 0.55,
+   "부패": 0.21
+  },
+  "echo_auto_events_removed": {
+   "부패의 씨앗": 447,
+   "어둠의 화살": 24
+  },
+  "state_table": {
+   "A_일몰O": {
+    "all": {
+     "n": 6453,
+     "seed": {
+      "count": 3946,
+      "pct": 61.1
+     },
+     "agony": {
+      "count": 952,
+      "pct": 14.8
+     },
+     "ua": {
+      "count": 488,
+      "pct": 7.6
+     },
+     "sbolt": {
+      "count": 299,
+      "pct": 4.6
+     },
+     "haunt": {
+      "count": 266,
+      "pct": 4.1
+     },
+     "harvest": {
+      "count": 179,
+      "pct": 2.8
+     },
+     "drain": {
+      "count": 150,
+      "pct": 2.3
+     },
+     "darkglare": {
+      "count": 115,
+      "pct": 1.8
+     },
+     "corruption": {
+      "count": 58,
+      "pct": 0.9
+     }
+    },
+    "normal": {
+     "n": 4809,
+     "seed": {
+      "count": 3026,
+      "pct": 62.9
+     },
+     "agony": {
+      "count": 733,
+      "pct": 15.2
+     },
+     "ua": {
+      "count": 302,
+      "pct": 6.3
+     },
+     "sbolt": {
+      "count": 214,
+      "pct": 4.4
+     },
+     "haunt": {
+      "count": 199,
+      "pct": 4.1
+     },
+     "harvest": {
+      "count": 129,
+      "pct": 2.7
+     },
+     "darkglare": {
+      "count": 85,
+      "pct": 1.8
+     },
+     "drain": {
+      "count": 72,
+      "pct": 1.5
+     },
+     "corruption": {
+      "count": 49,
+      "pct": 1.0
+     }
+    },
+    "exec": {
+     "n": 1644,
+     "seed": {
+      "count": 920,
+      "pct": 56.0
+     },
+     "agony": {
+      "count": 219,
+      "pct": 13.3
+     },
+     "ua": {
+      "count": 186,
+      "pct": 11.3
+     },
+     "sbolt": {
+      "count": 85,
+      "pct": 5.2
+     },
+     "drain": {
+      "count": 78,
+      "pct": 4.7
+     },
+     "haunt": {
+      "count": 67,
+      "pct": 4.1
+     },
+     "harvest": {
+      "count": 50,
+      "pct": 3.0
+     },
+     "darkglare": {
+      "count": 30,
+      "pct": 1.8
+     },
+     "corruption": {
+      "count": 9,
+      "pct": 0.5
+     }
+    }
+   },
+   "B_일몰X_조각불안정O": {
+    "all": {
+     "n": 0
+    },
+    "normal": {
+     "n": 0
+    },
+    "exec": {
+     "n": 0
+    }
+   },
+   "C_일몰O_조각불안정O": {
+    "n": 0
+   },
+   "D_전부꺼짐": {
+    "normal": {
+     "n": 10407,
+     "seed": {
+      "count": 5315,
+      "pct": 51.1
+     },
+     "agony": {
+      "count": 2139,
+      "pct": 20.6
+     },
+     "haunt": {
+      "count": 1109,
+      "pct": 10.7
+     },
+     "sbolt": {
+      "count": 755,
+      "pct": 7.3
+     },
+     "harvest": {
+      "count": 457,
+      "pct": 4.4
+     },
+     "ua": {
+      "count": 243,
+      "pct": 2.3
+     },
+     "drain": {
+      "count": 227,
+      "pct": 2.2
+     },
+     "darkglare": {
+      "count": 123,
+      "pct": 1.2
+     },
+     "corruption": {
+      "count": 39,
+      "pct": 0.4
+     }
+    },
+    "exec": {
+     "n": 3236,
+     "seed": {
+      "count": 1551,
+      "pct": 47.9
+     },
+     "agony": {
+      "count": 660,
+      "pct": 20.4
+     },
+     "haunt": {
+      "count": 361,
+      "pct": 11.2
+     },
+     "sbolt": {
+      "count": 221,
+      "pct": 6.8
+     },
+     "ua": {
+      "count": 177,
+      "pct": 5.5
+     },
+     "harvest": {
+      "count": 127,
+      "pct": 3.9
+     },
+     "drain": {
+      "count": 94,
+      "pct": 2.9
+     },
+     "darkglare": {
+      "count": 35,
+      "pct": 1.1
+     },
+     "corruption": {
+      "count": 10,
+      "pct": 0.3
+     }
+    },
+    "암흑시선창_안": {
+     "n": 2894,
+     "seed": {
+      "count": 1661,
+      "pct": 57.4
+     },
+     "agony": {
+      "count": 492,
+      "pct": 17.0
+     },
+     "haunt": {
+      "count": 249,
+      "pct": 8.6
+     },
+     "sbolt": {
+      "count": 203,
+      "pct": 7.0
+     },
+     "harvest": {
+      "count": 106,
+      "pct": 3.7
+     },
+     "ua": {
+      "count": 86,
+      "pct": 3.0
+     },
+     "drain": {
+      "count": 52,
+      "pct": 1.8
+     },
+     "darkglare": {
+      "count": 40,
+      "pct": 1.4
+     },
+     "corruption": {
+      "count": 5,
+      "pct": 0.2
+     }
+    },
+    "암흑시선창_밖": {
+     "n": 10749,
+     "seed": {
+      "count": 5205,
+      "pct": 48.4
+     },
+     "agony": {
+      "count": 2307,
+      "pct": 21.5
+     },
+     "haunt": {
+      "count": 1221,
+      "pct": 11.4
+     },
+     "sbolt": {
+      "count": 773,
+      "pct": 7.2
+     },
+     "harvest": {
+      "count": 478,
+      "pct": 4.4
+     },
+     "ua": {
+      "count": 334,
+      "pct": 3.1
+     },
+     "drain": {
+      "count": 269,
+      "pct": 2.5
+     },
+     "darkglare": {
+      "count": 118,
+      "pct": 1.1
+     },
+     "corruption": {
+      "count": 44,
+      "pct": 0.4
+     }
+    }
+   },
+   "full": {
+    "sun=0,si=0,normal": {
+     "n": 10407,
+     "seed": {
+      "count": 5315,
+      "pct": 51.1
+     },
+     "agony": {
+      "count": 2139,
+      "pct": 20.6
+     },
+     "haunt": {
+      "count": 1109,
+      "pct": 10.7
+     },
+     "sbolt": {
+      "count": 755,
+      "pct": 7.3
+     },
+     "harvest": {
+      "count": 457,
+      "pct": 4.4
+     },
+     "ua": {
+      "count": 243,
+      "pct": 2.3
+     },
+     "drain": {
+      "count": 227,
+      "pct": 2.2
+     },
+     "darkglare": {
+      "count": 123,
+      "pct": 1.2
+     },
+     "corruption": {
+      "count": 39,
+      "pct": 0.4
+     }
+    },
+    "sun=0,si=0,exec": {
+     "n": 3236,
+     "seed": {
+      "count": 1551,
+      "pct": 47.9
+     },
+     "agony": {
+      "count": 660,
+      "pct": 20.4
+     },
+     "haunt": {
+      "count": 361,
+      "pct": 11.2
+     },
+     "sbolt": {
+      "count": 221,
+      "pct": 6.8
+     },
+     "ua": {
+      "count": 177,
+      "pct": 5.5
+     },
+     "harvest": {
+      "count": 127,
+      "pct": 3.9
+     },
+     "drain": {
+      "count": 94,
+      "pct": 2.9
+     },
+     "darkglare": {
+      "count": 35,
+      "pct": 1.1
+     },
+     "corruption": {
+      "count": 10,
+      "pct": 0.3
+     }
+    },
+    "sun=0,si=1,normal": {
+     "n": 0
+    },
+    "sun=0,si=1,exec": {
+     "n": 0
+    },
+    "sun=1,si=0,normal": {
+     "n": 4809,
+     "seed": {
+      "count": 3026,
+      "pct": 62.9
+     },
+     "agony": {
+      "count": 733,
+      "pct": 15.2
+     },
+     "ua": {
+      "count": 302,
+      "pct": 6.3
+     },
+     "sbolt": {
+      "count": 214,
+      "pct": 4.4
+     },
+     "haunt": {
+      "count": 199,
+      "pct": 4.1
+     },
+     "harvest": {
+      "count": 129,
+      "pct": 2.7
+     },
+     "darkglare": {
+      "count": 85,
+      "pct": 1.8
+     },
+     "drain": {
+      "count": 72,
+      "pct": 1.5
+     },
+     "corruption": {
+      "count": 49,
+      "pct": 1.0
+     }
+    },
+    "sun=1,si=0,exec": {
+     "n": 1644,
+     "seed": {
+      "count": 920,
+      "pct": 56.0
+     },
+     "agony": {
+      "count": 219,
+      "pct": 13.3
+     },
+     "ua": {
+      "count": 186,
+      "pct": 11.3
+     },
+     "sbolt": {
+      "count": 85,
+      "pct": 5.2
+     },
+     "drain": {
+      "count": 78,
+      "pct": 4.7
+     },
+     "haunt": {
+      "count": 67,
+      "pct": 4.1
+     },
+     "harvest": {
+      "count": 50,
+      "pct": 3.0
+     },
+     "darkglare": {
+      "count": 30,
+      "pct": 1.8
+     },
+     "corruption": {
+      "count": 9,
+      "pct": 0.5
+     }
+    },
+    "sun=1,si=1,normal": {
+     "n": 0
+    },
+    "sun=1,si=1,exec": {
+     "n": 0
+    }
+   }
+  },
+  "proc_consumption": {
+   "일몰": {
+    "gains": 4455,
+    "consumed_pct": 98.1,
+    "expired_or_wasted_pct": 1.9,
+    "consume_delay_s": {
+     "med": 0.81,
+     "p75": 1.5,
+     "p90": 2.91
+    },
+    "within_2s_pct": 81.5
+   },
+   "조각의_불안정성": {
+    "gains": 0,
+    "note": "이 빌드는 조각의 불안정성 채택 없음(또는 극소수)"
+   }
+  },
+  "dots": {
+   "고통_18s": {
+    "n": 3677,
+    "p25": 3.35,
+    "med": 6.75,
+    "p75": 11.88,
+    "p90": 15.89,
+    "remaining_at_recast_s": {
+     "n": 2507,
+     "med": 8.37,
+     "p25": 4.24,
+     "p75": 11.49,
+     "pandemic_창_s": 5.4,
+     "판데믹내_갱신_pct": 24.6,
+     "조기갱신_pct(남은시간>판데믹)": 68.6
+    },
+    "만료후_공백_pct(gap>dur+2s)": 2.4
+   },
+   "고통_추정업타임": {
+    "med_pct": 99.0,
+    "p25_pct": 98.0,
+    "주의": "합집합 근사(대상 구분 없음) — 멀티도트 보스는 과대, 단일 보스만 신뢰"
+   },
+   "불안정한_고통_시전주기": {
+    "n": 776,
+    "p25": 1.2,
+    "med": 2.32,
+    "p75": 6.01,
+    "p90": 14.97
+   },
+   "부패_판당시전": {
+    "med": 0,
+    "p90": 5,
+    "note": "완전한 부패(무한 지속) 표준 — 1회 깔고 방치가 정상"
+   }
+  },
+  "darkglare": {
+   "n_casts": 273,
+   "first_s_med": 4.07,
+   "gap_s_med": 122.41,
+   "직전_고통갱신_10s내_pct": 89.7,
+   "직전_불안정한고통_6s내_pct": 14.3,
+   "직전_3버튼_top6": [
+    {
+     "seq": [
+      "고통",
+      "부패의 씨앗",
+      "부패의 씨앗"
+     ],
+     "n": 23
+    },
+    {
+     "seq": [
+      "고통",
+      "고통",
+      "부패의 씨앗"
+     ],
+     "n": 20
+    },
+    {
+     "seq": [
+      "부패의 씨앗",
+      "부패의 씨앗",
+      "부패의 씨앗"
+     ],
+     "n": 17
+    },
+    {
+     "seq": [
+      "부패의 씨앗",
+      "고통",
+      "부패의 씨앗"
+     ],
+     "n": 15
+    },
+    {
+     "seq": [
+      "부패의 씨앗",
+      "부패의 씨앗",
+      "고통"
+     ],
+     "n": 8
+    },
+    {
+     "seq": [
+      "부패의 씨앗",
+      "고통",
+      "고통"
+     ],
+     "n": 8
+    }
+   ],
+   "창내_불안정한고통_pct": 25.4,
+   "창_시간비중_pct": 18.3,
+   "재앙의_손아귀_창내_pct": null,
+   "암흑의_수확_창내_pct": 19.0
+  },
+  "hardcast_vs_instant": {
+   "어둠의 화살": {
+    "instant": 616,
+    "hardcast": 659,
+    "instant_pct": 48.3
+   },
+   "부패의 씨앗": {
+    "instant": 7015,
+    "hardcast": 3797,
+    "instant_pct": 64.9
+   },
+   "유령 출몰": {
+    "instant": 42,
+    "hardcast": 1694,
+    "instant_pct": 2.4
+   },
+   "불안정한 고통": {
+    "instant": 339,
+    "hardcast": 569,
+    "instant_pct": 37.3
+   }
+  },
+  "filler_choice_kills": {
+   "drain": 21,
+   "sbolt": 53
+  },
+  "rapid_600ms_pairs": {
+   "first_hard->second_instant": 2597,
+   "first_instant->second_hard": 610,
+   "first_instant->second_instant": 608,
+   "first_hard->second_hard": 11
+  },
+  "other_cast_ids_top": {
+   "111771": 6,
+   "274738": 4,
+   "234153": 3,
+   "272071": 3,
+   "131318": 2,
+   "256948": 2,
+   "257040": 2,
+   "1262857": 1,
+   "360184": 1,
+   "447446": 1
+  },
+  "agony_gap_by_boss": {
+   "바엘고어": {
+    "n": 1786,
+    "p25": 3.43,
+    "med": 6.49,
+    "p75": 11.7,
+    "p90": 15.57,
+    "remaining_at_recast_s": {
+     "n": 1213,
+     "med": 8.7,
+     "p25": 4.37,
+     "p75": 11.71,
+     "pandemic_창_s": 5.4,
+     "판데믹내_갱신_pct": 23.1,
+     "조기갱신_pct(남은시간>판데믹)": 70.4
+    },
+    "만료후_공백_pct(gap>dur+2s)": 2.6
+   },
+   "선봉대": {
+    "n": 1742,
+    "p25": 3.17,
+    "med": 6.9,
+    "p75": 11.93,
+    "p90": 15.79,
+    "remaining_at_recast_s": {
+     "n": 1190,
+     "med": 8.2,
+     "p25": 4.31,
+     "p75": 11.24,
+     "pandemic_창_s": 5.4,
+     "판데믹내_갱신_pct": 25.9,
+     "조기갱신_pct(남은시간>판데믹)": 68.1
+    },
+    "만료후_공백_pct(gap>dur+2s)": 1.4
+   },
+   "카이메루스": {
+    "n": 149,
+    "p25": 3.8,
+    "med": 8.54,
+    "p75": 14.74,
+    "p90": 20.28,
+    "remaining_at_recast_s": {
+     "n": 104,
+     "med": 6.47,
+     "p25": 1.63,
+     "p75": 10.63,
+     "pandemic_창_s": 5.4,
+     "판데믹내_갱신_pct": 27.9,
+     "조기갱신_pct(남은시간>판데믹)": 54.8
+    },
+    "만료후_공백_pct(gap>dur+2s)": 10.7
+   }
+  },
+  "seed_pattern": {
+   "runs_total": 4428,
+   "run_len_dist": {
+    "1": {
+     "count": 1725,
+     "pct": 39.0
+    },
+    "2": {
+     "count": 1081,
+     "pct": 24.4
+    },
+    "3": {
+     "count": 673,
+     "pct": 15.2
+    },
+    "4": {
+     "count": 405,
+     "pct": 9.1
+    },
+    "5": {
+     "count": 230,
+     "pct": 5.2
+    },
+    "6": {
+     "count": 151,
+     "pct": 3.4
+    },
+    "7": {
+     "count": 97,
+     "pct": 2.2
+    },
+    "8": {
+     "count": 66,
+     "pct": 1.5
+    }
+   },
+   "run_len_med": 2,
+   "intra_run_gap_s_med": 1.28,
+   "inter_run_gap_s": {
+    "med": 3.66,
+    "p25": 2.52,
+    "p75": 5.05
+   },
+   "instant_seed_pct": 64.9,
+   "note": "run = 순환 버튼 스트림에서 부패의 씨앗 연속 구간. instant = begincast 페어 없는 완료(밤의 수혜 공짜+즉발)"
+  },
+  "guide_lines": [
+   "부패의 씨앗이 주력 버튼(21.6/분, 순환 GCD의 절반) — 조각이 생기는 대로 계속 시전.",
+   "일몰(밤의 수혜): 98% 소모, 중앙 0.8초(2초 내 81%) — 뜨는 즉시 공짜+즉발 씨앗. 단일빌드보다 훨씬 타이트하게 소비.",
+   "씨앗 연타 구조: 1연 39%·2연 24%·3연 15%·4연+ 22%, 연타 묶음 간격 중앙 3.7초 — 웨이브를 기다렸다 몰아치는 패턴이 아니라 상시 연사(대기 신호 없음).",
+   "불안정한 고통은 1.8/분(유지 수준), 어둠의 화살/영혼 흡수는 3.5/분 보조 필러 — 전부 꺼짐 상태에서도 씨앗 51%.",
+   "고통 7.5/분 — 바엘고어&에조라크·선봉대 2타겟 멀티도트 순회(갱신 규율은 단일과 동일 판데믹).",
+   "암흑시선 소환: 첫 사용 중앙 4.1초, 직전 10초 내 고통 갱신 89.7% — 단일과 같은 '도트 정비 후 오픈'. 재앙의 손아귀 미채택이라 창 중에도 씨앗 연사.",
+   "처형 구간(마지막 25%)에도 씨앗 1순위(56%) — 필러 전환 없음."
+  ]
+ },
+ "씨앗_조각불안정_변형": {
+  "n_kills": 18,
+  "total_min": 103.1,
+  "buttons_per_min": {
+   "불안정한 고통": 10.93,
+   "부패의 씨앗": 8.5,
+   "고통": 7.21,
+   "영혼 흡수": 5.28,
+   "유령 출몰": 3.36,
+   "암흑의 수확": 1.34,
+   "암흑시선 소환": 0.54,
+   "어둠의 화살": 0.52,
+   "부패": 0.42
+  },
+  "echo_auto_events_removed": {
+   "부패의 씨앗": 30,
+   "어둠의 화살": 2,
+   "불안정한 고통": 1
+  },
+  "state_table": {
+   "A_일몰O": {
+    "all": {
+     "n": 1977,
+     "ua": {
+      "count": 613,
+      "pct": 31.0
+     },
+     "seed": {
+      "count": 399,
+      "pct": 20.2
+     },
+     "drain": {
+      "count": 388,
+      "pct": 19.6
+     },
+     "agony": {
+      "count": 332,
+      "pct": 16.8
+     },
+     "haunt": {
+      "count": 103,
+      "pct": 5.2
+     },
+     "harvest": {
+      "count": 55,
+      "pct": 2.8
+     },
+     "darkglare": {
+      "count": 36,
+      "pct": 1.8
+     },
+     "sbolt": {
+      "count": 27,
+      "pct": 1.4
+     },
+     "corruption": {
+      "count": 24,
+      "pct": 1.2
+     }
+    },
+    "normal": {
+     "n": 1486,
+     "ua": {
+      "count": 442,
+      "pct": 29.7
+     },
+     "seed": {
+      "count": 328,
+      "pct": 22.1
+     },
+     "drain": {
+      "count": 265,
+      "pct": 17.8
+     },
+     "agony": {
+      "count": 263,
+      "pct": 17.7
+     },
+     "haunt": {
+      "count": 78,
+      "pct": 5.2
+     },
+     "harvest": {
+      "count": 43,
+      "pct": 2.9
+     },
+     "darkglare": {
+      "count": 28,
+      "pct": 1.9
+     },
+     "corruption": {
+      "count": 23,
+      "pct": 1.5
+     },
+     "sbolt": {
+      "count": 16,
+      "pct": 1.1
+     }
+    },
+    "exec": {
+     "n": 491,
+     "ua": {
+      "count": 171,
+      "pct": 34.8
+     },
+     "drain": {
+      "count": 123,
+      "pct": 25.1
+     },
+     "seed": {
+      "count": 71,
+      "pct": 14.5
+     },
+     "agony": {
+      "count": 69,
+      "pct": 14.1
+     },
+     "haunt": {
+      "count": 25,
+      "pct": 5.1
+     },
+     "harvest": {
+      "count": 12,
+      "pct": 2.4
+     },
+     "sbolt": {
+      "count": 11,
+      "pct": 2.2
+     },
+     "darkglare": {
+      "count": 8,
+      "pct": 1.6
+     },
+     "corruption": {
+      "count": 1,
+      "pct": 0.2
+     }
+    }
+   },
+   "B_일몰X_조각불안정O": {
+    "all": {
+     "n": 265,
+     "ua": {
+      "count": 135,
+      "pct": 50.9
+     },
+     "agony": {
+      "count": 45,
+      "pct": 17.0
+     },
+     "seed": {
+      "count": 30,
+      "pct": 11.3
+     },
+     "haunt": {
+      "count": 27,
+      "pct": 10.2
+     },
+     "sbolt": {
+      "count": 10,
+      "pct": 3.8
+     },
+     "harvest": {
+      "count": 9,
+      "pct": 3.4
+     },
+     "drain": {
+      "count": 8,
+      "pct": 3.0
+     },
+     "darkglare": {
+      "count": 1,
+      "pct": 0.4
+     }
+    },
+    "normal": {
+     "n": 184,
+     "ua": {
+      "count": 90,
+      "pct": 48.9
+     },
+     "agony": {
+      "count": 33,
+      "pct": 17.9
+     },
+     "haunt": {
+      "count": 21,
+      "pct": 11.4
+     },
+     "seed": {
+      "count": 19,
+      "pct": 10.3
+     },
+     "sbolt": {
+      "count": 8,
+      "pct": 4.3
+     },
+     "drain": {
+      "count": 7,
+      "pct": 3.8
+     },
+     "harvest": {
+      "count": 5,
+      "pct": 2.7
+     },
+     "darkglare": {
+      "count": 1,
+      "pct": 0.5
+     }
+    },
+    "exec": {
+     "n": 81,
+     "ua": {
+      "count": 45,
+      "pct": 55.6
+     },
+     "agony": {
+      "count": 12,
+      "pct": 14.8
+     },
+     "seed": {
+      "count": 11,
+      "pct": 13.6
+     },
+     "haunt": {
+      "count": 6,
+      "pct": 7.4
+     },
+     "harvest": {
+      "count": 4,
+      "pct": 4.9
+     },
+     "sbolt": {
+      "count": 2,
+      "pct": 2.5
+     },
+     "drain": {
+      "count": 1,
+      "pct": 1.2
+     }
+    }
+   },
+   "C_일몰O_조각불안정O": {
+    "n": 182,
+    "ua": {
+     "count": 86,
+     "pct": 47.3
+    },
+    "agony": {
+     "count": 35,
+     "pct": 19.2
+    },
+    "seed": {
+     "count": 27,
+     "pct": 14.8
+    },
+    "drain": {
+     "count": 22,
+     "pct": 12.1
+    },
+    "haunt": {
+     "count": 4,
+     "pct": 2.2
+    },
+    "harvest": {
+     "count": 4,
+     "pct": 2.2
+    },
+    "sbolt": {
+     "count": 3,
+     "pct": 1.6
+    },
+    "darkglare": {
+     "count": 1,
+     "pct": 0.5
+    }
+   },
+   "D_전부꺼짐": {
+    "normal": {
+     "n": 1278,
+     "seed": {
+      "count": 351,
+      "pct": 27.5
+     },
+     "agony": {
+      "count": 284,
+      "pct": 22.2
+     },
+     "ua": {
+      "count": 278,
+      "pct": 21.8
+     },
+     "haunt": {
+      "count": 157,
+      "pct": 12.3
+     },
+     "drain": {
+      "count": 113,
+      "pct": 8.8
+     },
+     "harvest": {
+      "count": 52,
+      "pct": 4.1
+     },
+     "darkglare": {
+      "count": 18,
+      "pct": 1.4
+     },
+     "corruption": {
+      "count": 15,
+      "pct": 1.2
+     },
+     "sbolt": {
+      "count": 10,
+      "pct": 0.8
+     }
+    },
+    "exec": {
+     "n": 407,
+     "ua": {
+      "count": 101,
+      "pct": 24.8
+     },
+     "seed": {
+      "count": 96,
+      "pct": 23.6
+     },
+     "agony": {
+      "count": 82,
+      "pct": 20.1
+     },
+     "haunt": {
+      "count": 59,
+      "pct": 14.5
+     },
+     "drain": {
+      "count": 35,
+      "pct": 8.6
+     },
+     "harvest": {
+      "count": 22,
+      "pct": 5.4
+     },
+     "sbolt": {
+      "count": 7,
+      "pct": 1.7
+     },
+     "corruption": {
+      "count": 4,
+      "pct": 1.0
+     },
+     "darkglare": {
+      "count": 1,
+      "pct": 0.2
+     }
+    },
+    "암흑시선창_안": {
+     "n": 332,
+     "ua": {
+      "count": 99,
+      "pct": 29.8
+     },
+     "seed": {
+      "count": 71,
+      "pct": 21.4
+     },
+     "agony": {
+      "count": 63,
+      "pct": 19.0
+     },
+     "drain": {
+      "count": 43,
+      "pct": 13.0
+     },
+     "haunt": {
+      "count": 35,
+      "pct": 10.5
+     },
+     "harvest": {
+      "count": 13,
+      "pct": 3.9
+     },
+     "darkglare": {
+      "count": 5,
+      "pct": 1.5
+     },
+     "sbolt": {
+      "count": 2,
+      "pct": 0.6
+     },
+     "corruption": {
+      "count": 1,
+      "pct": 0.3
+     }
+    },
+    "암흑시선창_밖": {
+     "n": 1353,
+     "seed": {
+      "count": 376,
+      "pct": 27.8
+     },
+     "agony": {
+      "count": 303,
+      "pct": 22.4
+     },
+     "ua": {
+      "count": 280,
+      "pct": 20.7
+     },
+     "haunt": {
+      "count": 181,
+      "pct": 13.4
+     },
+     "drain": {
+      "count": 105,
+      "pct": 7.8
+     },
+     "harvest": {
+      "count": 61,
+      "pct": 4.5
+     },
+     "corruption": {
+      "count": 18,
+      "pct": 1.3
+     },
+     "sbolt": {
+      "count": 15,
+      "pct": 1.1
+     },
+     "darkglare": {
+      "count": 14,
+      "pct": 1.0
+     }
+    }
+   },
+   "full": {
+    "sun=0,si=0,normal": {
+     "n": 1278,
+     "seed": {
+      "count": 351,
+      "pct": 27.5
+     },
+     "agony": {
+      "count": 284,
+      "pct": 22.2
+     },
+     "ua": {
+      "count": 278,
+      "pct": 21.8
+     },
+     "haunt": {
+      "count": 157,
+      "pct": 12.3
+     },
+     "drain": {
+      "count": 113,
+      "pct": 8.8
+     },
+     "harvest": {
+      "count": 52,
+      "pct": 4.1
+     },
+     "darkglare": {
+      "count": 18,
+      "pct": 1.4
+     },
+     "corruption": {
+      "count": 15,
+      "pct": 1.2
+     },
+     "sbolt": {
+      "count": 10,
+      "pct": 0.8
+     }
+    },
+    "sun=0,si=0,exec": {
+     "n": 407,
+     "ua": {
+      "count": 101,
+      "pct": 24.8
+     },
+     "seed": {
+      "count": 96,
+      "pct": 23.6
+     },
+     "agony": {
+      "count": 82,
+      "pct": 20.1
+     },
+     "haunt": {
+      "count": 59,
+      "pct": 14.5
+     },
+     "drain": {
+      "count": 35,
+      "pct": 8.6
+     },
+     "harvest": {
+      "count": 22,
+      "pct": 5.4
+     },
+     "sbolt": {
+      "count": 7,
+      "pct": 1.7
+     },
+     "corruption": {
+      "count": 4,
+      "pct": 1.0
+     },
+     "darkglare": {
+      "count": 1,
+      "pct": 0.2
+     }
+    },
+    "sun=0,si=1,normal": {
+     "n": 184,
+     "ua": {
+      "count": 90,
+      "pct": 48.9
+     },
+     "agony": {
+      "count": 33,
+      "pct": 17.9
+     },
+     "haunt": {
+      "count": 21,
+      "pct": 11.4
+     },
+     "seed": {
+      "count": 19,
+      "pct": 10.3
+     },
+     "sbolt": {
+      "count": 8,
+      "pct": 4.3
+     },
+     "drain": {
+      "count": 7,
+      "pct": 3.8
+     },
+     "harvest": {
+      "count": 5,
+      "pct": 2.7
+     },
+     "darkglare": {
+      "count": 1,
+      "pct": 0.5
+     }
+    },
+    "sun=0,si=1,exec": {
+     "n": 81,
+     "ua": {
+      "count": 45,
+      "pct": 55.6
+     },
+     "agony": {
+      "count": 12,
+      "pct": 14.8
+     },
+     "seed": {
+      "count": 11,
+      "pct": 13.6
+     },
+     "haunt": {
+      "count": 6,
+      "pct": 7.4
+     },
+     "harvest": {
+      "count": 4,
+      "pct": 4.9
+     },
+     "sbolt": {
+      "count": 2,
+      "pct": 2.5
+     },
+     "drain": {
+      "count": 1,
+      "pct": 1.2
+     }
+    },
+    "sun=1,si=0,normal": {
+     "n": 1361,
+     "ua": {
+      "count": 377,
+      "pct": 27.7
+     },
+     "seed": {
+      "count": 311,
+      "pct": 22.9
+     },
+     "drain": {
+      "count": 254,
+      "pct": 18.7
+     },
+     "agony": {
+      "count": 237,
+      "pct": 17.4
+     },
+     "haunt": {
+      "count": 75,
+      "pct": 5.5
+     },
+     "harvest": {
+      "count": 41,
+      "pct": 3.0
+     },
+     "darkglare": {
+      "count": 28,
+      "pct": 2.1
+     },
+     "corruption": {
+      "count": 23,
+      "pct": 1.7
+     },
+     "sbolt": {
+      "count": 15,
+      "pct": 1.1
+     }
+    },
+    "sun=1,si=0,exec": {
+     "n": 434,
+     "ua": {
+      "count": 150,
+      "pct": 34.6
+     },
+     "drain": {
+      "count": 112,
+      "pct": 25.8
+     },
+     "seed": {
+      "count": 61,
+      "pct": 14.1
+     },
+     "agony": {
+      "count": 60,
+      "pct": 13.8
+     },
+     "haunt": {
+      "count": 24,
+      "pct": 5.5
+     },
+     "harvest": {
+      "count": 10,
+      "pct": 2.3
+     },
+     "sbolt": {
+      "count": 9,
+      "pct": 2.1
+     },
+     "darkglare": {
+      "count": 7,
+      "pct": 1.6
+     },
+     "corruption": {
+      "count": 1,
+      "pct": 0.2
+     }
+    },
+    "sun=1,si=1,normal": {
+     "n": 125,
+     "ua": {
+      "count": 65,
+      "pct": 52.0
+     },
+     "agony": {
+      "count": 26,
+      "pct": 20.8
+     },
+     "seed": {
+      "count": 17,
+      "pct": 13.6
+     },
+     "drain": {
+      "count": 11,
+      "pct": 8.8
+     },
+     "haunt": {
+      "count": 3,
+      "pct": 2.4
+     },
+     "harvest": {
+      "count": 2,
+      "pct": 1.6
+     },
+     "sbolt": {
+      "count": 1,
+      "pct": 0.8
+     }
+    },
+    "sun=1,si=1,exec": {
+     "n": 57,
+     "ua": {
+      "count": 21,
+      "pct": 36.8
+     },
+     "drain": {
+      "count": 11,
+      "pct": 19.3
+     },
+     "seed": {
+      "count": 10,
+      "pct": 17.5
+     },
+     "agony": {
+      "count": 9,
+      "pct": 15.8
+     },
+     "sbolt": {
+      "count": 2,
+      "pct": 3.5
+     },
+     "harvest": {
+      "count": 2,
+      "pct": 3.5
+     },
+     "darkglare": {
+      "count": 1,
+      "pct": 1.8
+     },
+     "haunt": {
+      "count": 1,
+      "pct": 1.8
+     }
+    }
+   }
+  },
+  "proc_consumption": {
+   "일몰": {
+    "gains": 826,
+    "consumed_pct": 89.1,
+    "expired_or_wasted_pct": 10.9,
+    "consume_delay_s": {
+     "med": 1.53,
+     "p75": 3.66,
+     "p90": 5.79
+    },
+    "within_2s_pct": 57.7
+   },
+   "조각의_불안정성": {
+    "gains": 247,
+    "consumed_pct": 89.9,
+    "expired_or_wasted_pct": 10.1,
+    "consume_delay_s": {
+     "med": 1.62,
+     "p75": 2.8,
+     "p90": 3.86
+    },
+    "within_2s_pct": 60.8
+   }
+  },
+  "dots": {
+   "고통_18s": {
+    "n": 725,
+    "p25": 2.41,
+    "med": 7.13,
+    "p75": 13.33,
+    "p90": 16.77,
+    "remaining_at_recast_s": {
+     "n": 453,
+     "med": 6.36,
+     "p25": 2.56,
+     "p75": 10.43,
+     "pandemic_창_s": 5.4,
+     "판데믹내_갱신_pct": 35.3,
+     "조기갱신_pct(남은시간>판데믹)": 55.2
+    },
+    "만료후_공백_pct(gap>dur+2s)": 3.7
+   },
+   "고통_추정업타임": {
+    "med_pct": 97.0,
+    "p25_pct": 96.0,
+    "주의": "합집합 근사(대상 구분 없음) — 멀티도트 보스는 과대, 단일 보스만 신뢰"
+   },
+   "불안정한_고통_시전주기": {
+    "n": 1107,
+    "p25": 1.22,
+    "med": 2.44,
+    "p75": 5.1,
+    "p90": 9.68
+   },
+   "부패_판당시전": {
+    "med": 2,
+    "p90": 5,
+    "note": "완전한 부패(무한 지속) 표준 — 1회 깔고 방치가 정상"
+   }
+  },
+  "darkglare": {
+   "n_casts": 56,
+   "first_s_med": 4.31,
+   "gap_s_med": 123.0,
+   "직전_고통갱신_10s내_pct": 89.3,
+   "직전_불안정한고통_6s내_pct": 58.9,
+   "직전_3버튼_top6": [
+    {
+     "seq": [
+      "불안정한 고통",
+      "불안정한 고통",
+      "불안정한 고통"
+     ],
+     "n": 7
+    },
+    {
+     "seq": [
+      "부패",
+      "불안정한 고통",
+      "불안정한 고통"
+     ],
+     "n": 5
+    },
+    {
+     "seq": [
+      "고통",
+      "고통",
+      "부패의 씨앗"
+     ],
+     "n": 4
+    },
+    {
+     "seq": [
+      "고통",
+      "불안정한 고통",
+      "유령 출몰"
+     ],
+     "n": 3
+    },
+    {
+     "seq": [
+      "부패의 씨앗",
+      "부패의 씨앗",
+      "고통"
+     ],
+     "n": 2
+    },
+    {
+     "seq": [
+      "유령 출몰",
+      "불안정한 고통",
+      "불안정한 고통"
+     ],
+     "n": 2
+    }
+   ],
+   "창내_불안정한고통_pct": 31.7,
+   "창_시간비중_pct": 19.0,
+   "재앙의_손아귀_창내_pct": null,
+   "암흑의_수확_창내_pct": 26.1
+  },
+  "hardcast_vs_instant": {
+   "어둠의 화살": {
+    "instant": 42,
+    "hardcast": 12,
+    "instant_pct": 77.8
+   },
+   "부패의 씨앗": {
+    "instant": 620,
+    "hardcast": 256,
+    "instant_pct": 70.8
+   },
+   "유령 출몰": {
+    "instant": 11,
+    "hardcast": 335,
+    "instant_pct": 3.2
+   },
+   "불안정한 고통": {
+    "instant": 617,
+    "hardcast": 510,
+    "instant_pct": 54.7
+   }
+  },
+  "filler_choice_kills": {
+   "drain": 17,
+   "sbolt": 1
+  },
+  "rapid_600ms_pairs": {
+   "first_hard->second_instant": 451,
+   "first_instant->second_instant": 143,
+   "first_instant->second_hard": 130
+  },
+  "other_cast_ids_top": {
+   "334275": 3,
+   "111771": 2,
+   "5484": 1
+  },
+  "agony_gap_by_boss": {
+   "카이메루스": {
+    "n": 602,
+    "p25": 2.27,
+    "med": 6.27,
+    "p75": 12.87,
+    "p90": 16.65,
+    "remaining_at_recast_s": {
+     "n": 368,
+     "med": 6.67,
+     "p25": 3.11,
+     "p75": 10.62,
+     "pandemic_창_s": 5.4,
+     "판데믹내_갱신_pct": 33.4,
+     "조기갱신_pct(남은시간>판데믹)": 57.3
+    },
+    "만료후_공백_pct(gap>dur+2s)": 3.7
+   }
+  },
+  "seed_pattern": {
+   "runs_total": 370,
+   "run_len_dist": {
+    "1": {
+     "count": 156,
+     "pct": 42.2
+    },
+    "2": {
+     "count": 80,
+     "pct": 21.6
+    },
+    "3": {
+     "count": 55,
+     "pct": 14.9
+    },
+    "4": {
+     "count": 35,
+     "pct": 9.5
+    },
+    "5": {
+     "count": 22,
+     "pct": 5.9
+    },
+    "6": {
+     "count": 14,
+     "pct": 3.8
+    },
+    "7": {
+     "count": 3,
+     "pct": 0.8
+    },
+    "8": {
+     "count": 5,
+     "pct": 1.4
+    }
+   },
+   "run_len_med": 2,
+   "intra_run_gap_s_med": 1.27,
+   "inter_run_gap_s": {
+    "med": 4.29,
+    "p25": 2.59,
+    "p75": 9.29
+   },
+   "instant_seed_pct": 70.8,
+   "note": "run = 순환 버튼 스트림에서 부패의 씨앗 연속 구간. instant = begincast 페어 없는 완료(밤의 수혜 공짜+즉발)"
+  }
+ },
+ "flow_verdict": "빌드 2탭 신설 타당 — 주력 버튼 자체가 다름: 단일은 불안정한 고통 17.2/분·부패의 씨앗 0.33/분, 씨앗광은 부패의 씨앗 21.6/분·불안정한 고통 1.8/분. 상태표 1순위도 전 상태에서 갈림(단일=불안정한 고통, 씨앗광=부패의 씨앗). 카이메루스 '씨앗+조각의 불안정성' 변형(18킬)은 별도 탭 불필요 — 씨앗광 탭에 각주(불안정한 고통 10.9/분 + 씨앗 8.5/분 하이브리드)면 충분."
+}
