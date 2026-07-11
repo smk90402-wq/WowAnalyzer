@@ -1,0 +1,1753 @@
+{
+ "_meta": {
+  "generated_by": "tmp_mine_warr_combos.py",
+  "frame": "영웅특성 2 × 스펙트리 빌드 3(단일/광/하이브리드) = 6칸, 스펙별",
+  "inputs": [
+   "data/rankings_zone46_mythic_dps_top100.csv (2026-07-10)",
+   "data/v2_cache_player_fight.json (nodes/talents/sourceID)",
+   "data/talent_trees.json",
+   "scratchpad arms_cd_events.json / fury_cd_events.json (top100 296킬씩)"
+  ],
+  "sample": {
+   "arms_rank_kills": 887,
+   "fury_rank_kills": 893
+  },
+  "이벤트_매칭": "킬 키 report:fight:sourceID ↔ player_fight 캐시 sourceID",
+  "오염_제거": "무기 학살자 자동필사(불안정한 정신, 칼폭 후 4.75초 내 12294) 제외, 분노 학살자 자동피갈(칼폭~격렬한 희열 마커+100ms) 제외 — 기존 procprio 방법론 유지",
+  "caveats": [
+   "빌드 분류는 특성 마커 기반 — 실제 타겟 수(로그 대상 수)는 이벤트에 없어 미관측.",
+   "처형구간은 시간(마지막 25%) 근사, 필사 준비(msr)는 간격 기반 근사 — arms_procprio.json 과 동일 한계.",
+   "top100 랭킹 표본 = 상위권 편향. 6칸 중 비어있는 칸은 '상위권 미채택'이지 불가능이 아님."
+  ]
+ },
+ "arms": {
+  "axis": {
+   "hero_axis": "학살자(652) vs 거신(235) — hero 트리 노드 겹침>=8",
+   "build_markers": {
+    "단일": {
+     "node": 90283,
+     "name": "혈행성 전이",
+     "설명": "출혈·치명타 증폭 단일 패시브(2P)"
+    },
+    "광": {
+     "nodes": [
+      92536,
+      109686
+     ],
+     "names": [
+      "휩쓸기 일격 연마 / 강력한 기세",
+      "몸풀기였을 뿐 / 광범위한 타격"
+     ],
+     "지배_옵션": {
+      "92536": "강력한 기세(부가 대상 휩쓸기 피해 +25%) — entry 114739",
+      "109686": "광범위한 타격(거인의 강타가 휩쓸기 일격 부여) — entry 135942"
+     },
+     "entry_counts": {
+      "92536": {
+       "114739": 341,
+       "114641": 1
+      },
+      "109686": {
+       "135942": 356,
+       "135943": 4
+      }
+     },
+     "설명": "휩쓸기 일격 증폭 패키지 = 광/2타겟 빌드. 몸풀기였을 뿐(분노 수급) 선택은 4명뿐."
+    }
+   },
+   "분류_규칙": "혈행성 전이 보유(광패키지 완비 아님) → 단일 / 광패키지(92536+109686) 완비(혈행 없음) → 광. 부분 마커(혈행+109686 12킬, 혈행+92536 4킬)는 혈행 보유라 단일로 접힘. 둘 다 아님 10킬은 회전베기변형/혼합으로 별도 집계(매트릭스 칸 밖).",
+   "marker_crosstab_slayer": {
+    "혈행=0,92536=1,109686=1": 338,
+    "혈행=1,92536=0,109686=0": 288,
+    "혈행=1,92536=0,109686=1": 12,
+    "혈행=0,92536=0,109686=1": 10,
+    "혈행=1,92536=1,109686=0": 4
+   },
+   "slayer_build_by_boss": {
+    "벨로렌": {
+     "광": 96,
+     "단일": 2,
+     "회전베기변형": 1
+    },
+    "보라시우스": {
+     "단일": 84,
+     "광": 15,
+     "회전베기변형": 1
+    },
+    "살라다르": {
+     "광": 91,
+     "단일": 8
+    },
+    "아베르지안": {
+     "광": 45,
+     "단일": 27,
+     "회전베기변형": 2
+    },
+    "우주의 왕관": {
+     "광": 69,
+     "단일": 31
+    },
+    "카이메루스": {
+     "단일": 64,
+     "광": 12,
+     "회전베기변형": 5
+    },
+    "한밤의 도래(르우라)": {
+     "단일": 88,
+     "광": 10,
+     "회전베기변형": 1
+    }
+   },
+   "fringe_cleave_variant": {
+    "markers": "회전베기(90293)+궤멸적인 연계(109683) — 학살자 약 10킬(1.5%)",
+    "note": "거신형 회전베기 연계를 학살자로 이식한 소수 변형. 표본 부족으로 이벤트 분석 제외."
+   }
+  },
+  "matrix": {
+   "학살자|단일": {
+    "kills": 304,
+    "share_of_spec_pct": 34.3,
+    "top20_kills": 53,
+    "boss_dist": {
+     "한밤의 도래(르우라)": 88,
+     "보라시우스": 84,
+     "카이메루스": 64,
+     "우주의 왕관": 31,
+     "아베르지안": 27,
+     "살라다르": 8,
+     "벨로렌": 2
+    },
+    "representative_bosses": [
+     "한밤의 도래(르우라)",
+     "보라시우스",
+     "카이메루스"
+    ]
+   },
+   "학살자|광": {
+    "kills": 338,
+    "share_of_spec_pct": 38.1,
+    "top20_kills": 64,
+    "boss_dist": {
+     "벨로렌": 96,
+     "살라다르": 91,
+     "우주의 왕관": 69,
+     "아베르지안": 45,
+     "보라시우스": 15,
+     "카이메루스": 12,
+     "한밤의 도래(르우라)": 10
+    },
+    "representative_bosses": [
+     "벨로렌",
+     "살라다르",
+     "우주의 왕관"
+    ]
+   },
+   "학살자|하이브리드": {
+    "kills": 0,
+    "exists": false,
+    "note": "별도 하이브리드 클러스터 없음 — 광빌드의 휩쓸기 패키지(광범위한 타격+강력한 기세)가 곧 2타겟 증폭이라 광빌드가 하이브리드 역할 겸함. 마커 혼합 표본 10킬(전체 학살자의 1.5%)은 산발적 노이즈 + 회전베기/궤멸적인 연계 소수 변형(아래 fringe 참고).",
+    "fringe_mixed": {
+     "카이메루스": 5,
+     "아베르지안": 2,
+     "보라시우스": 1,
+     "벨로렌": 1,
+     "한밤의 도래(르우라)": 1
+    }
+   },
+   "거신|단일": {
+    "kills": 0,
+    "exists": false,
+    "note": "비존재 — 거신 스펙트리는 내부 분화 없음(가변 노드는 전부 직업트리 유틸)."
+   },
+   "거신|광": {
+    "kills": 235,
+    "share_of_spec_pct": 26.5,
+    "top20_kills": 58,
+    "boss_dist": {
+     "바엘고어": 99,
+     "선봉대": 98,
+     "아베르지안": 19,
+     "카이메루스": 19
+    },
+    "representative_bosses": [
+     "바엘고어",
+     "선봉대",
+     "아베르지안"
+    ],
+    "note": "거신 유일 빌드 — 스펙트리 235명 전원 동일(혈행성 전이·광패키지·회전베기·대규모 처형 전부 채택). 단일/광 분화 자체가 없어 이 칸에 전부 배정."
+   },
+   "거신|하이브리드": {
+    "kills": 0,
+    "exists": false,
+    "note": "비존재 — 거신 스펙트리는 내부 분화 없음(가변 노드는 전부 직업트리 유틸)."
+   }
+  },
+  "events": {
+   "n_event_kills": 296,
+   "unmatched": 0,
+   "combo_kills": {
+    "거신|유일": 92,
+    "학살자|광": 102,
+    "학살자|단일": 97,
+    "학살자|회전베기변형": 5
+   },
+   "거신|유일": {
+    "n_kills": 92,
+    "total_min": 557.3,
+    "buttons_per_min": {
+     "avatar": {
+      "casts_total": 527,
+      "per_min_mean": 0.95,
+      "per_min_med_of_kills": 0.93,
+      "kills_using": 92
+     },
+     "cleave": {
+      "casts_total": 4931,
+      "per_min_mean": 8.85,
+      "per_min_med_of_kills": 9.68,
+      "kills_using": 92
+     },
+     "cs": {
+      "casts_total": 1004,
+      "per_min_mean": 1.8,
+      "per_min_med_of_kills": 1.82,
+      "kills_using": 92
+     },
+     "demolish": {
+      "casts_total": 1241,
+      "per_min_mean": 2.23,
+      "per_min_med_of_kills": 2.12,
+      "kills_using": 92
+     },
+     "execute": {
+      "casts_total": 1412,
+      "per_min_mean": 2.53,
+      "per_min_med_of_kills": 2.7,
+      "kills_using": 91
+     },
+     "hs": {
+      "casts_total": 2567,
+      "per_min_mean": 4.61,
+      "per_min_med_of_kills": 4.64,
+      "kills_using": 92
+     },
+     "ms": {
+      "casts_total": 7472,
+      "per_min_mean": 13.41,
+      "per_min_med_of_kills": 13.35,
+      "kills_using": 92
+     },
+     "op": {
+      "casts_total": 5711,
+      "per_min_mean": 10.25,
+      "per_min_med_of_kills": 10.08,
+      "kills_using": 92
+     },
+     "ravager": {
+      "casts_total": 322,
+      "per_min_mean": 0.58,
+      "per_min_med_of_kills": 0.6,
+      "kills_using": 92
+     },
+     "rend": {
+      "casts_total": 1162,
+      "per_min_mean": 2.08,
+      "per_min_med_of_kills": 2.09,
+      "kills_using": 92
+     },
+     "slam": {
+      "casts_total": 1394,
+      "per_min_mean": 2.5,
+      "per_min_med_of_kills": 2.54,
+      "kills_using": 92
+     },
+     "sweep": {
+      "casts_total": 671,
+      "per_min_mean": 1.2,
+      "per_min_med_of_kills": 1.24,
+      "kills_using": 92
+     }
+    },
+    "prio_note": "거신은 전투군주(제압의 필사 쿨 초기화)로 msr 근사 오차 큼 — 상태표는 arms_procprio.json colossus_side_note 참고. 여기선 분당 사용률만."
+   },
+   "학살자|광": {
+    "n_kills": 102,
+    "total_min": 524.9,
+    "buttons_per_min": {
+     "avatar": {
+      "casts_total": 562,
+      "per_min_mean": 1.07,
+      "per_min_med_of_kills": 1.12,
+      "kills_using": 102
+     },
+     "bladestorm": {
+      "casts_total": 572,
+      "per_min_mean": 1.09,
+      "per_min_med_of_kills": 1.13,
+      "kills_using": 102
+     },
+     "cleave": {
+      "casts_total": 97,
+      "per_min_mean": 0.18,
+      "per_min_med_of_kills": 4.9,
+      "kills_using": 4
+     },
+     "cs": {
+      "casts_total": 1052,
+      "per_min_mean": 2.0,
+      "per_min_med_of_kills": 2.09,
+      "kills_using": 102
+     },
+     "execute": {
+      "casts_total": 5777,
+      "per_min_mean": 11.0,
+      "per_min_med_of_kills": 11.34,
+      "kills_using": 102
+     },
+     "hs": {
+      "casts_total": 3025,
+      "per_min_mean": 5.76,
+      "per_min_med_of_kills": 6.0,
+      "kills_using": 102
+     },
+     "ms": {
+      "casts_total": 5185,
+      "per_min_mean": 9.88,
+      "per_min_med_of_kills": 10.19,
+      "kills_using": 102
+     },
+     "op": {
+      "casts_total": 4790,
+      "per_min_mean": 9.12,
+      "per_min_med_of_kills": 9.8,
+      "kills_using": 102
+     },
+     "rend": {
+      "casts_total": 823,
+      "per_min_mean": 1.57,
+      "per_min_med_of_kills": 1.57,
+      "kills_using": 102
+     },
+     "slam": {
+      "casts_total": 2233,
+      "per_min_mean": 4.25,
+      "per_min_med_of_kills": 4.28,
+      "kills_using": 102
+     },
+     "sweep": {
+      "casts_total": 115,
+      "per_min_mean": 0.22,
+      "per_min_med_of_kills": 0.33,
+      "kills_using": 66
+     }
+    },
+    "prio_states": {
+     "A_hs_on": {
+      "n": 5947,
+      "hs": {
+       "count": 3025,
+       "pct": 50.9
+      },
+      "execute": {
+       "count": 1124,
+       "pct": 18.9
+      },
+      "ms": {
+       "count": 917,
+       "pct": 15.4
+      },
+      "op": {
+       "count": 423,
+       "pct": 7.1
+      },
+      "cs": {
+       "count": 162,
+       "pct": 2.7
+      },
+      "bladestorm": {
+       "count": 83,
+       "pct": 1.4
+      },
+      "rend": {
+       "count": 69,
+       "pct": 1.2
+      },
+      "avatar": {
+       "count": 68,
+       "pct": 1.1
+      },
+      "cleave": {
+       "count": 34,
+       "pct": 0.6
+      },
+      "sweep": {
+       "count": 22,
+       "pct": 0.4
+      },
+      "other": {
+       "count": 20,
+       "pct": 0.3
+      }
+     },
+     "B_hsX_msrO": {
+      "normal": {
+       "n": 4418,
+       "ms": {
+        "count": 2508,
+        "pct": 56.8
+       },
+       "execute": {
+        "count": 565,
+        "pct": 12.8
+       },
+       "op": {
+        "count": 369,
+        "pct": 8.4
+       },
+       "cs": {
+        "count": 294,
+        "pct": 6.7
+       },
+       "rend": {
+        "count": 180,
+        "pct": 4.1
+       },
+       "avatar": {
+        "count": 173,
+        "pct": 3.9
+       },
+       "bladestorm": {
+        "count": 143,
+        "pct": 3.2
+       },
+       "slam": {
+        "count": 89,
+        "pct": 2.0
+       },
+       "other": {
+        "count": 41,
+        "pct": 0.9
+       },
+       "sweep": {
+        "count": 30,
+        "pct": 0.7
+       },
+       "cleave": {
+        "count": 26,
+        "pct": 0.6
+       }
+      },
+      "exec": {
+       "n": 1786,
+       "ms": {
+        "count": 822,
+        "pct": 46.0
+       },
+       "execute": {
+        "count": 482,
+        "pct": 27.0
+       },
+       "op": {
+        "count": 207,
+        "pct": 11.6
+       },
+       "cs": {
+        "count": 115,
+        "pct": 6.4
+       },
+       "bladestorm": {
+        "count": 62,
+        "pct": 3.5
+       },
+       "avatar": {
+        "count": 46,
+        "pct": 2.6
+       },
+       "rend": {
+        "count": 19,
+        "pct": 1.1
+       },
+       "other": {
+        "count": 11,
+        "pct": 0.6
+       },
+       "sweep": {
+        "count": 9,
+        "pct": 0.5
+       },
+       "slam": {
+        "count": 7,
+        "pct": 0.4
+       },
+       "cleave": {
+        "count": 6,
+        "pct": 0.3
+       }
+      }
+     },
+     "C_hsX_msrX_sdO": {
+      "normal": {
+       "n": 2029,
+       "execute": {
+        "count": 1254,
+        "pct": 61.8
+       },
+       "op": {
+        "count": 266,
+        "pct": 13.1
+       },
+       "slam": {
+        "count": 158,
+        "pct": 7.8
+       },
+       "ms": {
+        "count": 109,
+        "pct": 5.4
+       },
+       "cs": {
+        "count": 81,
+        "pct": 4.0
+       },
+       "rend": {
+        "count": 58,
+        "pct": 2.9
+       },
+       "bladestorm": {
+        "count": 49,
+        "pct": 2.4
+       },
+       "avatar": {
+        "count": 42,
+        "pct": 2.1
+       },
+       "other": {
+        "count": 6,
+        "pct": 0.3
+       },
+       "cleave": {
+        "count": 5,
+        "pct": 0.2
+       },
+       "sweep": {
+        "count": 1,
+        "pct": 0.0
+       }
+      },
+      "exec": {
+       "n": 508,
+       "execute": {
+        "count": 378,
+        "pct": 74.4
+       },
+       "op": {
+        "count": 65,
+        "pct": 12.8
+       },
+       "cs": {
+        "count": 21,
+        "pct": 4.1
+       },
+       "bladestorm": {
+        "count": 16,
+        "pct": 3.1
+       },
+       "avatar": {
+        "count": 12,
+        "pct": 2.4
+       },
+       "ms": {
+        "count": 10,
+        "pct": 2.0
+       },
+       "slam": {
+        "count": 4,
+        "pct": 0.8
+       },
+       "sweep": {
+        "count": 1,
+        "pct": 0.2
+       },
+       "other": {
+        "count": 1,
+        "pct": 0.2
+       }
+      }
+     },
+     "D_all_off": {
+      "normal": {
+       "n": 7500,
+       "op": {
+        "count": 2875,
+        "pct": 38.3
+       },
+       "slam": {
+        "count": 1903,
+        "pct": 25.4
+       },
+       "execute": {
+        "count": 834,
+        "pct": 11.1
+       },
+       "ms": {
+        "count": 696,
+        "pct": 9.3
+       },
+       "rend": {
+        "count": 485,
+        "pct": 6.5
+       },
+       "cs": {
+        "count": 288,
+        "pct": 3.8
+       },
+       "bladestorm": {
+        "count": 177,
+        "pct": 2.4
+       },
+       "avatar": {
+        "count": 166,
+        "pct": 2.2
+       },
+       "sweep": {
+        "count": 43,
+        "pct": 0.6
+       },
+       "cleave": {
+        "count": 21,
+        "pct": 0.3
+       },
+       "other": {
+        "count": 12,
+        "pct": 0.2
+       }
+      },
+      "exec": {
+       "n": 2138,
+       "execute": {
+        "count": 1140,
+        "pct": 53.3
+       },
+       "op": {
+        "count": 585,
+        "pct": 27.4
+       },
+       "ms": {
+        "count": 123,
+        "pct": 5.8
+       },
+       "cs": {
+        "count": 91,
+        "pct": 4.3
+       },
+       "slam": {
+        "count": 72,
+        "pct": 3.4
+       },
+       "avatar": {
+        "count": 55,
+        "pct": 2.6
+       },
+       "bladestorm": {
+        "count": 42,
+        "pct": 2.0
+       },
+       "rend": {
+        "count": 12,
+        "pct": 0.6
+       },
+       "sweep": {
+        "count": 9,
+        "pct": 0.4
+       },
+       "cleave": {
+        "count": 5,
+        "pct": 0.2
+       },
+       "other": {
+        "count": 4,
+        "pct": 0.2
+       }
+      }
+     },
+     "E_hsO_msrO": {
+      "normal": {
+       "n": 1160,
+       "ms": {
+        "count": 495,
+        "pct": 42.7
+       },
+       "hs": {
+        "count": 370,
+        "pct": 31.9
+       },
+       "execute": {
+        "count": 157,
+        "pct": 13.5
+       },
+       "op": {
+        "count": 51,
+        "pct": 4.4
+       },
+       "cs": {
+        "count": 23,
+        "pct": 2.0
+       },
+       "bladestorm": {
+        "count": 18,
+        "pct": 1.6
+       },
+       "rend": {
+        "count": 15,
+        "pct": 1.3
+       },
+       "cleave": {
+        "count": 10,
+        "pct": 0.9
+       },
+       "avatar": {
+        "count": 9,
+        "pct": 0.8
+       },
+       "other": {
+        "count": 8,
+        "pct": 0.7
+       },
+       "sweep": {
+        "count": 4,
+        "pct": 0.3
+       }
+      },
+      "exec": {
+       "n": 586,
+       "ms": {
+        "count": 196,
+        "pct": 33.4
+       },
+       "hs": {
+        "count": 195,
+        "pct": 33.3
+       },
+       "execute": {
+        "count": 115,
+        "pct": 19.6
+       },
+       "op": {
+        "count": 25,
+        "pct": 4.3
+       },
+       "cs": {
+        "count": 19,
+        "pct": 3.2
+       },
+       "bladestorm": {
+        "count": 14,
+        "pct": 2.4
+       },
+       "avatar": {
+        "count": 9,
+        "pct": 1.5
+       },
+       "cleave": {
+        "count": 4,
+        "pct": 0.7
+       },
+       "sweep": {
+        "count": 4,
+        "pct": 0.7
+       },
+       "rend": {
+        "count": 3,
+        "pct": 0.5
+       },
+       "other": {
+        "count": 2,
+        "pct": 0.3
+       }
+      }
+     }
+    }
+   },
+   "학살자|단일": {
+    "n_kills": 97,
+    "total_min": 532.8,
+    "buttons_per_min": {
+     "avatar": {
+      "casts_total": 583,
+      "per_min_mean": 1.09,
+      "per_min_med_of_kills": 1.15,
+      "kills_using": 97
+     },
+     "bladestorm": {
+      "casts_total": 607,
+      "per_min_mean": 1.14,
+      "per_min_med_of_kills": 1.2,
+      "kills_using": 97
+     },
+     "cs": {
+      "casts_total": 1087,
+      "per_min_mean": 2.04,
+      "per_min_med_of_kills": 2.12,
+      "kills_using": 97
+     },
+     "execute": {
+      "casts_total": 5476,
+      "per_min_mean": 10.28,
+      "per_min_med_of_kills": 10.95,
+      "kills_using": 97
+     },
+     "hs": {
+      "casts_total": 3181,
+      "per_min_mean": 5.97,
+      "per_min_med_of_kills": 6.12,
+      "kills_using": 97
+     },
+     "ms": {
+      "casts_total": 5745,
+      "per_min_mean": 10.78,
+      "per_min_med_of_kills": 11.06,
+      "kills_using": 97
+     },
+     "op": {
+      "casts_total": 5520,
+      "per_min_mean": 10.36,
+      "per_min_med_of_kills": 10.72,
+      "kills_using": 97
+     },
+     "rend": {
+      "casts_total": 1019,
+      "per_min_mean": 1.91,
+      "per_min_med_of_kills": 1.91,
+      "kills_using": 97
+     },
+     "slam": {
+      "casts_total": 2771,
+      "per_min_mean": 5.2,
+      "per_min_med_of_kills": 5.26,
+      "kills_using": 97
+     },
+     "sweep": {
+      "casts_total": 224,
+      "per_min_mean": 0.42,
+      "per_min_med_of_kills": 0.41,
+      "kills_using": 90
+     }
+    },
+    "prio_states": {
+     "A_hs_on": {
+      "n": 5121,
+      "hs": {
+       "count": 3181,
+       "pct": 62.1
+      },
+      "ms": {
+       "count": 747,
+       "pct": 14.6
+      },
+      "execute": {
+       "count": 627,
+       "pct": 12.2
+      },
+      "op": {
+       "count": 208,
+       "pct": 4.1
+      },
+      "cs": {
+       "count": 118,
+       "pct": 2.3
+      },
+      "bladestorm": {
+       "count": 71,
+       "pct": 1.4
+      },
+      "avatar": {
+       "count": 64,
+       "pct": 1.2
+      },
+      "rend": {
+       "count": 52,
+       "pct": 1.0
+      },
+      "sweep": {
+       "count": 29,
+       "pct": 0.6
+      },
+      "other": {
+       "count": 24,
+       "pct": 0.5
+      }
+     },
+     "B_hsX_msrO": {
+      "normal": {
+       "n": 4690,
+       "ms": {
+        "count": 3004,
+        "pct": 64.1
+       },
+       "execute": {
+        "count": 439,
+        "pct": 9.4
+       },
+       "op": {
+        "count": 331,
+        "pct": 7.1
+       },
+       "cs": {
+        "count": 277,
+        "pct": 5.9
+       },
+       "avatar": {
+        "count": 171,
+        "pct": 3.6
+       },
+       "bladestorm": {
+        "count": 167,
+        "pct": 3.6
+       },
+       "rend": {
+        "count": 135,
+        "pct": 2.9
+       },
+       "slam": {
+        "count": 88,
+        "pct": 1.9
+       },
+       "sweep": {
+        "count": 43,
+        "pct": 0.9
+       },
+       "other": {
+        "count": 35,
+        "pct": 0.7
+       }
+      },
+      "exec": {
+       "n": 1779,
+       "ms": {
+        "count": 840,
+        "pct": 47.2
+       },
+       "execute": {
+        "count": 439,
+        "pct": 24.7
+       },
+       "op": {
+        "count": 193,
+        "pct": 10.8
+       },
+       "cs": {
+        "count": 110,
+        "pct": 6.2
+       },
+       "bladestorm": {
+        "count": 60,
+        "pct": 3.4
+       },
+       "avatar": {
+        "count": 56,
+        "pct": 3.1
+       },
+       "other": {
+        "count": 42,
+        "pct": 2.4
+       },
+       "slam": {
+        "count": 15,
+        "pct": 0.8
+       },
+       "rend": {
+        "count": 15,
+        "pct": 0.8
+       },
+       "sweep": {
+        "count": 9,
+        "pct": 0.5
+       }
+      }
+     },
+     "C_hsX_msrX_sdO": {
+      "normal": {
+       "n": 2806,
+       "execute": {
+        "count": 1635,
+        "pct": 58.3
+       },
+       "op": {
+        "count": 507,
+        "pct": 18.1
+       },
+       "slam": {
+        "count": 192,
+        "pct": 6.8
+       },
+       "ms": {
+        "count": 152,
+        "pct": 5.4
+       },
+       "cs": {
+        "count": 93,
+        "pct": 3.3
+       },
+       "rend": {
+        "count": 86,
+        "pct": 3.1
+       },
+       "avatar": {
+        "count": 53,
+        "pct": 1.9
+       },
+       "bladestorm": {
+        "count": 49,
+        "pct": 1.7
+       },
+       "sweep": {
+        "count": 34,
+        "pct": 1.2
+       },
+       "other": {
+        "count": 5,
+        "pct": 0.2
+       }
+      },
+      "exec": {
+       "n": 781,
+       "execute": {
+        "count": 518,
+        "pct": 66.3
+       },
+       "op": {
+        "count": 108,
+        "pct": 13.8
+       },
+       "ms": {
+        "count": 53,
+        "pct": 6.8
+       },
+       "cs": {
+        "count": 31,
+        "pct": 4.0
+       },
+       "slam": {
+        "count": 25,
+        "pct": 3.2
+       },
+       "avatar": {
+        "count": 16,
+        "pct": 2.0
+       },
+       "bladestorm": {
+        "count": 15,
+        "pct": 1.9
+       },
+       "rend": {
+        "count": 11,
+        "pct": 1.4
+       },
+       "sweep": {
+        "count": 2,
+        "pct": 0.3
+       },
+       "other": {
+        "count": 2,
+        "pct": 0.3
+       }
+      }
+     },
+     "D_all_off": {
+      "normal": {
+       "n": 8395,
+       "op": {
+        "count": 3382,
+        "pct": 40.3
+       },
+       "slam": {
+        "count": 2215,
+        "pct": 26.4
+       },
+       "rend": {
+        "count": 671,
+        "pct": 8.0
+       },
+       "execute": {
+        "count": 663,
+        "pct": 7.9
+       },
+       "ms": {
+        "count": 660,
+        "pct": 7.9
+       },
+       "cs": {
+        "count": 346,
+        "pct": 4.1
+       },
+       "bladestorm": {
+        "count": 186,
+        "pct": 2.2
+       },
+       "avatar": {
+        "count": 159,
+        "pct": 1.9
+       },
+       "sweep": {
+        "count": 94,
+        "pct": 1.1
+       },
+       "other": {
+        "count": 19,
+        "pct": 0.2
+       }
+      },
+      "exec": {
+       "n": 2775,
+       "execute": {
+        "count": 1155,
+        "pct": 41.6
+       },
+       "op": {
+        "count": 791,
+        "pct": 28.5
+       },
+       "ms": {
+        "count": 289,
+        "pct": 10.4
+       },
+       "slam": {
+        "count": 236,
+        "pct": 8.5
+       },
+       "cs": {
+        "count": 112,
+        "pct": 4.0
+       },
+       "avatar": {
+        "count": 64,
+        "pct": 2.3
+       },
+       "bladestorm": {
+        "count": 59,
+        "pct": 2.1
+       },
+       "rend": {
+        "count": 49,
+        "pct": 1.8
+       },
+       "sweep": {
+        "count": 13,
+        "pct": 0.5
+       },
+       "other": {
+        "count": 7,
+        "pct": 0.3
+       }
+      }
+     },
+     "E_hsO_msrO": {
+      "normal": {
+       "n": 967,
+       "ms": {
+        "count": 448,
+        "pct": 46.3
+       },
+       "hs": {
+        "count": 326,
+        "pct": 33.7
+       },
+       "execute": {
+        "count": 103,
+        "pct": 10.7
+       },
+       "cs": {
+        "count": 22,
+        "pct": 2.3
+       },
+       "bladestorm": {
+        "count": 20,
+        "pct": 2.1
+       },
+       "op": {
+        "count": 15,
+        "pct": 1.6
+       },
+       "avatar": {
+        "count": 13,
+        "pct": 1.3
+       },
+       "rend": {
+        "count": 11,
+        "pct": 1.1
+       },
+       "sweep": {
+        "count": 7,
+        "pct": 0.7
+       },
+       "other": {
+        "count": 2,
+        "pct": 0.2
+       }
+      },
+      "exec": {
+       "n": 526,
+       "hs": {
+        "count": 219,
+        "pct": 41.6
+       },
+       "ms": {
+        "count": 129,
+        "pct": 24.5
+       },
+       "execute": {
+        "count": 99,
+        "pct": 18.8
+       },
+       "cs": {
+        "count": 21,
+        "pct": 4.0
+       },
+       "op": {
+        "count": 21,
+        "pct": 4.0
+       },
+       "bladestorm": {
+        "count": 11,
+        "pct": 2.1
+       },
+       "avatar": {
+        "count": 10,
+        "pct": 1.9
+       },
+       "other": {
+        "count": 9,
+        "pct": 1.7
+       },
+       "rend": {
+        "count": 4,
+        "pct": 0.8
+       },
+       "sweep": {
+        "count": 3,
+        "pct": 0.6
+       }
+      }
+     }
+    }
+   },
+   "학살자|회전베기변형": {
+    "n_kills": 5,
+    "total_min": 12.7,
+    "buttons_per_min": {
+     "avatar": {
+      "casts_total": 15,
+      "per_min_mean": 1.18,
+      "per_min_med_of_kills": 1.26,
+      "kills_using": 5
+     },
+     "bladestorm": {
+      "casts_total": 17,
+      "per_min_mean": 1.34,
+      "per_min_med_of_kills": 1.26,
+      "kills_using": 5
+     },
+     "cleave": {
+      "casts_total": 8,
+      "per_min_mean": 0.63,
+      "per_min_med_of_kills": 1.69,
+      "kills_using": 2
+     },
+     "cs": {
+      "casts_total": 28,
+      "per_min_mean": 2.21,
+      "per_min_med_of_kills": 2.28,
+      "kills_using": 5
+     },
+     "execute": {
+      "casts_total": 141,
+      "per_min_mean": 11.12,
+      "per_min_med_of_kills": 11.57,
+      "kills_using": 5
+     },
+     "hs": {
+      "casts_total": 74,
+      "per_min_mean": 5.83,
+      "per_min_med_of_kills": 5.79,
+      "kills_using": 5
+     },
+     "ms": {
+      "casts_total": 129,
+      "per_min_mean": 10.17,
+      "per_min_med_of_kills": 9.79,
+      "kills_using": 5
+     },
+     "op": {
+      "casts_total": 130,
+      "per_min_mean": 10.25,
+      "per_min_med_of_kills": 9.69,
+      "kills_using": 5
+     },
+     "rend": {
+      "casts_total": 17,
+      "per_min_mean": 1.34,
+      "per_min_med_of_kills": 1.3,
+      "kills_using": 5
+     },
+     "slam": {
+      "casts_total": 83,
+      "per_min_mean": 6.54,
+      "per_min_med_of_kills": 6.35,
+      "kills_using": 5
+     },
+     "sweep": {
+      "casts_total": 4,
+      "per_min_mean": 0.32,
+      "per_min_med_of_kills": 0.42,
+      "kills_using": 3
+     }
+    }
+   },
+   "prio_diff_st_vs_aoe": {
+    "설명": "학살자 단일빌드 vs 광빌드에서 상태별 top 버튼 순서가 갈리는 항목만 (양쪽 n>=80).",
+    "주의": "두 그룹은 보스 구성이 다름(단일=보라시우스/르우라/카이메루스, 광=벨로렌/살라다르 위주) — 순서 차이에 보스 처형 가동률 차이가 섞임.",
+    "diffs": [
+     {
+      "state": "A_hs_on",
+      "differs": "2-3순위",
+      "학살자|단일": {
+       "top3": [
+        "hs",
+        "ms",
+        "execute"
+       ],
+       "n": 5121
+      },
+      "학살자|광": {
+       "top3": [
+        "hs",
+        "execute",
+        "ms"
+       ],
+       "n": 5947
+      }
+     },
+     {
+      "state": "C_hsX_msrX_sdO.exec",
+      "differs": "2-3순위",
+      "학살자|단일": {
+       "top3": [
+        "execute",
+        "op",
+        "ms"
+       ],
+       "n": 781
+      },
+      "학살자|광": {
+       "top3": [
+        "execute",
+        "op",
+        "cs"
+       ],
+       "n": 508
+      }
+     },
+     {
+      "state": "D_all_off.normal",
+      "differs": "2-3순위",
+      "학살자|단일": {
+       "top3": [
+        "op",
+        "slam",
+        "rend"
+       ],
+       "n": 8395
+      },
+      "학살자|광": {
+       "top3": [
+        "op",
+        "slam",
+        "execute"
+       ],
+       "n": 7500
+      }
+     },
+     {
+      "state": "E_hsO_msrO.exec",
+      "differs": "1순위",
+      "학살자|단일": {
+       "top3": [
+        "hs",
+        "ms",
+        "execute"
+       ],
+       "n": 526,
+       "top1_pct": 41.6
+      },
+      "학살자|광": {
+       "top3": [
+        "ms",
+        "hs",
+        "execute"
+       ],
+       "n": 586,
+       "top1_pct": 33.4
+      }
+     }
+    ]
+   },
+   "guide_verdict": "학살자 단일 vs 광: 상태별 1순위가 갈리는 곳은 E(지배자+필사준비 동시).exec 하나뿐이고 그마저 광빌드에서 ms 33.4% vs hs 33.3% 동률 수준. 나머지는 2-3순위 근소 스왑(처형 가동률 차이로 설명 가능). 버튼 세트도 동일(광빌드 수동 휩쓸기 0.42→0.22/min 감소가 유일한 차이 — 광범위한 타격이 거강에 휩쓸기를 자동 부여). → 별도 빌드 탭 불필요, aoe_diff 텍스트(특성 스왑 + 휩쓸기 자동화 한 줄)로 충분. 거신은 회전베기 8.9/min·쇄파·쇠날발톱·처형 2.5/min 등 버튼 세트 자체가 다름 — 기존 영웅 탭 분리로 이미 커버."
+  }
+ },
+ "fury": {
+  "axis": {
+   "hero_axis": "학살자 vs 산왕 — 영웅 선택이 곧 단일/광 축(보스별 채택 참조)",
+   "no_split_verdict": {
+    "가설": "분노는 영웅특성 내부에 광/단일 스펙트리 분화가 없다 (소용돌이 연마 전원 채택)",
+    "소용돌이_연마_90427": "893/893 채택",
+    "within_hero_spec_nodes": {
+     "학살자": {
+      "90387 천벌과 분노": {
+       "rate": 0.909,
+       "per_boss(n>=5)": {
+        "벨로렌": 1.0,
+        "보라시우스": 0.95,
+        "살라다르": 0.81,
+        "아베르지안": 0.91,
+        "우주의 왕관": 0.89,
+        "카이메루스": 0.84,
+        "한밤의 도래(르우라)": 0.95
+       }
+      },
+      "90395 격노의 재생력": {
+       "rate": 0.089,
+       "per_boss(n>=5)": {
+        "벨로렌": 0.17,
+        "보라시우스": 0.09,
+        "살라다르": 0.05,
+        "아베르지안": 0.07,
+        "우주의 왕관": 0.14,
+        "카이메루스": 0.12,
+        "한밤의 도래(르우라)": 0.05
+       }
+      },
+      "109967 고기칼": {
+       "rate": 0.053,
+       "per_boss(n>=5)": {
+        "벨로렌": 0.0,
+        "보라시우스": 0.03,
+        "살라다르": 0.14,
+        "아베르지안": 0.06,
+        "우주의 왕관": 0.04,
+        "카이메루스": 0.13,
+        "한밤의 도래(르우라)": 0.01
+       }
+      }
+     },
+     "산왕": {
+      "90410 대학살": {
+       "rate": 0.891,
+       "per_boss(n>=5)": {
+        "바엘고어": 0.86,
+        "벨로렌": 0.95,
+        "살라다르": 0.89,
+        "선봉대": 0.87,
+        "우주의 왕관": 1.0,
+        "카이메루스": 0.81
+       }
+      },
+      "90395 격노의 재생력": {
+       "rate": 0.135,
+       "per_boss(n>=5)": {
+        "바엘고어": 0.15,
+        "벨로렌": 0.06,
+        "살라다르": 0.13,
+        "선봉대": 0.14,
+        "우주의 왕관": 0.35,
+        "카이메루스": 0.22
+       }
+      },
+      "90387 천벌과 분노": {
+       "rate": 0.014,
+       "per_boss(n>=5)": {
+        "바엘고어": 0.02,
+        "벨로렌": 0.01,
+        "살라다르": 0.01,
+        "선봉대": 0.02,
+        "우주의 왕관": 0.0,
+        "카이메루스": 0.0
+       }
+      }
+     }
+    },
+    "판정": "가설 유지 — 소용돌이 연마 893/893, 내부 가변 스펙노드는 최다수 옵션 채택률 최소 86.5%로 보스 유형(단일/광)과 무관한 소수 이탈뿐. 광/단일 분화 없음."
+   },
+   "hero_by_boss": {
+    "바엘고어": {
+     "산왕": 96,
+     "학살자": 1
+    },
+    "벨로렌": {
+     "산왕": 93,
+     "학살자": 6
+    },
+    "보라시우스": {
+     "학살자": 98,
+     "산왕": 2
+    },
+    "살라다르": {
+     "산왕": 79,
+     "학살자": 21
+    },
+    "선봉대": {
+     "산왕": 100
+    },
+    "아베르지안": {
+     "학살자": 96,
+     "산왕": 4
+    },
+    "우주의 왕관": {
+     "학살자": 81,
+     "산왕": 17
+    },
+    "카이메루스": {
+     "학살자": 67,
+     "산왕": 32
+    },
+    "한밤의 도래(르우라)": {
+     "학살자": 100
+    }
+   }
+  },
+  "matrix": {
+   "학살자|단일": {
+    "kills": 470,
+    "share_of_spec_pct": 52.6,
+    "top20_kills": 94,
+    "boss_dist": {
+     "한밤의 도래(르우라)": 100,
+     "보라시우스": 98,
+     "아베르지안": 96,
+     "우주의 왕관": 81,
+     "카이메루스": 67,
+     "살라다르": 21,
+     "벨로렌": 6,
+     "바엘고어": 1
+    },
+    "representative_bosses": [
+     "한밤의 도래(르우라)",
+     "보라시우스",
+     "아베르지안"
+    ],
+    "note": "학살자 유일 빌드 — 스펙트리 광/단일 분화 노드 없음. 단일 보스 위주 채택이라 이 칸에 배정."
+   },
+   "학살자|광": {
+    "kills": 0,
+    "exists": false,
+    "note": "비존재 — 분노는 영웅특성 선택 자체가 단일(학살자)/광(산왕) 축이고 스펙트리 내부 분화 없음."
+   },
+   "학살자|하이브리드": {
+    "kills": 0,
+    "exists": false,
+    "note": "비존재 — 분노는 영웅특성 선택 자체가 단일(학살자)/광(산왕) 축이고 스펙트리 내부 분화 없음."
+   },
+   "산왕|단일": {
+    "kills": 0,
+    "exists": false,
+    "note": "비존재 — 분노는 영웅특성 선택 자체가 단일(학살자)/광(산왕) 축이고 스펙트리 내부 분화 없음."
+   },
+   "산왕|광": {
+    "kills": 423,
+    "share_of_spec_pct": 47.4,
+    "top20_kills": 85,
+    "boss_dist": {
+     "선봉대": 100,
+     "바엘고어": 96,
+     "벨로렌": 93,
+     "살라다르": 79,
+     "카이메루스": 32,
+     "우주의 왕관": 17,
+     "아베르지안": 4,
+     "보라시우스": 2
+    },
+    "representative_bosses": [
+     "선봉대",
+     "바엘고어",
+     "벨로렌"
+    ],
+    "note": "산왕 유일 빌드 — 고기칼 100%·천둥벼락 100% 포함 스펙트리 균일. 광/2타겟 보스 위주 채택이라 이 칸에 배정."
+   },
+   "산왕|하이브리드": {
+    "kills": 0,
+    "exists": false,
+    "note": "비존재 — 분노는 영웅특성 선택 자체가 단일(학살자)/광(산왕) 축이고 스펙트리 내부 분화 없음."
+   }
+  },
+  "events": {
+   "n_event_kills": 296,
+   "unmatched": 0,
+   "combo_kills": {
+    "산왕": 141,
+    "학살자": 155
+   },
+   "산왕": {
+    "n_kills": 141,
+    "total_min": 737.7,
+    "buttons_per_min": {
+     "avatar": {
+      "casts_total": 941,
+      "per_min_mean": 1.28,
+      "per_min_med_of_kills": 1.26,
+      "kills_using": 141
+     },
+     "bloodbath": {
+      "casts_total": 4495,
+      "per_min_mean": 6.09,
+      "per_min_med_of_kills": 6.29,
+      "kills_using": 141
+     },
+     "bt": {
+      "casts_total": 8272,
+      "per_min_mean": 11.21,
+      "per_min_med_of_kills": 11.39,
+      "kills_using": 141
+     },
+     "crushing_blow": {
+      "casts_total": 204,
+      "per_min_mean": 0.28,
+      "per_min_med_of_kills": 0.37,
+      "kills_using": 93
+     },
+     "execute": {
+      "casts_total": 3611,
+      "per_min_mean": 4.89,
+      "per_min_med_of_kills": 4.83,
+      "kills_using": 141
+     },
+     "odyns_fury": {
+      "casts_total": 1480,
+      "per_min_mean": 2.01,
+      "per_min_med_of_kills": 2.0,
+      "kills_using": 141
+     },
+     "rampage": {
+      "casts_total": 13503,
+      "per_min_mean": 18.3,
+      "per_min_med_of_kills": 18.46,
+      "kills_using": 141
+     },
+     "rb": {
+      "casts_total": 3012,
+      "per_min_mean": 4.08,
+      "per_min_med_of_kills": 4.1,
+      "kills_using": 141
+     },
+     "recklessness": {
+      "casts_total": 941,
+      "per_min_mean": 1.28,
+      "per_min_med_of_kills": 1.26,
+      "kills_using": 141
+     },
+     "thunder_blast": {
+      "casts_total": 6079,
+      "per_min_mean": 8.24,
+      "per_min_med_of_kills": 8.34,
+      "kills_using": 141
+     },
+     "thunder_clap": {
+      "casts_total": 3681,
+      "per_min_mean": 4.99,
+      "per_min_med_of_kills": 4.73,
+      "kills_using": 141
+     },
+     "whirlwind": {
+      "casts_total": 36,
+      "per_min_mean": 0.05,
+      "per_min_med_of_kills": 0.37,
+      "kills_using": 14
+     }
+    }
+   },
+   "학살자": {
+    "n_kills": 155,
+    "total_min": 816.4,
+    "buttons_per_min": {
+     "bladestorm": {
+      "casts_total": 994,
+      "per_min_mean": 1.22,
+      "per_min_med_of_kills": 1.22,
+      "kills_using": 155
+     },
+     "bloodbath": {
+      "casts_total": 3465,
+      "per_min_mean": 4.24,
+      "per_min_med_of_kills": 4.44,
+      "kills_using": 155
+     },
+     "bt": {
+      "casts_total": 7942,
+      "per_min_mean": 9.73,
+      "per_min_med_of_kills": 9.98,
+      "kills_using": 155
+     },
+     "crushing_blow": {
+      "casts_total": 933,
+      "per_min_mean": 1.14,
+      "per_min_med_of_kills": 1.07,
+      "kills_using": 152
+     },
+     "execute": {
+      "casts_total": 7390,
+      "per_min_mean": 9.05,
+      "per_min_med_of_kills": 9.36,
+      "kills_using": 155
+     },
+     "odyns_fury": {
+      "casts_total": 1719,
+      "per_min_mean": 2.11,
+      "per_min_med_of_kills": 2.13,
+      "kills_using": 155
+     },
+     "rampage": {
+      "casts_total": 15568,
+      "per_min_mean": 19.07,
+      "per_min_med_of_kills": 19.5,
+      "kills_using": 155
+     },
+     "rb": {
+      "casts_total": 6177,
+      "per_min_mean": 7.57,
+      "per_min_med_of_kills": 7.85,
+      "kills_using": 155
+     },
+     "recklessness": {
+      "casts_total": 1012,
+      "per_min_mean": 1.24,
+      "per_min_med_of_kills": 1.23,
+      "kills_using": 155
+     },
+     "whirlwind": {
+      "casts_total": 3025,
+      "per_min_mean": 3.71,
+      "per_min_med_of_kills": 3.41,
+      "kills_using": 154
+     }
+    }
+   },
+   "event_kill_marker_check": {
+    "학살자": {
+     "n": 155,
+     "marker_counts": {
+      "90387 천벌과 분노": 143,
+      "90395 격노의 재생력": 10,
+      "109967 고기칼": 6
+     }
+    },
+    "산왕": {
+     "n": 141,
+     "marker_counts": {
+      "90410 대학살": 125,
+      "90395 격노의 재생력": 16,
+      "90387 천벌과 분노": 2
+     }
+    }
+   },
+   "prio_note": "분노는 스펙트리 분화가 없어 조합별 상태표 = 영웅별 상태표 — data/fury_procprio.json (slayer/thane) 이 그대로 조합별 결과.",
+   "guide_verdict": "분노는 조합 축이 영웅특성 하나로 접힘(학살자=단일 보스, 산왕=광 보스, 스펙트리는 각각 균일). → 빌드 탭 불필요, 기존 영웅별(학살자/산왕) 분리로 완결. aoe_diff 는 '보스가 광이면 산왕' 수준의 특성 선택 안내가 전부."
+  }
+ }
+}
