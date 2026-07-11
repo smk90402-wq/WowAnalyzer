@@ -25,7 +25,7 @@
     odyn: { nm: '오딘의 격노', ic: 'inv_sword_1h_artifactvigfus_d_01', id: 385059 },
     bstorm: { nm: '칼날폭풍', ic: 'ability_warrior_bladestorm', id: 46924 },
     ww: { nm: '소용돌이', ic: 'ability_whirlwind', id: 190411 },
-    tblast: { nm: '우레 작렬', ic: 'warrior_talent_icon_bloodandthunder' },
+    tblast: { nm: '우레 작렬', ic: 'warrior_talent_icon_bloodandthunder', id: 435222 },
     tclap: { nm: '천둥벼락', ic: 'spell_nature_thunderclap', id: 6343 },
   };
   // 무기 전사 (아이콘/ID: spell_db 공식, 2026-07-11 실측 확정 ID)
@@ -56,8 +56,8 @@
     enrage: { nm: '격노', ic: 'spell_shadow_unholyfrenzy', id: 184362 },
     reck: { nm: '무모한 희생', ic: 'warrior_talent_icon_innerrage', id: 1719 },
     suddenDeath: { nm: '급살', ic: 'ability_warrior_improveddisciplines', id: 52437 },
-    execute: { nm: '처형 구간', ic: 'inv_sword_48' },
-    thunder: { nm: '우레 작렬', ic: 'warrior_talent_icon_bloodandthunder' },
+    execute: { nm: '처형 구간', ic: 'inv_sword_48', id: 5308 },
+    thunder: { nm: '우레 작렬', ic: 'warrior_talent_icon_bloodandthunder', id: 435615 },
     csWindow: { nm: '거인의 강타 창', ic: 'inv_warbreaker', id: 167105 },
     hsProc: { nm: '전쟁의 지배자', ic: 'inv12_apextalent_warrior_masterofwarfare', id: 1269391 },
     avatar: { nm: '투신', ic: 'warrior_talent_icon_avatar', id: 107574 },
