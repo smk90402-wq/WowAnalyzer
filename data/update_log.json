@@ -1743,6 +1743,58 @@
         "data/rankings_zone46_mythic_dps_top100_pi.csv",
         "data/v2_cache_pi_fight.json"
       ]
+    },
+    {
+      "ts": "2026-07-11T16:18:42",
+      "host": "RTVMKSEO",
+      "action": "backfill_v2",
+      "params": {
+        "limit": null,
+        "processed": 1800,
+        "scanned": 1800,
+        "missing_only": true,
+        "max_new": null,
+        "pf_all": false,
+        "no_events": true
+      },
+      "result": {
+        "pf_new": 1770,
+        "pf_fail": 30,
+        "ev_new": 0,
+        "ev_fail": 0,
+        "ev_skip": 1800,
+        "rate_end": 3670
+      },
+      "files": [
+        "data/v2_cache_player_fight.json",
+        "data/v2_cache_events.json"
+      ]
+    },
+    {
+      "ts": "2026-07-11T16:41:52",
+      "host": "RTVMKSEO",
+      "action": "backfill_v2",
+      "params": {
+        "limit": null,
+        "processed": 600,
+        "scanned": 600,
+        "missing_only": true,
+        "max_new": null,
+        "pf_all": false,
+        "no_events": false
+      },
+      "result": {
+        "pf_new": 590,
+        "pf_fail": 10,
+        "ev_new": 590,
+        "ev_fail": 10,
+        "ev_skip": 0,
+        "rate_end": 608.27
+      },
+      "files": [
+        "data/v2_cache_player_fight.json",
+        "data/v2_cache_events.json"
+      ]
     }
   ]
 }
