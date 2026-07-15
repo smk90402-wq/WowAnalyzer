@@ -992,6 +992,8 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   background: #e8a34c; cursor: pointer;
 }
 #rc-bossevents i.hit { background: #b18cf0; }
+#rc-bossevents i.impact { background: #ef6b62; }
+#rc-bossevents i.summon { background: #4fc9b0; }
 #rc-bossevents i.prio { width: 3px; height: 9px; }
 #rc-bossevents i:hover { width: 4px; }
 /* 보스 기믹 자막 (캔버스 상단 1줄) */
@@ -1048,6 +1050,8 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .rc-panel-row .t { color: var(--accent); font-variant-numeric: tabular-nums; flex: none; }
 .rc-panel-row .s { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .rc-panel-row.hit .s { color: #b18cf0; }
+.rc-panel-row.impact .s { color: #ef6b62; }
+.rc-panel-row.summon .s { color: #4fc9b0; }
 /* 기간형 기믹 남은 시간 — "· 6초 남음" (값은 매 틱 textContent 만 갱신) */
 .rc-panel-row .rem { color: var(--text-mute); font-size: 10.5px; flex: none; font-variant-numeric: tabular-nums; }
 /* '쓴 스킬' 중 블러드/물약/쿨기류로 잡힌 시전은 종류 색으로 강조 */
@@ -1106,22 +1110,23 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .k-utility { --evk: #6fd6f0; }
 /* 디버프별 필터 드롭다운 */
 .replay-ev-kinds { position: relative; }
-#rc-debuff-btn {
+#rc-mechanic-btn {
   cursor: pointer; border: 1px solid var(--border); background: var(--bg-1);
   color: var(--text); border-radius: 5px; padding: 3px 9px; font-size: 11.5px;
 }
-#rc-debuff-btn.filtered { border-color: #d19b38; color: #ffd98a; }
-#rc-debuff-pop[hidden] { display: none !important; }  /* display:flex 가 hidden 을 이기던 버그 */
-#rc-debuff-pop {
+#rc-mechanic-btn.filtered { border-color: #d19b38; color: #ffd98a; }
+#rc-mechanic-pop[hidden] { display: none !important; }
+#rc-mechanic-pop {
   position: absolute; top: calc(100% + 4px); right: 0; z-index: 60;
   min-width: 240px; max-width: 340px; max-height: 280px; overflow-y: auto;
   background: var(--bg-1); border: 1px solid var(--border); border-radius: 6px;
   padding: 8px 10px; box-shadow: 0 10px 30px rgba(0,0,0,.5);
   display: flex; flex-direction: column; gap: 5px; font-size: 12px;
 }
-#rc-debuff-pop label { display: flex; align-items: center; gap: 6px; cursor: pointer; color: #cbb0f0; }
-#rc-debuff-pop label .n { margin-left: auto; color: var(--text-mute); font-size: 11px; }
-#rc-bossevents i.off { display: none; }   /* 디버프별 필터로 꺼진 타임라인 눈금 */
+#rc-mechanic-pop label { display: flex; align-items: center; gap: 6px; cursor: pointer; color: #cbb0f0; }
+#rc-mechanic-pop label small { color: var(--text-mute); white-space: nowrap; }
+#rc-mechanic-pop label .n { margin-left: auto; color: var(--text-mute); font-size: 11px; }
+#rc-bossevents i.off { display: none; }
 /* 스킬 툴팁 — 피드 행/기믹 눈금에 마우스 올리면 (앵커 근처 고정, 클릭 방해 X) */
 #rc-tip {
   position: fixed; z-index: 1000; display: none; pointer-events: none;

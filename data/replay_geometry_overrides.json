@@ -1,0 +1,8 @@
+{
+ "_meta": {
+  "purpose": "Encounter and difficulty specific corrections for replay geometry",
+  "key": "encounterID:difficultyID:spellID; use * as a wildcard",
+  "allowed_shapes": ["target", "circle", "cone", "line", "donut", "global"]
+ },
+ "entries": {}
+}

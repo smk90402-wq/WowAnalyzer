@@ -1514,22 +1514,23 @@ function _feedRow(it) {
     <button class="replay-event feed k-${esc(it.kind)}" type="button" data-replay-jump="${vt}"
       data-k="${esc(it.kind)}" data-sid="${Number(it.sid) || 0}" data-spell="${esc(it.spell || '')}"
       data-bk="${esc(it.bk || '')}" data-dur="${Number(it.dur) || 0}"
+      data-shape="${esc(it.geometry?.shape || '')}" data-radius="${Number(it.geometry?.radius || it.geometry?.length) || 0}"
+      data-max-stacks="${Number(it.maxStacks) || 0}"
       data-dest="${esc(it.dest || '')}" data-src="${esc(it.src || '')}">
       <span class="rt">${rcClock(vt)}</span><i class="dot"></i><span class="tx">${esc(it.text)}</span>
     </button>
   `;
 }
 
-// 디버프별 표시 필터 — 체크 해제한 spell_id 집합 (리플레이 로드 시 초기화)
-const rcDebuffOff = new Set();
-const rcHitShown = (ev) => ev.kind !== 'hit' || !ev.spell_id || !rcDebuffOff.has(ev.spell_id);
+// 연결된 기믹 단위 표시 필터. 캐스트/디버프/피해 파생 ID를 함께 켜고 끈다.
+const rcMechanicOff = new Set();
+const rcMechanicShown = (ev) => !ev.mechanic_key || !rcMechanicOff.has(ev.mechanic_key);
 
 // 필터 변경을 모든 표시 경로(피드·타임라인 트랙·링·유닛 패널)에 반영
-function rcApplyDebuffFilter() {
+function rcApplyMechanicFilter() {
   renderReplayEventRows();
-  document.querySelectorAll('#rc-bossevents i[data-sid]').forEach(el => {
-    const sid = Number(el.dataset.sid);
-    el.classList.toggle('off', el.classList.contains('hit') && rcDebuffOff.has(sid));
+  document.querySelectorAll('#rc-bossevents i[data-mkey]').forEach(el => {
+    el.classList.toggle('off', rcMechanicOff.has(el.dataset.mkey));
   });
   rcPanelKey = '';
   rcDraw();
@@ -1541,7 +1542,7 @@ function rcBuildFeed() {
   const nameOf = {};
   for (const u of (rc.meta?.units || [])) nameOf[u.id] = String(u.name || u.id).split('-')[0];
   for (const ev of rc.bossEvents || []) {
-    if (!rcHitShown(ev)) continue;   // 디버프별 필터
+    if (!rcMechanicShown(ev)) continue;
     const dest = ev.dest_name ? String(ev.dest_name).split('-')[0] : '';
     const who = dest ? ` → ${dest}` : '';
     // 기간형 디버프(end 있음)는 걸려 있던 시간을 같이 표기 — "(8초)"
@@ -1549,6 +1550,7 @@ function rcBuildFeed() {
     const dur = ev.end != null ? ` (${durS}초)` : '';
     items.push({ t: Number(ev.t) || 0, kind: 'boss', text: `${ev.spell || ''}${who}${dur}`,
                  sid: ev.spell_id, spell: ev.spell, bk: ev.kind, dur: durS,
+                 geometry: ev.geometry, maxStacks: ev.max_stacks,
                  dest, src: ev.src_name ? String(ev.src_name).split('-')[0] : '' });
   }
   for (const d of rc.meta?.deaths || []) {
@@ -1666,8 +1668,8 @@ function renderLocalReplayDetail(detail) {
             <input type="checkbox" data-evkind="${k.key}" ${rcFeedOn[k.key] ? 'checked' : ''} disabled>
             <i class="dot"></i>${k.label}<span class="n" data-evn="${k.key}"></span>
           </label>`).join('')}
-        <button id="rc-debuff-btn" type="button" title="이 판의 디버프를 개별로 켜고 끄기">디버프 필터 ▾</button>
-        <div id="rc-debuff-pop" hidden></div>
+        <button id="rc-mechanic-btn" type="button" title="이 판의 보스 기믹을 캐스트·디버프·피해까지 함께 켜고 끄기">기믹 필터 ▾</button>
+        <div id="rc-mechanic-pop" hidden></div>
       </div>
       <div class="replay-counts">
         <span>캐스트 ${Number(counts.casts || 0).toLocaleString()}</span>
@@ -1741,29 +1743,39 @@ function renderLocalReplayDetail(detail) {
       rcFeedOn[cb.dataset.evkind] = cb.checked;
       renderReplayEventRows();
     });
-    // 디버프별 필터 드롭다운 — 이 판의 디버프(hit) 스펠을 개별 켜고 끄기
-    const dbtn = evKinds.querySelector('#rc-debuff-btn');
-    const dpop = evKinds.querySelector('#rc-debuff-pop');
+    const dbtn = evKinds.querySelector('#rc-mechanic-btn');
+    const dpop = evKinds.querySelector('#rc-mechanic-pop');
     if (dbtn && dpop) {
       dbtn.addEventListener('click', () => {
         if (!dpop.hidden) { dpop.hidden = true; return; }
         const m = new Map();
         for (const ev of rc.bossEvents || []) {
-          if (ev.kind !== 'hit' || !ev.spell_id) continue;
-          const cur = m.get(ev.spell_id) || { name: ev.spell || String(ev.spell_id), n: 0 };
+          const key = ev.mechanic_key || `spell:${Number(ev.spell_id) || 0}`;
+          const cur = m.get(key) || {
+            name: ev.spell || String(ev.spell_id), n: 0,
+            kinds: new Set(), geometry: ev.geometry || null,
+          };
           cur.n++;
-          m.set(ev.spell_id, cur);
+          cur.kinds.add(ev.kind);
+          if (!cur.geometry && ev.geometry) cur.geometry = ev.geometry;
+          m.set(key, cur);
         }
         const rows = [...m.entries()].sort((a, b) => b[1].n - a[1].n);
+        const shapeLabel = { circle: '원형', donut: '도넛형', cone: '부채꼴', line: '직선', target: '대상', global: '전장 전체' };
         dpop.innerHTML = rows.length
-          ? rows.map(([sid, v]) => `<label><input type="checkbox" data-dsid="${sid}" ${rcDebuffOff.has(sid) ? '' : 'checked'}> ${esc(v.name)} <span class="n">${v.n}</span></label>`).join('')
-          : '<div class="empty">디버프 이벤트 없음</div>';
+          ? rows.map(([key, v]) => {
+              const g = v.geometry || {};
+              const size = Number(g.radius || g.length) || 0;
+              const geo = shapeLabel[g.shape] ? ` · ${shapeLabel[g.shape]}${size ? ` ${size}m` : ''}` : '';
+              return `<label><input type="checkbox" data-mkey="${esc(key)}" ${rcMechanicOff.has(key) ? '' : 'checked'}> ${esc(v.name)} <small>${esc([...v.kinds].join('/'))}${geo}</small> <span class="n">${v.n}</span></label>`;
+            }).join('')
+          : '<div class="empty">추적할 보스 기믹 없음</div>';
         dpop.hidden = false;
-        dpop.querySelectorAll('input[data-dsid]').forEach(cb => cb.addEventListener('change', () => {
-          const sid = Number(cb.dataset.dsid);
-          if (cb.checked) rcDebuffOff.delete(sid); else rcDebuffOff.add(sid);
-          dbtn.classList.toggle('filtered', rcDebuffOff.size > 0);
-          rcApplyDebuffFilter();
+        dpop.querySelectorAll('input[data-mkey]').forEach(cb => cb.addEventListener('change', () => {
+          const key = cb.dataset.mkey;
+          if (cb.checked) rcMechanicOff.delete(key); else rcMechanicOff.add(key);
+          dbtn.classList.toggle('filtered', rcMechanicOff.size > 0);
+          rcApplyMechanicFilter();
         }));
       });
       document.addEventListener('click', e => {
@@ -1887,8 +1899,8 @@ async function initReplayCanvas(replayId) {
   rc.meta = meta;
   rc.duration = Math.max(Number(meta.duration_s) || 0, frames[frames.length - 1].t);
   rc.bossEvents = j.boss_events || [];
-  rcDebuffOff.clear();   // 디버프별 필터는 판마다 초기화 (전체 표시)
-  document.getElementById('rc-debuff-btn')?.classList.remove('filtered');
+  rcMechanicOff.clear();
+  document.getElementById('rc-mechanic-btn')?.classList.remove('filtered');
   // 기간형 검색 창 = 최장 지속 기믹 + 여유 — 장기 디버프도 끝까지 링·패널 유지
   let maxDur = 0;
   for (const ev of rc.bossEvents) {
@@ -2015,13 +2027,13 @@ function rcBuildControls() {
       `<i data-t="${Number(d.t) || 0}" style="left:${(Number(d.t) / Math.max(1, rc.duration) * 100).toFixed(2)}%" title="${rcClock(d.t)} 사망"></i>`
     ).join('');
   }
-  // 보스 기믹 트랙 — 시전=주황, 플레이어 디버프=보라, priority 는 크게
+  // 보스 기믹 트랙 — 캐스트/디버프/실제 적중을 색으로 구분한다.
   const bossTrack = $('#rc-bossevents');
   if (bossTrack) {
     const dur = Math.max(1, rc.duration);
     bossTrack.innerHTML = rc.bossEvents.map((ev, i) => {
-      const cls = `${ev.kind === 'hit' ? 'hit' : 'cast'}${ev.priority ? ' prio' : ''}`;
-      return `<i class="${cls}" data-bi="${i}" data-sid="${Number(ev.spell_id) || 0}" style="left:${(Number(ev.t) / dur * 100).toFixed(2)}%"></i>`;
+      const cls = `${ev.kind || 'cast'}${ev.priority ? ' prio' : ''}`;
+      return `<i class="${cls}" data-bi="${i}" data-sid="${Number(ev.spell_id) || 0}" data-mkey="${esc(ev.mechanic_key || '')}" style="left:${(Number(ev.t) / dur * 100).toFixed(2)}%"></i>`;
     }).join('');
     bossTrack.addEventListener('click', e => {
       const el = e.target.closest('i[data-bi]');
@@ -2039,6 +2051,8 @@ function rcBuildControls() {
         sid: Number(ev.spell_id) || 0, name: ev.spell || '',
         kind: rcTipKindLabel('boss', ev.kind),
         dur: ev.end != null ? Math.round(Number(ev.end) - Number(ev.t)) : 0,
+        shape: ev.geometry?.shape || '', radius: Number(ev.geometry?.radius || ev.geometry?.length) || 0,
+        maxStacks: Number(ev.max_stacks) || 0,
         dest: ev.dest_name ? String(ev.dest_name).split('-')[0] : '',
         src: ev.src_name ? String(ev.src_name).split('-')[0] : '',
       }, el);
@@ -2290,7 +2304,9 @@ const rcTipCache = new Map();   // spell_id → Promise<{name, desc}> (실패도
 
 // 피드 종류 → 쉬운 이름. 보스 이벤트는 세부 종류(bk)로 디버프/시전 구분.
 function rcTipKindLabel(kind, bk) {
-  if (kind === 'boss') return bk === 'hit' ? '보스 디버프' : '보스 시전';
+  if (kind === 'boss') return {
+    hit: '보스 디버프', impact: '실제 적중', summon: '소환', cast: '보스 시전',
+  }[bk] || '보스 기믹';
   const k = RC_FEED_KINDS.find(v => v.key === kind);
   return k ? k.label : '';
 }
@@ -2300,6 +2316,8 @@ function rcTipInfoFromRow(row) {
   return {
     sid: Number(d.sid) || 0, name: d.spell || '',
     kind: rcTipKindLabel(d.k, d.bk), dur: Number(d.dur) || 0,
+    shape: d.shape || '', radius: Number(d.radius) || 0,
+    maxStacks: Number(d.maxStacks) || 0,
     dest: d.dest || '', src: d.src || '',
   };
 }
@@ -2343,6 +2361,8 @@ function rcShowTip(info, anchorEl) {
   rcTip.key = key;
   const sub = [
     info.dur ? `${info.dur}초 동안` : '',
+    info.shape ? `${({circle: '원형', donut: '도넛형', cone: '부채꼴', line: '직선', target: '대상', global: '전장 전체'}[info.shape] || info.shape)}${info.radius ? ` ${info.radius}m` : ''}` : '',
+    info.maxStacks ? `최대 ${info.maxStacks}중첩` : '',
     info.dest ? `대상 ${info.dest}` : '',
     info.src ? `시전자 ${info.src}` : '',
   ].filter(Boolean).join(' · ');
@@ -2408,6 +2428,15 @@ function rcCastEventKind(uid, t, spell) {
   return '';
 }
 
+function rcStacksAt(ev, t) {
+  let stacks = 1;
+  for (const update of ev.stack_events || []) {
+    if (Number(update.t) > t) break;
+    stacks = Math.max(1, Number(update.stacks) || stacks);
+  }
+  return stacks;
+}
+
 // '지금 걸린 보스 기믹' — uid 대상 중 시각 t 에 표시할 것 (오래된 것 위).
 // 기간형(end 있음)은 활성(시작<=t<end)인 동안, 순간형은 발생 후 3초만.
 // bossEvents 는 t 오름차순 → 이진탐색 + 최근 120초 창만 역방향 스캔 (전체 스캔 금지).
@@ -2419,7 +2448,7 @@ function rcActiveHitsFor(uid, t) {
     const age = t - Number(ev.t);
     if (age > (rc.evWindow || RC_EV_WINDOW_S)) break;
     if (ev.dest_id !== uid) continue;
-    if (!rcHitShown(ev)) continue;   // 디버프별 필터
+    if (!rcMechanicShown(ev)) continue;
     if (ev.end != null) {
       if (t < Number(ev.end)) out.push({ ev, i, end: Number(ev.end) });
     } else if (age <= RC_RING_S) {
@@ -2468,7 +2497,8 @@ function rcUpdatePanel() {
   castRows.sort((a, b) => a.t - b.t);
   const castList = castRows.slice(-RC_PANEL_CASTS);
 
-  const key = [uid, dead ? 1 : 0, hits.map(h => h.i).join(','), castEnd, deathCnt].join('|');
+  const key = [uid, dead ? 1 : 0,
+    hits.map(h => `${h.i}:${rcStacksAt(h.ev, t)}`).join(','), castEnd, deathCnt].join('|');
   if (key !== rcPanelKey) {
     rcPanelKey = key;
     const name = String(u.name || u.id).split('-')[0];
@@ -2485,7 +2515,10 @@ function rcUpdatePanel() {
       <div class="rc-panel-hptxt"></div>
       <div class="rc-panel-lists">
         <div class="rc-panel-sec">지금 걸린 보스 기믹</div>
-        ${hits.map(h => `<div class="rc-panel-row ${h.ev.kind === 'hit' ? 'hit' : ''}"><span class="s">${esc(h.ev.spell || '')}</span>${h.end != null ? `<span class="rem" data-end="${h.end}"></span>` : ''}</div>`).join('')
+        ${hits.map(h => {
+            const stacks = rcStacksAt(h.ev, t);
+            return `<div class="rc-panel-row ${h.ev.kind || ''}"><span class="s">${esc(h.ev.spell || '')}${h.ev.max_stacks ? ` ×${stacks}` : ''}</span>${h.end != null ? `<span class="rem" data-end="${h.end}"></span>` : ''}</div>`;
+          }).join('')
           || '<div class="rc-panel-none">없음</div>'}
         <div class="rc-panel-sec">쓴 스킬 (최근 ${RC_PANEL_CASTS}개)</div>
         ${castList.map(c => {
@@ -2535,13 +2568,16 @@ function rcRingEventsAt(t) {
     const ev = evs[i];
     const age = t - Number(ev.t);
     if (age > (rc.evWindow || RC_EV_WINDOW_S) || durable.length >= RC_RING_MAX) break;
-    if (!ev.dest_id || rc.mode[ev.dest_id] === 2) continue;
-    if (!rcHitShown(ev)) continue;   // 디버프별 필터
+    if (ev.geometry?.shape === 'global') continue;
+    const anchorId = ev.geometry?.anchor === 'source' ? ev.src_id
+      : (ev.geometry?.anchor === 'target' ? ev.dest_id : (ev.dest_id || ev.src_id));
+    if (!anchorId || rc.mode[anchorId] === 2) continue;
+    if (!rcMechanicShown(ev)) continue;
     if (ev.end != null) {
       const end = Number(ev.end);
-      if (t < end) durable.push({ ev, age, durable: true, fade: Math.min(1, (end - t) / RC_RING_FADE_S) });
+      if (t < end) durable.push({ ev, anchorId, age, durable: true, fade: Math.min(1, (end - t) / RC_RING_FADE_S) });
     } else if (age <= RC_RING_S && instant.length < RC_RING_MAX) {
-      instant.push({ ev, age, durable: false, fade: 1 - age / RC_RING_S });
+      instant.push({ ev, anchorId, age, durable: false, fade: 1 - age / RC_RING_S });
     }
   }
   const out = durable.concat(instant).slice(0, RC_RING_MAX);
@@ -2552,8 +2588,11 @@ function rcRingEventsAt(t) {
 // 시각 t 의 자막 대상 기믹 — 마지막 이벤트가 자막 창(4초) 안이면 그것 (이진탐색)
 function rcBannerEventAt(t) {
   const evs = rc.bossEvents || [];
-  const i = rcUpperIdx(evs, t, e => Number(e.t));
-  return (i >= 0 && t - Number(evs[i].t) <= RC_BANNER_S) ? evs[i] : null;
+  for (let i = rcUpperIdx(evs, t, e => Number(e.t)); i >= 0; i--) {
+    if (t - Number(evs[i].t) > RC_BANNER_S) break;
+    if (rcMechanicShown(evs[i])) return evs[i];
+  }
+  return null;
 }
 
 // 상단 자막 1줄 — 최근 기믹 (textContent 라 esc 불필요)
@@ -2679,27 +2718,98 @@ function rcDraw() {
   for (const it of rcRingEventsAt(t)) {
     const ev = it.ev;
     const age = it.age;
-    const pos = rcTrackAt(rc.tracks[ev.dest_id], t);
+    const pos = rcTrackAt(rc.tracks[it.anchorId], t);
     if (!pos || pos.age > RC_STALE_S) continue;
     const [x, y] = toPx(pos.x, pos.y);
-    const color = ev.kind === 'hit' ? '#b18cf0' : '#e8a34c';
+    const color = { hit: '#b18cf0', impact: '#ef6b62', summon: '#4fc9b0' }[ev.kind] || '#e8a34c';
     const rr = it.durable
       ? 13 + 1.5 * Math.sin(age * Math.PI * 2 / 1.6)   // 은은한 맥동
       : 11 + age * 5;                                  // 링이 천천히 퍼지며 사라짐
-    ctx.globalAlpha = 0.9 * it.fade;
+    const geometry = ev.geometry || {};
+    const shape = geometry.shape || 'target';
+    const radius = Number(geometry.radius) || 0;
+    const appendWorldPath = (points) => {
+      points.forEach((point, i) => {
+        const p = toPx(point[0], point[1]);
+        if (i) ctx.lineTo(p[0], p[1]); else ctx.moveTo(p[0], p[1]);
+      });
+      ctx.closePath();
+    };
+    const worldPath = (points) => { ctx.beginPath(); appendWorldPath(points); };
+    let drewArea = false;
+    let fillRule = 'nonzero';
+    if (shape === 'circle' && radius) {
+      const points = [];
+      for (let i = 0; i < 32; i++) {
+        const a = i / 32 * Math.PI * 2;
+        points.push([pos.x + Math.cos(a) * radius, pos.y + Math.sin(a) * radius]);
+      }
+      worldPath(points);
+      drewArea = true;
+    } else if (shape === 'donut' && radius && Number(geometry.inner_radius)) {
+      const outer = [], inner = [];
+      for (let i = 0; i < 32; i++) {
+        const a = i / 32 * Math.PI * 2;
+        outer.push([pos.x + Math.cos(a) * radius, pos.y + Math.sin(a) * radius]);
+        inner.unshift([pos.x + Math.cos(a) * Number(geometry.inner_radius),
+                      pos.y + Math.sin(a) * Number(geometry.inner_radius)]);
+      }
+      ctx.beginPath();
+      appendWorldPath(outer);
+      appendWorldPath(inner);
+      fillRule = 'evenodd';
+      drewArea = true;
+    } else if (shape === 'cone' && radius) {
+      let facing = pos.facing;
+      const dest = ev.dest_id ? rcTrackAt(rc.tracks[ev.dest_id], t) : null;
+      if (facing == null && dest) facing = Math.atan2(dest.y - pos.y, dest.x - pos.x);
+      facing = facing == null ? 0 : facing;
+      const half = (Number(geometry.angle) || 90) * Math.PI / 360;
+      const points = [[pos.x, pos.y]];
+      for (let i = 0; i <= 18; i++) {
+        const a = facing - half + (half * 2 * i / 18);
+        points.push([pos.x + Math.cos(a) * radius, pos.y + Math.sin(a) * radius]);
+      }
+      worldPath(points);
+      drewArea = true;
+    } else if (shape === 'line' && Number(geometry.length)) {
+      const length = Number(geometry.length);
+      const width = Number(geometry.width) || 4;
+      let facing = pos.facing;
+      const dest = ev.dest_id ? rcTrackAt(rc.tracks[ev.dest_id], t) : null;
+      if (facing == null && dest) facing = Math.atan2(dest.y - pos.y, dest.x - pos.x);
+      facing = facing == null ? 0 : facing;
+      const fx = Math.cos(facing), fy = Math.sin(facing);
+      const sx = -fy * width / 2, sy = fx * width / 2;
+      worldPath([
+        [pos.x + sx, pos.y + sy], [pos.x - sx, pos.y - sy],
+        [pos.x + fx * length - sx, pos.y + fy * length - sy],
+        [pos.x + fx * length + sx, pos.y + fy * length + sy],
+      ]);
+      drewArea = true;
+    }
     ctx.lineWidth = ev.priority ? 3 : 2;
     ctx.strokeStyle = color;
-    ctx.beginPath();
-    ctx.arc(x, y, rr, 0, Math.PI * 2);
+    if (drewArea) {
+      ctx.globalAlpha = 0.16 * it.fade;
+      ctx.fillStyle = color;
+      ctx.fill(fillRule);
+      ctx.globalAlpha = 0.9 * it.fade;
+    } else {
+      ctx.globalAlpha = 0.9 * it.fade;
+      ctx.beginPath();
+      ctx.arc(x, y, rr, 0, Math.PI * 2);
+    }
     ctx.stroke();
-    const label = String(ev.spell || '');
+    const stacks = ev.max_stacks ? rcStacksAt(ev, t) : 0;
+    const label = `${String(ev.spell || '')}${stacks ? ` ×${stacks}` : ''}`;
     if (label) {
       ctx.font = 'bold 12px sans-serif';
       ctx.lineWidth = 3;
       ctx.strokeStyle = '#10141a';
-      ctx.strokeText(label, x, y + rr + 11);
+      ctx.strokeText(label, x, y + (drewArea ? 20 : rr + 11));
       ctx.fillStyle = color;
-      ctx.fillText(label, x, y + rr + 11);
+      ctx.fillText(label, x, y + (drewArea ? 20 : rr + 11));
     }
   }
   ctx.globalAlpha = 1;

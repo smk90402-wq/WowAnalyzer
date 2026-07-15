@@ -351,13 +351,42 @@ window.Replay3D = (() => {
     rec.group.add(rec.label);
   }
 
-  function getRing(i) {
+  function getMechanicMesh(i, shape, angleDeg, innerRatio) {
+    const meshKey = `${shape}:${Number(angleDeg) || 0}:${Number(innerRatio) || 0}`;
+    if (rings[i] && rings[i].userData.meshKey !== meshKey) {
+      scene.remove(rings[i]);
+      rings[i].geometry.dispose();
+      rings[i].material.dispose();
+      rings[i] = null;
+    }
     if (!rings[i]) {
       const mat = new THREE.MeshBasicMaterial({
         color: 0xffffff, transparent: true, side: THREE.DoubleSide, depthWrite: false,
       });
-      const mesh = new THREE.Mesh(new THREE.RingGeometry(0.82, 1, 40), mat);
+      let geometry;
+      if (shape === 'circle') {
+        geometry = new THREE.CircleGeometry(1, 48);
+      } else if (shape === 'donut') {
+        geometry = new THREE.RingGeometry(Math.max(0.05, Number(innerRatio) || 0.5), 1, 48);
+      } else if (shape === 'cone') {
+        const half = (Number(angleDeg) || 90) * Math.PI / 360;
+        const sector = new THREE.Shape();
+        sector.moveTo(0, 0);
+        for (let j = 0; j <= 24; j++) {
+          const a = -half + half * 2 * j / 24;
+          sector.lineTo(Math.sin(a), Math.cos(a));
+        }
+        sector.closePath();
+        geometry = new THREE.ShapeGeometry(sector);
+      } else if (shape === 'line') {
+        geometry = new THREE.PlaneGeometry(1, 1);
+        geometry.translate(0, 0.5, 0);
+      } else {
+        geometry = new THREE.RingGeometry(0.82, 1, 40);
+      }
+      const mesh = new THREE.Mesh(geometry, mat);
       mesh.rotation.x = -Math.PI / 2;     // 지면에 눕힌 원형 링
+      mesh.userData.meshKey = meshKey;
       mesh.visible = false;
       scene.add(mesh);
       rings[i] = mesh;
@@ -533,22 +562,47 @@ window.Replay3D = (() => {
       if (s.sprite) s.sprite.visible = Number(d.t) <= t && rc.mode[d.id] !== 2;
     });
 
-    // 보스 기믹: 대상 발밑에 지면 원형 링 — 규칙은 main.js rcRingEventsAt 공용
-    // (기간형 end 는 걸린 동안 유지+은은한 맥동, 마지막 0.5초 페이드 / 순간형은 3초)
+    // DB2/수동 보정으로 확인된 원형·부채꼴·직선 장판을 월드 야드 단위로 표시한다.
     let ri = 0;
     for (const it of rcRingEventsAt(t)) {
       const ev = it.ev;
       const age = it.age;
-      const pos = rcTrackAt(rc.tracks[ev.dest_id], t);
+      const pos = rcTrackAt(rc.tracks[it.anchorId], t);
       if (!pos || pos.age > RC_STALE_S) continue;
-      const mesh = getRing(ri++);
-      const rr = it.durable
-        ? 2.6 + 0.3 * Math.sin(age * Math.PI * 2 / 1.6)   // 은은한 맥동
-        : 2.2 + age * 2.2;                                // 천천히 퍼지며 사라짐
+      const geometry = ev.geometry || {};
+      const shape = geometry.shape || 'target';
+      const outerRadius = Number(geometry.radius) || 0;
+      const innerRatio = outerRadius ? Number(geometry.inner_radius) / outerRadius : 0;
+      const mesh = getMechanicMesh(ri++, shape, geometry.angle, innerRatio);
+      const pulse = it.durable ? 1 + 0.03 * Math.sin(age * Math.PI * 2 / 1.6) : 1;
+      if (shape === 'circle' && Number(geometry.radius)) {
+        const radius = Number(geometry.radius) * pulse;
+        mesh.scale.set(radius, radius, 1);
+      } else if (shape === 'donut' && Number(geometry.radius)) {
+        const radius = Number(geometry.radius) * pulse;
+        mesh.scale.set(radius, radius, 1);
+      } else if (shape === 'cone' && Number(geometry.radius)) {
+        const radius = Number(geometry.radius) * pulse;
+        mesh.scale.set(radius, radius, 1);
+      } else if (shape === 'line' && Number(geometry.length)) {
+        mesh.scale.set(Number(geometry.width) || 4, Number(geometry.length), 1);
+      } else {
+        const rr = it.durable
+          ? 2.6 + 0.3 * Math.sin(age * Math.PI * 2 / 1.6)
+          : 2.2 + age * 2.2;
+        mesh.scale.set(rr, rr, 1);
+      }
+      if (shape === 'cone' || shape === 'line') {
+        let facing = pos.facing;
+        const dest = ev.dest_id ? rcTrackAt(rc.tracks[ev.dest_id], t) : null;
+        if (facing == null && dest) facing = Math.atan2(dest.y - pos.y, dest.x - pos.x);
+        mesh.rotation.y = facing == null ? 0 : facing;
+      } else {
+        mesh.rotation.y = 0;
+      }
       mesh.position.set(sceneX(pos.y), heightAt(pos.x, pos.y) - center.h + 0.25, sceneZ(pos.x));
-      mesh.scale.set(rr, rr, 1);
-      mesh.material.color.set(ev.kind === 'hit' ? '#b18cf0' : '#e8a34c');
-      mesh.material.opacity = 0.9 * it.fade;
+      mesh.material.color.set({ hit: '#b18cf0', impact: '#ef6b62', summon: '#4fc9b0' }[ev.kind] || '#e8a34c');
+      mesh.material.opacity = (shape === 'target' ? 0.9 : 0.24) * it.fade;
       mesh.visible = true;
       // 대상 유닛 강조: 표시 기간 내내 구체 펄스 + 이름표 (기간형은 살짝만 왕복)
       const drec = units[ev.dest_id];

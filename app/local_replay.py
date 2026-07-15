@@ -23,6 +23,7 @@ DEFAULT_CCTV_DIR = Path(os.environ.get("WARCRAFTCCTV_DIR", r"E:\cctv"))
 
 # 함수 안 지연 임포트만 있으면 PyInstaller 번들 누락 위험 — 최상위에서 명시 임포트
 from app import cctv_sync as _cctv_sync  # noqa: E402
+from app import replay_mechanics
 
 
 def cctv_dir() -> Path:
@@ -722,6 +723,22 @@ _SPEC_CLASS = {
     1467: "evoker", 1468: "evoker", 1473: "evoker",
 }
 
+_SPEC_ROLE = {
+    65: "healer", 66: "tank", 70: "damage",
+    71: "damage", 72: "damage", 73: "tank",
+    250: "tank", 251: "damage", 252: "damage",
+    253: "damage", 254: "damage", 255: "damage",
+    256: "healer", 257: "healer", 258: "damage",
+    259: "damage", 260: "damage", 261: "damage",
+    62: "damage", 63: "damage", 64: "damage",
+    102: "damage", 103: "damage", 104: "tank", 105: "healer",
+    268: "tank", 269: "damage", 270: "healer",
+    577: "damage", 581: "tank",
+    265: "damage", 266: "damage", 267: "damage",
+    262: "damage", 263: "damage", 264: "healer",
+    1467: "damage", 1468: "healer", 1473: "damage", 1480: "damage",
+}
+
 
 def _adv_position_any(row: list[str]) -> tuple[str, float, float, int, float | None, int | None] | None:
     """이벤트 종류별 고급 좌표 추출 → (guid, x, y, uiMapID, facing, hp%).
@@ -948,15 +965,19 @@ def _stream_frames_window(
     casts: dict[str, list[tuple[float, str]]] = {}
     # 보스 기믹 후보: (t, event, spell_id, spell, src_guid, src_name, dest_guid, dest_name)
     boss_raw: list[tuple[float, str, int, str, str, str, str, str]] = []
-    # 플레이어 디버프 해제: (t, spell_id, dest_guid, src_guid) — boss_events 오라
-    # 구간(end) 매칭용. src 는 같은 스킬을 여러 몹이 건 경우 짝 우선순위에 쓴다.
-    aura_removed: list[tuple[float, int, str, str]] = []
+    # 플레이어 디버프 변화: 적용/중첩/갱신/해제를 모두 보존해 지속시간과 중첩을 재구성한다.
+    aura_updates: list[tuple[float, str, int, str, str, int]] = []
     # 플레이어 이벤트 후보: (t, kind, src_guid, spell_id, spell, dest_guid, dest_name, 폴백여부)
     player_raw: list[tuple[float, str, str, int, str, str, str, bool]] = []
     spell_kinds = _player_spell_kinds()
     long_cds = _long_cooldown_ids()
     # 적대(REACTION_HOSTILE) 판정된 Creature/Vehicle guid — npc 트랙 선별용
     hostile: set[str] = set()
+    boss_track_events = frozenset({
+        "SPELL_CAST_START", "SPELL_CAST_SUCCESS", "SPELL_AURA_APPLIED",
+        "SPELL_DAMAGE", "SPELL_PERIODIC_DAMAGE", "RANGE_DAMAGE",
+        "SPELL_MISSED", "SPELL_ABSORBED", "SPELL_SUMMON",
+    })
 
     with log_path.open("rb") as fh:
         fh.seek(start_off)
@@ -1027,14 +1048,19 @@ def _stream_frames_window(
                     str(row[5]) if len(row) > 5 else "",
                     _clean_name(row[6]) if len(row) > 6 else "", False))
 
-            if (event in ("SPELL_CAST_START", "SPELL_CAST_SUCCESS", "SPELL_AURA_APPLIED")
+            if (event in boss_track_events
                     and len(row) > 10
                     and str(row[1]).startswith(("Creature-", "Vehicle-"))
                     and _flags_int(row[3]) & _HOSTILE_FLAG):
                 # 적대 소스만 — 흑마 임프 같은 아군 소환수의 시전 스팸 제외
-                if event != "SPELL_AURA_APPLIED" or (
-                        len(row) > 12 and row[12] == "DEBUFF"
-                        and str(row[5]).startswith("Player-")):
+                is_cast = event in ("SPELL_CAST_START", "SPELL_CAST_SUCCESS", "SPELL_SUMMON")
+                is_debuff = (event == "SPELL_AURA_APPLIED" and len(row) > 12
+                              and row[12] == "DEBUFF"
+                              and str(row[5]).startswith("Player-"))
+                is_impact = (event in ("SPELL_DAMAGE", "SPELL_PERIODIC_DAMAGE", "RANGE_DAMAGE",
+                                       "SPELL_MISSED", "SPELL_ABSORBED")
+                             and str(row[5]).startswith("Player-"))
+                if is_cast or is_debuff or is_impact:
                     boss_raw.append((
                         round(max(t, 0.0), 2), event,
                         _to_int(row[9]), _clean_name(row[10]),
@@ -1042,12 +1068,17 @@ def _stream_frames_window(
                         str(row[5]) if len(row) > 5 else "",
                         _clean_name(row[6]) if len(row) > 6 else "",
                     ))
-            elif (event == "SPELL_AURA_REMOVED" and len(row) > 12
+            if (event in ("SPELL_AURA_APPLIED", "SPELL_AURA_APPLIED_DOSE",
+                          "SPELL_AURA_REFRESH", "SPELL_AURA_REMOVED_DOSE",
+                          "SPELL_AURA_REMOVED", "SPELL_AURA_BROKEN",
+                          "SPELL_AURA_BROKEN_SPELL") and len(row) > 12
                     and row[12] == "DEBUFF" and str(row[5]).startswith("Player-")):
                 # 소스 flags 는 안 봄 — 시전자가 죽은 뒤 해제되는 오라도 매칭되게.
                 # APPLIED 로 수집된 (spell_id, dest) 짝만 실제로 쓰인다.
-                aura_removed.append(
-                    (round(max(t, 0.0), 2), _to_int(row[9]), str(row[5]), str(row[1])))
+                stacks = _to_int(row[13]) if len(row) > 13 else 0
+                aura_updates.append((
+                    round(max(t, 0.0), 2), event, _to_int(row[9]),
+                    str(row[5]), str(row[1]), stacks))
 
             adv = _adv_position_any(row)
             if not adv:
@@ -1067,7 +1098,7 @@ def _stream_frames_window(
 
     return {"samples": samples, "names": names, "specs": specs,
             "deaths": deaths, "map_counts": map_counts, "boss_raw": boss_raw,
-            "aura_removed": aura_removed, "casts": casts,
+            "aura_updates": aura_updates, "casts": casts,
             "player_raw": player_raw, "hostile": hostile}
 
 
@@ -1106,6 +1137,7 @@ def _classify_units(
         if guid.startswith("Player-"):
             units.append({"guid": guid, "name": name,
                           "cls": _SPEC_CLASS.get(specs.get(guid, 0)),
+                          "role": _SPEC_ROLE.get(specs.get(guid, 0), "damage"),
                           "kind": "player"})
         elif name and (name == encounter_name or any(tok in name for tok in tokens)
                        or any(al in name for al in aliases)):
@@ -1333,24 +1365,35 @@ def _select_boss_events(
     boss_guids: set[str],
     guid_to_id: dict[str, str],
     priority_ids: frozenset[int],
-    aura_removed: list[tuple[float, int, str]] | None = None,
+    aura_updates: list[tuple[float, str, int, str, str, int]] | None = None,
     deaths: list[tuple[float, str]] | None = None,
     duration_s: float = 0.0,
+    encounter_id: int = 0,
+    difficulty_id: int = 0,
+    guid_to_role: dict[str, str] | None = None,
 ) -> list[dict[str, Any]]:
-    """보스 기믹 노이즈 컷 (플랜: 시전바 캐스트 전부 + 저빈도 즉시기/디버프 + priority).
+    """Select replay mechanics and join their casts, auras, impacts, and geometry.
 
-    - SPELL_CAST_START: 캐스트바 스킬 → 전부 채택 (kind=cast)
-    - SPELL_CAST_SUCCESS: CAST_START 있는 스펠은 중복이라 제외,
-      나머지는 풀당 횟수 <= 15 또는 priority 만 (kind=cast)
-    - SPELL_AURA_APPLIED(DEBUFF→Player): 풀당 적용 <= 15 또는 priority (kind=hit)
-      + 디버프 걸린 구간 표시용 "end" 필드 — 같은 (spell_id, 대상)의 다음
-      SPELL_AURA_REMOVED 시각. REFRESH/DOSE 는 REMOVED 가 아니라 구간이
-      자연히 이어진다. REMOVED 유실 시 대상 사망·전투 종료 중 이른 쪽.
-      1초 미만 극초단 오라는 end 생략 (순간 히트 취급).
-    - 스펠별 캡 20 (초과 시 균등 샘플), 전체 캡 300 (priority > 보스 소스 우선)
+    Cast bars remain broadly visible. Damage, absorbs, misses, and summons are
+    admitted only when their ID or localized name matches the encounter's
+    priority catalog. Aura dose/refresh/removal events reconstruct duration and
+    stacks without becoming separate timeline entries.
     """
     castbar_ids = {sid for _, ev, sid, *_ in boss_raw if ev == "SPELL_CAST_START"}
     counts: Counter = Counter((ev, sid) for _, ev, sid, *_ in boss_raw)
+    priority_names = {
+        replay_mechanics.normalize_name(spell)
+        for _, _, sid, spell, *_ in boss_raw
+        if sid in priority_ids and spell
+    }
+    priority_profiles_by_name: dict[str, dict[str, Any]] = {}
+    for _, _, sid, spell, *_ in boss_raw:
+        if sid in priority_ids and spell:
+            priority_profiles_by_name.setdefault(
+                replay_mechanics.normalize_name(spell),
+                replay_mechanics.mechanic_profile(
+                    sid, spell, encounter_id, difficulty_id))
+    guid_to_role = guid_to_role or {}
 
     # 다중 대상 디버프(한 번에 6명 등)는 적용 '횟수'가 대상 수만큼 부풀어 저빈도
     # 필터/캡에 걸림 → AURA_APPLIED 는 3초 군집 = 1웨이브로 세서 판정한다.
@@ -1367,17 +1410,20 @@ def _select_boss_events(
                 waves += 1
         wave_counts[sid] = waves
 
-    # (spell_id, dest_guid) → [(해제 t, 해제 src)] / dest_guid → 사망 시각 (t 오름차순)
-    removed_by_key: dict[tuple[int, str], list[tuple[float, str]]] = {}
-    for rt, sid, dguid, rsrc in aura_removed or []:
-        removed_by_key.setdefault((sid, dguid), []).append((rt, rsrc))
+    # (spell_id, dest_guid)별 오라 변화와 대상 사망 시각을 시간순으로 준비한다.
+    updates_by_key: dict[tuple[int, str], list[tuple[float, str, str, int]]] = {}
+    for ut, uevent, sid, dguid, usrc, stacks in aura_updates or []:
+        updates_by_key.setdefault((sid, dguid), []).append((ut, uevent, usrc, stacks))
+    for updates in updates_by_key.values():
+        updates.sort()
     death_by_guid: dict[str, list[float]] = {}
     for dt_, dguid in deaths or []:
         death_by_guid.setdefault(dguid, []).append(dt_)
 
     picked: list[dict[str, Any]] = []
     for t, ev, sid, spell, src_guid, src_name, dest_guid, dest_name in boss_raw:
-        prio = sid in priority_ids
+        prio = (sid in priority_ids
+                or replay_mechanics.normalize_name(spell) in priority_names)
         if ev == "SPELL_CAST_START":
             kind = "cast"
         elif ev == "SPELL_CAST_SUCCESS":
@@ -1386,21 +1432,51 @@ def _select_boss_events(
             if counts[(ev, sid)] > BOSS_HIT_MAX_APPLIED and not prio:
                 continue  # 틱뎀·평타류 스팸
             kind = "cast"
-        else:
-            n = wave_counts.get(sid, counts[(ev, sid)]) if ev == "SPELL_AURA_APPLIED" \
-                else counts[(ev, sid)]
+        elif ev == "SPELL_AURA_APPLIED":
+            n = wave_counts.get(sid, counts[(ev, sid)])
             if n > BOSS_HIT_MAX_APPLIED and not prio:
                 continue
             kind = "hit"
+        elif ev == "SPELL_SUMMON":
+            if not prio:
+                continue
+            kind = "summon"
+        else:
+            if not prio:
+                continue
+            kind = "impact"
         item: dict[str, Any] = {
             "t": t, "spell_id": sid, "spell": spell,
             "kind": kind, "src_name": src_name,
         }
+        profile = replay_mechanics.mechanic_profile(
+            sid, spell, encounter_id, difficulty_id)
+        group_profile = priority_profiles_by_name.get(
+            replay_mechanics.normalize_name(spell))
+        if group_profile:
+            observed_geometry = profile.get("geometry")
+            profile = dict(group_profile)
+            if observed_geometry:
+                profile["geometry"] = observed_geometry
+        item["mechanic_key"] = profile["key"]
+        item["root_spell_id"] = profile["root_spell_id"]
+        if profile.get("types"):
+            item["types"] = profile["types"]
+        if profile.get("geometry"):
+            item["geometry"] = profile["geometry"]
+        src_id = guid_to_id.get(src_guid)
+        if src_id:
+            item["src_id"] = src_id
         if ev == "SPELL_AURA_APPLIED":
             # 오라 구간: 다음 REMOVED > t. 없으면 대상 사망/전투 종료 중 이른 쪽.
             end: float | None = None
             instant = False
-            removals = removed_by_key.get((sid, dest_guid))
+            updates = updates_by_key.get((sid, dest_guid)) or []
+            removals = [
+                (ut, usrc) for ut, uevent, usrc, _ in updates
+                if uevent in ("SPELL_AURA_REMOVED", "SPELL_AURA_BROKEN",
+                              "SPELL_AURA_BROKEN_SPELL")
+            ]
             if removals:
                 i = bisect.bisect_right(removals, (t, "￿"))
                 if i > 0 and removals[i - 1][0] == t:
@@ -1423,6 +1499,27 @@ def _select_boss_events(
                         break
             if end is not None and end - t >= 1.0:
                 item["end"] = round(end, 2)
+            stack_events: list[dict[str, Any]] = []
+            max_stacks = 1
+            for ut, uevent, usrc, stacks in updates:
+                if ut < t or (usrc and usrc != src_guid):
+                    continue
+                if ut > t and uevent == "SPELL_AURA_APPLIED":
+                    break
+                if uevent in ("SPELL_AURA_REMOVED", "SPELL_AURA_BROKEN",
+                              "SPELL_AURA_BROKEN_SPELL"):
+                    break
+                if uevent in ("SPELL_AURA_APPLIED_DOSE", "SPELL_AURA_REFRESH",
+                              "SPELL_AURA_REMOVED_DOSE"):
+                    shown_stacks = stacks or max_stacks
+                    max_stacks = max(max_stacks, shown_stacks)
+                    stack_events.append({
+                        "t": ut, "stacks": shown_stacks,
+                        "action": uevent.removeprefix("SPELL_AURA_").lower(),
+                    })
+            if stack_events:
+                item["stack_events"] = stack_events
+                item["max_stacks"] = max_stacks
         if prio:
             item["priority"] = True
         if src_guid in boss_guids:
@@ -1430,6 +1527,8 @@ def _select_boss_events(
         dest_id = guid_to_id.get(dest_guid)
         if dest_id:
             item["dest_id"] = dest_id
+        if guid_to_role.get(dest_guid):
+            item["dest_role"] = guid_to_role[dest_guid]
         if dest_name:
             item["dest_name"] = dest_name
         picked.append(item)
@@ -1437,6 +1536,22 @@ def _select_boss_events(
     # 스펠별 캡 — 초과분은 시간축 균등 샘플 (앞쪽 쏠림 방지).
     # 단 hit(디버프)는 개별 샘플이 웨이브를 반토막 내서 "6명 중 3명만 하이라이트"가
     # 됐던 버그 → 3초 군집(웨이브)을 통째로 유지하고 웨이브 단위로 샘플.
+    confidence_rank = {"semantic": 1, "manual": 2, "override": 2, "db2": 3}
+    geometry_by_mechanic: dict[str, dict[str, Any]] = {}
+    for item in picked:
+        geometry = item.get("geometry")
+        if not geometry:
+            continue
+        current = geometry_by_mechanic.get(item["mechanic_key"])
+        if (current is None
+                or confidence_rank.get(geometry.get("confidence"), 0)
+                > confidence_rank.get(current.get("confidence"), 0)):
+            geometry_by_mechanic[item["mechanic_key"]] = geometry
+    for item in picked:
+        geometry = geometry_by_mechanic.get(item["mechanic_key"])
+        if geometry:
+            item["geometry"] = geometry
+
     by_spell: dict[tuple[str, int], list[dict[str, Any]]] = {}
     for item in picked:
         by_spell.setdefault((item["kind"], item["spell_id"]), []).append(item)
@@ -1554,15 +1669,20 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
     deaths = [{"t": t, "id": guid_to_id[g]} for t, g in parsed["deaths"] if g in guid_to_id]
 
     # 보스 기믹 이벤트 (누가 대상인지) — viserio priority 목록은 있으면 보강
-    priority_ids = _boss_priority_map().get(
-        _to_int(enc.get("encounter_id")) or _to_int(cap.get("encounter_id")),
-        frozenset())
+    encounter_id = (_to_int(enc.get("encounter_id"))
+                    or _to_int(cap.get("encounter_id")))
+    difficulty_id = (_to_int(enc.get("difficulty_id"))
+                     or _to_int(cap.get("difficulty_id")))
+    priority_ids = _boss_priority_map().get(encounter_id, frozenset())
     boss_guids = {u["guid"] for u in units if u["kind"] == "boss"}
+    guid_to_role = {u["guid"]: u.get("role", "") for u in units}
     boss_events = _select_boss_events(
         parsed.get("boss_raw") or [], boss_guids, guid_to_id, priority_ids,
-        aura_removed=parsed.get("aura_removed") or [],
+        aura_updates=parsed.get("aura_updates") or [],
         deaths=parsed.get("deaths") or [],
-        duration_s=float(duration_s or 0))
+        duration_s=float(duration_s or 0),
+        encounter_id=encounter_id, difficulty_id=difficulty_id,
+        guid_to_role=guid_to_role)
 
     # 플레이어 이벤트 (블러드/물약/치유석/오펜시브/생존기)
     player_events = _select_player_events(
@@ -1589,6 +1709,8 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
     out = {
         "meta": {
             "encounter": enc.get("encounter") or (cap.get("encounter") or ""),
+            "encounter_id": encounter_id,
+            "difficulty_id": difficulty_id,
             "instance_id": _to_int(enc.get("instance_id")),
             "duration_s": round(float(duration_s), 3),
             "video_offset_s": video_offset_s,
@@ -1596,6 +1718,7 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
             "units": [
                 {"id": guid_to_id[u["guid"]], "name": u["name"],
                  "cls": u["cls"], "kind": u["kind"],
+                 "role": u.get("role"),
                  "race": u.get("race"), "sex": u.get("sex")}
                 for u in units
             ],

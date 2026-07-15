@@ -1,0 +1,6990 @@
+{
+ "_meta": {
+  "source": "wago.tools DB2 SpellEffect/SpellRadius + boss_spell_priority metadata",
+  "fetched": "2026-07-16",
+  "geometry_policy": "Only plausible local radii with recognized target shapes are rendered"
+ },
+ "encounters": {
+  "3159": [
+   1221622,
+   1221639,
+   1221781,
+   1222088,
+   1221787,
+   1221637,
+   1221965
+  ],
+  "3182": [
+   1242981,
+   1261217,
+   1261218,
+   1244348,
+   1241291,
+   1242515,
+   1242792,
+   1246709
+  ],
+  "3183": [
+   1267049,
+   1284931,
+   1253915,
+   1249609,
+   1284980,
+   1279420,
+   1285563,
+   1282043,
+   1284525,
+   1281184,
+   1282412,
+   1281123,
+   1275057,
+   1266897,
+   1286915,
+   1266388,
+   1266810,
+   1273375,
+   1266344,
+   1251343,
+   1263253,
+   1285510,
+   1276525
+  ],
+  "3176": [
+   1249251,
+   1262776,
+   1280015,
+   1249266,
+   1262036,
+   1261249,
+   1258880,
+   1260712
+  ],
+  "3177": [
+   1260052,
+   1241836,
+   1254199,
+   1254113,
+   1259186,
+   1256855
+  ],
+  "3179": [
+   1243453,
+   1250686,
+   1254081,
+   1285211,
+   1260823,
+   1253032,
+   1246175
+  ],
+  "3178": [
+   1265131,
+   1264467,
+   1245645,
+   1265152,
+   1262623,
+   1270497,
+   1258744,
+   1244221,
+   1245391,
+   1244672,
+   1244917,
+   1249748
+  ],
+  "3180": [
+   1258659,
+   1246497,
+   1251857,
+   1251859,
+   1251812,
+   1249130,
+   1246765,
+   1258514,
+   1248644,
+   1246162,
+   1248449,
+   1248451,
+   1255738,
+   1246749,
+   1248710,
+   1250839
+  ],
+  "3181": [
+   1233865,
+   1232467,
+   1243743,
+   1233787,
+   1233602,
+   1233819,
+   1234546,
+   1237837,
+   1246461,
+   1237035,
+   1237614,
+   1246918,
+   1239080,
+   1238843
+  ],
+  "3306": [
+   1258610,
+   1250953,
+   1262289,
+   1246621,
+   1257087,
+   1264756,
+   1262020,
+   1272726,
+   1245396,
+   1245452
+  ]
+ },
+ "radii": {
+  "12": 100.0,
+  "14": 8.0,
+  "20": 25.0,
+  "21": 35.0,
+  "22": 200.0,
+  "23": 40.0,
+  "28": 50000.0,
+  "32": 12.0,
+  "41": 150.0,
+  "88": 300.0,
+  "113": 1000.0,
+  "496": 250.0
+ },
+ "spells": {
+  "1221622": {
+   "name": "Awaken Fungi",
+   "types": [
+    "Add Spawn"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1221637": {
+   "name": "Fungal Bloom",
+   "types": [
+    "Raid AOE"
+   ],
+   "alias_ids": [
+    1222409
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1222409
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 98,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 203,
+       "aura": 0,
+       "trigger_spell": 1222409,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "15": {
+     "trigger_ids": [
+      1222409
+     ],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 15,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 15,
+       "effect": 203,
+       "aura": 0,
+       "trigger_spell": 1222409,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "233": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 233,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 233,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    }
+   }
+  },
+  "1221639": {
+   "name": "Shroomling",
+   "types": [
+    "Add Spawn"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 128,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1221781": {
+   "name": "Putrid Fist",
+   "types": [
+    "Tankbuster"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 98,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 98,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 15,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "233": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 233,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1221787": {
+   "name": "Bursting Pustules",
+   "types": [
+    "Raid AOE"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1221965": {
+   "name": "Bursting Shroom",
+   "types": [
+    "Raid AOE"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    }
+   }
+  },
+  "1222088": {
+   "name": "Festering Vines",
+   "types": [
+    "Movement"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 61,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 33,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 15,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    },
+    "233": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 233,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    }
+   }
+  },
+  "1232467": {
+   "name": "Grasp of Emptiness",
+   "types": [
+    "Debuffs"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 7
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1233602": {
+   "name": "Silverstrike Arrow",
+   "types": [
+    "Debuffs"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 61,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 7
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 7
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 7
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "220": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 220,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 7
+      },
+      {
+       "difficulty_id": 220,
+       "effect": 6,
+       "aura": 171,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 7
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1233787": {
+   "name": "Dark Hand",
+   "types": [
+    "Tankbuster"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1233819": {
+   "name": "Void Expulsion",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 7
+      }
+     ]
+    }
+   }
+  },
+  "1233865": {
+   "name": "Null Corona",
+   "types": [
+    "Healing Absorb"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 301,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 22,
+       "target_0": 22,
+       "target_1": 7
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 61,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 22,
+       "target_0": 22,
+       "target_1": 7
+      }
+     ]
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 6,
+       "aura": 301,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 22,
+       "target_0": 22,
+       "target_1": 7
+      }
+     ]
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 6,
+       "aura": 301,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 22,
+       "target_0": 22,
+       "target_1": 7
+      }
+     ]
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 301,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 22,
+       "target_0": 22,
+       "target_1": 7
+      }
+     ]
+    },
+    "17": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 17,
+       "effect": 6,
+       "aura": 301,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 22,
+       "target_0": 22,
+       "target_1": 7
+      }
+     ]
+    }
+   }
+  },
+  "1234546": {
+   "name": "Silversunder Catastrophe",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 88,
+       "radius_1": 88,
+       "target_0": 38,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1237035": {
+   "name": "Voidstalker Sting",
+   "types": [
+    "Raid DOT"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1237614": {
+   "name": "Ranger Captain's Mark",
+   "types": [
+    "Debuffs"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 62,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1237837": {
+   "name": "Call of the Void",
+   "types": [
+    "Add Spawn"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1238843": {
+   "name": "Devouring Cosmos",
+   "types": [
+    "Movement"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 62,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1239080": {
+   "name": "Aspect of the End",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    }
+   }
+  },
+  "1241291": {
+   "name": "Light Dive",
+   "types": [
+    "Group Soak"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 32,
+       "radius_1": 0,
+       "target_0": 16,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "circle",
+      "anchor": "target",
+      "radius": 12.0,
+      "source": "SpellEffect/SpellRadius",
+      "confidence": "db2"
+     }
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 32,
+       "radius_1": 0,
+       "target_0": 16,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "circle",
+      "anchor": "target",
+      "radius": 12.0,
+      "source": "SpellEffect/SpellRadius",
+      "confidence": "db2"
+     }
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 32,
+       "radius_1": 0,
+       "target_0": 16,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "circle",
+      "anchor": "target",
+      "radius": 12.0,
+      "source": "SpellEffect/SpellRadius",
+      "confidence": "db2"
+     }
+    }
+   }
+  },
+  "1241836": {
+   "name": "Smashing Frenzy",
+   "types": [
+    "Tankbuster"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1242515": {
+   "name": "Voidlight Convergence",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [
+    1241932,
+    1261446
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1241932,
+      1261446
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1241932,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1261446,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1242792": {
+   "name": "Incubation of Flames",
+   "types": [
+    "Event",
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "17": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 17,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1242981": {
+   "name": "Radiant Echoes",
+   "types": [
+    "Event"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1243453": {
+   "name": "Void Convergence",
+   "types": [
+    "Add Spawn"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1243743": {
+   "name": "Interrupting Tremor",
+   "types": [
+    "Event"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 23,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 68,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 23,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ],
+     "geometry": {
+      "shape": "circle",
+      "anchor": "source",
+      "radius": 40.0,
+      "source": "SpellEffect/SpellRadius",
+      "confidence": "db2"
+     }
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 23,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ],
+     "geometry": {
+      "shape": "circle",
+      "anchor": "source",
+      "radius": 40.0,
+      "source": "SpellEffect/SpellRadius",
+      "confidence": "db2"
+     }
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 22,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 16,
+       "effect": 68,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 22,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    },
+    "17": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 17,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 23,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ],
+     "geometry": {
+      "shape": "circle",
+      "anchor": "source",
+      "radius": 40.0,
+      "source": "SpellEffect/SpellRadius",
+      "confidence": "db2"
+     }
+    },
+    "220": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 220,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 23,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ],
+     "geometry": {
+      "shape": "circle",
+      "anchor": "source",
+      "radius": 40.0,
+      "source": "SpellEffect/SpellRadius",
+      "confidence": "db2"
+     }
+    }
+   }
+  },
+  "1244221": {
+   "name": "Dread Breath",
+   "types": [
+    "Movement"
+   ],
+   "alias_ids": [
+    1244225,
+    1255979
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1244225,
+      1255979
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 1244225,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 1255979,
+       "radius_0": 88,
+       "radius_1": 88,
+       "target_0": 60,
+       "target_1": 0
+      }
+     ]
+    },
+    "17": {
+     "trigger_ids": [
+      1255979
+     ],
+     "effects": [
+      {
+       "difficulty_id": 17,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 1255979,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1244348": {
+   "name": "Light Burn",
+   "types": [
+    "Debuffs",
+    "Healing Absorb"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 301,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 6,
+       "aura": 301,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 14,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "17": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 17,
+       "effect": 6,
+       "aura": 301,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 17,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1244672": {
+   "name": "Nullzone",
+   "types": [
+    "Movement"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1244917": {
+   "name": "Void Howl",
+   "types": [
+    "Adds",
+    "Movement",
+    "Raid Damage"
+   ],
+   "alias_ids": [
+    1245070
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1245070
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 1245070,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 7
+      }
+     ]
+    }
+   }
+  },
+  "1245391": {
+   "name": "Gloom",
+   "types": [
+    "Group Soak"
+   ],
+   "alias_ids": [
+    1245417
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1245417
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 1245417,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "14": {
+     "trigger_ids": [
+      1245417
+     ],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 1245417,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "15": {
+     "trigger_ids": [
+      1245417
+     ],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 1245417,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "16": {
+     "trigger_ids": [
+      1245417
+     ],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 1245417,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "17": {
+     "trigger_ids": [
+      1245417
+     ],
+     "effects": [
+      {
+       "difficulty_id": 17,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 1245417,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1245396": {
+   "name": "Consume",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 4,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1245452": {
+   "name": "Corrupted Devastation",
+   "types": [
+    "Movement"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 4,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1245645": {
+   "name": "Rakfang",
+   "types": [
+    "Tankbuster"
+   ],
+   "alias_ids": [
+    1264892
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1264892
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 1264892,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1246162": {
+   "name": "Aura of Devotion",
+   "types": [
+    "Movement"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 395,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 26,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 395,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 6,
+       "aura": 395,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1246175": {
+   "name": "Entropic Unraveling",
+   "types": [
+    "Damage Amp",
+    "Movement",
+    "Raid Damage"
+   ],
+   "alias_ids": [
+    1254019
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1254019
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 370,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 64,
+       "aura": 0,
+       "trigger_spell": 1254019,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 87,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 162,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 56,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1246461": {
+   "name": "Rift Slash",
+   "types": [
+    "Tankbuster"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "17": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 17,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1246497": {
+   "name": "Avenger's Shield",
+   "types": [
+    "Dispel"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    }
+   }
+  },
+  "1246621": {
+   "name": "Caustic Phlegm",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    }
+   }
+  },
+  "1246709": {
+   "name": "Death Drop",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1246749": {
+   "name": "Sacred Toll",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 12,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 12,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 12,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 12,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    },
+    "17": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 17,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 12,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    }
+   }
+  },
+  "1246765": {
+   "name": "Divine Storm",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 14,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 14,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 14,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 14,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    },
+    "17": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 17,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 14,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    }
+   }
+  },
+  "1246918": {
+   "name": "Cosmic Barrier",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [
+    1246925
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1246925
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 69,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1246925,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 4,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 62,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 61,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 6,
+       "aura": 4,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 14,
+       "effect": 62,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 14,
+       "effect": 6,
+       "aura": 69,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 6,
+       "aura": 4,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 15,
+       "effect": 6,
+       "aura": 69,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 4,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "17": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 17,
+       "effect": 6,
+       "aura": 69,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "220": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 220,
+       "effect": 6,
+       "aura": 4,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 220,
+       "effect": 62,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1248449": {
+   "name": "Aura of Wrath",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 395,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 455,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 395,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1248451": {
+   "name": "Aura of Peace",
+   "types": [
+    "Movement"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 26,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 395,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 395,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1248644": {
+   "name": "Divine Toll",
+   "types": [
+    "Movement"
+   ],
+   "alias_ids": [
+    1246391,
+    1248659
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1246391,
+      1248659
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1248659,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 64,
+       "aura": 0,
+       "trigger_spell": 1246391,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1248710": {
+   "name": "Tyr's Wrath",
+   "types": [
+    "Healing Absorb"
+   ],
+   "alias_ids": [
+    1246391,
+    1248718
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1246391,
+      1248718
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1248718,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 64,
+       "aura": 0,
+       "trigger_spell": 1246391,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1249130": {
+   "name": "Elekk Charge",
+   "types": [
+    "Event",
+    "Movement"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 395,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 31,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 487,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 6,
+       "aura": 31,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1249251": {
+   "name": "Dark Upheaval",
+   "types": [
+    "Movement",
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    }
+   }
+  },
+  "1249266": {
+   "name": "Umbral Collapse",
+   "types": [
+    "Group Soak"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1249609": {
+   "name": "Dark Rune",
+   "types": [
+    "Debuffs"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 61,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1249748": {
+   "name": "Midnight Flames",
+   "types": [
+    "Raid DOT",
+    "Raid Damage"
+   ],
+   "alias_ids": [
+    1250071
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1250071
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 395,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1250071,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 87,
+       "target_1": 16
+      }
+     ]
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 87,
+       "target_1": 16
+      }
+     ]
+    }
+   }
+  },
+  "1250686": {
+   "name": "Twisting Obscurity",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1250839": {
+   "name": "Execution Sentence",
+   "types": [
+    "Group Soak"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 4,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1250953": {
+   "name": "Rift Sickness",
+   "types": [
+    "Healing Absorb"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 301,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 41,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 301,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 41,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    },
+    "17": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 17,
+       "effect": 6,
+       "aura": 301,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 41,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    }
+   }
+  },
+  "1251343": {
+   "name": "The Dark Archangel",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1251812": {
+   "name": "Final Verdict",
+   "types": [
+    "Tankbuster"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1251857": {
+   "name": "Judgment",
+   "types": [
+    "Tankbuster"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 255,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 15,
+       "effect": 6,
+       "aura": 255,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 255,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "17": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 17,
+       "effect": 6,
+       "aura": 255,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1251859": {
+   "name": "Shield of the Righteous",
+   "types": [
+    "Tankbuster"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1253032": {
+   "name": "Shattering Twilight",
+   "types": [
+    "Debuffs",
+    "Movement"
+   ],
+   "alias_ids": [
+    1250803
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1250803
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 32,
+       "aura": 0,
+       "trigger_spell": 1250803,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1253915": {
+   "name": "Heaven's Glaives",
+   "types": [
+    "Movement"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1254081": {
+   "name": "Fractured Projection",
+   "types": [
+    "Event",
+    "Interrupt"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1254113": {
+   "name": "Fixate",
+   "types": [
+    "Debuffs"
+   ],
+   "alias_ids": [
+    1263788
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1263788
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 128,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 472,
+       "trigger_spell": 1263788,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1254199": {
+   "name": "Parasite Expulsion",
+   "types": [
+    "Add Spawn",
+    "Movement",
+    "Raid Damage"
+   ],
+   "alias_ids": [
+    1265015,
+    1275555,
+    1275558
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1265015,
+      1275555,
+      1275558
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1275555,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1275558,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 64,
+       "aura": 0,
+       "trigger_spell": 1265015,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ]
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "16": {
+     "trigger_ids": [
+      1275555,
+      1275558
+     ],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1275555,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1275558,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1255738": {
+   "name": "Searing Radiance",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 395,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1256855": {
+   "name": "Void Breath",
+   "types": [
+    "Movement"
+   ],
+   "alias_ids": [
+    1259921,
+    1280101
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1259921,
+      1280101
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 64,
+       "aura": 0,
+       "trigger_spell": 1259921,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1280101,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1257087": {
+   "name": "Consuming Miasma",
+   "types": [
+    "Dispel"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 61,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1258514": {
+   "name": "Blinding Light",
+   "types": [
+    "Event"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 5,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 14,
+       "effect": 6,
+       "aura": 5,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    },
+    "17": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 17,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    }
+   }
+  },
+  "1258610": {
+   "name": "Rift Emergence",
+   "types": [
+    "Add Spawn",
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    },
+    "17": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 17,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1258659": {
+   "name": "Light Infused",
+   "types": [
+    "Raid DOT"
+   ],
+   "alias_ids": [
+    1258661
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1258661
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1258661,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1258744": {
+   "name": "Midnight Manifestation",
+   "types": [
+    "Raid DOT"
+   ],
+   "alias_ids": [
+    1255763
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1255763
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 1255763,
+       "radius_0": 0,
+       "radius_1": 28,
+       "target_0": 22,
+       "target_1": 7
+      }
+     ]
+    }
+   }
+  },
+  "1258880": {
+   "name": "Void Fall",
+   "types": [
+    "Knock",
+    "Movement"
+   ],
+   "alias_ids": [
+    1258881
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1258881
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1258881,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1259186": {
+   "name": "Blisterburst",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [
+    1259225,
+    1259234
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1259234
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 14,
+       "target_0": 18,
+       "target_1": 16
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 87,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 14,
+       "target_0": 18,
+       "target_1": 16
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 64,
+       "aura": 0,
+       "trigger_spell": 1259234,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 18,
+       "target_1": 16
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 98,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 14,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 14,
+       "target_0": 18,
+       "target_1": 16
+      },
+      {
+       "difficulty_id": 15,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    },
+    "16": {
+     "trigger_ids": [
+      1259225
+     ],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 14,
+       "target_0": 18,
+       "target_1": 16
+      },
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 87,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 14,
+       "target_0": 18,
+       "target_1": 16
+      },
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 18,
+       "target_1": 16
+      },
+      {
+       "difficulty_id": 16,
+       "effect": 64,
+       "aura": 0,
+       "trigger_spell": 1259225,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1260052": {
+   "name": "Primordial Roar",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 113,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 98,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 113,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 113,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 113,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ]
+    }
+   }
+  },
+  "1260712": {
+   "name": "Oblivion's Wrath",
+   "types": [
+    "Movement"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 87,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1260823": {
+   "name": "Despotic Command",
+   "types": [
+    "Debuffs"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 496,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1261217": {
+   "name": "Light Edict",
+   "types": [
+    "Frontal",
+    "Tankbuster"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 18,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1261218": {
+   "name": "Void Edict",
+   "types": [
+    "Frontal",
+    "Tankbuster"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 18,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1261249": {
+   "name": "Void Rupture",
+   "types": [
+    "Add Spawn"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 32,
+       "target_0": 87,
+       "target_1": 16
+      }
+     ],
+     "geometry": {
+      "shape": "circle",
+      "anchor": "target",
+      "radius": 12.0,
+      "source": "SpellEffect/SpellRadius",
+      "confidence": "db2"
+     }
+    }
+   }
+  },
+  "1262020": {
+   "name": "Colossal Strikes",
+   "types": [
+    "Tankbuster"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 4,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1262036": {
+   "name": "Void Rupture",
+   "types": [
+    "Movement"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1262289": {
+   "name": "Alndust Upheaval",
+   "types": [
+    "Group Soak"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 254,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 53,
+       "target_1": 138
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 6,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1262623": {
+   "name": "Nullbeam",
+   "types": [
+    "Tankbuster"
+   ],
+   "alias_ids": [
+    1262651
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1262651
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 1262651,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 63
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1262776": {
+   "name": "Shadow's Advance",
+   "types": [
+    "Add Spawn"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 138
+      }
+     ]
+    }
+   }
+  },
+  "1263253": {
+   "name": "Black Tide",
+   "types": [
+    "Movement"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 179,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 87,
+       "target_1": 138
+      }
+     ]
+    }
+   }
+  },
+  "1264467": {
+   "name": "Tail Lash",
+   "types": [
+    "Knock",
+    "Tankbuster"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 21,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 21,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 144,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 21,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 18
+      }
+     ],
+     "geometry": {
+      "shape": "cone",
+      "anchor": "source",
+      "radius": 35.0,
+      "angle": 90,
+      "source": "SpellEffect/SpellRadius",
+      "confidence": "db2"
+     }
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 21,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 21,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "cone",
+      "anchor": "source",
+      "radius": 35.0,
+      "angle": 90,
+      "source": "SpellEffect/SpellRadius",
+      "confidence": "db2"
+     }
+    }
+   }
+  },
+  "1264756": {
+   "name": "Rift Madness",
+   "types": [
+    "Debuffs"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 4,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 4,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1265131": {
+   "name": "Vaelwing",
+   "types": [
+    "Knock",
+    "Tankbuster"
+   ],
+   "alias_ids": [
+    1265146
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1265146
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 1265146,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1265152": {
+   "name": "Impale",
+   "types": [
+    "Tankbuster"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 21,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 21,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 12,
+       "trigger_spell": 0,
+       "radius_0": 21,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "cone",
+      "anchor": "source",
+      "radius": 35.0,
+      "angle": 90,
+      "source": "SpellEffect/SpellRadius",
+      "confidence": "db2"
+     }
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 21,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 21,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 12,
+       "trigger_spell": 0,
+       "radius_0": 21,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "cone",
+      "anchor": "source",
+      "radius": 35.0,
+      "angle": 90,
+      "source": "SpellEffect/SpellRadius",
+      "confidence": "db2"
+     }
+    }
+   }
+  },
+  "1266344": {
+   "name": "Dark Constellation [Right]",
+   "types": [
+    "Raid AOE"
+   ],
+   "alias_ids": [
+    1262148,
+    1266584
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1262148,
+      1266584
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 32,
+       "aura": 0,
+       "trigger_spell": 1266584,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 87,
+       "target_1": 138
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 32,
+       "aura": 0,
+       "trigger_spell": 1262148,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 87,
+       "target_1": 138
+      }
+     ]
+    }
+   }
+  },
+  "1266388": {
+   "name": "Dark Constellation [Left]",
+   "types": [
+    "Raid AOE"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1266810": {
+   "name": "Light Siphon [Right]",
+   "types": [
+    "Group Soak"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "220": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 220,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1266897": {
+   "name": "Light Siphon [Left]",
+   "types": [
+    "Group Soak"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1267049": {
+   "name": "Heaven's Lance",
+   "types": [
+    "Tankbuster"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1270497": {
+   "name": "Shadowmark",
+   "types": [
+    "Debuffs"
+   ],
+   "alias_ids": [
+    1270513
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1270513
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 1270513,
+       "radius_0": 0,
+       "radius_1": 12,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    },
+    "14": {
+     "trigger_ids": [
+      1270513
+     ],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 1270513,
+       "radius_0": 0,
+       "radius_1": 12,
+       "target_0": 22,
+       "target_1": 15
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1272726": {
+   "name": "Rending Tear",
+   "types": [
+    "Frontal"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 20,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 87,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 20,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 98,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 20,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "cone",
+      "anchor": "source",
+      "radius": 25.0,
+      "angle": 90,
+      "source": "SpellEffect/SpellRadius",
+      "confidence": "db2"
+     }
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 20,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 15,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 87,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 15,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 20,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 15,
+       "effect": 98,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 20,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "cone",
+      "anchor": "source",
+      "radius": 25.0,
+      "angle": 90,
+      "source": "SpellEffect/SpellRadius",
+      "confidence": "db2"
+     }
+    },
+    "16": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 3,
+       "trigger_spell": 0,
+       "radius_0": 20,
+       "radius_1": 0,
+       "target_0": 104,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "cone",
+      "anchor": "source",
+      "radius": 25.0,
+      "angle": 90,
+      "source": "SpellEffect/SpellRadius",
+      "confidence": "db2"
+     }
+    }
+   }
+  },
+  "1273375": {
+   "name": "Death's Requiem [Right]",
+   "types": [
+    "Debuffs"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1275057": {
+   "name": "Severance",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 77,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 261,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1276525": {
+   "name": "Heaven & Hell",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 395,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1279420": {
+   "name": "Dark Quasar",
+   "types": [
+    "Raid AOE"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1280015": {
+   "name": "Void Marked",
+   "types": [
+    "Debuffs"
+   ],
+   "alias_ids": [
+    1280023
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1280023
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 1280023,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  },
+  "1281123": {
+   "name": "Dark Meltdown",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 18,
+       "target_1": 16
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ]
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    },
+    "15": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    },
+    "17": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 17,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    },
+    "220": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 220,
+       "effect": 2,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 18,
+       "target_1": 16
+      }
+     ]
+    }
+   }
+  },
+  "1281184": {
+   "name": "Criticality",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 61,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 4,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1282043": {
+   "name": "Into the Darkwell",
+   "types": [
+    "Movement"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1282412": {
+   "name": "Core Harvest",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 4,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1284525": {
+   "name": "Galvanize",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 61,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1284931": {
+   "name": "Termination Prism",
+   "types": [
+    "Add Spawn"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 79,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 455,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1284980": {
+   "name": "Grim Symphony",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 226,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1285211": {
+   "name": "Dark Radiation",
+   "types": [
+    "Raid Damage"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 88,
+       "radius_1": 88,
+       "target_0": 15,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1285510": {
+   "name": "Starsplinter",
+   "types": [
+    "Spread"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 61,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 395,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ]
+    },
+    "14": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 6,
+       "aura": 395,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    },
+    "220": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 220,
+       "effect": 6,
+       "aura": 395,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 25,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1285563": {
+   "name": "Total Eclipse",
+   "types": [
+    "Raid DOT"
+   ],
+   "alias_ids": [
+    1282441
+   ],
+   "variants": {
+    "0": {
+     "trigger_ids": [
+      1282441
+     ],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1282441,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "14": {
+     "trigger_ids": [
+      1282441
+     ],
+     "effects": [
+      {
+       "difficulty_id": 14,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1282441,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "15": {
+     "trigger_ids": [
+      1282441
+     ],
+     "effects": [
+      {
+       "difficulty_id": 15,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1282441,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "16": {
+     "trigger_ids": [
+      1282441
+     ],
+     "effects": [
+      {
+       "difficulty_id": 16,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1282441,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    },
+    "220": {
+     "trigger_ids": [
+      1282441
+     ],
+     "effects": [
+      {
+       "difficulty_id": 220,
+       "effect": 6,
+       "aura": 23,
+       "trigger_spell": 1282441,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 1,
+       "target_1": 0
+      }
+     ]
+    }
+   }
+  },
+  "1286915": {
+   "name": "Death's Requiem [Left]",
+   "types": [
+    "Debuffs"
+   ],
+   "alias_ids": [],
+   "variants": {
+    "0": {
+     "trigger_ids": [],
+     "effects": [
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 88,
+       "target_0": 22,
+       "target_1": 15
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      },
+      {
+       "difficulty_id": 0,
+       "effect": 3,
+       "aura": 0,
+       "trigger_spell": 0,
+       "radius_0": 0,
+       "radius_1": 0,
+       "target_0": 0,
+       "target_1": 0
+      }
+     ],
+     "geometry": {
+      "shape": "target",
+      "anchor": "target",
+      "source": "Viserio type",
+      "confidence": "semantic"
+     }
+    }
+   }
+  }
+ }
+}
