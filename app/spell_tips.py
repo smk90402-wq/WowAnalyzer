@@ -473,8 +473,18 @@ def spell_tip(spell_id: int) -> dict[str, str]:
     _fail_check("tip", spell_id)
     state: dict[str, bool] = {}
     try:
+        from app import replay_mechanics
+        official = replay_mechanics.official_tip(spell_id)
         cached = ent.get("name")   # 옛 버전 엔트리라도 이름은 유효 — 재사용
-        name = cached if isinstance(cached, str) and cached else _spell_name(spell_id)
+        if isinstance(cached, str) and cached:
+            name = cached
+        else:
+            try:
+                name = _spell_name(spell_id)
+            except Exception:
+                name = ""
+                state["transient"] = True
+            name = name or official.get("name", "")
         if not name:
             raise SpellTipError(f"SpellName 에 spellID {spell_id} 없음")
         try:
@@ -485,6 +495,9 @@ def spell_tip(spell_id: int) -> dict[str, str]:
         desc = _clean_desc(raw, spell_id, state=state) if raw else ""
         if state.get("bad") or state.get("transient"):
             desc = ""   # 깨진 문장은 노출하지 않는다 (모듈 방침)
+        official_desc = official.get("desc", "")
+        if not desc and official_desc and "$" not in official_desc and "|" not in official_desc:
+            desc = official_desc
         if not desc:
             desc = _journal_desc(spell_id, name, state)   # 원 체인 빈손 → 던전 저널
     except Exception as exc:

@@ -36,26 +36,54 @@ def _overrides() -> dict[str, Any]:
 
 
 @lru_cache(maxsize=1)
-def _alias_index() -> dict[int, int]:
-    out: dict[int, int] = {}
+def _alias_index() -> dict[int, tuple[int, ...]]:
+    roots_by_alias: dict[int, set[int]] = {}
     for key, spell in (_catalog().get("spells") or {}).items():
         try:
             root = int(key)
         except (TypeError, ValueError):
             continue
-        out[root] = root
+        roots_by_alias.setdefault(root, set()).add(root)
         for alias in spell.get("alias_ids") or []:
             try:
-                out[int(alias)] = root
+                roots_by_alias.setdefault(int(alias), set()).add(root)
             except (TypeError, ValueError):
                 pass
         for variant in (spell.get("variants") or {}).values():
             for alias in variant.get("trigger_ids") or []:
                 try:
-                    out[int(alias)] = root
+                    roots_by_alias.setdefault(int(alias), set()).add(root)
                 except (TypeError, ValueError):
                     pass
-    return out
+    return {alias: tuple(sorted(roots)) for alias, roots in roots_by_alias.items()}
+
+
+def _root_for(spell_id: int, name: str = "", encounter_id: int = 0) -> int:
+    sid = int(spell_id or 0)
+    candidates = _alias_index().get(sid, (sid,))
+    if len(candidates) == 1:
+        return candidates[0]
+    spells = _catalog().get("spells") or {}
+    observed_name = normalize_name(name)
+    if observed_name:
+        named = [root for root in candidates
+                 if normalize_name(str((spells.get(str(root)) or {}).get("name") or ""))
+                 == observed_name]
+        if len(named) == 1:
+            return named[0]
+        if named:
+            candidates = tuple(named)
+    priority = {int(root) for root in ((_catalog().get("encounters") or {})
+                                       .get(str(int(encounter_id or 0))) or [])}
+    prioritized = [root for root in candidates if root in priority]
+    if len(prioritized) == 1:
+        return prioritized[0]
+    journal = [root for root in candidates if int(encounter_id or 0) in
+               set(((spells.get(str(root)) or {}).get("blizzard") or {})
+                   .get("journal_encounters") or [])]
+    if len(journal) == 1:
+        return journal[0]
+    return sid if sid in candidates else candidates[0]
 
 
 def _variant(spell: dict[str, Any], difficulty_id: int) -> dict[str, Any]:
@@ -91,7 +119,7 @@ def mechanic_profile(
 ) -> dict[str, Any]:
     """Resolve aliases, difficulty variants, mechanic key, and safe geometry."""
     sid = int(spell_id or 0)
-    root = _alias_index().get(sid, sid)
+    root = _root_for(sid, name, encounter_id)
     spells = _catalog().get("spells") or {}
     spell = spells.get(str(root)) or spells.get(str(sid)) or {}
     variant = _variant(spell, difficulty_id)
@@ -120,7 +148,52 @@ def mechanic_profile(
     return result
 
 
+def official_tip(spell_id: int) -> dict[str, str]:
+    """Return Blizzard metadata captured during the last source refresh."""
+    sid = int(spell_id or 0)
+    root = _root_for(sid)
+    spell = (_catalog().get("spells") or {}).get(str(root)) or {}
+    blizzard = spell.get("blizzard") or {}
+    name = str(blizzard.get("name_ko") or blizzard.get("name_en")
+               or spell.get("name") or "")
+    desc = str(blizzard.get("description_ko") or blizzard.get("description_en") or "")
+    return {"name": name, "desc": desc}
+
+
+@lru_cache(maxsize=32)
+def encounter_spell_ids(encounter_id: int) -> frozenset[int]:
+    """Return journal and priority spell IDs, including their trigger aliases."""
+    eid = int(encounter_id or 0)
+    catalog = _catalog()
+    priority = {int(sid) for sid in
+                ((catalog.get("encounters") or {}).get(str(eid)) or [])}
+    out: set[int] = set()
+    for key, spell in (catalog.get("spells") or {}).items():
+        try:
+            root = int(key)
+        except (TypeError, ValueError):
+            continue
+        journal_encounters = set((spell.get("blizzard") or {})
+                                 .get("journal_encounters") or [])
+        if root not in priority and eid not in journal_encounters:
+            continue
+        out.add(root)
+        for alias in spell.get("alias_ids") or []:
+            try:
+                out.add(int(alias))
+            except (TypeError, ValueError):
+                pass
+        for variant in (spell.get("variants") or {}).values():
+            for alias in variant.get("trigger_ids") or []:
+                try:
+                    out.add(int(alias))
+                except (TypeError, ValueError):
+                    pass
+    return frozenset(out)
+
+
 def clear_cache() -> None:
     _catalog.cache_clear()
     _overrides.cache_clear()
     _alias_index.cache_clear()
+    encounter_spell_ids.cache_clear()

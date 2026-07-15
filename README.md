@@ -54,9 +54,16 @@ prefetch_prepull.py     →  data/v2_cache_prepull_buffs.json (음식/영약/오
 fetch_pi_received.py    →  data/v2_cache_pi_received.json   (사제 PI 수령)
 fetch_talent_trees.py   →  data/talent_trees.json           (Blizzard 트리 구조)
 enrich_kr.py            →  data/spell_db.json, item_db.json (한글 spell/item)
+fetch_replay_spell_geometry.py
+                        →  data/replay_spell_geometry.json
+                           (Wago 최신 빌드 지오메트리 + Blizzard 저널/공개 전환 감사
+                            + Archon 공개 페이지 패치 시점 확인)
 
 serve.py + app/         →  FastAPI + pywebview SPA (HTML/CSS/JS in app/static/)
 ```
+
+리플레이 지오메트리 갱신은 Blizzard API 자격 증명이 있으면 공식 저널 기술과
+직접 spell API 공개 여부까지 합친다. 자격 증명이 없으면 Blizzard 감사만 건너뛴다.
 
 각 스크립트 재실행 안전 — `data/v2_cache_*.json` 캐시로 페치 건너뜀.
 끝에 자동으로 `data/update_log.json` 에 history 한 줄 기록 (PC 간 sync).

@@ -1365,6 +1365,7 @@ def _select_boss_events(
     boss_guids: set[str],
     guid_to_id: dict[str, str],
     priority_ids: frozenset[int],
+    tracked_ids: frozenset[int] | None = None,
     aura_updates: list[tuple[float, str, int, str, str, int]] | None = None,
     deaths: list[tuple[float, str]] | None = None,
     duration_s: float = 0.0,
@@ -1376,20 +1377,27 @@ def _select_boss_events(
 
     Cast bars remain broadly visible. Damage, absorbs, misses, and summons are
     admitted only when their ID or localized name matches the encounter's
-    priority catalog. Aura dose/refresh/removal events reconstruct duration and
-    stacks without becoming separate timeline entries.
+    tracked catalog. Viserio priority remains a separate display/ranking signal.
+    Aura dose/refresh/removal events reconstruct duration and stacks without
+    becoming separate timeline entries.
     """
     castbar_ids = {sid for _, ev, sid, *_ in boss_raw if ev == "SPELL_CAST_START"}
     counts: Counter = Counter((ev, sid) for _, ev, sid, *_ in boss_raw)
+    tracked_ids = tracked_ids or priority_ids
     priority_names = {
         replay_mechanics.normalize_name(spell)
         for _, _, sid, spell, *_ in boss_raw
         if sid in priority_ids and spell
     }
-    priority_profiles_by_name: dict[str, dict[str, Any]] = {}
+    tracked_names = {
+        replay_mechanics.normalize_name(spell)
+        for _, _, sid, spell, *_ in boss_raw
+        if sid in tracked_ids and spell
+    }
+    tracked_profiles_by_name: dict[str, dict[str, Any]] = {}
     for _, _, sid, spell, *_ in boss_raw:
-        if sid in priority_ids and spell:
-            priority_profiles_by_name.setdefault(
+        if sid in tracked_ids and spell:
+            tracked_profiles_by_name.setdefault(
                 replay_mechanics.normalize_name(spell),
                 replay_mechanics.mechanic_profile(
                     sid, spell, encounter_id, difficulty_id))
@@ -1424,25 +1432,27 @@ def _select_boss_events(
     for t, ev, sid, spell, src_guid, src_name, dest_guid, dest_name in boss_raw:
         prio = (sid in priority_ids
                 or replay_mechanics.normalize_name(spell) in priority_names)
+        tracked = (sid in tracked_ids
+                   or replay_mechanics.normalize_name(spell) in tracked_names)
         if ev == "SPELL_CAST_START":
             kind = "cast"
         elif ev == "SPELL_CAST_SUCCESS":
             if sid in castbar_ids:
                 continue  # CAST_START 로 이미 잡힘 (완료 시점 중복)
-            if counts[(ev, sid)] > BOSS_HIT_MAX_APPLIED and not prio:
+            if counts[(ev, sid)] > BOSS_HIT_MAX_APPLIED and not tracked:
                 continue  # 틱뎀·평타류 스팸
             kind = "cast"
         elif ev == "SPELL_AURA_APPLIED":
             n = wave_counts.get(sid, counts[(ev, sid)])
-            if n > BOSS_HIT_MAX_APPLIED and not prio:
+            if n > BOSS_HIT_MAX_APPLIED and not tracked:
                 continue
             kind = "hit"
         elif ev == "SPELL_SUMMON":
-            if not prio:
+            if not tracked:
                 continue
             kind = "summon"
         else:
-            if not prio:
+            if not tracked:
                 continue
             kind = "impact"
         item: dict[str, Any] = {
@@ -1451,7 +1461,7 @@ def _select_boss_events(
         }
         profile = replay_mechanics.mechanic_profile(
             sid, spell, encounter_id, difficulty_id)
-        group_profile = priority_profiles_by_name.get(
+        group_profile = tracked_profiles_by_name.get(
             replay_mechanics.normalize_name(spell))
         if group_profile:
             observed_geometry = profile.get("geometry")
@@ -1522,6 +1532,8 @@ def _select_boss_events(
                 item["max_stacks"] = max_stacks
         if prio:
             item["priority"] = True
+        if tracked:
+            item["_tracked"] = True
         if src_guid in boss_guids:
             item["_boss_src"] = True
         dest_id = guid_to_id.get(dest_guid)
@@ -1578,12 +1590,15 @@ def _select_boss_events(
             step = len(items) / BOSS_EVENT_SPELL_CAP
             capped.extend(items[int(i * step)] for i in range(BOSS_EVENT_SPELL_CAP))
 
-    # 전체 캡 — priority > 보스 소스 > 시간 순으로 남김
+    # 전체 캡 — priority > 공식 저널 추적 > 보스 소스 > 시간 순으로 남김
     if len(capped) > BOSS_EVENT_TOTAL_CAP:
-        capped.sort(key=lambda x: (not x.get("priority"), not x.get("_boss_src"), x["t"]))
+        capped.sort(key=lambda x: (
+            not x.get("priority"), not x.get("_tracked"),
+            not x.get("_boss_src"), x["t"]))
         capped = capped[:BOSS_EVENT_TOTAL_CAP]
     for item in capped:
         item.pop("_boss_src", None)
+        item.pop("_tracked", None)
     capped.sort(key=lambda x: x["t"])
     return capped
 
@@ -1674,10 +1689,13 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
     difficulty_id = (_to_int(enc.get("difficulty_id"))
                      or _to_int(cap.get("difficulty_id")))
     priority_ids = _boss_priority_map().get(encounter_id, frozenset())
+    tracked_ids = frozenset(
+        set(priority_ids) | set(replay_mechanics.encounter_spell_ids(encounter_id)))
     boss_guids = {u["guid"] for u in units if u["kind"] == "boss"}
     guid_to_role = {u["guid"]: u.get("role", "") for u in units}
     boss_events = _select_boss_events(
         parsed.get("boss_raw") or [], boss_guids, guid_to_id, priority_ids,
+        tracked_ids=tracked_ids,
         aura_updates=parsed.get("aura_updates") or [],
         deaths=parsed.get("deaths") or [],
         duration_s=float(duration_s or 0),
