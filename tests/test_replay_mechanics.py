@@ -1,8 +1,13 @@
 import unittest
 
 from app import replay_mechanics
-from app.local_replay import _select_boss_events
-from fetch_replay_spell_geometry import _journal_spells
+from app.local_replay import _boss_mechanic_summaries, _select_boss_events
+from fetch_replay_spell_geometry import (
+    _guide_tag_ko,
+    _journal_spells,
+    _mythictrap_abilities,
+    _wowhead_payload,
+)
 
 
 class ReplayMechanicTests(unittest.TestCase):
@@ -20,7 +25,7 @@ class ReplayMechanicTests(unittest.TestCase):
         tip = replay_mechanics.official_tip(1280015)
 
         self.assertEqual("공허 징표", tip["name"])
-        self.assertEqual("", tip["desc"])
+        self.assertIn("아베르지안", tip["desc"])
 
     def test_journal_roles_and_section_paths_are_extracted(self):
         sections = [{
@@ -42,6 +47,62 @@ class ReplayMechanicTests(unittest.TestCase):
         self.assertEqual(["tank"], spells[1280015]["roles"])
         self.assertEqual(["Phase Two > Void Marked"], spells[1280015]["section_paths"])
 
+    def test_wowhead_korean_tooltip_repairs_encoding_and_josa(self):
+        def mojibake(value):
+            return value.encode("cp949").decode("latin1")
+
+        tip = _wowhead_payload(1280015, {
+            "name": mojibake("공허 징표"),
+            "icon": "ability_warlock_improvedsoulleech",
+            "tooltip": mojibake(
+                '<table><tr><td><div class="q">'
+                "아베르지안이 공허 징표|1을;를; 부여합니다."
+                "</div></td></tr></table>"),
+        })
+
+        self.assertEqual("공허 징표", tip["name_ko"])
+        self.assertEqual("아베르지안이 공허 징표를 부여합니다.", tip["description_ko"])
+        self.assertEqual("ability_warlock_improvedsoulleech", tip["icon"])
+
+    def test_mythictrap_keeps_only_mythic_guide_abilities(self):
+        abilities = _mythictrap_abilities({"bossPhases": [{
+            "phaseName": "Phase 1",
+            "bossAbilities": [{
+                "spellID": 1, "name": "Soak", "subtitle": "Soak",
+                "category": "Help soak", "filters": ["healer"],
+                "descriptionHTML": "<p>Split the damage with the group.</p>",
+            }, {
+                "spellID": 2, "name": "Removed", "subtitle": "Dodge",
+                "difficultyIgnore": ["mythic"],
+            }],
+        }]})
+
+        self.assertEqual([1], [ability["spell_id"] for ability in abilities])
+        self.assertEqual("같이 맞기", abilities[0]["type_ko"])
+        self.assertEqual(["healer"], abilities[0]["roles"])
+        self.assertEqual("Split the damage with the group.",
+                         abilities[0]["description_en"])
+
+    def test_all_current_mythictrap_types_have_korean_labels(self):
+        for value in ("Boss buffs", "Claims Space", "Clone", "Fear",
+                      "Heal through", "Move out", "Orb walls", "Raid wipe",
+                      "Random damage", "Silver Clone", "Tail swipe",
+                      "Tank apart", "Void Monsters"):
+            self.assertNotEqual(value, _guide_tag_ko(value))
+
+    def test_role_note_and_verified_override_fill_missing_descriptions(self):
+        gloom = replay_mechanics.mechanic_tip(1245391, "Gloom", 3178)
+        silver = replay_mechanics.mechanic_tip(
+            1259851, "Silver Simulacrum", 3181)
+        maw = replay_mechanics.mechanic_tip(1280458, "Grappling Maw", 3178)
+
+        self.assertIn("암울한 기운", gloom["desc"])
+        self.assertEqual("은빛 복제물", silver["name"])
+        self.assertIn("공허의 손아귀", silver["desc"])
+        self.assertIn("거리가 멀수록", maw["desc"])
+        self.assertTrue(silver["fallback_source_url"])
+        self.assertTrue(maw["fallback_source_url"])
+
     def test_shared_trigger_ids_use_observed_name_before_encounter_fallback(self):
         divine = replay_mechanics.mechanic_profile(
             1246391, "Divine Toll", 3180, 16)
@@ -53,6 +114,13 @@ class ReplayMechanicTests(unittest.TestCase):
         self.assertEqual(1248644, divine["root_spell_id"])
         self.assertEqual(1248710, tyr["root_spell_id"])
         self.assertEqual(1258744, manifestation["root_spell_id"])
+
+    def test_unknown_difficulty_spell_id_uses_localized_name_and_encounter(self):
+        beam = replay_mechanics.mechanic_profile(
+            1260030, "암영 광선", 3179, 16)
+
+        self.assertEqual(1260015, beam["root_spell_id"])
+        self.assertEqual("암영 광선", beam["display_name"])
 
     def test_journal_spell_is_tracked_without_becoming_display_priority(self):
         boss = "Creature-0-0-0-0-1-0000000000"
@@ -70,6 +138,10 @@ class ReplayMechanicTests(unittest.TestCase):
 
         self.assertEqual("impact", events[0]["kind"])
         self.assertNotIn("priority", events[0])
+
+        summaries = _boss_mechanic_summaries(events, 3176, 16)
+        self.assertEqual(1, summaries[0]["count"])
+        self.assertEqual(journal_spell, summaries[0]["spell_id"])
 
     def test_cast_aura_impact_and_stacks_are_one_mechanic(self):
         boss = "Creature-0-0-0-0-1-0000000000"

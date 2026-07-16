@@ -10,6 +10,7 @@ from app import replay_map
 
 CATALOG_PATH = replay_map.DATA_DIR / "replay_spell_geometry.json"
 OVERRIDES_PATH = replay_map.DATA_DIR / "replay_geometry_overrides.json"
+TOOLTIP_OVERRIDES_PATH = replay_map.DATA_DIR / "replay_mechanic_overrides.json"
 
 
 def normalize_name(name: str) -> str:
@@ -36,6 +37,11 @@ def _overrides() -> dict[str, Any]:
 
 
 @lru_cache(maxsize=1)
+def _tooltip_overrides() -> dict[str, Any]:
+    return _read_json(TOOLTIP_OVERRIDES_PATH)
+
+
+@lru_cache(maxsize=1)
 def _alias_index() -> dict[int, tuple[int, ...]]:
     roots_by_alias: dict[int, set[int]] = {}
     for key, spell in (_catalog().get("spells") or {}).items():
@@ -58,21 +64,47 @@ def _alias_index() -> dict[int, tuple[int, ...]]:
     return {alias: tuple(sorted(roots)) for alias, roots in roots_by_alias.items()}
 
 
+@lru_cache(maxsize=1)
+def _name_index() -> dict[str, tuple[int, ...]]:
+    roots_by_name: dict[str, set[int]] = {}
+    for key, spell in (_catalog().get("spells") or {}).items():
+        try:
+            root = int(key)
+        except (TypeError, ValueError):
+            continue
+        blizzard = spell.get("blizzard") or {}
+        wowhead = spell.get("wowhead") or {}
+        names = {
+            str(spell.get("name") or ""),
+            str(blizzard.get("name_en") or ""),
+            str(blizzard.get("name_ko") or ""),
+            str(wowhead.get("name_ko") or ""),
+        }
+        names.update(str(entry.get("name_en") or "") for entry in
+                     ((spell.get("mythictrap") or {}).get("entries") or []))
+        for candidate in names:
+            normalized = normalize_name(candidate)
+            if normalized:
+                roots_by_name.setdefault(normalized, set()).add(root)
+    return {name: tuple(sorted(roots)) for name, roots in roots_by_name.items()}
+
+
 def _root_for(spell_id: int, name: str = "", encounter_id: int = 0) -> int:
     sid = int(spell_id or 0)
-    candidates = _alias_index().get(sid, (sid,))
-    if len(candidates) == 1:
-        return candidates[0]
+    candidates = _alias_index().get(sid, ())
     spells = _catalog().get("spells") or {}
     observed_name = normalize_name(name)
     if observed_name:
-        named = [root for root in candidates
-                 if normalize_name(str((spells.get(str(root)) or {}).get("name") or ""))
-                 == observed_name]
+        by_name = _name_index().get(observed_name, ())
+        named = [root for root in by_name if not candidates or root in candidates]
         if len(named) == 1:
             return named[0]
         if named:
             candidates = tuple(named)
+    if not candidates:
+        return sid
+    if len(candidates) == 1:
+        return candidates[0]
     priority = {int(root) for root in ((_catalog().get("encounters") or {})
                                        .get(str(int(encounter_id or 0))) or [])}
     prioritized = [root for root in candidates if root in priority]
@@ -83,6 +115,12 @@ def _root_for(spell_id: int, name: str = "", encounter_id: int = 0) -> int:
                    .get("journal_encounters") or [])]
     if len(journal) == 1:
         return journal[0]
+    guides = [root for root in candidates if any(
+        int(entry.get("encounter_id") or 0) == int(encounter_id or 0)
+        for entry in (((spells.get(str(root)) or {}).get("mythictrap") or {})
+                      .get("entries") or []))]
+    if len(guides) == 1:
+        return guides[0]
     return sid if sid in candidates else candidates[0]
 
 
@@ -143,21 +181,90 @@ def mechanic_profile(
         "name": canonical_name or name,
         "types": list(override.get("types") or spell.get("types") or []),
     }
+    tip = mechanic_tip(root or sid, name, encounter_id)
+    if tip.get("name"):
+        result["display_name"] = tip["name"]
     if geometry:
         result["geometry"] = geometry
     return result
 
 
-def official_tip(spell_id: int) -> dict[str, str]:
-    """Return Blizzard metadata captured during the last source refresh."""
+def canonical_spell_id(spell_id: int, name: str = "", encounter_id: int = 0) -> int:
+    return _root_for(int(spell_id or 0), name, int(encounter_id or 0))
+
+
+def _guide_entry(spell: dict[str, Any], encounter_id: int) -> dict[str, Any]:
+    entries = ((spell.get("mythictrap") or {}).get("entries") or [])
+    if encounter_id:
+        for entry in entries:
+            if int(entry.get("encounter_id") or 0) == int(encounter_id):
+                return entry
+    return entries[0] if entries else {}
+
+
+@lru_cache(maxsize=1024)
+def mechanic_tip(spell_id: int, name: str = "", encounter_id: int = 0) -> dict[str, Any]:
+    """Return one merged tooltip record for a combat-log or canonical spell ID."""
     sid = int(spell_id or 0)
-    root = _root_for(sid)
+    root = _root_for(sid, name, encounter_id)
     spell = (_catalog().get("spells") or {}).get(str(root)) or {}
     blizzard = spell.get("blizzard") or {}
-    name = str(blizzard.get("name_ko") or blizzard.get("name_en")
-               or spell.get("name") or "")
-    desc = str(blizzard.get("description_ko") or blizzard.get("description_en") or "")
-    return {"name": name, "desc": desc}
+    wowhead = spell.get("wowhead") or {}
+    guide = _guide_entry(spell, encounter_id)
+    manual = ((_tooltip_overrides().get("entries") or {}).get(str(root)) or {})
+    manual_used = bool(
+        (not (blizzard.get("name_ko") or wowhead.get("name_ko"))
+         and manual.get("name_ko"))
+        or (not (blizzard.get("description_ko") or wowhead.get("description_ko"))
+            and manual.get("description_ko"))
+    )
+    shown_name = str(blizzard.get("name_ko") or wowhead.get("name_ko")
+                     or manual.get("name_ko") or blizzard.get("name_en")
+                     or spell.get("name") or name or "")
+    notes = list(blizzard.get("role_notes_ko") or blizzard.get("role_notes_en") or [])
+    desc = str(blizzard.get("description_ko") or wowhead.get("description_ko")
+               or manual.get("description_ko") or (notes[0] if notes else "")
+               or blizzard.get("description_en") or guide.get("description_en") or "")
+    if desc in notes:
+        notes.remove(desc)
+    roles = sorted(set(blizzard.get("roles") or []) | set(guide.get("roles") or []))
+    sources: list[str] = []
+    if blizzard.get("journal_encounters"):
+        sources.append("Blizzard 도감")
+    if wowhead.get("name_ko") or wowhead.get("description_ko") or wowhead.get("icon"):
+        sources.append("Wowhead")
+    if guide:
+        sources.append("Mythic Trap")
+    manual_source = str(manual.get("source_label") or "")
+    if manual_source and manual_used:
+        sources.append(manual_source)
+    sources = list(dict.fromkeys(sources))
+    guide_out = {}
+    if guide:
+        guide_out = {
+            "type": str(guide.get("type_ko") or guide.get("type_en") or ""),
+            "action_en": str(guide.get("action_en") or ""),
+            "phase": str(guide.get("phase") or ""),
+            "url": str(guide.get("guide_url") or ""),
+        }
+    return {
+        "root_spell_id": root or sid,
+        "name": shown_name,
+        "desc": desc,
+        "role_notes": notes,
+        "roles": roles,
+        "guide": guide_out,
+        "sources": sources,
+        "icon": str(wowhead.get("icon") or ""),
+        "wowhead_url": str(wowhead.get("url") or ""),
+        "fallback_source_url": str(manual.get("source_url") or ""),
+    }
+
+
+def official_tip(spell_id: int) -> dict[str, str]:
+    """Backwards-compatible name/description view of the merged catalog."""
+    tip = mechanic_tip(int(spell_id or 0))
+    return {"name": str(tip.get("name") or ""), "desc": str(tip.get("desc") or "")}
 
 
 @lru_cache(maxsize=32)
@@ -175,7 +282,11 @@ def encounter_spell_ids(encounter_id: int) -> frozenset[int]:
             continue
         journal_encounters = set((spell.get("blizzard") or {})
                                  .get("journal_encounters") or [])
-        if root not in priority and eid not in journal_encounters:
+        guide_encounters = {
+            int(entry.get("encounter_id") or 0)
+            for entry in ((spell.get("mythictrap") or {}).get("entries") or [])
+        }
+        if root not in priority and eid not in journal_encounters and eid not in guide_encounters:
             continue
         out.add(root)
         for alias in spell.get("alias_ids") or []:
@@ -195,5 +306,8 @@ def encounter_spell_ids(encounter_id: int) -> frozenset[int]:
 def clear_cache() -> None:
     _catalog.cache_clear()
     _overrides.cache_clear()
+    _tooltip_overrides.cache_clear()
     _alias_index.cache_clear()
+    _name_index.cache_clear()
+    mechanic_tip.cache_clear()
     encounter_spell_ids.cache_clear()

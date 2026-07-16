@@ -1860,10 +1860,10 @@ def spell_icon_png(spell_id: int) -> FileResponse:
 
 
 @app.get("/api/spell-tip/{spell_id}")
-def spell_tip(spell_id: int) -> JSONResponse:
-    """spell_id → {name, desc} (koKR 우선, 설명은 달러 변수 정리본. 캐시: data/spell_tips.json)."""
+def spell_tip(spell_id: int, encounter_id: int = 0, name: str = "") -> JSONResponse:
+    """대표 ID로 합친 한국어 설명, 역할 주의문, 공략 분류와 출처를 반환한다."""
     try:
-        return JSONResponse(spell_tips.spell_tip(spell_id))
+        return JSONResponse(spell_tips.spell_tip(spell_id, encounter_id, name))
     except spell_tips.SpellTipError as e:
         raise HTTPException(404, str(e))
     except Exception as e:

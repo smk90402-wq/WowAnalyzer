@@ -1513,6 +1513,7 @@ function _feedRow(it) {
   return `
     <button class="replay-event feed k-${esc(it.kind)}" type="button" data-replay-jump="${vt}"
       data-k="${esc(it.kind)}" data-sid="${Number(it.sid) || 0}" data-spell="${esc(it.spell || '')}"
+      data-mkey="${esc(it.mkey || '')}"
       data-bk="${esc(it.bk || '')}" data-dur="${Number(it.dur) || 0}"
       data-shape="${esc(it.geometry?.shape || '')}" data-radius="${Number(it.geometry?.radius || it.geometry?.length) || 0}"
       data-max-stacks="${Number(it.maxStacks) || 0}"
@@ -1525,6 +1526,22 @@ function _feedRow(it) {
 // 연결된 기믹 단위 표시 필터. 캐스트/디버프/피해 파생 ID를 함께 켜고 끈다.
 const rcMechanicOff = new Set();
 const rcMechanicShown = (ev) => !ev.mechanic_key || !rcMechanicOff.has(ev.mechanic_key);
+
+function rcMechanicMeta(key) {
+  return (key && rc.mechanicByKey[key]) || null;
+}
+
+function rcPlaceMechanicPop(btn, pop) {
+  pop.hidden = false;
+  pop.style.maxHeight = `${Math.max(220, Math.min(440, window.innerHeight - 16))}px`;
+  const br = btn.getBoundingClientRect();
+  const w = pop.offsetWidth, h = pop.offsetHeight;
+  const x = Math.max(8, Math.min(br.right - w, window.innerWidth - w - 8));
+  let y = br.bottom + 6;
+  if (y + h > window.innerHeight - 8) y = Math.max(8, br.top - h - 6);
+  pop.style.left = `${Math.round(x)}px`;
+  pop.style.top = `${Math.round(y)}px`;
+}
 
 // 필터 변경을 모든 표시 경로(피드·타임라인 트랙·링·유닛 패널)에 반영
 function rcApplyMechanicFilter() {
@@ -1543,13 +1560,16 @@ function rcBuildFeed() {
   for (const u of (rc.meta?.units || [])) nameOf[u.id] = String(u.name || u.id).split('-')[0];
   for (const ev of rc.bossEvents || []) {
     if (!rcMechanicShown(ev)) continue;
+    const mechanic = rcMechanicMeta(ev.mechanic_key);
     const dest = ev.dest_name ? String(ev.dest_name).split('-')[0] : '';
     const who = dest ? ` → ${dest}` : '';
     // 기간형 디버프(end 있음)는 걸려 있던 시간을 같이 표기 — "(8초)"
     const durS = ev.end != null ? Math.round(Number(ev.end) - Number(ev.t)) : 0;
     const dur = ev.end != null ? ` (${durS}초)` : '';
-    items.push({ t: Number(ev.t) || 0, kind: 'boss', text: `${ev.spell || ''}${who}${dur}`,
-                 sid: ev.spell_id, spell: ev.spell, bk: ev.kind, dur: durS,
+    const shownName = mechanic?.name || ev.spell || '';
+    items.push({ t: Number(ev.t) || 0, kind: 'boss', text: `${shownName}${who}${dur}`,
+                 sid: mechanic?.spell_id || ev.root_spell_id || ev.spell_id,
+                 spell: shownName, mkey: ev.mechanic_key, bk: ev.kind, dur: durS,
                  geometry: ev.geometry, maxStacks: ev.max_stacks,
                  dest, src: ev.src_name ? String(ev.src_name).split('-')[0] : '' });
   }
@@ -1748,35 +1768,61 @@ function renderLocalReplayDetail(detail) {
     if (dbtn && dpop) {
       dbtn.addEventListener('click', () => {
         if (!dpop.hidden) { dpop.hidden = true; return; }
-        const m = new Map();
-        for (const ev of rc.bossEvents || []) {
-          const key = ev.mechanic_key || `spell:${Number(ev.spell_id) || 0}`;
-          const cur = m.get(key) || {
-            name: ev.spell || String(ev.spell_id), n: 0,
-            kinds: new Set(), geometry: ev.geometry || null,
-          };
-          cur.n++;
-          cur.kinds.add(ev.kind);
-          if (!cur.geometry && ev.geometry) cur.geometry = ev.geometry;
-          m.set(key, cur);
+        let mechanics = rc.bossMechanics || [];
+        if (!mechanics.length) {
+          const fallback = new Map();
+          for (const ev of rc.bossEvents || []) {
+            const key = ev.mechanic_key || `spell:${Number(ev.spell_id) || 0}`;
+            const cur = fallback.get(key) || {
+              key, spell_id: ev.root_spell_id || ev.spell_id,
+              name: ev.spell || String(ev.spell_id), count: 0,
+              kinds: [], geometry: ev.geometry || null,
+            };
+            cur.count++;
+            if (!cur.kinds.includes(ev.kind)) cur.kinds.push(ev.kind);
+            fallback.set(key, cur);
+          }
+          mechanics = [...fallback.values()].sort((a, b) => b.count - a.count);
         }
-        const rows = [...m.entries()].sort((a, b) => b[1].n - a[1].n);
+        dpop._mechanics = mechanics;
         const shapeLabel = { circle: '원형', donut: '도넛형', cone: '부채꼴', line: '직선', target: '대상', global: '전장 전체' };
-        dpop.innerHTML = rows.length
-          ? rows.map(([key, v]) => {
+        dpop.innerHTML = mechanics.length
+          ? mechanics.map((v, i) => {
               const g = v.geometry || {};
               const size = Number(g.radius || g.length) || 0;
               const geo = shapeLabel[g.shape] ? ` · ${shapeLabel[g.shape]}${size ? ` ${size}m` : ''}` : '';
-              return `<label><input type="checkbox" data-mkey="${esc(key)}" ${rcMechanicOff.has(key) ? '' : 'checked'}> ${esc(v.name)} <small>${esc([...v.kinds].join('/'))}${geo}</small> <span class="n">${v.n}</span></label>`;
+              const type = v.guide?.type || (v.types || []).join(' · ') || (v.kinds || []).join('/');
+              const guide = v.guide?.url
+                ? `<a href="${esc(v.guide.url)}" target="_blank" rel="noopener" title="Mythic Trap 신화 공략 열기">공략</a>` : '';
+              return `<label class="rc-mechanic-row" data-mi="${i}">
+                <input type="checkbox" data-mkey="${esc(v.key)}" ${rcMechanicOff.has(v.key) ? '' : 'checked'}>
+                <img src="/api/spell-icon/${Number(v.spell_id) || 0}.png" alt="" loading="lazy" onerror="this.classList.add('missing')">
+                <span class="rc-mechanic-copy"><b>${esc(v.name)}</b><small>${esc(type)}${geo}</small></span>
+                ${guide}<span class="n">${Number(v.count) || 0}</span>
+              </label>`;
             }).join('')
           : '<div class="empty">추적할 보스 기믹 없음</div>';
-        dpop.hidden = false;
+        rcPlaceMechanicPop(dbtn, dpop);
         dpop.querySelectorAll('input[data-mkey]').forEach(cb => cb.addEventListener('change', () => {
           const key = cb.dataset.mkey;
           if (cb.checked) rcMechanicOff.delete(key); else rcMechanicOff.add(key);
           dbtn.classList.toggle('filtered', rcMechanicOff.size > 0);
           rcApplyMechanicFilter();
         }));
+        dpop.querySelectorAll('a').forEach(a => a.addEventListener('click', e => {
+          e.preventDefault(); e.stopPropagation();
+          window.open(a.href, '_blank', 'noopener');
+        }));
+      });
+      dpop.addEventListener('mouseover', e => {
+        const row = e.target.closest('.rc-mechanic-row[data-mi]');
+        if (!row || row === rcTip.anchor) return;
+        const mechanic = dpop._mechanics?.[Number(row.dataset.mi)];
+        if (mechanic) rcShowTip(rcTipInfoFromMechanic(mechanic), row);
+      });
+      dpop.addEventListener('mouseout', e => {
+        const row = e.target.closest('.rc-mechanic-row[data-mi]');
+        if (row && !row.contains(e.relatedTarget)) rcHideTip();
       });
       document.addEventListener('click', e => {
         if (!dpop.hidden && !dpop.contains(e.target) && !dbtn.contains(e.target)) dpop.hidden = true;
@@ -1821,6 +1867,8 @@ const rc = {
   mapImg: null,
   mode: {},       // unitId → 0 보통 / 1 강조 / 2 숨김
   bossEvents: [], // frames 응답 boss_events (t 오름차순, 전투 시작 기준)
+  bossMechanics: [], // 대표 기술별 이름·설명·아이콘·공략 메타
+  mechanicByKey: {}, // mechanic_key → bossMechanics 항목
   playerEvents: [], // frames 응답 player_events (t 오름차순 — 블러드/물약/쿨기류)
   peByUnit: {},   // unitId → player_events 배열 (t 오름차순, 패널 강조용)
   casts: {},      // frames 응답 casts — unitId → [[t, 스킬이름], ...] (t 오름차순)
@@ -1848,7 +1896,7 @@ async function initReplayCanvas(replayId) {
   rcPause();
   rc.meta = null; rc.tracks = {}; rc.deathsBy = {}; rc.mapImg = null;
   rc.mode = {}; rc.t = 0; rc.speed = 1; rc.duration = 0;
-  rc.bossEvents = []; rc.videoOffset = 0;
+  rc.bossEvents = []; rc.bossMechanics = []; rc.mechanicByKey = {}; rc.videoOffset = 0;
   rc.playerEvents = []; rc.peByUnit = {};
   rc.casts = {}; rc.selectedUnit = null;
   rc.is3d = false; rc.replayId = replayId;   // 리플레이 바꾸면 2D 부터 (3D 씬은 폐기)
@@ -1899,6 +1947,8 @@ async function initReplayCanvas(replayId) {
   rc.meta = meta;
   rc.duration = Math.max(Number(meta.duration_s) || 0, frames[frames.length - 1].t);
   rc.bossEvents = j.boss_events || [];
+  rc.bossMechanics = j.boss_mechanics || [];
+  rc.mechanicByKey = Object.fromEntries(rc.bossMechanics.map(v => [v.key, v]));
   rcMechanicOff.clear();
   document.getElementById('rc-mechanic-btn')?.classList.remove('filtered');
   // 기간형 검색 창 = 최장 지속 기믹 + 여유 — 장기 디버프도 끝까지 링·패널 유지
@@ -2033,7 +2083,7 @@ function rcBuildControls() {
     const dur = Math.max(1, rc.duration);
     bossTrack.innerHTML = rc.bossEvents.map((ev, i) => {
       const cls = `${ev.kind || 'cast'}${ev.priority ? ' prio' : ''}`;
-      return `<i class="${cls}" data-bi="${i}" data-sid="${Number(ev.spell_id) || 0}" data-mkey="${esc(ev.mechanic_key || '')}" style="left:${(Number(ev.t) / dur * 100).toFixed(2)}%"></i>`;
+      return `<i class="${cls}" data-bi="${i}" data-sid="${Number(ev.root_spell_id || ev.spell_id) || 0}" data-mkey="${esc(ev.mechanic_key || '')}" style="left:${(Number(ev.t) / dur * 100).toFixed(2)}%"></i>`;
     }).join('');
     bossTrack.addEventListener('click', e => {
       const el = e.target.closest('i[data-bi]');
@@ -2047,14 +2097,19 @@ function rcBuildControls() {
       if (!el || el === rcTip.anchor) return;
       const ev = rc.bossEvents[Number(el.dataset.bi)];
       if (!ev) return;
+      const mechanic = rcMechanicMeta(ev.mechanic_key) || {};
       rcShowTip({
-        sid: Number(ev.spell_id) || 0, name: ev.spell || '',
+        sid: Number(mechanic.spell_id || ev.root_spell_id || ev.spell_id) || 0,
+        name: mechanic.name || ev.spell || '', mkey: ev.mechanic_key || '',
         kind: rcTipKindLabel('boss', ev.kind),
         dur: ev.end != null ? Math.round(Number(ev.end) - Number(ev.t)) : 0,
         shape: ev.geometry?.shape || '', radius: Number(ev.geometry?.radius || ev.geometry?.length) || 0,
         maxStacks: Number(ev.max_stacks) || 0,
         dest: ev.dest_name ? String(ev.dest_name).split('-')[0] : '',
         src: ev.src_name ? String(ev.src_name).split('-')[0] : '',
+        desc: mechanic.desc || '', roleNotes: mechanic.role_notes || [],
+        roles: mechanic.roles || [], guide: mechanic.guide || {},
+        sources: mechanic.sources || [],
       }, el);
     });
     bossTrack.addEventListener('mouseout', e => {
@@ -2313,22 +2368,44 @@ function rcTipKindLabel(kind, bk) {
 
 function rcTipInfoFromRow(row) {
   const d = row.dataset;
+  const mechanic = rcMechanicMeta(d.mkey) || {};
   return {
-    sid: Number(d.sid) || 0, name: d.spell || '',
+    sid: Number(mechanic.spell_id || d.sid) || 0,
+    name: mechanic.name || d.spell || '', mkey: d.mkey || '',
     kind: rcTipKindLabel(d.k, d.bk), dur: Number(d.dur) || 0,
     shape: d.shape || '', radius: Number(d.radius) || 0,
     maxStacks: Number(d.maxStacks) || 0,
     dest: d.dest || '', src: d.src || '',
+    desc: mechanic.desc || '', roleNotes: mechanic.role_notes || [],
+    roles: mechanic.roles || [], guide: mechanic.guide || {},
+    sources: mechanic.sources || [],
   };
 }
 
-function rcTipFetch(sid) {
-  let p = rcTipCache.get(sid);
+function rcTipInfoFromMechanic(mechanic) {
+  const g = mechanic.geometry || {};
+  return {
+    sid: Number(mechanic.spell_id) || 0, name: mechanic.name || '',
+    mkey: mechanic.key || '', kind: '보스 기믹',
+    shape: g.shape || '', radius: Number(g.radius || g.length) || 0,
+    desc: mechanic.desc || '', roleNotes: mechanic.role_notes || [],
+    roles: mechanic.roles || [], guide: mechanic.guide || {},
+    sources: mechanic.sources || [],
+  };
+}
+
+function rcTipFetch(sid, name) {
+  const encounterId = Number(rc.meta?.encounter_id) || 0;
+  const cacheKey = `${sid}|${encounterId}`;
+  let p = rcTipCache.get(cacheKey);
   if (!p) {
-    p = fetch(`/api/spell-tip/${sid}`)
+    const qs = new URLSearchParams();
+    if (encounterId) qs.set('encounter_id', String(encounterId));
+    if (name) qs.set('name', name);
+    p = fetch(`/api/spell-tip/${sid}${qs.size ? `?${qs}` : ''}`)
       .then(r => (r.ok ? r.json() : {}))
       .catch(() => ({}));
-    rcTipCache.set(sid, p);
+    rcTipCache.set(cacheKey, p);
   }
   return p;
 }
@@ -2342,8 +2419,23 @@ function rcPlaceTip() {
   const x = Math.min(Math.max(8, r.left), window.innerWidth - w - 8);
   let y = r.top - h - 8;
   if (y < 8) y = Math.min(r.bottom + 8, window.innerHeight - h - 8);
+  y = Math.max(8, Math.min(y, window.innerHeight - h - 8));
   el.style.left = `${Math.round(x)}px`;
   el.style.top = `${Math.round(y)}px`;
+}
+
+function rcTipDetailsHtml(info) {
+  const roleLabel = { tank: '방어 담당', healer: '치유 담당', damage: '공격 담당' };
+  const roles = (info.roles || []).map(v => roleLabel[v] || v).filter(Boolean);
+  const notes = (info.roleNotes || info.role_notes || []).filter(Boolean);
+  const guide = info.guide || {};
+  const sources = (info.sources || []).filter(Boolean);
+  return `
+    ${info.desc ? `<div class="rc-tip-desc">${esc(info.desc)}</div>` : ''}
+    ${notes.length ? `<div class="rc-tip-note"><span>도감 주의</span>${notes.slice(0, 3).map(v => `<p>${esc(v)}</p>`).join('')}</div>` : ''}
+    ${(guide.type || roles.length) ? `<div class="rc-tip-badges">${guide.type ? `<i>${esc(guide.type)}</i>` : ''}${roles.map(v => `<i>${esc(v)}</i>`).join('')}</div>` : ''}
+    ${guide.url ? `<div class="rc-tip-guide">Mythic Trap 신화 공략에서 세부 처리 확인</div>` : ''}
+    ${sources.length ? `<div class="rc-tip-sources">${esc(sources.join(' · '))}</div>` : ''}`;
 }
 
 function rcShowTip(info, anchorEl) {
@@ -2371,7 +2463,7 @@ function rcShowTip(info, anchorEl) {
       <b>${esc(info.name)}</b><span class="k">${esc(info.kind)}</span>
     </div>
     ${sub ? `<div class="rc-tip-sub">${esc(sub)}</div>` : ''}
-    <div class="rc-tip-desc"></div>`;
+    <div class="rc-tip-body">${rcTipDetailsHtml(info)}</div>`;
   el.style.display = 'block';
   rcPlaceTip();
   if (info.sid) {
@@ -2387,10 +2479,21 @@ function rcShowTip(info, anchorEl) {
         img.onerror = () => { img.style.display = 'none'; };
         head.prepend(img);
       }
-      const j = await rcTipFetch(info.sid);
+      const j = await rcTipFetch(info.sid, info.name);
       if (rcTip.key !== key) return;   // 기다리는 동안 다른 행으로 이동함
-      const box = el.querySelector('.rc-tip-desc');
-      if (box && j && j.desc) { box.textContent = j.desc; rcPlaceTip(); }
+      const merged = {
+        ...info,
+        name: j.name || info.name,
+        desc: info.desc || j.desc || '',
+        roleNotes: (info.roleNotes || []).length ? info.roleNotes : (j.role_notes || []),
+        roles: (info.roles || []).length ? info.roles : (j.roles || []),
+        guide: Object.keys(info.guide || {}).length ? info.guide : (j.guide || {}),
+        sources: (info.sources || []).length ? info.sources : (j.sources || []),
+      };
+      const title = el.querySelector('.rc-tip-head b');
+      if (title) title.textContent = merged.name;
+      const box = el.querySelector('.rc-tip-body');
+      if (box) { box.innerHTML = rcTipDetailsHtml(merged); rcPlaceTip(); }
     }, 150);
   }
 }

@@ -1117,30 +1117,53 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 #rc-mechanic-btn.filtered { border-color: #d19b38; color: #ffd98a; }
 #rc-mechanic-pop[hidden] { display: none !important; }
 #rc-mechanic-pop {
-  position: absolute; top: calc(100% + 4px); right: 0; z-index: 60;
-  min-width: 240px; max-width: 340px; max-height: 280px; overflow-y: auto;
+  position: fixed; z-index: 1300;
+  width: min(440px, calc(100vw - 16px)); max-height: min(440px, calc(100vh - 16px)); overflow-y: auto;
   background: var(--bg-1); border: 1px solid var(--border); border-radius: 6px;
-  padding: 8px 10px; box-shadow: 0 10px 30px rgba(0,0,0,.5);
-  display: flex; flex-direction: column; gap: 5px; font-size: 12px;
+  padding: 8px; box-shadow: 0 16px 44px rgba(0,0,0,.68);
+  display: flex; flex-direction: column; gap: 3px; font-size: 12px;
 }
-#rc-mechanic-pop label { display: flex; align-items: center; gap: 6px; cursor: pointer; color: #cbb0f0; }
-#rc-mechanic-pop label small { color: var(--text-mute); white-space: nowrap; }
-#rc-mechanic-pop label .n { margin-left: auto; color: var(--text-mute); font-size: 11px; }
+#rc-mechanic-pop .rc-mechanic-row {
+  display: grid; grid-template-columns: 16px 34px minmax(0, 1fr) auto auto;
+  align-items: center; gap: 8px; min-height: 44px; padding: 4px 5px;
+  border-radius: 4px; cursor: pointer; color: #d9c5f5;
+}
+#rc-mechanic-pop .rc-mechanic-row:hover { background: var(--bg-2); }
+#rc-mechanic-pop .rc-mechanic-row > img {
+  width: 34px; height: 34px; object-fit: cover; border-radius: 4px;
+  border: 1px solid #50596b; background: #080a0f;
+}
+#rc-mechanic-pop .rc-mechanic-row > img.missing { opacity: 0; }
+#rc-mechanic-pop .rc-mechanic-copy { min-width: 0; display: grid; gap: 2px; }
+#rc-mechanic-pop .rc-mechanic-copy b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12.5px; color: #f1e8ff; }
+#rc-mechanic-pop .rc-mechanic-copy small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-mute); font-size: 10.5px; }
+#rc-mechanic-pop .rc-mechanic-row > a { color: #8fc7ff; font-size: 10.5px; text-decoration: none; padding: 3px 4px; }
+#rc-mechanic-pop .rc-mechanic-row > a:hover { color: #c6e3ff; text-decoration: underline; }
+#rc-mechanic-pop label .n { color: var(--text-mute); font-size: 11px; font-variant-numeric: tabular-nums; }
 #rc-bossevents i.off { display: none; }
 /* 스킬 툴팁 — 피드 행/기믹 눈금에 마우스 올리면 (앵커 근처 고정, 클릭 방해 X) */
 #rc-tip {
-  position: fixed; z-index: 1000; display: none; pointer-events: none;
-  max-width: 320px; padding: 8px 10px;
-  background: rgba(13, 16, 22, .96); border: 1px solid var(--border); border-radius: 6px;
-  color: var(--text); font-size: 11.5px; box-shadow: 0 4px 14px rgba(0, 0, 0, .45);
+  position: fixed; z-index: 1400; display: none; pointer-events: none;
+  width: min(420px, calc(100vw - 16px)); max-height: calc(100vh - 16px); overflow: hidden;
+  padding: 12px 13px; background: rgba(7, 9, 14, .98);
+  border: 1px solid #515a6c; border-radius: 6px; color: var(--text); font-size: 12px;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, .72);
 }
-#rc-tip .rc-tip-head { display: flex; align-items: center; gap: 6px; min-width: 0; }
-#rc-tip .rc-tip-head img { width: 22px; height: 22px; border-radius: 3px; flex: none; }
-#rc-tip .rc-tip-head b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-#rc-tip .rc-tip-head .k { color: var(--text-mute); font-size: 10.5px; flex: none; }
-#rc-tip .rc-tip-sub { color: var(--text-dim); margin-top: 3px; }
-#rc-tip .rc-tip-desc { color: var(--text-mute); margin-top: 4px; line-height: 1.45; }
-#rc-tip .rc-tip-desc:empty { display: none; }
+#rc-tip .rc-tip-head { display: flex; align-items: center; gap: 9px; min-width: 0; }
+#rc-tip .rc-tip-head img { width: 36px; height: 36px; border-radius: 5px; flex: none; border: 1px solid #5b6476; }
+#rc-tip .rc-tip-head b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; color: #fff0a8; }
+#rc-tip .rc-tip-head .k { margin-left: auto; color: var(--text-mute); font-size: 10.5px; flex: none; }
+#rc-tip .rc-tip-sub { color: #c0cad9; margin-top: 7px; line-height: 1.45; }
+#rc-tip .rc-tip-body { margin-top: 8px; }
+#rc-tip .rc-tip-body:empty { display: none; }
+#rc-tip .rc-tip-desc { color: #e1e6ef; line-height: 1.55; white-space: pre-line; }
+#rc-tip .rc-tip-note { margin-top: 9px; padding-top: 8px; border-top: 1px solid #2c3340; color: #bcc8da; }
+#rc-tip .rc-tip-note > span { display: block; margin-bottom: 4px; color: #86b9f2; font-size: 10.5px; font-weight: 700; }
+#rc-tip .rc-tip-note p { margin: 3px 0; line-height: 1.45; }
+#rc-tip .rc-tip-badges { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+#rc-tip .rc-tip-badges i { padding: 2px 6px; border: 1px solid #4a5364; border-radius: 3px; color: #d7def0; background: #171c26; font-size: 10.5px; font-style: normal; }
+#rc-tip .rc-tip-guide { margin-top: 8px; color: #9fc7ef; font-size: 10.5px; }
+#rc-tip .rc-tip-sources { margin-top: 8px; padding-top: 7px; border-top: 1px solid #242a35; color: #78869b; font-size: 10px; }
 /* 이벤트 종류 체크박스 한 줄 (통합 피드) */
 .replay-ev-kinds { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; }
 .replay-ev-kinds label {

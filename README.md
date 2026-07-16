@@ -56,14 +56,16 @@ fetch_talent_trees.py   →  data/talent_trees.json           (Blizzard 트리 �
 enrich_kr.py            →  data/spell_db.json, item_db.json (한글 spell/item)
 fetch_replay_spell_geometry.py
                         →  data/replay_spell_geometry.json
-                           (Wago 최신 빌드 지오메트리 + Blizzard 저널/공개 전환 감사
+                           (Wago 최신 빌드 지오메트리 + Blizzard 저널
+                            + Wowhead 한글 툴팁/아이콘 + Mythic Trap 신화 공략
                             + Archon 공개 페이지 패치 시점 확인)
 
 serve.py + app/         →  FastAPI + pywebview SPA (HTML/CSS/JS in app/static/)
 ```
 
-리플레이 지오메트리 갱신은 Blizzard API 자격 증명이 있으면 공식 저널 기술과
-직접 spell API 공개 여부까지 합친다. 자격 증명이 없으면 Blizzard 감사만 건너뛴다.
+리플레이 메타 갱신은 Blizzard API 자격 증명이 있으면 공식 저널 기술과 직접 spell API
+공개 여부까지 합친다. 자격 증명이 없으면 Blizzard 감사만 건너뛴다. 공개 메타에 쓸 수
+있는 한글 설명이 없는 예외는 `data/replay_mechanic_overrides.json`에서 출처와 함께 보정한다.
 
 각 스크립트 재실행 안전 — `data/v2_cache_*.json` 캐시로 페치 건너뜀.
 끝에 자동으로 `data/update_log.json` 에 history 한 줄 기록 (PC 간 sync).

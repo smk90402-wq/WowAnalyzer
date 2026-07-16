@@ -48,7 +48,7 @@ _FALLBACK_BUILD = "12.0.7.68367"
 
 # spell_tips.json 엔트리 버전 — desc 계산 로직이 바뀌면 올린다.
 # v 가 다른(없는) 엔트리는 desc 를 다시 계산 (name/icon_fdid 는 그대로 유효).
-CACHE_V = 3   # v2: 저널 폴백이 공략 불릿만 봐서 산문 문단 기믹이 빈 desc 로 저장됨
+CACHE_V = 4   # v4: 대표 ID + Blizzard/Wowhead/Mythic Trap 통합 카탈로그 우선
 
 _FAIL_TTL_S = 600
 # (종류 "icon"/"tip", spell_id) → (실패 시각 monotonic, 사유)
@@ -432,20 +432,44 @@ def _icon_fdid(spell_id: int) -> int:
     raise SpellTipError(f"spellID {spell_id} 아이콘 FileDataID 없음(동명 폴백 포함)")
 
 
+def _wowhead_icon_path(icon: str) -> Path:
+    slug = re.sub(r"[^a-z0-9_]+", "", (icon or "").lower())
+    if not slug:
+        raise SpellTipError("Wowhead 아이콘 이름 없음")
+    path = ICONS_DIR / f"wowhead_{slug}.png"
+    if path.exists():
+        return path
+    from PIL import Image
+    raw = _get(f"https://wow.zamimg.com/images/wow/icons/large/{slug}.jpg", timeout=30)
+    ICONS_DIR.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(f".{threading.get_ident()}.tmp")
+    Image.open(io.BytesIO(raw)).convert("RGBA").save(tmp, format="PNG")
+    tmp.replace(path)
+    return path
+
+
 # ── 공개 API ─────────────────────────────────────────────────────────────────
 def icon_png_path(spell_id: int) -> Path:
     """spell_id → data/icons/{fdid}.png (없으면 wago 에서 BLP 받아 변환)."""
-    ent = _cache_get(spell_id)
+    from app import replay_mechanics
+    root = replay_mechanics.canonical_spell_id(spell_id)
+    catalog = replay_mechanics.mechanic_tip(root)
+    ent = _cache_get(root)
     fdid = _to_int(ent.get("icon_fdid"))
     if fdid > 0:
         path = ICONS_DIR / f"{fdid}.png"
         if path.exists():
             return path
-    _fail_check("icon", spell_id)
+    wowhead_icon = str(catalog.get("icon") or "")
+    if wowhead_icon:
+        path = ICONS_DIR / f"wowhead_{wowhead_icon}.png"
+        if path.exists():
+            return path
+    _fail_check("icon", root)
     try:
         if fdid <= 0:
-            fdid = _icon_fdid(spell_id)   # 원 체인 실패 시 동명 폴백 포함
-            _cache_set(spell_id, icon_fdid=fdid)
+            fdid = _icon_fdid(root)   # 대표 ID 실패 시 동명 폴백 포함
+            _cache_set(root, icon_fdid=fdid)
         path = ICONS_DIR / f"{fdid}.png"
         if not path.exists():
             from PIL import Image  # 지연 import — replay_map 과 동일 (Pillow BLP 네이티브)
@@ -458,53 +482,63 @@ def icon_png_path(spell_id: int) -> Path:
             tmp.replace(path)
         return path
     except Exception as exc:
+        if wowhead_icon:
+            try:
+                return _wowhead_icon_path(wowhead_icon)
+            except Exception as wowhead_exc:
+                exc = SpellTipError(f"Wago: {exc}; Wowhead: {wowhead_exc}")
         # PIL 디코드 실패(BLP 변종·잘린 응답)까지 전부 네거티브 캐시 —
         # hover 반복마다 wago 체인이 재발사되는 것 방지
-        _fail_cache[("icon", spell_id)] = (time.monotonic(), str(exc))
+        _fail_cache[("icon", root)] = (time.monotonic(), str(exc))
         raise SpellTipError(str(exc))
 
 
-def spell_tip(spell_id: int) -> dict[str, str]:
-    """spell_id → {name, desc}. 이름이 아예 없으면 SpellTipError."""
-    ent = _cache_get(spell_id)
+def spell_tip(spell_id: int, encounter_id: int = 0, name: str = "") -> dict[str, Any]:
+    """spell_id → merged mechanic tooltip. 이름이 아예 없으면 SpellTipError."""
+    from app import replay_mechanics
+    catalog = replay_mechanics.mechanic_tip(spell_id, name, encounter_id)
+    root = _to_int(catalog.get("root_spell_id")) or spell_id
+    ent = _cache_get(root)
     if (_to_int(ent.get("v")) == CACHE_V
             and isinstance(ent.get("name"), str) and isinstance(ent.get("desc"), str)):
-        return {"name": ent["name"], "desc": ent["desc"]}
-    _fail_check("tip", spell_id)
+        out = dict(catalog)
+        out["name"] = str(catalog.get("name") or ent["name"])
+        out["desc"] = str(catalog.get("desc") or ent["desc"])
+        return out
+    _fail_check("tip", root)
     state: dict[str, bool] = {}
     try:
-        from app import replay_mechanics
-        official = replay_mechanics.official_tip(spell_id)
-        cached = ent.get("name")   # 옛 버전 엔트리라도 이름은 유효 — 재사용
-        if isinstance(cached, str) and cached:
-            name = cached
-        else:
+        cached = ent.get("name")
+        shown_name = str(catalog.get("name") or
+                         (cached if isinstance(cached, str) else ""))
+        if not shown_name:
             try:
-                name = _spell_name(spell_id)
+                shown_name = _spell_name(root)
             except Exception:
-                name = ""
+                shown_name = ""
                 state["transient"] = True
-            name = name or official.get("name", "")
-        if not name:
-            raise SpellTipError(f"SpellName 에 spellID {spell_id} 없음")
-        try:
-            raw = _spell_desc_raw(spell_id)
-        except Exception:
-            raw = ""                       # 일반 설명 조회 장애 — 저널 폴백은 시도
-            state["transient"] = True
-        desc = _clean_desc(raw, spell_id, state=state) if raw else ""
-        if state.get("bad") or state.get("transient"):
-            desc = ""   # 깨진 문장은 노출하지 않는다 (모듈 방침)
-        official_desc = official.get("desc", "")
-        if not desc and official_desc and "$" not in official_desc and "|" not in official_desc:
-            desc = official_desc
+        if not shown_name:
+            raise SpellTipError(f"SpellName 에 spellID {root} 없음")
+        desc = str(catalog.get("desc") or "")
         if not desc:
-            desc = _journal_desc(spell_id, name, state)   # 원 체인 빈손 → 던전 저널
+            try:
+                raw = _spell_desc_raw(root)
+            except Exception:
+                raw = ""
+                state["transient"] = True
+            desc = _clean_desc(raw, root, state=state) if raw else ""
+            if state.get("bad") or state.get("transient"):
+                desc = ""
+        if not desc:
+            desc = _journal_desc(root, shown_name, state)
     except Exception as exc:
-        _fail_cache[("tip", spell_id)] = (time.monotonic(), str(exc))
+        _fail_cache[("tip", root)] = (time.monotonic(), str(exc))
         raise SpellTipError(str(exc))
     if state.get("transient"):
-        _cache_set(spell_id, name=name)   # 일시 장애 — desc 는 다음에 재시도 (v 미기록)
+        _cache_set(root, name=shown_name)
     else:
-        _cache_set(spell_id, name=name, desc=desc, v=CACHE_V)
-    return {"name": name, "desc": desc}
+        _cache_set(root, name=shown_name, desc=desc, v=CACHE_V)
+    out = dict(catalog)
+    out["name"] = shown_name
+    out["desc"] = desc
+    return out

@@ -1,0 +1,20 @@
+{
+  "_meta": {
+    "purpose": "Verified Korean tooltip fallbacks for mechanics whose public spell metadata has no usable description",
+    "rule": "Automatic Korean Blizzard and Wowhead text takes priority; these entries provide Korean fallback before English-only guide text"
+  },
+  "entries": {
+    "1259851": {
+      "name_ko": "은빛 복제물",
+      "description_ko": "알레리아가 공중에 떠서 공격대 전체에 지속 피해를 주는 비활성 은빛 복제물을 주기적으로 소환합니다. 공허의 손아귀 광선을 복제물에 맞히면 파괴할 수 있습니다.",
+      "source_label": "Mythic Trap",
+      "source_url": "https://www.mythictrap.com/en/vs-dr-mqd/crown-of-the-cosmos/mythic/dps"
+    },
+    "1280458": {
+      "name_ko": "옭아매는 아귀",
+      "description_ko": "용은 비행 중 우주의 가시로 주 대상을 공격합니다. 용과 대상 사이의 거리가 멀수록 받는 피해가 증가하며, 이후 멀리 떨어진 대상을 주위로 끌어당깁니다.",
+      "source_label": "Warcraft Wiki 도감",
+      "source_url": "https://warcraft.wiki.gg/wiki/Vaelgor_%26_Ezzorak"
+    }
+  }
+}

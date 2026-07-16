@@ -1603,6 +1603,51 @@ def _select_boss_events(
     return capped
 
 
+def _boss_mechanic_summaries(
+    events: list[dict[str, Any]],
+    encounter_id: int,
+    difficulty_id: int,
+) -> list[dict[str, Any]]:
+    """Collapse repeated cast/aura/impact events into tooltip-ready mechanics."""
+    grouped: dict[str, dict[str, Any]] = {}
+    for event in events:
+        key = str(event.get("mechanic_key") or
+                  f"spell:{_to_int(event.get('root_spell_id') or event.get('spell_id'))}")
+        current = grouped.setdefault(key, {
+            "key": key,
+            "spell_id": _to_int(event.get("root_spell_id") or event.get("spell_id")),
+            "observed_name": str(event.get("spell") or ""),
+            "count": 0,
+            "kinds": set(),
+            "types": list(event.get("types") or []),
+            "geometry": event.get("geometry") if isinstance(event.get("geometry"), dict) else None,
+            "priority": False,
+        })
+        current["count"] += 1
+        current["kinds"].add(str(event.get("kind") or "cast"))
+        current["priority"] = bool(current["priority"] or event.get("priority"))
+        if not current.get("geometry") and isinstance(event.get("geometry"), dict):
+            current["geometry"] = event["geometry"]
+
+    out: list[dict[str, Any]] = []
+    for current in grouped.values():
+        tip = replay_mechanics.mechanic_tip(
+            current["spell_id"], current["observed_name"], encounter_id)
+        current["name"] = str(tip.get("name") or current.get("observed_name") or "")
+        current.pop("observed_name", None)
+        current["kinds"] = sorted(current["kinds"])
+        for field in ("desc", "role_notes", "roles", "guide", "sources",
+                      "wowhead_url", "fallback_source_url"):
+            value = tip.get(field)
+            if value:
+                current[field] = value
+        current["spell_id"] = _to_int(tip.get("root_spell_id")) or current["spell_id"]
+        out.append(current)
+    out.sort(key=lambda item: (
+        not item.get("priority"), -_to_int(item.get("count")), str(item.get("name") or "")))
+    return out
+
+
 # frames 결과 메모리 캐시: replay_id → (로그파일 시그니처, payload).
 # 로그 파일이 안 바뀌었으면 재파싱 생략 — 리스트에서 판 전환 시 즉시 로드.
 _frames_cache: dict[str, tuple[tuple[str, int, int], dict[str, Any]]] = {}
@@ -1701,6 +1746,8 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
         duration_s=float(duration_s or 0),
         encounter_id=encounter_id, difficulty_id=difficulty_id,
         guid_to_role=guid_to_role)
+    boss_mechanics = _boss_mechanic_summaries(
+        boss_events, encounter_id, difficulty_id)
 
     # 플레이어 이벤트 (블러드/물약/치유석/오펜시브/생존기)
     player_events = _select_player_events(
@@ -1744,6 +1791,7 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
         },
         "frames": frames,
         "boss_events": boss_events,
+        "boss_mechanics": boss_mechanics,
         "casts": casts_out,
         "player_events": player_events,
     }
