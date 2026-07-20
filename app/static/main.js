@@ -2941,11 +2941,23 @@ function rcUpdatePanel() {
   for (const dt of rc.deathsBy[uid] || []) {
     if (dt <= t) { castRows.push({ t: dt, death: true }); deathCnt++; }
   }
+  // '맞음' — 이 유닛 대상 보스 기믹(피격·디버프)을 시전 타임라인에 섞어 표시
+  let hitCnt = 0;
+  {
+    const evs = rc.bossEvents || [];
+    for (let i = rcUpperIdx(evs, t, e => Number(e.t)); i >= 0; i--) {
+      const ev = evs[i];
+      if (t - Number(ev.t) > (rc.evWindow || RC_EV_WINDOW_S)) break;
+      if (ev.dest_id !== uid || !rcMechanicShown(ev)) continue;
+      castRows.push({ t: Number(ev.t), hit: ev });
+      hitCnt++;
+    }
+  }
   castRows.sort((a, b) => a.t - b.t);
   const castList = castRows.slice(-RC_PANEL_CASTS);
 
   const key = [uid, dead ? 1 : 0,
-    hits.map(h => `${h.i}:${rcStacksAt(h.ev, t)}`).join(','), castEnd, deathCnt].join('|');
+    hits.map(h => `${h.i}:${rcStacksAt(h.ev, t)}`).join(','), castEnd, deathCnt, hitCnt].join('|');
   if (key !== rcPanelKey) {
     rcPanelKey = key;
     const name = String(u.name || u.id).split('-')[0];
@@ -2971,6 +2983,11 @@ function rcUpdatePanel() {
         ${castList.map(c => {
           if (c.death) {
             return `<div class="rc-panel-row death"><span class="t">${rcClock(c.t)}</span><span class="s">💀 사망</span></div>`;
+          }
+          if (c.hit) {
+            const st = c.hit.max_stacks ? ` ×${c.hit.max_stacks}` : '';
+            const lbl = c.hit.kind === 'impact' ? '피격' : '걸림';
+            return `<div class="rc-panel-row got-${c.hit.kind || 'hit'}"><span class="t">${rcClock(c.t)}</span><span class="s">☄ ${esc(c.hit.spell || '')}${st} ${lbl}</span></div>`;
           }
           const pk = rcCastEventKind(uid, c.t, c.spell);
           return `<div class="rc-panel-row"><span class="t">${rcClock(c.t)}</span><span class="s${pk ? ` pk-${pk}` : ''}">${esc(c.spell)}</span></div>`;
@@ -3173,6 +3190,26 @@ function rcDraw() {
     const holding = rc.crystalHolds.length > 0
       && rc.crystalHolds.some(h => h.u === u.id && t >= h.s && t < h.e);
     if (holding) {
+      // P3: 보유자 12yd 보호 범위(횃불 운반자) — 이 밖이면 '한밤' 중첩이 쌓인다
+      if (rcSpaceAt(t)?.key === 'p3') {
+        const points = [];
+        for (let i = 0; i < 40; i++) {
+          const a = i / 40 * Math.PI * 2;
+          points.push(toPx(cur.x + Math.cos(a) * 12, cur.y + Math.sin(a) * 12));
+        }
+        ctx.setLineDash([7, 6]);
+        ctx.beginPath();
+        points.forEach((p, i) => i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]));
+        ctx.closePath();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'rgba(245, 215, 110, .8)';
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.globalAlpha = baseA * 0.07;
+        ctx.fillStyle = '#f5d76e';
+        ctx.fill();
+        ctx.globalAlpha = baseA;
+      }
       // 금색 이중 링 — 직업색 점과 확실히 구분되게 점 둘레를 감싼다
       ctx.beginPath();
       ctx.arc(x, y, r + 5, 0, Math.PI * 2);

@@ -1159,6 +1159,9 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .rc-panel-row.hit .s { color: #b18cf0; }
 .rc-panel-row.impact .s { color: #ef6b62; }
 .rc-panel-row.summon .s { color: #4fc9b0; }
+/* 시전 타임라인에 섞인 '맞음' 행 — 디버프 보라 / 피격 빨강 */
+.rc-panel-row.got-hit .s { color: #b18cf0; }
+.rc-panel-row.got-impact .s, .rc-panel-row.got-cast .s { color: #ef8a80; }
 /* 기간형 기믹 남은 시간 — "· 6초 남음" (값은 매 틱 textContent 만 갱신) */
 .rc-panel-row .rem { color: var(--text-mute); font-size: 10.5px; flex: none; font-variant-numeric: tabular-nums; }
 /* '쓴 스킬' 중 블러드/물약/쿨기류로 잡힌 시전은 종류 색으로 강조 */

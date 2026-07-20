@@ -1032,6 +1032,8 @@ _ADV_SWING_EVENTS = {"SWING_DAMAGE", "SWING_DAMAGE_LANDED"}
 # 보스 기믹 이벤트 (frames 응답 boss_events)
 _HOSTILE_FLAG = 0x40          # sourceFlags REACTION_HOSTILE — 아군 소환수 제외 핵심
 BOSS_EVENT_TOTAL_CAP = 600    # 풀당 전체 캡
+BOSS_EVENT_MIN_KEEP = 12      # 전체 캡 컷 시 스펠별 최소 보장 — 후반부 저빈도
+                              # 기믹(P3 한밤 등)이 고빈도 스펠에 밀려 전멸하는 것 방지
 BOSS_EVENT_SPELL_CAP = 20     # 캐스트류 스펠별 캡 (초과 시 균등 샘플)
 BOSS_EVENT_HIT_CAP = 120      # 디버프(hit) 스펠별 캡 — 20이면 뒤쪽 웨이브가 통째로
                               # 샘플에서 탈락해 '나중에 걸린 사람 하이라이트 안 됨' 버그
@@ -1042,6 +1044,7 @@ BOSS_HIT_WAVE_GAP_S = 3.0     # 디버프 '같은 웨이브' 판정 간격 (다�
 # canonical ID에 아직 연결되지 않아, 리플레이 피격 링에서도 빠지지 않게 보강한다.
 _LURA_REVIEW_TRACKED_IDS = frozenset({
     1249582, 1249584, 1249585, 1249609, 1255743,
+    1263514,   # 한밤 — P3 보호 범위 밖 중첩 디버프 (WCL 사망 원인 Midnight)
     1279512, 1279581, 1281123, 1281178, 1281184, 1281473,
     1282043, 1282469, 1282470, 1284528, 1285510, 1285708,
 })
@@ -2185,12 +2188,24 @@ def _select_boss_events(
             step = len(items) / BOSS_EVENT_SPELL_CAP
             capped.extend(items[int(i * step)] for i in range(BOSS_EVENT_SPELL_CAP))
 
-    # 전체 캡 — priority > 공식 저널 추적 > 보스 소스 > 시간 순으로 남김
+    # 전체 캡 — priority > 공식 저널 추적 > 보스 소스 > 시간 순으로 남기되,
+    # 스펠별 최소 지분(BOSS_EVENT_MIN_KEEP)을 먼저 보장한다. 순수 시간순 컷은
+    # 전투 끝에만 나오는 저빈도 기믹을 통째로 지웠다 (예: P3 한밤 12건 전멸).
     if len(capped) > BOSS_EVENT_TOTAL_CAP:
         capped.sort(key=lambda x: (
             not x.get("priority"), not x.get("_tracked"),
             not x.get("_boss_src"), x["t"]))
-        capped = capped[:BOSS_EVENT_TOTAL_CAP]
+        per_spell: dict[tuple[str, int], int] = {}
+        guaranteed: list[dict[str, Any]] = []
+        rest: list[dict[str, Any]] = []
+        for item in capped:
+            key = (item["kind"], item["spell_id"])
+            if per_spell.get(key, 0) < BOSS_EVENT_MIN_KEEP:
+                per_spell[key] = per_spell.get(key, 0) + 1
+                guaranteed.append(item)
+            else:
+                rest.append(item)
+        capped = (guaranteed + rest)[:BOSS_EVENT_TOTAL_CAP]
     for item in capped:
         item.pop("_boss_src", None)
         item.pop("_tracked", None)

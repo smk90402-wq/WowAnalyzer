@@ -545,6 +545,19 @@ window.Replay3D = (() => {
           rec.crystal.position.y = 3.7 + 0.25 * Math.sin(t * 3);  // 둥실 부유
         }
       }
+      // P3: 보유자 발밑 12yd 보호 링(횃불 운반자) — 이 밖이면 '한밤' 중첩
+      if (holding && !rec.dome) {
+        const dm = new THREE.Mesh(
+          new THREE.RingGeometry(0.965, 1, 48),
+          new THREE.MeshBasicMaterial({ color: 0xf5d76e, transparent: true, opacity: 0.5,
+                                        side: THREE.DoubleSide, depthWrite: false }));
+        dm.rotation.x = -Math.PI / 2;
+        dm.scale.set(12, 12, 1);
+        dm.position.y = 0.22;
+        rec.group.add(dm);
+        rec.dome = dm;
+      }
+      if (rec.dome) rec.dome.visible = holding && rcSpaceAt(t)?.key === 'p3';
     }
 
     // 선택 유닛 발밑 링
