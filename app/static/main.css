@@ -1230,6 +1230,16 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   padding: 8px; box-shadow: 0 16px 44px rgba(0,0,0,.68);
   display: flex; flex-direction: column; gap: 3px; font-size: 12px;
 }
+#rc-mechanic-pop .rc-mechanic-all {
+  display: flex; gap: 6px; padding: 2px 4px 7px;
+  border-bottom: 1px solid var(--border-soft); margin-bottom: 5px;
+}
+#rc-mechanic-pop .rc-mechanic-all button {
+  flex: 1 1 auto; padding: 4px 8px; cursor: pointer;
+  border: 1px solid var(--border); border-radius: 5px;
+  background: var(--bg-1); color: var(--text-mute); font-size: 11px;
+}
+#rc-mechanic-pop .rc-mechanic-all button:hover { border-color: #79b7ff; color: #d6ebff; }
 #rc-mechanic-pop .rc-mechanic-row {
   display: grid; grid-template-columns: 16px 34px minmax(0, 1fr) auto auto;
   align-items: center; gap: 8px; min-height: 44px; padding: 4px 5px;

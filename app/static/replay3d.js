@@ -525,6 +525,25 @@ window.Replay3D = (() => {
         if (hl) ensureLabel(rec);
         if (rec.label) rec.label.visible = hl;
       }
+      // 여명의 수정 보유 — 원통 위에 금색 수정(팔면체)이 떠서 자전
+      const holding = u.kind === 'player' && rc.crystalHolds.length > 0
+        && rc.crystalHolds.some(h => h.u === u.id && t >= h.s && t < h.e);
+      if (holding && !rec.crystal) {
+        const cm = new THREE.Mesh(
+          new THREE.OctahedronGeometry(0.85),
+          new THREE.MeshLambertMaterial({ color: 0xf5d76e, emissive: 0x9a7a22 }));
+        cm.scale.set(0.7, 1.15, 0.7);        // 세로로 길쭉한 수정 모양
+        cm.position.y = 3.7;                 // 원통(키 2.0 + 바닥 0.3) 위
+        rec.group.add(cm);
+        rec.crystal = cm;
+      }
+      if (rec.crystal) {
+        rec.crystal.visible = holding;
+        if (holding) {
+          rec.crystal.rotation.y = t * 1.6;                       // 천천히 자전
+          rec.crystal.position.y = 3.7 + 0.25 * Math.sin(t * 3);  // 둥실 부유
+        }
+      }
     }
 
     // 선택 유닛 발밑 링

@@ -2073,7 +2073,10 @@ function renderLocalReplayDetail(detail) {
         dpop._mechanics = mechanics;
         const shapeLabel = { circle: '원형', donut: '도넛형', cone: '부채꼴', line: '직선', target: '대상', global: '전장 전체' };
         dpop.innerHTML = mechanics.length
-          ? mechanics.map((v, i) => {
+          ? `<div class="rc-mechanic-all">
+              <button type="button" data-mall="on">전체 켜기</button>
+              <button type="button" data-mall="off">전체 끄기</button>
+            </div>` + mechanics.map((v, i) => {
               const g = v.geometry || {};
               const size = Number(g.radius || g.length) || 0;
               const geo = shapeLabel[g.shape] ? ` · ${shapeLabel[g.shape]}${size ? ` ${size}m` : ''}` : '';
@@ -2092,6 +2095,14 @@ function renderLocalReplayDetail(detail) {
         dpop.querySelectorAll('input[data-mkey]').forEach(cb => cb.addEventListener('change', () => {
           const key = cb.dataset.mkey;
           if (cb.checked) rcMechanicOff.delete(key); else rcMechanicOff.add(key);
+          dbtn.classList.toggle('filtered', rcMechanicOff.size > 0);
+          rcApplyMechanicFilter();
+        }));
+        dpop.querySelectorAll('button[data-mall]').forEach(btn => btn.addEventListener('click', () => {
+          const on = btn.dataset.mall === 'on';
+          rcMechanicOff.clear();
+          if (!on) for (const v of mechanics) rcMechanicOff.add(v.key);
+          dpop.querySelectorAll('input[data-mkey]').forEach(cb => { cb.checked = on; });
           dbtn.classList.toggle('filtered', rcMechanicOff.size > 0);
           rcApplyMechanicFilter();
         }));
@@ -3162,17 +3173,28 @@ function rcDraw() {
     const holding = rc.crystalHolds.length > 0
       && rc.crystalHolds.some(h => h.u === u.id && t >= h.s && t < h.e);
     if (holding) {
+      // 금색 이중 링 — 직업색 점과 확실히 구분되게 점 둘레를 감싼다
+      ctx.beginPath();
+      ctx.arc(x, y, r + 5, 0, Math.PI * 2);
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#f5d76e';
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(x, y, r + 9, 0, Math.PI * 2);
+      ctx.lineWidth = 1.2;
+      ctx.strokeStyle = 'rgba(245, 215, 110, .55)';
+      ctx.stroke();
       ctx.font = 'bold 13px sans-serif';
       ctx.lineWidth = 3;
       ctx.strokeStyle = '#10141a';
-      ctx.strokeText('◆', x, y - r - 10);
+      ctx.strokeText('◆', x, y - r - 12);
       ctx.fillStyle = '#f5d76e';
-      ctx.fillText('◆', x, y - r - 10);
+      ctx.fillText('◆', x, y - r - 12);
     }
     // 이름: 보스는 항상, 강조 유닛·수정 보유자도
     if (u.kind === 'boss' || hl || holding) {
       const label = String(u.name || '').split('-')[0];
-      const ly = y - r - (holding ? 24 : 10);
+      const ly = y - r - (holding ? 26 : 10);
       ctx.font = 'bold 15px sans-serif';
       ctx.lineWidth = 3;
       ctx.strokeStyle = '#10141a';
@@ -3513,6 +3535,13 @@ function bind() {
   }));
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeSpecModal(); closeFunModal(); closeS2Modal(); $('#gear-modal')?.classList.remove('show'); }
+    // 스페이스바 = 리플레이 재생/일시정지 (리플레이 탭 + 입력창 포커스 아닐 때)
+    if ((e.code === 'Space' || e.key === ' ') && rc.meta
+        && document.querySelector('#pane-replay')?.classList.contains('active')
+        && !e.target.closest?.('input, textarea, select, [contenteditable]')) {
+      e.preventDefault();   // 페이지 스크롤·포커스된 버튼 재클릭 방지
+      rc.playing ? rcPause() : rcPlay();
+    }
   });
 
   // 빌드 패널 위임 — 매 row 클릭마다 재렌더 → 위임 패턴 필수
