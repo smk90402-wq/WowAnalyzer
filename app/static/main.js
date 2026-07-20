@@ -1372,6 +1372,184 @@ function _replayResult(row) {
   return `<span class="rp-wipe">전멸${pct}</span>`;
 }
 
+function _analysisCauseText(rows, max = 3) {
+  return (rows || []).slice(0, max)
+    .map(row => `${esc(row.name || '?')}×${Number(row.deaths) || 0}`).join(' · ');
+}
+
+function _analysisCluster(analysis) {
+  const clusters = analysis?.death_clusters || [];
+  if (!clusters.length) return null;
+  const key = analysis?.flags?.[0]?.key || '';
+  const wanted = {
+    radiance: 'Radiance', dissonance: 'Dissonance', interrupt: 'Terminate',
+  }[key];
+  let candidates = clusters;
+  if (key === 'p3_transition') {
+    const p3 = clusters.filter(row => Number(row.start_t) >= 330);
+    if (p3.length) candidates = p3;
+  } else if (wanted) {
+    const matched = clusters.filter(row =>
+      (row.causes || []).some(cause => cause.name === wanted));
+    if (matched.length) candidates = matched;
+  }
+  return [...candidates].sort((a, b) => Number(b.events || 0) - Number(a.events || 0))[0];
+}
+
+function _analysisJump(t, label, canReplay) {
+  const shown = _replayTime(t || 0);
+  return canReplay
+    ? `<button class="ra-jump" type="button" data-analysis-jump="${Number(t) || 0}" title="리플레이에서 이 시각으로 이동">${shown}</button> ${label}`
+    : `${shown} ${label}`;
+}
+
+function _replayAnalysisCard(analysis, canReplay) {
+  if (!analysis) return '';
+  const flag = analysis.flags?.[0];
+  const first = analysis.first_death || null;
+  const cluster = _analysisCluster(analysis);
+  const terminate = analysis.terminate || {};
+  const finalCauses = _analysisCauseText(analysis.final_wipe_causes);
+  const clusterCauses = _analysisCauseText(cluster?.causes);
+  const sourceLabel = canReplay ? '2D/3D 재생 가능' : 'WCL 분석만 · 로컬 원본 없음';
+  const firstText = first
+    ? _analysisJump(first.t, `첫 기록 사망 · ${esc(first.cause || '?')}`, canReplay)
+    : '첫 기록 사망 없음';
+  const clusterText = cluster
+    ? `${_analysisJump(cluster.start_t, '붕괴 연쇄', canReplay)} · ${Number(cluster.events) || 0}건/${Number(cluster.unique_players) || 0}명${clusterCauses ? ` · ${clusterCauses}` : ''}`
+    : '뚜렷한 집단 사망 연쇄 없음';
+  const bestDelta = analysis.compare_best?.boss_remaining_delta_pp;
+  const compare = Number(bestDelta) > 0
+    ? `최고 풀보다 ${Number(bestDelta).toFixed(2)}%p 더 남음`
+    : '세션 최고 진행';
+  return `
+    <section class="replay-analysis-card">
+      <div class="ra-title">
+        <span class="ra-flag s-${esc(flag?.severity || 'info')}">${esc(flag?.label || '풀 분석')}</span>
+        <span>${sourceLabel}</span>
+        <a href="${esc(analysis.fight_url || analysis.report_url || '#')}" target="_blank" rel="noopener">WCL fight ${Number(analysis.fight_id) || '?'}</a>
+      </div>
+      <div class="ra-grid">
+        <div><small>진행도</small><b>${esc(analysis.phase || '')} · ${Number(analysis.boss_remaining_pct).toFixed(2)}% 남음 · 세션 ${Number(analysis.progress_rank) || '?'}위</b><span>${compare}</span></div>
+        <div><small>첫 사망 / 붕괴</small><b>${firstText}</b><span>${clusterText}</span></div>
+        <div><small>사망 이벤트</small><b>${Number(analysis.deaths) || 0}건 · 고유 ${Number(analysis.unique_dead_players) || 0}명 · 재사망 ${Number(analysis.repeat_deaths) || 0}</b><span>종료 ${Number(analysis.early_cutoff_seconds) || 8}초 이전 ${Number(analysis.early_deaths) || 0}건</span></div>
+        <div><small>Terminate / 블러드</small><b>시작 ${Number(terminate.begun) || 0} · 차단 ${Number(terminate.interrupted) || 0} · 완료 ${Number(terminate.completed) || 0}${Number(terminate.other) ? ` · 기타 ${Number(terminate.other)}` : ''}</b><span>이 풀 ${Number(analysis.bloodlust_casts) || 0}회 · 세션 ${Number(analysis.session_bloodlust_casts) || 0}회</span></div>
+      </div>
+      ${finalCauses ? `<div class="ra-final" title="직접 결정타 집계이며 붕괴를 시작한 원인은 더 앞선 타임라인에 있을 수 있습니다.">마지막 8초 직접 결정타 · ${finalCauses}</div>` : ''}
+      <div class="ra-caveat">사망 원인은 직접 결정타입니다. 조기 사망은 종료 ${Number(analysis.early_cutoff_seconds) || 8}초 이전이라는 임의 분석 기준입니다.</div>
+    </section>`;
+}
+
+const REPLAY_FOCUS_DEFS = [
+  { key: 'p1_rune_quasar', phase: 'P1', label: '문양 후 집결·레이저', note: '문양 종료 뒤 집결선과 Dark Quasar 피격 확인' },
+  { key: 'intermission_crystal', phase: '사이페', label: '수정·별빛파열 간섭', note: '수정 담당과 동시 특임의 배치·동선 확인' },
+  { key: 'p2_crystal_spread', phase: 'P2', label: '수정→산개→복귀', note: '두 차례 수정 조작과 임계점 산개·복귀 확인' },
+  { key: 'p3_knockback_spread', phase: 'P3 진입', label: '진입 전 튕김 산개', note: '어둠의 용해 전후 산개와 양쪽 분리 확인' },
+];
+
+function _rfShortName(value) {
+  return String(value || '').split('-')[0];
+}
+
+function _rfNameList(values, limit = 4) {
+  const names = [...new Set((values || []).map(_rfShortName).filter(Boolean))];
+  if (!names.length) return '';
+  return `${names.slice(0, limit).join(', ')}${names.length > limit ? ` 외 ${names.length - limit}명` : ''}`;
+}
+
+function _rfWaveSummary(item, wave) {
+  const observed = wave.observed || {};
+  if (item.key === 'p1_rune_quasar') {
+    const hits = Number(observed.quasar_hit_players) || 0;
+    const mismatch = Number(observed.rune_mismatch_players) || 0;
+    const hitNames = _rfNameList(observed.quasar_targets);
+    const mismatchNames = _rfNameList(observed.rune_mismatch_targets);
+    return {
+      text: `준항성 피격 ${hits}명${hitNames ? ` · ${hitNames}` : ''} · 문양 불화 ${mismatch}명${observed.window_complete === false ? ' · 레이저 전 종료' : ''}`,
+      title: mismatchNames ? `문양 불화: ${mismatchNames}` : '',
+    };
+  }
+  if (item.key === 'intermission_crystal') {
+    const handlers = _rfNameList(observed.simultaneous_handlers, 6);
+    const clips = _rfNameList(observed.quasar_targets);
+    return {
+      text: `수정 사전 ${Number(observed.pre_crystal_operations) || 0}+사이페 ${Number(observed.crystal_operations) || 0}회 · 별빛파열 중 조작 ${Number(observed.simultaneous_operations) || 0}회 · 준항성 ${Number(observed.quasar_hit_players) || 0}명`,
+      title: `${handlers ? `동시 특임: ${handlers}` : '동시 특임 없음'}${clips ? ` · 준항성: ${clips}` : ''}`,
+    };
+  }
+  if (item.key === 'p2_crystal_spread') {
+    const formation = observed.formation || {};
+    const pairs = (formation.closest_pairs || []).map(pair =>
+      `${_rfShortName(pair.left_name)}↔${_rfShortName(pair.right_name)} ${Number(pair.distance_yards).toFixed(1)}m`).join(', ');
+    const coverage = `${Number(formation.tracked_players) || 0}/${Number(formation.roster_players) || 0}`;
+    return {
+      text: `수정 ${Number(observed.first_crystal_operations) || 0}+${Number(observed.second_crystal_operations) || 0}회 · 5.5m 미만 후보 ${Number(formation.near_pairs_5_5y) || 0}쌍 · 좌표 ${coverage}`,
+      title: pairs || '5.5m 미만 근접 후보 없음',
+    };
+  }
+  const snapshots = observed.snapshots || [];
+  if (snapshots.length) {
+    const pairFlow = snapshots.map(s => `${s.label} ${Number(s.near_pairs_5_5y) || 0}쌍`).join(' → ');
+    const radiusFlow = snapshots.map(s => Number(s.raid_radius_yards?.r90 || 0).toFixed(1)).join('→');
+    const pairNames = snapshots.map(s => {
+      const pairs = (s.closest_pairs || []).map(pair =>
+        `${_rfShortName(pair.left_name)}↔${_rfShortName(pair.right_name)} ${Number(pair.distance_yards).toFixed(1)}m`).join(', ');
+      return pairs ? `${s.label}: ${pairs}` : '';
+    }).filter(Boolean).join(' · ');
+    return { text: `${pairFlow} · r90 ${radiusFlow}m`, title: pairNames || '5.5m 미만 근접 후보 없음' };
+  }
+  return { text: '', title: '' };
+}
+
+function _replayFocusCard(focus, canReplay, loading = false) {
+  let items = focus?.items || [];
+  if (!items.length) {
+    items = REPLAY_FOCUS_DEFS.map(row => ({
+      ...row, status: canReplay ? (loading ? 'loading' : 'event_missing') : 'no_positions', windows: [],
+    }));
+  }
+  const statusText = {
+    loading: '체크포인트 계산 중…',
+    not_reached: '이 풀은 해당 구간 미도달',
+    event_missing: '구간 시각 도달 · 기준 이벤트 없음',
+    no_positions: '위치 없음 · WCL에서 확인',
+  };
+  return `
+    <section class="replay-focus-card">
+      <div class="rf-title"><b>집중 관찰</b><span>좌표·피격 기록만 표시 · 배치 정오답은 리플레이에서 확인</span></div>
+      <div class="rf-grid">
+        ${items.map(item => {
+          const windows = item.windows || [];
+          return `<article class="rf-item k-${esc(item.key || '')} s-${esc(item.status || '')}" title="${esc(item.note || '')}">
+            <div class="rf-item-head"><span>${esc(item.phase || '')}</span><b>${esc(item.label || '')}</b></div>
+            <p>${esc(item.note || '')}</p>
+            ${windows.length ? windows.map(wave => {
+              const summary = _rfWaveSummary(item, wave);
+              const segments = wave.segments || [{ label: `${Number(wave.occurrence) || 1}차`, t: wave.seek_t ?? wave.start_t }];
+              return `<div class="rf-wave">
+                <b>${Number(wave.occurrence) || 1}차</b>
+                <span class="rf-jumps">${segments.map(segment => canReplay
+                  ? `<button type="button" data-focus-jump="${Number(segment.t) || 0}" title="${esc(segment.label || '')} 시각으로 이동">${esc(segment.label || '')} ${rcClock(segment.t || 0)}</button>`
+                  : `<i>${esc(segment.label || '')} ${rcClock(segment.t || 0)}</i>`).join('')}</span>
+                <small title="${esc(summary.title)}">${esc(summary.text)}</small>
+              </div>`;
+            }).join('') : `<div class="rf-unavailable">${esc(statusText[item.status] || '확인 구간 없음')}</div>`}
+          </article>`;
+        }).join('')}
+      </div>
+      <div class="rf-caveat">${esc(focus?.distance_note || 'WCL 전용 풀은 원본 좌표가 없어 대형·동선을 판정할 수 없습니다.')}</div>
+    </section>`;
+}
+
+function renderReplayFocus(focus, canReplay = true) {
+  const host = $('#replay-review-focus');
+  if (!host) return;
+  host.innerHTML = _replayFocusCard(focus, canReplay);
+  host.querySelectorAll('[data-focus-jump]').forEach(button => {
+    button.addEventListener('click', () => rcSeek(Number(button.dataset.focusJump) || 0));
+  });
+}
+
 async function loadLocalReplays(force = false) {
   if (replayState.loaded && !force) return;
   const body = $('#replay-list-body');
@@ -1387,9 +1565,15 @@ async function loadLocalReplays(force = false) {
     replayState.loaded = true;
     renderLocalReplayList(replayState.rows);
     const src = j.sources || {};
-    if (status) status.textContent = `${replayState.rows.length}개 캡처 · 로그 전투 ${src.encounters ?? 0}개`;
+    const session = src.wcl_session || {};
+    if (status) {
+      status.textContent = session.pulls
+        ? `${session.pulls}풀 · 좌표 리플레이 ${src.analysis_replay ?? 0} · 좌표 없음 숨김 ${src.coordinates_hidden ?? src.wcl_only ?? 0} · 최고 ${session.best_boss_remaining_pct}% · 블러드 ${session.bloodlust_casts ?? 0}회`
+        : `${replayState.rows.length}개 리플레이 · 로그 전용 ${src.log_only ?? 0}개`;
+    }
     if (replayState.rows.length && !replayState.selectedId) {
-      selectLocalReplay(replayState.rows[0].id);
+      const firstPlayable = replayState.rows.find(row => row.capabilities?.frames !== false);
+      selectLocalReplay((firstPlayable || replayState.rows[0]).id);
     }
     rcStartTerrainPrefetch();
   } catch (e) {
@@ -1406,7 +1590,11 @@ const rcPrefetch = { timer: 0, on: false, abort: null };
 
 function rcStartTerrainPrefetch() {
   rcStopTerrainPrefetch();
-  const ids = replayState.rows.slice(0, 10).map(r => r.id);
+  // 받은 대용량 로그는 선택했을 때 frames와 함께 한 번만 읽는다.
+  // 백그라운드 프리페치는 기존 CCTV 캡처에만 유지한다.
+  const ids = replayState.rows
+    .filter(r => !r.log_only && r.capabilities?.terrain !== false)
+    .slice(0, 10).map(r => r.id);
   if (!ids.length) return;
   rcPrefetch.timer = setTimeout(async () => {
     rcPrefetch.timer = 0;
@@ -1436,18 +1624,25 @@ function renderLocalReplayList(rows) {
   const body = $('#replay-list-body');
   if (!body) return;
   if (!rows.length) {
-    body.innerHTML = '<tr><td colspan="4" class="empty">CCTV JSON 없음</td></tr>';
+    body.innerHTML = '<tr><td colspan="4" class="empty">표시할 전투로그/CCTV 없음</td></tr>';
     return;
   }
   body.innerHTML = rows.map(row => {
-    const matched = row.log_match ? 'rp-matched' : 'rp-unmatched';
+    const matched = row.analysis_only
+      ? 'rp-analysis-only'
+      : (row.log_match ? 'rp-matched' : 'rp-unmatched');
     const active = row.id === replayState.selectedId ? 'selected' : '';
+    const analysis = row.analysis || null;
+    const flag = analysis?.flags?.[0];
+    const secondary = analysis
+      ? `#${analysis.pull} · fight ${analysis.fight_id} · ${analysis.phase} · ${row.analysis_only ? 'WCL만' : '2D/3D'}`
+      : (row.player || '');
     return `
       <tr class="replay-row ${matched} ${active}" data-replay-id="${esc(row.id)}">
         <td>${esc((row.start_local || '').slice(5, 16))}</td>
         <td>
-          <b>${esc(row.encounter)}</b>
-          <span>${esc(row.player || '')}</span>
+          <b>${flag ? `<i class="rp-flag s-${esc(flag.severity || 'info')}">${esc(flag.label)}</i>` : ''}${esc(row.encounter)}</b>
+          <span>${esc(secondary)}</span>
         </td>
         <td>${_replayResult(row)}</td>
         <td class="right">${_replayTime(row.duration || 0)}</td>
@@ -1462,10 +1657,25 @@ async function selectLocalReplay(id) {
   renderLocalReplayList(replayState.rows);
   const root = $('#replay-detail');
   if (root) root.innerHTML = '<div class="empty">상세 파싱 중…</div>';
+  const selected = replayState.rows.find(row => row.id === id);
+  if (selected?.capabilities?.frames === false) {
+    const detail = {
+      capture: selected,
+      analysis: selected.analysis || null,
+      analysis_only: true,
+      duration: selected.duration || 0,
+      events: [], positions: [], actors: [], counts: {},
+      video: { available: false },
+    };
+    replayState.detail = detail;
+    renderLocalReplayDetail(detail);
+    return;
+  }
   try {
     const r = await fetch(`/api/local-replay/${encodeURIComponent(id)}`);
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const detail = await r.json();
+    if (!detail.analysis && selected?.analysis) detail.analysis = selected.analysis;
     replayState.detail = detail;
     renderLocalReplayDetail(detail);
   } catch (e) {
@@ -1630,35 +1840,77 @@ function rcSetFeedEnabled(on, why) {
   root.querySelectorAll('input[data-evkind]').forEach(cb => { cb.disabled = !on; });
 }
 
+function renderReplayAnalysisOnly(detail) {
+  const root = $('#replay-detail');
+  if (!root) return;
+  const cap = detail.capture || {};
+  const analysis = detail.analysis || cap.analysis || {};
+  const isLura = Number(cap.encounter_id) === 3183 || String(cap.encounter || '').includes('한밤의 도래');
+  root.classList.remove('empty', 'view-max');
+  root.classList.add('analysis-only');
+  root.innerHTML = `
+    <div class="replay-head">
+      <div>
+        <h2>${esc(cap.encounter || '르우라')} — #${Number(analysis.pull) || '?'}풀</h2>
+        <div class="replay-sub">${esc(cap.start_local || '')} · WCL fight ${Number(analysis.fight_id) || '?'}</div>
+      </div>
+      <div class="replay-kpis">
+        <span>잔여 HP <b>${Number(analysis.boss_remaining_pct).toFixed(2)}%</b></span>
+        <span>도달 <b>${esc(analysis.phase || '')}</b></span>
+        <span>길이 <b>${_replayTime(analysis.duration_s || cap.duration || 0)}</b></span>
+      </div>
+    </div>
+    ${_replayAnalysisCard(analysis, false)}
+    ${isLura ? `<div id="replay-review-focus">${_replayFocusCard(null, false)}</div>` : ''}
+    <div class="replay-analysis-empty">
+      <b>WCL 분석 전용 — 지도·2D/3D 리플레이 없음</b>
+      <p>로컬 전투로그가 23:02:15에 끝난 뒤의 풀입니다. 위치·이동 경로를 재생하려면 이 시간대가 포함된 원본 전투로그가 필요합니다.</p>
+      <a href="${esc(analysis.fight_url || analysis.report_url || '#')}" target="_blank" rel="noopener">Warcraft Logs에서 이 풀 열기</a>
+    </div>`;
+}
+
 function renderLocalReplayDetail(detail) {
   const root = $('#replay-detail');
   if (!root) return;
   const cap = detail.capture || {};
+  const analysis = detail.analysis || cap.analysis || null;
+  if (detail.analysis_only || cap.capabilities?.frames === false) {
+    renderReplayAnalysisOnly({ ...detail, analysis });
+    return;
+  }
   const counts = detail.counts || {};
   const events = detail.events || [];
+  const hasVideo = !!detail.video?.available;
+  const isLura = Number(cap.encounter_id) === 3183 || String(cap.encounter || '').includes('한밤의 도래');
   root.classList.remove('empty');
+  root.classList.remove('analysis-only');
+  root.classList.toggle('view-max', !hasVideo);
   root.innerHTML = `
     <div class="replay-head">
       <div>
-        <h2>${esc(cap.encounter || '리플레이')}</h2>
-        <div class="replay-sub">${esc(cap.start_local || '')} · ${esc(cap.difficulty || '')} · ${_replayResult(cap)}</div>
+        <h2>${esc(cap.encounter || '리플레이')}${analysis ? ` — #${Number(analysis.pull) || '?'}풀` : ''}</h2>
+        <div class="replay-sub">${esc(cap.start_local || '')} · ${esc(cap.difficulty || '')} · ${_replayResult(cap)}${analysis ? ` · WCL fight ${Number(analysis.fight_id) || '?'}` : ''}</div>
       </div>
       <div class="replay-kpis">
-        <span>이벤트 <b>${events.length.toLocaleString()}</b></span>
-        <span>좌표 <b>${(detail.positions || []).length.toLocaleString()}</b></span>
-        <span>전투원 <b>${(detail.actors || []).length.toLocaleString()}</b></span>
+        ${analysis ? `<span>잔여 HP <b>${Number(analysis.boss_remaining_pct).toFixed(2)}%</b></span><span>도달 <b>${esc(analysis.phase || '')}</b></span>` : ''}
+        <span>이벤트 <b id="rc-kpi-events">${events.length.toLocaleString()}</b></span>
+        <span>좌표 <b id="rc-kpi-positions">${Number(counts.positions ?? (detail.positions || []).length).toLocaleString()}</b></span>
+        <span>전투원 <b id="rc-kpi-units">${(detail.actors || []).length.toLocaleString()}</b></span>
       </div>
     </div>
-    <div class="replay-main">
+    ${_replayAnalysisCard(analysis, true)}
+    ${isLura ? `<div id="replay-review-focus">${_replayFocusCard(null, true, true)}</div>` : ''}
+    <div class="replay-main ${hasVideo ? '' : 'view-map'}">
       <div class="replay-video-wrap">
-        ${detail.video?.available
+        ${hasVideo
           ? `<video id="replay-video" class="replay-video" preload="metadata" src="${esc(detail.video.url)}"></video>`
-          : '<div class="empty replay-no-video">영상 파일 없음</div>'}
+          : '<div class="empty replay-no-video">전투로그 전용 리플레이</div>'}
       </div>
       <div class="replay-canvas-wrap">
         <div class="rc-stage">
           <canvas id="rc-canvas" width="1000" height="660"></canvas>
           <div id="rc-banner" class="rc-banner"></div>
+          <div id="rc-space" class="rc-space"></div>
           <div id="rc-panel" class="rc-panel" style="display:none"></div>
           <div id="rc-msg" class="rc-msg">이동 경로 데이터 로딩…</div>
         </div>
@@ -1671,9 +1923,7 @@ function renderLocalReplayDetail(detail) {
       <button id="rc-play" type="button">재생</button>
       <button id="rc-speed" type="button" title="재생 속도">1x</button>
       <button id="rc-3d" type="button" title="지형 위에서 입체로 보기">3D 보기</button>
-      <button id="rc-view-video" class="rc-viewbtn" type="button" title="영상만 크게 — 아래 이벤트 목록과 같이 보기 (다시 누르면 기본)">영상 크게</button>
-      <button id="rc-view-map" class="rc-viewbtn" type="button" title="지도만 크게 — 아래 이벤트 목록과 같이 보기 (다시 누르면 기본)">지도 크게</button>
-      ${detail.video?.available ? '<button id="rc-mute" type="button" title="영상 소리 켜고 끄기">소리 끄기</button>' : ''}
+      ${hasVideo ? '<button id="rc-view-video" class="rc-viewbtn" type="button" title="영상만 크게 — 아래 이벤트 목록과 같이 보기 (다시 누르면 기본)">영상 크게</button>\n      <button id="rc-view-map" class="rc-viewbtn" type="button" title="지도만 크게 — 아래 이벤트 목록과 같이 보기 (다시 누르면 기본)">지도 크게</button>\n      <button id="rc-mute" type="button" title="영상 소리 켜고 끄기">소리 끄기</button>' : ''}
       <div class="rc-scrub-wrap">
         <input id="rc-scrub" type="range" min="0" max="0" step="0.1" value="0">
         <div id="rc-bossevents" title=""></div>
@@ -1692,10 +1942,10 @@ function renderLocalReplayDetail(detail) {
         <div id="rc-mechanic-pop" hidden></div>
       </div>
       <div class="replay-counts">
-        <span>캐스트 ${Number(counts.casts || 0).toLocaleString()}</span>
-        <span>디버프 ${Number(counts.debuffs || 0).toLocaleString()}</span>
-        <span>큰 피해 ${Number(counts.damage || 0).toLocaleString()}</span>
-        <span>사망 ${Number(cap.deaths || counts.deaths || 0).toLocaleString()}</span>
+        <span>캐스트 <b id="rc-count-casts">${Number(counts.casts || 0).toLocaleString()}</b></span>
+        <span>디버프 <b id="rc-count-debuffs">${Number(counts.debuffs || 0).toLocaleString()}</b></span>
+        <span>큰 피해 <b id="rc-count-damage">${Number(counts.damage || 0).toLocaleString()}</b></span>
+        <span>사망 <b id="rc-count-deaths">${Number(cap.deaths || counts.deaths || 0).toLocaleString()}</b></span>
         ${counts.skipped ? `<span>목록 생략 ${Number(counts.skipped).toLocaleString()}</span>` : ''}
       </div>
     </div>
@@ -1705,6 +1955,13 @@ function renderLocalReplayDetail(detail) {
   `;
 
   const video = $('#replay-video');
+  root.querySelectorAll('[data-analysis-jump]').forEach(button => {
+    button.addEventListener('click', () => {
+      const t = Number(button.dataset.analysisJump) || 0;
+      if (video) video.currentTime = Math.max(0, t + Number(rc.videoOffset || 0));
+      rcSeek(t);
+    });
+  });
   // 보기 모드 — 영상만/지도만 크게 (다시 누르면 기본 2분할)
   {
     const mainEl = root.querySelector('.replay-main');
@@ -1720,8 +1977,10 @@ function renderLocalReplayDetail(detail) {
       vm.textContent = mode === 'map' ? '기본 보기' : '지도 크게';
       window.dispatchEvent(new Event('resize'));   // 2D/3D 캔버스 크기 재계산
     };
-    vv.addEventListener('click', () => setView(mainEl.classList.contains('view-video') ? '' : 'video'));
-    vm.addEventListener('click', () => setView(mainEl.classList.contains('view-map') ? '' : 'map'));
+    if (vv && vm) {
+      vv.addEventListener('click', () => setView(mainEl.classList.contains('view-video') ? '' : 'video'));
+      vm.addEventListener('click', () => setView(mainEl.classList.contains('view-map') ? '' : 'map'));
+    }
   }
   // 소리 켜기/끄기 — video.muted 토글 (동사형: 누르면 할 일을 표시)
   const muteBtn = $('#rc-mute');
@@ -1884,6 +2143,25 @@ function rcClock(sec) {
   return `${Math.floor(v / 60)}:${String(Math.floor(v % 60)).padStart(2, '0')}`;
 }
 
+function rcSpaceAt(sec = rc.t) {
+  const spaces = rc.meta?.map?.spaces || [];
+  const t = Math.max(0, Number(sec) || 0);
+  return spaces.find((space, index) => {
+    const start = Number(space.start_t) || 0;
+    const end = Number(space.end_t) || 0;
+    return t >= start && (t < end || (index === spaces.length - 1 && t <= end));
+  }) || null;
+}
+
+function rcUpdateSpace() {
+  const node = $('#rc-space');
+  if (!node) return;
+  const space = rcSpaceAt();
+  node.textContent = space?.label || '';
+  node.dataset.space = space?.key || '';
+  node.title = space ? (rc.meta?.map?.space_note || space.label) : '';
+}
+
 function rcUnitColor(u) {
   if (u.kind === 'boss') return '#e06c6c';
   if (u.kind === 'npc') return '#8a93a3';
@@ -1923,6 +2201,7 @@ async function initReplayCanvas(replayId) {
       rcSetFeedEnabled(false, '이동 경로 데이터가 없어 종류별 목록을 쓸 수 없습니다');
       renderReplayEventRowsRaw();
       rcRestoreVideoControls();   // 통합 조작줄이 못 움직이니 영상 기본 조작 복원
+      renderReplayFocus(null, false);
     }
     return;
   }
@@ -1930,21 +2209,30 @@ async function initReplayCanvas(replayId) {
 
   const meta = j.meta || {};
   const frames = j.frames || [];
+  const frameCounts = j.counts || {};
+  for (const key of ['casts', 'debuffs', 'damage', 'deaths']) {
+    const node = $(`#rc-count-${key}`);
+    if (node) node.textContent = Number(frameCounts[key] || 0).toLocaleString();
+  }
   if (!frames.length) {
+    renderReplayFocus(j.review_focus, false);
     msg.textContent = '이 전투에는 좌표 데이터가 없습니다 (고급 전투 정보 로그 필요)';
     rcSetFeedEnabled(false, '좌표 데이터가 없어 종류별 목록을 쓸 수 없습니다');
     renderReplayEventRowsRaw();
     rcRestoreVideoControls();   // 통합 조작줄이 못 움직이니 영상 기본 조작 복원
     return;
   }
+  let pointCount = 0;
   for (const fr of frames) {
     const ft = Number(fr.t || 0);
     for (const [uid, p] of Object.entries(fr.p || {})) {
+      pointCount++;
       (rc.tracks[uid] ??= []).push([ft, p[0], p[1], p[2], p[3] ?? null]);
     }
   }
   for (const d of meta.deaths || []) (rc.deathsBy[d.id] ??= []).push(d.t);
   rc.meta = meta;
+  renderReplayFocus(j.review_focus, true);
   rc.duration = Math.max(Number(meta.duration_s) || 0, frames[frames.length - 1].t);
   rc.bossEvents = j.boss_events || [];
   rc.bossMechanics = j.boss_mechanics || [];
@@ -1965,6 +2253,13 @@ async function initReplayCanvas(replayId) {
   rc.casts = j.casts || {};
   rc.videoOffset = Number(meta.video_offset_s) || 0;
   rc.video = $('#replay-video');  // 영상 없는 풀(아카이브 등)은 null → 자립 시계
+  const eventCount = rc.bossEvents.length + rc.playerEvents.length + (meta.deaths || []).length;
+  const kpiEvents = $('#rc-kpi-events');
+  const kpiPositions = $('#rc-kpi-positions');
+  const kpiUnits = $('#rc-kpi-units');
+  if (kpiEvents) kpiEvents.textContent = eventCount.toLocaleString();
+  if (kpiPositions) kpiPositions.textContent = pointCount.toLocaleString();
+  if (kpiUnits) kpiUnits.textContent = (meta.units || []).length.toLocaleString();
 
   const map = meta.map || {};
   const cv = $('#rc-canvas');
@@ -1972,6 +2267,7 @@ async function initReplayCanvas(replayId) {
 
   // 맵 이미지 (실패해도 어두운 배경 위에 점만 표시)
   const notes = [];
+  if (map.space_note) notes.push(map.space_note);
   if (map.error) {
     // 서버가 실패 사유를 줬으면 PNG 요청 자체를 생략 (네거티브 캐시와 짝)
     notes.push(`맵 이미지를 못 받아 임시 좌표계로 표시 (${map.error})`);
@@ -2229,6 +2525,7 @@ function rcSyncControls() {
   if (scrub) scrub.value = String(rc.t);
   const clock = $('#rc-clock');
   if (clock) clock.textContent = `${rcClock(rc.t)} / ${rcClock(rc.duration)}`;
+  rcUpdateSpace();
   rcUpdateEvNow();
   rcUpdatePanel();
 }
@@ -2722,6 +3019,10 @@ function rcDraw() {
   ctx.clearRect(0, 0, cv.width, cv.height);
   if (rc.mapImg) ctx.drawImage(rc.mapImg, 0, 0, cv.width, cv.height);
   else { ctx.fillStyle = '#10141a'; ctx.fillRect(0, 0, cv.width, cv.height); }
+  if (rcSpaceAt()?.key === 'p2') {
+    ctx.fillStyle = 'rgba(62, 34, 105, .20)';
+    ctx.fillRect(0, 0, cv.width, cv.height);
+  }
 
   const M = rc.meta.map.world_to_px;
   const toPx = (wx, wy) => [M.a * wx + M.b * wy + M.c, M.d * wx + M.e * wy + M.f];
@@ -2967,7 +3268,7 @@ function bind() {
       $('#meta').textContent = '표본: 신화 top100';
       loadStats();
     } else if (tab === 'replay') {
-      $('#meta').textContent = '로컬 전투로그 + WarcraftCCTV';
+      $('#meta').textContent = '로컬 전투로그 · CCTV 선택 사항';
       loadLocalReplays();
     }
   });

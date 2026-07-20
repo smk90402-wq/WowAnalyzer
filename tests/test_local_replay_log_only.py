@@ -1,0 +1,328 @@
+from __future__ import annotations
+
+import json
+import tempfile
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+
+from app import local_replay
+
+
+def _line(ts: str, payload: str) -> str:
+    return f"7/19/2026 {ts}  {payload}\n"
+
+
+def _position_event(
+    ts: str,
+    source_guid: str,
+    source_name: str,
+    source_flags: str,
+    target_guid: str,
+    target_name: str,
+    advanced_guid: str,
+    x: float,
+    y: float,
+) -> str:
+    fields = [
+        "SPELL_DAMAGE",
+        source_guid,
+        f'"{source_name}"',
+        source_flags,
+        "0x0",
+        target_guid,
+        f'"{target_name}"',
+        "0x10a48" if target_guid.startswith("Creature-") else "0x511",
+        "0x0",
+        "12345",
+        '"Test Hit"',
+        "0x1",
+        advanced_guid,
+        "0000000000000000",
+        "1000",
+        "1000",
+        "100",
+        "0",
+        "0",
+        "0",
+        "0",
+        "100",
+        "100",
+        "0",
+        "0",
+        "0",
+        str(x),
+        str(y),
+        "0",
+        "1.5",
+        "90",
+        "500000",
+    ]
+    return _line(ts, ",".join(fields))
+
+
+class LogOnlyReplayTests(unittest.TestCase):
+    def test_lura_review_focus_builds_four_replay_checkpoints(self) -> None:
+        player_a = "Player-1-A"
+        player_b = "Player-1-B"
+        boss = "Vehicle-0-BOSS"
+        raw = [
+            (47.0, "SPELL_CAST_START", 1285708, "암울한 교향곡", boss, "르우라", "", ""),
+            (50.5, "SPELL_DAMAGE", 1249584, "불화", boss, "르우라", player_b, "Bravo-Realm"),
+            (58.6, "SPELL_DAMAGE", 1282469, "암흑의 준항성", boss, "르우라", player_a, "Alpha-Realm"),
+            (184.0, "SPELL_CAST_START", 1255743, "개기 월식", boss, "르우라", "", ""),
+            (190.0, "SPELL_AURA_APPLIED", 1285510, "별빛파열", boss, "르우라", player_a, "Alpha-Realm"),
+            (225.0, "SPELL_CAST_START", 1282043, "암흑샘 속으로", boss, "르우라", "", ""),
+            (231.0, "SPELL_CAST_SUCCESS", 1282043, "암흑샘 속으로", boss, "르우라", "", ""),
+            (238.0, "SPELL_CAST_START", 1284528, "활력 주입", boss, "르우라", "", ""),
+            (248.6, "SPELL_AURA_APPLIED", 1281184, "임계점", boss, "르우라", player_a, "Alpha-Realm"),
+            (252.6, "SPELL_DAMAGE", 1281178, "임계점", boss, "르우라", player_a, "Alpha-Realm"),
+            (252.7, "SPELL_DAMAGE", 1281178, "임계점", boss, "르우라", player_b, "Bravo-Realm"),
+            (258.0, "SPELL_CAST_START", 1282412, "핵 채취", boss, "르우라", "", ""),
+            (322.0, "SPELL_CAST_START", 1281123, "어둠의 용해", boss, "르우라", "", ""),
+            (330.0, "SPELL_CAST_SUCCESS", 1281123, "어둠의 용해", boss, "르우라", "", ""),
+        ]
+        aura_updates = [
+            (190.0, "SPELL_AURA_APPLIED", 1285510, player_a, boss, 0),
+            (195.0, "SPELL_AURA_REMOVED", 1285510, player_a, boss, 0),
+        ]
+        casts = {
+            player_a: [(193.0, "여명의 수정"), (241.0, "여명의 수정"),
+                       (250.0, "여명의 수정")],
+            player_b: [(242.0, "여명의 수정"), (251.0, "여명의 수정")],
+        }
+        samples = {
+            player_a: [(252.5, 0.0, 0.0, None, 100),
+                       (326.0, 0.0, 0.0, None, 100),
+                       (329.4, 0.0, 0.0, None, 100),
+                       (331.4, 0.0, 0.0, None, 100)],
+            player_b: [(252.5, 4.0, 0.0, None, 100),
+                       (326.0, 4.0, 0.0, None, 100),
+                       (329.4, 4.0, 0.0, None, 100),
+                       (331.4, 20.0, 0.0, None, 100)],
+        }
+        focus = local_replay._lura_review_focus(
+            raw, aura_updates, casts, samples,
+            {player_a: "Alpha-Realm", player_b: "Bravo-Realm"},
+            {player_a: "p1", player_b: "p2"}, 340.0)
+
+        items = {item["key"]: item for item in focus["items"]}
+        self.assertEqual(4, len(items))
+        p1 = items["p1_rune_quasar"]["windows"][0]
+        self.assertEqual(["Alpha-Realm"], p1["target_names"])
+        self.assertEqual(1, p1["observed"]["rune_mismatch_players"])
+        intermission = items["intermission_crystal"]["windows"][0]
+        self.assertEqual(1, intermission["observed"]["simultaneous_operations"])
+        p2 = items["p2_crystal_spread"]["windows"][0]
+        self.assertEqual(1, p2["observed"]["formation"]["near_pairs_5_5y"])
+        self.assertEqual(0, p2["observed"]["formation"]["near_pairs_3y"])
+        self.assertEqual(1, len(items["p3_knockback_spread"]["windows"]))
+        self.assertEqual(["p1", "p2", "p3"], [
+            space["key"] for space in focus["spaces"]
+        ])
+        self.assertEqual(231.0, focus["spaces"][1]["start_t"])
+        self.assertEqual(330.0, focus["spaces"][2]["start_t"])
+
+    def test_all_log_encounters_are_replayable_without_cctv(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_raw:
+            tmp = Path(tmp_raw)
+            log_path = tmp / "WoWCombatLog-071926_120000.txt"
+            player = "Player-1-00000001"
+            boss = "Creature-0-0-0-0-99999-00000001"
+            log_path.write_text(
+                _line("12:00:00.0000", "COMBAT_LOG_VERSION,22,ADVANCED_LOG_ENABLED,1")
+                + _line("12:00:01.0000", 'ENCOUNTER_START,9001,"Test Boss",16,2,42')
+                + _position_event(
+                    "12:00:01.1000", player, "Tester-Realm", "0x511",
+                    boss, "Test Boss", player, 10.0, 20.0)
+                + _position_event(
+                    "12:00:01.2000", boss, "Test Boss", "0x10a48",
+                    player, "Tester-Realm", boss, 15.0, 25.0)
+                + _line("12:00:03.0000", 'ENCOUNTER_END,9001,"Test Boss",16,2,1,2000')
+                + _line("12:00:04.0000", 'ENCOUNTER_START,9001,"Test Boss",16,2,42')
+                + _position_event(
+                    "12:00:04.1000", player, "Tester-Realm", "0x511",
+                    boss, "Test Boss", player, 30.0, 40.0)
+                + _position_event(
+                    "12:00:04.2000", boss, "Test Boss", "0x10a48",
+                    player, "Tester-Realm", boss, 35.0, 45.0)
+                + _line("12:00:06.0000", 'ENCOUNTER_END,9001,"Test Boss",16,2,0,2000'),
+                encoding="utf-8",
+            )
+            duplicate_path = tmp / "Copy-WoWCombatLog-071926_120000.txt"
+            duplicate_path.write_bytes(log_path.read_bytes())
+
+            with (
+                patch.object(
+                    local_replay,
+                    "_standalone_log_paths",
+                    return_value=[log_path, duplicate_path],
+                ),
+                patch.object(local_replay, "_load_captures", return_value=[]),
+                patch.object(local_replay, "latest_log_path", return_value=log_path),
+                patch.object(local_replay, "wow_log_dir", return_value=tmp),
+                patch.object(local_replay, "cctv_dir", return_value=tmp),
+                patch.object(
+                    local_replay,
+                    "_lura_sync_index",
+                    return_value=local_replay._empty_lura_sync_index(),
+                ),
+            ):
+                listing = local_replay.list_replays()
+                self.assertEqual(2, len(listing["rows"]))
+                self.assertEqual(2, listing["sources"]["log_only"])
+                self.assertTrue(all(row["log_only"] for row in listing["rows"]))
+                self.assertEqual({True, False}, {row["result"] for row in listing["rows"]})
+
+                replay_id = next(
+                    row["id"] for row in listing["rows"] if row["result"] is True)
+                detail = local_replay.replay_detail(replay_id)
+                self.assertFalse(detail["video"]["available"])
+                self.assertEqual(str(log_path), detail["sources"]["log_file"])
+                self.assertEqual([], detail["positions"])
+
+                with patch.object(
+                    local_replay,
+                    "_stream_frames_window",
+                    wraps=local_replay._stream_frames_window,
+                ) as stream_frames:
+                    frames = local_replay.replay_frames(replay_id)
+                    terrain = local_replay.replay_terrain_request(replay_id)
+                    self.assertEqual(1, stream_frames.call_count)
+                self.assertGreaterEqual(len(frames["frames"]), 1)
+                self.assertEqual(
+                    {"Tester-Realm", "Test Boss"},
+                    {unit["name"] for unit in frames["meta"]["units"]},
+                )
+                self.assertEqual(0, frames["meta"]["video_offset_s"])
+                self.assertEqual(1, frames["counts"]["damage"])
+
+                self.assertEqual(42, terrain["instance_id"])
+                self.assertEqual((10.0, 10.0, 20.0, 20.0), terrain["bbox"])
+
+    def test_wcl_sync_enriches_local_replay_and_hides_analysis_only_pull(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_raw:
+            tmp = Path(tmp_raw)
+            log_path = tmp / "WoWCombatLog-071926_120000.txt"
+            sync_path = tmp / "lura_trials_20260719_sync.json"
+            player = "Player-1-00000001"
+            boss = "Creature-0-0-0-0-99999-00000001"
+            log_path.write_text(
+                _line("12:00:00.1000", 'ENCOUNTER_START,3183,"한밤의 도래",16,20,2913')
+                + _line("12:00:00.1400", 'ENCOUNTER_END,3183,"한밤의 도래",16,20,0,40')
+                + _line("12:00:01.0000", 'ENCOUNTER_START,3183,"한밤의 도래",16,20,2913')
+                + _position_event(
+                    "12:00:01.1000", player, "Tester-Realm", "0x511",
+                    boss, "한밤의 도래", player, 10.0, 20.0)
+                + _position_event(
+                    "12:00:01.2000", boss, "한밤의 도래", "0x10a48",
+                    player, "Tester-Realm", boss, 15.0, 25.0)
+                + _line("12:00:03.0000", 'ENCOUNTER_END,3183,"한밤의 도래",16,20,0,2000'),
+                encoding="utf-8",
+            )
+            encounters = local_replay._encounter_offsets(log_path)
+            artifact_id = local_replay._log_replay_id(log_path, encounters[0])
+            replay_id = local_replay._log_replay_id(log_path, encounters[1])
+            common = {
+                "kill": False,
+                "deaths": 20,
+                "unique_dead_players": 20,
+                "repeat_deaths": 0,
+                "early_deaths": 0,
+                "first_death": {
+                    "t": 1.5, "player": "Tester", "cause": "Dissonance",
+                    "seconds_before_end": 0.5,
+                },
+                "death_clusters": [{
+                    "start_t": 1.5, "end_t": 1.9, "events": 20,
+                    "unique_players": 20,
+                    "causes": [{"name": "Dissonance", "deaths": 15}],
+                }],
+                "final_wipe_causes": [{"name": "Dissonance", "deaths": 15}],
+                "terminate": {"begun": 36, "interrupted": 36, "completed": 0},
+                "bloodlust_casts": 0,
+                "item_level": 291.9,
+                "raid_wall_dps": 2_000_000,
+                "raid_wall_hps": 950_000,
+            }
+            sync_path.write_text(json.dumps({
+                "report": {
+                    "code": "CPA42mqBHXMyca86",
+                    "url": "https://ko.warcraftlogs.com/reports/CPA42mqBHXMyca86",
+                },
+                "session": {
+                    "pulls": 2, "kills": 0, "best_fight_id": 11,
+                    "best_boss_remaining_pct": 41.6, "bloodlust_casts": 0,
+                },
+                "death_patterns": {"early_cutoff_seconds_before_end": 8},
+                "local": {"instant_artifacts": [{"replay_id": artifact_id}]},
+                "pulls": [
+                    {
+                        **common,
+                        "pull": 1, "fight_id": 11,
+                        "wcl_url": "https://ko.warcraftlogs.com/reports/CPA42mqBHXMyca86#fight=11",
+                        "start_kst": "2026-07-19T12:00:01.000+09:00",
+                        "duration_s": 1.95, "boss_remaining_pct": 41.6,
+                        "last_phase": 3, "source": "local+wcl",
+                        "local_replay_id": replay_id, "duration_delta_ms": 50,
+                    },
+                    {
+                        **common,
+                        "pull": 2, "fight_id": 26,
+                        "wcl_url": "https://ko.warcraftlogs.com/reports/CPA42mqBHXMyca86#fight=26",
+                        "start_kst": "2026-07-19T12:05:00.000+09:00",
+                        "duration_s": 120.0, "boss_remaining_pct": 49.47,
+                        "last_phase": 2, "source": "wcl-only",
+                        "local_replay_id": None, "duration_delta_ms": None,
+                    },
+                ],
+            }, ensure_ascii=False), encoding="utf-8")
+
+            local_replay._lura_sync_cached.cache_clear()
+            try:
+                with (
+                    patch.object(local_replay, "_lura_sync_path", return_value=sync_path),
+                    patch.object(local_replay, "_standalone_log_paths", return_value=[log_path]),
+                    patch.object(local_replay, "_load_captures", return_value=[]),
+                    patch.object(local_replay, "latest_log_path", return_value=log_path),
+                    patch.object(local_replay, "wow_log_dir", return_value=tmp),
+                    patch.object(local_replay, "cctv_dir", return_value=tmp),
+                ):
+                    listing = local_replay.list_replays()
+                    self.assertEqual(1, len(listing["rows"]))
+                    self.assertFalse(any(
+                        row.get("analysis_only") for row in listing["rows"]
+                    ))
+                    self.assertEqual(1, listing["sources"]["artifacts_hidden"])
+                    self.assertEqual(1, listing["sources"]["analysis_replay"])
+                    self.assertEqual(1, listing["sources"]["wcl_only"])
+                    self.assertEqual(1, listing["sources"]["coordinates_hidden"])
+                    self.assertEqual(2, listing["sources"]["wcl_session"]["pulls"])
+
+                    local_row = next(
+                        row for row in listing["rows"] if not row.get("analysis_only"))
+                    self.assertEqual(2.0, local_row["duration"])
+                    self.assertEqual(41.6, local_row["boss_percent"])
+                    self.assertEqual(11, local_row["analysis"]["fight_id"])
+                    self.assertEqual("P3", local_row["analysis"]["phase"])
+                    self.assertTrue(local_row["capabilities"]["frames"])
+
+                    wcl_id = "wcl-CPA42mqBHXMyca86-26"
+                    detail = local_replay.replay_detail(wcl_id)
+                    self.assertTrue(detail["analysis_only"])
+                    self.assertFalse(detail["video"]["available"])
+                    frames = local_replay.replay_frames(wcl_id)
+                    self.assertEqual([], frames["frames"])
+                    self.assertEqual("wcl_only", frames["meta"]["unavailable_reason"])
+                    self.assertEqual(
+                        {"no_positions"},
+                        {item["status"] for item in frames["review_focus"]["items"]},
+                    )
+                    with self.assertRaises(local_replay.ReplayError):
+                        local_replay.replay_terrain_request(wcl_id)
+            finally:
+                local_replay._lura_sync_cached.cache_clear()
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -7,6 +7,7 @@ import json
 import logging
 import os
 import re
+import threading
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from functools import lru_cache
@@ -20,6 +21,7 @@ DEFAULT_LOG_DIR = Path(os.environ.get(
     r"C:\Program Files (x86)\World of Warcraft\_retail_\Logs",
 ))
 DEFAULT_CCTV_DIR = Path(os.environ.get("WARCRAFTCCTV_DIR", r"E:\cctv"))
+LURA_SYNC_NAME = "lura_trials_20260719_sync.json"
 
 # 함수 안 지연 임포트만 있으면 PyInstaller 번들 누락 위험 — 최상위에서 명시 임포트
 from app import cctv_sync as _cctv_sync  # noqa: E402
@@ -182,6 +184,281 @@ def _public_capture(cap: dict[str, Any]) -> dict[str, Any]:
     return {k: v for k, v in cap.items() if not k.startswith("_")}
 
 
+def _lura_sync_path() -> Path:
+    from app import replay_map
+    return replay_map.DATA_DIR / LURA_SYNC_NAME
+
+
+def _analysis_flags(pull: dict[str, Any], best_fight_id: int) -> list[dict[str, str]]:
+    fight_id = _to_int(pull.get("fight_id"))
+    terminate = pull.get("terminate") or {}
+    clusters = pull.get("death_clusters") or []
+
+    def cause_count(cluster: dict[str, Any], name: str) -> int:
+        return sum(
+            _to_int(row.get("deaths"))
+            for row in cluster.get("causes") or []
+            if row.get("name") == name
+        )
+
+    if fight_id == best_fight_id:
+        return [{"key": "best", "label": "★ 최고 진행", "severity": "best"}]
+    if _to_int(terminate.get("completed")) >= 5:
+        return [{"key": "interrupt", "label": "차단 붕괴", "severity": "danger"}]
+    if _to_int(pull.get("last_phase")) >= 3 and any(
+        float(cluster.get("start_t") or 0) >= 330 and _to_int(cluster.get("events")) >= 5
+        for cluster in clusters
+    ):
+        return [{"key": "p3_transition", "label": "P3 전환 붕괴", "severity": "danger"}]
+    if any(cause_count(cluster, "Radiance") >= 8 for cluster in clusters):
+        return [{"key": "radiance", "label": "광휘 연쇄", "severity": "danger"}]
+    if any(cause_count(cluster, "Dissonance") >= 7 for cluster in clusters):
+        return [{"key": "dissonance", "label": "불화 동시 피격", "severity": "danger"}]
+    if _to_float(pull.get("boss_remaining_pct")) is not None and float(
+        pull.get("boss_remaining_pct")
+    ) <= 50:
+        return [{"key": "deep", "label": "50% 이하", "severity": "info"}]
+    return []
+
+
+def _public_trial(
+    pull: dict[str, Any],
+    report: dict[str, Any],
+    session: dict[str, Any],
+    early_cutoff_s: float,
+    rank: int,
+) -> dict[str, Any]:
+    fight_id = _to_int(pull.get("fight_id"))
+    best_fight_id = _to_int(session.get("best_fight_id"))
+    best_pct = _to_float(session.get("best_boss_remaining_pct"))
+    best_duration = next(
+        (
+            _to_float(row.get("duration_s"))
+            for row in session.get("_pulls") or []
+            if _to_int(row.get("fight_id")) == best_fight_id
+        ),
+        None,
+    )
+    boss_pct = _to_float(pull.get("boss_remaining_pct"))
+    duration = _to_float(pull.get("duration_s"))
+    terminate = dict(pull.get("terminate") or {})
+    terminate["other"] = max(
+        0,
+        _to_int(terminate.get("begun"))
+        - _to_int(terminate.get("interrupted"))
+        - _to_int(terminate.get("completed")),
+    )
+    analysis = {
+        "source": str(pull.get("source") or ""),
+        "report_code": str(report.get("code") or ""),
+        "report_url": str(report.get("url") or ""),
+        "fight_id": fight_id,
+        "fight_url": str(pull.get("wcl_url") or ""),
+        "pull": _to_int(pull.get("pull")),
+        "start_kst": str(pull.get("start_kst") or ""),
+        "duration_s": duration or 0.0,
+        "duration_delta_ms": pull.get("duration_delta_ms"),
+        "boss_remaining_pct": boss_pct,
+        "last_phase": _to_int(pull.get("last_phase")),
+        "phase": f"P{_to_int(pull.get('last_phase'))}",
+        "kill": bool(pull.get("kill")),
+        "progress_rank": rank,
+        "deaths": _to_int(pull.get("deaths")),
+        "unique_dead_players": _to_int(pull.get("unique_dead_players")),
+        "repeat_deaths": _to_int(pull.get("repeat_deaths")),
+        "early_deaths": _to_int(pull.get("early_deaths")),
+        "early_cutoff_seconds": early_cutoff_s,
+        "first_death": pull.get("first_death"),
+        "death_clusters": pull.get("death_clusters") or [],
+        "final_wipe_causes": pull.get("final_wipe_causes") or [],
+        "terminate": terminate,
+        "bloodlust_casts": _to_int(pull.get("bloodlust_casts")),
+        "session_bloodlust_casts": _to_int(session.get("bloodlust_casts")),
+        "item_level": _to_float(pull.get("item_level")) or 0.0,
+        "raid_wall_dps": _to_float(pull.get("raid_wall_dps")) or 0.0,
+        "raid_wall_hps": _to_float(pull.get("raid_wall_hps")) or 0.0,
+        "best_fight_id": best_fight_id,
+        "best_boss_remaining_pct": best_pct,
+        "compare_best": {
+            "boss_remaining_delta_pp": (
+                round(boss_pct - best_pct, 2)
+                if boss_pct is not None and best_pct is not None else None
+            ),
+            "duration_delta_s": (
+                round(duration - best_duration, 3)
+                if duration is not None and best_duration is not None else None
+            ),
+        },
+        "caveats": [
+            "사망 원인은 직접 결정타이며 근본 원인과 다를 수 있습니다.",
+            f"조기 사망은 종료 {early_cutoff_s:g}초 이전이라는 임의 분석 기준입니다.",
+            "마지막 8초 결정타는 붕괴 시작 원인을 뜻하지 않습니다.",
+        ],
+    }
+    analysis["flags"] = _analysis_flags({**pull, "fight_id": fight_id}, best_fight_id)
+    return analysis
+
+
+def _empty_lura_sync_index() -> dict[str, Any]:
+    return {
+        "by_replay_id": {},
+        "local_trials": [],
+        "wcl_only": [],
+        "artifact_ids": set(),
+        "session": {},
+        "report": {},
+    }
+
+
+@lru_cache(maxsize=4)
+def _lura_sync_cached(path_str: str, mtime_ns: int, size: int) -> dict[str, Any]:
+    del mtime_ns, size
+    try:
+        data = json.loads(Path(path_str).read_text(encoding="utf-8"))
+    except Exception:
+        return _empty_lura_sync_index()
+    pulls = [row for row in data.get("pulls") or [] if isinstance(row, dict)]
+    report = dict(data.get("report") or {})
+    session = dict(data.get("session") or {})
+    session["_pulls"] = pulls
+    cutoff = _to_float(
+        (data.get("death_patterns") or {}).get("early_cutoff_seconds_before_end")
+    ) or 8.0
+    ranked = sorted(
+        pulls,
+        key=lambda row: (
+            _to_float(row.get("boss_remaining_pct"))
+            if _to_float(row.get("boss_remaining_pct")) is not None else 101.0,
+            -(_to_float(row.get("duration_s")) or 0.0),
+        ),
+    )
+    ranks = {_to_int(row.get("fight_id")): i for i, row in enumerate(ranked, 1)}
+    public = [
+        _public_trial(row, report, session, cutoff, ranks[_to_int(row.get("fight_id"))])
+        for row in pulls
+    ]
+    by_replay_id = {
+        str(row.get("local_replay_id")): analysis
+        for row, analysis in zip(pulls, public)
+        if row.get("local_replay_id")
+    }
+    artifacts = {
+        str(row.get("replay_id"))
+        for row in (data.get("local") or {}).get("instant_artifacts") or []
+        if row.get("replay_id")
+    }
+    session.pop("_pulls", None)
+    return {
+        "by_replay_id": by_replay_id,
+        "local_trials": [
+            row for row in public if row.get("source") == "local+wcl"
+        ],
+        "wcl_only": [row for row in public if row.get("source") == "wcl-only"],
+        "artifact_ids": artifacts,
+        "session": session,
+        "report": report,
+    }
+
+
+def _lura_sync_index() -> dict[str, Any]:
+    path = _lura_sync_path()
+    try:
+        return _lura_sync_cached(*_file_sig(path))
+    except OSError:
+        return _empty_lura_sync_index()
+
+
+def _analysis_start_local(value: str) -> datetime | None:
+    try:
+        return datetime.fromisoformat(value).replace(tzinfo=None)
+    except (TypeError, ValueError):
+        return None
+
+
+def _enrich_trial_cap(cap: dict[str, Any]) -> dict[str, Any]:
+    index = _lura_sync_index()
+    analysis = index["by_replay_id"].get(str(cap.get("id") or ""))
+    if analysis is None and _to_int(cap.get("encounter_id")) == 3183:
+        cap_start = cap.get("_start_dt")
+        cap_duration = _to_float(cap.get("duration"))
+        if isinstance(cap_start, datetime) and cap_duration is not None:
+            for candidate in index["local_trials"]:
+                candidate_start = _analysis_start_local(candidate.get("start_kst") or "")
+                if candidate_start is None:
+                    continue
+                if (
+                    abs((candidate_start - cap_start).total_seconds()) <= 0.5
+                    and abs((_to_float(candidate.get("duration_s")) or 0) - cap_duration)
+                    <= 0.25
+                ):
+                    analysis = candidate
+                    break
+    if analysis is None:
+        return cap
+    out = dict(cap)
+    out["analysis"] = analysis
+    out["boss_percent"] = analysis.get("boss_remaining_pct")
+    out["deaths"] = analysis.get("deaths")
+    out["analysis_only"] = False
+    out["capabilities"] = {
+        "frames": True,
+        "terrain": True,
+        "video": bool(out.get("video_exists") or out.get("video_remote")),
+        "analysis": True,
+    }
+    return out
+
+
+def _wcl_only_cap(analysis: dict[str, Any]) -> dict[str, Any]:
+    report_code = str(analysis.get("report_code") or "")
+    fight_id = _to_int(analysis.get("fight_id"))
+    start_dt = _analysis_start_local(str(analysis.get("start_kst") or ""))
+    return {
+        "id": f"wcl-{report_code}-{fight_id}",
+        "file": "",
+        "encounter_id": 3183,
+        "encounter": "한밤의 도래",
+        "difficulty": "신화",
+        "difficulty_id": 16,
+        "duration": _to_float(analysis.get("duration_s")) or 0.0,
+        "result": bool(analysis.get("kill")),
+        "boss_percent": analysis.get("boss_remaining_pct"),
+        "player": "Warcraft Logs 분석 전용",
+        "player_guid": "",
+        "deaths": _to_int(analysis.get("deaths")),
+        "combatants": 20,
+        "start": None,
+        "start_local": start_dt.strftime("%Y-%m-%d %H:%M:%S") if start_dt else "",
+        "video_exists": False,
+        "video_remote": False,
+        "video_size_mb": 0,
+        "log_only": False,
+        "analysis_only": True,
+        "wcl_only": True,
+        "analysis": analysis,
+        "capabilities": {
+            "frames": False,
+            "terrain": False,
+            "video": False,
+            "analysis": True,
+        },
+        "_start_dt": start_dt,
+        "_raw": {},
+    }
+
+
+def _wcl_only_caps(index: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+    index = index or _lura_sync_index()
+    return [_wcl_only_cap(row) for row in index.get("wcl_only") or []]
+
+
+def _find_wcl_only_cap(replay_id: str) -> dict[str, Any] | None:
+    return next(
+        (cap for cap in _wcl_only_caps() if cap.get("id") == replay_id),
+        None,
+    )
+
+
 def _load_captures(cctv_dir_arg: Path | None = None, limit: int = 80) -> list[dict[str, Any]]:
     cctv_dir_arg = cctv_dir_arg or cctv_dir()
     if not cctv_dir_arg.exists():
@@ -202,7 +479,7 @@ def _load_captures(cctv_dir_arg: Path | None = None, limit: int = 80) -> list[di
         deaths = data.get("deaths") or []
         combatants = data.get("combatants") or []
         player = data.get("player") or {}
-        out.append({
+        out.append(_enrich_trial_cap({
             "id": _capture_id(path, data),
             "file": path.name,
             "encounter_id": _to_int(data.get("encounterID")),
@@ -225,7 +502,7 @@ def _load_captures(cctv_dir_arg: Path | None = None, limit: int = 80) -> list[di
             "_video_path": video,
             "_start_dt": start_dt,
             "_raw": data,
-        })
+        }))
     return out
 
 
@@ -323,19 +600,56 @@ def _match_capture(cap: dict[str, Any], encounters: list[dict[str, Any]]) -> dic
 
 def list_replays(limit: int = 80) -> dict[str, Any]:
     log_path = latest_log_path()
-    encounters = encounter_index(log_path) if log_path else []
+    sync_index = _lura_sync_index()
+    artifact_ids = sync_index.get("artifact_ids") or set()
+    captures = _load_captures(limit=limit)
+    log_paths = _standalone_log_paths()
+    log_caps = _load_log_replay_caps(limit=max(limit, 1), paths=log_paths)
+    try:
+        encounters = list(_encounter_offsets(log_path)) if log_path else []
+    except OSError:
+        encounters = []
     rows = []
-    for cap in _load_captures(limit=limit):
+    for cap in captures:
+        if cap.get("id") in artifact_ids:
+            continue
         match = _match_capture(cap, encounters)
         row = _public_capture(cap)
         row["log_match"] = _public_encounter(match)
         rows.append(row)
+
+    # CCTV 없이 전투로그만 받은 경우도 각 ENCOUNTER를 독립 리플레이로 노출한다.
+    # 아카이브는 수십 GB일 수 있어 목록용으로 전수 스캔하지 않고,
+    # 현재 Logs/및 간이 가져오기 폴더의 직접 로그만 대상으로 한다.
+    for log_cap in log_caps:
+        if log_cap.get("id") in artifact_ids:
+            continue
+        if any(_same_encounter(cap, log_cap) for cap in captures):
+            continue
+        row = _public_capture(log_cap)
+        row["log_match"] = _public_encounter(log_cap.get("_log_encounter"))
+        rows.append(row)
+
+    rows.sort(key=lambda row: str(row.get("start_local") or ""), reverse=True)
+    rows = rows[:max(1, limit)]
+    coordinates_hidden = len(sync_index.get("wcl_only") or [])
     return {
         "sources": {
             "log_dir": str(wow_log_dir()),
             "cctv_dir": str(cctv_dir()),
             "log_file": str(log_path) if log_path else "",
-            "encounters": len(encounters),
+            "log_files": len(log_paths),
+            "encounters": len(log_caps),
+            "log_only": sum(1 for row in rows if row.get("log_only")),
+            "analysis_enriched": sum(1 for row in rows if row.get("analysis")),
+            "analysis_replay": sum(
+                1 for row in rows if row.get("analysis") and not row.get("analysis_only")
+            ),
+            # 좌표 없는 WCL-only 풀은 동기화 통계에는 남기되 리플레이 목록에는 노출하지 않는다.
+            "wcl_only": coordinates_hidden,
+            "coordinates_hidden": coordinates_hidden,
+            "artifacts_hidden": len(artifact_ids),
+            "wcl_session": sync_index.get("session") or {},
         },
         "rows": rows,
     }
@@ -345,6 +659,12 @@ def _find_capture(replay_id: str) -> dict[str, Any]:
     for cap in _load_captures(limit=400):
         if cap.get("id") == replay_id:
             return cap
+    log_cap = _find_log_replay_cap(replay_id)
+    if log_cap:
+        return log_cap
+    wcl_cap = _find_wcl_only_cap(replay_id)
+    if wcl_cap:
+        return wcl_cap
     raise ReplayError(f"replay not found: {replay_id}")
 
 
@@ -524,9 +844,15 @@ def _bounds(positions: list[dict[str, Any]]) -> dict[str, float] | None:
 
 def replay_detail(replay_id: str) -> dict[str, Any]:
     cap = _find_capture(replay_id)
-    log_path = latest_log_path()
-    encounters = encounter_index(log_path) if log_path else []
-    match = _match_capture(cap, encounters)
+    if cap.get("analysis_only"):
+        return _analysis_only_replay_detail(cap)
+    if cap.get("log_only"):
+        log_path, match = _find_frames_encounter(cap)
+        return _log_only_replay_detail(cap, log_path, match)
+    else:
+        log_path = latest_log_path()
+        encounters = encounter_index(log_path) if log_path else []
+        match = _match_capture(cap, encounters)
     actors: dict[str, dict[str, Any]] = {}
     raw = cap.get("_raw") or {}
     for unit in raw.get("combatants") or []:
@@ -605,9 +931,10 @@ def replay_detail(replay_id: str) -> dict[str, Any]:
         "bounds": _bounds(replay_positions),
         "actors": visible_actors,
         "counts": parsed["counts"],
+        "analysis": cap.get("analysis"),
         "sources": {
             "log_file": str(log_path) if log_path else "",
-            "json_file": str(cap.get("_json_path")),
+            "json_file": str(cap.get("_json_path") or ""),
             "video_file": str(cap.get("_video_path")) if cap.get("video_exists") else "",
         },
         "video": {
@@ -705,6 +1032,15 @@ BOSS_EVENT_HIT_CAP = 120      # 디버프(hit) 스펠별 캡 — 20이면 뒤쪽
                               # 샘플에서 탈락해 '나중에 걸린 사람 하이라이트 안 됨' 버그
 BOSS_HIT_MAX_APPLIED = 15     # 플레이어 디버프: 풀당 웨이브 수 이 이하만 (스팸 컷)
 BOSS_HIT_WAVE_GAP_S = 3.0     # 디버프 '같은 웨이브' 판정 간격 (다중 대상 동시 적용 묶음)
+
+# 르우라 집중 관찰 구간. 일부 실제 피해 child ID는 공용 기믹 카탈로그의
+# canonical ID에 아직 연결되지 않아, 리플레이 피격 링에서도 빠지지 않게 보강한다.
+_LURA_REVIEW_TRACKED_IDS = frozenset({
+    1249582, 1249584, 1249585, 1249609, 1255743,
+    1279512, 1279581, 1281123, 1281178, 1281184, 1281473,
+    1282043, 1282469, 1282470, 1284528, 1285510, 1285708,
+})
+_LURA_CRYSTAL_NAME = "여명의 수정"
 
 # specID → 클래스 토큰 (COMBATANT_INFO 에서 플레이어 직업색 얻기용)
 _SPEC_CLASS = {
@@ -852,6 +1188,7 @@ def _apply_encounter_line(
             "encounter_id": _to_int(row[1]),
             "encounter": _clean_name(row[2]),
             "difficulty_id": _to_int(row[3]),
+            "group_size": _to_int(row[4]),
             "instance_id": _to_int(row[5]),  # Map.db2 ID — 지형(replay_terrain) 체인 시작점
             "start_off": line_off,
             "_start_dt": ts,
@@ -859,6 +1196,7 @@ def _apply_encounter_line(
     if row[0] == "ENCOUNTER_END" and len(row) >= 7:
         if current and current.get("encounter_id") == _to_int(row[1]):
             current.update({
+                "success": bool(_to_int(row[5])),
                 "duration_s": round(_to_int(row[6]) / 1000, 3),
                 "end_off": line_end,   # END 줄 끝까지 포함
                 "_end_dt": ts,
@@ -892,32 +1230,34 @@ def _encounter_offsets_cached(path_str: str, mtime_ns: int, size: int) -> tuple[
 # lru 캐시는 (path,mtime,size) 키라 파일이 자라는 동안 매번 전체 재스캔이라
 # 여기선 마지막 오프셋부터 이어서 읽는다.
 _ACTIVE_ENC_INDEX: dict[str, dict[str, Any]] = {}
+_ACTIVE_ENC_LOCK = threading.RLock()
 
 
 def _encounter_offsets_active(path: Path) -> tuple[dict[str, Any], ...]:
     """활성 로그: 마지막 스캔 지점부터 이어 스캔 (파일이 줄어들면 처음부터)."""
-    key = str(path)
-    size = path.stat().st_size
-    state = _ACTIVE_ENC_INDEX.get(key)
-    if state is None or size < state["scanned_size"]:
-        # 처음 보는 파일이거나 파일이 줄어듦(교체/롤오버) → 리셋
-        state = {"scanned_size": 0, "encounters": [], "current": None}
-        _ACTIVE_ENC_INDEX[key] = state
-    if size > state["scanned_size"]:
-        encounters = state["encounters"]
-        current = state["current"]
-        offset = state["scanned_size"]
-        with path.open("rb") as fh:
-            fh.seek(offset)
-            for raw in fh:
-                if not raw.endswith(b"\n"):
-                    break  # 쓰다 만 마지막 줄 — 다음 요청 때 이어서 읽음
-                line_off = offset
-                offset += len(raw)
-                current = _apply_encounter_line(raw, line_off, offset, encounters, current)
-        state["scanned_size"] = offset
-        state["current"] = current
-    return tuple(state["encounters"])
+    with _ACTIVE_ENC_LOCK:
+        key = str(path)
+        size = path.stat().st_size
+        state = _ACTIVE_ENC_INDEX.get(key)
+        if state is None or size < state["scanned_size"]:
+            # 처음 보는 파일이거나 파일이 줄어듦(교체/롤오버) → 리셋
+            state = {"scanned_size": 0, "encounters": [], "current": None}
+            _ACTIVE_ENC_INDEX[key] = state
+        if size > state["scanned_size"]:
+            encounters = state["encounters"]
+            current = state["current"]
+            offset = state["scanned_size"]
+            with path.open("rb") as fh:
+                fh.seek(offset)
+                for raw in fh:
+                    if not raw.endswith(b"\n"):
+                        break  # 쓰다 만 마지막 줄 — 다음 요청 때 이어서 읽음
+                    line_off = offset
+                    offset += len(raw)
+                    current = _apply_encounter_line(raw, line_off, offset, encounters, current)
+            state["scanned_size"] = offset
+            state["current"] = current
+        return tuple(state["encounters"])
 
 
 def _encounter_offsets(path: Path) -> tuple[dict[str, Any], ...]:
@@ -927,8 +1267,170 @@ def _encounter_offsets(path: Path) -> tuple[dict[str, Any], ...]:
     return _encounter_offsets_active(path)
 
 
+_DIFFICULTY_LABELS = {
+    1: "일반",
+    2: "영웅",
+    8: "신화 쐐기",
+    14: "일반 공격대",
+    15: "영웅 공격대",
+    16: "신화 공격대",
+    23: "신화 던전",
+}
+
+
+def _difficulty_label(difficulty_id: int) -> str:
+    return _DIFFICULTY_LABELS.get(difficulty_id, f"난이도 {difficulty_id}" if difficulty_id else "")
+
+
+def _standalone_log_paths(log_dir: Path | None = None) -> list[Path]:
+    """CCTV 없이 목록화할 직접 전투로그.
+
+    일반 WoW Logs 폴더와 간이 가져오기/R2 미러 루트를 본다.
+    warcraftlogsarchive는 수십 GB일 수 있으므로 목록 전수 스캔에서 제외한다.
+    기존 CCTV 캡처의 아카이브 매칭은 _candidate_logs() 경로를 계속 사용한다.
+    """
+    roots: list[Path] = [log_dir or wow_log_dir(), cctv_dir()]
+    from app import cctv_sync
+    roots.append(cctv_sync.mirror_log_dir())
+
+    found: dict[str, Path] = {}
+    for root in roots:
+        if not root.exists():
+            continue
+        for path in root.glob("*WoWCombatLog-*.txt"):
+            try:
+                key = str(path.resolve()).casefold()
+            except OSError:
+                key = str(path.absolute()).casefold()
+            found.setdefault(key, path)
+
+    def sort_key(path: Path) -> tuple[datetime, int]:
+        started = _filename_log_start(path) or datetime.min
+        try:
+            mtime = path.stat().st_mtime_ns
+        except OSError:
+            mtime = 0
+        return started, mtime
+
+    return sorted(found.values(), key=sort_key, reverse=True)
+
+
+def _log_path_hash(path: Path) -> str:
+    try:
+        normalized = str(path.resolve()).casefold()
+    except OSError:
+        normalized = str(path.absolute()).casefold()
+    return hashlib.sha1(normalized.encode("utf-8", errors="ignore")).hexdigest()[:12]
+
+
+def _log_replay_id(path: Path, enc: dict[str, Any]) -> str:
+    return f"log-{_log_path_hash(path)}-{_to_int(enc.get('start_off')):x}"
+
+
+def _log_replay_cap(path: Path, enc: dict[str, Any]) -> dict[str, Any]:
+    start_dt = enc.get("_start_dt")
+    duration = round(float(enc.get("duration_s") or 0), 3)
+    return _enrich_trial_cap({
+        "id": _log_replay_id(path, enc),
+        "file": path.name,
+        "encounter_id": _to_int(enc.get("encounter_id")),
+        "encounter": _clean_name(enc.get("encounter")) or path.stem,
+        "difficulty": _difficulty_label(_to_int(enc.get("difficulty_id"))),
+        "difficulty_id": _to_int(enc.get("difficulty_id")),
+        "duration": duration,
+        "result": bool(enc.get("success")),
+        "boss_percent": None,
+        "player": "전투로그 전용",
+        "player_guid": "",
+        "deaths": 0,
+        "combatants": _to_int(enc.get("group_size")),
+        "start": None,
+        "start_local": start_dt.strftime("%Y-%m-%d %H:%M:%S") if start_dt else "",
+        "video_exists": False,
+        "video_remote": False,
+        "video_size_mb": 0,
+        "log_only": True,
+        "_start_dt": start_dt,
+        "_log_path": path,
+        "_log_encounter": enc,
+        "_raw": {},
+    })
+
+
+def _load_log_replay_caps(
+    limit: int = 80,
+    paths: list[Path] | None = None,
+) -> list[dict[str, Any]]:
+    caps: list[dict[str, Any]] = []
+    seen: set[tuple[Any, ...]] = set()
+    for path in paths if paths is not None else _standalone_log_paths():
+        try:
+            encounters = _encounter_offsets(path)
+        except OSError:
+            continue
+        for enc in encounters:
+            cap = _log_replay_cap(path, enc)
+            key = _log_replay_dedupe_key(cap)
+            if key in seen:
+                continue
+            seen.add(key)
+            caps.append(cap)
+    caps.sort(key=lambda cap: cap.get("_start_dt") or datetime.min, reverse=True)
+    return caps[:max(1, limit)]
+
+
+def _find_log_replay_cap(replay_id: str) -> dict[str, Any] | None:
+    match = re.fullmatch(r"log-([0-9a-f]{12})-([0-9a-f]+)", replay_id or "")
+    if not match:
+        return None
+    path_hash, start_hex = match.groups()
+    start_off = int(start_hex, 16)
+    for path in _standalone_log_paths():
+        if _log_path_hash(path) != path_hash:
+            continue
+        try:
+            encounters = _encounter_offsets(path)
+        except OSError:
+            return None
+        for enc in encounters:
+            if _to_int(enc.get("start_off")) == start_off:
+                return _log_replay_cap(path, enc)
+        return None
+    return None
+
+
+def _same_encounter(left: dict[str, Any], right: dict[str, Any]) -> bool:
+    left_start = left.get("_start_dt")
+    right_start = right.get("_start_dt")
+    if not isinstance(left_start, datetime) or not isinstance(right_start, datetime):
+        return False
+    left_id = _to_int(left.get("encounter_id"))
+    right_id = _to_int(right.get("encounter_id"))
+    return (not left_id or not right_id or left_id == right_id) and abs(
+        (left_start - right_start).total_seconds()) <= 8
+
+
+def _log_replay_dedupe_key(cap: dict[str, Any]) -> tuple[Any, ...]:
+    """경로만 다른 동일 로그 복제본 키. 빠른 재풀은 시작 시각이 달라 보존한다."""
+    return (
+        cap.get("_start_dt"),
+        _to_int(cap.get("encounter_id")),
+        _to_int(cap.get("difficulty_id")),
+        _to_int(cap.get("combatants")),
+        round(float(cap.get("duration") or 0), 3),
+        bool(cap.get("result")),
+    )
+
+
 def _find_frames_encounter(cap: dict[str, Any]) -> tuple[Path, dict[str, Any]]:
     """캡처 ↔ 로그 전투 매칭 (encounterID 일치 + 시작 시각 8초 이내)."""
+    direct_path = cap.get("_log_path")
+    direct_enc = cap.get("_log_encounter")
+    if isinstance(direct_path, Path) and isinstance(direct_enc, dict):
+        if not direct_path.exists():
+            raise ReplayError(f"combat log not found: {direct_path}")
+        return direct_path, direct_enc
+
     cap_start = cap.get("_start_dt")
     if not cap_start:
         raise ReplayError("capture start time missing")
@@ -961,6 +1463,7 @@ def _stream_frames_window(
     specs: dict[str, int] = {}
     deaths: list[tuple[float, str]] = []
     map_counts: Counter = Counter()
+    activity_counts: Counter = Counter()
     # 시전 성공: guid → [(t, 스킬이름), ...] (다운샘플 없음 — 유닛 선별은 호출부에서)
     casts: dict[str, list[tuple[float, str]]] = {}
     # 보스 기믹 후보: (t, event, spell_id, spell, src_guid, src_name, dest_guid, dest_name)
@@ -1000,6 +1503,23 @@ def _stream_frames_window(
                 continue
             event = row[0]
             t = (ts - start_dt).total_seconds()
+
+            # 상세 셸은 즉시 반환하므로 하단 요약도 이 스트리밍 1회에서 함께 센다.
+            # 기존 CCTV 상세와 같은 기준을 유지한다.
+            if event in ("SPELL_CAST_START", "SPELL_CAST_SUCCESS") and len(row) > 10:
+                activity_counts["casts"] += 1
+            elif (event in ("SPELL_AURA_APPLIED", "SPELL_AURA_REMOVED", "SPELL_AURA_REFRESH")
+                  and len(row) > 12 and row[12] == "DEBUFF"
+                  and str(row[5]).startswith("Player-")):
+                activity_counts["debuffs"] += 1
+            elif (event in ("SPELL_DAMAGE", "SPELL_PERIODIC_DAMAGE", "RANGE_DAMAGE")
+                  and len(row) > 31 and _to_int(row[31]) >= 250_000
+                  and str(row[5]).startswith("Player-")):
+                activity_counts["damage"] += 1
+            elif (event == "UNIT_DIED" and len(row) > 6
+                  and str(row[5]).startswith("Player-")
+                  and str(row[-1]).strip() != "1"):
+                activity_counts["deaths"] += 1
 
             if event == "COMBATANT_INFO":
                 got = _combatant_spec(row)
@@ -1099,7 +1619,8 @@ def _stream_frames_window(
     return {"samples": samples, "names": names, "specs": specs,
             "deaths": deaths, "map_counts": map_counts, "boss_raw": boss_raw,
             "aura_updates": aura_updates, "casts": casts,
-            "player_raw": player_raw, "hostile": hostile}
+            "player_raw": player_raw, "hostile": hostile,
+            "counts": dict(activity_counts)}
 
 
 def _boss_tokens(encounter_name: str) -> set[str]:
@@ -1170,6 +1691,74 @@ def _classify_units(
     units.extend(picked)
     # (종족 모델은 정지 포즈라 폐기 — 직업색 원통으로 대체. char_race 조회도 중단, 2026-07-11)
     return units
+
+
+def _analysis_only_replay_detail(cap: dict[str, Any]) -> dict[str, Any]:
+    analysis = cap.get("analysis") or {}
+    first = analysis.get("first_death") or {}
+    events = []
+    if first:
+        events.append({
+            "t": _to_float(first.get("t")) or 0.0,
+            "kind": "death",
+            "event": "WCL_FIRST_DEATH",
+            "source": "",
+            "target": str(first.get("player") or ""),
+            "spell": str(first.get("cause") or ""),
+        })
+    return {
+        "capture": _public_capture(cap),
+        "encounter": None,
+        "duration": round(float(cap.get("duration") or 0), 3),
+        "events": events,
+        "positions": [],
+        "bounds": None,
+        "actors": [],
+        "counts": {"deaths": _to_int(analysis.get("deaths"))},
+        "analysis": analysis,
+        "analysis_only": True,
+        "sources": {
+            "log_file": "",
+            "json_file": str(_lura_sync_path()),
+            "video_file": "",
+            "wcl_url": str(analysis.get("fight_url") or ""),
+        },
+        "video": {"available": False, "url": "", "remote": False},
+    }
+
+
+def _log_only_replay_detail(
+    cap: dict[str, Any],
+    log_path: Path,
+    enc: dict[str, Any],
+) -> dict[str, Any]:
+    """영상 없는 로그 전용 상세.
+
+    구형 _parse_log_window()는 대용량 파일을 처음부터 읽는다. 여기서는
+    즉시 화면을 열 수 있는 계약 셰만 반환하고, 실제 좌표/전투원/기믹은
+    전투 바이트 오프셋으로 seek하는 /frames에서 한 번만 구축한다.
+    """
+    public_cap = _public_capture(cap)
+    public_cap["log_match"] = _public_encounter(enc)
+    duration = round(float(enc.get("duration_s") or cap.get("duration") or 0), 3)
+
+    return {
+        "capture": public_cap,
+        "encounter": _public_encounter(enc),
+        "duration": duration,
+        "events": [],
+        "positions": [],
+        "bounds": None,
+        "actors": [],
+        "counts": {},
+        "analysis": cap.get("analysis"),
+        "sources": {
+            "log_file": str(log_path),
+            "json_file": "",
+            "video_file": "",
+        },
+        "video": {"available": False, "url": "", "remote": False},
+    }
 
 
 @lru_cache(maxsize=1)
@@ -1648,6 +2237,413 @@ def _boss_mechanic_summaries(
     return out
 
 
+def _lura_formation_snapshot(
+    samples: dict[str, list[tuple[float, float, float, float | None, int | None]]],
+    names: dict[str, str],
+    guid_to_id: dict[str, str],
+    t: float,
+) -> dict[str, Any]:
+    """르우라 산개 시각의 좌표 요약.
+
+    고급 로그 좌표는 비동기 표본이므로 기준 시각보다 미래인 점은 쓰지 않고,
+    0.75초 안의 마지막 점만 사용한다. 거리 수치는 후보를 좁히는 용도이며
+    공대 배정표가 없는 상태에서 합격/실패를 판정하지 않는다.
+    """
+    points: list[tuple[str, str, float, float]] = []
+    roster = sum(1 for guid in guid_to_id if guid.startswith("Player-"))
+    for guid, unit_samples in samples.items():
+        uid = guid_to_id.get(guid)
+        if not uid or not guid.startswith("Player-") or not unit_samples:
+            continue
+        times = [row[0] for row in unit_samples]
+        index = bisect.bisect_right(times, t) - 1
+        if index < 0:
+            continue
+        sample_t, x, y, _facing, hp = unit_samples[index]
+        if t - sample_t > 0.75 or (hp is not None and hp <= 0):
+            continue
+        points.append((uid, names.get(guid, "") or uid, x, y))
+
+    def percentile(values: list[float], fraction: float) -> float:
+        if not values:
+            return 0.0
+        ordered = sorted(values)
+        position = (len(ordered) - 1) * fraction
+        low = int(position)
+        high = min(low + 1, len(ordered) - 1)
+        weight = position - low
+        return ordered[low] * (1 - weight) + ordered[high] * weight
+
+    xs = sorted(row[2] for row in points)
+    ys = sorted(row[3] for row in points)
+    center_x = percentile(xs, 0.5)
+    center_y = percentile(ys, 0.5)
+    radii = [((x - center_x) ** 2 + (y - center_y) ** 2) ** 0.5
+             for _uid, _name, x, y in points]
+    pairs: list[dict[str, Any]] = []
+    within_3 = 0
+    for i, (left_id, left_name, left_x, left_y) in enumerate(points):
+        for right_id, right_name, right_x, right_y in points[i + 1:]:
+            distance = ((left_x - right_x) ** 2 + (left_y - right_y) ** 2) ** 0.5
+            if distance <= 3.0:
+                within_3 += 1
+            if distance < 5.5:
+                pairs.append({
+                    "left_id": left_id, "left_name": left_name,
+                    "right_id": right_id, "right_name": right_name,
+                    "distance_yards": round(distance, 2),
+                })
+    pairs.sort(key=lambda row: row["distance_yards"])
+    return {
+        "t": round(t, 2),
+        "tracked_players": len(points),
+        "roster_players": roster,
+        "coverage_ok": len(points) >= 18,
+        "near_pairs_3y": within_3,
+        "near_pairs_5_5y": len(pairs),
+        "closest_pairs": pairs[:6],
+        "raid_radius_yards": {
+            "r50": round(percentile(radii, 0.5), 1),
+            "r90": round(percentile(radii, 0.9), 1),
+            "max": round(max(radii), 1) if radii else 0.0,
+        },
+    }
+
+
+def _lura_review_focus(
+    boss_raw: list[tuple[float, str, int, str, str, str, str, str]],
+    aura_updates: list[tuple[float, str, int, str, str, int]],
+    casts: dict[str, list[tuple[float, str]]],
+    samples: dict[str, list[tuple[float, float, float, float | None, int | None]]],
+    names: dict[str, str],
+    guid_to_id: dict[str, str],
+    duration_s: float,
+) -> dict[str, Any]:
+    """르우라 네 집중 구간을 전투 시작 기준 북마크로 만든다."""
+    raw = sorted(boss_raw, key=lambda row: row[0])
+
+    def distinct_times(rows: list[tuple], gap: float = 0.75) -> list[float]:
+        out: list[float] = []
+        for row in rows:
+            value = float(row[0])
+            if not out or value - out[-1] > gap:
+                out.append(value)
+        return out
+
+    def first_time(
+        spell_ids: set[int], events: set[str], after: float = 0.0,
+        before: float | None = None,
+    ) -> float | None:
+        for row in raw:
+            if row[0] < after or (before is not None and row[0] > before):
+                continue
+            if row[2] in spell_ids and row[1] in events:
+                return float(row[0])
+        return None
+
+    def target_summary(rows: list[tuple]) -> tuple[list[str], list[str]]:
+        found: dict[str, str] = {}
+        for row in rows:
+            guid = str(row[6] or "")
+            if not guid.startswith("Player-"):
+                continue
+            found.setdefault(guid, names.get(guid, "") or str(row[7] or "") or guid)
+        guids = sorted(found, key=lambda guid: found[guid])
+        return [guid_to_id.get(guid, "") for guid in guids if guid_to_id.get(guid)], [
+            found[guid] for guid in guids]
+
+    crystal_ops = sorted(
+        (float(t), guid) for guid, unit_casts in casts.items()
+        if guid.startswith("Player-")
+        for t, spell in unit_casts if spell == _LURA_CRYSTAL_NAME)
+
+    eclipse_start = first_time({1255743}, {"SPELL_CAST_START"})
+    p1_cutoff = eclipse_start if eclipse_start is not None else min(duration_s + 1, 230.0)
+
+    p1_windows: list[dict[str, Any]] = []
+    symphony_rows = [row for row in raw
+                     if row[1] == "SPELL_CAST_START" and row[2] == 1285708
+                     and row[0] < p1_cutoff]
+    for occurrence, cast_t in enumerate(distinct_times(symphony_rows), 1):
+        quasar_rows = [row for row in raw
+                       if cast_t + 8.0 <= row[0] <= cast_t + 14.0
+                       and row[2] in {1282469, 1282470}
+                       and row[1] in {"SPELL_CAST_SUCCESS", "SPELL_AURA_APPLIED",
+                                      "SPELL_DAMAGE", "SPELL_MISSED"}]
+        mismatch_rows = [row for row in raw
+                         if cast_t <= row[0] <= cast_t + 8.0
+                         and row[2] in {1249584, 1249585}
+                         and row[1] in {"SPELL_DAMAGE", "SPELL_MISSED"}]
+        target_ids, target_names = target_summary(quasar_rows)
+        mismatch_ids, mismatch_names = target_summary(mismatch_rows)
+        expected_t = round(cast_t + 11.55, 2)
+        window_complete = duration_s >= expected_t
+        segment_specs = [
+            ("문양 종료", cast_t + 4.0),
+            ("집결", cast_t + 8.0),
+            ("레이저", cast_t + 11.55),
+        ]
+        segments = [
+            {"label": label, "t": round(value, 2)}
+            for label, value in segment_specs if value <= duration_s
+        ]
+        if not window_complete:
+            segments.append({"label": "전투 종료", "t": round(duration_s, 2)})
+        p1_windows.append({
+            "occurrence": occurrence,
+            "start_t": round(min(duration_s, cast_t + 4.0), 2),
+            "seek_t": round(min(duration_s, cast_t + 8.0), 2),
+            "anchor_t": round(min(duration_s, expected_t), 2),
+            "end_t": round(min(duration_s, cast_t + 14.0), 2),
+            "segments": segments,
+            "target_unit_ids": target_ids,
+            "target_names": target_names,
+            "observed": {
+                "quasar_hit_players": len(target_names),
+                "quasar_targets": target_names,
+                "rune_mismatch_players": len(mismatch_names),
+                "rune_mismatch_targets": mismatch_names,
+                "rune_mismatch_unit_ids": mismatch_ids,
+                "window_complete": window_complete,
+            },
+        })
+
+    def active_starsplinter_intervals(end_t: float) -> dict[str, list[tuple[float, float]]]:
+        active: dict[tuple[int, str], float] = {}
+        intervals: dict[str, list[tuple[float, float]]] = {}
+        applied = {"SPELL_AURA_APPLIED", "SPELL_AURA_APPLIED_DOSE",
+                   "SPELL_AURA_REFRESH"}
+        removed = {"SPELL_AURA_REMOVED", "SPELL_AURA_BROKEN",
+                   "SPELL_AURA_BROKEN_SPELL"}
+        for t, event, sid, guid, _source, _stacks in sorted(aura_updates):
+            if sid not in {1279512, 1285510} or not guid.startswith("Player-"):
+                continue
+            key = (sid, guid)
+            if event in applied:
+                active.setdefault(key, float(t))
+            elif event in removed and key in active:
+                intervals.setdefault(guid, []).append((active.pop(key), float(t)))
+        for (_sid, guid), start in active.items():
+            intervals.setdefault(guid, []).append((start, end_t))
+        return intervals
+
+    intermission_windows: list[dict[str, Any]] = []
+    if eclipse_start is not None:
+        into_darkwell = first_time({1282043}, {"SPELL_CAST_START"}, eclipse_start)
+        intermission_end = into_darkwell if into_darkwell is not None else duration_s
+        pre_ops = [(t, guid) for t, guid in crystal_ops
+                   if eclipse_start - 4.0 <= t < eclipse_start]
+        phase_ops = [(t, guid) for t, guid in crystal_ops
+                     if eclipse_start <= t <= intermission_end]
+        intervals = active_starsplinter_intervals(intermission_end)
+        simultaneous_ops = [
+            (t, guid) for t, guid in phase_ops
+            if any(start <= t <= end for start, end in intervals.get(guid, ()))
+        ]
+        phase_handlers = sorted({guid for _t, guid in phase_ops},
+                                key=lambda guid: names.get(guid, guid))
+        simultaneous_handlers = sorted({guid for _t, guid in simultaneous_ops},
+                                       key=lambda guid: names.get(guid, guid))
+        star_rows = [row for row in raw
+                     if eclipse_start <= row[0] <= intermission_end
+                     and row[2] in {1279512, 1285510}
+                     and row[1] == "SPELL_AURA_APPLIED"]
+        quasar_rows = [row for row in raw
+                       if eclipse_start <= row[0] <= intermission_end
+                       and row[2] in {1282469, 1282470}
+                       and row[1] in {"SPELL_CAST_SUCCESS", "SPELL_AURA_APPLIED",
+                                      "SPELL_DAMAGE", "SPELL_MISSED"}]
+        _star_ids, star_names = target_summary(star_rows)
+        quasar_ids, quasar_names = target_summary(quasar_rows)
+        first_op = phase_ops[0][0] if phase_ops else eclipse_start
+        first_simultaneous = simultaneous_ops[0][0] if simultaneous_ops else first_op
+        intermission_windows.append({
+            "occurrence": 1,
+            "start_t": round(max(0.0, eclipse_start - 4.0), 2),
+            "seek_t": round(max(0.0, eclipse_start - 4.0), 2),
+            "anchor_t": round(first_simultaneous, 2),
+            "end_t": round(intermission_end, 2),
+            "segments": [
+                {"label": "사전 배치", "t": round(max(0.0, eclipse_start - 4.0), 2)},
+                {"label": "수정 조작", "t": round(first_op, 2)},
+                {"label": "동시 특임", "t": round(first_simultaneous, 2)},
+                {"label": "복귀", "t": round(intermission_end, 2)},
+            ],
+            "target_unit_ids": quasar_ids,
+            "target_names": quasar_names,
+            "observed": {
+                "pre_crystal_operations": len(pre_ops),
+                "crystal_operations": len(phase_ops),
+                "crystal_handlers": [names.get(guid, guid) for guid in phase_handlers],
+                "simultaneous_operations": len(simultaneous_ops),
+                "simultaneous_handlers": [names.get(guid, guid)
+                                          for guid in simultaneous_handlers],
+                "starsplinter_targets": len(star_names),
+                "quasar_hit_players": len(quasar_names),
+                "quasar_targets": quasar_names,
+            },
+        })
+
+    p2_windows: list[dict[str, Any]] = []
+    galvanize_rows = [row for row in raw
+                      if row[1] == "SPELL_CAST_START" and row[2] == 1284528]
+    galvanize_times = distinct_times(galvanize_rows)
+    for occurrence, start_t in enumerate(galvanize_times, 1):
+        next_start = (galvanize_times[occurrence]
+                      if occurrence < len(galvanize_times) else start_t + 26.0)
+        aura_t = first_time({1281184}, {"SPELL_AURA_APPLIED"},
+                            start_t, min(next_start, start_t + 20.0))
+        impact_after = aura_t if aura_t is not None else start_t + 10.0
+        impact_t = first_time(
+            {1281178}, {"SPELL_DAMAGE", "SPELL_MISSED"},
+            impact_after, min(next_start, start_t + 20.0))
+        if impact_t is None:
+            impact_t = start_t + 14.6
+        harvest_t = first_time({1282412}, {"SPELL_CAST_START"},
+                               impact_t, min(next_start, start_t + 25.0))
+        cycle_end = harvest_t if harvest_t is not None else min(next_start, start_t + 18.0)
+        cycle_ops = [(t, guid) for t, guid in crystal_ops
+                     if start_t <= t <= impact_t + 1.0]
+        first_group = [(t, guid) for t, guid in cycle_ops
+                       if aura_t is None or t < aura_t]
+        second_group = [(t, guid) for t, guid in cycle_ops
+                        if aura_t is not None and t >= aura_t]
+        handlers = sorted({guid for _t, guid in cycle_ops},
+                          key=lambda guid: names.get(guid, guid))
+        impact_rows = [row for row in raw
+                       if impact_t - 0.2 <= row[0] <= impact_t + 0.8
+                       and row[2] == 1281178
+                       and row[1] in {"SPELL_DAMAGE", "SPELL_MISSED"}]
+        _impact_ids, impact_names = target_summary(impact_rows)
+        snapshot = _lura_formation_snapshot(
+            samples, names, guid_to_id, max(start_t, impact_t - 0.1))
+        first_crystal_t = first_group[0][0] if first_group else start_t + 2.0
+        second_crystal_t = second_group[0][0] if second_group else (aura_t or impact_t)
+        p2_windows.append({
+            "occurrence": occurrence,
+            "start_t": round(start_t, 2),
+            "seek_t": round(first_crystal_t, 2),
+            "anchor_t": round(impact_t, 2),
+            "end_t": round(min(duration_s, cycle_end + 3.0), 2),
+            "segments": [
+                {"label": "1차 수정", "t": round(first_crystal_t, 2)},
+                {"label": "산개", "t": round(aura_t or (start_t + 10.6), 2)},
+                {"label": "2차 수정", "t": round(second_crystal_t, 2)},
+                {"label": "판정", "t": round(impact_t, 2)},
+                {"label": "복귀", "t": round(harvest_t or cycle_end, 2)},
+            ],
+            "target_unit_ids": [],
+            "target_names": [],
+            "observed": {
+                "crystal_operations": len(cycle_ops),
+                "first_crystal_operations": len(first_group),
+                "second_crystal_operations": len(second_group),
+                "crystal_handlers": [names.get(guid, guid) for guid in handlers],
+                "criticality_events": len(impact_rows),
+                "criticality_players": len(impact_names),
+                "formation": snapshot,
+            },
+        })
+
+    p3_windows: list[dict[str, Any]] = []
+    meltdown_start = first_time({1281123}, {"SPELL_CAST_START"})
+    if meltdown_start is not None:
+        snapshot_times = [
+            ("산개 확인", meltdown_start + 4.0),
+            ("튕김 직전", meltdown_start + 7.5),
+            ("튕김 후", meltdown_start + 9.5),
+        ]
+        snapshots = [
+            {"label": label, **_lura_formation_snapshot(
+                samples, names, guid_to_id, min(duration_s, snap_t))}
+            for label, snap_t in snapshot_times]
+        p3_windows.append({
+            "occurrence": 1,
+            "start_t": round(meltdown_start, 2),
+            "seek_t": round(meltdown_start + 4.0, 2),
+            "anchor_t": round(meltdown_start + 7.5, 2),
+            "end_t": round(min(duration_s, meltdown_start + 11.0), 2),
+            "segments": [
+                {"label": label, "t": round(min(duration_s, snap_t), 2)}
+                for label, snap_t in snapshot_times
+            ],
+            "target_unit_ids": [],
+            "target_names": [],
+            "observed": {"snapshots": snapshots},
+        })
+
+    def item(
+        key: str, label: str, phase: str, note: str,
+        spell_ids: list[int], windows: list[dict[str, Any]], reached_at: float,
+    ) -> dict[str, Any]:
+        if windows:
+            status = "available"
+        elif duration_s >= reached_at:
+            status = "event_missing"
+        else:
+            status = "not_reached"
+        return {
+            "key": key, "label": label, "phase": phase, "status": status,
+            "note": note, "mechanic_spell_ids": spell_ids, "windows": windows,
+        }
+
+    # 전투로그는 르우라 전 구간을 같은 uiMapID(2534)로 기록한다. 별도 맵을
+    # 꾸며내지 않고, 실제 공간 이동을 확정할 수 있는 시전 성공 시각만 분석
+    # 레이어 경계로 내려 화면에서 현재 공간을 명시한다.
+    darkwell_success = first_time({1282043}, {"SPELL_CAST_SUCCESS"})
+    if darkwell_success is None and galvanize_times:
+        darkwell_success = galvanize_times[0]
+    meltdown_success = first_time({1281123}, {"SPELL_CAST_SUCCESS"})
+    spaces: list[dict[str, Any]] = []
+
+    def add_space(key: str, label: str, start_t: float, end_t: float) -> None:
+        start_t = max(0.0, min(duration_s, start_t))
+        end_t = max(start_t, min(duration_s, end_t))
+        if end_t > start_t:
+            spaces.append({
+                "key": key, "label": label,
+                "start_t": round(start_t, 2), "end_t": round(end_t, 2),
+            })
+
+    p2_space_start = darkwell_success if darkwell_success is not None else duration_s
+    p3_space_start = (
+        meltdown_success if meltdown_success is not None else duration_s
+    )
+    add_space("p1", "P1/사이페 · 태양샘", 0.0, p2_space_start)
+    add_space("p2", "P2 · 암흑샘", p2_space_start, p3_space_start)
+    add_space("p3", "P3 · 태양샘", p3_space_start, duration_s)
+
+    return {
+        "source": "local_log",
+        "timebase": "combat_start_seconds",
+        "space_note": (
+            "원본 로그의 uiMapID는 동일하며 암흑샘 속으로·어둠의 용해 "
+            "성공 시각으로 공간 레이어를 구분합니다."),
+        "spaces": spaces,
+        "distance_note": (
+            "5.5m 미만은 좌표상 근접 후보입니다. 배정표와 빔 경로가 없어 "
+            "자동으로 오배치·원인을 판정하지 않습니다."),
+        "items": [
+            item("p1_rune_quasar", "문양 후 집결·레이저", "P1",
+                 "문양 종료 뒤 본대 집결선과 Dark Quasar 피격·직전 이동을 확인",
+                 [1285708, 1249609, 1249582, 1249584, 1249585, 1282469, 1282470],
+                 p1_windows, 47.0),
+            item("intermission_crystal", "수정·별빛파열 간섭", "사이페",
+                 "수정 조작 담당과 별빛파열 동시 특임의 배치·동선을 확인",
+                 [1255743, 1253050, 1279512, 1285510, 1281473, 1282043],
+                 intermission_windows, 184.0),
+            item("p2_crystal_spread", "수정→산개→복귀", "P2",
+                 "수정 1·2차 조작, 임계점 산개, 핵 채취 복귀 순서를 확인",
+                 [1284528, 1253050, 1281184, 1281178, 1282412],
+                 p2_windows, 238.0),
+            item("p3_knockback_spread", "진입 전 튕김 산개", "P3 진입",
+                 "어둠의 용해 전후 산개와 튕긴 뒤 양쪽 분리 동선을 확인",
+                 [1281123, 1281184, 1281178, 1275057],
+                 p3_windows, 333.0),
+        ],
+    }
+
+
 # frames 결과 메모리 캐시: replay_id → (로그파일 시그니처, payload).
 # 로그 파일이 안 바뀌었으면 재파싱 생략 — 리스트에서 판 전환 시 즉시 로드.
 _frames_cache: dict[str, tuple[tuple[str, int, int], dict[str, Any]]] = {}
@@ -1659,6 +2655,43 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
     from app import replay_map  # 순환 import 방지 겸 지연 로드
 
     cap = _find_capture(replay_id)
+    if cap.get("analysis_only"):
+        analysis = cap.get("analysis") or {}
+        encounter_id = _to_int(cap.get("encounter_id"))
+        unavailable_focus: dict[str, Any] | None = None
+        if encounter_id == 3183:
+            unavailable_focus = _lura_review_focus(
+                [], [], {}, {}, {}, {}, float(cap.get("duration") or 0))
+            unavailable_focus["source"] = "wcl"
+            for focus_item in unavailable_focus["items"]:
+                focus_item["status"] = "no_positions"
+                focus_item["windows"] = []
+        out = {
+            "meta": {
+                "encounter": cap.get("encounter") or "",
+                "encounter_id": encounter_id,
+                "difficulty_id": _to_int(cap.get("difficulty_id")),
+                "instance_id": 0,
+                "duration_s": round(float(cap.get("duration") or 0), 3),
+                "video_offset_s": 0.0,
+                "map": {},
+                "terrain_bbox": [],
+                "units": [],
+                "deaths": [],
+                "frames_available": False,
+                "unavailable_reason": "wcl_only",
+            },
+            "frames": [],
+            "boss_events": [],
+            "boss_mechanics": [],
+            "casts": {},
+            "player_events": [],
+            "counts": {"deaths": _to_int(analysis.get("deaths"))},
+            "analysis": analysis,
+        }
+        if unavailable_focus:
+            out["review_focus"] = unavailable_focus
+        return out
     log_path, enc = _find_frames_encounter(cap)
     sig = _file_sig(log_path)
     hit = _frames_cache.get(replay_id)
@@ -1736,6 +2769,8 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
     priority_ids = _boss_priority_map().get(encounter_id, frozenset())
     tracked_ids = frozenset(
         set(priority_ids) | set(replay_mechanics.encounter_spell_ids(encounter_id)))
+    if encounter_id == 3183:
+        tracked_ids = frozenset(set(tracked_ids) | set(_LURA_REVIEW_TRACKED_IDS))
     boss_guids = {u["guid"] for u in units if u["kind"] == "boss"}
     guid_to_role = {u["guid"]: u.get("role", "") for u in units}
     boss_events = _select_boss_events(
@@ -1752,6 +2787,13 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
     # 플레이어 이벤트 (블러드/물약/치유석/오펜시브/생존기)
     player_events = _select_player_events(
         parsed.get("player_raw") or [], guid_to_id)
+
+    review_focus = None
+    if encounter_id == 3183:
+        review_focus = _lura_review_focus(
+            parsed.get("boss_raw") or [], parsed.get("aura_updates") or [],
+            parsed.get("casts") or {}, samples, parsed.get("names") or {},
+            guid_to_id, float(duration_s or 0))
 
     # 맵 메타 + world→px 계수 (플레이어 실좌표로 축 뒤집힘 캘리브레이션)
     calib = player_world[::max(1, len(player_world) // 200)]  # 최대 ~200점만
@@ -1771,6 +2813,10 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
             # 오프라인/미지원 맵 폴백: 좌표 bounds 를 1000px 캔버스에 맞춤
             map_out = _fallback_map(dominant_map, player_world, str(exc))
 
+    if review_focus and review_focus.get("spaces"):
+        map_out["spaces"] = review_focus["spaces"]
+        map_out["space_note"] = review_focus.get("space_note") or ""
+
     out = {
         "meta": {
             "encounter": enc.get("encounter") or (cap.get("encounter") or ""),
@@ -1780,6 +2826,11 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
             "duration_s": round(float(duration_s), 3),
             "video_offset_s": video_offset_s,
             "map": map_out,
+            "terrain_bbox": (
+                [min(x for x, _ in player_world), max(x for x, _ in player_world),
+                 min(y for _, y in player_world), max(y for _, y in player_world)]
+                if player_world else []
+            ),
             "units": [
                 {"id": guid_to_id[u["guid"]], "name": u["name"],
                  "cls": u["cls"], "kind": u["kind"],
@@ -1794,7 +2845,10 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
         "boss_mechanics": boss_mechanics,
         "casts": casts_out,
         "player_events": player_events,
+        "counts": parsed.get("counts") or {},
     }
+    if review_focus:
+        out["review_focus"] = review_focus
     if len(_frames_cache) >= _FRAMES_CACHE_MAX:
         _frames_cache.pop(next(iter(_frames_cache)))
     _frames_cache[replay_id] = (sig, out)
@@ -1808,29 +2862,22 @@ def replay_terrain_request(replay_id: str) -> dict[str, Any]:
     지형 그리드의 bbox 기준이 frames 응답과 자연히 일치한다.
     """
     cap = _find_capture(replay_id)
-    log_path, enc = _find_frames_encounter(cap)
-    instance_id = _to_int(enc.get("instance_id"))
+    if cap.get("analysis_only"):
+        raise ReplayError("WCL 분석 전용: 로컬 좌표 없음")
+
+    # UI는 frames 직후 terrain을 요청한다. frames 메모리 캐시에 함께 보관한
+    # 플레이어 bbox를 재사용해 같은 대용량 로그 구간을 두 번 읽지 않는다.
+    payload = replay_frames(replay_id)
+    meta = payload.get("meta") or {}
+    instance_id = _to_int(meta.get("instance_id"))
     if not instance_id:
         raise ReplayError("ENCOUNTER_START 에 instanceID 없음 — 지형 조회 불가")
-    start_dt = enc["_start_dt"]
-    end_dt = enc.get("_end_dt") or (start_dt + timedelta(seconds=(cap.get("duration") or 0) + 5))
-    parsed = _stream_frames_window(
-        log_path, enc["start_off"], enc.get("end_off") or 0, start_dt, end_dt)
-    xs: list[float] = []
-    ys: list[float] = []
-    for guid, pts in parsed["samples"].items():
-        if not guid.startswith("Player-"):
-            continue
-        for t, x, y, _facing, _hp in pts:
-            if t < 0:
-                continue
-            xs.append(x)
-            ys.append(y)
-    if not xs:
+    bbox = meta.get("terrain_bbox") or []
+    if len(bbox) != 4:
         raise ReplayError("플레이어 좌표 없음 — 고급 전투 기록(advanced logging) 필요")
     return {
         "instance_id": instance_id,
-        "bbox": (min(xs), max(xs), min(ys), max(ys)),
+        "bbox": tuple(float(value) for value in bbox),
     }
 
 

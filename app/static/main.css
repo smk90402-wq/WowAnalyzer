@@ -919,6 +919,14 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .rp-ok { color: #6fcf7f !important; }
 .rp-wipe { color: #e09a87 !important; }
 .rp-unmatched td:first-child::before { content: "?"; color: #e2c14e; margin-right: 4px; }
+.rp-analysis-only td:first-child::before { content: "W"; color: #74a8e8; margin-right: 4px; font-weight: 800; }
+.rp-flag {
+  display: inline-block !important; margin: 0 5px 0 0; padding: 1px 4px;
+  border: 1px solid #72504e; border-radius: 4px; color: #f1b2a9 !important;
+  font-size: 9px !important; font-style: normal; line-height: 1.35;
+  vertical-align: 1px;
+}
+.rp-flag.s-best { border-color: #806b2c; color: #f0d36b !important; }
 #replay-detail { height: 100%; overflow: auto; padding: 12px 14px; display: flex; flex-direction: column; }
 #replay-detail > * { flex: 0 0 auto; }
 /* 이벤트 목록만 세로 공간이 모자라면 줄어듦 (최소 90px) — 화면+이벤트 동시 노출 */
@@ -933,6 +941,72 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   padding: 5px 8px; color: var(--text-mute); font-size: 11px;
 }
 .replay-kpis b { color: var(--text); margin-left: 3px; }
+.replay-analysis-card {
+  margin: 0 0 12px; padding: 9px 11px; border: 1px solid var(--border);
+  border-radius: 7px; background: color-mix(in srgb, var(--bg-1) 86%, #17263a);
+}
+.ra-title { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; color: var(--text-mute); font-size: 11px; }
+.ra-title a, .replay-analysis-empty a { color: #79b7ff; text-decoration: none; }
+.ra-title a:hover, .replay-analysis-empty a:hover { text-decoration: underline; }
+.ra-flag { padding: 2px 6px; border: 1px solid #566171; border-radius: 999px; color: var(--text); font-weight: 800; }
+.ra-flag.s-danger { border-color: #7b4c49; background: #3d2324; color: #ffb5ac; }
+.ra-flag.s-best { border-color: #8b742d; background: #3b3217; color: #f5d76e; }
+.ra-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; margin-top: 8px; }
+.ra-grid > div { min-width: 0; padding: 7px 8px; background: rgba(0, 0, 0, .16); border-radius: 5px; }
+.ra-grid small, .ra-grid b, .ra-grid span { display: block; overflow: hidden; text-overflow: ellipsis; }
+.ra-grid small { color: var(--text-mute); font-size: 10px; }
+.ra-grid b { margin-top: 3px; color: var(--text); font-size: 11.5px; white-space: normal; }
+.ra-grid span { margin-top: 3px; color: var(--text-dim); font-size: 10.5px; white-space: normal; }
+.ra-final { margin-top: 7px; color: #e6b2aa; font-size: 11px; }
+.ra-caveat { margin-top: 5px; color: var(--text-mute); font-size: 10px; }
+.ra-jump { padding: 0; border: 0; background: none; color: #79b7ff; cursor: pointer; font: inherit; font-weight: 800; }
+.ra-jump:hover { text-decoration: underline; }
+.replay-focus-card {
+  margin: 0 0 12px; padding: 9px 11px; border: 1px solid #3f5369;
+  border-radius: 7px; background: color-mix(in srgb, var(--bg-1) 89%, #15304b);
+}
+.rf-title { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+.rf-title b { color: #a9d4ff; font-size: 12px; }
+.rf-title span { color: var(--text-mute); font-size: 10.5px; }
+.rf-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; margin-top: 8px; }
+.rf-item { min-width: 0; padding: 7px 8px; border: 1px solid var(--border-soft); border-radius: 6px; background: rgba(0, 0, 0, .16); }
+.rf-item-head { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.rf-item-head span {
+  flex: 0 0 auto; padding: 1px 5px; border: 1px solid #58728d; border-radius: 999px;
+  color: #9fc9f2; font-size: 9.5px; font-weight: 800;
+}
+.rf-item-head b { min-width: 0; color: var(--text); font-size: 11.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rf-item p { display: none; }
+.rf-item.k-p1_rune_quasar, .rf-item.k-p2_crystal_spread {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 6px;
+}
+.rf-item.k-p1_rune_quasar .rf-item-head, .rf-item.k-p1_rune_quasar > p,
+.rf-item.k-p2_crystal_spread .rf-item-head, .rf-item.k-p2_crystal_spread > p {
+  grid-column: 1 / -1;
+}
+.rf-wave { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 3px 5px; padding: 4px 0; border-top: 1px solid rgba(255, 255, 255, .055); }
+.rf-wave > b { padding-top: 3px; color: var(--text-dim); font-size: 9.5px; }
+.rf-jumps { display: flex; flex-wrap: wrap; gap: 3px; min-width: 0; }
+.rf-jumps button, .rf-jumps i {
+  min-height: 0; padding: 2px 5px; border: 1px solid #4d6c88; border-radius: 4px;
+  background: #17283a; color: #a9d4ff; font-size: 9.5px; font-style: normal; line-height: 1.35;
+}
+.rf-jumps button { cursor: pointer; }
+.rf-jumps button:hover { border-color: #79b7ff; background: #203b55; color: #d6ebff; }
+.rf-wave small { grid-column: 2; min-width: 0; color: var(--text-dim); font-size: 9.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rf-item.k-p1_rune_quasar .rf-wave, .rf-item.k-p2_crystal_spread .rf-wave { display: block; min-width: 0; }
+.rf-item.k-p1_rune_quasar .rf-wave > b, .rf-item.k-p2_crystal_spread .rf-wave > b { display: block; padding: 0 0 3px; }
+.rf-item.k-p1_rune_quasar .rf-wave small, .rf-item.k-p2_crystal_spread .rf-wave small { display: block; margin-top: 3px; }
+.rf-unavailable { margin-top: 6px; padding: 5px 6px; border-radius: 4px; background: rgba(0, 0, 0, .14); color: var(--text-mute); font-size: 10px; }
+.rf-item.s-no_positions { opacity: .72; }
+.rf-caveat { margin-top: 6px; color: var(--text-mute); font-size: 9px; }
+.replay-analysis-empty {
+  min-height: 260px; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 8px; padding: 28px; text-align: center;
+  border: 1px dashed var(--border); border-radius: 7px; color: var(--text-mute);
+}
+.replay-analysis-empty b { color: var(--text); font-size: 15px; }
+.replay-analysis-empty p { max-width: 620px; margin: 0; line-height: 1.6; }
 .replay-main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
 .replay-video-wrap, .replay-canvas-wrap { min-width: 0; }
 /* 영상·리플레이 두 화면 높이 통일 — 같은 폭(1fr) + 같은 비율(1000:660) + 같은 상한 → 항상 같은 px 높이 */
@@ -1005,6 +1079,17 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   pointer-events: none;
 }
 .rc-banner:empty { display: none; }
+.rc-space {
+  position: absolute; top: 8px; right: 8px; z-index: 2;
+  padding: 3px 9px; border: 1px solid rgba(180, 194, 218, .38);
+  border-radius: 999px; background: rgba(10, 13, 18, .78);
+  color: #d7dfec; font-size: 11px; pointer-events: none;
+}
+.rc-space[data-space="p2"] {
+  border-color: rgba(181, 132, 255, .72); background: rgba(42, 22, 71, .86);
+  color: #eadcff;
+}
+.rc-space:empty { display: none; }
 #rc-clock { color: var(--text-mute); font-size: 11.5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .rc-units { display: flex; flex-wrap: wrap; gap: 4px; max-height: 58px; overflow-y: auto; }
 .rc-unit {
@@ -1181,6 +1266,7 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   .meta { margin-left: 0; }
   .split-h { grid-template-columns: minmax(520px, 1fr) minmax(460px, 1fr); }
   .comp-grid { grid-template-columns: 1fr 300px; }
+  .ra-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 920px) {
   html, body { overflow: auto; height: auto; min-height: 100vh; }
@@ -1194,6 +1280,7 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   .comp-row[data-row="bottom"] { grid-column: 1; grid-row: 2; }
   .comp-sidebar { grid-column: 1; grid-row: 3; max-height: none; }
   .replay-grid, .replay-main { grid-template-columns: 1fr; height: auto; }
+  .ra-grid, .rf-grid { grid-template-columns: 1fr; }
   .replay-event { grid-template-columns: 52px 58px minmax(0, 1fr); }
   .replay-event .rtg, .replay-event .rd { display: none; }
 }
