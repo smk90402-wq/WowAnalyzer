@@ -3538,12 +3538,19 @@ function bind() {
   }));
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeSpecModal(); closeFunModal(); closeS2Modal(); $('#gear-modal')?.classList.remove('show'); }
-    // 스페이스바 = 리플레이 재생/일시정지 (리플레이 탭 + 입력창 포커스 아닐 때)
-    if ((e.code === 'Space' || e.key === ' ') && rc.meta
-        && document.querySelector('#pane-replay')?.classList.contains('active')
-        && !e.target.closest?.('input, textarea, select, [contenteditable]')) {
+    // 리플레이 단축키 (리플레이 탭 + 글자 입력 중 아닐 때).
+    // 타임라인 바(range)는 예외로 허용 — 스크럽을 잡은 채로도 단축키가 먹는다.
+    const rcKeysOk = rc.meta
+      && document.querySelector('#pane-replay')?.classList.contains('active')
+      && !e.target.closest?.('input:not([type="range"]), textarea, select, [contenteditable]');
+    if (rcKeysOk && (e.code === 'Space' || e.key === ' ')) {
       e.preventDefault();   // 페이지 스크롤·포커스된 버튼 재클릭 방지
       rc.playing ? rcPause() : rcPlay();
+    }
+    // ←/→ = 5초 이동 (range 기본 0.1초 이동을 대체)
+    if (rcKeysOk && (e.code === 'ArrowLeft' || e.code === 'ArrowRight')) {
+      e.preventDefault();
+      rcSeek(rc.t + (e.code === 'ArrowRight' ? 5 : -5));
     }
   });
 
