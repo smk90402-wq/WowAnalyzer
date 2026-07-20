@@ -1869,6 +1869,9 @@ function renderReplayAnalysisOnly(detail) {
     </div>`;
 }
 
+// 우측 분석 패널 접힘 상태 — 풀을 전환해도 유지
+let rcSideOpen = true;
+
 function renderLocalReplayDetail(detail) {
   const root = $('#replay-detail');
   if (!root) return;
@@ -1882,6 +1885,10 @@ function renderLocalReplayDetail(detail) {
   const events = detail.events || [];
   const hasVideo = !!detail.video?.available;
   const isLura = Number(cap.encounter_id) === 3183 || String(cap.encounter || '').includes('한밤의 도래');
+  // 분석·리뷰 카드는 지도 위가 아니라 우측 접이식 패널에 — 지도가 주인공
+  const analysisCardHtml = _replayAnalysisCard(analysis, true);
+  const focusHtml = isLura ? `<div id="replay-review-focus">${_replayFocusCard(null, true, true)}</div>` : '';
+  const hasSide = !!(analysisCardHtml || focusHtml);
   root.classList.remove('empty');
   root.classList.remove('analysis-only');
   root.classList.toggle('view-max', !hasVideo);
@@ -1898,8 +1905,7 @@ function renderLocalReplayDetail(detail) {
         <span>전투원 <b id="rc-kpi-units">${(detail.actors || []).length.toLocaleString()}</b></span>
       </div>
     </div>
-    ${_replayAnalysisCard(analysis, true)}
-    ${isLura ? `<div id="replay-review-focus">${_replayFocusCard(null, true, true)}</div>` : ''}
+    <div class="replay-mid">
     <div class="replay-main ${hasVideo ? '' : 'view-map'}">
       <div class="replay-video-wrap">
         ${hasVideo
@@ -1917,6 +1923,14 @@ function renderLocalReplayDetail(detail) {
         <div id="rc-units" class="rc-units"></div>
         <div id="rc-note" class="rc-note"></div>
       </div>
+    </div>
+    ${hasSide ? `<aside id="replay-side" class="${rcSideOpen ? '' : 'collapsed'}">
+      <button id="rc-side-toggle" type="button" title="분석 패널 접기/펴기 — 접으면 지도가 화면 전체를 씁니다">${rcSideOpen ? '분석 접기 ▸' : '◂ 분석'}</button>
+      <div class="rc-side-body">
+        ${analysisCardHtml}
+        ${focusHtml}
+      </div>
+    </aside>` : ''}
     </div>
     <!-- 타임라인 하나 — 영상·리플레이 둘 다 이 줄로 조작 (두 화면 아래 전체 폭) -->
     <div class="rc-controls">
@@ -1980,6 +1994,19 @@ function renderLocalReplayDetail(detail) {
     if (vv && vm) {
       vv.addEventListener('click', () => setView(mainEl.classList.contains('view-video') ? '' : 'video'));
       vm.addEventListener('click', () => setView(mainEl.classList.contains('view-map') ? '' : 'map'));
+    }
+  }
+  // 우측 분석 패널 접기/펴기 — 접으면 지도가 가로 전체를 쓴다
+  {
+    const side = $('#replay-side');
+    const sideToggle = $('#rc-side-toggle');
+    if (side && sideToggle) {
+      sideToggle.addEventListener('click', () => {
+        rcSideOpen = !rcSideOpen;
+        side.classList.toggle('collapsed', !rcSideOpen);
+        sideToggle.textContent = rcSideOpen ? '분석 접기 ▸' : '◂ 분석';
+        window.dispatchEvent(new Event('resize'));   // 2D/3D 캔버스 크기 재계산
+      });
     }
   }
   // 소리 켜기/끄기 — video.muted 토글 (동사형: 누르면 할 일을 표시)

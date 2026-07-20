@@ -1024,12 +1024,28 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .replay-main.view-video .replay-canvas-wrap,
 .replay-main.view-map .replay-video-wrap { display: none; }
 #replay-detail.view-max { overflow: hidden; }              /* 전체 스크롤 대신 내부 맞춤 */
-#replay-detail.view-max > .replay-main { flex: 1 1 auto; min-height: 160px; }
-/* view-max에서 분석·리뷰 카드가 높으면 아래 컨트롤·이벤트가 잘리므로
-   남는 공간만 쓰게 줄이고, 넘친 내용은 카드 자체 스크롤로 본다 */
-#replay-detail.view-max > .replay-analysis-card,
-#replay-detail.view-max > #replay-review-focus {
-  flex: 0 1 auto; min-height: 34px; overflow-y: auto;
+/* basis를 내용물이 아닌 뷰포트 스케일로 고정 — 사이드 패널을 접거나 펴도
+   지도 높이가 출렁이지 않고 항상 남는 세로 공간을 전부 가져간다 */
+#replay-detail.view-max > .replay-mid { flex: 1 1 100vh; min-height: 160px; }
+/* 지도(또는 영상)와 우측 분석 패널을 한 줄에 — 지도가 주인공, 분석은 접이식 */
+.replay-mid { display: flex; gap: 12px; align-items: stretch; min-height: 0; }
+.replay-mid > .replay-main { flex: 1 1 auto; min-width: 0; }
+#replay-side { flex: 0 0 360px; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+#rc-side-toggle {
+  align-self: stretch; margin: 0 0 8px; padding: 4px 8px; cursor: pointer;
+  border: 1px solid var(--border); border-radius: 5px;
+  background: var(--bg-1); color: var(--text-mute); font-size: 10.5px;
+}
+#rc-side-toggle:hover { border-color: #79b7ff; color: #d6ebff; }
+.rc-side-body { min-height: 0; overflow-y: auto; }
+#replay-side .replay-analysis-card, #replay-side .replay-focus-card { margin: 0 0 10px; }
+#replay-side .ra-grid { grid-template-columns: minmax(0, 1fr); }   /* 좁은 패널: 세로 나열 */
+#replay-side .rf-grid { grid-template-columns: minmax(0, 1fr); }
+#replay-side.collapsed { flex: 0 0 26px; }
+#replay-side.collapsed .rc-side-body { display: none; }
+#replay-side.collapsed #rc-side-toggle {
+  flex: 1 1 auto; margin: 0; padding: 8px 3px;
+  writing-mode: vertical-rl; letter-spacing: 2px;
 }
 .replay-main.view-video, .replay-main.view-map { display: flex; }
 .replay-main.view-video .replay-video-wrap { flex: 1 1 auto; min-height: 0; display: flex; }
