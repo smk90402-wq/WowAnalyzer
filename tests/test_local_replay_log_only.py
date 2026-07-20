@@ -200,6 +200,54 @@ class LogOnlyReplayTests(unittest.TestCase):
                 self.assertEqual(42, terrain["instance_id"])
                 self.assertEqual((10.0, 10.0, 20.0, 20.0), terrain["bbox"])
 
+    def test_frames_cache_survives_live_log_growth(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_raw:
+            tmp = Path(tmp_raw)
+            log_path = tmp / "WoWCombatLog-071926_130000.txt"
+            player = "Player-1-00000001"
+            boss = "Creature-0-0-0-0-99999-00000001"
+            log_path.write_text(
+                _line("13:00:01.0000", 'ENCOUNTER_START,9001,"Test Boss",16,2,42')
+                + _position_event(
+                    "13:00:01.1000", player, "Tester-Realm", "0x511",
+                    boss, "Test Boss", player, 10.0, 20.0)
+                + _position_event(
+                    "13:00:01.2000", boss, "Test Boss", "0x10a48",
+                    player, "Tester-Realm", boss, 15.0, 25.0)
+                + _line("13:00:03.0000", 'ENCOUNTER_END,9001,"Test Boss",16,2,1,2000'),
+                encoding="utf-8",
+            )
+            with (
+                patch.object(
+                    local_replay,
+                    "_standalone_log_paths",
+                    return_value=[log_path],
+                ),
+                patch.object(local_replay, "_load_captures", return_value=[]),
+                patch.object(local_replay, "latest_log_path", return_value=log_path),
+                patch.object(local_replay, "wow_log_dir", return_value=tmp),
+                patch.object(local_replay, "cctv_dir", return_value=tmp),
+                patch.object(
+                    local_replay,
+                    "_lura_sync_index",
+                    return_value=local_replay._empty_lura_sync_index(),
+                ),
+            ):
+                listing = local_replay.list_replays()
+                replay_id = listing["rows"][0]["id"]
+                local_replay._frames_cache.clear()
+                with patch.object(
+                    local_replay,
+                    "_stream_frames_window",
+                    wraps=local_replay._stream_frames_window,
+                ) as stream_frames:
+                    local_replay.replay_frames(replay_id)
+                    # 활성 로그 성장 시뮬레이션 — 완료된 전투 구간은 불변이라 캐시 유지
+                    with log_path.open("a", encoding="utf-8") as fh:
+                        fh.write(_line("13:00:05.0000", "SPELL_CAST_SUCCESS,junk"))
+                    local_replay.replay_frames(replay_id)
+                    self.assertEqual(1, stream_frames.call_count)
+
     def test_wcl_sync_enriches_local_replay_and_hides_analysis_only_pull(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_raw:
             tmp = Path(tmp_raw)

@@ -1025,6 +1025,12 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .replay-main.view-map .replay-video-wrap { display: none; }
 #replay-detail.view-max { overflow: hidden; }              /* 전체 스크롤 대신 내부 맞춤 */
 #replay-detail.view-max > .replay-main { flex: 1 1 auto; min-height: 160px; }
+/* view-max에서 분석·리뷰 카드가 높으면 아래 컨트롤·이벤트가 잘리므로
+   남는 공간만 쓰게 줄이고, 넘친 내용은 카드 자체 스크롤로 본다 */
+#replay-detail.view-max > .replay-analysis-card,
+#replay-detail.view-max > #replay-review-focus {
+  flex: 0 1 auto; min-height: 34px; overflow-y: auto;
+}
 .replay-main.view-video, .replay-main.view-map { display: flex; }
 .replay-main.view-video .replay-video-wrap { flex: 1 1 auto; min-height: 0; display: flex; }
 .replay-main.view-video .replay-video, .replay-main.view-video .replay-no-video {

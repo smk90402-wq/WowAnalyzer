@@ -656,15 +656,20 @@ def list_replays(limit: int = 80) -> dict[str, Any]:
 
 
 def _find_capture(replay_id: str) -> dict[str, Any]:
+    # log-/wcl- 네임스페이스는 id 접두사로 즉시 분기 — CCTV json 수백 개를 읽지 않는다.
+    if replay_id.startswith("log-"):
+        log_cap = _find_log_replay_cap(replay_id)
+        if log_cap:
+            return log_cap
+        raise ReplayError(f"replay not found: {replay_id}")
+    if replay_id.startswith("wcl-"):
+        wcl_cap = _find_wcl_only_cap(replay_id)
+        if wcl_cap:
+            return wcl_cap
+        raise ReplayError(f"replay not found: {replay_id}")
     for cap in _load_captures(limit=400):
         if cap.get("id") == replay_id:
             return cap
-    log_cap = _find_log_replay_cap(replay_id)
-    if log_cap:
-        return log_cap
-    wcl_cap = _find_wcl_only_cap(replay_id)
-    if wcl_cap:
-        return wcl_cap
     raise ReplayError(f"replay not found: {replay_id}")
 
 
@@ -1274,6 +1279,7 @@ _DIFFICULTY_LABELS = {
     14: "일반 공격대",
     15: "영웅 공격대",
     16: "신화 공격대",
+    17: "공격대 찾기",
     23: "신화 던전",
 }
 
@@ -2693,7 +2699,13 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
             out["review_focus"] = unavailable_focus
         return out
     log_path, enc = _find_frames_encounter(cap)
-    sig = _file_sig(log_path)
+    # 완료된 전투의 [start_off, end_off] 바이트 구간은 활성 로그가 자라도 불변 —
+    # 파일 전체 시그니처를 키로 쓰면 라이브 로그에서 매 요청 재파싱이라 구간 키를 쓴다.
+    end_off = _to_int(enc.get("end_off"))
+    if end_off:
+        sig = (str(log_path), _to_int(enc.get("start_off")), end_off)
+    else:
+        sig = _file_sig(log_path)
     hit = _frames_cache.get(replay_id)
     if hit and hit[0] == sig:
         return hit[1]
