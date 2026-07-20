@@ -186,6 +186,8 @@ window.Replay3D = (() => {
     const ray = new THREE.Raycaster();
     ray.setFromCamera(ndc, camera);
     const targets = Object.values(units).filter(r => r.group.visible).map(r => r.group);
+    // 죽은 유닛은 마커가 숨고 해골만 남음 — 해골도 클릭해 선택 가능하게
+    for (const s of Object.values(skulls)) if (s.sprite && s.sprite.visible) targets.push(s.sprite);
     let uid = null;
     for (const hit of ray.intersectObjects(targets, true)) {
       let o = hit.object;
@@ -362,37 +364,55 @@ window.Replay3D = (() => {
     }
     if (!rings[i]) {
       const mat = new THREE.MeshBasicMaterial({
-        color: 0xffffff, transparent: true, side: THREE.DoubleSide, depthWrite: false,
+        color: 0xffffff, transparent: true, side: THREE.DoubleSide,
+        depthWrite: false, depthTest: false,   // 경사·줌아웃에서 지형에 깎여 잘리지 않게
       });
+      // 지형 드레이프용 내부 분할 포함 지오메트리 (드레이프는 drapeToTerrain 참고)
       let geometry;
       if (shape === 'circle') {
-        geometry = new THREE.CircleGeometry(1, 48);
+        geometry = new THREE.RingGeometry(0.001, 1, 48, 6);
       } else if (shape === 'donut') {
-        geometry = new THREE.RingGeometry(Math.max(0.05, Number(innerRatio) || 0.5), 1, 48);
+        geometry = new THREE.RingGeometry(Math.max(0.05, Number(innerRatio) || 0.5), 1, 48, 6);
       } else if (shape === 'cone') {
         const half = (Number(angleDeg) || 90) * Math.PI / 360;
-        const sector = new THREE.Shape();
-        sector.moveTo(0, 0);
-        for (let j = 0; j <= 24; j++) {
-          const a = -half + half * 2 * j / 24;
-          sector.lineTo(Math.sin(a), Math.cos(a));
-        }
-        sector.closePath();
-        geometry = new THREE.ShapeGeometry(sector);
+        // thetaStart 는 +X 축 기준 CCW — 부채꼴 중심을 로컬 +Y(전방)에 맞춘다
+        geometry = new THREE.RingGeometry(0.01, 1, 24, 6, Math.PI / 2 - half, half * 2);
       } else if (shape === 'line') {
-        geometry = new THREE.PlaneGeometry(1, 1);
+        geometry = new THREE.PlaneGeometry(1, 1, 2, 12);
         geometry.translate(0, 0.5, 0);
       } else {
-        geometry = new THREE.RingGeometry(0.82, 1, 40);
+        geometry = new THREE.RingGeometry(0.82, 1, 40, 2);
       }
       const mesh = new THREE.Mesh(geometry, mat);
       mesh.rotation.x = -Math.PI / 2;     // 지면에 눕힌 원형 링
+      // 기본 오일러 순서(XYZ)는 rotation.y(시전 방향)가 눕히기 전에 적용돼
+      // 부채꼴/직선이 지면에서 기울어 파묻힌다 — 눕힌 뒤 방향을 돌리는 YXZ 로
+      mesh.rotation.order = 'YXZ';
+      mesh.renderOrder = -1;              // 유닛·이름표보다 먼저 그려 장판이 그 위를 덮지 않게
+      mesh.frustumCulled = false;         // 드레이프가 정점 높이를 바꿔 원래 경계구가 안 맞음
       mesh.userData.meshKey = meshKey;
       mesh.visible = false;
       scene.add(mesh);
       rings[i] = mesh;
     }
     return rings[i];
+  }
+
+  // 눕힌 장판 메시의 각 정점을 지형 높이 + lift 로 맞춘다 (경사에서 파묻힘/공중부양 방지).
+  // 전제: rotation.order='YXZ' + rotation.x=-π/2 → 월드 높이 = 로컬 z·scale.z + position.y
+  // (검증: 정점 (x,y,z) → 월드 (x·cosθ−y·sinθ, z, −x·sinθ−y·cosθ), θ=rotation.y 무관)
+  function drapeToTerrain(mesh, lift) {
+    const attr = mesh.geometry.attributes.position;
+    const sx = mesh.scale.x, sy = mesh.scale.y, sz = mesh.scale.z || 1;
+    const cy = Math.cos(mesh.rotation.y), sn = Math.sin(mesh.rotation.y);
+    for (let i = 0; i < attr.count; i++) {
+      const lx = attr.getX(i) * sx, ly = attr.getY(i) * sy;
+      const X = mesh.position.x + cy * lx - sn * ly;   // 씬 좌표 오프셋 (Ry 적용 후)
+      const Z = mesh.position.z - sn * lx - cy * ly;
+      const wx = center.x - Z, wy = center.y - X;      // sceneX/sceneZ 역변환
+      attr.setZ(i, (heightAt(wx, wy) - center.h + lift - mesh.position.y) / sz);
+    }
+    attr.needsUpdate = true;
   }
 
   function buildScene(grid) {
@@ -509,7 +529,8 @@ window.Replay3D = (() => {
         if (lastDeath >= 0 && cur.srcT <= lastDeath) show = false;
       }
       rec.group.visible = !!show;
-      if (!show) continue;
+      // dome 은 씬 직속이라 그룹 숨김에 안 딸려감 — 스킵 경로에서 명시적으로 숨김
+      if (!show) { if (rec.dome) rec.dome.visible = false; continue; }
       const gy = heightAt(cur.x, cur.y) - center.h;
       rec.group.position.set(sceneX(cur.y), gy, sceneZ(cur.x));
       if (cur.facing != null) {
@@ -532,7 +553,8 @@ window.Replay3D = (() => {
       if (holding && !rec.crystal) {
         const cm = new THREE.Mesh(
           new THREE.OctahedronGeometry(0.85),
-          new THREE.MeshLambertMaterial({ color: 0xf5d76e, emissive: 0x9a7a22 }));
+          // transparent: 불투명 패스에 남으면 depthTest 없는 장판이 위를 덮음
+          new THREE.MeshLambertMaterial({ color: 0xf5d76e, emissive: 0x9a7a22, transparent: true }));
         cm.scale.set(0.7, 1.15, 0.7);        // 세로로 길쭉한 수정 모양
         cm.position.y = 3.7;                 // 원통(키 2.0 + 바닥 0.3) 위
         rec.group.add(cm);
@@ -545,19 +567,29 @@ window.Replay3D = (() => {
           rec.crystal.position.y = 3.7 + 0.25 * Math.sin(t * 3);  // 둥실 부유
         }
       }
-      // P3: 보유자 발밑 12yd 보호 링(횃불 운반자) — 이 밖이면 '한밤' 중첩
+      // P3: 보유자 발밑 12yd 보호 링(횃불 운반자) — 이 밖이면 '한밤' 중첩.
+      // 유닛 그룹 자식이면 강조 배율(×1.35)·펄스에 딸려가 반경이 왜곡됨 — 씬 직속 12yd 고정
       if (holding && !rec.dome) {
         const dm = new THREE.Mesh(
-          new THREE.RingGeometry(0.965, 1, 48),
+          new THREE.RingGeometry(0.965, 1, 48, 2),
           new THREE.MeshBasicMaterial({ color: 0xf5d76e, transparent: true, opacity: 0.5,
-                                        side: THREE.DoubleSide, depthWrite: false }));
+                                        side: THREE.DoubleSide, depthWrite: false, depthTest: false }));
         dm.rotation.x = -Math.PI / 2;
         dm.scale.set(12, 12, 1);
-        dm.position.y = 0.22;
-        rec.group.add(dm);
+        dm.renderOrder = -1;
+        dm.frustumCulled = false;
+        scene.add(dm);                    // disposeScene 의 traverse 가 정리
         rec.dome = dm;
       }
-      if (rec.dome) rec.dome.visible = holding && rcSpaceAt(t)?.key === 'p3';
+      if (rec.dome) {
+        const domeOn = holding && rcSpaceAt(t)?.key === 'p3';
+        rec.dome.visible = domeOn;
+        if (domeOn) {
+          rec.dome.position.copy(rec.group.position);
+          rec.dome.position.y += 0.22;
+          drapeToTerrain(rec.dome, 0.22);
+        }
+      }
     }
 
     // 선택 유닛 발밑 링
@@ -565,16 +597,19 @@ window.Replay3D = (() => {
     if (selRec && selRec.group.visible) {
       if (!selRing) {
         selRing = new THREE.Mesh(
-          new THREE.RingGeometry(0.78, 1, 40),
+          new THREE.RingGeometry(0.78, 1, 40, 2),
           new THREE.MeshBasicMaterial({ color: 0x7db7ff, transparent: true, opacity: 0.95,
-                                        side: THREE.DoubleSide, depthWrite: false }));
+                                        side: THREE.DoubleSide, depthWrite: false, depthTest: false }));
         selRing.rotation.x = -Math.PI / 2;
+        selRing.renderOrder = -1;
+        selRing.frustumCulled = false;
         scene.add(selRing);   // disposeScene 의 traverse 가 정리
       }
       const rr = selRec.r * 1.8;
       selRing.position.copy(selRec.group.position);
       selRing.position.y += 0.18;
       selRing.scale.set(rr, rr, 1);
+      drapeToTerrain(selRing, 0.18);
       selRing.visible = true;
     } else if (selRing) {
       selRing.visible = false;
@@ -588,6 +623,7 @@ window.Replay3D = (() => {
         const pos = rcTrackAt(rc.tracks[d.id], Number(d.t));
         if (!pos) { skulls[i] = { sprite: null }; return; }
         const spr = makeTextSprite('☠', '#f0f0f0');
+        spr.userData.uid = d.id;   // 해골 클릭 = 죽은 유닛 선택 (pickAt)
         spr.position.set(sceneX(pos.y), heightAt(pos.x, pos.y) - center.h + 1.2, sceneZ(pos.x));
         scene.add(spr);
         s = skulls[i] = { sprite: spr };
@@ -634,6 +670,7 @@ window.Replay3D = (() => {
         mesh.rotation.y = 0;
       }
       mesh.position.set(sceneX(pos.y), heightAt(pos.x, pos.y) - center.h + 0.25, sceneZ(pos.x));
+      drapeToTerrain(mesh, 0.3);
       mesh.material.color.set(it.danger ? '#ff5b5b'
         : ({ hit: '#b18cf0', impact: '#ef6b62', summon: '#4fc9b0' }[ev.kind] || '#e8a34c'));
       mesh.material.opacity = (shape === 'target' ? 0.9 : (it.danger ? 0.42 : 0.24)) * it.fade;
@@ -677,6 +714,8 @@ window.Replay3D = (() => {
       ready, flat, builtFor,
       grid: terrain ? { w: terrain.grid_w, h: terrain.grid_h, rect: terrain.world_rect } : null,
       centerH: center.h,
+      domes: Object.values(units).filter(r => r.dome)
+        .map(r => ({ id: r.u.id, visible: r.dome.visible, scale: r.dome.scale.x })),
       vertices: scene ? (() => {
         let n = 0;
         scene.traverse(o => { if (o.isMesh && o.geometry.attributes.position) n += o.geometry.attributes.position.count; });

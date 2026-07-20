@@ -1737,6 +1737,20 @@ function _feedRow(it) {
 const rcMechanicOff = new Set();
 const rcMechanicShown = (ev) => !ev.mechanic_key || !rcMechanicOff.has(ev.mechanic_key);
 
+// 네임드별 기믹 필터 저장 — 팝업의 '저장'을 누르면 지금 켠/끈 상태를 남기고,
+// 다음에 같은 네임드 리플레이를 열 때 자동 적용한다 (localStorage)
+const rcMechSaveKey = () => `rcMechFilter:${Number(rc.meta?.encounter_id) || 0}`;
+function rcSaveMechanicFilter() {
+  try { localStorage.setItem(rcMechSaveKey(), JSON.stringify([...rcMechanicOff])); return true; }
+  catch (_) { return false; }
+}
+function rcSavedMechanicOff() {
+  try {
+    const v = JSON.parse(localStorage.getItem(rcMechSaveKey()) || '[]');
+    return Array.isArray(v) ? v : [];
+  } catch (_) { return []; }
+}
+
 function rcMechanicMeta(key) {
   return (key && rc.mechanicByKey[key]) || null;
 }
@@ -1753,7 +1767,8 @@ function rcPlaceMechanicPop(btn, pop) {
   pop.style.top = `${Math.round(y)}px`;
 }
 
-// 필터 변경을 모든 표시 경로(피드·타임라인 트랙·링·유닛 패널)에 반영
+// 필터 변경을 표시 경로(피드·타임라인 트랙·링)에 반영 — 유닛 패널은 필터와
+// 무관하게 전부 표시 (2026-07-20 사용자 결정: 캐릭터 상세는 숨기지 않는다)
 function rcApplyMechanicFilter() {
   renderReplayEventRows();
   document.querySelectorAll('#rc-bossevents i[data-mkey]').forEach(el => {
@@ -2076,6 +2091,7 @@ function renderLocalReplayDetail(detail) {
           ? `<div class="rc-mechanic-all">
               <button type="button" data-mall="on">전체 켜기</button>
               <button type="button" data-mall="off">전체 끄기</button>
+              <button type="button" data-msave title="지금 켠/끈 상태를 이 네임드 기본으로 저장 — 다음에 같은 네임드를 열면 그대로 적용">저장</button>
             </div>` + mechanics.map((v, i) => {
               const g = v.geometry || {};
               const size = Number(g.radius || g.length) || 0;
@@ -2106,6 +2122,12 @@ function renderLocalReplayDetail(detail) {
           dbtn.classList.toggle('filtered', rcMechanicOff.size > 0);
           rcApplyMechanicFilter();
         }));
+        const saveBtn = dpop.querySelector('button[data-msave]');
+        if (saveBtn) saveBtn.addEventListener('click', () => {
+          const ok = rcSaveMechanicFilter();
+          saveBtn.textContent = ok ? '저장됨 ✓' : '저장 실패';
+          setTimeout(() => { saveBtn.textContent = '저장'; }, 1200);
+        });
         dpop.querySelectorAll('a').forEach(a => a.addEventListener('click', e => {
           e.preventDefault(); e.stopPropagation();
           window.open(a.href, '_blank', 'noopener');
@@ -2277,7 +2299,13 @@ async function initReplayCanvas(replayId) {
   rc.bossMechanics = j.boss_mechanics || [];
   rc.mechanicByKey = Object.fromEntries(rc.bossMechanics.map(v => [v.key, v]));
   rcMechanicOff.clear();
-  document.getElementById('rc-mechanic-btn')?.classList.remove('filtered');
+  // 저장해둔 이 네임드 기믹 필터 복원 — 이번 전투에 실제 있는 기믹 키만 적용
+  {
+    const known = new Set(rc.bossMechanics.map(v => v.key));
+    for (const ev of rc.bossEvents) if (ev.mechanic_key) known.add(ev.mechanic_key);
+    for (const k of rcSavedMechanicOff()) if (known.has(k)) rcMechanicOff.add(k);
+  }
+  document.getElementById('rc-mechanic-btn')?.classList.toggle('filtered', rcMechanicOff.size > 0);
   // 기간형 검색 창 = 최장 지속 기믹 + 여유 — 장기 디버프도 끝까지 링·패널 유지
   let maxDur = 0;
   for (const ev of rc.bossEvents) {
@@ -2291,6 +2319,7 @@ async function initReplayCanvas(replayId) {
   }
   rc.casts = j.casts || {};
   rc.crystalHolds = j.crystal_holds || [];
+  rc.hpDrops = {};   // 체력 급감 캐시 — 리플레이별로 새로 계산
   rc.videoOffset = Number(meta.video_offset_s) || 0;
   rc.video = $('#replay-video');  // 영상 없는 풀(아카이브 등)은 null → 자립 시계
   const eventCount = rc.bossEvents.length + rc.playerEvents.length + (meta.deaths || []).length;
@@ -2857,7 +2886,7 @@ const RC_CLASS_KR = {
   paladin: '성기사', priest: '사제', rogue: '도적', shaman: '주술사',
   warlock: '흑마법사', warrior: '전사',
 };
-const RC_PANEL_CASTS = 10;   // 쓴 스킬: 최근 10개
+const RC_PANEL_CASTS = 18;   // 쓴 스킬: 최근 18개 (맞음·체력 급감 행 포함)
 
 let rcPanelKey = '';   // 마지막으로 그린 패널 내용 키 — 같으면 DOM 재구성 생략
 
@@ -2884,6 +2913,71 @@ function rcStacksAt(ev, t) {
   return stacks;
 }
 
+// 체력 급감 구간 — 연속 하락 샘플을 묶어 RC_HPDROP_MIN%p 이상 빠진 지점을 찾고,
+// 그 구간(±0.6초)에 이 유닛이 맞은 보스 기믹을 원인으로 붙인다. 직접 피격이 없으면
+// 걸려 있던 기간형 디버프를 '지속:' 으로 추정 표기. 유닛별 1회 계산 (rc.hpDrops 캐시).
+const RC_HPDROP_MIN = 15;   // 이만큼(%p) 이상 빠지면 '확 빠짐'
+function rcHpDropsFor(uid) {
+  rc.hpDrops ??= {};
+  if (rc.hpDrops[uid]) return rc.hpDrops[uid];
+  const samples = [];
+  for (const s of rc.tracks[uid] || []) if (s[4] != null) samples.push([s[0], Number(s[4])]);
+  const out = [];
+  let run = null;   // {t0, t1, from, to} — 이어지는 하락 구간 (최대 4초)
+  const flush = () => {
+    if (run && run.from - run.to >= RC_HPDROP_MIN) {
+      out.push({ t: run.t1, t0: run.t0, from: Math.round(run.from), to: Math.round(run.to),
+                 drop: Math.round(run.from - run.to), causes: [] });
+    }
+    run = null;
+  };
+  for (let i = 1; i < samples.length; i++) {
+    const [pt, php] = samples[i - 1];
+    const [ct, chp] = samples[i];
+    if (chp < php && ct - pt <= 2.5) {
+      if (run && ct - run.t0 <= 4) { run.t1 = ct; run.to = chp; }
+      else { flush(); run = { t0: pt, t1: ct, from: php, to: chp }; }
+    } else {
+      flush();
+    }
+  }
+  flush();
+  const evs = rc.bossEvents || [];
+  for (const d of out) {
+    const seen = new Set();
+    for (let i = rcUpperIdx(evs, d.t + 0.6, e => Number(e.t)); i >= 0; i--) {
+      const ev = evs[i];
+      if (Number(ev.t) < d.t0 - 0.6) break;
+      if (ev.dest_id !== uid || ev.kind === 'summon') continue;
+      const nm = String(ev.spell || '');
+      if (nm) seen.add(nm);
+    }
+    d.causes = [...seen].reverse();   // 시간순
+    if (!d.causes.length) {
+      for (let i = rcUpperIdx(evs, d.t, e => Number(e.t)); i >= 0; i--) {
+        const ev = evs[i];
+        if (d.t - Number(ev.t) > (rc.evWindow || RC_EV_WINDOW_S)) break;
+        if (ev.dest_id !== uid || ev.end == null || d.t >= Number(ev.end)) continue;
+        const nm = String(ev.spell || '');
+        if (nm && !d.causes.includes(`지속: ${nm}`)) d.causes.push(`지속: ${nm}`);
+      }
+    }
+  }
+  rc.hpDrops[uid] = out;
+  return out;
+}
+
+// 원인 없는 급감이 같은 시각(±1.5초) 공대 40% 이상과 겹치면 '공대 전체 피해'로 추정
+function rcDropIsRaidwide(uid, d) {
+  const players = (rc.meta?.units || []).filter(u => u.kind === 'player');
+  let n = 0;
+  for (const u of players) {
+    if (u.id === uid) { n++; continue; }
+    if (rcHpDropsFor(u.id).some(o => Math.abs(o.t - d.t) <= 1.5)) n++;
+  }
+  return n >= Math.max(4, Math.ceil(players.length * 0.4));
+}
+
 // '지금 걸린 보스 기믹' — uid 대상 중 시각 t 에 표시할 것 (오래된 것 위).
 // 기간형(end 있음)은 활성(시작<=t<end)인 동안, 순간형은 발생 후 3초만.
 // bossEvents 는 t 오름차순 → 이진탐색 + 최근 120초 창만 역방향 스캔 (전체 스캔 금지).
@@ -2895,7 +2989,6 @@ function rcActiveHitsFor(uid, t) {
     const age = t - Number(ev.t);
     if (age > (rc.evWindow || RC_EV_WINDOW_S)) break;
     if (ev.dest_id !== uid) continue;
-    if (!rcMechanicShown(ev)) continue;
     if (ev.end != null) {
       if (t < Number(ev.end)) out.push({ ev, i, end: Number(ev.end) });
     } else if (age <= RC_RING_S) {
@@ -2948,16 +3041,23 @@ function rcUpdatePanel() {
     for (let i = rcUpperIdx(evs, t, e => Number(e.t)); i >= 0; i--) {
       const ev = evs[i];
       if (t - Number(ev.t) > (rc.evWindow || RC_EV_WINDOW_S)) break;
-      if (ev.dest_id !== uid || !rcMechanicShown(ev)) continue;
+      if (ev.dest_id !== uid) continue;   // 기믹 필터 무시 — 캐릭터 상세는 전부
       castRows.push({ t: Number(ev.t), hit: ev });
       hitCnt++;
     }
+  }
+  // 체력 급감 — 확 빠진 구간을 원인 기믹과 함께 타임라인에 끼워 넣기
+  let dropCnt = 0;
+  for (const d of rcHpDropsFor(uid)) {
+    if (d.t > t) break;
+    castRows.push({ t: d.t, hpdrop: d });
+    dropCnt++;
   }
   castRows.sort((a, b) => a.t - b.t);
   const castList = castRows.slice(-RC_PANEL_CASTS);
 
   const key = [uid, dead ? 1 : 0,
-    hits.map(h => `${h.i}:${rcStacksAt(h.ev, t)}`).join(','), castEnd, deathCnt, hitCnt].join('|');
+    hits.map(h => `${h.i}:${rcStacksAt(h.ev, t)}`).join(','), castEnd, deathCnt, hitCnt, dropCnt].join('|');
   if (key !== rcPanelKey) {
     rcPanelKey = key;
     const name = String(u.name || u.id).split('-')[0];
@@ -2988,6 +3088,13 @@ function rcUpdatePanel() {
             const st = c.hit.max_stacks ? ` ×${c.hit.max_stacks}` : '';
             const lbl = c.hit.kind === 'impact' ? '피격' : '걸림';
             return `<div class="rc-panel-row got-${c.hit.kind || 'hit'}"><span class="t">${rcClock(c.t)}</span><span class="s">☄ ${esc(c.hit.spell || '')}${st} ${lbl}</span></div>`;
+          }
+          if (c.hpdrop) {
+            const d = c.hpdrop;
+            if (!d.causes.length && d.raidwide == null) d.raidwide = rcDropIsRaidwide(uid, d);
+            const cause = d.causes.length ? ` · ${d.causes.slice(0, 2).join(', ')}`
+              : (d.raidwide ? ' · 공대 전체 피해' : '');
+            return `<div class="rc-panel-row hpdrop" title="체력 ${d.from}% → ${d.to}%"><span class="t">${rcClock(c.t)}</span><span class="s">🔻 체력 -${d.drop}%${esc(cause)}</span></div>`;
           }
           const pk = rcCastEventKind(uid, c.t, c.spell);
           return `<div class="rc-panel-row"><span class="t">${rcClock(c.t)}</span><span class="s${pk ? ` pk-${pk}` : ''}">${esc(c.spell)}</span></div>`;

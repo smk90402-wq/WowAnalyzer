@@ -1151,17 +1151,20 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .rc-panel-hpbar { position: relative; height: 9px; background: rgba(255, 255, 255, .14); border-radius: 3px; margin-top: 7px; overflow: hidden; }
 .rc-panel-hpbar i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: #6fcf7f; border-radius: 3px; }
 .rc-panel-hptxt { color: var(--text-mute); font-size: 10.5px; margin-top: 3px; }
-.rc-panel-lists { max-height: 168px; overflow-y: auto; margin-top: 6px; }
+.rc-panel-lists { max-height: 300px; overflow-y: auto; margin-top: 6px; }
 .rc-panel-sec { color: var(--text-dim); font-size: 10px; margin: 6px 0 2px; }
 .rc-panel-row { display: flex; gap: 6px; min-width: 0; }
 .rc-panel-row .t { color: var(--accent); font-variant-numeric: tabular-nums; flex: none; }
-.rc-panel-row .s { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* 좁으면 말줄임 대신 아래로 줄바꿈 (2026-07-20 사용자 요청) */
+.rc-panel-row .s { min-width: 0; overflow-wrap: anywhere; }
 .rc-panel-row.hit .s { color: #b18cf0; }
 .rc-panel-row.impact .s { color: #ef6b62; }
 .rc-panel-row.summon .s { color: #4fc9b0; }
 /* 시전 타임라인에 섞인 '맞음' 행 — 디버프 보라 / 피격 빨강 */
 .rc-panel-row.got-hit .s { color: #b18cf0; }
 .rc-panel-row.got-impact .s, .rc-panel-row.got-cast .s { color: #ef8a80; }
+/* 체력 급감 행 — "🔻 체력 -34% · 원인" (마우스 올리면 몇%→몇% 표시) */
+.rc-panel-row.hpdrop .s { color: #ffb066; }
 /* 기간형 기믹 남은 시간 — "· 6초 남음" (값은 매 틱 textContent 만 갱신) */
 .rc-panel-row .rem { color: var(--text-mute); font-size: 10.5px; flex: none; font-variant-numeric: tabular-nums; }
 /* '쓴 스킬' 중 블러드/물약/쿨기류로 잡힌 시전은 종류 색으로 강조 */
