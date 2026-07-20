@@ -1,0 +1,4218 @@
+{
+  "meta": {
+    "encounter_id": 3180,
+    "encounter": "Lightblinded Vanguard",
+    "character": "만터리-아즈샤라",
+    "difficulty": "Mythic",
+    "generated": "2026-07-17"
+  },
+  "current_rankings": {
+    "partition": 3,
+    "partition_name": "12.0.7",
+    "top_100": [
+      {
+        "rank": 1,
+        "character": "은칩",
+        "dps": 222332.434,
+        "item_level": 292,
+        "duration_s": 355.165,
+        "report_code": "FyNkpZwH9zjancQP",
+        "fight_id": 40
+      },
+      {
+        "rank": 2,
+        "character": "Cobrashots",
+        "dps": 217394.946,
+        "item_level": 293,
+        "duration_s": 299.193,
+        "report_code": "dP7CXTZH6vmby1Dj",
+        "fight_id": 28
+      },
+      {
+        "rank": 3,
+        "character": "Druffballern",
+        "dps": 216373.059,
+        "item_level": 292,
+        "duration_s": 295.243,
+        "report_code": "zAyYCXMp2BQH1w8Z",
+        "fight_id": 52
+      },
+      {
+        "rank": 4,
+        "character": "一直很安静丨",
+        "dps": 215379.206,
+        "item_level": 291,
+        "duration_s": 334.338,
+        "report_code": "ajR869AbDwT4yktJ",
+        "fight_id": 22
+      },
+      {
+        "rank": 5,
+        "character": "冷岚曦",
+        "dps": 214948.521,
+        "item_level": 292,
+        "duration_s": 425.089,
+        "report_code": "hAnjNFa4Kzkwrmtv",
+        "fight_id": 81
+      },
+      {
+        "rank": 6,
+        "character": "Iduohunter",
+        "dps": 213419.965,
+        "item_level": 292,
+        "duration_s": 351.672,
+        "report_code": "2HX3DN7YqPhjKdnF",
+        "fight_id": 23
+      },
+      {
+        "rank": 7,
+        "character": "Gizmozz",
+        "dps": 212978.671,
+        "item_level": 292,
+        "duration_s": 341.178,
+        "report_code": "WrZTJDHhY7C9xpaP",
+        "fight_id": 49
+      },
+      {
+        "rank": 8,
+        "character": "Ragedast",
+        "dps": 212950.468,
+        "item_level": 293,
+        "duration_s": 359.34,
+        "report_code": "JXVrHvhwBC7KaxAQ",
+        "fight_id": 27
+      },
+      {
+        "rank": 9,
+        "character": "波多野結巴",
+        "dps": 212917.187,
+        "item_level": 292,
+        "duration_s": 346.89,
+        "report_code": "v7w92TXxYpgWCQkK",
+        "fight_id": 34
+      },
+      {
+        "rank": 10,
+        "character": "금칩",
+        "dps": 211587.292,
+        "item_level": 292,
+        "duration_s": 343.037,
+        "report_code": "LRfzWMXJd3y7CPkx",
+        "fight_id": 37
+      },
+      {
+        "rank": 11,
+        "character": "范丷海辛",
+        "dps": 211403.645,
+        "item_level": 291,
+        "duration_s": 297.321,
+        "report_code": "yhLMaxrjFTPmZvwz",
+        "fight_id": 8
+      },
+      {
+        "rank": 12,
+        "character": "Вароингс",
+        "dps": 210878.691,
+        "item_level": 293,
+        "duration_s": 286.962,
+        "report_code": "ghpyHVFPwrq7d96v",
+        "fight_id": 21
+      },
+      {
+        "rank": 13,
+        "character": "씹엽차",
+        "dps": 210782.726,
+        "item_level": 291,
+        "duration_s": 337.854,
+        "report_code": "BXFa6wzP13HcCVJN",
+        "fight_id": 41
+      },
+      {
+        "rank": 14,
+        "character": "沉默大宝箭",
+        "dps": 210500.925,
+        "item_level": 292,
+        "duration_s": 311.518,
+        "report_code": "QZ1JcDrhTGNgXzkw",
+        "fight_id": 59
+      },
+      {
+        "rank": 15,
+        "character": "Odyhunt",
+        "dps": 210280.975,
+        "item_level": 293,
+        "duration_s": 260.326,
+        "report_code": "RGNA1kjtMw3gdzYf",
+        "fight_id": 63
+      },
+      {
+        "rank": 16,
+        "character": "我是橙子",
+        "dps": 210155.697,
+        "item_level": 292,
+        "duration_s": 345.581,
+        "report_code": "aL2Xfp6zFvZykKdT",
+        "fight_id": 2
+      },
+      {
+        "rank": 17,
+        "character": "尐红手",
+        "dps": 209977.7,
+        "item_level": 292,
+        "duration_s": 337.168,
+        "report_code": "QMgd6zhHv37PF4q8",
+        "fight_id": 8
+      },
+      {
+        "rank": 18,
+        "character": "Ramwog",
+        "dps": 209582.339,
+        "item_level": 293,
+        "duration_s": 302.93,
+        "report_code": "XVqxyDgacfnL4T96",
+        "fight_id": 43
+      },
+      {
+        "rank": 19,
+        "character": "栖夜",
+        "dps": 209382.306,
+        "item_level": 292,
+        "duration_s": 426.705,
+        "report_code": "g7Vmhzw2qa1vdFPy",
+        "fight_id": 25
+      },
+      {
+        "rank": 20,
+        "character": "빵야나쵸",
+        "dps": 208980.411,
+        "item_level": 292,
+        "duration_s": 353.573,
+        "report_code": "dB8nt4J9Y6PxZfDq",
+        "fight_id": 41
+      },
+      {
+        "rank": 21,
+        "character": "주학몬",
+        "dps": 208678.186,
+        "item_level": 291,
+        "duration_s": 296.46,
+        "report_code": "cQ6zh3CR9BfYwGLV",
+        "fight_id": 35
+      },
+      {
+        "rank": 22,
+        "character": "Sankari",
+        "dps": 208668.994,
+        "item_level": 291,
+        "duration_s": 293.726,
+        "report_code": "mfrzkY1Wn3xFKHt4",
+        "fight_id": 33
+      },
+      {
+        "rank": 23,
+        "character": "Terezhia",
+        "dps": 208581.765,
+        "item_level": 291,
+        "duration_s": 357.897,
+        "report_code": "cAkPQbJNyWVXz1Bq",
+        "fight_id": 31
+      },
+      {
+        "rank": 24,
+        "character": "Directh",
+        "dps": 208446.355,
+        "item_level": 292,
+        "duration_s": 346.702,
+        "report_code": "L2adK9Y8bDtzXABF",
+        "fight_id": 24
+      },
+      {
+        "rank": 25,
+        "character": "영능살상영능",
+        "dps": 207825.486,
+        "item_level": 293,
+        "duration_s": 341.216,
+        "report_code": "zj8XaAKc24fCP1rd",
+        "fight_id": 42
+      },
+      {
+        "rank": 26,
+        "character": "瓶中妖姬",
+        "dps": 207805.459,
+        "item_level": 293,
+        "duration_s": 334.377,
+        "report_code": "Q6MX91aqC74FtcNJ",
+        "fight_id": 37
+      },
+      {
+        "rank": 27,
+        "character": "爬山",
+        "dps": 207565.318,
+        "item_level": 292,
+        "duration_s": 409.796,
+        "report_code": "vY7mH1NRZh4WBDJw",
+        "fight_id": 2
+      },
+      {
+        "rank": 28,
+        "character": "聚火队长",
+        "dps": 207456.334,
+        "item_level": 291,
+        "duration_s": 430.744,
+        "report_code": "JAdf8m9DRnKtLcwN",
+        "fight_id": 136
+      },
+      {
+        "rank": 29,
+        "character": "大栗旬",
+        "dps": 207446.727,
+        "item_level": 291,
+        "duration_s": 346.937,
+        "report_code": "9n8LfPpWCwvg1GDq",
+        "fight_id": 10
+      },
+      {
+        "rank": 30,
+        "character": "养啥都死",
+        "dps": 207424.425,
+        "item_level": 292,
+        "duration_s": 356.499,
+        "report_code": "YChda26FHBvgpkjc",
+        "fight_id": 10
+      },
+      {
+        "rank": 31,
+        "character": "赫卡特丶",
+        "dps": 207391.541,
+        "item_level": 292,
+        "duration_s": 353.889,
+        "report_code": "yjmzQfN2XnbR1a7v",
+        "fight_id": 21
+      },
+      {
+        "rank": 32,
+        "character": "피아냥",
+        "dps": 207235.461,
+        "item_level": 292,
+        "duration_s": 350.058,
+        "report_code": "GRtjFXBgQqzCxZnH",
+        "fight_id": 42
+      },
+      {
+        "rank": 33,
+        "character": "Johnysinns",
+        "dps": 206537.032,
+        "item_level": 293,
+        "duration_s": 348.244,
+        "report_code": "JBdjwDfYpCWqaytr",
+        "fight_id": 34
+      },
+      {
+        "rank": 34,
+        "character": "Myellyn",
+        "dps": 206531.977,
+        "item_level": 291,
+        "duration_s": 337.904,
+        "report_code": "hF6X2Dp381LNkJV4",
+        "fight_id": 27
+      },
+      {
+        "rank": 35,
+        "character": "云治",
+        "dps": 206045.255,
+        "item_level": 290,
+        "duration_s": 403.865,
+        "report_code": "TP7pV1YnftzxCXaM",
+        "fight_id": 19
+      },
+      {
+        "rank": 36,
+        "character": "南拨赛文",
+        "dps": 205606.107,
+        "item_level": 291,
+        "duration_s": 389.268,
+        "report_code": "aq7gdAQJBzPpHrTW",
+        "fight_id": 56
+      },
+      {
+        "rank": 37,
+        "character": "Nanawei",
+        "dps": 205540.812,
+        "item_level": 292,
+        "duration_s": 419.408,
+        "report_code": "z9LR4HGtCcd61wX3",
+        "fight_id": 10
+      },
+      {
+        "rank": 38,
+        "character": "Pewhunt",
+        "dps": 205432.67,
+        "item_level": 292,
+        "duration_s": 361.229,
+        "report_code": "agY3C69KWRLxjkmt",
+        "fight_id": 87
+      },
+      {
+        "rank": 39,
+        "character": "昆夯嫑孬巭丶",
+        "dps": 205350.238,
+        "item_level": 291,
+        "duration_s": 422.604,
+        "report_code": "LRdbg8VnHFcZXxm6",
+        "fight_id": 63
+      },
+      {
+        "rank": 40,
+        "character": "Domestic",
+        "dps": 205277.679,
+        "item_level": 293,
+        "duration_s": 260.326,
+        "report_code": "RGNA1kjtMw3gdzYf",
+        "fight_id": 63
+      },
+      {
+        "rank": 41,
+        "character": "Rozenalynx",
+        "dps": 205179.238,
+        "item_level": 292,
+        "duration_s": 299.479,
+        "report_code": "jhmT6cpXZxB1RAyG",
+        "fight_id": 25
+      },
+      {
+        "rank": 42,
+        "character": "雨鴿",
+        "dps": 205017.622,
+        "item_level": 292,
+        "duration_s": 348.428,
+        "report_code": "HVwLGvBKX4jkJmbf",
+        "fight_id": 6
+      },
+      {
+        "rank": 43,
+        "character": "乱丶赦",
+        "dps": 204038.04,
+        "item_level": 291,
+        "duration_s": 350.497,
+        "report_code": "n78J9xQcgrN2YjGy",
+        "fight_id": 30
+      },
+      {
+        "rank": 44,
+        "character": "Dayëlo",
+        "dps": 203795.459,
+        "item_level": 293,
+        "duration_s": 307.786,
+        "report_code": "W4aVZm2vxDYzHMwj",
+        "fight_id": 32
+      },
+      {
+        "rank": 45,
+        "character": "Skullton",
+        "dps": 203230.177,
+        "item_level": 292,
+        "duration_s": 339.635,
+        "report_code": "zPLgH2jckyFR3q1m",
+        "fight_id": 35
+      },
+      {
+        "rank": 46,
+        "character": "Longyhunt",
+        "dps": 203227.863,
+        "item_level": 291,
+        "duration_s": 417.817,
+        "report_code": "qxvMLJpf3RFyZPdm",
+        "fight_id": 64
+      },
+      {
+        "rank": 47,
+        "character": "초록오리너구리",
+        "dps": 202685.52,
+        "item_level": 292,
+        "duration_s": 356.655,
+        "report_code": "X8b1mYHNrkGQ4973",
+        "fight_id": 29
+      },
+      {
+        "rank": 48,
+        "character": "Yërsen",
+        "dps": 202595.09,
+        "item_level": 292,
+        "duration_s": 299.286,
+        "report_code": "NqZaBf6PJK7ymnzg",
+        "fight_id": 31
+      },
+      {
+        "rank": 49,
+        "character": "云治陆",
+        "dps": 202460.571,
+        "item_level": 293,
+        "duration_s": 416.422,
+        "report_code": "xT6yaYCtjNcAR4gv",
+        "fight_id": 70
+      },
+      {
+        "rank": 50,
+        "character": "Akazza",
+        "dps": 202405.577,
+        "item_level": 290,
+        "duration_s": 338.944,
+        "report_code": "RmcPA2q81p74jrta",
+        "fight_id": 22
+      },
+      {
+        "rank": 51,
+        "character": "暴躁小喵灬",
+        "dps": 202101.837,
+        "item_level": 292,
+        "duration_s": 359.761,
+        "report_code": "MmBdx8G9gnJRk3LW",
+        "fight_id": 35
+      },
+      {
+        "rank": 52,
+        "character": "개돼지닭",
+        "dps": 201967.121,
+        "item_level": 292,
+        "duration_s": 338.639,
+        "report_code": "PT6RfYhtLJKDcxan",
+        "fight_id": 42
+      },
+      {
+        "rank": 53,
+        "character": "분포다",
+        "dps": 201908.091,
+        "item_level": 292,
+        "duration_s": 349.28,
+        "report_code": "1JzgvtXcGPYRjn92",
+        "fight_id": 39
+      },
+      {
+        "rank": 54,
+        "character": "Jetpacky",
+        "dps": 201880.648,
+        "item_level": 291,
+        "duration_s": 420.704,
+        "report_code": "XTGkgLbyj2zN1CF3",
+        "fight_id": 33
+      },
+      {
+        "rank": 55,
+        "character": "Lerearcher",
+        "dps": 201842.381,
+        "item_level": 293,
+        "duration_s": 292.097,
+        "report_code": "C6RqBY49AdQFTZWz",
+        "fight_id": 81
+      },
+      {
+        "rank": 56,
+        "character": "보차",
+        "dps": 201765.585,
+        "item_level": 292,
+        "duration_s": 339.232,
+        "report_code": "MZyJQtgp3n7fAxXq",
+        "fight_id": 40
+      },
+      {
+        "rank": 57,
+        "character": "Biktarvy",
+        "dps": 201589.902,
+        "item_level": 292,
+        "duration_s": 388.475,
+        "report_code": "TZvmC2hyR4fLdkVt",
+        "fight_id": 32
+      },
+      {
+        "rank": 58,
+        "character": "Jeavex",
+        "dps": 201437.189,
+        "item_level": 293,
+        "duration_s": 355.155,
+        "report_code": "DxtH81P7mF2jaMpY",
+        "fight_id": 49
+      },
+      {
+        "rank": 59,
+        "character": "Braktixx",
+        "dps": 200886.553,
+        "item_level": 293,
+        "duration_s": 417.817,
+        "report_code": "qxvMLJpf3RFyZPdm",
+        "fight_id": 64
+      },
+      {
+        "rank": 60,
+        "character": "无尽之火",
+        "dps": 200727.928,
+        "item_level": 291,
+        "duration_s": 420.932,
+        "report_code": "jYpmTvzrBbadD4Gg",
+        "fight_id": 65
+      },
+      {
+        "rank": 61,
+        "character": "旺仔大乔",
+        "dps": 200527.449,
+        "item_level": 290,
+        "duration_s": 401.557,
+        "report_code": "cvgprhPkbM4fCndT",
+        "fight_id": 28
+      },
+      {
+        "rank": 62,
+        "character": "김태우",
+        "dps": 200490.738,
+        "item_level": 292,
+        "duration_s": 304.46,
+        "report_code": "ZhKdkXxnBA8VQLg1",
+        "fight_id": 30
+      },
+      {
+        "rank": 63,
+        "character": "Slamzyha",
+        "dps": 200327.867,
+        "item_level": 293,
+        "duration_s": 292.109,
+        "report_code": "MYDWxVRCbt9nG6L4",
+        "fight_id": 36
+      },
+      {
+        "rank": 64,
+        "character": "雾岛丷",
+        "dps": 200296.108,
+        "item_level": 292,
+        "duration_s": 387.585,
+        "report_code": "rtpC1Jw4GkQZFgDf",
+        "fight_id": 34
+      },
+      {
+        "rank": 65,
+        "character": "云治拾捌",
+        "dps": 200291.349,
+        "item_level": 289,
+        "duration_s": 388.767,
+        "report_code": "xT6yaYCtjNcAR4gv",
+        "fight_id": 104
+      },
+      {
+        "rank": 66,
+        "character": "Itsdnl",
+        "dps": 200235.029,
+        "item_level": 292,
+        "duration_s": 343.226,
+        "report_code": "BLZdqchrfNnwjCyV",
+        "fight_id": 47
+      },
+      {
+        "rank": 67,
+        "character": "彼岸的猎手",
+        "dps": 200143.589,
+        "item_level": 292,
+        "duration_s": 347.701,
+        "report_code": "ty6BJTmXZxw9WgPj",
+        "fight_id": 26
+      },
+      {
+        "rank": 68,
+        "character": "黑蚊子多",
+        "dps": 199971.469,
+        "item_level": 293,
+        "duration_s": 356.033,
+        "report_code": "d2VXzbpMfnNmDTQg",
+        "fight_id": 15
+      },
+      {
+        "rank": 69,
+        "character": "Kimtaewoo",
+        "dps": 199818.695,
+        "item_level": 293,
+        "duration_s": 317.895,
+        "report_code": "7CDwpdYMyN4xT9rG",
+        "fight_id": 36
+      },
+      {
+        "rank": 70,
+        "character": "분포",
+        "dps": 199767.085,
+        "item_level": 292,
+        "duration_s": 345.37,
+        "report_code": "MWAtH8GYkhz214Zp",
+        "fight_id": 45
+      },
+      {
+        "rank": 71,
+        "character": "氵猎丨人",
+        "dps": 199559.052,
+        "item_level": 291,
+        "duration_s": 430.624,
+        "report_code": "HGCpK6FbwdtJf3yn",
+        "fight_id": 29
+      },
+      {
+        "rank": 72,
+        "character": "Iucien",
+        "dps": 199475.169,
+        "item_level": 292,
+        "duration_s": 389.499,
+        "report_code": "HCxdKg7h3L6tYPjN",
+        "fight_id": 15
+      },
+      {
+        "rank": 73,
+        "character": "Onlyfeigns",
+        "dps": 199462.427,
+        "item_level": 292,
+        "duration_s": 311.476,
+        "report_code": "qN78hRC4yFvtZAgf",
+        "fight_id": 47
+      },
+      {
+        "rank": 74,
+        "character": "Lyrai",
+        "dps": 199399.713,
+        "item_level": 293,
+        "duration_s": 351.79,
+        "report_code": "NJLt8Xg6wnDKrxBj",
+        "fight_id": 19
+      },
+      {
+        "rank": 75,
+        "character": "젠슨황진시황",
+        "dps": 199253.37,
+        "item_level": 292,
+        "duration_s": 335.608,
+        "report_code": "cNWgGdC4qFamXt3f",
+        "fight_id": 32
+      },
+      {
+        "rank": 76,
+        "character": "Ramlow",
+        "dps": 198829.542,
+        "item_level": 291,
+        "duration_s": 286.329,
+        "report_code": "N6Xgk2GraLPzqQwy",
+        "fight_id": 122
+      },
+      {
+        "rank": 77,
+        "character": "분포냥",
+        "dps": 198811.838,
+        "item_level": 291,
+        "duration_s": 353.764,
+        "report_code": "VGxzhvZDkr6M7g3d",
+        "fight_id": 50
+      },
+      {
+        "rank": 78,
+        "character": "Cwown",
+        "dps": 198802.179,
+        "item_level": 293,
+        "duration_s": 281.113,
+        "report_code": "RTtPLw9x6BW2nFdN",
+        "fight_id": 24
+      },
+      {
+        "rank": 79,
+        "character": "驕傲的肥龍",
+        "dps": 198763.149,
+        "item_level": 292,
+        "duration_s": 445.546,
+        "report_code": "vwFkmbGyCLQf83Bz",
+        "fight_id": 9
+      },
+      {
+        "rank": 80,
+        "character": "梅莉凱",
+        "dps": 198520.113,
+        "item_level": 291,
+        "duration_s": 338.68,
+        "report_code": "9XMf7PKH8ywDVdBT",
+        "fight_id": 6
+      },
+      {
+        "rank": 81,
+        "character": "Aro",
+        "dps": 198515.235,
+        "item_level": 292,
+        "duration_s": 311.518,
+        "report_code": "QZ1JcDrhTGNgXzkw",
+        "fight_id": 59
+      },
+      {
+        "rank": 82,
+        "character": "乱丶涉",
+        "dps": 198240.92,
+        "item_level": 292,
+        "duration_s": 344.314,
+        "report_code": "8Cxp7kmatvhGY2WZ",
+        "fight_id": 27
+      },
+      {
+        "rank": 83,
+        "character": "Pupitar",
+        "dps": 198179.152,
+        "item_level": 291,
+        "duration_s": 313.415,
+        "report_code": "1CkvHD8KFNcTq9xP",
+        "fight_id": 33
+      },
+      {
+        "rank": 84,
+        "character": "Légacy",
+        "dps": 198132.878,
+        "item_level": 293,
+        "duration_s": 358.555,
+        "report_code": "4RVtNn8PwqBp6zAM",
+        "fight_id": 11
+      },
+      {
+        "rank": 85,
+        "character": "灬血灬伤次灬",
+        "dps": 198087.699,
+        "item_level": 290,
+        "duration_s": 394.943,
+        "report_code": "F4npN69H1dm82rZC",
+        "fight_id": 47
+      },
+      {
+        "rank": 86,
+        "character": "Totte",
+        "dps": 198071.992,
+        "item_level": 292,
+        "duration_s": 312.286,
+        "report_code": "fj8nZQzHpKJr3Rv9",
+        "fight_id": 28
+      },
+      {
+        "rank": 87,
+        "character": "Blubixtrap",
+        "dps": 197895.456,
+        "item_level": 293,
+        "duration_s": 343.367,
+        "report_code": "bTN2tCcYma1W7xph",
+        "fight_id": 27
+      },
+      {
+        "rank": 88,
+        "character": "Fraloop",
+        "dps": 197886.644,
+        "item_level": 293,
+        "duration_s": 385.001,
+        "report_code": "1vmGYpkw6q9gnzyX",
+        "fight_id": 35
+      },
+      {
+        "rank": 89,
+        "character": "윈드러스",
+        "dps": 197858.39,
+        "item_level": 293,
+        "duration_s": 299.167,
+        "report_code": "abH1xJwm9yt7GdkA",
+        "fight_id": 16
+      },
+      {
+        "rank": 90,
+        "character": "Delió",
+        "dps": 197750.119,
+        "item_level": 292,
+        "duration_s": 352.976,
+        "report_code": "BTWLcNP8pGzx7ZQY",
+        "fight_id": 44
+      },
+      {
+        "rank": 91,
+        "character": "寒鸦",
+        "dps": 197729.296,
+        "item_level": 291,
+        "duration_s": 401.46,
+        "report_code": "wMNjd6xHYrbzn8PL",
+        "fight_id": 8
+      },
+      {
+        "rank": 92,
+        "character": "후꾼샷",
+        "dps": 197667.305,
+        "item_level": 291,
+        "duration_s": 360.546,
+        "report_code": "kZNCMQFD7dg8rJt2",
+        "fight_id": 40
+      },
+      {
+        "rank": 93,
+        "character": "Pvybzhunt",
+        "dps": 197661.376,
+        "item_level": 289,
+        "duration_s": 336.411,
+        "report_code": "JKaYXL29MkvbN3W1",
+        "fight_id": 47
+      },
+      {
+        "rank": 94,
+        "character": "Monaqt",
+        "dps": 197658.194,
+        "item_level": 290,
+        "duration_s": 402.556,
+        "report_code": "bhFn1cCB68kpRTX4",
+        "fight_id": 54
+      },
+      {
+        "rank": 95,
+        "character": "Petdog",
+        "dps": 197563.727,
+        "item_level": 292,
+        "duration_s": 349.65,
+        "report_code": "K1aTJAqcbkHf8wyY",
+        "fight_id": 40
+      },
+      {
+        "rank": 96,
+        "character": "飞樱落雪",
+        "dps": 197453.045,
+        "item_level": 291,
+        "duration_s": 431.392,
+        "report_code": "aMgd6xF2JVwGPyXb",
+        "fight_id": 51
+      },
+      {
+        "rank": 97,
+        "character": "河野悦子丶",
+        "dps": 197299.273,
+        "item_level": 291,
+        "duration_s": 387.964,
+        "report_code": "WBJjpntG72XRq1bw",
+        "fight_id": 38
+      },
+      {
+        "rank": 98,
+        "character": "릿카냥",
+        "dps": 197251.486,
+        "item_level": 291,
+        "duration_s": 395.425,
+        "report_code": "CM4kzvYVJqgxR1KQ",
+        "fight_id": 30
+      },
+      {
+        "rank": 99,
+        "character": "嗚歐歐",
+        "dps": 197196.566,
+        "item_level": 293,
+        "duration_s": 441.632,
+        "report_code": "PgdVpcrBvR73x6KY",
+        "fight_id": 30
+      },
+      {
+        "rank": 100,
+        "character": "云治拾",
+        "dps": 197162.144,
+        "item_level": 290,
+        "duration_s": 412.935,
+        "report_code": "LyPtq2HgD9GpfTK3",
+        "fight_id": 37
+      }
+    ]
+  },
+  "samples": {
+    "manteri": {
+      "key": "manteri",
+      "label": "만터리",
+      "code": "vx2ymA7WbXnY4f3Z",
+      "fight_id": 25,
+      "character": "만터리",
+      "comparison": "본인 최신 신화 킬",
+      "url": "https://www.warcraftlogs.com/reports/vx2ymA7WbXnY4f3Z#fight=25&type=damage-done",
+      "duration_s": 395.687,
+      "rank": {
+        "dps": 158437.935,
+        "rank_percent": 38,
+        "bracket_percent": 31,
+        "world_rank": "~2155",
+        "best_rank": "~2155",
+        "total_parses": 3476,
+        "item_level": 292,
+        "fight_deaths": 6
+      },
+      "stats": {
+        "Speed": 0,
+        "Agility": 2127,
+        "Mastery": 1455,
+        "Crit": 1340,
+        "Item Level": 292,
+        "Stamina": 24117,
+        "Avoidance": 314,
+        "Haste": 251,
+        "Versatility": 16,
+        "Leech": 28
+      },
+      "trinkets": [
+        {
+          "id": 249806,
+          "name": "Radiant Plume",
+          "ilvl": 298
+        },
+        {
+          "id": 249343,
+          "name": "Gaze of the Alnseer",
+          "ilvl": 298
+        }
+      ],
+      "talents": [
+        117559,
+        117563,
+        117564,
+        117566,
+        117569,
+        117576,
+        117581,
+        117582,
+        117585,
+        117589,
+        123347,
+        126352,
+        126397,
+        126401,
+        126402,
+        126404,
+        126405,
+        126406,
+        126408,
+        126409,
+        126415,
+        126416,
+        126418,
+        126419,
+        126420,
+        126424,
+        126431,
+        126433,
+        126436,
+        126437,
+        126440,
+        126443,
+        126444,
+        126447,
+        126450,
+        126453,
+        126454,
+        126459,
+        126460,
+        126461,
+        126465,
+        126470,
+        126473,
+        126475,
+        126481,
+        126484,
+        126489,
+        126490,
+        135705,
+        135708,
+        135710,
+        135711,
+        136060,
+        136061,
+        136236,
+        136677,
+        136679,
+        136685,
+        137050,
+        137051,
+        137052,
+        117588,
+        126488,
+        126468,
+        135709,
+        136673,
+        126399,
+        126403,
+        126417,
+        126421,
+        126425,
+        126426,
+        126432,
+        126434,
+        135712
+      ],
+      "talent_points": {
+        "117559": 1,
+        "117563": 1,
+        "117564": 1,
+        "117566": 1,
+        "117569": 1,
+        "117576": 1,
+        "117581": 1,
+        "117582": 1,
+        "117585": 1,
+        "117589": 1,
+        "123347": 1,
+        "126352": 1,
+        "126397": 2,
+        "126401": 1,
+        "126402": 1,
+        "126404": 1,
+        "126405": 1,
+        "126406": 1,
+        "126408": 1,
+        "126409": 1,
+        "126415": 1,
+        "126416": 1,
+        "126418": 1,
+        "126419": 1,
+        "126420": 1,
+        "126424": 1,
+        "126431": 1,
+        "126433": 1,
+        "126436": 1,
+        "126437": 1,
+        "126440": 1,
+        "126443": 1,
+        "126444": 1,
+        "126447": 2,
+        "126450": 1,
+        "126453": 1,
+        "126454": 1,
+        "126459": 1,
+        "126460": 2,
+        "126461": 1,
+        "126465": 2,
+        "126470": 1,
+        "126473": 2,
+        "126475": 1,
+        "126481": 2,
+        "126484": 1,
+        "126489": 1,
+        "126490": 1,
+        "135705": 1,
+        "135708": 1,
+        "135710": 2,
+        "135711": 1,
+        "136060": 1,
+        "136061": 1,
+        "136236": 1,
+        "136677": 1,
+        "136679": 1,
+        "136685": 1,
+        "137050": 1,
+        "137051": 2,
+        "137052": 1,
+        "117588": 1,
+        "126488": 1,
+        "126468": 1,
+        "135709": 1,
+        "136673": 1,
+        "126399": 1,
+        "126403": 1,
+        "126417": 1,
+        "126421": 1,
+        "126425": 1,
+        "126426": 2,
+        "126432": 1,
+        "126434": 1,
+        "135712": 1
+      },
+      "nodes": [
+        94962,
+        94966,
+        94967,
+        94969,
+        94972,
+        94979,
+        94984,
+        94985,
+        94988,
+        94992,
+        99832,
+        102292,
+        102336,
+        102339,
+        102340,
+        102342,
+        102343,
+        102344,
+        102346,
+        102347,
+        102353,
+        102354,
+        102356,
+        102357,
+        102358,
+        102362,
+        102368,
+        102370,
+        102373,
+        102374,
+        102377,
+        102380,
+        102381,
+        102384,
+        102387,
+        102390,
+        102391,
+        102395,
+        102396,
+        102397,
+        102401,
+        102406,
+        102409,
+        102411,
+        102416,
+        102419,
+        102423,
+        102424,
+        109483,
+        109485,
+        109487,
+        109488,
+        109802,
+        109803,
+        109804,
+        110157,
+        110158,
+        110164,
+        110428,
+        110428,
+        110428,
+        94991,
+        102422,
+        102404,
+        109486,
+        110154,
+        102338,
+        102341,
+        102355,
+        102359,
+        102363,
+        102364,
+        102369,
+        102371,
+        109489
+      ],
+      "external_pi_events": 0,
+      "deaths": [
+        {
+          "time_s": 329.015,
+          "ability_id": 1246502,
+          "ability": "Avenger's Shield"
+        }
+      ],
+      "events": {
+        "total_casts": 283,
+        "casts_per_min": 42.91,
+        "downtime_3s_total": 73.789,
+        "downtime_3s_count": 3,
+        "downtime_3s_gaps": [
+          3.378,
+          3.168,
+          67.243
+        ],
+        "downtime_3s_windows": [
+          {
+            "start_s": 223.583,
+            "end_s": 226.961,
+            "length_s": 3.378
+          },
+          {
+            "start_s": 315.428,
+            "end_s": 318.596,
+            "length_s": 3.168
+          },
+          {
+            "start_s": 328.444,
+            "end_s": 395.687,
+            "length_s": 67.243
+          }
+        ],
+        "core": {
+          "살상 명령": {
+            "id": 34026,
+            "count": 89,
+            "per_min": 13.5,
+            "times_s": [
+              3.612,
+              5.967,
+              8.292,
+              10.469,
+              13.818,
+              15.948,
+              18.102,
+              21.894,
+              24.021,
+              26.422,
+              29.65,
+              31.979,
+              39.201,
+              41.772,
+              44.872,
+              49.034,
+              51.811,
+              54.581,
+              57.357,
+              63.008,
+              68.86,
+              71.658,
+              75.818,
+              78.581,
+              81.377,
+              86.541,
+              89.322,
+              92.475,
+              96.352,
+              100.576,
+              103.345,
+              107.529,
+              110.304,
+              113.094,
+              117.264,
+              120.056,
+              126.004,
+              128.941,
+              136.851,
+              139.643,
+              142.421,
+              145.434,
+              148.457,
+              151.254,
+              155.536,
+              159.581,
+              163.756,
+              172.535,
+              175.316,
+              178.091,
+              182.28,
+              185.052,
+              187.829,
+              191.999,
+              195.6,
+              198.393,
+              204.136,
+              206.907,
+              211.078,
+              213.86,
+              218.051,
+              220.81,
+              223.583,
+              229.74,
+              234.453,
+              238.646,
+              241.411,
+              244.189,
+              248.36,
+              251.153,
+              254.217,
+              258.069,
+              266.966,
+              269.763,
+              273.914,
+              276.71,
+              279.474,
+              283.653,
+              287.136,
+              289.925,
+              294.663,
+              297.504,
+              301.677,
+              305.231,
+              309.683,
+              312.468,
+              315.428,
+              321.365,
+              324.259
+            ]
+          },
+          "날카로운 사격": {
+            "id": 217200,
+            "count": 70,
+            "per_min": 10.61,
+            "times_s": [
+              0.419,
+              2.992,
+              4.902,
+              4.902,
+              7.245,
+              7.246,
+              14.896,
+              14.897,
+              22.955,
+              22.956,
+              27.501,
+              35.15,
+              40.385,
+              40.386,
+              43.156,
+              50.428,
+              61.608,
+              61.609,
+              67.488,
+              70.247,
+              77.201,
+              83.618,
+              83.618,
+              94.076,
+              99.195,
+              101.969,
+              101.969,
+              108.902,
+              115.875,
+              115.875,
+              124.614,
+              124.614,
+              132.673,
+              138.259,
+              141.028,
+              141.028,
+              149.863,
+              160.958,
+              168.346,
+              168.346,
+              173.913,
+              180.886,
+              180.886,
+              189.251,
+              197.001,
+              197.001,
+              205.509,
+              209.678,
+              215.23,
+              215.23,
+              226.961,
+              233.07,
+              235.854,
+              242.812,
+              249.767,
+              249.767,
+              267.097,
+              268.356,
+              268.356,
+              271.13,
+              280.871,
+              288.513,
+              288.513,
+              296.137,
+              298.895,
+              311.069,
+              311.069,
+              313.842,
+              325.659,
+              325.659
+            ]
+          },
+          "코브라 사격": {
+            "id": 193455,
+            "count": 46,
+            "per_min": 6.98,
+            "times_s": [
+              9.366,
+              12.732,
+              17.065,
+              19.139,
+              25.36,
+              30.703,
+              34.093,
+              47.623,
+              53.189,
+              60.221,
+              65.922,
+              74.436,
+              79.993,
+              87.939,
+              90.717,
+              104.754,
+              111.701,
+              118.645,
+              121.783,
+              127.404,
+              131.277,
+              146.841,
+              152.643,
+              157.195,
+              166.524,
+              176.705,
+              183.666,
+              186.432,
+              193.39,
+              201.34,
+              212.458,
+              219.421,
+              222.213,
+              231.162,
+              240.051,
+              245.595,
+              252.598,
+              256.517,
+              260.297,
+              275.304,
+              278.107,
+              285.029,
+              292.703,
+              306.837,
+              319.979,
+              322.884
+            ]
+          },
+          "마구잡이 난타": {
+            "id": 1264359,
+            "count": 35,
+            "per_min": 5.31,
+            "times_s": [
+              2.549,
+              11.597,
+              20.313,
+              28.565,
+              38.148,
+              46.244,
+              55.978,
+              64.381,
+              73.041,
+              85.152,
+              97.772,
+              106.135,
+              114.467,
+              123.195,
+              134.062,
+              144.036,
+              154.06,
+              162.354,
+              171.135,
+              179.48,
+              190.618,
+              199.77,
+              208.298,
+              216.626,
+              228.349,
+              237.255,
+              246.985,
+              264.201,
+              272.523,
+              282.258,
+              291.303,
+              300.286,
+              308.268,
+              318.596,
+              328.444
+            ]
+          },
+          "야수의 격노": {
+            "id": 19574,
+            "count": 10,
+            "per_min": 1.52,
+            "times_s": [
+              1.473,
+              37.066,
+              67.46,
+              99.193,
+              135.453,
+              169.745,
+              202.738,
+              233.05,
+              265.569,
+              296.114
+            ]
+          },
+          "야생의 부름": {
+            "id": 359844,
+            "count": 0,
+            "per_min": 0.0,
+            "times_s": []
+          },
+          "알게타르 수수께끼": {
+            "id": 383781,
+            "count": 0,
+            "per_min": 0.0,
+            "times_s": []
+          }
+        },
+        "utility": {
+          "철수": {
+            "id": 781,
+            "count": 0,
+            "times_s": []
+          },
+          "죽은 척하기": {
+            "id": 5384,
+            "count": 0,
+            "times_s": []
+          },
+          "활기": {
+            "id": 109304,
+            "count": 3,
+            "times_s": [
+              165.142,
+              261.679,
+              327.045
+            ]
+          },
+          "치타의 상": {
+            "id": 186257,
+            "count": 0,
+            "times_s": []
+          },
+          "거북의 상": {
+            "id": 186265,
+            "count": 0,
+            "times_s": []
+          },
+          "적자생존": {
+            "id": 264735,
+            "count": 4,
+            "times_s": [
+              87.091,
+              143.272,
+              245.88,
+              303.355
+            ]
+          },
+          "실버문 생명력 물약": {
+            "id": 1234768,
+            "count": 1,
+            "times_s": [
+              96.945
+            ]
+          }
+        },
+        "all_counts": [
+          {
+            "id": 34026,
+            "name": "살상 명령",
+            "count": 89
+          },
+          {
+            "id": 217200,
+            "name": "날카로운 사격",
+            "count": 70
+          },
+          {
+            "id": 193455,
+            "name": "코브라 사격",
+            "count": 46
+          },
+          {
+            "id": 1264359,
+            "name": "마구잡이 난타",
+            "count": 35
+          },
+          {
+            "id": 212382,
+            "name": "광포한 야수",
+            "count": 22
+          },
+          {
+            "id": 19574,
+            "name": "야수의 격노",
+            "count": 10
+          },
+          {
+            "id": 264735,
+            "name": "적자생존",
+            "count": 4
+          },
+          {
+            "id": 109304,
+            "name": "활기",
+            "count": 3
+          },
+          {
+            "id": 1236616,
+            "name": "빛의 잠재력",
+            "count": 2
+          },
+          {
+            "id": 1234768,
+            "name": "실버문 생명력 물약",
+            "count": 1
+          },
+          {
+            "id": 6262,
+            "name": "생명석",
+            "count": 1
+          }
+        ],
+        "bw_gap_median": 32.519,
+        "bw_gap_max": 36.26,
+        "bw_kc_within_1_6s": 7,
+        "bw_near_wild_thrash_within_3s": 7,
+        "wild_thrash_gap_median": 9.014,
+        "wild_thrash_gap_max": 17.216,
+        "wild_thrash_gaps_over_10s": 8,
+        "potion_times_s": [
+          0.93,
+          308.939
+        ]
+      },
+      "resources": {
+        "generated": 2538,
+        "wasted": 99,
+        "waste_pct": 3.9,
+        "by_spell": {
+          "1282660": {
+            "generated": 1100,
+            "wasted": 93,
+            "events": 44
+          },
+          "1264783": {
+            "generated": 122,
+            "wasted": 6,
+            "events": 122
+          },
+          "246152": {
+            "generated": 1316,
+            "wasted": 0,
+            "events": 144
+          }
+        }
+      },
+      "damage": {
+        "total": 62691831,
+        "targets": {
+          "War Chaplain Senn": 22432413,
+          "General Amias Bellamy": 21293870,
+          "Commander Venel Lightblood": 18965548
+        },
+        "spells": [
+          {
+            "id": 883,
+            "name": "크로쉐익스",
+            "total": 11800685,
+            "uses": 419,
+            "hits": 799,
+            "crits": 234,
+            "crit_pct": 29.3,
+            "targets": {
+              "War Chaplain Senn": 4253622,
+              "General Amias Bellamy": 3910472,
+              "Commander Venel Lightblood": 3636591
+            }
+          },
+          {
+            "id": 34026,
+            "name": "Kill Command",
+            "total": 8788455,
+            "uses": 89,
+            "hits": 225,
+            "crits": 96,
+            "crit_pct": 42.7,
+            "targets": {
+              "War Chaplain Senn": 3764366,
+              "General Amias Bellamy": 3309801,
+              "Commander Venel Lightblood": 1714288
+            }
+          },
+          {
+            "id": 217200,
+            "name": "Barbed Shot",
+            "total": 8729190,
+            "uses": 70,
+            "hits": 405,
+            "crits": 202,
+            "crit_pct": 49.9,
+            "targets": {
+              "War Chaplain Senn": 3242689,
+              "General Amias Bellamy": 2951019,
+              "Commander Venel Lightblood": 2535482
+            }
+          },
+          {
+            "id": 1264355,
+            "name": "Wild Thrash",
+            "total": 4815919,
+            "uses": null,
+            "hits": 117,
+            "crits": 45,
+            "crit_pct": 38.5,
+            "targets": {
+              "Commander Venel Lightblood": 1709295,
+              "War Chaplain Senn": 1573692,
+              "General Amias Bellamy": 1532932
+            }
+          },
+          {
+            "id": 321538,
+            "name": "Bloodshed",
+            "total": 3653715,
+            "uses": null,
+            "hits": 267,
+            "crits": 0,
+            "crit_pct": 0.0,
+            "targets": {
+              "War Chaplain Senn": 1762230,
+              "General Amias Bellamy": 1416935,
+              "Commander Venel Lightblood": 474550
+            }
+          },
+          {
+            "id": 471938,
+            "name": "Boar Charge",
+            "total": 3537366,
+            "uses": null,
+            "hits": 26,
+            "crits": 11,
+            "crit_pct": 42.3,
+            "targets": {
+              "General Amias Bellamy": 1319596,
+              "Commander Venel Lightblood": 1276146,
+              "War Chaplain Senn": 941624
+            }
+          },
+          {
+            "id": 344572,
+            "name": "Bestial Wrath",
+            "total": 3134133,
+            "uses": null,
+            "hits": 44,
+            "crits": 18,
+            "crit_pct": 40.9,
+            "targets": {
+              "Commander Venel Lightblood": 1135915,
+              "General Amias Bellamy": 1072385,
+              "War Chaplain Senn": 925833
+            }
+          },
+          {
+            "id": 201594,
+            "name": "Stampede",
+            "total": 2778845,
+            "uses": null,
+            "hits": 188,
+            "crits": 74,
+            "crit_pct": 39.4,
+            "targets": {
+              "Commander Venel Lightblood": 1064615,
+              "War Chaplain Senn": 947038,
+              "General Amias Bellamy": 767192
+            }
+          },
+          {
+            "id": 118459,
+            "name": "Beast Cleave",
+            "total": 2680070,
+            "uses": null,
+            "hits": 781,
+            "crits": 0,
+            "crit_pct": 0.0,
+            "targets": {
+              "Commander Venel Lightblood": 1127220,
+              "General Amias Bellamy": 883669,
+              "War Chaplain Senn": 669181
+            }
+          },
+          {
+            "id": 201754,
+            "name": "Stomp",
+            "total": 2620887,
+            "uses": 77,
+            "hits": 163,
+            "crits": 63,
+            "crit_pct": 38.7,
+            "targets": {
+              "Commander Venel Lightblood": 1098475,
+              "War Chaplain Senn": 780730,
+              "General Amias Bellamy": 741682
+            }
+          },
+          {
+            "id": 193455,
+            "name": "Cobra Shot",
+            "total": 2567604,
+            "uses": 46,
+            "hits": 70,
+            "crits": 28,
+            "crit_pct": 40.0,
+            "targets": {
+              "General Amias Bellamy": 997616,
+              "War Chaplain Senn": 930184,
+              "Commander Venel Lightblood": 639804
+            }
+          },
+          {
+            "id": 389448,
+            "name": "Kill Cleave",
+            "total": 2554296,
+            "uses": null,
+            "hits": 148,
+            "crits": 0,
+            "crit_pct": 0.0,
+            "targets": {
+              "Commander Venel Lightblood": 1342924,
+              "General Amias Bellamy": 630222,
+              "War Chaplain Senn": 581150
+            }
+          },
+          {
+            "id": 459560,
+            "name": "Laceration",
+            "total": 1863544,
+            "uses": null,
+            "hits": 690,
+            "crits": 0,
+            "crit_pct": 0.0,
+            "targets": {
+              "War Chaplain Senn": 699607,
+              "General Amias Bellamy": 641313,
+              "Commander Venel Lightblood": 522624
+            }
+          },
+          {
+            "id": 471990,
+            "name": "Bear Summon (Howl of the Pack Leader)",
+            "total": 1165691,
+            "uses": null,
+            "hits": 248,
+            "crits": 124,
+            "crit_pct": 50.0,
+            "targets": {
+              "War Chaplain Senn": 532062,
+              "General Amias Bellamy": 334077,
+              "Commander Venel Lightblood": 299552
+            }
+          },
+          {
+            "id": 1,
+            "name": "Melee",
+            "total": 939734,
+            "uses": 361,
+            "hits": 360,
+            "crits": 166,
+            "crit_pct": 46.1,
+            "targets": {
+              "War Chaplain Senn": 413954,
+              "General Amias Bellamy": 367126,
+              "Commander Venel Lightblood": 158654
+            }
+          },
+          {
+            "id": 75,
+            "name": "Auto Shot",
+            "total": 471093,
+            "uses": 122,
+            "hits": 122,
+            "crits": 50,
+            "crit_pct": 41.0,
+            "targets": {
+              "General Amias Bellamy": 197381,
+              "War Chaplain Senn": 192035,
+              "Commander Venel Lightblood": 81677
+            }
+          },
+          {
+            "id": 1302265,
+            "name": "Omnium Folio",
+            "total": 296433,
+            "uses": null,
+            "hits": 364,
+            "crits": 0,
+            "crit_pct": 0.0,
+            "targets": {
+              "War Chaplain Senn": 115697,
+              "Commander Venel Lightblood": 96948,
+              "General Amias Bellamy": 83788
+            }
+          },
+          {
+            "id": 212382,
+            "name": "Dire Beast",
+            "total": 294171,
+            "uses": 22,
+            "hits": 102,
+            "crits": 42,
+            "crit_pct": 41.2,
+            "targets": {
+              "General Amias Bellamy": 136664,
+              "War Chaplain Senn": 106719,
+              "Commander Venel Lightblood": 50788
+            }
+          }
+        ]
+      }
+    },
+    "same_raid": {
+      "key": "same_raid",
+      "label": "민규집영역표시",
+      "code": "vx2ymA7WbXnY4f3Z",
+      "fight_id": 25,
+      "character": "민규집영역표시",
+      "comparison": "같은 공대·같은 전투·동일 아이템 레벨",
+      "url": "https://www.warcraftlogs.com/reports/vx2ymA7WbXnY4f3Z#fight=25&type=damage-done",
+      "duration_s": 395.687,
+      "rank": {
+        "dps": 183093.137,
+        "rank_percent": 84,
+        "bracket_percent": 82,
+        "world_rank": "~556",
+        "best_rank": "~521",
+        "total_parses": 3476,
+        "item_level": 292,
+        "fight_deaths": 6
+      },
+      "stats": {
+        "Speed": 0,
+        "Agility": 2113,
+        "Mastery": 1163,
+        "Crit": 1013,
+        "Item Level": 292,
+        "Stamina": 24190,
+        "Avoidance": 130,
+        "Haste": 520,
+        "Versatility": 0,
+        "Leech": 110
+      },
+      "trinkets": [
+        {
+          "id": 249343,
+          "name": "Gaze of the Alnseer",
+          "ilvl": 298
+        },
+        {
+          "id": 193701,
+          "name": "Algeth'ar Puzzle Box",
+          "ilvl": 298
+        }
+      ],
+      "talents": [
+        117559,
+        117563,
+        117564,
+        117566,
+        117569,
+        117576,
+        117581,
+        117582,
+        117585,
+        117589,
+        123347,
+        126352,
+        126397,
+        126401,
+        126402,
+        126404,
+        126405,
+        126406,
+        126408,
+        126409,
+        126415,
+        126416,
+        126418,
+        126419,
+        126420,
+        126424,
+        126431,
+        126433,
+        126436,
+        126437,
+        126440,
+        126443,
+        126444,
+        126447,
+        126450,
+        126452,
+        126453,
+        126454,
+        126460,
+        126461,
+        126465,
+        126468,
+        126470,
+        126473,
+        126475,
+        126481,
+        126484,
+        126489,
+        126490,
+        135705,
+        135706,
+        135708,
+        135710,
+        136060,
+        136061,
+        136236,
+        136677,
+        136679,
+        136685,
+        137050,
+        137051,
+        137052,
+        117588,
+        126488,
+        126399,
+        126403,
+        126417,
+        126421,
+        126425,
+        126426,
+        126432,
+        126434,
+        135704,
+        126459
+      ],
+      "talent_points": {
+        "117559": 1,
+        "117563": 1,
+        "117564": 1,
+        "117566": 1,
+        "117569": 1,
+        "117576": 1,
+        "117581": 1,
+        "117582": 1,
+        "117585": 1,
+        "117589": 1,
+        "123347": 1,
+        "126352": 1,
+        "126397": 2,
+        "126401": 1,
+        "126402": 1,
+        "126404": 1,
+        "126405": 1,
+        "126406": 1,
+        "126408": 1,
+        "126409": 1,
+        "126415": 1,
+        "126416": 1,
+        "126418": 1,
+        "126419": 1,
+        "126420": 1,
+        "126424": 1,
+        "126431": 1,
+        "126433": 1,
+        "126436": 1,
+        "126437": 1,
+        "126440": 1,
+        "126443": 1,
+        "126444": 1,
+        "126447": 2,
+        "126450": 1,
+        "126452": 1,
+        "126453": 1,
+        "126454": 1,
+        "126460": 2,
+        "126461": 1,
+        "126465": 2,
+        "126468": 1,
+        "126470": 1,
+        "126473": 2,
+        "126475": 1,
+        "126481": 2,
+        "126484": 1,
+        "126489": 1,
+        "126490": 1,
+        "135705": 1,
+        "135706": 2,
+        "135708": 1,
+        "135710": 2,
+        "136060": 1,
+        "136061": 1,
+        "136236": 1,
+        "136677": 1,
+        "136679": 1,
+        "136685": 1,
+        "137050": 1,
+        "137051": 2,
+        "137052": 1,
+        "117588": 1,
+        "126488": 1,
+        "126399": 1,
+        "126403": 1,
+        "126417": 1,
+        "126421": 1,
+        "126425": 1,
+        "126426": 2,
+        "126432": 1,
+        "126434": 1,
+        "135704": 1,
+        "126459": 1
+      },
+      "nodes": [
+        94962,
+        94966,
+        94967,
+        94969,
+        94972,
+        94979,
+        94984,
+        94985,
+        94988,
+        94992,
+        99832,
+        102292,
+        102336,
+        102339,
+        102340,
+        102342,
+        102343,
+        102344,
+        102346,
+        102347,
+        102353,
+        102354,
+        102356,
+        102357,
+        102358,
+        102362,
+        102368,
+        102370,
+        102373,
+        102374,
+        102377,
+        102380,
+        102381,
+        102384,
+        102387,
+        102389,
+        102390,
+        102391,
+        102396,
+        102397,
+        102401,
+        102404,
+        102406,
+        102409,
+        102411,
+        102416,
+        102419,
+        102423,
+        102424,
+        109483,
+        109484,
+        109485,
+        109487,
+        109802,
+        109803,
+        109804,
+        110157,
+        110158,
+        110164,
+        110428,
+        110428,
+        110428,
+        94991,
+        102422,
+        102338,
+        102341,
+        102355,
+        102359,
+        102363,
+        102364,
+        102369,
+        102371,
+        102394,
+        102395
+      ],
+      "external_pi_events": 0,
+      "deaths": [],
+      "events": {
+        "total_casts": 355,
+        "casts_per_min": 53.83,
+        "downtime_3s_total": 27.378,
+        "downtime_3s_count": 7,
+        "downtime_3s_gaps": [
+          3.527,
+          4.032,
+          5.444,
+          3.706,
+          3.783,
+          3.727,
+          3.159
+        ],
+        "downtime_3s_windows": [
+          {
+            "start_s": 125.188,
+            "end_s": 128.715,
+            "length_s": 3.527
+          },
+          {
+            "start_s": 150.733,
+            "end_s": 154.765,
+            "length_s": 4.032
+          },
+          {
+            "start_s": 239.675,
+            "end_s": 245.119,
+            "length_s": 5.444
+          },
+          {
+            "start_s": 258.264,
+            "end_s": 261.97,
+            "length_s": 3.706
+          },
+          {
+            "start_s": 265.752,
+            "end_s": 269.535,
+            "length_s": 3.783
+          },
+          {
+            "start_s": 347.599,
+            "end_s": 351.326,
+            "length_s": 3.727
+          },
+          {
+            "start_s": 382.991,
+            "end_s": 386.15,
+            "length_s": 3.159
+          }
+        ],
+        "core": {
+          "살상 명령": {
+            "id": 34026,
+            "count": 126,
+            "per_min": 19.11,
+            "times_s": [
+              4.433,
+              5.44,
+              7.484,
+              9.503,
+              10.492,
+              13.547,
+              15.555,
+              17.583,
+              20.605,
+              22.65,
+              24.678,
+              27.026,
+              29.047,
+              31.93,
+              35.104,
+              37.141,
+              39.151,
+              41.477,
+              44.12,
+              45.431,
+              48.792,
+              52.732,
+              56.657,
+              60.607,
+              61.933,
+              66.665,
+              70.598,
+              73.228,
+              74.537,
+              77.176,
+              81.125,
+              83.74,
+              85.05,
+              90.572,
+              92.737,
+              97.819,
+              101.746,
+              104.39,
+              105.885,
+              109.815,
+              111.118,
+              115.114,
+              119.017,
+              120.389,
+              125.188,
+              130.88,
+              133.512,
+              136.138,
+              140.099,
+              141.395,
+              145.341,
+              149.408,
+              150.733,
+              157.388,
+              160.056,
+              161.542,
+              166.818,
+              169.43,
+              172.065,
+              176.012,
+              178.651,
+              183.883,
+              186.071,
+              190.038,
+              192.664,
+              195.288,
+              197.907,
+              201.864,
+              204.494,
+              207.124,
+              211.188,
+              212.486,
+              215.118,
+              220.489,
+              223.116,
+              225.734,
+              231.571,
+              232.89,
+              235.51,
+              239.675,
+              245.119,
+              250.388,
+              251.686,
+              254.322,
+              256.945,
+              263.372,
+              272.155,
+              273.459,
+              277.472,
+              278.784,
+              282.753,
+              285.36,
+              287.985,
+              290.905,
+              295.862,
+              298.496,
+              301.114,
+              303.78,
+              305.099,
+              308.219,
+              312.466,
+              315.057,
+              319.002,
+              323.363,
+              325.98,
+              329.922,
+              332.553,
+              333.88,
+              338.579,
+              342.531,
+              343.845,
+              347.599,
+              352.67,
+              356.589,
+              359.198,
+              361.842,
+              364.485,
+              368.41,
+              371.031,
+              373.676,
+              377.623,
+              380.249,
+              387.518,
+              390.172,
+              392.785,
+              394.097
+            ]
+          },
+          "날카로운 사격": {
+            "id": 217200,
+            "count": 84,
+            "per_min": 12.74,
+            "times_s": [
+              0.417,
+              1.411,
+              2.89,
+              3.442,
+              6.481,
+              6.481,
+              8.469,
+              8.47,
+              14.548,
+              14.548,
+              21.623,
+              26.031,
+              33.092,
+              38.149,
+              42.781,
+              47.47,
+              57.979,
+              65.367,
+              67.981,
+              67.982,
+              71.916,
+              78.49,
+              89.252,
+              96.49,
+              100.456,
+              103.064,
+              104.571,
+              107.182,
+              116.382,
+              116.382,
+              123.892,
+              123.893,
+              134.822,
+              137.464,
+              144.033,
+              156.089,
+              156.089,
+              162.868,
+              168.149,
+              174.687,
+              174.687,
+              181.266,
+              188.712,
+              188.713,
+              199.231,
+              203.184,
+              203.184,
+              209.87,
+              219.188,
+              219.188,
+              228.957,
+              230.243,
+              234.191,
+              238.36,
+              249.06,
+              255.65,
+              255.65,
+              262.07,
+              264.682,
+              269.535,
+              276.099,
+              276.099,
+              284.066,
+              284.066,
+              293.225,
+              297.177,
+              302.448,
+              302.448,
+              309.815,
+              317.682,
+              317.682,
+              327.295,
+              328.804,
+              331.233,
+              341.199,
+              351.326,
+              355.294,
+              357.895,
+              360.521,
+              369.729,
+              376.295,
+              376.295,
+              388.824,
+              391.449
+            ]
+          },
+          "코브라 사격": {
+            "id": 193455,
+            "count": 44,
+            "per_min": 6.67,
+            "times_s": [
+              12.54,
+              16.584,
+              18.6,
+              23.666,
+              30.192,
+              40.163,
+              51.417,
+              55.369,
+              64.031,
+              75.859,
+              82.44,
+              94.045,
+              112.439,
+              113.75,
+              122.56,
+              142.709,
+              148.083,
+              158.729,
+              170.749,
+              177.327,
+              179.943,
+              187.396,
+              193.983,
+              205.795,
+              213.81,
+              221.804,
+              224.42,
+              247.751,
+              253.014,
+              274.778,
+              281.411,
+              286.68,
+              306.405,
+              313.728,
+              316.376,
+              321.647,
+              335.93,
+              339.886,
+              363.159,
+              365.791,
+              372.35,
+              378.931,
+              381.572,
+              395.415
+            ]
+          },
+          "마구잡이 난타": {
+            "id": 1264359,
+            "count": 40,
+            "per_min": 6.07,
+            "times_s": [
+              2.428,
+              11.507,
+              19.612,
+              28.063,
+              36.117,
+              50.098,
+              59.3,
+              69.284,
+              79.8,
+              87.959,
+              99.126,
+              108.49,
+              117.698,
+              129.566,
+              138.772,
+              146.77,
+              154.765,
+              164.162,
+              173.375,
+              182.58,
+              191.328,
+              200.559,
+              208.533,
+              217.865,
+              227.608,
+              237.033,
+              246.446,
+              258.264,
+              270.83,
+              280.11,
+              289.305,
+              299.805,
+              311.119,
+              320.314,
+              328.621,
+              337.252,
+              345.251,
+              353.935,
+              374.992,
+              382.991
+            ]
+          },
+          "야수의 격노": {
+            "id": 19574,
+            "count": 13,
+            "per_min": 1.97,
+            "times_s": [
+              3.421,
+              34.097,
+              65.342,
+              100.454,
+              132.184,
+              165.473,
+              196.604,
+              228.937,
+              262.069,
+              294.538,
+              324.673,
+              355.273,
+              386.221
+            ]
+          },
+          "야생의 부름": {
+            "id": 359844,
+            "count": 0,
+            "per_min": 0.0,
+            "times_s": []
+          },
+          "알게타르 수수께끼": {
+            "id": 383781,
+            "count": 4,
+            "per_min": 0.61,
+            "times_s": [
+              0.195,
+              128.715,
+              261.97,
+              386.15
+            ]
+          }
+        },
+        "utility": {
+          "철수": {
+            "id": 781,
+            "count": 0,
+            "times_s": []
+          },
+          "죽은 척하기": {
+            "id": 5384,
+            "count": 0,
+            "times_s": []
+          },
+          "활기": {
+            "id": 109304,
+            "count": 0,
+            "times_s": []
+          },
+          "치타의 상": {
+            "id": 186257,
+            "count": 0,
+            "times_s": []
+          },
+          "거북의 상": {
+            "id": 186265,
+            "count": 1,
+            "times_s": [
+              265.752
+            ]
+          },
+          "적자생존": {
+            "id": 264735,
+            "count": 4,
+            "times_s": [
+              125.111,
+              297.158,
+              339.777,
+              393.085
+            ]
+          },
+          "실버문 생명력 물약": {
+            "id": 1234768,
+            "count": 1,
+            "times_s": [
+              307.325
+            ]
+          }
+        },
+        "all_counts": [
+          {
+            "id": 34026,
+            "name": "살상 명령",
+            "count": 126
+          },
+          {
+            "id": 217200,
+            "name": "날카로운 사격",
+            "count": 84
+          },
+          {
+            "id": 193455,
+            "name": "코브라 사격",
+            "count": 44
+          },
+          {
+            "id": 1264359,
+            "name": "마구잡이 난타",
+            "count": 40
+          },
+          {
+            "id": 219199,
+            "name": "광포한 야수",
+            "count": 30
+          },
+          {
+            "id": 19574,
+            "name": "야수의 격노",
+            "count": 13
+          },
+          {
+            "id": 383781,
+            "name": "알게타르 수수께끼",
+            "count": 4
+          },
+          {
+            "id": 264735,
+            "name": "적자생존",
+            "count": 4
+          },
+          {
+            "id": 80483,
+            "name": "비전 격류",
+            "count": 3
+          },
+          {
+            "id": 1236616,
+            "name": "빛의 잠재력",
+            "count": 2
+          },
+          {
+            "id": 147362,
+            "name": "반격의 사격",
+            "count": 2
+          },
+          {
+            "id": 257284,
+            "name": "사냥꾼의 징표",
+            "count": 1
+          },
+          {
+            "id": 186265,
+            "name": "거북의 상",
+            "count": 1
+          },
+          {
+            "id": 1234768,
+            "name": "실버문 생명력 물약",
+            "count": 1
+          }
+        ],
+        "bw_gap_median": 31.488,
+        "bw_gap_max": 35.112,
+        "bw_kc_within_1_6s": 12,
+        "bw_near_wild_thrash_within_3s": 7,
+        "wild_thrash_gap_median": 9.208,
+        "wild_thrash_gap_max": 21.057,
+        "wild_thrash_gaps_over_10s": 9,
+        "potion_times_s": [
+          3.197,
+          324.093
+        ]
+      },
+      "resources": {
+        "generated": 3151,
+        "wasted": 202,
+        "waste_pct": 6.4,
+        "by_spell": {
+          "1282660": {
+            "generated": 1450,
+            "wasted": 188,
+            "events": 58
+          },
+          "1264783": {
+            "generated": 146,
+            "wasted": 14,
+            "events": 146
+          },
+          "246152": {
+            "generated": 1480,
+            "wasted": 0,
+            "events": 169
+          },
+          "80483": {
+            "generated": 45,
+            "wasted": 0,
+            "events": 3
+          },
+          "459976": {
+            "generated": 30,
+            "wasted": 0,
+            "events": 1
+          }
+        }
+      },
+      "damage": {
+        "total": 72447574,
+        "targets": {
+          "General Amias Bellamy": 26649724,
+          "Commander Venel Lightblood": 22929988,
+          "War Chaplain Senn": 22867862
+        },
+        "spells": [
+          {
+            "id": 883,
+            "name": "Call Pet 1",
+            "total": 21876709,
+            "uses": 793,
+            "hits": 1477,
+            "crits": 353,
+            "crit_pct": 23.9,
+            "targets": {
+              "General Amias Bellamy": 7520939,
+              "Commander Venel Lightblood": 7275612,
+              "War Chaplain Senn": 7080158
+            }
+          },
+          {
+            "id": 34026,
+            "name": "Kill Command",
+            "total": 11011928,
+            "uses": 126,
+            "hits": 319,
+            "crits": 120,
+            "crit_pct": 37.6,
+            "targets": {
+              "General Amias Bellamy": 4864878,
+              "War Chaplain Senn": 3240645,
+              "Commander Venel Lightblood": 2906405
+            }
+          },
+          {
+            "id": 217200,
+            "name": "Barbed Shot",
+            "total": 9640121,
+            "uses": 84,
+            "hits": 470,
+            "crits": 188,
+            "crit_pct": 40.0,
+            "targets": {
+              "General Amias Bellamy": 3615276,
+              "War Chaplain Senn": 3399244,
+              "Commander Venel Lightblood": 2625601
+            }
+          },
+          {
+            "id": 471938,
+            "name": "Boar Charge",
+            "total": 3541518,
+            "uses": null,
+            "hits": 28,
+            "crits": 10,
+            "crit_pct": 35.7,
+            "targets": {
+              "General Amias Bellamy": 1356827,
+              "Commander Venel Lightblood": 1156487,
+              "War Chaplain Senn": 1028204
+            }
+          },
+          {
+            "id": 1264355,
+            "name": "Wild Thrash",
+            "total": 3490968,
+            "uses": null,
+            "hits": 90,
+            "crits": 37,
+            "crit_pct": 41.1,
+            "targets": {
+              "Commander Venel Lightblood": 1318002,
+              "General Amias Bellamy": 1197389,
+              "War Chaplain Senn": 975577
+            }
+          },
+          {
+            "id": 193455,
+            "name": "Cobra Shot",
+            "total": 3126822,
+            "uses": 44,
+            "hits": 76,
+            "crits": 31,
+            "crit_pct": 40.8,
+            "targets": {
+              "General Amias Bellamy": 1230460,
+              "War Chaplain Senn": 974131,
+              "Commander Venel Lightblood": 922231
+            }
+          },
+          {
+            "id": 201594,
+            "name": "Stampede",
+            "total": 3088713,
+            "uses": null,
+            "hits": 198,
+            "crits": 77,
+            "crit_pct": 38.9,
+            "targets": {
+              "Commander Venel Lightblood": 1150943,
+              "War Chaplain Senn": 989281,
+              "General Amias Bellamy": 948489
+            }
+          },
+          {
+            "id": 118459,
+            "name": "Beast Cleave",
+            "total": 2840511,
+            "uses": null,
+            "hits": 925,
+            "crits": 0,
+            "crit_pct": 0.0,
+            "targets": {
+              "Commander Venel Lightblood": 1245436,
+              "War Chaplain Senn": 860485,
+              "General Amias Bellamy": 734590
+            }
+          },
+          {
+            "id": 201754,
+            "name": "Stomp",
+            "total": 2370260,
+            "uses": 70,
+            "hits": 145,
+            "crits": 57,
+            "crit_pct": 39.3,
+            "targets": {
+              "Commander Venel Lightblood": 838586,
+              "War Chaplain Senn": 773935,
+              "General Amias Bellamy": 757739
+            }
+          },
+          {
+            "id": 321538,
+            "name": "Bloodshed",
+            "total": 2287157,
+            "uses": null,
+            "hits": 158,
+            "crits": 0,
+            "crit_pct": 0.0,
+            "targets": {
+              "General Amias Bellamy": 1044205,
+              "War Chaplain Senn": 740709,
+              "Commander Venel Lightblood": 502243
+            }
+          },
+          {
+            "id": 389448,
+            "name": "Kill Cleave",
+            "total": 2098800,
+            "uses": null,
+            "hits": 133,
+            "crits": 0,
+            "crit_pct": 0.0,
+            "targets": {
+              "Commander Venel Lightblood": 939863,
+              "War Chaplain Senn": 698745,
+              "General Amias Bellamy": 460192
+            }
+          },
+          {
+            "id": 459560,
+            "name": "Laceration",
+            "total": 1954140,
+            "uses": null,
+            "hits": 792,
+            "crits": 0,
+            "crit_pct": 0.0,
+            "targets": {
+              "General Amias Bellamy": 752198,
+              "Commander Venel Lightblood": 667712,
+              "War Chaplain Senn": 534230
+            }
+          },
+          {
+            "id": 344572,
+            "name": "Bestial Wrath",
+            "total": 1623992,
+            "uses": null,
+            "hits": 28,
+            "crits": 9,
+            "crit_pct": 32.1,
+            "targets": {
+              "General Amias Bellamy": 608741,
+              "Commander Venel Lightblood": 566471,
+              "War Chaplain Senn": 448780
+            }
+          },
+          {
+            "id": 471990,
+            "name": "Bear Summon (Howl of the Pack Leader)",
+            "total": 1305695,
+            "uses": null,
+            "hits": 290,
+            "crits": 105,
+            "crit_pct": 36.2,
+            "targets": {
+              "General Amias Bellamy": 501962,
+              "Commander Venel Lightblood": 427057,
+              "War Chaplain Senn": 376676
+            }
+          },
+          {
+            "id": 1,
+            "name": "Melee",
+            "total": 745985,
+            "uses": 315,
+            "hits": 315,
+            "crits": 130,
+            "crit_pct": 41.3,
+            "targets": {
+              "General Amias Bellamy": 344867,
+              "War Chaplain Senn": 264361,
+              "Commander Venel Lightblood": 136757
+            }
+          },
+          {
+            "id": 75,
+            "name": "Auto Shot",
+            "total": 547416,
+            "uses": 146,
+            "hits": 146,
+            "crits": 57,
+            "crit_pct": 39.0,
+            "targets": {
+              "General Amias Bellamy": 252768,
+              "War Chaplain Senn": 208854,
+              "Commander Venel Lightblood": 85794
+            }
+          },
+          {
+            "id": 219199,
+            "name": "Dire Beast",
+            "total": 428765,
+            "uses": null,
+            "hits": 144,
+            "crits": 64,
+            "crit_pct": 44.4,
+            "targets": {
+              "General Amias Bellamy": 260978,
+              "Commander Venel Lightblood": 88001,
+              "War Chaplain Senn": 79786
+            }
+          },
+          {
+            "id": 1302265,
+            "name": "Omnium Folio",
+            "total": 346144,
+            "uses": null,
+            "hits": 418,
+            "crits": 0,
+            "crit_pct": 0.0,
+            "targets": {
+              "War Chaplain Senn": 155394,
+              "General Amias Bellamy": 136496,
+              "Commander Venel Lightblood": 54254
+            }
+          },
+          {
+            "id": 1285138,
+            "name": "Sporecaller's Blooming Loop",
+            "total": 121930,
+            "uses": null,
+            "hits": 80,
+            "crits": 32,
+            "crit_pct": 40.0,
+            "targets": {
+              "General Amias Bellamy": 60730,
+              "War Chaplain Senn": 38667,
+              "Commander Venel Lightblood": 22533
+            }
+          }
+        ]
+      }
+    },
+    "nopi_99": {
+      "key": "nopi_99",
+      "label": "爬山",
+      "code": "vY7mH1NRZh4WBDJw",
+      "fight_id": 2,
+      "character": "爬山",
+      "comparison": "유사 전투 길이 무마주 99권 표본",
+      "url": "https://www.warcraftlogs.com/reports/vY7mH1NRZh4WBDJw#fight=2&type=damage-done",
+      "duration_s": 409.796,
+      "rank": {
+        "dps": 207565.318,
+        "rank_percent": 99,
+        "bracket_percent": 99,
+        "world_rank": 27,
+        "best_rank": 27,
+        "total_parses": 3476,
+        "item_level": 292,
+        "fight_deaths": 3
+      },
+      "stats": {
+        "Speed": 0,
+        "Agility": 2160,
+        "Mastery": 2033,
+        "Crit": 1275,
+        "Item Level": 292,
+        "Stamina": 24018,
+        "Avoidance": 243,
+        "Haste": 307,
+        "Versatility": 48,
+        "Leech": 28
+      },
+      "trinkets": [
+        {
+          "id": 193701,
+          "name": "Algeth'ar Puzzle Box",
+          "ilvl": 298
+        },
+        {
+          "id": 249343,
+          "name": "Gaze of the Alnseer",
+          "ilvl": 298
+        }
+      ],
+      "talents": [
+        117585,
+        136676,
+        136685,
+        117564,
+        126405,
+        117569,
+        137051,
+        137052,
+        135712,
+        126461,
+        126450,
+        126454,
+        126473,
+        136675,
+        126408,
+        126402,
+        126409,
+        126465,
+        126416,
+        126440,
+        126444,
+        126475,
+        126489,
+        126470,
+        126425,
+        126426,
+        126432,
+        126434,
+        135706,
+        126404,
+        126481,
+        117566,
+        126418,
+        126420,
+        137050,
+        126352,
+        126397,
+        126419,
+        126424,
+        126431,
+        126436,
+        126437,
+        126443,
+        126447,
+        126453,
+        117559,
+        136060,
+        136061,
+        117563,
+        117581,
+        117582,
+        117589,
+        135710,
+        117576,
+        126415,
+        126490,
+        126433,
+        135705,
+        126460,
+        135708,
+        136677,
+        126468,
+        136236,
+        136679,
+        126399,
+        126401,
+        126403,
+        126406,
+        126417,
+        126421,
+        123347,
+        126484,
+        117588,
+        126488
+      ],
+      "talent_points": {
+        "117585": 1,
+        "136676": 1,
+        "136685": 1,
+        "117564": 1,
+        "126405": 1,
+        "117569": 1,
+        "137051": 2,
+        "137052": 1,
+        "135712": 1,
+        "126461": 1,
+        "126450": 1,
+        "126454": 1,
+        "126473": 2,
+        "136675": 1,
+        "126408": 1,
+        "126402": 1,
+        "126409": 1,
+        "126465": 2,
+        "126416": 1,
+        "126440": 1,
+        "126444": 1,
+        "126475": 1,
+        "126489": 1,
+        "126470": 1,
+        "126425": 1,
+        "126426": 2,
+        "126432": 1,
+        "126434": 1,
+        "135706": 2,
+        "126404": 1,
+        "126481": 2,
+        "117566": 1,
+        "126418": 1,
+        "126420": 1,
+        "137050": 1,
+        "126352": 1,
+        "126397": 2,
+        "126419": 1,
+        "126424": 1,
+        "126431": 1,
+        "126436": 1,
+        "126437": 1,
+        "126443": 1,
+        "126447": 2,
+        "126453": 1,
+        "117559": 1,
+        "136060": 1,
+        "136061": 1,
+        "117563": 1,
+        "117581": 1,
+        "117582": 1,
+        "117589": 1,
+        "135710": 2,
+        "117576": 1,
+        "126415": 1,
+        "126490": 1,
+        "126433": 1,
+        "135705": 1,
+        "126460": 2,
+        "135708": 1,
+        "136677": 1,
+        "126468": 1,
+        "136236": 1,
+        "136679": 1,
+        "126399": 1,
+        "126401": 1,
+        "126403": 1,
+        "126406": 1,
+        "126417": 1,
+        "126421": 1,
+        "123347": 1,
+        "126484": 1,
+        "117588": 1,
+        "126488": 1
+      },
+      "nodes": [
+        94988,
+        110156,
+        110164,
+        94967,
+        102343,
+        94972,
+        110428,
+        110428,
+        109489,
+        102397,
+        102387,
+        102391,
+        102409,
+        110155,
+        102346,
+        102340,
+        102347,
+        102401,
+        102354,
+        102377,
+        102381,
+        102411,
+        102423,
+        102406,
+        102363,
+        102364,
+        102369,
+        102371,
+        109484,
+        102342,
+        102416,
+        94969,
+        102356,
+        102358,
+        110428,
+        102292,
+        102336,
+        102357,
+        102362,
+        102368,
+        102373,
+        102374,
+        102380,
+        102384,
+        102390,
+        94962,
+        109802,
+        109803,
+        94966,
+        94984,
+        94985,
+        94992,
+        109487,
+        94979,
+        102353,
+        102424,
+        102370,
+        109483,
+        102396,
+        109485,
+        110157,
+        102404,
+        109804,
+        110158,
+        102338,
+        102339,
+        102341,
+        102344,
+        102355,
+        102359,
+        99832,
+        102419,
+        94991,
+        102422
+      ],
+      "external_pi_events": 0,
+      "deaths": [],
+      "events": {
+        "total_casts": 354,
+        "casts_per_min": 51.83,
+        "downtime_3s_total": 18.526,
+        "downtime_3s_count": 5,
+        "downtime_3s_gaps": [
+          4.139,
+          3.026,
+          4.656,
+          3.394,
+          3.311
+        ],
+        "downtime_3s_windows": [
+          {
+            "start_s": 117.67,
+            "end_s": 121.809,
+            "length_s": 4.139
+          },
+          {
+            "start_s": 181.104,
+            "end_s": 184.13,
+            "length_s": 3.026
+          },
+          {
+            "start_s": 299.094,
+            "end_s": 303.75,
+            "length_s": 4.656
+          },
+          {
+            "start_s": 303.75,
+            "end_s": 307.144,
+            "length_s": 3.394
+          },
+          {
+            "start_s": 366.687,
+            "end_s": 369.998,
+            "length_s": 3.311
+          }
+        ],
+        "core": {
+          "살상 명령": {
+            "id": 34026,
+            "count": 124,
+            "per_min": 18.16,
+            "times_s": [
+              4.908,
+              5.945,
+              9.352,
+              10.423,
+              12.53,
+              14.637,
+              18.435,
+              20.612,
+              21.634,
+              25.808,
+              26.899,
+              29.006,
+              32.17,
+              35.402,
+              38.317,
+              39.366,
+              43.995,
+              45.334,
+              50.688,
+              52.019,
+              56.069,
+              58.835,
+              61.567,
+              68.408,
+              69.763,
+              72.507,
+              75.252,
+              78.032,
+              80.749,
+              85.466,
+              87.112,
+              92.027,
+              99.524,
+              100.867,
+              103.673,
+              107.821,
+              109.117,
+              116.348,
+              117.67,
+              121.81,
+              127.261,
+              128.644,
+              131.388,
+              134.554,
+              137.325,
+              142.674,
+              145.285,
+              148.124,
+              151.362,
+              158.847,
+              160.221,
+              162.991,
+              167.177,
+              169.893,
+              175.397,
+              176.997,
+              181.104,
+              188.202,
+              190.993,
+              193.809,
+              196.478,
+              199.242,
+              203.363,
+              204.707,
+              209.965,
+              211.768,
+              214.574,
+              220.807,
+              223.469,
+              226.185,
+              228.934,
+              231.702,
+              234.431,
+              238.618,
+              242.424,
+              248.894,
+              250.339,
+              255.342,
+              258.113,
+              260.853,
+              263.622,
+              266.248,
+              268.993,
+              273.205,
+              277.408,
+              280.133,
+              283.986,
+              286.703,
+              289.448,
+              292.244,
+              294.951,
+              297.697,
+              307.144,
+              311.303,
+              314.108,
+              318.247,
+              319.625,
+              322.359,
+              326.485,
+              331.166,
+              332.49,
+              335.435,
+              338.209,
+              343.245,
+              345.997,
+              348.783,
+              352.903,
+              355.611,
+              358.353,
+              362.475,
+              365.276,
+              371.341,
+              372.726,
+              377.356,
+              380.106,
+              382.852,
+              385.633,
+              388.347,
+              390.643,
+              396.388,
+              399.151,
+              401.926,
+              406.06,
+              408.769
+            ]
+          },
+          "날카로운 사격": {
+            "id": 217200,
+            "count": 85,
+            "per_min": 12.45,
+            "times_s": [
+              1.735,
+              2.779,
+              2.779,
+              3.217,
+              7.018,
+              11.481,
+              19.492,
+              19.492,
+              22.712,
+              22.713,
+              31.103,
+              36.485,
+              42.586,
+              46.745,
+              54.719,
+              54.719,
+              64.278,
+              67.022,
+              71.138,
+              71.139,
+              76.672,
+              84.123,
+              93.461,
+              93.461,
+              96.233,
+              102.25,
+              102.25,
+              113.499,
+              113.499,
+              124.513,
+              124.513,
+              130.03,
+              135.911,
+              143.916,
+              143.916,
+              154.118,
+              161.596,
+              161.597,
+              164.409,
+              172.729,
+              185.507,
+              185.508,
+              189.692,
+              195.097,
+              201.98,
+              201.98,
+              213.202,
+              219.341,
+              222.107,
+              222.107,
+              227.562,
+              237.234,
+              237.235,
+              247.361,
+              252.593,
+              256.703,
+              259.487,
+              267.645,
+              267.645,
+              275.99,
+              275.99,
+              282.574,
+              285.375,
+              290.865,
+              290.865,
+              309.898,
+              309.898,
+              315.559,
+              320.998,
+              329.757,
+              329.757,
+              336.799,
+              347.38,
+              351.489,
+              359.732,
+              366.687,
+              366.687,
+              376.011,
+              381.494,
+              381.495,
+              384.231,
+              384.231,
+              397.787,
+              404.647,
+              407.405
+            ]
+          },
+          "코브라 사격": {
+            "id": 193455,
+            "count": 31,
+            "per_min": 4.54,
+            "times_s": [
+              13.633,
+              15.716,
+              27.936,
+              30.026,
+              53.326,
+              60.215,
+              79.387,
+              88.514,
+              104.992,
+              110.515,
+              138.761,
+              146.676,
+              152.811,
+              168.515,
+              171.267,
+              178.38,
+              197.83,
+              206.822,
+              217.939,
+              230.336,
+              235.878,
+              243.795,
+              271.834,
+              274.606,
+              323.761,
+              328.419,
+              339.581,
+              354.257,
+              363.854,
+              392.029,
+              400.535
+            ]
+          },
+          "마구잡이 난타": {
+            "id": 1264359,
+            "count": 48,
+            "per_min": 7.03,
+            "times_s": [
+              0.269,
+              8.316,
+              16.785,
+              24.753,
+              33.211,
+              41.198,
+              49.21,
+              57.466,
+              65.682,
+              73.931,
+              82.117,
+              90.139,
+              98.123,
+              106.383,
+              114.884,
+              123.172,
+              133.169,
+              141.158,
+              149.477,
+              157.461,
+              165.798,
+              174.029,
+              184.13,
+              192.317,
+              200.585,
+              208.6,
+              216.569,
+              224.843,
+              233.057,
+              241.098,
+              253.959,
+              262.214,
+              270.406,
+              278.814,
+              288.106,
+              296.312,
+              308.518,
+              316.861,
+              325.11,
+              333.855,
+              341.905,
+              350.118,
+              361.094,
+              369.999,
+              378.736,
+              387.007,
+              395.034,
+              403.261
+            ]
+          },
+          "야수의 격노": {
+            "id": 19574,
+            "count": 14,
+            "per_min": 2.05,
+            "times_s": [
+              3.831,
+              34.256,
+              64.277,
+              94.846,
+              125.894,
+              155.888,
+              186.839,
+              219.319,
+              252.592,
+              282.573,
+              312.626,
+              344.636,
+              374.626,
+              404.646
+            ]
+          },
+          "야생의 부름": {
+            "id": 359844,
+            "count": 0,
+            "per_min": 0.0,
+            "times_s": []
+          },
+          "알게타르 수수께끼": {
+            "id": 383781,
+            "count": 3,
+            "per_min": 0.44,
+            "times_s": [
+              121.809,
+              247.361,
+              369.998
+            ]
+          }
+        },
+        "utility": {
+          "철수": {
+            "id": 781,
+            "count": 0,
+            "times_s": []
+          },
+          "죽은 척하기": {
+            "id": 5384,
+            "count": 0,
+            "times_s": []
+          },
+          "활기": {
+            "id": 109304,
+            "count": 2,
+            "times_s": [
+              293.561,
+              356.987
+            ]
+          },
+          "치타의 상": {
+            "id": 186257,
+            "count": 2,
+            "times_s": [
+              151.019,
+              299.094
+            ]
+          },
+          "거북의 상": {
+            "id": 186265,
+            "count": 1,
+            "times_s": [
+              303.75
+            ]
+          },
+          "적자생존": {
+            "id": 264735,
+            "count": 5,
+            "times_s": [
+              87.827,
+              142.147,
+              244.839,
+              312.234,
+              393.993
+            ]
+          },
+          "실버문 생명력 물약": {
+            "id": 1234768,
+            "count": 1,
+            "times_s": [
+              329.602
+            ]
+          }
+        },
+        "all_counts": [
+          {
+            "id": 34026,
+            "name": "살상 명령",
+            "count": 124
+          },
+          {
+            "id": 217200,
+            "name": "날카로운 사격",
+            "count": 85
+          },
+          {
+            "id": 1264359,
+            "name": "마구잡이 난타",
+            "count": 48
+          },
+          {
+            "id": 219199,
+            "name": "광포한 야수",
+            "count": 32
+          },
+          {
+            "id": 193455,
+            "name": "코브라 사격",
+            "count": 31
+          },
+          {
+            "id": 19574,
+            "name": "야수의 격노",
+            "count": 14
+          },
+          {
+            "id": 264735,
+            "name": "적자생존",
+            "count": 5
+          },
+          {
+            "id": 383781,
+            "name": "알게타르 수수께끼",
+            "count": 3
+          },
+          {
+            "id": 1236998,
+            "name": "날뛰는 방종의 비약",
+            "count": 2
+          },
+          {
+            "id": 257284,
+            "name": "사냥꾼의 징표",
+            "count": 2
+          },
+          {
+            "id": 147362,
+            "name": "반격의 사격",
+            "count": 2
+          },
+          {
+            "id": 186257,
+            "name": "치타의 상",
+            "count": 2
+          },
+          {
+            "id": 109304,
+            "name": "활기",
+            "count": 2
+          },
+          {
+            "id": 186265,
+            "name": "거북의 상",
+            "count": 1
+          },
+          {
+            "id": 1234768,
+            "name": "실버문 생명력 물약",
+            "count": 1
+          }
+        ],
+        "bw_gap_median": 30.425,
+        "bw_gap_max": 33.273,
+        "bw_kc_within_1_6s": 9,
+        "bw_near_wild_thrash_within_3s": 9,
+        "wild_thrash_gap_median": 8.249,
+        "wild_thrash_gap_max": 12.861,
+        "wild_thrash_gaps_over_10s": 4,
+        "potion_times_s": [
+          1.433,
+          308.855
+        ]
+      },
+      "resources": {
+        "generated": 2978,
+        "wasted": 159,
+        "waste_pct": 5.3,
+        "by_spell": {
+          "1264783": {
+            "generated": 150,
+            "wasted": 12,
+            "events": 150
+          },
+          "1282660": {
+            "generated": 1400,
+            "wasted": 147,
+            "events": 56
+          },
+          "246152": {
+            "generated": 1428,
+            "wasted": 0,
+            "events": 171
+          }
+        }
+      },
+      "damage": {
+        "total": 85059437,
+        "targets": {
+          "General Amias Bellamy": 35823579,
+          "War Chaplain Senn": 24843178,
+          "Commander Venel Lightblood": 24392680
+        },
+        "spells": [
+          {
+            "id": 883,
+            "name": "Call Pet 1",
+            "total": 26384217,
+            "uses": 694,
+            "hits": 1578,
+            "crits": 461,
+            "crit_pct": 29.2,
+            "targets": {
+              "General Amias Bellamy": 10426086,
+              "Commander Venel Lightblood": 8060497,
+              "War Chaplain Senn": 7897634
+            }
+          },
+          {
+            "id": 34026,
+            "name": "Kill Command",
+            "total": 12336233,
+            "uses": 124,
+            "hits": 317,
+            "crits": 151,
+            "crit_pct": 47.6,
+            "targets": {
+              "General Amias Bellamy": 7038543,
+              "War Chaplain Senn": 2876306,
+              "Commander Venel Lightblood": 2421384
+            }
+          },
+          {
+            "id": 217200,
+            "name": "Barbed Shot",
+            "total": 10244765,
+            "uses": 85,
+            "hits": 487,
+            "crits": 207,
+            "crit_pct": 42.5,
+            "targets": {
+              "General Amias Bellamy": 4483203,
+              "War Chaplain Senn": 3003218,
+              "Commander Venel Lightblood": 2758344
+            }
+          },
+          {
+            "id": 471938,
+            "name": "Boar Charge",
+            "total": 5235715,
+            "uses": null,
+            "hits": 34,
+            "crits": 19,
+            "crit_pct": 55.9,
+            "targets": {
+              "General Amias Bellamy": 2536063,
+              "Commander Venel Lightblood": 1504887,
+              "War Chaplain Senn": 1194765
+            }
+          },
+          {
+            "id": 201594,
+            "name": "Stampede",
+            "total": 4305395,
+            "uses": null,
+            "hits": 276,
+            "crits": 125,
+            "crit_pct": 45.3,
+            "targets": {
+              "War Chaplain Senn": 1462306,
+              "Commander Venel Lightblood": 1437488,
+              "General Amias Bellamy": 1405601
+            }
+          },
+          {
+            "id": 1264355,
+            "name": "Wild Thrash",
+            "total": 3897740,
+            "uses": null,
+            "hits": 103,
+            "crits": 38,
+            "crit_pct": 36.9,
+            "targets": {
+              "General Amias Bellamy": 1337159,
+              "Commander Venel Lightblood": 1333457,
+              "War Chaplain Senn": 1227124
+            }
+          },
+          {
+            "id": 118459,
+            "name": "Beast Cleave",
+            "total": 3598039,
+            "uses": null,
+            "hits": 1010,
+            "crits": 0,
+            "crit_pct": 0.0,
+            "targets": {
+              "Commander Venel Lightblood": 1348757,
+              "War Chaplain Senn": 1307679,
+              "General Amias Bellamy": 941603
+            }
+          },
+          {
+            "id": 193455,
+            "name": "Cobra Shot",
+            "total": 3167996,
+            "uses": 31,
+            "hits": 72,
+            "crits": 35,
+            "crit_pct": 48.6,
+            "targets": {
+              "General Amias Bellamy": 1173783,
+              "War Chaplain Senn": 1126012,
+              "Commander Venel Lightblood": 868201
+            }
+          },
+          {
+            "id": 459560,
+            "name": "Laceration",
+            "total": 2591583,
+            "uses": null,
+            "hits": 838,
+            "crits": 0,
+            "crit_pct": 0.0,
+            "targets": {
+              "General Amias Bellamy": 1122039,
+              "Commander Venel Lightblood": 775549,
+              "War Chaplain Senn": 693995
+            }
+          },
+          {
+            "id": 389448,
+            "name": "Kill Cleave",
+            "total": 2558187,
+            "uses": null,
+            "hits": 145,
+            "crits": 0,
+            "crit_pct": 0.0,
+            "targets": {
+              "War Chaplain Senn": 1082235,
+              "Commander Venel Lightblood": 987389,
+              "General Amias Bellamy": 488563
+            }
+          },
+          {
+            "id": 201754,
+            "name": "Stomp",
+            "total": 2495788,
+            "uses": 70,
+            "hits": 150,
+            "crits": 57,
+            "crit_pct": 38.0,
+            "targets": {
+              "Commander Venel Lightblood": 880930,
+              "General Amias Bellamy": 854287,
+              "War Chaplain Senn": 760571
+            }
+          },
+          {
+            "id": 321538,
+            "name": "Bloodshed",
+            "total": 2403338,
+            "uses": null,
+            "hits": 175,
+            "crits": 0,
+            "crit_pct": 0.0,
+            "targets": {
+              "General Amias Bellamy": 1364166,
+              "War Chaplain Senn": 607634,
+              "Commander Venel Lightblood": 431538
+            }
+          },
+          {
+            "id": 344572,
+            "name": "Bestial Wrath",
+            "total": 2272049,
+            "uses": null,
+            "hits": 29,
+            "crits": 17,
+            "crit_pct": 58.6,
+            "targets": {
+              "General Amias Bellamy": 863636,
+              "Commander Venel Lightblood": 725955,
+              "War Chaplain Senn": 682458
+            }
+          },
+          {
+            "id": 471990,
+            "name": "Bear Summon (Howl of the Pack Leader)",
+            "total": 1427260,
+            "uses": null,
+            "hits": 311,
+            "crits": 130,
+            "crit_pct": 41.8,
+            "targets": {
+              "General Amias Bellamy": 649373,
+              "War Chaplain Senn": 392051,
+              "Commander Venel Lightblood": 385836
+            }
+          },
+          {
+            "id": 1,
+            "name": "Melee",
+            "total": 766956,
+            "uses": 304,
+            "hits": 302,
+            "crits": 148,
+            "crit_pct": 49.0,
+            "targets": {
+              "General Amias Bellamy": 450116,
+              "War Chaplain Senn": 181143,
+              "Commander Venel Lightblood": 135697
+            }
+          },
+          {
+            "id": 75,
+            "name": "Auto Shot",
+            "total": 586490,
+            "uses": 150,
+            "hits": 150,
+            "crits": 65,
+            "crit_pct": 43.3,
+            "targets": {
+              "General Amias Bellamy": 368459,
+              "War Chaplain Senn": 128445,
+              "Commander Venel Lightblood": 89586
+            }
+          },
+          {
+            "id": 219199,
+            "name": "Dire Beast",
+            "total": 408720,
+            "uses": null,
+            "hits": 142,
+            "crits": 59,
+            "crit_pct": 41.5,
+            "targets": {
+              "General Amias Bellamy": 178892,
+              "Commander Venel Lightblood": 173991,
+              "War Chaplain Senn": 55837
+            }
+          },
+          {
+            "id": 1302265,
+            "name": "Omnium Folio",
+            "total": 364884,
+            "uses": null,
+            "hits": 445,
+            "crits": 0,
+            "crit_pct": 0.0,
+            "targets": {
+              "War Chaplain Senn": 163765,
+              "General Amias Bellamy": 127925,
+              "Commander Venel Lightblood": 73194
+            }
+          },
+          {
+            "id": 1285139,
+            "name": "Rotmire's Sporeheart",
+            "total": 14082,
+            "uses": null,
+            "hits": 1,
+            "crits": 1,
+            "crit_pct": 100.0,
+            "targets": {
+              "General Amias Bellamy": 14082
+            }
+          }
+        ]
+      }
+    }
+  },
+  "talent_differences": {
+    "same_raid": {
+      "manteri_only": [
+        "135709",
+        "135711",
+        "135712",
+        "136673"
+      ],
+      "other_only": [
+        "126452",
+        "135704",
+        "135706"
+      ]
+    },
+    "nopi_99": {
+      "manteri_only": [
+        "126459",
+        "135709",
+        "135711",
+        "136673"
+      ],
+      "other_only": [
+        "135706",
+        "136675",
+        "136676"
+      ]
+    }
+  },
+  "node_differences": {
+    "same_raid": {
+      "manteri_only": [
+        "살쾡이의 반사 신경",
+        "구속의 사격",
+        "평정의 사격",
+        "껍질 벽"
+      ],
+      "other_only": [
+        "비상 연고",
+        "영역 본능 / 단장의 포효",
+        "죽은 척하기 연마"
+      ]
+    },
+    "nopi_99": {
+      "manteri_only": [
+        "방해탄",
+        "살쾡이의 반사 신경",
+        "구속의 사격",
+        "껍질 벽"
+      ],
+      "other_only": [
+        "죽은 척하기 연마",
+        "개척자 / 기회의 찰나",
+        "위장술"
+      ]
+    }
+  },
+  "rate": {
+    "limitPerHour": 18000,
+    "pointsSpentThisHour": 356.49,
+    "pointsResetIn": 1833
+  }
+}
