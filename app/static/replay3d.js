@@ -347,6 +347,7 @@ window.Replay3D = (() => {
   function ensureLabel(rec) {
     if (rec.label) return;
     rec.label = makeTextSprite(String(rec.u.name || rec.u.id).split('-')[0], '#f0f0f0');
+    rec.label.scale.multiplyScalar(0.62);   // 플레이어 이름은 작게 — 20명 겹칠 때 가독성
     rec.label.position.y = rec.r * 2 + 2.6;
     rec.group.add(rec.label);
   }
@@ -624,15 +625,20 @@ window.Replay3D = (() => {
         : ({ hit: '#b18cf0', impact: '#ef6b62', summon: '#4fc9b0' }[ev.kind] || '#e8a34c'));
       mesh.material.opacity = (shape === 'target' ? 0.9 : (it.danger ? 0.42 : 0.24)) * it.fade;
       mesh.visible = true;
-      // 대상 유닛 강조: 표시 기간 내내 구체 펄스 + 이름표 (기간형은 살짝만 왕복)
+      // 대상 유닛 강조: 표시 기간 내내 구체 펄스 + 이름표 (기간형은 살짝만 왕복).
+      // 실반경 원 기믹(임계점 등)은 전원이 대상이라 이름을 다 띄우면 화면이 덮임 —
+      // 겹침(danger)으로 빨간 원이 된 사람만 이름을 보여 범인을 바로 찾게 한다.
       const drec = units[ev.dest_id];
       if (drec && drec.group.visible) {
         const pu = 1 + (it.durable ? 0.12 : 0.25) * Math.abs(Math.sin(age * Math.PI * 2));
         const ps = (drec.baseScale || 1) * pu;
         drec.group.scale.set(ps, ps, ps);
         if (drec.u.kind !== 'boss') {
-          ensureLabel(drec);
-          drec.label.visible = true;
+          const circleGeom = shape === 'circle' && Number(geometry.radius) > 0;
+          if (!circleGeom || it.danger) {
+            ensureLabel(drec);
+            drec.label.visible = true;
+          }
         }
       }
       if (ri >= RC_RING_MAX) break;   // main.js 상수 공유 (링 풀 상한)

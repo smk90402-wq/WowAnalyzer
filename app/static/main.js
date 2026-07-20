@@ -3206,6 +3206,8 @@ function rcDraw() {
 
   // 보스 기믹: 대상 링 + 스킬명 라벨 — 기간형(end)은 걸린 동안 유지(은은한 맥동)
   // 후 0.5초 페이드아웃, 순간형은 기존 3초 페이드 (rcRingEventsAt 이 공용 규칙)
+  const unitNameById = {};
+  for (const u of rc.meta.units || []) unitNameById[u.id] = String(u.name || '').split('-')[0];
   for (const it of rcRingEventsAt(t)) {
     const ev = it.ev;
     const age = it.age;
@@ -3294,7 +3296,8 @@ function rcDraw() {
     }
     ctx.stroke();
     const stacks = ev.max_stacks ? rcStacksAt(ev, t) : 0;
-    const label = `${String(ev.spell || '')}${stacks ? ` ×${stacks}` : ''}${it.danger ? ' 겹침!' : ''}`;
+    const label = `${String(ev.spell || '')}${stacks ? ` ×${stacks}` : ''}`
+      + (it.danger ? ` 겹침! ${unitNameById[it.anchorId] || ''}` : '');
     if (label) {
       ctx.font = 'bold 12px sans-serif';
       ctx.lineWidth = 3;
