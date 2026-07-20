@@ -1,0 +1,57 @@
+=== P3(318s+) 중첩(DOSE) 디버프 전수 ===
+  355회  최대×17  sid=1266687 '알른멸시의 정수'
+  100회  최대×26  sid=1232310 '영혼의 향연'
+   91회  최대×14  sid=196911 '그림자 기술'
+   63회  최대×13  sid=1245577 '영혼 파편'
+   61회  최대×50  sid=1225789 '공허 탈태'
+   60회  최대×60  sid=433674 '구세의 빛'
+   57회  최대× 7  sid=1235193 '신성 광선'
+   55회  최대×10  sid=344179 '소용돌이치는 무기'
+   42회  최대×10  sid=390787 '번영과 역경'
+   40회  최대× 5  sid=1287772 '치명적인 힘의 룬'
+   40회  최대×20  sid=471881 '와이번의 울음소리'
+   31회  최대×70  sid=1242504 '공백'
+   31회  최대×32  sid=1227702 '붕괴하는 별'
+   30회  최대× 4  sid=1287771 '능수능란한 계략의 룬'
+   29회  최대× 5  sid=1287774 '불타는 가속의 룬'
+
+=== 자정/한밤/어둠/황혼 이름 이벤트 (P3 구간) ===
+    60  sid=1281123 '어둠의 용해' SPELL_ABSORBED 
+    37  sid=589 '어둠의 권능: 고통' SPELL_PERIODIC_DAMAGE 
+    31  sid=317791 '어둠의 화살' SPELL_DAMAGE 
+    30  sid=317791 '어둠의 화살' SPELL_CAST_START 
+    28  sid=317791 '어둠의 화살' SPELL_CAST_SUCCESS 
+    27  sid=1263514 '한밤' SPELL_PERIODIC_DAMAGE 
+    27  sid=1263514 '한밤' SPELL_AURA_APPLIED_DOSE DEBUFF
+    24  sid=1281123 '어둠의 용해' SPELL_DAMAGE 
+    22  sid=1263514 '한밤' SPELL_AURA_APPLIED DEBUFF
+    22  sid=1263514 '한밤' SPELL_AURA_REMOVED DEBUFF
+    20  sid=1241569 '할퀴는 어둠' SPELL_AURA_REFRESH BUFF
+    16  sid=1281123 '어둠의 용해' SPELL_MISSED 
+    14  sid=1263514 '한밤' SPELL_ABSORBED 
+    12  sid=686 '어둠의 화살' SPELL_CAST_START 
+    10  sid=686 '어둠의 화살' SPELL_DAMAGE 
+    10  sid=196980 '어둠의 대가' SPELL_PERIODIC_ENERGIZE 
+     9  sid=194192 '어둠의 화살' SPELL_ENERGIZE 
+     9  sid=686 '어둠의 화살' SPELL_CAST_SUCCESS 
+     7  sid=443532 '어둠의 구속' SPELL_AURA_REMOVED BUFF
+     6  sid=443532 '어둠의 구속' SPELL_AURA_APPLIED BUFF
+     6  sid=279043 '어둠의 칼날' SPELL_DAMAGE 
+     5  sid=112942 '어둠의 집중' SPELL_AURA_REFRESH BUFF
+     4  sid=185422 '어둠의 춤' SPELL_AURA_REMOVED BUFF
+     4  sid=112942 '어둠의 집중' SPELL_AURA_REMOVED BUFF
+     4  sid=1241569 '할퀴는 어둠' SPELL_AURA_REMOVED BUFF
+
+=== 중첩 디버프 보유 중 사망 12건 ===
+풀6 t=334.19 흑마언제키우냐-아즈샤라 sid=1281559 ×5
+풀6 t=334.2 비누좀주워보련-하이잘- sid=1281559 ×5
+풀6 t=338.21 할머니그만줘요-아즈샤라 sid=115867 ×15
+풀6 t=340.19 악어탈벗은레넥톤-아즈샤 sid=1245577 ×9
+풀6 t=341.21 이디죽기-아즈샤라-KR sid=1268917 ×2
+풀6 t=341.21 이디죽기-아즈샤라-KR sid=1282570 ×2
+풀7 t=318.97 이디죽기-아즈샤라-KR sid=1268917 ×4
+풀7 t=318.97 이디죽기-아즈샤라-KR sid=1282570 ×4
+풀20 t=356.03 비누좀주워보련-하이잘- sid=1281559 ×10
+풀20 t=356.03 흑마언제키우냐-아즈샤라 sid=1281559 ×12
+풀20 t=356.1 악어탈벗은레넥톤-아즈샤 sid=1245577 ×4
+풀20 t=356.92 할머니그만줘요-아즈샤라 sid=115867 ×13

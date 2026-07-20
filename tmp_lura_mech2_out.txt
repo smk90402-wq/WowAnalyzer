@@ -1,0 +1,30 @@
+=== 여명의 수정 시전 58회 — 시전자 ±4s BUFF 변화 상위 ===
+  138  sid=108366 '영혼 갈취' SPELL_AURA_REMOVED src=self
+  136  sid=108366 '영혼 갈취' SPELL_AURA_APPLIED src=self
+   56  sid=1241717 '대천사의 방벽' SPELL_AURA_REMOVED src=Player-2
+   55  sid=1241717 '대천사의 방벽' SPELL_AURA_APPLIED src=Player-2
+   34  sid=119611 '소생의 안개' SPELL_AURA_APPLIED src=Player-2
+   31  sid=119611 '소생의 안개' SPELL_AURA_REMOVED src=Player-2
+   30  sid=1269643 '악마의 눈' SPELL_AURA_REMOVED src=self
+   29  sid=372014 '형상' SPELL_AURA_APPLIED src=Player-2
+   28  sid=1269643 '악마의 눈' SPELL_AURA_APPLIED src=self
+   24  sid=431415 '불사르는 태양' SPELL_AURA_REMOVED src=Player-2
+   23  sid=1287665 '잔존의 룬' SPELL_AURA_REMOVED src=Player-2
+   23  sid=431415 '불사르는 태양' SPELL_AURA_APPLIED src=Player-2
+   22  sid=1245369 '구세주의 봉화' SPELL_AURA_REMOVED src=Player-2
+   21  sid=1287665 '잔존의 룬' SPELL_AURA_APPLIED src=Player-2
+   20  sid=1245369 '구세주의 봉화' SPELL_AURA_APPLIED src=Player-2
+   20  sid=1287425 '공허에 물든 보주' SPELL_AURA_APPLIED src=self
+   20  sid=372014 '형상' SPELL_AURA_REMOVED src=Player-2
+   18  sid=1244893 '구세주의 봉화' SPELL_AURA_REMOVED src=Player-2
+   18  sid=1287772 '치명적인 힘의 룬' SPELL_AURA_REMOVED src=self
+   18  sid=1287425 '공허에 물든 보주' SPELL_AURA_REMOVED src=self
+   17  sid=395152 '칠흑의 힘' SPELL_AURA_REMOVED src=Player-2
+   17  sid=145629 '대마법 지대' SPELL_AURA_APPLIED src=00000000
+   16  sid=1287772 '치명적인 힘의 룬' SPELL_AURA_APPLIED src=self
+   16  sid=124682 '포용의 안개' SPELL_AURA_APPLIED src=Player-2
+   16  sid=1244893 '구세주의 봉화' SPELL_AURA_APPLIED src=Player-2
+
+=== 별빛파열 폭발 클러스터 (해제 ±0.3s 데미지) ===
+
+=== 임계점 폭발 클러스터 (0.2s 묶음, 서로거리) ===
