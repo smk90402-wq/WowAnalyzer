@@ -601,8 +601,9 @@ window.Replay3D = (() => {
         mesh.rotation.y = 0;
       }
       mesh.position.set(sceneX(pos.y), heightAt(pos.x, pos.y) - center.h + 0.25, sceneZ(pos.x));
-      mesh.material.color.set({ hit: '#b18cf0', impact: '#ef6b62', summon: '#4fc9b0' }[ev.kind] || '#e8a34c');
-      mesh.material.opacity = (shape === 'target' ? 0.9 : 0.24) * it.fade;
+      mesh.material.color.set(it.danger ? '#ff5b5b'
+        : ({ hit: '#b18cf0', impact: '#ef6b62', summon: '#4fc9b0' }[ev.kind] || '#e8a34c'));
+      mesh.material.opacity = (shape === 'target' ? 0.9 : (it.danger ? 0.42 : 0.24)) * it.fade;
       mesh.visible = true;
       // 대상 유닛 강조: 표시 기간 내내 구체 펄스 + 이름표 (기간형은 살짝만 왕복)
       const drec = units[ev.dest_id];

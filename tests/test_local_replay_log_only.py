@@ -200,6 +200,27 @@ class LogOnlyReplayTests(unittest.TestCase):
                 self.assertEqual(42, terrain["instance_id"])
                 self.assertEqual((10.0, 10.0, 20.0, 20.0), terrain["bbox"])
 
+    def test_lura_geometry_overrides_and_crystal_holds(self) -> None:
+        from app import replay_mechanics
+        crit = replay_mechanics.mechanic_profile(1281184, "임계점", 3183, 16).get("geometry") or {}
+        self.assertEqual("circle", crit.get("shape"))
+        self.assertEqual(5.5, crit.get("radius"))
+        self.assertEqual("target", crit.get("anchor"))
+        for sid in (1285510, 1279512):
+            star = replay_mechanics.mechanic_profile(sid, "별빛파열", 3183, 16).get("geometry") or {}
+            self.assertEqual("circle", star.get("shape"), f"sid={sid}")
+            self.assertEqual(5.0, star.get("radius"), f"sid={sid}")
+            self.assertEqual("estimated", star.get("confidence"), f"sid={sid}")
+
+        holds = local_replay._lura_crystal_holds(
+            [(10.0, "SPELL_AURA_APPLIED", 1253031, "Player-1-A", "Player-1-A", 0),
+             (25.5, "SPELL_AURA_REMOVED", 1253031, "Player-1-A", "Player-1-A", 0),
+             (30.0, "SPELL_AURA_APPLIED", 1253031, "Player-1-B", "Player-1-B", 0),
+             (12.0, "SPELL_AURA_APPLIED", 999999, "Player-1-A", "Player-1-A", 0)],
+            {"Player-1-A": "p1", "Player-1-B": "p2"}, 40.0)
+        self.assertEqual([{"u": "p1", "s": 10.0, "e": 25.5},
+                          {"u": "p2", "s": 30.0, "e": 40.0}], holds)
+
     def test_frames_cache_survives_live_log_growth(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_raw:
             tmp = Path(tmp_raw)

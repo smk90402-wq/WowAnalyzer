@@ -2158,6 +2158,7 @@ const rc = {
   playerEvents: [], // frames 응답 player_events (t 오름차순 — 블러드/물약/쿨기류)
   peByUnit: {},   // unitId → player_events 배열 (t 오름차순, 패널 강조용)
   casts: {},      // frames 응답 casts — unitId → [[t, 스킬이름], ...] (t 오름차순)
+  crystalHolds: [], // frames 응답 crystal_holds — [{u, s, e}] 여명의 수정 보유 구간
   selectedUnit: null, // 3D 에서 클릭으로 선택한 unitId (정보 패널 대상)
   video: null,    // 영상 있는 풀이면 <video> — 재생/탐색/배속 동기화 대상
   videoOffset: 0, // meta.video_offset_s (영상 t − 이 값 = 캔버스 t)
@@ -2203,7 +2204,7 @@ async function initReplayCanvas(replayId) {
   rc.mode = {}; rc.t = 0; rc.speed = 1; rc.duration = 0;
   rc.bossEvents = []; rc.bossMechanics = []; rc.mechanicByKey = {}; rc.videoOffset = 0;
   rc.playerEvents = []; rc.peByUnit = {};
-  rc.casts = {}; rc.selectedUnit = null;
+  rc.casts = {}; rc.crystalHolds = []; rc.selectedUnit = null;
   rc.is3d = false; rc.replayId = replayId;   // 리플레이 바꾸면 2D 부터 (3D 씬은 폐기)
   if (window.Replay3D) window.Replay3D.reset();
   rcHideTip();   // 직전 리플레이 목록에 떠 있던 툴팁 제거
@@ -2278,6 +2279,7 @@ async function initReplayCanvas(replayId) {
     if (pe.unit_id) (rc.peByUnit[pe.unit_id] ??= []).push(pe);
   }
   rc.casts = j.casts || {};
+  rc.crystalHolds = j.crystal_holds || [];
   rc.videoOffset = Number(meta.video_offset_s) || 0;
   rc.video = $('#replay-video');  // 영상 없는 풀(아카이브 등)은 null → 자립 시계
   const eventCount = rc.bossEvents.length + rc.playerEvents.length + (meta.deaths || []).length;
@@ -2310,6 +2312,13 @@ async function initReplayCanvas(replayId) {
     });
   }
   if (token !== rc.token) return;
+
+  // 실반경 원·수정 보유 범례 — 해당 데이터가 있는 전투에서만
+  const circleSpells = [...new Set(rc.bossEvents
+    .filter(e => e.geometry?.shape === 'circle' && Number(e.geometry.radius))
+    .map(e => `${e.spell} ${e.geometry.radius}m${e.geometry.confidence === 'estimated' ? '(추정)' : ''}`))];
+  if (circleSpells.length) notes.push(`실반경 원: ${circleSpells.slice(0, 4).join(', ')} — 겹치면 빨강`);
+  if (rc.crystalHolds.length) notes.push('◆ 금색 이름 = 여명의 수정 보유');
 
   msg.style.display = 'none';
   const note = $('#rc-note');
@@ -3009,6 +3018,23 @@ function rcRingEventsAt(t) {
   }
   const out = durable.concat(instant).slice(0, RC_RING_MAX);
   out.sort((a, b) => Number(a.ev.t) - Number(b.ev.t));   // 그리는 순서는 기존처럼 t 오름차순
+  // 실반경 원 겹침 판정 (2D/3D 공용): 같은 기믹의 다른 대상이 서로의 폭발
+  // 반경 안에 있으면 양쪽 다 danger — 그리는 쪽에서 빨강으로 강조한다.
+  const circles = [];
+  for (const it of out) {
+    const g = it.ev.geometry;
+    if (!it.durable || g?.shape !== 'circle' || !Number(g.radius)) continue;
+    const pos = rcTrackAt(rc.tracks[it.anchorId], t);
+    if (!pos || pos.age > RC_STALE_S) continue;
+    circles.push([it, pos, Number(g.radius)]);
+  }
+  for (let a = 0; a < circles.length; a++) {
+    for (let b = a + 1; b < circles.length; b++) {
+      const [A, pa, ra] = circles[a], [B, pb, rb] = circles[b];
+      if (A.ev.mechanic_key !== B.ev.mechanic_key || A.anchorId === B.anchorId) continue;
+      if (Math.hypot(pa.x - pb.x, pa.y - pb.y) < Math.max(ra, rb)) A.danger = B.danger = true;
+    }
+  }
   return out;
 }
 
@@ -3132,15 +3158,27 @@ function rcDraw() {
     ctx.lineWidth = hl ? 2.5 : 1.2;
     ctx.strokeStyle = hl ? '#ffffff' : 'rgba(255,255,255,.55)';
     ctx.stroke();
-    // 이름: 보스는 항상, 강조 유닛도
-    if (u.kind === 'boss' || hl) {
+    // 여명의 수정 보유 — ◆ 배지 + 이름 금색 (보유 구간 내내)
+    const holding = rc.crystalHolds.length > 0
+      && rc.crystalHolds.some(h => h.u === u.id && t >= h.s && t < h.e);
+    if (holding) {
+      ctx.font = 'bold 13px sans-serif';
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#10141a';
+      ctx.strokeText('◆', x, y - r - 10);
+      ctx.fillStyle = '#f5d76e';
+      ctx.fillText('◆', x, y - r - 10);
+    }
+    // 이름: 보스는 항상, 강조 유닛·수정 보유자도
+    if (u.kind === 'boss' || hl || holding) {
       const label = String(u.name || '').split('-')[0];
+      const ly = y - r - (holding ? 24 : 10);
       ctx.font = 'bold 15px sans-serif';
       ctx.lineWidth = 3;
       ctx.strokeStyle = '#10141a';
-      ctx.strokeText(label, x, y - r - 10);
-      ctx.fillStyle = '#f0f0f0';
-      ctx.fillText(label, x, y - r - 10);
+      ctx.strokeText(label, x, ly);
+      ctx.fillStyle = holding ? '#f5d76e' : '#f0f0f0';
+      ctx.fillText(label, x, ly);
     }
   }
 
@@ -3152,7 +3190,8 @@ function rcDraw() {
     const pos = rcTrackAt(rc.tracks[it.anchorId], t);
     if (!pos || pos.age > RC_STALE_S) continue;
     const [x, y] = toPx(pos.x, pos.y);
-    const color = { hit: '#b18cf0', impact: '#ef6b62', summon: '#4fc9b0' }[ev.kind] || '#e8a34c';
+    const color = it.danger ? '#ff5b5b'
+      : ({ hit: '#b18cf0', impact: '#ef6b62', summon: '#4fc9b0' }[ev.kind] || '#e8a34c');
     const rr = it.durable
       ? 13 + 1.5 * Math.sin(age * Math.PI * 2 / 1.6)   // 은은한 맥동
       : 11 + age * 5;                                  // 링이 천천히 퍼지며 사라짐
@@ -3219,10 +3258,10 @@ function rcDraw() {
       ]);
       drewArea = true;
     }
-    ctx.lineWidth = ev.priority ? 3 : 2;
+    ctx.lineWidth = it.danger ? 3.5 : (ev.priority ? 3 : 2);
     ctx.strokeStyle = color;
     if (drewArea) {
-      ctx.globalAlpha = 0.16 * it.fade;
+      ctx.globalAlpha = (it.danger ? 0.32 : 0.16) * it.fade;
       ctx.fillStyle = color;
       ctx.fill(fillRule);
       ctx.globalAlpha = 0.9 * it.fade;
@@ -3233,7 +3272,7 @@ function rcDraw() {
     }
     ctx.stroke();
     const stacks = ev.max_stacks ? rcStacksAt(ev, t) : 0;
-    const label = `${String(ev.spell || '')}${stacks ? ` ×${stacks}` : ''}`;
+    const label = `${String(ev.spell || '')}${stacks ? ` ×${stacks}` : ''}${it.danger ? ' 겹침!' : ''}`;
     if (label) {
       ctx.font = 'bold 12px sans-serif';
       ctx.lineWidth = 3;

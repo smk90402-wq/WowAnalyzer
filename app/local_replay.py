@@ -2650,6 +2650,38 @@ def _lura_review_focus(
     }
 
 
+# 여명의 수정 보유 마커: '일렁이는 빛'(1253031) — 수정을 든 동안 붙는 자기 디버프.
+# 내려놓기(1253050)가 이 오라를 취소하므로 APPLIED→REMOVED 가 곧 보유 구간.
+_LURA_CRYSTAL_HOLD_ID = 1253031
+
+
+def _lura_crystal_holds(
+    aura_updates: list[tuple[float, str, int, str, str, int]],
+    guid_to_id: dict[str, str],
+    duration_s: float,
+) -> list[dict[str, Any]]:
+    """수정 보유 구간 [{u, s, e}] — 짝 없는 APPLIED 는 전투 끝까지 보유로 본다."""
+    open_at: dict[str, float] = {}
+    holds: list[dict[str, Any]] = []
+    for t, event, sid, dest, _src, _stacks in sorted(aura_updates):
+        if sid != _LURA_CRYSTAL_HOLD_ID:
+            continue
+        uid = guid_to_id.get(dest)
+        if not uid:
+            continue
+        if event == "SPELL_AURA_APPLIED":
+            open_at.setdefault(uid, t)
+        elif event in ("SPELL_AURA_REMOVED", "SPELL_AURA_BROKEN",
+                       "SPELL_AURA_BROKEN_SPELL"):
+            start = open_at.pop(uid, None)
+            if start is not None:
+                holds.append({"u": uid, "s": start, "e": round(t, 2)})
+    for uid, start in open_at.items():
+        holds.append({"u": uid, "s": start, "e": round(duration_s, 2)})
+    holds.sort(key=lambda h: (h["s"], h["u"]))
+    return holds
+
+
 # frames 결과 메모리 캐시: replay_id → (로그파일 시그니처, payload).
 # 로그 파일이 안 바뀌었으면 재파싱 생략 — 리스트에서 판 전환 시 즉시 로드.
 _frames_cache: dict[str, tuple[tuple[str, int, int], dict[str, Any]]] = {}
@@ -2801,11 +2833,14 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
         parsed.get("player_raw") or [], guid_to_id)
 
     review_focus = None
+    crystal_holds: list[dict[str, Any]] = []
     if encounter_id == 3183:
         review_focus = _lura_review_focus(
             parsed.get("boss_raw") or [], parsed.get("aura_updates") or [],
             parsed.get("casts") or {}, samples, parsed.get("names") or {},
             guid_to_id, float(duration_s or 0))
+        crystal_holds = _lura_crystal_holds(
+            parsed.get("aura_updates") or [], guid_to_id, float(duration_s or 0))
 
     # 맵 메타 + world→px 계수 (플레이어 실좌표로 축 뒤집힘 캘리브레이션)
     calib = player_world[::max(1, len(player_world) // 200)]  # 최대 ~200점만
@@ -2861,6 +2896,8 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
     }
     if review_focus:
         out["review_focus"] = review_focus
+    if crystal_holds:
+        out["crystal_holds"] = crystal_holds
     if len(_frames_cache) >= _FRAMES_CACHE_MAX:
         _frames_cache.pop(next(iter(_frames_cache)))
     _frames_cache[replay_id] = (sig, out)

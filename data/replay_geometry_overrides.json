@@ -4,5 +4,33 @@
   "key": "encounterID:difficultyID:spellID; use * as a wildcard",
   "allowed_shapes": ["target", "circle", "cone", "line", "donut", "global"]
  },
- "entries": {}
+ "entries": {
+  "3183:*:1281184": {
+   "geometry": {
+    "shape": "circle",
+    "radius": 5.5,
+    "anchor": "target",
+    "source": "wowhead spell=1281178 effect 5.5yd; log 20260719 double-hit<=1.8yd, no-hit>=6.1yd",
+    "confidence": "exact"
+   }
+  },
+  "3183:*:1285510": {
+   "geometry": {
+    "shape": "circle",
+    "radius": 5.0,
+    "anchor": "target",
+    "source": "estimate: wowhead radius unpublished (AreaTrigger 41362); log 20260719 nearest-no-chain 5.9yd",
+    "confidence": "estimated"
+   }
+  },
+  "3183:*:1279512": {
+   "geometry": {
+    "shape": "circle",
+    "radius": 5.0,
+    "anchor": "target",
+    "source": "estimate: wowhead radius unpublished (AreaTrigger 41362); log 20260719 nearest-no-chain 5.9yd",
+    "confidence": "estimated"
+   }
+  }
+ }
 }
