@@ -1,0 +1,22 @@
+# 줄바꿈 고정 — 양쪽 PC(회사/집)와 코덱스 에이전트가 섞여 작업해도
+# CRLF/LF 뒤집힘으로 파일 전체가 diff 되는 사고 방지 (2026-07-20 main.js 재발 이력)
+# 기존 파일은 다음에 수정될 때부터 자연스럽게 정규화됨 (일괄 renormalize 안 함 —
+# 집 PC 미커밋 작업과의 충돌 표면을 늘리지 않기 위해)
+*.py    text eol=lf
+*.js    text eol=lf
+*.css   text eol=lf
+*.html  text eol=lf
+*.json  text eol=lf
+*.md    text eol=lf
+*.txt   text eol=lf
+*.csv   text eol=lf
+
+# Windows 배치/파워셸은 CRLF 필수 (LF면 cmd 파싱 깨짐 — build.bat 이력)
+*.bat   text eol=crlf
+*.ps1   text eol=crlf
+
+# 바이너리
+*.png   binary
+*.mp4   binary
+*.db    binary
+*.exe   binary
