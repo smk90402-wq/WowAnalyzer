@@ -1886,59 +1886,54 @@ function renderReplayAnalysisOnly(detail) {
 
 // 우측 분석 패널 접힘 상태 — 풀을 전환해도 유지
 let rcSideOpen = true;
-let rcSideTab = 'analysis';   // 우측 독 탭 — analysis | dk | aug
-let rcSideCompare = null;     // /api/lura/side-analysis 캐시 (null=미로딩, false=없음)
+// 분석 패널 탭 (전체/증강/죽기) — 풀 전환에도 유지
+// (다른 PC의 side-analysis 탭 구현과 병합: 렌더러는 이쪽, 그쪽 고유 분석
+//  내용(장신구·오프너 등)은 analyze_lura_spec_compare.py 가 흡수해 한 벌로 표시)
+let rcSideTab = 'all';
+let luraCompareCache = null;   // /api/lura-compare 응답 (세션당 1회 로드)
 
-// 죽기·증강 vs 신화 탑30 비교 탭 — /api/lura/side-analysis (analyze_dkaug_vs_top.py 산출)
-async function rcLoadSideCompare(side) {
-  if (rcSideCompare === null) {
-    try {
-      const r = await fetch('/api/lura/side-analysis');
-      rcSideCompare = r.ok ? await r.json() : false;
-    } catch (_) { rcSideCompare = false; }
-  }
-  for (const key of ['dk', 'aug']) {
-    const panel = side.querySelector(`[data-stab-panel="${key}"]`);
-    if (!panel) continue;
-    const spec = (rcSideCompare && rcSideCompare.specs) ? rcSideCompare.specs[key] : null;
-    panel.innerHTML = spec ? _sideCompareHtml(spec)
-      : '<div class="sc-empty">비교 데이터 없음 — analyze_dkaug_vs_top.py 실행 후 표시됩니다</div>';
-  }
+async function loadLuraCompare() {
+  if (luraCompareCache !== null) return luraCompareCache;
+  try {
+    const r = await fetch('/api/lura-compare');
+    luraCompareCache = r.ok ? await r.json() : false;
+  } catch (_) { luraCompareCache = false; }
+  return luraCompareCache;
 }
 
-function _sideCompareHtml(s) {
-  const cats = [];
-  for (const row of s.rows || []) {
-    let g = cats.find(c => c.cat === row.cat);
-    if (!g) { g = { cat: row.cat, rows: [] }; cats.push(g); }
-    g.rows.push(row);
-  }
-  const fmt = v => v == null ? '—' : (typeof v === 'number' ? Math.round(v * 100) / 100 : v);
+// 스펙 비교 카드 — 우리 캐릭 vs 상위권 (data/lura_spec_compare.json 렌더)
+function _luraCompareCard(tab) {
+  if (!tab) return '<div class="lc-empty">비교 데이터가 아직 없습니다 — 분석을 다시 만들면 표시됩니다.</div>';
+  const vc = v => ({ good: 'lc-good', warn: 'lc-warn', bad: 'lc-bad' }[v] || 'lc-info');
   return `
-    <div class="sc-head">
-      <b>${esc(s.player)}</b> <span>${esc(s.spec)}</span>
-      <small>우리 풀 ${Number(s.our_fights) || 0}판 vs 신화 탑${Number(s.top_n) || 0} 중앙값 · 색: 초록=상위권 수준, 빨강=격차 큼</small>
-    </div>
-    ${cats.map(g => `
-      <div class="sc-cat">${esc(g.cat)}</div>
-      ${g.rows.map(r => `
-        <div class="sc-row v-${esc(r.verdict || 'info')}"${r.note ? ` title="${esc(r.note)}"` : ''}>
-          <span class="l">${esc(r.label)}</span>
-          <span class="o">${fmt(r.ours)}</span>
-          <span class="vs">vs</span>
-          <span class="t">${fmt(r.top)}</span>
-          <span class="u">${esc(r.unit || '')}</span>
-        </div>`).join('')}`).join('')}
-    <div class="sc-cat">장신구</div>
-    <div class="sc-trinkets">
-      <div><small>우리</small> ${(s.trinkets?.ours || []).map(esc).join(', ') || '—'}</div>
-      <div><small>상위</small> ${(s.trinkets?.top || []).map(t => `${esc(t.name)}(${Number(t.n) || 0})`).join(', ') || '—'}</div>
-    </div>
-    <div class="sc-cat">오프너 비교${s.opener?.top_char ? ` — 상위 1위: ${esc(s.opener.top_char)}` : ''}</div>
-    <div class="sc-opener">
-      <div><small>상위</small>${(s.opener?.top || []).map(([t, n]) => `<i>${Number(t)}s ${esc(n)}</i>`).join('')}</div>
-      <div><small>우리</small>${(s.opener?.ours || []).map(([t, n]) => `<i>${Number(t)}s ${esc(n)}</i>`).join('')}</div>
-    </div>`;
+    <section class="lura-compare">
+      <div class="lc-title"><b>${esc(tab.title || '')}</b><span>${esc(tab.sample_note || '')}</span></div>
+      ${(tab.highlights || []).map(h => `<div class="lc-hl ${vc(h.severity)}">${esc(h.text)}</div>`).join('')}
+      ${(tab.sections || []).map(sec => `
+        <div class="lc-sec">
+          <div class="lc-sec-title">${esc(sec.title || '')}</div>
+          <table class="lc-table">
+            <thead><tr><th></th><th>나</th><th>상위권</th><th></th></tr></thead>
+            <tbody>${(sec.rows || []).map(row => `
+              <tr class="${vc(row.verdict)}" title="${esc(row.note || '')}">
+                <td>${esc(row.label || '')}</td><td>${esc(String(row.mine ?? ''))}</td>
+                <td>${esc(String(row.top ?? ''))}</td><td class="lc-mark"></td>
+              </tr>`).join('')}</tbody>
+          </table>
+        </div>`).join('')}
+      ${tab.breath ? `
+        <div class="lc-sec">
+          <div class="lc-sec-title">${esc(tab.breath.title || '영겁의 숨결 — 수정 특임 계획')}</div>
+          ${(tab.breath.lines || []).map(l => `<p class="lc-line">${esc(l)}</p>`).join('')}
+          ${(tab.breath.per_pull || []).length ? `<table class="lc-table">
+            <thead><tr><th>풀</th><th>시각</th><th>상황</th><th>평가</th></tr></thead>
+            <tbody>${tab.breath.per_pull.map(r => `
+              <tr class="${vc(r.verdict)}"><td>#${esc(String(r.pull ?? ''))}</td><td>${rcClock(r.t || 0)}</td>
+              <td>${esc(r.context || '')}</td><td>${esc(r.eval || '')}</td></tr>`).join('')}</tbody>
+          </table>` : ''}
+        </div>` : ''}
+      ${tab.caveat ? `<div class="lc-caveat">${esc(tab.caveat)}</div>` : ''}
+    </section>`;
 }
 
 function renderLocalReplayDetail(detail) {
@@ -1996,16 +1991,17 @@ function renderLocalReplayDetail(detail) {
     ${hasSide ? `<aside id="replay-side" class="${rcSideOpen ? '' : 'collapsed'}">
       <button id="rc-side-toggle" type="button" title="분석 패널 접기/펴기 — 접으면 지도가 화면 전체를 씁니다">${rcSideOpen ? '분석 접기 ▸' : '◂ 분석'}</button>
       ${isLura ? `<div class="rc-side-tabs">
-        <button type="button" data-stab="analysis" class="${rcSideTab === 'analysis' ? 'active' : ''}">분석</button>
-        <button type="button" data-stab="dk" class="${rcSideTab === 'dk' ? 'active' : ''}">죽기</button>
-        <button type="button" data-stab="aug" class="${rcSideTab === 'aug' ? 'active' : ''}">증강</button>
+        <button type="button" data-stab="all" class="${rcSideTab === 'all' ? 'active' : ''}">전체 분석</button>
+        <button type="button" data-stab="aug" class="${rcSideTab === 'aug' ? 'active' : ''}">증강 전용</button>
+        <button type="button" data-stab="udk" class="${rcSideTab === 'udk' ? 'active' : ''}">죽기 전용</button>
       </div>` : ''}
-      <div class="rc-side-body" data-stab-panel="analysis" ${isLura && rcSideTab !== 'analysis' ? 'hidden' : ''}>
-        ${analysisCardHtml}
-        ${focusHtml}
+      <div class="rc-side-body">
+        <div id="rc-stab-all" ${isLura && rcSideTab !== 'all' ? 'hidden' : ''}>
+          ${analysisCardHtml}
+          ${focusHtml}
+        </div>
+        ${isLura ? `<div id="rc-stab-aug" hidden></div><div id="rc-stab-udk" hidden></div>` : ''}
       </div>
-      ${isLura ? `<div class="rc-side-body" data-stab-panel="dk" ${rcSideTab !== 'dk' ? 'hidden' : ''}></div>
-      <div class="rc-side-body" data-stab-panel="aug" ${rcSideTab !== 'aug' ? 'hidden' : ''}></div>` : ''}
     </aside>` : ''}
     </div>
     <!-- 타임라인 하나 — 영상·리플레이 둘 다 이 줄로 조작 (두 화면 아래 전체 폭) -->
@@ -2084,15 +2080,25 @@ function renderLocalReplayDetail(detail) {
         window.dispatchEvent(new Event('resize'));   // 2D/3D 캔버스 크기 재계산
       });
     }
-    // 탭 전환 (분석/죽기/증강) — 르우라 전용, 선택은 풀 전환에도 유지
-    if (side) {
-      side.querySelectorAll('.rc-side-tabs button').forEach(b => b.addEventListener('click', () => {
-        rcSideTab = b.dataset.stab;
-        side.querySelectorAll('.rc-side-tabs button').forEach(x => x.classList.toggle('active', x === b));
-        side.querySelectorAll('[data-stab-panel]').forEach(p => { p.hidden = p.dataset.stabPanel !== rcSideTab; });
-      }));
-      if (isLura && side.querySelector('.rc-side-tabs')) rcLoadSideCompare(side);
-    }
+  }
+  // 분석 패널 탭 — 전체/증강/죽기 (증강·죽기 탭은 비교 데이터를 처음 열 때 로드)
+  {
+    const tabs = [...root.querySelectorAll('.rc-side-tabs button[data-stab]')];
+    const panes = { all: $('#rc-stab-all'), aug: $('#rc-stab-aug'), udk: $('#rc-stab-udk') };
+    const showTab = async (key) => {
+      rcSideTab = key;
+      tabs.forEach(b => b.classList.toggle('active', b.dataset.stab === key));
+      for (const [k, el] of Object.entries(panes)) if (el) el.hidden = k !== key;
+      const pane = panes[key];
+      if ((key === 'aug' || key === 'udk') && pane && !pane.dataset.loaded) {
+        pane.innerHTML = '<div class="lc-empty">비교 데이터 로딩…</div>';
+        const data = await loadLuraCompare();
+        pane.innerHTML = _luraCompareCard(data && data.tabs ? data.tabs[key] : null);
+        pane.dataset.loaded = '1';
+      }
+    };
+    tabs.forEach(b => b.addEventListener('click', () => showTab(b.dataset.stab)));
+    if (tabs.length && rcSideTab !== 'all') showTab(rcSideTab);   // 풀 전환 후에도 보던 탭 유지
   }
   // 소리 켜기/끄기 — video.muted 토글 (동사형: 누르면 할 일을 표시)
   const muteBtn = $('#rc-mute');

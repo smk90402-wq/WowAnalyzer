@@ -1030,7 +1030,8 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 /* 지도(또는 영상)와 우측 분석 패널을 한 줄에 — 지도가 주인공, 분석은 접이식 */
 .replay-mid { display: flex; gap: 12px; align-items: stretch; min-height: 0; }
 .replay-mid > .replay-main { flex: 1 1 auto; min-width: 0; }
-#replay-side { flex: 0 0 360px; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+/* 넓은 화면에선 분석 패널을 더 왼쪽까지 — 지도만 과하게 커지지 않게 (2026-07-20) */
+#replay-side { flex: 0 0 clamp(380px, 27vw, 600px); min-width: 0; min-height: 0; display: flex; flex-direction: column; }
 #rc-side-toggle {
   align-self: stretch; margin: 0 0 8px; padding: 4px 8px; cursor: pointer;
   border: 1px solid var(--border); border-radius: 5px;
@@ -1040,57 +1041,46 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 .rc-side-body { min-height: 0; overflow-y: auto; }
 .rc-side-body[hidden] { display: none !important; }
 /* 우측 독 탭 (분석/죽기/증강) — 르우라 전용 */
-.rc-side-tabs { display: flex; gap: 5px; margin: 0 0 8px; }
-.rc-side-tabs button {
-  flex: 1 1 auto; padding: 5px 8px; cursor: pointer;
-  border: 1px solid var(--border); border-radius: 5px;
-  background: var(--bg-1); color: var(--text-mute); font-size: 11.5px;
-}
-.rc-side-tabs button:hover { border-color: #79b7ff; color: #d6ebff; }
-.rc-side-tabs button.active { border-color: #d19b38; background: #493315; color: #fff0c6; }
-#replay-side.collapsed .rc-side-tabs { display: none; }
-/* 비교 탭 내용 */
-.sc-empty { padding: 14px 8px; color: var(--text-mute); font-size: 11px; }
-.sc-head { margin-bottom: 8px; }
-.sc-head b { color: var(--accent); font-size: 13px; }
-.sc-head span { margin-left: 6px; color: var(--text-mute); font-size: 10.5px; }
-.sc-head small { display: block; margin-top: 3px; color: var(--text-mute); font-size: 10px; }
-.sc-cat {
-  margin: 9px 0 3px; padding-bottom: 2px; border-bottom: 1px solid var(--border-soft);
-  color: #a9d4ff; font-size: 11px; font-weight: 800;
-}
-.sc-row {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto auto;
-  gap: 6px; align-items: baseline; padding: 2px 4px 2px 6px;
-  border-left: 3px solid transparent; font-size: 11px;
-}
-.sc-row .l { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); }
-.sc-row .o { font-weight: 800; font-variant-numeric: tabular-nums; }
-.sc-row .vs { color: var(--text-mute); font-size: 9.5px; }
-.sc-row .t { color: var(--text-dim); font-variant-numeric: tabular-nums; }
-.sc-row .u { color: var(--text-mute); font-size: 9.5px; }
-.sc-row.v-good { border-left-color: #4f9e5f; }
-.sc-row.v-good .o { color: #7fd08f; }
-.sc-row.v-mid { border-left-color: #b08f2e; }
-.sc-row.v-mid .o { color: #e2c14e; }
-.sc-row.v-warn { border-left-color: #a34a44; background: rgba(160, 60, 55, .10); }
-.sc-row.v-warn .o { color: #ef8a80; }
-.sc-trinkets { font-size: 10.5px; color: var(--text-dim); display: grid; gap: 3px; }
-.sc-trinkets small, .sc-opener small {
-  display: inline-block; margin-right: 5px; padding: 1px 5px;
-  border: 1px solid #58728d; border-radius: 999px; color: #9fc9f2; font-size: 9px;
-}
-.sc-opener { display: grid; gap: 5px; font-size: 10px; }
-.sc-opener i {
-  display: inline-block; margin: 1px 2px 1px 0; padding: 1px 5px;
-  border: 1px solid var(--border-soft); border-radius: 4px;
-  background: rgba(0, 0, 0, .16); color: var(--text-dim); font-style: normal;
-}
 #replay-side .replay-analysis-card, #replay-side .replay-focus-card { margin: 0 0 10px; }
 #replay-side .ra-grid { grid-template-columns: minmax(0, 1fr); }   /* 좁은 패널: 세로 나열 */
 #replay-side .rf-grid { grid-template-columns: minmax(0, 1fr); }
 #replay-side.collapsed { flex: 0 0 26px; }
 #replay-side.collapsed .rc-side-body { display: none; }
+#replay-side.collapsed .rc-side-tabs { display: none; }
+/* 분석 패널 탭 — 전체 분석 / 증강 전용 / 죽기 전용 */
+.rc-side-tabs { display: flex; gap: 4px; margin: 0 0 8px; }
+.rc-side-tabs button {
+  flex: 1 1 auto; padding: 5px 6px; cursor: pointer;
+  border: 1px solid var(--border); border-radius: 5px;
+  background: var(--bg-1); color: var(--text-mute); font-size: 12.5px;
+}
+.rc-side-tabs button:hover { border-color: #79b7ff; color: #d6ebff; }
+.rc-side-tabs button.active { border-color: #d19b38; background: #493315; color: #fff0c6; }
+/* 스펙 비교 카드 (증강/죽기 탭) */
+.lura-compare { border: 1px solid var(--border); border-radius: 6px; padding: 12px; background: var(--bg-1); font-size: 13px; }
+.lc-title { display: flex; flex-direction: column; gap: 2px; margin-bottom: 8px; }
+.lc-title b { font-size: 14.5px; }
+.lc-title span { color: var(--text-mute); font-size: 11.5px; }
+.lc-hl { border-radius: 4px; padding: 6px 9px; margin: 5px 0; font-size: 12.5px; background: var(--bg-2); line-height: 1.45; }
+.lc-hl.lc-good { border-left: 3px solid #6fcf7f; }
+.lc-hl.lc-warn { border-left: 3px solid #e2c14e; }
+.lc-hl.lc-bad { border-left: 3px solid #e06c6c; }
+.lc-hl.lc-info { border-left: 3px solid #79b7ff; }
+.lc-sec { margin-top: 12px; }
+.lc-sec-title { color: var(--text-dim); font-size: 11.5px; margin-bottom: 4px; }
+.lc-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.lc-table th { text-align: left; color: var(--text-dim); font-weight: 400; font-size: 11px; padding: 2px 6px; }
+.lc-table td { padding: 4px 6px; border-top: 1px solid var(--border-soft); }
+.lc-table td:nth-child(2) { font-variant-numeric: tabular-nums; }
+.lc-table td:nth-child(3) { font-variant-numeric: tabular-nums; color: var(--text-mute); }
+.lc-mark::before { content: '●'; font-size: 8px; }
+tr.lc-good .lc-mark::before { color: #6fcf7f; }
+tr.lc-warn .lc-mark::before { color: #e2c14e; }
+tr.lc-bad .lc-mark::before { color: #e06c6c; }
+tr.lc-info .lc-mark::before { color: #4a5568; }
+.lc-line { margin: 5px 0; line-height: 1.55; font-size: 12.5px; }
+.lc-caveat { color: var(--text-dim); font-size: 11px; margin-top: 8px; }
+.lc-empty { color: var(--text-mute); font-size: 12.5px; padding: 10px; }
 #replay-side.collapsed #rc-side-toggle {
   flex: 1 1 auto; margin: 0; padding: 8px 3px;
   writing-mode: vertical-rl; letter-spacing: 2px;

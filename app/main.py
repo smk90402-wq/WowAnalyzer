@@ -251,6 +251,17 @@ def s2_meta() -> Response:
                     media_type="application/json")
 
 
+# ── 르우라 스펙 비교 (우리 증강·죽기 vs 상위권) — 리플레이 분석 탭용 ───────
+@app.get("/api/lura-compare")
+def lura_compare() -> Response:
+    """data/lura_spec_compare.json — 매 요청 재로드 (재분석 즉시 반영)."""
+    p = DATA_DIR / "lura_spec_compare.json"
+    if not p.exists():
+        raise HTTPException(404, "lura_spec_compare.json 없음")
+    return Response(content=p.read_text(encoding="utf-8"),
+                    media_type="application/json")
+
+
 # ── 재미 분석 (유튜버 재미 평가 + 로그 실측 검증) ─────────────────────────
 @app.get("/api/spec-fun")
 def spec_fun() -> Response:
