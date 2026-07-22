@@ -395,6 +395,16 @@ def rotation_data() -> Response:
                     media_type="application/json")
 
 
+# ── 르우라 우측 독: 죽기·증강 vs 신화 탑30 비교 (analyze_dkaug_vs_top.py 산출) ──
+@app.get("/api/lura/side-analysis")
+def lura_side_analysis() -> Response:
+    p = DATA_DIR / "dkaug_top_comparison.json"
+    if not p.exists():
+        raise HTTPException(404, "dkaug_top_comparison.json 없음")
+    return Response(content=p.read_text(encoding="utf-8"),
+                    media_type="application/json")
+
+
 _SPELL_TOKEN = re.compile(r"\{\{s:(\d+)(?::([^}]+))?\}\}")
 
 def _spellify(obj):
