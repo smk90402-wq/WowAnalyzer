@@ -59,6 +59,73 @@ def _ratio_verdict(mine: float, top: float, good=0.9, warn=0.7) -> str:
     return "good" if r >= good else ("warn" if r >= warn else "bad")
 
 
+# ── 다른 PC 채굴(analyze_dkaug_vs_top.py → dkaug_top_comparison.json) 흡수 ──
+# 그쪽에만 있는 분석(장신구·오프너·스탯·기본 기술)을 이쪽 문장 스타일로 가져온다.
+# 겹치는데 측정 방식이 달라 수치가 어긋나는 항목(유지율 등)은 가져오지 않는다.
+_DKAUG_VERDICT = {"good": "good", "mid": "warn", "warn": "bad"}
+
+
+def _seq_text(seq) -> str:
+    return " → ".join(f"{float(t):g}초 {name}" for t, name in (seq or [])[:5]) or "기록 없음"
+
+
+def _dkaug_sections(spec: dict, include_pattern: bool) -> tuple[list[dict], list[dict]]:
+    """(추가 섹션들, 추가 하이라이트들). include_pattern=True 면 딜패턴 행도 가져온다."""
+    rows_by_cat: dict[str, list[dict]] = {}
+    for r in spec.get("rows") or []:
+        rows_by_cat.setdefault(str(r.get("cat") or ""), []).append(r)
+
+    def _conv(rows: list[dict], note_fallback: str = "") -> list[dict]:
+        out = []
+        for r in rows:
+            unit = str(r.get("unit") or "").strip()
+            fmt = lambda v: ("" if v is None else (f"{round(float(v), 2):g}{unit and ' ' + unit}" if isinstance(v, (int, float)) else str(v)))
+            out.append({
+                "label": str(r.get("label") or ""),
+                "mine": fmt(r.get("ours")), "top": fmt(r.get("top")),
+                "verdict": _DKAUG_VERDICT.get(str(r.get("verdict") or ""), "info"),
+                "note": str(r.get("note") or note_fallback),
+            })
+        return out
+
+    sections: list[dict] = []
+    stat_rows = _conv(rows_by_cat.get("스탯") or [])
+    if stat_rows:
+        sections.append({"title": "장비 스탯 (상위권과 비교)", "rows": stat_rows})
+    if include_pattern:
+        pat = _conv(rows_by_cat.get("딜패턴") or [], "1분에 몇 번 누르는지예요. 낮으면 그만큼 빈 시간이 있었다는 뜻이에요.")
+        dens = _conv(rows_by_cat.get("딜사이클") or [])
+        dens = [r for r in dens if "밀도" in r["label"]]
+        if dens or pat:
+            sections.append({"title": "기본 기술을 얼마나 부지런히 누르나", "rows": dens + pat})
+
+    tr = spec.get("trinkets") or {}
+    op = spec.get("opener") or {}
+    gear_rows = []
+    if tr:
+        top_txt = ", ".join(f"{t.get('name')}({t.get('n')}명)" for t in (tr.get("top") or [])[:3]) or "기록 없음"
+        gear_rows.append({"label": "장신구", "mine": ", ".join(tr.get("ours") or []) or "기록 없음",
+                          "top": top_txt, "verdict": "info",
+                          "note": "상위권이 몇 명이나 쓰는 장신구인지 괄호에 적었어요."})
+    if op:
+        gear_rows.append({"label": "전투 시작 5개 기술", "mine": _seq_text(op.get("ours")),
+                          "top": _seq_text(op.get("top")), "verdict": "info",
+                          "note": "전투 시작 직후 어떤 순서로 눌렀는지 비교예요."})
+    if gear_rows:
+        sections.append({"title": "장신구·전투 시작 순서", "rows": gear_rows})
+
+    highlights: list[dict] = []
+    top_trinkets = {t.get("name"): int(t.get("n") or 0) for t in (tr.get("top") or [])}
+    ours_tr = tr.get("ours") or []
+    unused = [name for name in ours_tr if name not in top_trinkets]
+    if unused and top_trinkets:
+        best_name, best_n = max(top_trinkets.items(), key=lambda kv: kv[1])
+        highlights.append({"severity": "warn",
+                           "text": f"장신구 점검: 내가 쓰는 '{unused[0]}'은 상위권에서 아무도 안 써요. "
+                                   f"상위권 대세는 '{best_name}'({best_n}명)이에요. 교체를 알아볼 만해요."})
+    return sections, highlights
+
+
 def main() -> None:
     try:
         sys.stdout.reconfigure(encoding="utf-8")
@@ -67,6 +134,10 @@ def main() -> None:
     aug_top = _load("lura_top_aug_mining.json")
     udk_top = _load("lura_top_udk_mining.json")
     own = _load("lura_own_pair_mining.json")
+    try:
+        dkaug = _load("dkaug_top_comparison.json").get("specs") or {}
+    except FileNotFoundError:
+        dkaug = {}
 
     ta = aug_top["aggregates"]
     bp3 = aug_top["breath_vs_p3"]
@@ -278,6 +349,19 @@ def main() -> None:
                   "그래서 판당 횟수 대신 '1분에 몇 번'과 '몇 초 만에 첫 사용'으로 비교했어요. "
                   "1분당 값은 90초 넘게 간 풀만 모아서 계산했어요.",
     }
+
+    # 다른 PC 채굴 세트(dkaug_top_comparison.json) 흡수 — 장신구·오프너·스탯(+증강 기본 기술)
+    sample_note_extra = " 장비 스탯·장신구·전투 시작 순서 줄은 다른 채굴 세트(우리 14판 vs 상위 30킬)에서 가져와 표본이 달라요."
+    if dkaug.get("aug"):
+        secs, hls = _dkaug_sections(dkaug["aug"], include_pattern=True)
+        aug_tab["sections"].extend(secs)
+        aug_tab["highlights"].extend(hls)
+        aug_tab["caveat"] += sample_note_extra
+    if dkaug.get("dk"):
+        secs, hls = _dkaug_sections(dkaug["dk"], include_pattern=False)
+        udk_tab["sections"].extend(secs)
+        udk_tab["highlights"].extend(hls)
+        udk_tab["caveat"] += sample_note_extra
 
     out = {
         "generated_at": datetime.now(KST).isoformat(timespec="seconds"),
