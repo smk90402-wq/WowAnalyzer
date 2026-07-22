@@ -1,0 +1,5966 @@
+{
+  "meta": {
+    "generated_at": "2026-07-21T17:15:25",
+    "encounter_id": 3183,
+    "encounter": "한밤의 도래 (L'ura)",
+    "difficulty": "Mythic",
+    "zone": 46,
+    "partition": 3,
+    "class_spec": "DeathKnight/Unholy (부정 죽음의 기사)",
+    "metric": "dps",
+    "source": "characterRankings top page1",
+    "sample": "kills_only",
+    "n_fights": 25,
+    "n_kills": 25,
+    "skipped": [],
+    "ability_id_map": {
+      "major": {
+        "army": {
+          "ids": [
+            42650
+          ],
+          "names": [
+            "Army of the Dead"
+          ],
+          "names_ko": [
+            "사자의 군대"
+          ],
+          "fights_present": 25,
+          "total_casts": 163
+        },
+        "dark_transformation": {
+          "ids": [
+            1233448
+          ],
+          "names": [
+            "Dark Transformation"
+          ],
+          "names_ko": [
+            "어둠의 변신"
+          ],
+          "fights_present": 25,
+          "total_casts": 314
+        },
+        "amz": {
+          "ids": [
+            51052
+          ],
+          "names": [
+            "Anti-Magic Zone"
+          ],
+          "names_ko": [
+            "대마법 지대"
+          ],
+          "fights_present": 23,
+          "total_casts": 30
+        },
+        "charge_horsemen": {
+          "ids": [
+            1259633
+          ],
+          "names": [
+            "Charge!"
+          ],
+          "names_ko": [
+            "돌격!"
+          ],
+          "fights_present": 25,
+          "total_casts": 163
+        },
+        "graveyard": {
+          "ids": [
+            383269
+          ],
+          "names": [
+            "Graveyard"
+          ],
+          "names_ko": [
+            "무덤"
+          ],
+          "fights_present": 12,
+          "total_casts": 30
+        }
+      },
+      "defensive": {
+        "ams": {
+          "ids": [
+            48707
+          ],
+          "names": [
+            "Anti-Magic Shell"
+          ],
+          "names_ko": [
+            "대마법 보호막"
+          ],
+          "fights_present": 25,
+          "total_casts": 163
+        },
+        "ibf": {
+          "ids": [
+            48792
+          ],
+          "names": [
+            "Icebound Fortitude"
+          ],
+          "names_ko": [
+            "얼음같은 인내력"
+          ],
+          "fights_present": 24,
+          "total_casts": 37
+        },
+        "lichborne": {
+          "ids": [
+            49039
+          ],
+          "names": [
+            "Lichborne"
+          ],
+          "names_ko": [
+            "리치의 혼"
+          ],
+          "fights_present": 16,
+          "total_casts": 19
+        },
+        "death_charge": {
+          "ids": [
+            444347
+          ],
+          "names": [
+            "Death Charge"
+          ],
+          "names_ko": [
+            "죽음의 진격"
+          ],
+          "fights_present": 25,
+          "total_casts": 236
+        },
+        "death_pact": {
+          "ids": [
+            48743
+          ],
+          "names": [
+            "Death Pact"
+          ],
+          "names_ko": [
+            "죽음의 서약"
+          ],
+          "fights_present": 6,
+          "total_casts": 10
+        },
+        "wraith_walk": {
+          "ids": [
+            212552
+          ],
+          "names": [
+            "Wraith Walk"
+          ],
+          "names_ko": [
+            "망령 걸음"
+          ],
+          "fights_present": 3,
+          "total_casts": 3
+        }
+      },
+      "consumable": {
+        "1236994": "Potion of Recklessness",
+        "6262": "Healthstone",
+        "1234768": "Silvermoon Health Potion"
+      }
+    },
+    "notes": [
+      "스펠 ID는 25개 킬 로그의 Casts table 이름 매칭으로 발견 (기억 의존 없음).",
+      "어둠의 변신 ID가 1233448 로 변경됨 (구 63560 아님) — 12.0.7 실측.",
+      "대재앙/가고일/부정 폭행/룬 무기 강화/죽음의 진군/흉물 되살리기: 25/25 킬에서 캐스트 0회 — 미드나잇 UDK 킷에서 부재.",
+      "신규 관측: 돌격!(1259633, Rider 기병), 죽음의 진격(444347, 이동기), 무덤(383269), 사령의 고리(1242174 Necrotic Coil), 문드러진 낫(458128), 부패(1247378 Putrefy).",
+      "돌격!은 사자의 군대와 3초 내 결합 — 독립 쿨기가 아니라 군대 시전에 따라오는 기병 소환.",
+      "블러드/영웅심: raid-wide Buffs 프로브 0건 — 미드나잇 블러드 부재 (기존 BM 채굴 0/362킬과 일치).",
+      "characterRankings dps 랭킹은 킬 전용 → 전 표본 킬."
+    ]
+  },
+  "aggregates": {
+    "sample": "kills_only",
+    "n_fights": 25,
+    "duration_med_s": 560.2,
+    "duration_p25_p75": [
+      550.5,
+      569.2
+    ],
+    "phase_names": {
+      "P1": {
+        "name": "Stage One: Final Tolls",
+        "intermission": false
+      },
+      "P2": {
+        "name": "Intermission: Total Eclipse",
+        "intermission": true
+      },
+      "P3": {
+        "name": "Stage Two: The Dark Reactor",
+        "intermission": false
+      },
+      "P4": {
+        "name": "Stage Three: Midnight Falls",
+        "intermission": false
+      },
+      "P5": {
+        "name": "Stage Four: Reintegration",
+        "intermission": false
+      }
+    },
+    "phase_starts": {
+      "P1": {
+        "n": 25,
+        "start_med_s": 0.0
+      },
+      "P2": {
+        "n": 25,
+        "start_med_s": 190.5
+      },
+      "P3": {
+        "n": 25,
+        "start_med_s": 220.5
+      },
+      "P4": {
+        "n": 25,
+        "start_med_s": 330.0
+      },
+      "P5": {
+        "n": 25,
+        "start_med_s": 481.6
+      }
+    },
+    "major_cds": {
+      "army": {
+        "fights_used_pct": 100,
+        "casts_per_fight_med": 7.0,
+        "casts_per_fight_p25_p75": [
+          6.0,
+          7.0
+        ],
+        "casts_per_min_med": 0.71,
+        "first_cast_med_s": 3.7,
+        "first_cast_p25_p75": [
+          3.1,
+          4.1
+        ],
+        "gap_med_s": 91.2,
+        "gap_p25_p75": [
+          90.6,
+          92.6
+        ],
+        "total_casts": 163,
+        "phase_hist": {
+          "P1": 75,
+          "P3": 25,
+          "P4": 38,
+          "P5": 25
+        }
+      },
+      "dark_transformation": {
+        "fights_used_pct": 100,
+        "casts_per_fight_med": 13.0,
+        "casts_per_fight_p25_p75": [
+          12.0,
+          13.0
+        ],
+        "casts_per_min_med": 1.36,
+        "first_cast_med_s": 3.7,
+        "first_cast_p25_p75": [
+          3.2,
+          4.4
+        ],
+        "gap_med_s": 45.5,
+        "gap_p25_p75": [
+          45.1,
+          46.2
+        ],
+        "total_casts": 314,
+        "phase_hist": {
+          "P1": 125,
+          "P3": 75,
+          "P4": 65,
+          "P5": 49
+        }
+      },
+      "amz": {
+        "fights_used_pct": 92,
+        "casts_per_fight_med": 1.0,
+        "casts_per_fight_p25_p75": [
+          1.0,
+          1.0
+        ],
+        "casts_per_min_med": 0.11,
+        "first_cast_med_s": 241.8,
+        "first_cast_p25_p75": [
+          239.8,
+          299.8
+        ],
+        "gap_med_s": 234.2,
+        "gap_p25_p75": [
+          229.7,
+          252.1
+        ],
+        "total_casts": 30,
+        "phase_hist": {
+          "P4": 2,
+          "P3": 22,
+          "P1": 3,
+          "P5": 3
+        }
+      },
+      "charge_horsemen": {
+        "fights_used_pct": 100,
+        "casts_per_fight_med": 7.0,
+        "casts_per_fight_p25_p75": [
+          6.0,
+          7.0
+        ],
+        "casts_per_min_med": 0.71,
+        "first_cast_med_s": 3.8,
+        "first_cast_p25_p75": [
+          2.9,
+          4.3
+        ],
+        "gap_med_s": 91.2,
+        "gap_p25_p75": [
+          90.6,
+          92.6
+        ],
+        "total_casts": 163,
+        "phase_hist": {
+          "P1": 75,
+          "P3": 25,
+          "P4": 38,
+          "P5": 25
+        }
+      },
+      "graveyard": {
+        "fights_used_pct": 48,
+        "casts_per_fight_med": 0.0,
+        "casts_per_fight_p25_p75": [
+          0.0,
+          2.0
+        ],
+        "casts_per_min_med": 0.23,
+        "first_cast_med_s": 14.7,
+        "first_cast_p25_p75": [
+          14.2,
+          15.4
+        ],
+        "gap_med_s": 0.8,
+        "gap_p25_p75": [
+          0.7,
+          1.7
+        ],
+        "total_casts": 30,
+        "phase_hist": {
+          "P1": 30
+        }
+      }
+    },
+    "defensives": {
+      "ams": {
+        "fights_used_pct": 100,
+        "casts_per_fight_med": 7.0,
+        "casts_per_fight_p25_p75": [
+          6.0,
+          8.0
+        ],
+        "casts_per_min_med": 0.75,
+        "first_cast_med_s": 10.1,
+        "first_cast_p25_p75": [
+          9.1,
+          71.2
+        ],
+        "gap_med_s": 62.3,
+        "gap_p25_p75": [
+          55.7,
+          89.2
+        ],
+        "total_casts": 163,
+        "phase_hist": {
+          "P2": 18,
+          "P3": 41,
+          "P4": 27,
+          "P1": 58,
+          "P5": 19
+        }
+      },
+      "ibf": {
+        "fights_used_pct": 96,
+        "casts_per_fight_med": 1.0,
+        "casts_per_fight_p25_p75": [
+          1.0,
+          2.0
+        ],
+        "casts_per_min_med": 0.12,
+        "first_cast_med_s": 214.2,
+        "first_cast_p25_p75": [
+          134.1,
+          218.0
+        ],
+        "gap_med_s": 195.2,
+        "gap_p25_p75": [
+          189.7,
+          278.8
+        ],
+        "total_casts": 37,
+        "phase_hist": {
+          "P1": 8,
+          "P3": 6,
+          "P5": 8,
+          "P2": 13,
+          "P4": 2
+        }
+      },
+      "lichborne": {
+        "fights_used_pct": 64,
+        "casts_per_fight_med": 1.0,
+        "casts_per_fight_p25_p75": [
+          0.0,
+          1.0
+        ],
+        "casts_per_min_med": 0.11,
+        "first_cast_med_s": 213.7,
+        "first_cast_p25_p75": [
+          199.1,
+          270.7
+        ],
+        "gap_med_s": 102.0,
+        "gap_p25_p75": [
+          98.0,
+          204.3
+        ],
+        "total_casts": 19,
+        "phase_hist": {
+          "P2": 5,
+          "P3": 8,
+          "P1": 4,
+          "P5": 1,
+          "P4": 1
+        }
+      },
+      "death_charge": {
+        "fights_used_pct": 100,
+        "casts_per_fight_med": 10.0,
+        "casts_per_fight_p25_p75": [
+          8.0,
+          10.0
+        ],
+        "casts_per_min_med": 1.04,
+        "first_cast_med_s": 178.9,
+        "first_cast_p25_p75": [
+          154.2,
+          182.2
+        ],
+        "gap_med_s": 32.1,
+        "gap_p25_p75": [
+          22.8,
+          61.5
+        ],
+        "total_casts": 236,
+        "phase_hist": {
+          "P1": 39,
+          "P3": 83,
+          "P4": 54,
+          "P5": 60
+        }
+      },
+      "death_pact": {
+        "fights_used_pct": 24,
+        "casts_per_fight_med": 0.0,
+        "casts_per_fight_p25_p75": [
+          0.0,
+          0.0
+        ],
+        "casts_per_min_med": 0.16,
+        "first_cast_med_s": 220.4,
+        "first_cast_p25_p75": [
+          218.7,
+          221.5
+        ],
+        "gap_med_s": 117.8,
+        "gap_p25_p75": [
+          115.2,
+          120.4
+        ],
+        "total_casts": 10,
+        "phase_hist": {
+          "P2": 3,
+          "P3": 2,
+          "P4": 4,
+          "P5": 1
+        }
+      },
+      "wraith_walk": {
+        "fights_used_pct": 12,
+        "casts_per_fight_med": 0.0,
+        "casts_per_fight_p25_p75": [
+          0.0,
+          0.0
+        ],
+        "casts_per_min_med": 0.11,
+        "first_cast_med_s": 331.9,
+        "first_cast_p25_p75": [
+          331.6,
+          332.3
+        ],
+        "gap_med_s": null,
+        "gap_p25_p75": [
+          null,
+          null
+        ],
+        "total_casts": 3,
+        "phase_hist": {
+          "P4": 3
+        }
+      }
+    },
+    "potions": {
+      "per_fight_med": 2.0,
+      "fights_with_pot_pct": 100,
+      "fights_with_2pots_pct": 100,
+      "first_pot_med_s": 3.6,
+      "second_pot_med_s": 370.3,
+      "kinds": {
+        "Potion of Recklessness": 50,
+        "Silvermoon Health Potion (힐)": 3
+      }
+    },
+    "healthstone": {
+      "total_uses": 3,
+      "fights_used_pct": 12
+    },
+    "deaths": {
+      "fights_with_death": 2,
+      "death_rate_pct": 8.0,
+      "total_deaths": 2,
+      "causes": {
+        "Void Swarm (1273033)": 2
+      }
+    },
+    "rotational_top": [
+      {
+        "id": 55090,
+        "name": "Scourge Strike",
+        "total_casts": 5123,
+        "cpm_med": 22.25,
+        "fights_present": 25
+      },
+      {
+        "id": 47541,
+        "name": "Death Coil",
+        "total_casts": 2560,
+        "cpm_med": 11.06,
+        "fights_present": 25
+      },
+      {
+        "id": 1242174,
+        "name": "Necrotic Coil",
+        "total_casts": 1764,
+        "cpm_med": 7.72,
+        "fights_present": 25
+      },
+      {
+        "id": 85948,
+        "name": "Festering Strike",
+        "total_casts": 638,
+        "cpm_med": 2.83,
+        "fights_present": 25
+      },
+      {
+        "id": 458128,
+        "name": "Festering Scythe",
+        "total_casts": 637,
+        "cpm_med": 2.83,
+        "fights_present": 25
+      },
+      {
+        "id": 343294,
+        "name": "Soul Reaper",
+        "total_casts": 414,
+        "cpm_med": 1.83,
+        "fights_present": 25
+      },
+      {
+        "id": 1247378,
+        "name": "Putrefy",
+        "total_casts": 193,
+        "cpm_med": 0.74,
+        "fights_present": 25
+      },
+      {
+        "id": 207317,
+        "name": "Epidemic",
+        "total_casts": 87,
+        "cpm_med": 0.33,
+        "fights_present": 25
+      }
+    ],
+    "total_cpm_med": 55.59,
+    "charge_army_coupling_pct": 100.0,
+    "bloodlust": {
+      "probe_fight": "xXMcgGQw7VLK2f4C#9",
+      "hits": [],
+      "note": "raid-wide Buffs table 1판 프로브. 미드나잇엔 블러드 계열 부재(기존 BM 채굴 0/362킬과 일치)"
+    }
+  },
+  "hand_check": {
+    "which": "fights[0] = rank1",
+    "report": "xXMcgGQw7VLK2f4C",
+    "fight_id": 9,
+    "url": "https://www.warcraftlogs.com/reports/xXMcgGQw7VLK2f4C#fight=9",
+    "expect": {
+      "army_times_s": [
+        4.017,
+        94.876,
+        185.69,
+        279.827,
+        370.642,
+        475.043
+      ],
+      "dark_transformation_n": 12,
+      "ams_times_s": [
+        215.886,
+        328.875,
+        430.845
+      ],
+      "potions": {
+        "Potion of Recklessness": [
+          4.176,
+          369.573
+        ]
+      },
+      "deaths": []
+    }
+  },
+  "fights": [
+    {
+      "report": "xXMcgGQw7VLK2f4C",
+      "fight_id": 9,
+      "url": "https://www.warcraftlogs.com/reports/xXMcgGQw7VLK2f4C#fight=9",
+      "character": "Darkness",
+      "server": "Tarren Mill",
+      "region": "EU",
+      "rank": 1,
+      "dps": 210074.9,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 528.354,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.504
+        },
+        {
+          "phase": 3,
+          "t_s": 220.515
+        },
+        {
+          "phase": 4,
+          "t_s": 330.053
+        },
+        {
+          "phase": 5,
+          "t_s": 465.68
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          4.017,
+          94.876,
+          185.69,
+          279.827,
+          370.642,
+          475.043
+        ],
+        "dark_transformation": [
+          3.242,
+          48.806,
+          94.192,
+          139.204,
+          184.609,
+          233.67,
+          279.158,
+          324.162,
+          370.671,
+          415.911,
+          474.429,
+          519.455
+        ],
+        "amz": [],
+        "charge_horsemen": [
+          4.599,
+          95.133,
+          185.69,
+          279.638,
+          371.06,
+          475.398
+        ],
+        "graveyard": []
+      },
+      "defensive_times_s": {
+        "ams": [
+          215.886,
+          328.875,
+          430.845
+        ],
+        "ibf": [],
+        "lichborne": [],
+        "death_charge": [
+          178.917,
+          246.839,
+          276.365,
+          306.818,
+          331.095,
+          397.677,
+          448.916,
+          484.997,
+          505.553,
+          524.957
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          4.176,
+          369.573
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 193,
+          "cpm": 21.92,
+          "damage": 6315905
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 99,
+          "cpm": 11.24,
+          "damage": 7645459
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 71,
+          "cpm": 8.06,
+          "damage": 7424350
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 26,
+          "cpm": 2.95,
+          "damage": 379996
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 26,
+          "cpm": 2.95,
+          "damage": 253651
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 19,
+          "cpm": 2.16,
+          "damage": 1768124
+        }
+      ],
+      "rot_all": {
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 26,
+          "cpm": 2.95,
+          "damage": 379996
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 19,
+          "cpm": 2.16,
+          "damage": 1768124
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 7,
+          "cpm": 0.79,
+          "damage": 4059959
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 193,
+          "cpm": 21.92,
+          "damage": 6315905
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 99,
+          "cpm": 11.24,
+          "damage": 7645459
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 26,
+          "cpm": 2.95,
+          "damage": 253651
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 1,
+          "cpm": 0.11,
+          "damage": 144852
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 71,
+          "cpm": 8.06,
+          "damage": 7424350
+        }
+      },
+      "total_casts": 488,
+      "cpm": 55.42
+    },
+    {
+      "report": "YrkbRCA9pT6Jq4P3",
+      "fight_id": 6,
+      "url": "https://www.warcraftlogs.com/reports/YrkbRCA9pT6Jq4P3#fight=6",
+      "character": "Элслэйерх",
+      "server": "Ревущий фьорд",
+      "region": "EU",
+      "rank": 2,
+      "dps": 206268.3,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 570.336,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.533
+        },
+        {
+          "phase": 3,
+          "t_s": 220.53
+        },
+        {
+          "phase": 4,
+          "t_s": 330.065
+        },
+        {
+          "phase": 5,
+          "t_s": 490.573
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          4.068,
+          95.34,
+          186.317,
+          278.125,
+          370.197,
+          462.759,
+          553.042
+        ],
+        "dark_transformation": [
+          5.182,
+          50.885,
+          96.184,
+          141.183,
+          187.333,
+          233.7,
+          278.93,
+          324.813,
+          370.916,
+          418.604,
+          463.611,
+          508.976,
+          553.971
+        ],
+        "amz": [
+          448.737
+        ],
+        "charge_horsemen": [
+          5.182,
+          96.184,
+          187.333,
+          278.93,
+          370.916,
+          463.457,
+          553.845
+        ],
+        "graveyard": []
+      },
+      "defensive_times_s": {
+        "ams": [
+          104.458,
+          198.252,
+          281.165,
+          393.632,
+          471.843,
+          559.155
+        ],
+        "ibf": [
+          133.855
+        ],
+        "lichborne": [
+          208.018,
+          310.055
+        ],
+        "death_charge": [
+          45.276,
+          118.96,
+          190.473,
+          239.498,
+          275.877,
+          307.985,
+          323.425,
+          361.091,
+          427.257,
+          471.511,
+          511.26,
+          526.195,
+          550.375
+        ],
+        "death_pact": [
+          219.453
+        ],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          3.772,
+          369.883
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 220,
+          "cpm": 23.14,
+          "damage": 6675127
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 90,
+          "cpm": 9.47,
+          "damage": 6931008
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 86,
+          "cpm": 9.05,
+          "damage": 8120399
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 28,
+          "cpm": 2.95,
+          "damage": 222469
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 27,
+          "cpm": 2.84,
+          "damage": 475147
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 18,
+          "cpm": 1.89,
+          "damage": 1698811
+        }
+      ],
+      "rot_all": {
+        "47541": {
+          "name": "Death Coil",
+          "casts": 90,
+          "cpm": 9.47,
+          "damage": 6931008
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 27,
+          "cpm": 2.84,
+          "damage": 475147
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 28,
+          "cpm": 2.95,
+          "damage": 222469
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 86,
+          "cpm": 9.05,
+          "damage": 8120399
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 13,
+          "cpm": 1.37,
+          "damage": 3812484
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 1,
+          "cpm": 0.11,
+          "damage": 149752
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 220,
+          "cpm": 23.14,
+          "damage": 6675127
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 18,
+          "cpm": 1.89,
+          "damage": 1698811
+        }
+      },
+      "total_casts": 543,
+      "cpm": 57.12
+    },
+    {
+      "report": "QTWVF7GCpP6b32AB",
+      "fight_id": 18,
+      "url": "https://www.warcraftlogs.com/reports/QTWVF7GCpP6b32AB#fight=18",
+      "character": "三战九等兵",
+      "server": "凤凰之神",
+      "region": "CN",
+      "rank": 3,
+      "dps": 203611.7,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 564.143,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.478
+        },
+        {
+          "phase": 3,
+          "t_s": 220.477
+        },
+        {
+          "phase": 4,
+          "t_s": 330.013
+        },
+        {
+          "phase": 5,
+          "t_s": 485.698
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          0.187,
+          91.37,
+          183.306,
+          279.328,
+          369.779,
+          493.518
+        ],
+        "dark_transformation": [
+          0.429,
+          46.237,
+          91.444,
+          136.599,
+          183.437,
+          233.653,
+          279.513,
+          324.672,
+          370.079,
+          419.531,
+          493.9,
+          540.272
+        ],
+        "amz": [
+          301.512
+        ],
+        "charge_horsemen": [
+          0.187,
+          90.839,
+          182.447,
+          279.167,
+          369.636,
+          493.518
+        ],
+        "graveyard": []
+      },
+      "defensive_times_s": {
+        "ams": [
+          8.422,
+          68.992,
+          132.873,
+          240.635,
+          301.68,
+          393.403,
+          449.077,
+          563.179
+        ],
+        "ibf": [
+          326.982,
+          563.42
+        ],
+        "lichborne": [
+          270.737
+        ],
+        "death_charge": [
+          182.162,
+          241.945,
+          271.984,
+          304.261,
+          391.234,
+          450.894,
+          525.835
+        ],
+        "death_pact": [
+          221.302
+        ],
+        "wraith_walk": [
+          332.252
+        ]
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          0.186,
+          369.612
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 210,
+          "cpm": 22.33,
+          "damage": 6311655
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 107,
+          "cpm": 11.38,
+          "damage": 7667286
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 74,
+          "cpm": 7.87,
+          "damage": 6351878
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 24,
+          "cpm": 2.55,
+          "damage": 296114
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 24,
+          "cpm": 2.55,
+          "damage": 399355
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 18,
+          "cpm": 1.91,
+          "damage": 1673008
+        }
+      ],
+      "rot_all": {
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 24,
+          "cpm": 2.55,
+          "damage": 296114
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 10,
+          "cpm": 1.06,
+          "damage": 4033757
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 210,
+          "cpm": 22.33,
+          "damage": 6311655
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 107,
+          "cpm": 11.38,
+          "damage": 7667286
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 18,
+          "cpm": 1.91,
+          "damage": 1673008
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 74,
+          "cpm": 7.87,
+          "damage": 6351878
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 3,
+          "cpm": 0.32,
+          "damage": 667486
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 24,
+          "cpm": 2.55,
+          "damage": 399355
+        }
+      },
+      "total_casts": 526,
+      "cpm": 55.94
+    },
+    {
+      "report": "aBYdHJryCXGMcV18",
+      "fight_id": 28,
+      "url": "https://www.warcraftlogs.com/reports/aBYdHJryCXGMcV18#fight=28",
+      "character": "魔女灬鹿灵",
+      "server": "凤凰之神",
+      "region": "CN",
+      "rank": 4,
+      "dps": 203439.7,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 572.491,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.469
+        },
+        {
+          "phase": 3,
+          "t_s": 220.493
+        },
+        {
+          "phase": 4,
+          "t_s": 330.004
+        },
+        {
+          "phase": 5,
+          "t_s": 494.562
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          3.417,
+          96.119,
+          189.456,
+          280.528,
+          370.642,
+          461.196,
+          552.035
+        ],
+        "dark_transformation": [
+          3.534,
+          48.546,
+          96.197,
+          141.276,
+          189.51,
+          234.549,
+          280.603,
+          325.603,
+          370.712,
+          415.683,
+          461.255,
+          506.277,
+          552.106
+        ],
+        "amz": [
+          241.08
+        ],
+        "charge_horsemen": [
+          3.671,
+          96.245,
+          189.583,
+          280.683,
+          370.85,
+          461.318,
+          552.174
+        ],
+        "graveyard": [
+          12.853,
+          14.535,
+          16.692
+        ]
+      },
+      "defensive_times_s": {
+        "ams": [
+          9.588,
+          72.537,
+          133.864,
+          192.604,
+          250.711,
+          326.79
+        ],
+        "ibf": [
+          214.775
+        ],
+        "lichborne": [
+          273.948
+        ],
+        "death_charge": [
+          183.317,
+          244.482,
+          275.932,
+          304.734,
+          326.596,
+          379.192,
+          390.252,
+          448.006,
+          513.072,
+          533.943,
+          553.199
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          3.593,
+          370.774
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 221,
+          "cpm": 23.16,
+          "damage": 6337709
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 116,
+          "cpm": 12.16,
+          "damage": 7532149
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 64,
+          "cpm": 6.71,
+          "damage": 6039527
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 27,
+          "cpm": 2.83,
+          "damage": 495136
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 27,
+          "cpm": 2.83,
+          "damage": 263813
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 16,
+          "cpm": 1.68,
+          "damage": 1341674
+        }
+      ],
+      "rot_all": {
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 64,
+          "cpm": 6.71,
+          "damage": 6039527
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 4,
+          "cpm": 0.42,
+          "damage": 4453582
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 27,
+          "cpm": 2.83,
+          "damage": 495136
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 27,
+          "cpm": 2.83,
+          "damage": 263813
+        },
+        "383269": {
+          "name": "Graveyard",
+          "casts": 3,
+          "cpm": 0.31,
+          "damage": 848199
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 3,
+          "cpm": 0.31,
+          "damage": 407043
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 116,
+          "cpm": 12.16,
+          "damage": 7532149
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 16,
+          "cpm": 1.68,
+          "damage": 1341674
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 221,
+          "cpm": 23.16,
+          "damage": 6337709
+        }
+      },
+      "total_casts": 539,
+      "cpm": 56.49
+    },
+    {
+      "report": "f3nkGJywYCD1zLKT",
+      "fight_id": 12,
+      "url": "https://www.warcraftlogs.com/reports/f3nkGJywYCD1zLKT#fight=12",
+      "character": "纱野尤佳",
+      "server": "凤凰之神",
+      "region": "CN",
+      "rank": 5,
+      "dps": 203327.9,
+      "kill": true,
+      "boss_pct_left": 0.02,
+      "last_phase": 4,
+      "duration_s": 548.218,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.479
+        },
+        {
+          "phase": 3,
+          "t_s": 220.464
+        },
+        {
+          "phase": 4,
+          "t_s": 330.003
+        },
+        {
+          "phase": 5,
+          "t_s": 470.957
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          1.04,
+          93.028,
+          183.913,
+          279.649,
+          377.782,
+          478.651
+        ],
+        "dark_transformation": [
+          1.242,
+          46.882,
+          92.903,
+          137.921,
+          184.109,
+          233.627,
+          279.507,
+          325.229,
+          378.08,
+          423.972,
+          478.968,
+          526.069
+        ],
+        "amz": [
+          301.89
+        ],
+        "charge_horsemen": [
+          1.041,
+          92.483,
+          183.752,
+          279.08,
+          377.782,
+          478.651
+        ],
+        "graveyard": []
+      },
+      "defensive_times_s": {
+        "ams": [
+          7.96,
+          130.973,
+          200.747,
+          242.245,
+          302.359,
+          395.115,
+          448.386
+        ],
+        "ibf": [
+          132.47,
+          327.634
+        ],
+        "lichborne": [
+          270.157
+        ],
+        "death_charge": [
+          182.88,
+          241.08,
+          274.53,
+          304.456,
+          394.366,
+          447.48,
+          536.047
+        ],
+        "death_pact": [
+          221.546,
+          334.072
+        ],
+        "wraith_walk": [
+          331.64
+        ]
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          1.04,
+          377.781
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 201,
+          "cpm": 22.0,
+          "damage": 5910930
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 100,
+          "cpm": 10.94,
+          "damage": 7231768
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 78,
+          "cpm": 8.54,
+          "damage": 6963597
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 24,
+          "cpm": 2.63,
+          "damage": 210158
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 24,
+          "cpm": 2.63,
+          "damage": 302359
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 17,
+          "cpm": 1.86,
+          "damage": 1290904
+        }
+      ],
+      "rot_all": {
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 201,
+          "cpm": 22.0,
+          "damage": 5910930
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 100,
+          "cpm": 10.94,
+          "damage": 7231768
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 17,
+          "cpm": 1.86,
+          "damage": 1290904
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 8,
+          "cpm": 0.88,
+          "damage": 4220090
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 78,
+          "cpm": 8.54,
+          "damage": 6963597
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 3,
+          "cpm": 0.33,
+          "damage": 515707
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 24,
+          "cpm": 2.63,
+          "damage": 210158
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 24,
+          "cpm": 2.63,
+          "damage": 302359
+        }
+      },
+      "total_casts": 504,
+      "cpm": 55.16
+    },
+    {
+      "report": "y4RfGxJKDcrmQLNh",
+      "fight_id": 64,
+      "url": "https://www.warcraftlogs.com/reports/y4RfGxJKDcrmQLNh#fight=64",
+      "character": "태연잉",
+      "server": "아즈샤라",
+      "region": "KR",
+      "rank": 6,
+      "dps": 203013.1,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 518.814,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.523
+        },
+        {
+          "phase": 3,
+          "t_s": 220.538
+        },
+        {
+          "phase": 4,
+          "t_s": 330.085
+        },
+        {
+          "phase": 5,
+          "t_s": 440.206
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          4.198,
+          94.941,
+          187.546,
+          278.109,
+          370.239,
+          460.806
+        ],
+        "dark_transformation": [
+          4.428,
+          49.658,
+          95.14,
+          140.547,
+          187.851,
+          233.742,
+          278.746,
+          324.053,
+          370.455,
+          415.762,
+          461.127,
+          507.198
+        ],
+        "amz": [
+          67.717,
+          270.127
+        ],
+        "charge_horsemen": [
+          4.199,
+          94.838,
+          187.472,
+          278.029,
+          370.205,
+          460.806
+        ],
+        "graveyard": []
+      },
+      "defensive_times_s": {
+        "ams": [
+          46.125,
+          111.539,
+          174.668,
+          219.224,
+          325.979,
+          376.45,
+          426.876,
+          479.537
+        ],
+        "ibf": [
+          218.013,
+          496.861
+        ],
+        "lichborne": [],
+        "death_charge": [
+          57.524,
+          118.108,
+          182.164,
+          244.605,
+          275.941,
+          331.555,
+          395.606,
+          465.274,
+          479.732,
+          501.113
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          3.901,
+          369.509
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 177,
+          "cpm": 20.47,
+          "damage": 5423606
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 92,
+          "cpm": 10.64,
+          "damage": 6776739
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 70,
+          "cpm": 8.1,
+          "damage": 7290275
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 25,
+          "cpm": 2.89,
+          "damage": 231505
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 25,
+          "cpm": 2.89,
+          "damage": 481358
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 16,
+          "cpm": 1.85,
+          "damage": 1347917
+        }
+      ],
+      "rot_all": {
+        "207317": {
+          "name": "Epidemic",
+          "casts": 1,
+          "cpm": 0.12,
+          "damage": 141804
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 177,
+          "cpm": 20.47,
+          "damage": 5423606
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 92,
+          "cpm": 10.64,
+          "damage": 6776739
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 25,
+          "cpm": 2.89,
+          "damage": 231505
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 13,
+          "cpm": 1.5,
+          "damage": 4005481
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 70,
+          "cpm": 8.1,
+          "damage": 7290275
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 25,
+          "cpm": 2.89,
+          "damage": 481358
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 16,
+          "cpm": 1.85,
+          "damage": 1347917
+        }
+      },
+      "total_casts": 478,
+      "cpm": 55.28
+    },
+    {
+      "report": "7pThQC2WJ8vygf6d",
+      "fight_id": 38,
+      "url": "https://www.warcraftlogs.com/reports/7pThQC2WJ8vygf6d#fight=38",
+      "character": "魔女灬锦汐",
+      "server": "凤凰之神",
+      "region": "CN",
+      "rank": 7,
+      "dps": 202905.2,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 566.678,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.426
+        },
+        {
+          "phase": 3,
+          "t_s": 220.433
+        },
+        {
+          "phase": 4,
+          "t_s": 329.944
+        },
+        {
+          "phase": 5,
+          "t_s": 490.957
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          3.725,
+          94.828,
+          186.771,
+          280.033,
+          370.16,
+          460.286,
+          551.699
+        ],
+        "dark_transformation": [
+          3.812,
+          48.851,
+          94.887,
+          140.503,
+          186.837,
+          233.507,
+          280.11,
+          325.115,
+          370.25,
+          415.254,
+          460.424,
+          505.503,
+          551.866
+        ],
+        "amz": [
+          240.608
+        ],
+        "charge_horsemen": [
+          3.898,
+          94.966,
+          186.912,
+          280.189,
+          370.309,
+          460.506,
+          551.934
+        ],
+        "graveyard": [
+          14.22,
+          16.427
+        ]
+      },
+      "defensive_times_s": {
+        "ams": [
+          0.005,
+          71.625,
+          134.441,
+          194.147,
+          280.692,
+          326.743,
+          555.764
+        ],
+        "ibf": [
+          213.782
+        ],
+        "lichborne": [
+          204.257
+        ],
+        "death_charge": [
+          180.768,
+          244.262,
+          274.401,
+          304.879,
+          326.539,
+          387.894,
+          509.72,
+          529.935,
+          549.605
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          4.152,
+          370.587
+        ],
+        "Healthstone": [
+          218.259
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 219,
+          "cpm": 23.19,
+          "damage": 6257327
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 108,
+          "cpm": 11.44,
+          "damage": 7464207
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 64,
+          "cpm": 6.78,
+          "damage": 6714590
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 27,
+          "cpm": 2.86,
+          "damage": 298574
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 27,
+          "cpm": 2.86,
+          "damage": 367750
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 15,
+          "cpm": 1.59,
+          "damage": 1311256
+        }
+      ],
+      "rot_all": {
+        "207317": {
+          "name": "Epidemic",
+          "casts": 6,
+          "cpm": 0.64,
+          "damage": 421804
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 27,
+          "cpm": 2.86,
+          "damage": 298574
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 5,
+          "cpm": 0.53,
+          "damage": 4022124
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 219,
+          "cpm": 23.19,
+          "damage": 6257327
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 15,
+          "cpm": 1.59,
+          "damage": 1311256
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 27,
+          "cpm": 2.86,
+          "damage": 367750
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 108,
+          "cpm": 11.44,
+          "damage": 7464207
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 64,
+          "cpm": 6.78,
+          "damage": 6714590
+        },
+        "383269": {
+          "name": "Graveyard",
+          "casts": 2,
+          "cpm": 0.21,
+          "damage": 179631
+        }
+      },
+      "total_casts": 533,
+      "cpm": 56.43
+    },
+    {
+      "report": "ZMJcBHC3mN94KQ8k",
+      "fight_id": 18,
+      "url": "https://www.warcraftlogs.com/reports/ZMJcBHC3mN94KQ8k#fight=18",
+      "character": "魔女灬纳福",
+      "server": "凤凰之神",
+      "region": "CN",
+      "rank": 8,
+      "dps": 202695.5,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 563.124,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.466
+        },
+        {
+          "phase": 3,
+          "t_s": 220.466
+        },
+        {
+          "phase": 4,
+          "t_s": 330.001
+        },
+        {
+          "phase": 5,
+          "t_s": 485.67
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          3.675,
+          96.617,
+          187.343,
+          279.941,
+          371.069,
+          461.814,
+          552.036
+        ],
+        "dark_transformation": [
+          3.796,
+          48.803,
+          96.686,
+          141.707,
+          187.421,
+          233.628,
+          280.069,
+          325.112,
+          371.199,
+          416.215,
+          461.91,
+          506.924,
+          552.113
+        ],
+        "amz": [
+          240.876
+        ],
+        "charge_horsemen": [
+          3.949,
+          96.767,
+          187.493,
+          280.172,
+          371.4,
+          461.973,
+          552.202
+        ],
+        "graveyard": [
+          15.851
+        ]
+      },
+      "defensive_times_s": {
+        "ams": [
+          9.225,
+          71.016,
+          133.045,
+          193.618,
+          280.02,
+          326.997,
+          532.36
+        ],
+        "ibf": [
+          214.978
+        ],
+        "lichborne": [
+          190.138
+        ],
+        "death_charge": [
+          179.088,
+          243.245,
+          275.275,
+          306.832,
+          326.743,
+          388.247,
+          504.215,
+          523.994,
+          544.561
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          3.874,
+          371.289
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 220,
+          "cpm": 23.44,
+          "damage": 6342567
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 114,
+          "cpm": 12.15,
+          "damage": 7245502
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 61,
+          "cpm": 6.5,
+          "damage": 6087745
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 27,
+          "cpm": 2.88,
+          "damage": 266782
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 27,
+          "cpm": 2.88,
+          "damage": 483370
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 14,
+          "cpm": 1.49,
+          "damage": 1186141
+        }
+      ],
+      "rot_all": {
+        "47541": {
+          "name": "Death Coil",
+          "casts": 114,
+          "cpm": 12.15,
+          "damage": 7245502
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 220,
+          "cpm": 23.44,
+          "damage": 6342567
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 27,
+          "cpm": 2.88,
+          "damage": 266782
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 27,
+          "cpm": 2.88,
+          "damage": 483370
+        },
+        "383269": {
+          "name": "Graveyard",
+          "casts": 1,
+          "cpm": 0.11,
+          "damage": 646380
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 6,
+          "cpm": 0.64,
+          "damage": 3989111
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 61,
+          "cpm": 6.5,
+          "damage": 6087745
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 4,
+          "cpm": 0.43,
+          "damage": 442445
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 14,
+          "cpm": 1.49,
+          "damage": 1186141
+        }
+      },
+      "total_casts": 530,
+      "cpm": 56.47
+    },
+    {
+      "report": "7pbdxMtfJGB4qDLm",
+      "fight_id": 98,
+      "url": "https://www.warcraftlogs.com/reports/7pbdxMtfJGB4qDLm#fight=98",
+      "character": "丶九如",
+      "server": "伊森利恩",
+      "region": "CN",
+      "rank": 9,
+      "dps": 202385.9,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 550.466,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.551
+        },
+        {
+          "phase": 3,
+          "t_s": 220.558
+        },
+        {
+          "phase": 4,
+          "t_s": 330.054
+        },
+        {
+          "phase": 5,
+          "t_s": 472.288
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          3.12,
+          93.429,
+          184.127,
+          276.905,
+          367.435,
+          481.193
+        ],
+        "dark_transformation": [
+          3.083,
+          48.317,
+          93.319,
+          138.337,
+          183.808,
+          233.759,
+          278.754,
+          323.773,
+          368.791,
+          415.692,
+          481.195,
+          526.364
+        ],
+        "amz": [
+          271.52
+        ],
+        "charge_horsemen": [
+          2.921,
+          93.259,
+          183.81,
+          276.456,
+          367.329,
+          480.933
+        ],
+        "graveyard": [
+          15.709,
+          16.456,
+          17.193,
+          17.994
+        ]
+      },
+      "defensive_times_s": {
+        "ams": [
+          49.516,
+          110.929,
+          173.193,
+          242.115,
+          302.583,
+          393.879,
+          492.8,
+          534.83
+        ],
+        "ibf": [
+          215.775,
+          535.014
+        ],
+        "lichborne": [],
+        "death_charge": [
+          180.661,
+          241.174,
+          271.661,
+          302.365,
+          326.427,
+          336.212,
+          383.653,
+          434.101,
+          451.606,
+          513.437,
+          533.826
+        ],
+        "death_pact": [
+          334.452
+        ],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          2.919,
+          367.327
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 190,
+          "cpm": 20.71,
+          "damage": 5672893
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 101,
+          "cpm": 11.01,
+          "damage": 6666857
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 70,
+          "cpm": 7.63,
+          "damage": 5780206
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 25,
+          "cpm": 2.72,
+          "damage": 242415
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 25,
+          "cpm": 2.72,
+          "damage": 323835
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 19,
+          "cpm": 2.07,
+          "damage": 1687242
+        }
+      ],
+      "rot_all": {
+        "207317": {
+          "name": "Epidemic",
+          "casts": 8,
+          "cpm": 0.87,
+          "damage": 1638352
+        },
+        "383269": {
+          "name": "Graveyard",
+          "casts": 4,
+          "cpm": 0.44,
+          "damage": 1811058
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 190,
+          "cpm": 20.71,
+          "damage": 5672893
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 25,
+          "cpm": 2.72,
+          "damage": 242415
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 6,
+          "cpm": 0.65,
+          "damage": 4466032
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 19,
+          "cpm": 2.07,
+          "damage": 1687242
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 70,
+          "cpm": 7.63,
+          "damage": 5780206
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 101,
+          "cpm": 11.01,
+          "damage": 6666857
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 25,
+          "cpm": 2.72,
+          "damage": 323835
+        }
+      },
+      "total_casts": 501,
+      "cpm": 54.61
+    },
+    {
+      "report": "3NzMpmBxkvg7TbX1",
+      "fight_id": 29,
+      "url": "https://www.warcraftlogs.com/reports/3NzMpmBxkvg7TbX1#fight=29",
+      "character": "魔女灬汐鑫艾",
+      "server": "凤凰之神",
+      "region": "CN",
+      "rank": 10,
+      "dps": 202347.2,
+      "kill": true,
+      "boss_pct_left": 0.02,
+      "last_phase": 4,
+      "duration_s": 552.127,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.442
+        },
+        {
+          "phase": 3,
+          "t_s": 220.45
+        },
+        {
+          "phase": 4,
+          "t_s": 329.999
+        },
+        {
+          "phase": 5,
+          "t_s": 476.433
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          3.296,
+          94.492,
+          185.594,
+          280.164,
+          370.622,
+          487.189
+        ],
+        "dark_transformation": [
+          3.427,
+          48.413,
+          94.602,
+          139.666,
+          185.671,
+          233.59,
+          280.263,
+          325.238,
+          370.743,
+          415.74,
+          487.267,
+          532.323
+        ],
+        "amz": [
+          239.622
+        ],
+        "charge_horsemen": [
+          3.606,
+          94.668,
+          185.759,
+          280.32,
+          370.959,
+          487.349
+        ],
+        "graveyard": [
+          14.392,
+          16.139
+        ]
+      },
+      "defensive_times_s": {
+        "ams": [
+          9.508,
+          71.538,
+          133.214,
+          193.93,
+          280.61,
+          327.034,
+          515.822
+        ],
+        "ibf": [
+          214.157,
+          539.276
+        ],
+        "lichborne": [
+          537.841
+        ],
+        "death_charge": [
+          177.671,
+          244.291,
+          274.351,
+          304.685,
+          326.242,
+          392.533,
+          442.468,
+          495.134,
+          514.859,
+          535.692
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          3.489,
+          370.837
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 211,
+          "cpm": 22.93,
+          "damage": 6353108
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 113,
+          "cpm": 12.28,
+          "damage": 8230797
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 62,
+          "cpm": 6.74,
+          "damage": 5066797
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 26,
+          "cpm": 2.83,
+          "damage": 388558
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 26,
+          "cpm": 2.83,
+          "damage": 254191
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 14,
+          "cpm": 1.52,
+          "damage": 1010368
+        }
+      ],
+      "rot_all": {
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 62,
+          "cpm": 6.74,
+          "damage": 5066797
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 5,
+          "cpm": 0.54,
+          "damage": 3826009
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 4,
+          "cpm": 0.43,
+          "damage": 460655
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 113,
+          "cpm": 12.28,
+          "damage": 8230797
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 26,
+          "cpm": 2.83,
+          "damage": 388558
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 14,
+          "cpm": 1.52,
+          "damage": 1010368
+        },
+        "383269": {
+          "name": "Graveyard",
+          "casts": 2,
+          "cpm": 0.22,
+          "damage": 451364
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 26,
+          "cpm": 2.83,
+          "damage": 254191
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 211,
+          "cpm": 22.93,
+          "damage": 6353108
+        }
+      },
+      "total_casts": 518,
+      "cpm": 56.29
+    },
+    {
+      "report": "AgV7KBCTbd9vqRpc",
+      "fight_id": 36,
+      "url": "https://www.warcraftlogs.com/reports/AgV7KBCTbd9vqRpc#fight=36",
+      "character": "安静的懒",
+      "server": "克尔苏加德",
+      "region": "CN",
+      "rank": 11,
+      "dps": 202209.6,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 569.201,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.439
+        },
+        {
+          "phase": 3,
+          "t_s": 220.455
+        },
+        {
+          "phase": 4,
+          "t_s": 329.971
+        },
+        {
+          "phase": 5,
+          "t_s": 492.799
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          3.577,
+          97.189,
+          188.11,
+          279.927,
+          370.544,
+          461.649,
+          552.734
+        ],
+        "dark_transformation": [
+          3.68,
+          48.675,
+          97.262,
+          142.315,
+          188.22,
+          233.624,
+          280.004,
+          325.03,
+          370.62,
+          416.498,
+          461.726,
+          506.793,
+          552.813
+        ],
+        "amz": [
+          239.788
+        ],
+        "charge_horsemen": [
+          3.809,
+          97.343,
+          188.281,
+          280.098,
+          370.758,
+          461.816,
+          552.913
+        ],
+        "graveyard": [
+          16.855
+        ]
+      },
+      "defensive_times_s": {
+        "ams": [
+          9.663,
+          72.436,
+          133.754,
+          193.775,
+          278.737,
+          326.985
+        ],
+        "ibf": [
+          214.321
+        ],
+        "lichborne": [
+          187.849
+        ],
+        "death_charge": [
+          177.152,
+          244.328,
+          273.811,
+          304.415,
+          326.73,
+          389.741,
+          450.143,
+          511.03,
+          532.038,
+          560.065
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          3.743,
+          370.679
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 213,
+          "cpm": 22.45,
+          "damage": 6246100
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 113,
+          "cpm": 11.91,
+          "damage": 8028446
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 64,
+          "cpm": 6.75,
+          "damage": 6200097
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 28,
+          "cpm": 2.95,
+          "damage": 533327
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 28,
+          "cpm": 2.95,
+          "damage": 316834
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 16,
+          "cpm": 1.69,
+          "damage": 1452159
+        }
+      ],
+      "rot_all": {
+        "207317": {
+          "name": "Epidemic",
+          "casts": 3,
+          "cpm": 0.32,
+          "damage": 534648
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 28,
+          "cpm": 2.95,
+          "damage": 533327
+        },
+        "383269": {
+          "name": "Graveyard",
+          "casts": 1,
+          "cpm": 0.11,
+          "damage": 442552
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 4,
+          "cpm": 0.42,
+          "damage": 4062820
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 64,
+          "cpm": 6.75,
+          "damage": 6200097
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 113,
+          "cpm": 11.91,
+          "damage": 8028446
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 213,
+          "cpm": 22.45,
+          "damage": 6246100
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 16,
+          "cpm": 1.69,
+          "damage": 1452159
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 28,
+          "cpm": 2.95,
+          "damage": 316834
+        }
+      },
+      "total_casts": 527,
+      "cpm": 55.55
+    },
+    {
+      "report": "CnaxwkDFmVBNKyvT",
+      "fight_id": 108,
+      "url": "https://www.warcraftlogs.com/reports/CnaxwkDFmVBNKyvT#fight=108",
+      "character": "一怒壹為红颜",
+      "server": "死亡之翼",
+      "region": "CN",
+      "rank": 12,
+      "dps": 201735.0,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 563.977,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.494
+        },
+        {
+          "phase": 3,
+          "t_s": 220.489
+        },
+        {
+          "phase": 4,
+          "t_s": 330.032
+        },
+        {
+          "phase": 5,
+          "t_s": 488.344
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          2.584,
+          93.271,
+          183.757,
+          278.411,
+          369.72,
+          459.936,
+          553.967
+        ],
+        "dark_transformation": [
+          3.54,
+          48.806,
+          94.216,
+          139.744,
+          184.966,
+          233.585,
+          279.055,
+          324.028,
+          370.812,
+          418.408,
+          463.423,
+          509.474,
+          554.495
+        ],
+        "amz": [
+          271.419
+        ],
+        "charge_horsemen": [
+          2.516,
+          92.848,
+          183.63,
+          277.765,
+          369.72,
+          459.937,
+          553.111
+        ],
+        "graveyard": []
+      },
+      "defensive_times_s": {
+        "ams": [
+          9.26,
+          73.057,
+          134.878,
+          192.419,
+          281.356,
+          328.573,
+          408.66
+        ],
+        "ibf": [
+          218.704,
+          408.402
+        ],
+        "lichborne": [
+          205.316,
+          409.585
+        ],
+        "death_charge": [
+          154.162,
+          181.029,
+          244.477,
+          274.351,
+          326.869,
+          337.78,
+          396.06,
+          528.037,
+          549.091
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          2.516,
+          369.72
+        ],
+        "Healthstone": [
+          218.977
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 215,
+          "cpm": 22.87,
+          "damage": 6220308
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 104,
+          "cpm": 11.06,
+          "damage": 7003538
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 68,
+          "cpm": 7.23,
+          "damage": 6365648
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 29,
+          "cpm": 3.09,
+          "damage": 307111
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 29,
+          "cpm": 3.09,
+          "damage": 400028
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 14,
+          "cpm": 1.49,
+          "damage": 1322520
+        }
+      ],
+      "rot_all": {
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 7,
+          "cpm": 0.74,
+          "damage": 4708043
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 14,
+          "cpm": 1.49,
+          "damage": 1322520
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 4,
+          "cpm": 0.43,
+          "damage": 906990
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 29,
+          "cpm": 3.09,
+          "damage": 307111
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 68,
+          "cpm": 7.23,
+          "damage": 6365648
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 104,
+          "cpm": 11.06,
+          "damage": 7003538
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 29,
+          "cpm": 3.09,
+          "damage": 400028
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 215,
+          "cpm": 22.87,
+          "damage": 6220308
+        }
+      },
+      "total_casts": 531,
+      "cpm": 56.49
+    },
+    {
+      "report": "3MvqrRwBXm9txTap",
+      "fight_id": 2,
+      "url": "https://www.warcraftlogs.com/reports/3MvqrRwBXm9txTap#fight=2",
+      "character": "久别骄阳",
+      "server": "白银之手",
+      "region": "CN",
+      "rank": 13,
+      "dps": 200573.0,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 560.162,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.496
+        },
+        {
+          "phase": 3,
+          "t_s": 220.482
+        },
+        {
+          "phase": 4,
+          "t_s": 330.005
+        },
+        {
+          "phase": 5,
+          "t_s": 481.564
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          4.322,
+          94.758,
+          184.96,
+          277.959,
+          367.962,
+          457.985,
+          548.77
+        ],
+        "dark_transformation": [
+          4.5,
+          50.591,
+          95.592,
+          140.588,
+          185.654,
+          233.753,
+          278.77,
+          323.757,
+          368.782,
+          413.788,
+          458.779,
+          503.95,
+          549.267
+        ],
+        "amz": [
+          271.2
+        ],
+        "charge_horsemen": [
+          4.501,
+          95.195,
+          185.655,
+          278.636,
+          368.628,
+          458.78,
+          549.269
+        ],
+        "graveyard": [
+          14.538,
+          15.308,
+          16.051,
+          16.784
+        ]
+      },
+      "defensive_times_s": {
+        "ams": [
+          10.603,
+          56.618,
+          109.294,
+          198.483,
+          279.83,
+          328.31,
+          418.648,
+          496.271,
+          556.266
+        ],
+        "ibf": [
+          73.371,
+          215.739
+        ],
+        "lichborne": [],
+        "death_charge": [
+          0.242,
+          55.867,
+          115.431,
+          133.712,
+          183.638,
+          243.276,
+          274.283,
+          302.957,
+          326.995,
+          334.738,
+          386.628,
+          440.818,
+          480.628,
+          502.967,
+          525.802,
+          546.286
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          3.497,
+          367.385
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 196,
+          "cpm": 20.99,
+          "damage": 5527441
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 103,
+          "cpm": 11.03,
+          "damage": 6808542
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 69,
+          "cpm": 7.39,
+          "damage": 6361462
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 23,
+          "cpm": 2.46,
+          "damage": 219793
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 23,
+          "cpm": 2.46,
+          "damage": 395992
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 17,
+          "cpm": 1.82,
+          "damage": 1425260
+        }
+      ],
+      "rot_all": {
+        "47541": {
+          "name": "Death Coil",
+          "casts": 103,
+          "cpm": 11.03,
+          "damage": 6808542
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 23,
+          "cpm": 2.46,
+          "damage": 219793
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 13,
+          "cpm": 1.39,
+          "damage": 4569603
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 69,
+          "cpm": 7.39,
+          "damage": 6361462
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 17,
+          "cpm": 1.82,
+          "damage": 1425260
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 5,
+          "cpm": 0.54,
+          "damage": 971172
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 196,
+          "cpm": 20.99,
+          "damage": 5527441
+        },
+        "383269": {
+          "name": "Graveyard",
+          "casts": 4,
+          "cpm": 0.43,
+          "damage": 1584869
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 23,
+          "cpm": 2.46,
+          "damage": 395992
+        }
+      },
+      "total_casts": 519,
+      "cpm": 55.59
+    },
+    {
+      "report": "agzx1rMZ6N4VRYfq",
+      "fight_id": 25,
+      "url": "https://www.warcraftlogs.com/reports/agzx1rMZ6N4VRYfq#fight=25",
+      "character": "三战五等兵",
+      "server": "凤凰之神",
+      "region": "CN",
+      "rank": 14,
+      "dps": 200419.2,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 559.557,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.525
+        },
+        {
+          "phase": 3,
+          "t_s": 220.537
+        },
+        {
+          "phase": 4,
+          "t_s": 330.019
+        },
+        {
+          "phase": 5,
+          "t_s": 480.497
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          0.275,
+          91.197,
+          183.525,
+          278.661,
+          370.938,
+          488.067
+        ],
+        "dark_transformation": [
+          0.506,
+          46.783,
+          91.787,
+          137.264,
+          183.78,
+          233.663,
+          279.172,
+          324.432,
+          371.347,
+          419.37,
+          488.514,
+          536.679
+        ],
+        "amz": [
+          302.566
+        ],
+        "charge_horsemen": [
+          0.275,
+          90.834,
+          183.525,
+          278.661,
+          370.939,
+          488.068
+        ],
+        "graveyard": []
+      },
+      "defensive_times_s": {
+        "ams": [
+          7.138,
+          69.731,
+          120.821,
+          193.218,
+          241.93,
+          302.675,
+          342.68,
+          394.741,
+          449.388,
+          558.761
+        ],
+        "ibf": [
+          132.575,
+          326.939,
+          558.523
+        ],
+        "lichborne": [
+          270.72
+        ],
+        "death_charge": [
+          187.151,
+          240.558,
+          272.315,
+          304.096,
+          393.206,
+          448.987
+        ],
+        "death_pact": [
+          218.712,
+          333.956
+        ],
+        "wraith_walk": [
+          331.943
+        ]
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          0.274,
+          370.938
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 200,
+          "cpm": 21.45,
+          "damage": 6242171
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 101,
+          "cpm": 10.83,
+          "damage": 6812690
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 75,
+          "cpm": 8.04,
+          "damage": 7018514
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 23,
+          "cpm": 2.47,
+          "damage": 338286
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 23,
+          "cpm": 2.47,
+          "damage": 267216
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 18,
+          "cpm": 1.93,
+          "damage": 1518026
+        }
+      ],
+      "rot_all": {
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 23,
+          "cpm": 2.47,
+          "damage": 338286
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 101,
+          "cpm": 10.83,
+          "damage": 6812690
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 3,
+          "cpm": 0.32,
+          "damage": 483321
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 23,
+          "cpm": 2.47,
+          "damage": 267216
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 200,
+          "cpm": 21.45,
+          "damage": 6242171
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 75,
+          "cpm": 8.04,
+          "damage": 7018514
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 18,
+          "cpm": 1.93,
+          "damage": 1518026
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 7,
+          "cpm": 0.75,
+          "damage": 4664271
+        }
+      },
+      "total_casts": 507,
+      "cpm": 54.36
+    },
+    {
+      "report": "WDR6HPA2FZCw7Yp9",
+      "fight_id": 82,
+      "url": "https://www.warcraftlogs.com/reports/WDR6HPA2FZCw7Yp9#fight=82",
+      "character": "温蒂丷",
+      "server": "熊猫酒仙",
+      "region": "CN",
+      "rank": 15,
+      "dps": 200342.0,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 574.641,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.545
+        },
+        {
+          "phase": 3,
+          "t_s": 220.553
+        },
+        {
+          "phase": 4,
+          "t_s": 330.074
+        },
+        {
+          "phase": 5,
+          "t_s": 499.555
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          4.261,
+          95.887,
+          186.521,
+          277.87,
+          369.962,
+          460.918,
+          553.596
+        ],
+        "dark_transformation": [
+          4.699,
+          50.07,
+          96.229,
+          141.301,
+          186.922,
+          233.711,
+          278.731,
+          324.232,
+          370.364,
+          418.162,
+          463.176,
+          509.039,
+          554.071
+        ],
+        "amz": [
+          241.837
+        ],
+        "charge_horsemen": [
+          4.09,
+          95.608,
+          186.199,
+          277.691,
+          369.648,
+          460.733,
+          553.292
+        ],
+        "graveyard": []
+      },
+      "defensive_times_s": {
+        "ams": [
+          8.158,
+          70.059,
+          131.981,
+          242.294,
+          289.818,
+          341.216,
+          389.831,
+          446.461
+        ],
+        "ibf": [
+          327.017
+        ],
+        "lichborne": [],
+        "death_charge": [
+          157.098,
+          181.717,
+          244.807,
+          272.959,
+          305.238,
+          331.333,
+          395.798,
+          518.444,
+          538.552,
+          559.592
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          3.587,
+          552.547
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 197,
+          "cpm": 20.57,
+          "damage": 5647512
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 103,
+          "cpm": 10.75,
+          "damage": 7189895
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 80,
+          "cpm": 8.35,
+          "damage": 8330791
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 24,
+          "cpm": 2.51,
+          "damage": 242960
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 24,
+          "cpm": 2.51,
+          "damage": 332730
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 21,
+          "cpm": 2.19,
+          "damage": 2004068
+        }
+      ],
+      "rot_all": {
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 5,
+          "cpm": 0.52,
+          "damage": 4663656
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 197,
+          "cpm": 20.57,
+          "damage": 5647512
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 21,
+          "cpm": 2.19,
+          "damage": 2004068
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 24,
+          "cpm": 2.51,
+          "damage": 242960
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 5,
+          "cpm": 0.52,
+          "damage": 787316
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 80,
+          "cpm": 8.35,
+          "damage": 8330791
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 103,
+          "cpm": 10.75,
+          "damage": 7189895
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 24,
+          "cpm": 2.51,
+          "damage": 332730
+        }
+      },
+      "total_casts": 519,
+      "cpm": 54.19
+    },
+    {
+      "report": "4axYkQ6vcrHDT8hA",
+      "fight_id": 43,
+      "url": "https://www.warcraftlogs.com/reports/4axYkQ6vcrHDT8hA#fight=43",
+      "character": "Verb",
+      "server": "아즈샤라",
+      "region": "KR",
+      "rank": 16,
+      "dps": 200300.5,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 537.684,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.546
+        },
+        {
+          "phase": 3,
+          "t_s": 220.544
+        },
+        {
+          "phase": 4,
+          "t_s": 330.079
+        },
+        {
+          "phase": 5,
+          "t_s": 459.356
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          3.856,
+          95.067,
+          186.338,
+          279.383,
+          370.231,
+          471.712
+        ],
+        "dark_transformation": [
+          3.931,
+          49.513,
+          95.098,
+          140.312,
+          186.313,
+          234.119,
+          279.383,
+          324.789,
+          370.284,
+          415.676,
+          471.824,
+          517.313
+        ],
+        "amz": [
+          300.327
+        ],
+        "charge_horsemen": [
+          3.819,
+          95.048,
+          186.281,
+          279.307,
+          370.231,
+          471.712
+        ],
+        "graveyard": []
+      },
+      "defensive_times_s": {
+        "ams": [
+          48.535,
+          111.046,
+          165.685,
+          272.887,
+          328.022,
+          426.943,
+          524.239
+        ],
+        "ibf": [
+          69.619,
+          219.392,
+          353.692
+        ],
+        "lichborne": [],
+        "death_charge": [
+          177.352,
+          247.615,
+          275.154,
+          305.821,
+          324.459,
+          331.774,
+          388.3,
+          450.904,
+          476.876,
+          482.273,
+          499.122,
+          529.004
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          2.897,
+          369.996
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 188,
+          "cpm": 20.98,
+          "damage": 5262987
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 90,
+          "cpm": 10.04,
+          "damage": 7084134
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 70,
+          "cpm": 7.81,
+          "damage": 7131362
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 24,
+          "cpm": 2.68,
+          "damage": 248973
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 24,
+          "cpm": 2.68,
+          "damage": 360549
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 16,
+          "cpm": 1.79,
+          "damage": 1253243
+        }
+      ],
+      "rot_all": {
+        "47541": {
+          "name": "Death Coil",
+          "casts": 90,
+          "cpm": 10.04,
+          "damage": 7084134
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 10,
+          "cpm": 1.12,
+          "damage": 4062454
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 2,
+          "cpm": 0.22,
+          "damage": 355305
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 24,
+          "cpm": 2.68,
+          "damage": 248973
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 188,
+          "cpm": 20.98,
+          "damage": 5262987
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 16,
+          "cpm": 1.79,
+          "damage": 1253243
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 70,
+          "cpm": 7.81,
+          "damage": 7131362
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 24,
+          "cpm": 2.68,
+          "damage": 360549
+        }
+      },
+      "total_casts": 484,
+      "cpm": 54.01
+    },
+    {
+      "report": "a1yDWnKMbPZRr8tN",
+      "fight_id": 2,
+      "url": "https://www.warcraftlogs.com/reports/a1yDWnKMbPZRr8tN#fight=2",
+      "character": "Miratrixgødx",
+      "server": "Silvermoon",
+      "region": "EU",
+      "rank": 17,
+      "dps": 200168.9,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 572.028,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.561
+        },
+        {
+          "phase": 3,
+          "t_s": 220.573
+        },
+        {
+          "phase": 4,
+          "t_s": 330.067
+        },
+        {
+          "phase": 5,
+          "t_s": 497.285
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          4.023,
+          96.034,
+          186.567,
+          277.919,
+          370.221,
+          460.39,
+          550.556
+        ],
+        "dark_transformation": [
+          5.265,
+          51.502,
+          97.018,
+          142.034,
+          187.489,
+          233.64,
+          278.974,
+          324.549,
+          371.232,
+          416.625,
+          461.626,
+          506.631,
+          551.626
+        ],
+        "amz": [
+          241.443,
+          447.608
+        ],
+        "charge_horsemen": [
+          5.265,
+          97.017,
+          187.489,
+          278.974,
+          371.232,
+          461.455,
+          551.474
+        ],
+        "graveyard": []
+      },
+      "defensive_times_s": {
+        "ams": [
+          105.519,
+          196.536,
+          289.764,
+          393.163,
+          557.709
+        ],
+        "ibf": [
+          134.075,
+          327.947
+        ],
+        "lichborne": [
+          219.343,
+          317.34
+        ],
+        "death_charge": [
+          74.086,
+          128.559,
+          182.844,
+          246.067,
+          273.415,
+          306.502,
+          324.216,
+          360.028,
+          393.868,
+          436.864,
+          518.267,
+          540.865,
+          558.421
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          3.764,
+          543.522
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 207,
+          "cpm": 21.71,
+          "damage": 5832939
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 90,
+          "cpm": 9.44,
+          "damage": 6968397
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 88,
+          "cpm": 9.23,
+          "damage": 8337078
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 27,
+          "cpm": 2.83,
+          "damage": 242146
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 27,
+          "cpm": 2.83,
+          "damage": 476309
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 18,
+          "cpm": 1.89,
+          "damage": 1656456
+        }
+      ],
+      "rot_all": {
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 88,
+          "cpm": 9.23,
+          "damage": 8337078
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 18,
+          "cpm": 1.89,
+          "damage": 1656456
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 2,
+          "cpm": 0.21,
+          "damage": 286399
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 90,
+          "cpm": 9.44,
+          "damage": 6968397
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 27,
+          "cpm": 2.83,
+          "damage": 242146
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 15,
+          "cpm": 1.57,
+          "damage": 3800621
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 27,
+          "cpm": 2.83,
+          "damage": 476309
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 207,
+          "cpm": 21.71,
+          "damage": 5832939
+        }
+      },
+      "total_casts": 537,
+      "cpm": 56.33
+    },
+    {
+      "report": "dBgxWNrtDQRAc7aZ",
+      "fight_id": 45,
+      "url": "https://www.warcraftlogs.com/reports/dBgxWNrtDQRAc7aZ#fight=45",
+      "character": "习惯当少爷",
+      "server": "凤凰之神",
+      "region": "CN",
+      "rank": 18,
+      "dps": 200071.4,
+      "kill": true,
+      "boss_pct_left": 0.02,
+      "last_phase": 4,
+      "duration_s": 572.341,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.554
+        },
+        {
+          "phase": 3,
+          "t_s": 220.553
+        },
+        {
+          "phase": 4,
+          "t_s": 330.074
+        },
+        {
+          "phase": 5,
+          "t_s": 495.639
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          4.108,
+          94.275,
+          185.985,
+          279.332,
+          369.755,
+          460.527,
+          551.154
+        ],
+        "dark_transformation": [
+          5.119,
+          50.171,
+          95.172,
+          140.443,
+          186.252,
+          233.738,
+          279.531,
+          324.751,
+          370.193,
+          415.348,
+          460.768,
+          506.307,
+          551.639
+        ],
+        "amz": [
+          238.09
+        ],
+        "charge_horsemen": [
+          4.543,
+          95.638,
+          186.467,
+          279.769,
+          370.361,
+          460.96,
+          551.787
+        ],
+        "graveyard": [
+          15.377,
+          16.128,
+          16.875
+        ]
+      },
+      "defensive_times_s": {
+        "ams": [
+          136.121,
+          330.61,
+          569.91
+        ],
+        "ibf": [
+          569.871
+        ],
+        "lichborne": [
+          199.065
+        ],
+        "death_charge": [
+          244.257,
+          274.583,
+          305.541,
+          330.843,
+          517.361,
+          536.676,
+          555.264
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          3.96,
+          369.843
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 202,
+          "cpm": 21.18,
+          "damage": 5770384
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 106,
+          "cpm": 11.11,
+          "damage": 7352776
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 79,
+          "cpm": 8.28,
+          "damage": 7424334
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 30,
+          "cpm": 3.14,
+          "damage": 279897
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 30,
+          "cpm": 3.14,
+          "damage": 396172
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 19,
+          "cpm": 1.99,
+          "damage": 1915475
+        }
+      ],
+      "rot_all": {
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 30,
+          "cpm": 3.14,
+          "damage": 279897
+        },
+        "383269": {
+          "name": "Graveyard",
+          "casts": 3,
+          "cpm": 0.31,
+          "damage": 1825155
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 19,
+          "cpm": 1.99,
+          "damage": 1915475
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 79,
+          "cpm": 8.28,
+          "damage": 7424334
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 4,
+          "cpm": 0.42,
+          "damage": 528467
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 106,
+          "cpm": 11.11,
+          "damage": 7352776
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 4,
+          "cpm": 0.42,
+          "damage": 4583363
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 30,
+          "cpm": 3.14,
+          "damage": 396172
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 202,
+          "cpm": 21.18,
+          "damage": 5770384
+        }
+      },
+      "total_casts": 527,
+      "cpm": 55.25
+    },
+    {
+      "report": "2XZYdzpG9VnH6cNT",
+      "fight_id": 19,
+      "url": "https://www.warcraftlogs.com/reports/2XZYdzpG9VnH6cNT#fight=19",
+      "character": "魔女灬贰寳",
+      "server": "凤凰之神",
+      "region": "CN",
+      "rank": 19,
+      "dps": 199432.6,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 560.206,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.44
+        },
+        {
+          "phase": 3,
+          "t_s": 220.438
+        },
+        {
+          "phase": 4,
+          "t_s": 329.997
+        },
+        {
+          "phase": 5,
+          "t_s": 481.315
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          3.313,
+          94.522,
+          186.768,
+          278.866,
+          369.725,
+          461.322,
+          552.166
+        ],
+        "dark_transformation": [
+          3.385,
+          48.382,
+          94.593,
+          140.479,
+          186.839,
+          233.546,
+          278.96,
+          323.984,
+          369.83,
+          414.873,
+          461.398,
+          506.479,
+          552.267
+        ],
+        "amz": [
+          242.044
+        ],
+        "charge_horsemen": [
+          3.522,
+          94.665,
+          186.91,
+          279.025,
+          369.956,
+          461.489,
+          552.303
+        ],
+        "graveyard": [
+          13.702,
+          15.402
+        ]
+      },
+      "defensive_times_s": {
+        "ams": [
+          9.082,
+          71.082,
+          132.801,
+          193.616,
+          279.302,
+          326.768,
+          542.475
+        ],
+        "ibf": [
+          213.531
+        ],
+        "lichborne": [
+          188.843
+        ],
+        "death_charge": [
+          180.804,
+          244.621,
+          273.301,
+          304.899,
+          326.598,
+          388.409,
+          500.033,
+          520.079,
+          540.787
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          3.45,
+          369.878
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 220,
+          "cpm": 23.56,
+          "damage": 6878339
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 113,
+          "cpm": 12.1,
+          "damage": 6553044
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 57,
+          "cpm": 6.1,
+          "damage": 5741788
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 27,
+          "cpm": 2.89,
+          "damage": 309577
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 27,
+          "cpm": 2.89,
+          "damage": 482740
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 13,
+          "cpm": 1.39,
+          "damage": 1158675
+        }
+      ],
+      "rot_all": {
+        "207317": {
+          "name": "Epidemic",
+          "casts": 4,
+          "cpm": 0.43,
+          "damage": 295518
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 27,
+          "cpm": 2.89,
+          "damage": 309577
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 13,
+          "cpm": 1.39,
+          "damage": 1158675
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 220,
+          "cpm": 23.56,
+          "damage": 6878339
+        },
+        "383269": {
+          "name": "Graveyard",
+          "casts": 2,
+          "cpm": 0.21,
+          "damage": 153718
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 6,
+          "cpm": 0.64,
+          "damage": 3766514
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 57,
+          "cpm": 6.1,
+          "damage": 5741788
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 27,
+          "cpm": 2.89,
+          "damage": 482740
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 113,
+          "cpm": 12.1,
+          "damage": 6553044
+        }
+      },
+      "total_casts": 528,
+      "cpm": 56.55
+    },
+    {
+      "report": "xmPWRMcwh97pTV1Y",
+      "fight_id": 3,
+      "url": "https://www.warcraftlogs.com/reports/xmPWRMcwh97pTV1Y#fight=3",
+      "character": "魔女灬瑞汐",
+      "server": "凤凰之神",
+      "region": "CN",
+      "rank": 20,
+      "dps": 199179.3,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 568.767,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.406
+        },
+        {
+          "phase": 3,
+          "t_s": 220.419
+        },
+        {
+          "phase": 4,
+          "t_s": 329.985
+        },
+        {
+          "phase": 5,
+          "t_s": 489.117
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          3.589,
+          94.742,
+          185.884,
+          278.812,
+          369.102,
+          459.61,
+          549.818
+        ],
+        "dark_transformation": [
+          3.676,
+          48.729,
+          94.829,
+          140.424,
+          185.985,
+          233.539,
+          278.897,
+          323.935,
+          369.177,
+          414.18,
+          459.724,
+          504.79,
+          549.894
+        ],
+        "amz": [
+          238.325
+        ],
+        "charge_horsemen": [
+          3.82,
+          94.879,
+          186.06,
+          278.999,
+          369.328,
+          459.801,
+          549.965
+        ],
+        "graveyard": [
+          14.189,
+          16.382
+        ]
+      },
+      "defensive_times_s": {
+        "ams": [
+          71.173,
+          133.099,
+          198.228,
+          280.267,
+          327.166,
+          553.8
+        ],
+        "ibf": [
+          213.377
+        ],
+        "lichborne": [
+          189.11
+        ],
+        "death_charge": [
+          177.392,
+          244.606,
+          274.333,
+          304.858,
+          326.931,
+          390.319,
+          444.967,
+          451.583,
+          507.937,
+          528.072
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          3.75,
+          369.252
+        ]
+      },
+      "deaths": [
+        {
+          "t_s": 567.308,
+          "ability_id": 1273033,
+          "ability": "Void Swarm (1273033)"
+        }
+      ],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 212,
+          "cpm": 22.36,
+          "damage": 6193658
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 108,
+          "cpm": 11.39,
+          "damage": 7187724
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 61,
+          "cpm": 6.43,
+          "damage": 6281787
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 28,
+          "cpm": 2.95,
+          "damage": 516745
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 28,
+          "cpm": 2.95,
+          "damage": 283573
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 13,
+          "cpm": 1.37,
+          "damage": 974974
+        }
+      ],
+      "rot_all": {
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 13,
+          "cpm": 1.37,
+          "damage": 974974
+        },
+        "383269": {
+          "name": "Graveyard",
+          "casts": 2,
+          "cpm": 0.21,
+          "damage": 450456
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 108,
+          "cpm": 11.39,
+          "damage": 7187724
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 212,
+          "cpm": 22.36,
+          "damage": 6193658
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 28,
+          "cpm": 2.95,
+          "damage": 516745
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 28,
+          "cpm": 2.95,
+          "damage": 283573
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 5,
+          "cpm": 0.53,
+          "damage": 454837
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 61,
+          "cpm": 6.43,
+          "damage": 6281787
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 6,
+          "cpm": 0.63,
+          "damage": 3514945
+        }
+      },
+      "total_casts": 528,
+      "cpm": 55.7
+    },
+    {
+      "report": "ZCQkpKxVjJFM2Wav",
+      "fight_id": 1,
+      "url": "https://www.warcraftlogs.com/reports/ZCQkpKxVjJFM2Wav#fight=1",
+      "character": "简美妍",
+      "server": "布兰卡德",
+      "region": "CN",
+      "rank": 21,
+      "dps": 198730.8,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 594.2,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.521
+        },
+        {
+          "phase": 3,
+          "t_s": 220.53
+        },
+        {
+          "phase": 4,
+          "t_s": 330.065
+        },
+        {
+          "phase": 5,
+          "t_s": 511.437
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          4.054,
+          94.904,
+          185.626,
+          278.919,
+          371.081,
+          462.506,
+          554.407
+        ],
+        "dark_transformation": [
+          4.165,
+          49.534,
+          95.137,
+          140.865,
+          185.852,
+          233.878,
+          279.103,
+          325.011,
+          371.292,
+          416.782,
+          462.473,
+          507.678,
+          554.645
+        ],
+        "amz": [
+          69.153,
+          303.367,
+          588.239
+        ],
+        "charge_horsemen": [
+          5.839,
+          96.748,
+          187.41,
+          280.957,
+          372.767,
+          464.482,
+          555.564
+        ],
+        "graveyard": []
+      },
+      "defensive_times_s": {
+        "ams": [
+          10.107,
+          71.334,
+          133.639,
+          218.66,
+          329.912,
+          587.813
+        ],
+        "ibf": [
+          588.417
+        ],
+        "lichborne": [],
+        "death_charge": [
+          41.397,
+          61.428,
+          183.591,
+          327.022,
+          390.938,
+          532.042,
+          553.017,
+          571.148
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          3.779,
+          370.84
+        ],
+        "Silvermoon Health Potion": [
+          592.213
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 229,
+          "cpm": 23.12,
+          "damage": 6913212
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 101,
+          "cpm": 10.2,
+          "damage": 7981953
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 78,
+          "cpm": 7.88,
+          "damage": 7516457
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 24,
+          "cpm": 2.42,
+          "damage": 291490
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 24,
+          "cpm": 2.42,
+          "damage": 460426
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 17,
+          "cpm": 1.72,
+          "damage": 1576358
+        }
+      ],
+      "rot_all": {
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 229,
+          "cpm": 23.12,
+          "damage": 6913212
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 101,
+          "cpm": 10.2,
+          "damage": 7981953
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 2,
+          "cpm": 0.2,
+          "damage": 158581
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 24,
+          "cpm": 2.42,
+          "damage": 291490
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 4,
+          "cpm": 0.4,
+          "damage": 3980145
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 17,
+          "cpm": 1.72,
+          "damage": 1576358
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 24,
+          "cpm": 2.42,
+          "damage": 460426
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 78,
+          "cpm": 7.88,
+          "damage": 7516457
+        }
+      },
+      "total_casts": 539,
+      "cpm": 54.43
+    },
+    {
+      "report": "tW9HLGpPMjK2yRZ8",
+      "fight_id": 116,
+      "url": "https://www.warcraftlogs.com/reports/tW9HLGpPMjK2yRZ8#fight=116",
+      "character": "迪克去分担",
+      "server": "凤凰之神",
+      "region": "CN",
+      "rank": 22,
+      "dps": 198717.9,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 557.067,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.498
+        },
+        {
+          "phase": 3,
+          "t_s": 220.506
+        },
+        {
+          "phase": 4,
+          "t_s": 330.037
+        },
+        {
+          "phase": 5,
+          "t_s": 474.483
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          0.445,
+          90.46,
+          183.808,
+          279.457,
+          381.471,
+          482.756
+        ],
+        "dark_transformation": [
+          0.667,
+          46.077,
+          91.079,
+          136.57,
+          183.552,
+          233.677,
+          279.455,
+          324.448,
+          381.848,
+          428.682,
+          482.972,
+          533.004
+        ],
+        "amz": [
+          300.568,
+          553.395
+        ],
+        "charge_horsemen": [
+          0.445,
+          90.608,
+          183.256,
+          278.902,
+          381.445,
+          482.756
+        ],
+        "graveyard": []
+      },
+      "defensive_times_s": {
+        "ams": [
+          7.333,
+          71.04,
+          131.406,
+          199.126,
+          241.448,
+          300.592,
+          340.816,
+          393.623,
+          447.412,
+          552.702
+        ],
+        "ibf": [
+          133.925,
+          552.373
+        ],
+        "lichborne": [
+          271.188
+        ],
+        "death_charge": [
+          182.597,
+          241.749,
+          273.24,
+          302.139,
+          325.254,
+          393.281,
+          535.433
+        ],
+        "death_pact": [
+          211.964,
+          332.396,
+          555.94
+        ],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          0.444,
+          381.445
+        ],
+        "Silvermoon Health Potion": [
+          221.14,
+          555.5
+        ],
+        "Healthstone": [
+          556.77
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 204,
+          "cpm": 21.97,
+          "damage": 5518647
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 109,
+          "cpm": 11.74,
+          "damage": 7603899
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 75,
+          "cpm": 8.08,
+          "damage": 6793484
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 24,
+          "cpm": 2.58,
+          "damage": 274142
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 24,
+          "cpm": 2.58,
+          "damage": 210407
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 17,
+          "cpm": 1.83,
+          "damage": 1497400
+        }
+      ],
+      "rot_all": {
+        "47541": {
+          "name": "Death Coil",
+          "casts": 109,
+          "cpm": 11.74,
+          "damage": 7603899
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 24,
+          "cpm": 2.58,
+          "damage": 274142
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 75,
+          "cpm": 8.08,
+          "damage": 6793484
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 8,
+          "cpm": 0.86,
+          "damage": 4205049
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 204,
+          "cpm": 21.97,
+          "damage": 5518647
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 3,
+          "cpm": 0.32,
+          "damage": 625222
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 17,
+          "cpm": 1.83,
+          "damage": 1497400
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 24,
+          "cpm": 2.58,
+          "damage": 210407
+        }
+      },
+      "total_casts": 526,
+      "cpm": 56.65
+    },
+    {
+      "report": "Xp1YfzA3Tac6jdHg",
+      "fight_id": 104,
+      "url": "https://www.warcraftlogs.com/reports/Xp1YfzA3Tac6jdHg#fight=104",
+      "character": "雀川",
+      "server": "凤凰之神",
+      "region": "CN",
+      "rank": 23,
+      "dps": 198652.7,
+      "kill": true,
+      "boss_pct_left": 0.02,
+      "last_phase": 4,
+      "duration_s": 551.534,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.52
+        },
+        {
+          "phase": 3,
+          "t_s": 220.518
+        },
+        {
+          "phase": 4,
+          "t_s": 330.041
+        },
+        {
+          "phase": 5,
+          "t_s": 476.923
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          4.34,
+          96.086,
+          186.097,
+          278.456,
+          368.986,
+          506.037
+        ],
+        "dark_transformation": [
+          4.6,
+          49.687,
+          96.171,
+          141.754,
+          186.762,
+          233.641,
+          278.899,
+          323.876,
+          369.614,
+          415.516,
+          460.804,
+          506.355,
+          551.34
+        ],
+        "amz": [
+          299.843
+        ],
+        "charge_horsemen": [
+          4.275,
+          95.625,
+          185.671,
+          278.456,
+          368.986,
+          505.885
+        ],
+        "graveyard": []
+      },
+      "defensive_times_s": {
+        "ams": [
+          71.328,
+          240.305,
+          298.22,
+          338.485,
+          392.329,
+          447.525,
+          522.409
+        ],
+        "ibf": [
+          134.841
+        ],
+        "lichborne": [],
+        "death_charge": [
+          0.229,
+          30.631,
+          181.356,
+          245.449,
+          275.23,
+          304.848,
+          330.917,
+          500.24,
+          511.925,
+          546.027
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          3.897,
+          368.67
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 207,
+          "cpm": 22.52,
+          "damage": 6475148
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 99,
+          "cpm": 10.77,
+          "damage": 7170604
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 71,
+          "cpm": 7.72,
+          "damage": 7093751
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 26,
+          "cpm": 2.83,
+          "damage": 282539
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 26,
+          "cpm": 2.83,
+          "damage": 388464
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 17,
+          "cpm": 1.85,
+          "damage": 1469932
+        }
+      ],
+      "rot_all": {
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 6,
+          "cpm": 0.65,
+          "damage": 4168145
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 71,
+          "cpm": 7.72,
+          "damage": 7093751
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 26,
+          "cpm": 2.83,
+          "damage": 282539
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 99,
+          "cpm": 10.77,
+          "damage": 7170604
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 2,
+          "cpm": 0.22,
+          "damage": 279814
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 17,
+          "cpm": 1.85,
+          "damage": 1469932
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 207,
+          "cpm": 22.52,
+          "damage": 6475148
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 26,
+          "cpm": 2.83,
+          "damage": 388464
+        }
+      },
+      "total_casts": 511,
+      "cpm": 55.59
+    },
+    {
+      "report": "jLWpBqgcCXaFTndA",
+      "fight_id": 4,
+      "url": "https://www.warcraftlogs.com/reports/jLWpBqgcCXaFTndA#fight=4",
+      "character": "别讲喵喵话",
+      "server": "白银之手",
+      "region": "CN",
+      "rank": 24,
+      "dps": 198387.7,
+      "kill": true,
+      "boss_pct_left": 0.01,
+      "last_phase": 4,
+      "duration_s": 514.942,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.38
+        },
+        {
+          "phase": 3,
+          "t_s": 220.39
+        },
+        {
+          "phase": 4,
+          "t_s": 329.91
+        },
+        {
+          "phase": 5,
+          "t_s": 439.519
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          2.891,
+          94.461,
+          189.839,
+          280.202,
+          370.799,
+          461.925
+        ],
+        "dark_transformation": [
+          2.663,
+          49.137,
+          94.175,
+          139.511,
+          189.24,
+          234.244,
+          279.983,
+          325.16,
+          370.799,
+          415.917,
+          461.705,
+          507.306
+        ],
+        "amz": [],
+        "charge_horsemen": [
+          2.545,
+          94.175,
+          188.818,
+          279.982,
+          370.798,
+          461.705
+        ],
+        "graveyard": [
+          14.846,
+          15.653
+        ]
+      },
+      "defensive_times_s": {
+        "ams": [
+          328.791
+        ],
+        "ibf": [
+          329.246
+        ],
+        "lichborne": [
+          329.206
+        ],
+        "death_charge": [
+          331.553,
+          395.753,
+          433.038,
+          502.913
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          2.385,
+          370.657
+        ]
+      },
+      "deaths": [],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 191,
+          "cpm": 22.25,
+          "damage": 5369914
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 95,
+          "cpm": 11.07,
+          "damage": 6373080
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 63,
+          "cpm": 7.34,
+          "damage": 5131195
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 21,
+          "cpm": 2.45,
+          "damage": 287161
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 21,
+          "cpm": 2.45,
+          "damage": 200818
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 17,
+          "cpm": 1.98,
+          "damage": 1377528
+        }
+      ],
+      "rot_all": {
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 8,
+          "cpm": 0.93,
+          "damage": 3805050
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 21,
+          "cpm": 2.45,
+          "damage": 287161
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 95,
+          "cpm": 11.07,
+          "damage": 6373080
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 63,
+          "cpm": 7.34,
+          "damage": 5131195
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 17,
+          "cpm": 1.98,
+          "damage": 1377528
+        },
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 191,
+          "cpm": 22.25,
+          "damage": 5369914
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 21,
+          "cpm": 2.45,
+          "damage": 200818
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 5,
+          "cpm": 0.58,
+          "damage": 510089
+        },
+        "383269": {
+          "name": "Graveyard",
+          "casts": 2,
+          "cpm": 0.23,
+          "damage": 1211730
+        }
+      },
+      "total_casts": 460,
+      "cpm": 53.6
+    },
+    {
+      "report": "jnb9QPHcztWmrFkX",
+      "fight_id": 18,
+      "url": "https://www.warcraftlogs.com/reports/jnb9QPHcztWmrFkX#fight=18",
+      "character": "Режубью",
+      "server": "Гордунни",
+      "region": "EU",
+      "rank": 27,
+      "dps": 197945.0,
+      "kill": true,
+      "boss_pct_left": 0.02,
+      "last_phase": 4,
+      "duration_s": 514.357,
+      "phase_transitions": [
+        {
+          "phase": 1,
+          "t_s": 0.0
+        },
+        {
+          "phase": 2,
+          "t_s": 190.491
+        },
+        {
+          "phase": 3,
+          "t_s": 220.505
+        },
+        {
+          "phase": 4,
+          "t_s": 330.039
+        },
+        {
+          "phase": 5,
+          "t_s": 438.697
+        }
+      ],
+      "major_cd_times_s": {
+        "army": [
+          4.028,
+          94.062,
+          185.257,
+          278.447,
+          370.735,
+          461.515
+        ],
+        "dark_transformation": [
+          3.747,
+          49.062,
+          95.496,
+          140.527,
+          185.515,
+          233.634,
+          279.112,
+          324.101,
+          370.689,
+          416.223,
+          461.469,
+          506.474
+        ],
+        "amz": [
+          9.534,
+          239.192,
+          491.316
+        ],
+        "charge_horsemen": [
+          3.747,
+          93.858,
+          184.925,
+          277.968,
+          370.689,
+          461.469
+        ],
+        "graveyard": [
+          15.26,
+          16.005,
+          16.749,
+          17.476
+        ]
+      },
+      "defensive_times_s": {
+        "ams": [
+          51.475,
+          110.281,
+          198.489,
+          328.701
+        ],
+        "ibf": [
+          216.997
+        ],
+        "lichborne": [],
+        "death_charge": [
+          181.167,
+          245.845,
+          275.062,
+          305.596,
+          327.705,
+          382.174,
+          430.324,
+          499.748
+        ],
+        "death_pact": [],
+        "wraith_walk": []
+      },
+      "consumable_times_s": {
+        "Potion of Recklessness": [
+          3.428,
+          370.276
+        ]
+      },
+      "deaths": [
+        {
+          "t_s": 510.387,
+          "ability_id": 1273033,
+          "ability": "Void Swarm (1273033)"
+        }
+      ],
+      "top6_rotational": [
+        {
+          "id": 55090,
+          "name": "Scourge Strike",
+          "casts": 180,
+          "cpm": 21.0,
+          "damage": 5245976
+        },
+        {
+          "id": 47541,
+          "name": "Death Coil",
+          "casts": 85,
+          "cpm": 9.92,
+          "damage": 5779570
+        },
+        {
+          "id": 1242174,
+          "name": "Necrotic Coil",
+          "casts": 66,
+          "cpm": 7.7,
+          "damage": 5725363
+        },
+        {
+          "id": 458128,
+          "name": "Festering Scythe",
+          "casts": 21,
+          "cpm": 2.45,
+          "damage": 398772
+        },
+        {
+          "id": 85948,
+          "name": "Festering Strike",
+          "casts": 21,
+          "cpm": 2.45,
+          "damage": 230721
+        },
+        {
+          "id": 343294,
+          "name": "Soul Reaper",
+          "casts": 15,
+          "cpm": 1.75,
+          "damage": 1118981
+        }
+      ],
+      "rot_all": {
+        "55090": {
+          "name": "Scourge Strike",
+          "casts": 180,
+          "cpm": 21.0,
+          "damage": 5245976
+        },
+        "1242174": {
+          "name": "Necrotic Coil",
+          "casts": 66,
+          "cpm": 7.7,
+          "damage": 5725363
+        },
+        "383269": {
+          "name": "Graveyard",
+          "casts": 4,
+          "cpm": 0.47,
+          "damage": 1500604
+        },
+        "207317": {
+          "name": "Epidemic",
+          "casts": 4,
+          "cpm": 0.47,
+          "damage": 737126
+        },
+        "343294": {
+          "name": "Soul Reaper",
+          "casts": 15,
+          "cpm": 1.75,
+          "damage": 1118981
+        },
+        "458128": {
+          "name": "Festering Scythe",
+          "casts": 21,
+          "cpm": 2.45,
+          "damage": 398772
+        },
+        "47541": {
+          "name": "Death Coil",
+          "casts": 85,
+          "cpm": 9.92,
+          "damage": 5779570
+        },
+        "85948": {
+          "name": "Festering Strike",
+          "casts": 21,
+          "cpm": 2.45,
+          "damage": 230721
+        },
+        "1247378": {
+          "name": "Putrefy",
+          "casts": 13,
+          "cpm": 1.52,
+          "damage": 4239081
+        }
+      },
+      "total_casts": 458,
+      "cpm": 53.43
+    }
+  ]
+}

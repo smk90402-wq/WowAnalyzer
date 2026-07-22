@@ -1,0 +1,5069 @@
+{
+  "meta": {
+    "generated_at": "2026-07-21T17:17:16",
+    "encounter_id": 3183,
+    "encounter_name": "한밤의 도래(L'ura)",
+    "difficulty": "Mythic(5)",
+    "spec": "Evoker/Augmentation",
+    "rankings_metric_used": "dps",
+    "rankings_rows_seen": 100,
+    "n_pairs_requested": 25,
+    "n_fights_ok": 25,
+    "all_kills": true,
+    "crystal_aura_id": 1253031,
+    "crystal_aura_name": "일렁이는 빛(여명의 수정 보유 마커)",
+    "p3_phase_id": 4,
+    "phase_metadata": {
+      "encounterID": 3183,
+      "separatesWipes": true,
+      "phases": [
+        {
+          "id": 1,
+          "name": "Stage One: Final Tolls",
+          "isIntermission": false
+        },
+        {
+          "id": 2,
+          "name": "Intermission: Total Eclipse",
+          "isIntermission": true
+        },
+        {
+          "id": 3,
+          "name": "Stage Two: The Dark Reactor",
+          "isIntermission": false
+        },
+        {
+          "id": 4,
+          "name": "Stage Three: Midnight Falls",
+          "isIntermission": false
+        },
+        {
+          "id": 5,
+          "name": "Stage Four: Reintegration",
+          "isIntermission": false
+        }
+      ]
+    },
+    "percentile_note": "characterRankings 상위권 자체가 랭킹이므로 percentile 대신 rank 순번 기록",
+    "notes": [
+      "phaseTransitions 기준 P3 = phase id 4 'Stage Three: Midnight Falls' (전 판 ~330s 고정 시작).",
+      "Deaths events 의 targetID 인자는 서버에서 무시됨(전 공대 사망 반환) → 클라이언트 측 targetID 필터로 증강 사망만 추출.",
+      "임파워기(화염숨결/대격변)는 casts table total = cast + empowerend 로 이중집계 → 완료 시전 수는 'cast' 이벤트 수 사용.",
+      "칠흑의 힘 업타임은 table(dataType:Buffs, sourceID=targetID=본인) 의 395296(셀프) totalUptime.",
+      "수정('일렁이는 빛' 1253031)은 Debuffs 로만 기록됨(Buffs 별칭 0건). 공대 캐리어는 매 킬 10명.",
+      "P2(Dark Reactor) 캐리 창은 ~18s 보유/~3-5s 공백 반복 패턴, P3 진입(330s)시 강제 해제 후 ~332s 재부여."
+    ],
+    "verify_mismatches": [],
+    "errors": []
+  },
+  "aggregates": {
+    "n_fights": 25,
+    "n_kills": 25,
+    "duration_med_s": 557.1,
+    "breath_per_fight_med": 6,
+    "breath_pm_med": 0.69,
+    "first_breath_med_s": 2.7,
+    "fire_breath_pm_med": 2.74,
+    "upheaval_pm_med": 2.55,
+    "time_skip_per_fight_med": 4,
+    "time_skip_talented_pct": 100,
+    "prescience_pm_med": 6.39,
+    "prescience_per_fight_med": 59,
+    "ebon_might_uptime_med_pct": 92.0,
+    "combat_potion_per_fight_med": 2,
+    "combat_potion_used_pct": 100,
+    "healing_potion_per_fight_med": 0,
+    "healing_potion_used_pct": 16,
+    "healthstone_used_pct": 4,
+    "obsidian_scales_per_fight_med": 4,
+    "obsidian_scales_used_pct": 100,
+    "renewing_blaze_per_fight_med": 0,
+    "renewing_blaze_used_pct": 0,
+    "other_defensives_seen": [
+      "emerald_blossom",
+      "verdant_embrace",
+      "zephyr"
+    ],
+    "deaths_total": 3,
+    "death_rate_pct": 12,
+    "raid_deaths_per_fight_med": 2
+  },
+  "crystal_summary": {
+    "n_with_p3": 25,
+    "aug_carries_ever_n": 8,
+    "aug_carries_p3_n": 6,
+    "aug_carries_before_p3_n": 7,
+    "aug_carry_by_phase_id": {
+      "1": 6,
+      "2": 2,
+      "3": 7,
+      "4": 6,
+      "5": 2
+    },
+    "raid_carrier_n_med": 10,
+    "p3_carrier_details": [
+      {
+        "report": "6nGaFvYK4MrHfZ3J",
+        "fight_id": 45,
+        "player": "Wekeed",
+        "p3_start_s": 330.1,
+        "windows": [
+          [
+            332.7,
+            446.2
+          ]
+        ],
+        "breath_times": [
+          4.1,
+          77.4,
+          159.7,
+          276.9,
+          358.1,
+          472.7
+        ],
+        "relation": [
+          {
+            "window": [
+              332.7,
+              446.2
+            ],
+            "breath_during_offsets": [
+              25.4
+            ],
+            "last_breath_before_gap_s": 55.8,
+            "first_breath_after_gap_s": 26.5
+          }
+        ]
+      },
+      {
+        "report": "4axYkQ6vcrHDT8hA",
+        "fight_id": 43,
+        "player": "혜지코스타스",
+        "p3_start_s": 330.1,
+        "windows": [
+          [
+            332.0,
+            391.3
+          ]
+        ],
+        "breath_times": [
+          3.4,
+          77.5,
+          157.2,
+          275.5,
+          368.1,
+          468.5
+        ],
+        "relation": [
+          {
+            "window": [
+              332.0,
+              391.3
+            ],
+            "breath_during_offsets": [
+              36.1
+            ],
+            "last_breath_before_gap_s": 56.5,
+            "first_breath_after_gap_s": 77.2
+          }
+        ]
+      },
+      {
+        "report": "3qbtFJKzMrf1RwPQ",
+        "fight_id": 21,
+        "player": "Blueprínt",
+        "p3_start_s": 330.1,
+        "windows": [
+          [
+            344.2,
+            391.3
+          ]
+        ],
+        "breath_times": [
+          0.9,
+          74.7,
+          152.9,
+          267.5,
+          373.5,
+          472.7
+        ],
+        "relation": [
+          {
+            "window": [
+              344.2,
+              391.3
+            ],
+            "breath_during_offsets": [
+              29.3
+            ],
+            "last_breath_before_gap_s": 76.7,
+            "first_breath_after_gap_s": 81.4
+          }
+        ]
+      },
+      {
+        "report": "QTNFzxy9kP3BgVtb",
+        "fight_id": 116,
+        "player": "Нерфтварь",
+        "p3_start_s": 330.0,
+        "windows": [
+          [
+            332.3,
+            391.2
+          ]
+        ],
+        "breath_times": [
+          5.1,
+          78.7,
+          158.0,
+          285.0,
+          363.9,
+          441.6
+        ],
+        "relation": [
+          {
+            "window": [
+              332.3,
+              391.2
+            ],
+            "breath_during_offsets": [
+              31.6
+            ],
+            "last_breath_before_gap_s": 47.3,
+            "first_breath_after_gap_s": 50.4
+          }
+        ]
+      },
+      {
+        "report": "AdYhBkFNTm1aXzPx",
+        "fight_id": 1,
+        "player": "Xephyris",
+        "p3_start_s": 330.0,
+        "windows": [
+          [
+            332.2,
+            434.8
+          ]
+        ],
+        "breath_times": [
+          3.4,
+          77.1,
+          157.5,
+          273.9,
+          363.2
+        ],
+        "relation": [
+          {
+            "window": [
+              332.2,
+              434.8
+            ],
+            "breath_during_offsets": [
+              31.0
+            ],
+            "last_breath_before_gap_s": 58.3,
+            "first_breath_after_gap_s": null
+          }
+        ]
+      },
+      {
+        "report": "YZH7nkgNW1r4qA3b",
+        "fight_id": 13,
+        "player": "Jomjom",
+        "p3_start_s": 330.1,
+        "windows": [
+          [
+            331.7,
+            483.7
+          ]
+        ],
+        "breath_times": [
+          2.9,
+          78.0,
+          157.7,
+          284.9,
+          364.4,
+          444.4
+        ],
+        "relation": [
+          {
+            "window": [
+              331.7,
+              483.7
+            ],
+            "breath_during_offsets": [
+              32.7,
+              112.7
+            ],
+            "last_breath_before_gap_s": 46.8,
+            "first_breath_after_gap_s": null
+          }
+        ]
+      }
+    ]
+  },
+  "breath_vs_p3": {
+    "p3_start_med_s": 330.1,
+    "offsets_all": [
+      -329.5,
+      -329.2,
+      -329.0,
+      -328.9,
+      -328.8,
+      -328.3,
+      -328.3,
+      -328.0,
+      -328.0,
+      -328.0,
+      -327.4,
+      -327.4,
+      -327.3,
+      -327.2,
+      -327.1,
+      -327.0,
+      -326.9,
+      -326.8,
+      -326.7,
+      -326.6,
+      -326.5,
+      -326.4,
+      -326.0,
+      -325.7,
+      -324.9,
+      -255.4,
+      -255.4,
+      -255.2,
+      -255.1,
+      -255.0,
+      -254.9,
+      -254.6,
+      -254.4,
+      -254.4,
+      -254.0,
+      -254.0,
+      -253.9,
+      -253.9,
+      -253.9,
+      -253.8,
+      -253.6,
+      -253.4,
+      -253.4,
+      -252.9,
+      -252.7,
+      -252.6,
+      -252.6,
+      -252.5,
+      -252.1,
+      -251.3,
+      -177.2,
+      -176.7,
+      -176.7,
+      -176.5,
+      -176.4,
+      -176.1,
+      -176.0,
+      -176.0,
+      -176.0,
+      -175.8,
+      -175.8,
+      -175.6,
+      -175.6,
+      -175.2,
+      -175.1,
+      -175.0,
+      -174.5,
+      -174.0,
+      -172.9,
+      -172.5,
+      -172.4,
+      -172.4,
+      -172.0,
+      -171.5,
+      -170.4,
+      -62.6,
+      -61.8,
+      -61.8,
+      -61.7,
+      -61.5,
+      -61.3,
+      -61.3,
+      -61.2,
+      -59.6,
+      -56.1,
+      -55.9,
+      -55.8,
+      -55.6,
+      -55.5,
+      -55.4,
+      -55.3,
+      -55.1,
+      -54.6,
+      -54.5,
+      -54.1,
+      -53.2,
+      -53.1,
+      -45.2,
+      -45.2,
+      -45.0,
+      13.7,
+      13.8,
+      13.8,
+      13.9,
+      14.3,
+      15.0,
+      17.6,
+      18.0,
+      19.7,
+      19.8,
+      28.0,
+      28.9,
+      29.4,
+      30.8,
+      32.1,
+      32.7,
+      33.2,
+      33.4,
+      33.9,
+      33.9,
+      34.3,
+      35.0,
+      35.1,
+      38.0,
+      43.4,
+      93.1,
+      94.4,
+      95.3,
+      96.4,
+      96.4,
+      96.4,
+      97.2,
+      105.4,
+      106.3,
+      111.6,
+      113.1,
+      114.3,
+      115.5,
+      118.3,
+      121.9,
+      136.4,
+      138.4,
+      142.6,
+      142.6,
+      154.3,
+      162.8,
+      163.7,
+      166.0,
+      175.3,
+      208.3,
+      208.3,
+      210.0,
+      210.8,
+      212.4,
+      212.6,
+      215.5,
+      219.3,
+      222.2
+    ],
+    "hist_30s_bins": {
+      "-330s~-300s": 25,
+      "-270s~-240s": 25,
+      "-180s~-150s": 25,
+      "-90s~-60s": 8,
+      "-60s~-30s": 17,
+      "0s~30s": 13,
+      "30s~60s": 12,
+      "90s~120s": 14,
+      "120s~150s": 5,
+      "150s~180s": 5,
+      "180s~210s": 2,
+      "210s~240s": 7
+    },
+    "breath_within_p3_first60s_pct": 100,
+    "last_breath_before_p3_gap_med_s": 55.6,
+    "first_breath_after_p3_med_s": 29.4
+  },
+  "fights": [
+    {
+      "report": "VKYyGMLqmNBkWjvA",
+      "fight_id": 182,
+      "url": "https://www.warcraftlogs.com/reports/VKYyGMLqmNBkWjvA#fight=182",
+      "player": "呆西四号",
+      "rank": 1,
+      "dps": 202656.8,
+      "guild": null,
+      "server": "万色星辰",
+      "region": "CN",
+      "source_id": 2747,
+      "duration_s": 564.1,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 291.22222900390625,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.6
+        },
+        {
+          "id": 3,
+          "t": 220.6
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 488.5
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          3.0,
+          76.2,
+          156.1,
+          274.7,
+          349.8,
+          436.4,
+          552.3
+        ],
+        "fire_breath": [
+          5.3,
+          10.2,
+          31.9,
+          54.4,
+          79.0,
+          101.0,
+          127.5,
+          144.0,
+          162.5,
+          190.3,
+          212.4,
+          237.8,
+          261.3,
+          282.4,
+          286.6,
+          310.6,
+          335.7,
+          360.4,
+          385.1,
+          406.9,
+          427.2,
+          438.4,
+          459.2,
+          498.2,
+          523.6,
+          558.3
+        ],
+        "upheaval": [
+          5.8,
+          11.2,
+          33.2,
+          60.8,
+          83.4,
+          108.0,
+          137.9,
+          145.1,
+          168.4,
+          192.8,
+          215.9,
+          246.1,
+          270.7,
+          287.5,
+          312.1,
+          338.5,
+          363.1,
+          387.3,
+          411.1,
+          439.6,
+          464.1,
+          498.9,
+          522.4,
+          548.9
+        ],
+        "time_skip": [
+          6.8,
+          140.8,
+          283.4,
+          429.3
+        ],
+        "prescience_n": 59,
+        "eruption_n": 177
+      },
+      "breath_rel_p3": [
+        -327.1,
+        -253.9,
+        -174.0,
+        -55.4,
+        19.7,
+        106.3,
+        222.2
+      ],
+      "ebon_might_uptime_pct": 96.1,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 541986,
+          "uses": 16
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          80.6,
+          212.2,
+          357.3,
+          470.0,
+          551.6
+        ],
+        "zephyr": [
+          327.7
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 4.7,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 364.0,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [
+        {
+          "t": 311.7,
+          "name": "Silvermoon Health Potion"
+        }
+      ],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 0,
+      "crystal": {
+        "raid_carrier_n": 10,
+        "raid_window_n": 70,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "VKYyGMLqmNBkWjvA",
+      "fight_id": 15,
+      "url": "https://www.warcraftlogs.com/reports/VKYyGMLqmNBkWjvA#fight=15",
+      "player": "呆西一号",
+      "rank": 2,
+      "dps": 201474.0,
+      "guild": null,
+      "server": "万色星辰",
+      "region": "CN",
+      "source_id": 21,
+      "duration_s": 553.2,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 290.6666564941406,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.5
+        },
+        {
+          "id": 3,
+          "t": 220.5
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 474.6
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          3.7,
+          77.5,
+          158.6,
+          274.6,
+          349.9,
+          435.5,
+          549.4
+        ],
+        "fire_breath": [
+          6.2,
+          11.3,
+          34.4,
+          60.2,
+          83.4,
+          110.8,
+          136.8,
+          160.8,
+          184.2,
+          206.4,
+          238.5,
+          261.0,
+          286.1,
+          294.9,
+          316.8,
+          343.7,
+          367.0,
+          393.9,
+          424.1,
+          430.7,
+          454.9,
+          484.9,
+          506.9,
+          530.9
+        ],
+        "upheaval": [
+          6.7,
+          12.3,
+          32.7,
+          59.0,
+          84.6,
+          109.5,
+          141.4,
+          162.0,
+          185.6,
+          210.2,
+          239.8,
+          266.5,
+          290.8,
+          296.1,
+          322.3,
+          352.9,
+          375.3,
+          399.6,
+          425.0,
+          434.3,
+          456.2,
+          487.4,
+          511.8,
+          544.4
+        ],
+        "time_skip": [
+          7.7,
+          153.7,
+          291.8,
+          426.4
+        ],
+        "prescience_n": 57,
+        "eruption_n": 169
+      },
+      "breath_rel_p3": [
+        -326.4,
+        -252.6,
+        -171.5,
+        -55.5,
+        19.8,
+        105.4,
+        219.3
+      ],
+      "ebon_might_uptime_pct": 95.2,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 526710,
+          "uses": 16
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          211.2
+        ],
+        "zephyr": [
+          329.1
+        ],
+        "verdant_embrace": [
+          194.7,
+          194.7,
+          333.1,
+          333.1
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 5.7,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 360.1,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [
+        {
+          "t": 552.3,
+          "ability_id": 1282028,
+          "ability": "The Darkwell"
+        }
+      ],
+      "raid_deaths_n": 2,
+      "crystal": {
+        "raid_carrier_n": 10,
+        "raid_window_n": 68,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "bpg27rRJHczX8aMD",
+      "fight_id": 52,
+      "url": "https://www.warcraftlogs.com/reports/bpg27rRJHczX8aMD#fight=52",
+      "player": "呆西七号",
+      "rank": 3,
+      "dps": 200579.1,
+      "guild": null,
+      "server": "勇士岛",
+      "region": "CN",
+      "source_id": 679,
+      "duration_s": 580.0,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 291.29412841796875,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.6
+        },
+        {
+          "id": 3,
+          "t": 220.6
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 501.4
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          3.3,
+          76.1,
+          154.3,
+          268.8,
+          344.0,
+          426.5,
+          542.5
+        ],
+        "fire_breath": [
+          5.5,
+          10.3,
+          28.7,
+          53.5,
+          74.5,
+          101.2,
+          124.1,
+          143.2,
+          164.7,
+          189.4,
+          206.1,
+          237.9,
+          271.4,
+          280.6,
+          304.3,
+          326.9,
+          349.7,
+          375.5,
+          398.8,
+          421.8,
+          428.9,
+          454.5,
+          477.2,
+          510.6,
+          535.5,
+          558.9,
+          570.4
+        ],
+        "upheaval": [
+          6.0,
+          11.3,
+          32.9,
+          56.3,
+          79.8,
+          109.0,
+          139.5,
+          144.3,
+          166.0,
+          191.2,
+          216.1,
+          244.7,
+          276.6,
+          281.6,
+          301.6,
+          330.0,
+          333.9,
+          364.3,
+          366.7,
+          393.7,
+          419.3,
+          429.8,
+          450.5,
+          476.0,
+          511.7,
+          536.6,
+          565.6,
+          571.8
+        ],
+        "time_skip": [
+          7.0,
+          140.0,
+          277.3,
+          423.0,
+          566.1
+        ],
+        "prescience_n": 62,
+        "eruption_n": 183
+      },
+      "breath_rel_p3": [
+        -326.8,
+        -254.0,
+        -175.8,
+        -61.3,
+        13.9,
+        96.4,
+        212.4
+      ],
+      "ebon_might_uptime_pct": 95.1,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 551385,
+          "uses": 19
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          208.3,
+          431.8,
+          467.7,
+          540.0
+        ],
+        "verdant_embrace": [
+          205.2,
+          205.2
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 5.1,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 367.6,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 5,
+      "crystal": {
+        "raid_carrier_n": 10,
+        "raid_window_n": 69,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "bpg27rRJHczX8aMD",
+      "fight_id": 32,
+      "url": "https://www.warcraftlogs.com/reports/bpg27rRJHczX8aMD#fight=32",
+      "player": "呆西十五号",
+      "rank": 4,
+      "dps": 199702.6,
+      "guild": null,
+      "server": "世界之树",
+      "region": "CN",
+      "source_id": 477,
+      "duration_s": 575.7,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 291.4705810546875,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.5
+        },
+        {
+          "id": 3,
+          "t": 220.6
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 499.3
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          2.7,
+          76.3,
+          154.5,
+          268.8,
+          343.8,
+          426.5,
+          540.1
+        ],
+        "fire_breath": [
+          5.0,
+          9.7,
+          28.0,
+          52.5,
+          69.0,
+          90.0,
+          115.0,
+          139.2,
+          143.2,
+          165.5,
+          188.8,
+          209.1,
+          238.1,
+          261.9,
+          281.1,
+          302.0,
+          328.7,
+          350.8,
+          372.1,
+          394.7,
+          416.9,
+          422.9,
+          442.7,
+          474.8,
+          509.6,
+          535.4,
+          556.1,
+          575.1
+        ],
+        "upheaval": [
+          5.5,
+          10.8,
+          32.5,
+          58.2,
+          80.7,
+          107.6,
+          137.2,
+          144.3,
+          169.3,
+          194.6,
+          220.3,
+          250.2,
+          277.2,
+          282.0,
+          304.9,
+          334.0,
+          358.2,
+          382.3,
+          412.0,
+          424.1,
+          448.1,
+          476.0,
+          510.8,
+          536.5,
+          556.9
+        ],
+        "time_skip": [
+          6.5,
+          139.9,
+          277.8,
+          419.2,
+          552.9
+        ],
+        "prescience_n": 61,
+        "eruption_n": 187
+      },
+      "breath_rel_p3": [
+        -327.4,
+        -253.8,
+        -175.6,
+        -61.3,
+        13.7,
+        96.4,
+        210.0
+      ],
+      "ebon_might_uptime_pct": 94.1,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 541779,
+          "uses": 18
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          209.0,
+          436.0,
+          468.1,
+          538.3
+        ],
+        "verdant_embrace": [
+          306.2,
+          306.2
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 4.4,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 346.6,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 0,
+      "crystal": {
+        "raid_carrier_n": 10,
+        "raid_window_n": 68,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "6nGaFvYK4MrHfZ3J",
+      "fight_id": 45,
+      "url": "https://www.warcraftlogs.com/reports/6nGaFvYK4MrHfZ3J#fight=45",
+      "player": "Wekeed",
+      "rank": 5,
+      "dps": 196978.0,
+      "guild": null,
+      "server": "아즈샤라",
+      "region": "KR",
+      "source_id": 4,
+      "duration_s": 538.7,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 291.5882263183594,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.6
+        },
+        {
+          "id": 3,
+          "t": 220.6
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 463.0
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          4.1,
+          77.4,
+          159.7,
+          276.9,
+          358.1,
+          472.7
+        ],
+        "fire_breath": [
+          6.2,
+          11.8,
+          32.6,
+          54.8,
+          74.6,
+          96.4,
+          120.7,
+          146.8,
+          162.3,
+          183.7,
+          204.0,
+          234.8,
+          260.7,
+          287.2,
+          297.1,
+          318.3,
+          344.9,
+          365.9,
+          393.8,
+          424.4,
+          439.3,
+          479.9,
+          503.9,
+          531.8
+        ],
+        "upheaval": [
+          6.7,
+          13.7,
+          35.4,
+          61.9,
+          87.7,
+          114.1,
+          140.8,
+          163.5,
+          190.5,
+          214.1,
+          245.0,
+          275.5,
+          298.3,
+          323.8,
+          355.4,
+          380.5,
+          406.8,
+          434.4,
+          441.3,
+          480.9,
+          498.6,
+          523.9
+        ],
+        "time_skip": [
+          7.7,
+          154.0,
+          292.8,
+          436.1
+        ],
+        "prescience_n": 53,
+        "eruption_n": 166
+      },
+      "breath_rel_p3": [
+        -326.0,
+        -252.7,
+        -170.4,
+        -53.2,
+        28.0,
+        142.6
+      ],
+      "ebon_might_uptime_pct": 90.8,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 489369,
+          "uses": 17
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          67.9,
+          326.2,
+          474.3
+        ],
+        "zephyr": [
+          68.2
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 5.8,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 371.3,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 2,
+      "crystal": {
+        "raid_carrier_n": 11,
+        "raid_window_n": 79,
+        "aug_windows": [
+          [
+            22.0,
+            197.1
+          ],
+          [
+            200.0,
+            210.2
+          ],
+          [
+            212.2,
+            219.3
+          ],
+          [
+            222.0,
+            242.4
+          ],
+          [
+            244.8,
+            250.1
+          ],
+          [
+            254.3,
+            272.2
+          ],
+          [
+            275.1,
+            280.0
+          ],
+          [
+            284.6,
+            302.4
+          ],
+          [
+            304.9,
+            310.2
+          ],
+          [
+            314.1,
+            330.1
+          ],
+          [
+            332.7,
+            446.2
+          ]
+        ],
+        "aug_carries_ever": true,
+        "aug_carries_p3": true,
+        "aug_carries_before_p3": true,
+        "aug_carry_phase_ids": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "aug_p3_windows": [
+          [
+            332.7,
+            446.2
+          ]
+        ],
+        "breath_vs_p3_windows": [
+          {
+            "window": [
+              332.7,
+              446.2
+            ],
+            "breath_during_offsets": [
+              25.4
+            ],
+            "last_breath_before_gap_s": 55.8,
+            "first_breath_after_gap_s": 26.5
+          }
+        ]
+      }
+    },
+    {
+      "report": "wxyZD32tHfY6KRXd",
+      "fight_id": 12,
+      "url": "https://www.warcraftlogs.com/reports/wxyZD32tHfY6KRXd#fight=12",
+      "player": "怪兽四号",
+      "rank": 6,
+      "dps": 196430.9,
+      "guild": null,
+      "server": "血环",
+      "region": "CN",
+      "source_id": 21,
+      "duration_s": 564.5,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 277.70001220703125,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.5
+        },
+        {
+          "id": 3,
+          "t": 220.5
+        },
+        {
+          "id": 4,
+          "t": 330.0
+        },
+        {
+          "id": 5,
+          "t": 486.2
+        }
+      ],
+      "p3_start_s": 330.0,
+      "casts": {
+        "breath_of_eons": [
+          1.2,
+          74.9,
+          153.3,
+          275.5,
+          362.7,
+          496.0
+        ],
+        "fire_breath": [
+          3.3,
+          9.5,
+          32.3,
+          53.9,
+          76.9,
+          102.3,
+          128.9,
+          143.3,
+          166.2,
+          190.6,
+          211.8,
+          238.5,
+          262.5,
+          282.7,
+          311.0,
+          344.6,
+          366.0,
+          388.1,
+          409.8,
+          416.0,
+          439.9,
+          464.6,
+          497.9,
+          517.6,
+          540.3,
+          555.5
+        ],
+        "upheaval": [
+          3.8,
+          10.8,
+          33.5,
+          56.9,
+          78.9,
+          103.6,
+          133.3,
+          144.4,
+          167.3,
+          195.6,
+          239.8,
+          271.1,
+          283.6,
+          312.3,
+          345.1,
+          368.1,
+          391.3,
+          416.5,
+          442.6,
+          467.9,
+          499.6,
+          518.6,
+          543.5,
+          544.0,
+          547.6,
+          556.6
+        ],
+        "time_skip": [
+          6.3,
+          140.1,
+          278.7,
+          411.3,
+          552.0
+        ],
+        "prescience_n": 61,
+        "eruption_n": 180
+      },
+      "breath_rel_p3": [
+        -328.8,
+        -255.1,
+        -176.7,
+        -54.5,
+        32.7,
+        166.0
+      ],
+      "ebon_might_uptime_pct": 91.3,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 515606,
+          "uses": 17
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          219.9,
+          274.9,
+          325.6
+        ],
+        "zephyr": [
+          194.7,
+          301.0
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 0.9,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 362.3,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 3,
+      "crystal": {
+        "raid_carrier_n": 11,
+        "raid_window_n": 72,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "4axYkQ6vcrHDT8hA",
+      "fight_id": 43,
+      "url": "https://www.warcraftlogs.com/reports/4axYkQ6vcrHDT8hA#fight=43",
+      "player": "혜지코스타스",
+      "rank": 7,
+      "dps": 195833.8,
+      "guild": "Mate",
+      "server": "아즈샤라",
+      "region": "KR",
+      "source_id": 115,
+      "duration_s": 537.7,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 291.8888854980469,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.5
+        },
+        {
+          "id": 3,
+          "t": 220.5
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 459.4
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          3.4,
+          77.5,
+          157.2,
+          275.5,
+          368.1,
+          468.5
+        ],
+        "fire_breath": [
+          5.2,
+          12.7,
+          35.1,
+          57.8,
+          81.9,
+          108.3,
+          136.2,
+          152.4,
+          171.6,
+          196.4,
+          216.5,
+          241.7,
+          277.4,
+          290.8,
+          314.6,
+          343.9,
+          360.2,
+          388.0,
+          415.5,
+          423.2,
+          440.0,
+          472.0,
+          496.2,
+          523.7
+        ],
+        "upheaval": [
+          5.7,
+          13.6,
+          39.3,
+          63.1,
+          94.0,
+          120.3,
+          144.7,
+          155.9,
+          176.3,
+          202.8,
+          236.1,
+          278.5,
+          291.8,
+          317.1,
+          347.9,
+          373.5,
+          399.8,
+          423.7,
+          446.2,
+          477.9,
+          508.6,
+          531.0
+        ],
+        "time_skip": [
+          9.4,
+          147.9,
+          285.5,
+          418.9
+        ],
+        "prescience_n": 58,
+        "eruption_n": 160
+      },
+      "breath_rel_p3": [
+        -326.7,
+        -252.6,
+        -172.9,
+        -54.6,
+        38.0,
+        138.4
+      ],
+      "ebon_might_uptime_pct": 91.6,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 492449,
+          "uses": 15
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          69.0,
+          219.2,
+          327.5,
+          435.0,
+          532.1
+        ],
+        "zephyr": [
+          129.3,
+          527.5
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 3.2,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 367.9,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 1,
+      "crystal": {
+        "raid_carrier_n": 10,
+        "raid_window_n": 77,
+        "aug_windows": [
+          [
+            21.5,
+            182.9
+          ],
+          [
+            223.6,
+            242.7
+          ],
+          [
+            244.9,
+            250.2
+          ],
+          [
+            254.5,
+            272.7
+          ],
+          [
+            275.1,
+            280.2
+          ],
+          [
+            284.2,
+            302.6
+          ],
+          [
+            305.1,
+            310.2
+          ],
+          [
+            313.9,
+            330.1
+          ],
+          [
+            332.0,
+            391.3
+          ]
+        ],
+        "aug_carries_ever": true,
+        "aug_carries_p3": true,
+        "aug_carries_before_p3": true,
+        "aug_carry_phase_ids": [
+          1,
+          3,
+          4
+        ],
+        "aug_p3_windows": [
+          [
+            332.0,
+            391.3
+          ]
+        ],
+        "breath_vs_p3_windows": [
+          {
+            "window": [
+              332.0,
+              391.3
+            ],
+            "breath_during_offsets": [
+              36.1
+            ],
+            "last_breath_before_gap_s": 56.5,
+            "first_breath_after_gap_s": 77.2
+          }
+        ]
+      }
+    },
+    {
+      "report": "yJFVb4TA2wqfn9x6",
+      "fight_id": 2,
+      "url": "https://www.warcraftlogs.com/reports/yJFVb4TA2wqfn9x6#fight=2",
+      "player": "Azúré",
+      "rank": 8,
+      "dps": 195643.3,
+      "guild": "The Real Tantalus",
+      "server": "Illidan",
+      "region": "US",
+      "source_id": 14,
+      "duration_s": 532.9,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 291.1666564941406,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.5
+        },
+        {
+          "id": 3,
+          "t": 220.5
+        },
+        {
+          "id": 4,
+          "t": 330.0
+        },
+        {
+          "id": 5,
+          "t": 458.2
+        }
+      ],
+      "p3_start_s": 330.0,
+      "casts": {
+        "breath_of_eons": [
+          2.7,
+          76.4,
+          154.4,
+          275.9,
+          365.1,
+          466.4
+        ],
+        "fire_breath": [
+          5.7,
+          10.4,
+          28.7,
+          49.7,
+          69.2,
+          94.8,
+          116.6,
+          145.5,
+          162.6,
+          188.5,
+          205.6,
+          235.2,
+          258.8,
+          280.3,
+          285.8,
+          305.0,
+          337.3,
+          369.0,
+          392.3,
+          418.9,
+          441.2,
+          470.2,
+          488.5,
+          515.8
+        ],
+        "upheaval": [
+          6.2,
+          11.5,
+          31.8,
+          59.2,
+          83.5,
+          109.6,
+          138.1,
+          147.3,
+          169.7,
+          196.2,
+          236.5,
+          264.1,
+          286.8,
+          310.8,
+          338.5,
+          370.2,
+          394.5,
+          419.9,
+          442.5,
+          476.2,
+          498.1,
+          527.8
+        ],
+        "time_skip": [
+          7.2,
+          141.2,
+          281.4,
+          415.0
+        ],
+        "prescience_n": 57,
+        "eruption_n": 156
+      },
+      "breath_rel_p3": [
+        -327.3,
+        -253.6,
+        -175.6,
+        -54.1,
+        35.1,
+        136.4
+      ],
+      "ebon_might_uptime_pct": 92.4,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 492374,
+          "uses": 17
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          213.3,
+          327.8,
+          411.3
+        ],
+        "zephyr": [
+          71.8,
+          243.1,
+          326.3
+        ],
+        "verdant_embrace": [
+          221.2,
+          221.2
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 0.1,
+          "name": "Potion of Recklessness"
+        },
+        {
+          "t": 367.3,
+          "name": "Potion of Recklessness"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 2,
+      "crystal": {
+        "raid_carrier_n": 6,
+        "raid_window_n": 66,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "BGATyN1gtRQVYzL8",
+      "fight_id": 14,
+      "url": "https://www.warcraftlogs.com/reports/BGATyN1gtRQVYzL8#fight=14",
+      "player": "两升瓶装",
+      "rank": 9,
+      "dps": 192842.4,
+      "guild": "岁岁平安",
+      "server": "血色十字军",
+      "region": "CN",
+      "source_id": 26,
+      "duration_s": 509.6,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 291.95001220703125,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.5
+        },
+        {
+          "id": 3,
+          "t": 220.5
+        },
+        {
+          "id": 4,
+          "t": 330.0
+        },
+        {
+          "id": 5,
+          "t": 435.7
+        }
+      ],
+      "p3_start_s": 330.0,
+      "casts": {
+        "breath_of_eons": [
+          1.7,
+          74.6,
+          153.6,
+          268.2,
+          360.8,
+          445.5
+        ],
+        "fire_breath": [
+          3.6,
+          12.2,
+          30.1,
+          52.4,
+          76.6,
+          100.2,
+          138.4,
+          145.4,
+          166.4,
+          187.6,
+          205.9,
+          236.2,
+          265.8,
+          281.5,
+          304.6,
+          328.0,
+          352.5,
+          371.5,
+          398.3,
+          410.2,
+          448.3,
+          473.5,
+          498.7
+        ],
+        "upheaval": [
+          4.1,
+          14.0,
+          35.3,
+          38.7,
+          64.5,
+          88.0,
+          113.9,
+          139.9,
+          144.2,
+          167.7,
+          194.1,
+          219.6,
+          250.6,
+          280.2,
+          303.2,
+          343.8,
+          367.9,
+          395.2,
+          410.7,
+          449.4,
+          474.7,
+          506.1
+        ],
+        "time_skip": [
+          5.9,
+          141.1,
+          274.7,
+          406.9
+        ],
+        "prescience_n": 54,
+        "eruption_n": 156
+      },
+      "breath_rel_p3": [
+        -328.3,
+        -255.4,
+        -176.4,
+        -61.8,
+        30.8,
+        115.5
+      ],
+      "ebon_might_uptime_pct": 90.4,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 460839,
+          "uses": 14
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          155.9,
+          200.5,
+          322.1,
+          481.2,
+          497.3
+        ],
+        "zephyr": [
+          214.2,
+          321.8,
+          461.4
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 1.2,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 363.1,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 4,
+      "crystal": {
+        "raid_carrier_n": 12,
+        "raid_window_n": 70,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "vgdNG1RhV8A9WbnD",
+      "fight_id": 23,
+      "url": "https://www.warcraftlogs.com/reports/vgdNG1RhV8A9WbnD#fight=23",
+      "player": "Fortyyardpls",
+      "rank": 10,
+      "dps": 192562.2,
+      "guild": "Honestly",
+      "server": "Frostmourne",
+      "region": "US",
+      "source_id": 126,
+      "duration_s": 501.4,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 291.8999938964844,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.5
+        },
+        {
+          "id": 3,
+          "t": 220.5
+        },
+        {
+          "id": 4,
+          "t": 330.0
+        },
+        {
+          "id": 5,
+          "t": 424.8
+        }
+      ],
+      "p3_start_s": 330.0,
+      "casts": {
+        "breath_of_eons": [
+          3.5,
+          76.6,
+          155.5,
+          270.4,
+          363.4,
+          448.3
+        ],
+        "fire_breath": [
+          5.4,
+          10.1,
+          35.5,
+          58.2,
+          79.7,
+          107.2,
+          131.2,
+          143.6,
+          161.8,
+          162.9,
+          184.9,
+          207.5,
+          235.4,
+          258.1,
+          281.1,
+          301.1,
+          324.5,
+          353.7,
+          380.2,
+          404.5,
+          433.7,
+          460.4,
+          484.2
+        ],
+        "upheaval": [
+          5.9,
+          11.1,
+          29.6,
+          54.2,
+          78.5,
+          103.4,
+          133.2,
+          144.1,
+          165.6,
+          193.2,
+          236.0,
+          259.6,
+          282.5,
+          306.4,
+          346.5,
+          373.9,
+          374.6,
+          398.5,
+          435.7,
+          458.0,
+          478.9
+        ],
+        "time_skip": [
+          7.0,
+          140.6,
+          272.7,
+          416.3
+        ],
+        "prescience_n": 54,
+        "eruption_n": 155
+      },
+      "breath_rel_p3": [
+        -326.5,
+        -253.4,
+        -174.5,
+        -59.6,
+        33.4,
+        118.3
+      ],
+      "ebon_might_uptime_pct": 91.4,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 458113,
+          "uses": 14
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          211.8,
+          244.0,
+          302.7
+        ],
+        "emerald_blossom": [
+          329.7
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 373.4,
+          "name": "Potion of Recklessness"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 5,
+      "crystal": {
+        "raid_carrier_n": 11,
+        "raid_window_n": 71,
+        "aug_windows": [
+          [
+            271.6,
+            274.3
+          ]
+        ],
+        "aug_carries_ever": true,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": true,
+        "aug_carry_phase_ids": [
+          3
+        ],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "PHjGYDFcbA7qK49J",
+      "fight_id": 114,
+      "url": "https://www.warcraftlogs.com/reports/PHjGYDFcbA7qK49J#fight=114",
+      "player": "怪兽五号",
+      "rank": 11,
+      "dps": 191540.1,
+      "guild": null,
+      "server": "血环",
+      "region": "CN",
+      "source_id": 1473,
+      "duration_s": 559.8,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 290,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.5
+        },
+        {
+          "id": 3,
+          "t": 220.5
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 483.1
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          1.2,
+          75.2,
+          153.4,
+          274.8,
+          359.0,
+          492.9
+        ],
+        "fire_breath": [
+          3.4,
+          9.6,
+          33.1,
+          53.8,
+          77.2,
+          99.8,
+          122.7,
+          143.6,
+          167.8,
+          190.0,
+          210.2,
+          237.4,
+          259.2,
+          282.0,
+          310.5,
+          345.1,
+          362.7,
+          388.5,
+          411.8,
+          417.6,
+          435.9,
+          458.6,
+          494.7,
+          517.9,
+          542.7,
+          557.6
+        ],
+        "upheaval": [
+          3.9,
+          11.0,
+          34.6,
+          58.4,
+          84.6,
+          111.0,
+          138.6,
+          144.7,
+          166.1,
+          194.2,
+          238.7,
+          262.8,
+          283.0,
+          311.7,
+          345.6,
+          365.9,
+          389.7,
+          418.1,
+          442.1,
+          468.4,
+          497.3,
+          515.6,
+          541.6,
+          558.6
+        ],
+        "time_skip": [
+          6.4,
+          140.4,
+          277.9,
+          412.9,
+          553.6
+        ],
+        "prescience_n": 59,
+        "eruption_n": 168
+      },
+      "breath_rel_p3": [
+        -328.9,
+        -254.9,
+        -176.7,
+        -55.3,
+        28.9,
+        162.8
+      ],
+      "ebon_might_uptime_pct": 91.9,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 514320,
+          "uses": 19
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          205.6,
+          273.1,
+          325.9
+        ],
+        "zephyr": [
+          197.8,
+          302.2,
+          545.5
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 0.8,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 358.4,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 1,
+      "crystal": {
+        "raid_carrier_n": 11,
+        "raid_window_n": 72,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "8bZxkTWMA7nYtzh9",
+      "fight_id": 11,
+      "url": "https://www.warcraftlogs.com/reports/8bZxkTWMA7nYtzh9#fight=11",
+      "player": "呆西十四号",
+      "rank": 12,
+      "dps": 190708.8,
+      "guild": null,
+      "server": "末日行者",
+      "region": "CN",
+      "source_id": 18,
+      "duration_s": 557.1,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 291.22222900390625,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.6
+        },
+        {
+          "id": 3,
+          "t": 220.6
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 481.6
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          3.2,
+          76.1,
+          154.3,
+          274.2,
+          347.7,
+          426.5,
+          540.9
+        ],
+        "fire_breath": [
+          5.7,
+          10.5,
+          31.4,
+          58.1,
+          78.9,
+          105.9,
+          128.9,
+          145.2,
+          169.1,
+          192.8,
+          210.7,
+          237.4,
+          263.4,
+          283.7,
+          302.4,
+          325.1,
+          350.1,
+          373.1,
+          399.5,
+          420.6,
+          442.1,
+          465.5,
+          491.0,
+          514.5,
+          543.3,
+          553.0
+        ],
+        "upheaval": [
+          6.1,
+          11.5,
+          32.7,
+          59.3,
+          85.4,
+          111.7,
+          141.6,
+          146.3,
+          170.2,
+          196.1,
+          238.8,
+          265.1,
+          284.7,
+          307.5,
+          334.0,
+          361.2,
+          387.0,
+          415.0,
+          421.7,
+          445.7,
+          492.3,
+          516.0,
+          547.7,
+          553.9
+        ],
+        "time_skip": [
+          7.1,
+          142.1,
+          280.5,
+          416.2,
+          549.8
+        ],
+        "prescience_n": 58,
+        "eruption_n": 172
+      },
+      "breath_rel_p3": [
+        -326.9,
+        -254.0,
+        -175.8,
+        -55.9,
+        17.6,
+        96.4,
+        210.8
+      ],
+      "ebon_might_uptime_pct": 92.0,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 512738,
+          "uses": 17
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          209.8,
+          356.5,
+          434.0,
+          469.3
+        ],
+        "zephyr": [
+          328.8
+        ],
+        "verdant_embrace": [
+          201.0,
+          201.0
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 4.9,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 364.5,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 1,
+      "crystal": {
+        "raid_carrier_n": 10,
+        "raid_window_n": 69,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "rAjyvNLRWKcwxMXG",
+      "fight_id": 157,
+      "url": "https://www.warcraftlogs.com/reports/rAjyvNLRWKcwxMXG#fight=157",
+      "player": "怪兽一号",
+      "rank": 13,
+      "dps": 190488.2,
+      "guild": null,
+      "server": "血环",
+      "region": "CN",
+      "source_id": 2041,
+      "duration_s": 569.6,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 289.6470642089844,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.5
+        },
+        {
+          "id": 3,
+          "t": 220.5
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 491.2
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          1.8,
+          76.7,
+          155.0,
+          274.3,
+          359.5,
+          505.4
+        ],
+        "fire_breath": [
+          3.9,
+          10.5,
+          34.0,
+          62.9,
+          87.0,
+          113.1,
+          139.8,
+          144.7,
+          166.4,
+          191.1,
+          209.5,
+          237.7,
+          260.9,
+          281.8,
+          302.5,
+          328.8,
+          352.0,
+          373.7,
+          397.5,
+          416.7,
+          438.6,
+          461.7,
+          507.5,
+          526.4,
+          548.2,
+          560.4
+        ],
+        "upheaval": [
+          4.4,
+          11.5,
+          32.7,
+          64.1,
+          89.9,
+          114.5,
+          140.3,
+          145.8,
+          168.7,
+          193.5,
+          215.2,
+          244.2,
+          271.4,
+          282.8,
+          311.1,
+          343.7,
+          363.7,
+          387.7,
+          410.9,
+          417.2,
+          439.8,
+          465.8,
+          508.1,
+          527.4,
+          551.9,
+          561.5
+        ],
+        "time_skip": [
+          7.2,
+          141.4,
+          277.2,
+          412.2,
+          553.0
+        ],
+        "prescience_n": 62,
+        "eruption_n": 186
+      },
+      "breath_rel_p3": [
+        -328.3,
+        -253.4,
+        -175.1,
+        -55.8,
+        29.4,
+        175.3
+      ],
+      "ebon_might_uptime_pct": 93.4,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 531897,
+          "uses": 17
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          211.0,
+          272.4,
+          326.3,
+          569.2
+        ],
+        "zephyr": [
+          194.7,
+          303.7
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 1.5,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 359.1,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 0,
+      "crystal": {
+        "raid_carrier_n": 11,
+        "raid_window_n": 73,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "PHjGYDFcbA7qK49J",
+      "fight_id": 70,
+      "url": "https://www.warcraftlogs.com/reports/PHjGYDFcbA7qK49J#fight=70",
+      "player": "壹星堆",
+      "rank": 14,
+      "dps": 190445.3,
+      "guild": null,
+      "server": "死亡之翼",
+      "region": "CN",
+      "source_id": 936,
+      "duration_s": 563.8,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 290.058837890625,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.6
+        },
+        {
+          "id": 3,
+          "t": 220.6
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 484.2
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          1.1,
+          75.1,
+          154.1,
+          274.5,
+          362.2,
+          493.8
+        ],
+        "fire_breath": [
+          3.3,
+          9.7,
+          28.3,
+          50.8,
+          70.3,
+          94.1,
+          116.1,
+          140.2,
+          144.7,
+          162.6,
+          188.8,
+          207.1,
+          236.8,
+          259.5,
+          282.3,
+          305.5,
+          346.6,
+          364.0,
+          388.7,
+          410.3,
+          416.3,
+          434.2,
+          454.9,
+          495.9,
+          518.4,
+          544.2,
+          561.3
+        ],
+        "upheaval": [
+          3.8,
+          11.0,
+          34.1,
+          60.1,
+          83.0,
+          109.0,
+          139.3,
+          145.7,
+          167.5,
+          193.4,
+          238.1,
+          264.8,
+          283.3,
+          310.8,
+          347.1,
+          367.5,
+          391.6,
+          416.9,
+          437.6,
+          464.8,
+          497.3,
+          517.4,
+          543.0,
+          562.6
+        ],
+        "time_skip": [
+          6.3,
+          141.4,
+          278.3,
+          411.4,
+          557.1
+        ],
+        "prescience_n": 60,
+        "eruption_n": 167
+      },
+      "breath_rel_p3": [
+        -329.0,
+        -255.0,
+        -176.0,
+        -55.6,
+        32.1,
+        163.7
+      ],
+      "ebon_might_uptime_pct": 90.4,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 509737,
+          "uses": 18
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          206.6,
+          271.6,
+          325.3,
+          547.9,
+          563.7
+        ],
+        "zephyr": [
+          194.6,
+          302.3
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 0.7,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 361.6,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [
+        {
+          "t": 549.4,
+          "ability_id": 1282028,
+          "ability": "The Darkwell"
+        }
+      ],
+      "raid_deaths_n": 2,
+      "crystal": {
+        "raid_carrier_n": 11,
+        "raid_window_n": 69,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "3qbtFJKzMrf1RwPQ",
+      "fight_id": 21,
+      "url": "https://www.warcraftlogs.com/reports/3qbtFJKzMrf1RwPQ#fight=21",
+      "player": "Blueprínt",
+      "rank": 15,
+      "dps": 190339.0,
+      "guild": "Honestly",
+      "server": "Frostmourne",
+      "region": "US",
+      "source_id": 31,
+      "duration_s": 524.6,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 290.70001220703125,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.6
+        },
+        {
+          "id": 3,
+          "t": 220.6
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 452.5
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          0.9,
+          74.7,
+          152.9,
+          267.5,
+          373.5,
+          472.7
+        ],
+        "fire_breath": [
+          3.7,
+          11.2,
+          29.1,
+          51.3,
+          77.4,
+          105.2,
+          127.4,
+          143.2,
+          160.8,
+          186.0,
+          205.8,
+          236.1,
+          236.7,
+          269.2,
+          280.1,
+          298.4,
+          321.7,
+          350.9,
+          377.2,
+          400.8,
+          414.2,
+          463.1,
+          481.0,
+          502.7
+        ],
+        "upheaval": [
+          4.2,
+          14.6,
+          37.1,
+          61.9,
+          84.8,
+          109.8,
+          136.1,
+          142.1,
+          165.7,
+          190.6,
+          214.8,
+          243.7,
+          273.1,
+          282.0,
+          304.0,
+          351.4,
+          378.6,
+          402.2,
+          416.1,
+          463.6,
+          484.5,
+          508.5
+        ],
+        "time_skip": [
+          5.9,
+          138.9,
+          275.3,
+          409.0
+        ],
+        "prescience_n": 54,
+        "eruption_n": 161
+      },
+      "breath_rel_p3": [
+        -329.2,
+        -255.4,
+        -177.2,
+        -62.6,
+        43.4,
+        142.6
+      ],
+      "ebon_might_uptime_pct": 89.2,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 468096,
+          "uses": 18
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          162.0,
+          210.5,
+          316.7,
+          507.9
+        ],
+        "verdant_embrace": [
+          233.6,
+          233.8,
+          344.4,
+          344.4
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 460.1,
+          "name": "Potion of Recklessness"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 3,
+      "crystal": {
+        "raid_carrier_n": 10,
+        "raid_window_n": 74,
+        "aug_windows": [
+          [
+            83.5,
+            179.1
+          ],
+          [
+            235.7,
+            242.0
+          ],
+          [
+            245.1,
+            249.4
+          ],
+          [
+            254.0,
+            272.4
+          ],
+          [
+            274.8,
+            279.2
+          ],
+          [
+            284.0,
+            302.8
+          ],
+          [
+            305.7,
+            309.4
+          ],
+          [
+            314.2,
+            330.1
+          ],
+          [
+            344.2,
+            391.3
+          ]
+        ],
+        "aug_carries_ever": true,
+        "aug_carries_p3": true,
+        "aug_carries_before_p3": true,
+        "aug_carry_phase_ids": [
+          1,
+          3,
+          4
+        ],
+        "aug_p3_windows": [
+          [
+            344.2,
+            391.3
+          ]
+        ],
+        "breath_vs_p3_windows": [
+          {
+            "window": [
+              344.2,
+              391.3
+            ],
+            "breath_during_offsets": [
+              29.3
+            ],
+            "last_breath_before_gap_s": 76.7,
+            "first_breath_after_gap_s": 81.4
+          }
+        ]
+      }
+    },
+    {
+      "report": "B1RvKg9CnVAGX3rz",
+      "fight_id": 37,
+      "url": "https://www.warcraftlogs.com/reports/B1RvKg9CnVAGX3rz#fight=37",
+      "player": "米脆脆",
+      "rank": 16,
+      "dps": 189038.1,
+      "guild": null,
+      "server": "凤凰之神",
+      "region": "CN",
+      "source_id": 15,
+      "duration_s": 593.8,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 290.8235168457031,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.5
+        },
+        {
+          "id": 3,
+          "t": 220.5
+        },
+        {
+          "id": 4,
+          "t": 330.0
+        },
+        {
+          "id": 5,
+          "t": 511.2
+        }
+      ],
+      "p3_start_s": 330.0,
+      "casts": {
+        "breath_of_eons": [
+          2.0,
+          75.4,
+          153.9,
+          268.5,
+          344.3,
+          424.4,
+          538.3
+        ],
+        "fire_breath": [
+          4.5,
+          9.1,
+          31.9,
+          53.3,
+          78.1,
+          103.7,
+          131.0,
+          144.1,
+          165.0,
+          188.6,
+          206.0,
+          237.2,
+          260.4,
+          281.4,
+          285.6,
+          311.7,
+          336.4,
+          361.8,
+          384.9,
+          411.8,
+          420.1,
+          443.9,
+          471.3,
+          490.4,
+          520.8,
+          551.0,
+          565.1
+        ],
+        "upheaval": [
+          5.0,
+          10.0,
+          29.4,
+          53.8,
+          79.3,
+          105.1,
+          139.7,
+          145.2,
+          170.0,
+          194.7,
+          217.6,
+          249.7,
+          276.4,
+          286.5,
+          310.4,
+          335.2,
+          363.2,
+          388.2,
+          413.4,
+          421.2,
+          445.3,
+          473.8,
+          522.1,
+          560.9,
+          566.1
+        ],
+        "time_skip": [
+          6.0,
+          141.0,
+          282.4,
+          416.7,
+          561.9
+        ],
+        "prescience_n": 62,
+        "eruption_n": 183
+      },
+      "breath_rel_p3": [
+        -328.0,
+        -254.6,
+        -176.1,
+        -61.5,
+        14.3,
+        94.4,
+        208.3
+      ],
+      "ebon_might_uptime_pct": 93.6,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 555957,
+          "uses": 18
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          217.4,
+          358.1,
+          430.7,
+          467.9,
+          535.5
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 3.9,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 363.0,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [
+        {
+          "t": 587.1,
+          "ability_id": 1279581,
+          "ability": "Starsplinter"
+        }
+      ],
+      "raid_deaths_n": 15,
+      "crystal": {
+        "raid_carrier_n": 10,
+        "raid_window_n": 68,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "bnDZ9JNKm7tpyfzr",
+      "fight_id": 15,
+      "url": "https://www.warcraftlogs.com/reports/bnDZ9JNKm7tpyfzr#fight=15",
+      "player": "Loisofly",
+      "rank": 17,
+      "dps": 187855.5,
+      "guild": "Гнев Анархии",
+      "server": "Silvermoon",
+      "region": "EU",
+      "source_id": 188,
+      "duration_s": 579.0,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 290,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.5
+        },
+        {
+          "id": 3,
+          "t": 220.5
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 499.8
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          2.7,
+          76.2,
+          155.1,
+          284.9,
+          365.1,
+          452.0
+        ],
+        "fire_breath": [
+          4.7,
+          13.5,
+          33.7,
+          57.4,
+          79.3,
+          103.8,
+          127.9,
+          148.7,
+          168.9,
+          191.5,
+          213.3,
+          240.1,
+          271.9,
+          291.7,
+          317.6,
+          345.9,
+          368.1,
+          392.7,
+          419.2,
+          428.9,
+          447.1,
+          470.4,
+          515.0,
+          533.2,
+          555.8,
+          571.6
+        ],
+        "upheaval": [
+          5.2,
+          16.2,
+          40.8,
+          68.3,
+          93.1,
+          120.1,
+          149.8,
+          173.5,
+          205.9,
+          241.4,
+          273.6,
+          292.8,
+          315.8,
+          346.5,
+          369.2,
+          391.5,
+          417.4,
+          429.4,
+          456.5,
+          482.9,
+          515.5,
+          551.8,
+          572.7
+        ],
+        "time_skip": [
+          6.2,
+          143.7,
+          286.8,
+          423.6,
+          564.3
+        ],
+        "prescience_n": 62,
+        "eruption_n": 169
+      },
+      "breath_rel_p3": [
+        -327.4,
+        -253.9,
+        -175.0,
+        -45.2,
+        35.0,
+        121.9
+      ],
+      "ebon_might_uptime_pct": 90.9,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 526190,
+          "uses": 19
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          108.8,
+          174.6,
+          219.1,
+          307.6,
+          550.3
+        ],
+        "zephyr": [
+          265.5,
+          388.5
+        ],
+        "verdant_embrace": [
+          222.3,
+          222.9
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 2.3,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 364.0,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [
+        {
+          "t": 550.7,
+          "name": "Silvermoon Health Potion"
+        }
+      ],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 5,
+      "crystal": {
+        "raid_carrier_n": 10,
+        "raid_window_n": 70,
+        "aug_windows": [
+          [
+            82.8,
+            186.0
+          ],
+          [
+            223.5,
+            242.5
+          ],
+          [
+            245.2,
+            250.0
+          ],
+          [
+            254.4,
+            272.6
+          ],
+          [
+            275.6,
+            280.0
+          ],
+          [
+            284.1,
+            302.3
+          ],
+          [
+            304.6,
+            310.1
+          ],
+          [
+            314.5,
+            330.0
+          ]
+        ],
+        "aug_carries_ever": true,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": true,
+        "aug_carry_phase_ids": [
+          1,
+          3
+        ],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "FCwykpm7NcQDjzXB",
+      "fight_id": 45,
+      "url": "https://www.warcraftlogs.com/reports/FCwykpm7NcQDjzXB#fight=45",
+      "player": "Augmentfluup",
+      "rank": 18,
+      "dps": 187592.2,
+      "guild": "Hatewatching",
+      "server": "Tarren Mill",
+      "region": "EU",
+      "source_id": 2680,
+      "duration_s": 504.2,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 277.45001220703125,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.5
+        },
+        {
+          "id": 3,
+          "t": 220.5
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 432.6
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          0.6,
+          75.7,
+          153.6,
+          268.9,
+          343.9,
+          443.2
+        ],
+        "fire_breath": [
+          4.5,
+          9.4,
+          32.3,
+          56.4,
+          79.7,
+          102.0,
+          126.4,
+          144.4,
+          168.0,
+          190.6,
+          212.1,
+          238.3,
+          270.8,
+          280.5,
+          299.8,
+          324.1,
+          347.2,
+          373.2,
+          395.4,
+          420.4,
+          446.9,
+          469.0,
+          489.4
+        ],
+        "upheaval": [
+          5.0,
+          10.4,
+          33.6,
+          63.0,
+          86.3,
+          113.8,
+          127.8,
+          145.5,
+          169.3,
+          193.9,
+          217.7,
+          247.0,
+          274.9,
+          281.5,
+          303.4,
+          348.5,
+          374.7,
+          403.4,
+          447.9,
+          469.5,
+          490.8
+        ],
+        "time_skip": [
+          6.2,
+          141.2,
+          275.4,
+          420.9
+        ],
+        "prescience_n": 48,
+        "eruption_n": 141
+      },
+      "breath_rel_p3": [
+        -329.5,
+        -254.4,
+        -176.5,
+        -61.2,
+        13.8,
+        113.1
+      ],
+      "ebon_might_uptime_pct": 85.3,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 429874,
+          "uses": 14
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          158.9,
+          195.8,
+          318.3,
+          326.6
+        ],
+        "zephyr": [
+          317.8
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 342.5,
+          "name": "Potion of Recklessness"
+        }
+      ],
+      "potions_healing": [
+        {
+          "t": 101.5,
+          "name": "Silvermoon Health Potion"
+        }
+      ],
+      "healthstones": [
+        121.7
+      ],
+      "deaths": [],
+      "raid_deaths_n": 6,
+      "crystal": {
+        "raid_carrier_n": 6,
+        "raid_window_n": 68,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "bpg27rRJHczX8aMD",
+      "fight_id": 82,
+      "url": "https://www.warcraftlogs.com/reports/bpg27rRJHczX8aMD#fight=82",
+      "player": "呆西八号",
+      "rank": 19,
+      "dps": 187260.1,
+      "guild": null,
+      "server": "勇士岛",
+      "region": "CN",
+      "source_id": 1221,
+      "duration_s": 591.3,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 291.29412841796875,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.5
+        },
+        {
+          "id": 3,
+          "t": 220.6
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 515.7
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          2.1,
+          75.7,
+          154.1,
+          268.4,
+          343.9,
+          423.2,
+          542.7
+        ],
+        "fire_breath": [
+          4.5,
+          9.2,
+          32.8,
+          58.4,
+          79.4,
+          104.0,
+          130.6,
+          142.2,
+          161.8,
+          183.6,
+          203.1,
+          223.6,
+          248.6,
+          275.3,
+          280.3,
+          297.6,
+          323.7,
+          346.7,
+          372.0,
+          397.9,
+          414.7,
+          436.1,
+          462.3,
+          486.7,
+          525.2,
+          547.0,
+          557.0,
+          585.5
+        ],
+        "upheaval": [
+          5.0,
+          10.4,
+          30.0,
+          56.9,
+          81.3,
+          105.4,
+          138.3,
+          143.3,
+          164.1,
+          189.3,
+          211.8,
+          241.4,
+          271.4,
+          281.4,
+          304.7,
+          328.9,
+          353.0,
+          378.1,
+          401.7,
+          416.7,
+          438.3,
+          465.4,
+          491.3,
+          526.2,
+          550.5,
+          564.6
+        ],
+        "time_skip": [
+          6.0,
+          139.0,
+          276.6,
+          411.4,
+          551.7
+        ],
+        "prescience_n": 63,
+        "eruption_n": 187
+      },
+      "breath_rel_p3": [
+        -328.0,
+        -254.4,
+        -176.0,
+        -61.7,
+        13.8,
+        93.1,
+        212.6
+      ],
+      "ebon_might_uptime_pct": 93.9,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 555527,
+          "uses": 20
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          210.1,
+          431.2,
+          468.2,
+          541.0
+        ],
+        "zephyr": [
+          327.9
+        ],
+        "verdant_embrace": [
+          507.7,
+          507.8
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 4.0,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 366.2,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 2,
+      "crystal": {
+        "raid_carrier_n": 10,
+        "raid_window_n": 71,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "QTNFzxy9kP3BgVtb",
+      "fight_id": 116,
+      "url": "https://www.warcraftlogs.com/reports/QTNFzxy9kP3BgVtb#fight=116",
+      "player": "Нерфтварь",
+      "rank": 20,
+      "dps": 187020.8,
+      "guild": "Гнев Анархии",
+      "server": "Ревущий фьорд",
+      "region": "EU",
+      "source_id": 999,
+      "duration_s": 552.0,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 284.3999938964844,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.5
+        },
+        {
+          "id": 3,
+          "t": 220.5
+        },
+        {
+          "id": 4,
+          "t": 330.0
+        },
+        {
+          "id": 5,
+          "t": 475.4
+        }
+      ],
+      "p3_start_s": 330.0,
+      "casts": {
+        "breath_of_eons": [
+          5.1,
+          78.7,
+          158.0,
+          285.0,
+          363.9,
+          441.6
+        ],
+        "fire_breath": [
+          7.2,
+          14.2,
+          35.2,
+          59.5,
+          82.7,
+          108.4,
+          132.7,
+          148.5,
+          170.4,
+          197.1,
+          239.4,
+          264.0,
+          287.7,
+          292.3,
+          314.3,
+          338.1,
+          358.1,
+          385.6,
+          412.6,
+          426.7,
+          450.0,
+          484.8,
+          505.9,
+          529.4
+        ],
+        "upheaval": [
+          8.4,
+          15.1,
+          36.5,
+          62.6,
+          87.2,
+          112.3,
+          137.9,
+          149.6,
+          173.9,
+          200.1,
+          240.8,
+          266.4,
+          293.4,
+          316.5,
+          342.9,
+          368.5,
+          394.4,
+          422.9,
+          427.8,
+          448.9,
+          486.1,
+          508.1,
+          535.2
+        ],
+        "time_skip": [
+          10.2,
+          145.3,
+          288.2,
+          423.4
+        ],
+        "prescience_n": 59,
+        "eruption_n": 174
+      },
+      "breath_rel_p3": [
+        -324.9,
+        -251.3,
+        -172.0,
+        -45.0,
+        33.9,
+        111.6
+      ],
+      "ebon_might_uptime_pct": 94.6,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 522291,
+          "uses": 18
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          120.7,
+          201.6,
+          214.8,
+          327.2,
+          509.0
+        ],
+        "zephyr": [
+          392.7,
+          515.4
+        ],
+        "verdant_embrace": [
+          220.2,
+          220.3
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 6.9,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 366.9,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 2,
+      "crystal": {
+        "raid_carrier_n": 11,
+        "raid_window_n": 76,
+        "aug_windows": [
+          [
+            86.9,
+            183.5
+          ],
+          [
+            224.0,
+            242.2
+          ],
+          [
+            245.3,
+            250.1
+          ],
+          [
+            254.2,
+            272.4
+          ],
+          [
+            275.5,
+            280.0
+          ],
+          [
+            284.5,
+            302.4
+          ],
+          [
+            305.2,
+            310.0
+          ],
+          [
+            314.1,
+            330.0
+          ],
+          [
+            332.3,
+            391.2
+          ]
+        ],
+        "aug_carries_ever": true,
+        "aug_carries_p3": true,
+        "aug_carries_before_p3": true,
+        "aug_carry_phase_ids": [
+          1,
+          3,
+          4
+        ],
+        "aug_p3_windows": [
+          [
+            332.3,
+            391.2
+          ]
+        ],
+        "breath_vs_p3_windows": [
+          {
+            "window": [
+              332.3,
+              391.2
+            ],
+            "breath_during_offsets": [
+              31.6
+            ],
+            "last_breath_before_gap_s": 47.3,
+            "first_breath_after_gap_s": 50.4
+          }
+        ]
+      }
+    },
+    {
+      "report": "bpg27rRJHczX8aMD",
+      "fight_id": 94,
+      "url": "https://www.warcraftlogs.com/reports/bpg27rRJHczX8aMD#fight=94",
+      "player": "呆西五号",
+      "rank": 21,
+      "dps": 186978.2,
+      "guild": null,
+      "server": "勇士岛",
+      "region": "CN",
+      "source_id": 1574,
+      "duration_s": 587.2,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 291.4705810546875,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.5
+        },
+        {
+          "id": 3,
+          "t": 220.5
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 509.6
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          2.1,
+          74.9,
+          154.1,
+          268.3,
+          345.1,
+          425.4,
+          538.4
+        ],
+        "fire_breath": [
+          4.5,
+          9.1,
+          27.0,
+          52.1,
+          69.4,
+          93.7,
+          117.4,
+          143.2,
+          147.4,
+          170.3,
+          194.2,
+          213.1,
+          238.7,
+          261.7,
+          284.2,
+          288.3,
+          310.7,
+          334.4,
+          361.3,
+          388.5,
+          410.2,
+          428.1,
+          448.5,
+          471.7,
+          493.0,
+          519.0,
+          542.4,
+          562.4,
+          581.4
+        ],
+        "upheaval": [
+          5.0,
+          10.3,
+          32.5,
+          59.3,
+          81.7,
+          108.9,
+          139.1,
+          148.5,
+          171.5,
+          200.7,
+          240.2,
+          271.5,
+          289.5,
+          314.7,
+          338.3,
+          366.1,
+          390.0,
+          417.6,
+          429.1,
+          454.4,
+          477.9,
+          520.1,
+          546.1,
+          563.4,
+          584.2
+        ],
+        "time_skip": [
+          6.0,
+          144.3,
+          285.2,
+          421.3,
+          559.1
+        ],
+        "prescience_n": 60,
+        "eruption_n": 181
+      },
+      "breath_rel_p3": [
+        -328.0,
+        -255.2,
+        -176.0,
+        -61.8,
+        15.0,
+        95.3,
+        208.3
+      ],
+      "ebon_might_uptime_pct": 95.6,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 561333,
+          "uses": 20
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          210.6,
+          433.1,
+          468.4,
+          537.0
+        ],
+        "verdant_embrace": [
+          176.5,
+          176.5,
+          199.6,
+          199.7
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 3.8,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 367.0,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 0,
+      "crystal": {
+        "raid_carrier_n": 10,
+        "raid_window_n": 74,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "dAtx693qykMmZbBD",
+      "fight_id": 66,
+      "url": "https://www.warcraftlogs.com/reports/dAtx693qykMmZbBD#fight=66",
+      "player": "영턴영",
+      "rank": 22,
+      "dps": 186653.0,
+      "guild": "영구정지",
+      "server": "아즈샤라",
+      "region": "KR",
+      "source_id": 89,
+      "duration_s": 551.9,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 287.368408203125,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.6
+        },
+        {
+          "id": 3,
+          "t": 220.6
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 474.2
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          4.4,
+          77.6,
+          157.7,
+          277.0,
+          364.0,
+          484.4
+        ],
+        "fire_breath": [
+          6.3,
+          11.0,
+          28.7,
+          54.8,
+          71.8,
+          95.3,
+          121.2,
+          145.2,
+          149.3,
+          173.7,
+          194.9,
+          213.1,
+          237.7,
+          266.8,
+          288.9,
+          297.6,
+          325.0,
+          351.8,
+          385.3,
+          413.4,
+          435.7,
+          444.1,
+          486.5,
+          523.3,
+          550.6
+        ],
+        "upheaval": [
+          6.8,
+          12.8,
+          32.6,
+          62.3,
+          85.3,
+          113.7,
+          143.3,
+          150.5,
+          171.0,
+          198.9,
+          234.9,
+          269.3,
+          291.7,
+          298.8,
+          327.5,
+          358.0,
+          386.4,
+          411.3,
+          436.9,
+          445.3,
+          487.0,
+          507.5,
+          533.2
+        ],
+        "time_skip": [
+          8.0,
+          146.3,
+          294.6,
+          440.9
+        ],
+        "prescience_n": 59,
+        "eruption_n": 168
+      },
+      "breath_rel_p3": [
+        -325.7,
+        -252.5,
+        -172.4,
+        -53.1,
+        33.9,
+        154.3
+      ],
+      "ebon_might_uptime_pct": 90.6,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 500047,
+          "uses": 18
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          103.9,
+          197.1,
+          215.3
+        ],
+        "verdant_embrace": [
+          220.3,
+          220.3
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 3.8,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 365.8,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 2,
+      "crystal": {
+        "raid_carrier_n": 9,
+        "raid_window_n": 71,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    },
+    {
+      "report": "AdYhBkFNTm1aXzPx",
+      "fight_id": 1,
+      "url": "https://www.warcraftlogs.com/reports/AdYhBkFNTm1aXzPx#fight=1",
+      "player": "Xephyris",
+      "rank": 23,
+      "dps": 186630.5,
+      "guild": "Phoenix",
+      "server": "Blackrock",
+      "region": "EU",
+      "source_id": 18,
+      "duration_s": 501.4,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 292.1000061035156,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.6
+        },
+        {
+          "id": 3,
+          "t": 220.5
+        },
+        {
+          "id": 4,
+          "t": 330.0
+        },
+        {
+          "id": 5,
+          "t": 427.7
+        }
+      ],
+      "p3_start_s": 330.0,
+      "casts": {
+        "breath_of_eons": [
+          3.4,
+          77.1,
+          157.5,
+          273.9,
+          363.2
+        ],
+        "fire_breath": [
+          6.1,
+          11.5,
+          33.2,
+          54.7,
+          73.6,
+          99.0,
+          127.6,
+          145.0,
+          168.4,
+          191.2,
+          209.7,
+          237.9,
+          266.9,
+          296.5,
+          314.5,
+          346.1,
+          370.5,
+          391.7,
+          438.3,
+          448.3,
+          467.0,
+          497.8
+        ],
+        "upheaval": [
+          7.0,
+          12.5,
+          34.6,
+          62.2,
+          86.3,
+          113.0,
+          138.9,
+          146.9,
+          169.9,
+          197.1,
+          224.3,
+          253.8,
+          282.2,
+          297.3,
+          322.6,
+          355.2,
+          383.7,
+          407.8,
+          439.4,
+          454.8,
+          478.2
+        ],
+        "time_skip": [
+          8.0,
+          141.9,
+          293.0,
+          440.4
+        ],
+        "prescience_n": 54,
+        "eruption_n": 148
+      },
+      "breath_rel_p3": [
+        -326.6,
+        -252.9,
+        -172.5,
+        -56.1,
+        33.2
+      ],
+      "ebon_might_uptime_pct": 90.3,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 452846,
+          "uses": 15
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          70.8,
+          131.2,
+          209.1,
+          333.2,
+          480.6,
+          500.3
+        ],
+        "zephyr": [
+          131.0,
+          324.0,
+          470.8
+        ],
+        "verdant_embrace": [
+          53.2,
+          53.2
+        ],
+        "emerald_blossom": [
+          202.0,
+          251.7,
+          311.0
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 0.9,
+          "name": "Potion of Recklessness"
+        },
+        {
+          "t": 374.6,
+          "name": "Potion of Recklessness"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 3,
+      "crystal": {
+        "raid_carrier_n": 10,
+        "raid_window_n": 70,
+        "aug_windows": [
+          [
+            332.2,
+            434.8
+          ]
+        ],
+        "aug_carries_ever": true,
+        "aug_carries_p3": true,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [
+          4,
+          5
+        ],
+        "aug_p3_windows": [
+          [
+            332.2,
+            434.8
+          ]
+        ],
+        "breath_vs_p3_windows": [
+          {
+            "window": [
+              332.2,
+              434.8
+            ],
+            "breath_during_offsets": [
+              31.0
+            ],
+            "last_breath_before_gap_s": 58.3,
+            "first_breath_after_gap_s": null
+          }
+        ]
+      }
+    },
+    {
+      "report": "YZH7nkgNW1r4qA3b",
+      "fight_id": 13,
+      "url": "https://www.warcraftlogs.com/reports/YZH7nkgNW1r4qA3b#fight=13",
+      "player": "Jomjom",
+      "rank": 24,
+      "dps": 186377.1,
+      "guild": null,
+      "server": "아즈샤라",
+      "region": "KR",
+      "source_id": 17,
+      "duration_s": 554.2,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 290.52630615234375,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.6
+        },
+        {
+          "id": 3,
+          "t": 220.6
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 476.7
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          2.9,
+          78.0,
+          157.7,
+          284.9,
+          364.4,
+          444.4
+        ],
+        "fire_breath": [
+          4.8,
+          13.3,
+          34.2,
+          58.2,
+          82.2,
+          108.4,
+          131.7,
+          149.6,
+          171.2,
+          197.3,
+          214.9,
+          239.4,
+          266.7,
+          289.5,
+          300.3,
+          321.9,
+          352.0,
+          374.5,
+          402.1,
+          428.3,
+          443.2,
+          464.0,
+          490.6,
+          512.8,
+          539.0
+        ],
+        "upheaval": [
+          5.3,
+          14.5,
+          38.4,
+          62.9,
+          86.9,
+          112.3,
+          140.6,
+          141.2,
+          151.5,
+          175.4,
+          201.9,
+          238.2,
+          268.0,
+          293.9,
+          301.4,
+          323.4,
+          355.6,
+          381.9,
+          407.7,
+          432.4,
+          446.1,
+          487.4,
+          506.7,
+          535.6
+        ],
+        "time_skip": [
+          10.3,
+          146.5,
+          297.2,
+          439.2
+        ],
+        "prescience_n": 60,
+        "eruption_n": 165
+      },
+      "breath_rel_p3": [
+        -327.2,
+        -252.1,
+        -172.4,
+        -45.2,
+        34.3,
+        114.3
+      ],
+      "ebon_might_uptime_pct": 94.8,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 525454,
+          "uses": 18
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          7.0,
+          69.8,
+          130.7,
+          202.9,
+          213.3,
+          328.2,
+          429.2,
+          550.7
+        ],
+        "zephyr": [
+          327.0,
+          541.6
+        ],
+        "verdant_embrace": [
+          206.3,
+          206.3,
+          335.2,
+          335.2
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 2.0,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 370.5,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 2,
+      "crystal": {
+        "raid_carrier_n": 10,
+        "raid_window_n": 70,
+        "aug_windows": [
+          [
+            184.7,
+            201.0
+          ],
+          [
+            204.1,
+            218.6
+          ],
+          [
+            221.9,
+            242.9
+          ],
+          [
+            245.1,
+            250.4
+          ],
+          [
+            254.1,
+            273.2
+          ],
+          [
+            275.0,
+            280.4
+          ],
+          [
+            284.3,
+            302.9
+          ],
+          [
+            305.1,
+            310.3
+          ],
+          [
+            314.0,
+            330.1
+          ],
+          [
+            331.7,
+            483.7
+          ]
+        ],
+        "aug_carries_ever": true,
+        "aug_carries_p3": true,
+        "aug_carries_before_p3": true,
+        "aug_carry_phase_ids": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "aug_p3_windows": [
+          [
+            331.7,
+            483.7
+          ]
+        ],
+        "breath_vs_p3_windows": [
+          {
+            "window": [
+              331.7,
+              483.7
+            ],
+            "breath_during_offsets": [
+              32.7,
+              112.7
+            ],
+            "last_breath_before_gap_s": 46.8,
+            "first_breath_after_gap_s": null
+          }
+        ]
+      }
+    },
+    {
+      "report": "8bZxkTWMA7nYtzh9",
+      "fight_id": 54,
+      "url": "https://www.warcraftlogs.com/reports/8bZxkTWMA7nYtzh9#fight=54",
+      "player": "呆西十二号",
+      "rank": 25,
+      "dps": 185911.7,
+      "guild": null,
+      "server": "末日行者",
+      "region": "CN",
+      "source_id": 545,
+      "duration_s": 558.1,
+      "kill": true,
+      "last_phase": 4,
+      "avg_item_level": 291.4444580078125,
+      "phase_transitions": [
+        {
+          "id": 1,
+          "t": 0.0
+        },
+        {
+          "id": 2,
+          "t": 190.6
+        },
+        {
+          "id": 3,
+          "t": 220.6
+        },
+        {
+          "id": 4,
+          "t": 330.1
+        },
+        {
+          "id": 5,
+          "t": 483.9
+        }
+      ],
+      "p3_start_s": 330.1,
+      "casts": {
+        "breath_of_eons": [
+          3.1,
+          76.2,
+          154.9,
+          275.0,
+          348.1,
+          427.3,
+          545.6
+        ],
+        "fire_breath": [
+          5.5,
+          10.6,
+          29.9,
+          53.1,
+          73.1,
+          94.9,
+          117.2,
+          142.1,
+          146.4,
+          166.8,
+          192.1,
+          214.2,
+          239.3,
+          264.1,
+          284.1,
+          302.1,
+          327.6,
+          349.9,
+          371.7,
+          399.2,
+          417.7,
+          438.7,
+          494.2,
+          513.2,
+          549.6
+        ],
+        "upheaval": [
+          6.0,
+          11.6,
+          33.2,
+          56.8,
+          80.8,
+          104.1,
+          132.0,
+          147.5,
+          170.3,
+          194.5,
+          217.3,
+          247.9,
+          273.6,
+          285.0,
+          306.9,
+          335.2,
+          359.3,
+          384.1,
+          413.5,
+          418.8,
+          442.4,
+          495.8,
+          518.2,
+          551.5
+        ],
+        "time_skip": [
+          7.0,
+          143.2,
+          281.0,
+          414.4,
+          554.8
+        ],
+        "prescience_n": 57,
+        "eruption_n": 169
+      },
+      "breath_rel_p3": [
+        -327.0,
+        -253.9,
+        -175.2,
+        -55.1,
+        18.0,
+        97.2,
+        215.5
+      ],
+      "ebon_might_uptime_pct": 94.7,
+      "ebon_might_entries": [
+        {
+          "guid": 395296,
+          "name": "Ebon Might",
+          "uptime_ms": 528219,
+          "uses": 17
+        }
+      ],
+      "defensives": {
+        "obsidian_scales": [
+          215.4,
+          356.7,
+          432.5,
+          469.2,
+          545.4
+        ],
+        "zephyr": [
+          328.2
+        ],
+        "verdant_embrace": [
+          208.1,
+          208.1,
+          553.8,
+          553.8
+        ]
+      },
+      "potions_combat": [
+        {
+          "t": 4.9,
+          "name": "Light's Potential"
+        },
+        {
+          "t": 363.9,
+          "name": "Light's Potential"
+        }
+      ],
+      "potions_healing": [
+        {
+          "t": 547.7,
+          "name": "Silvermoon Health Potion"
+        }
+      ],
+      "healthstones": [],
+      "deaths": [],
+      "raid_deaths_n": 0,
+      "crystal": {
+        "raid_carrier_n": 10,
+        "raid_window_n": 72,
+        "aug_windows": [],
+        "aug_carries_ever": false,
+        "aug_carries_p3": false,
+        "aug_carries_before_p3": false,
+        "aug_carry_phase_ids": [],
+        "aug_p3_windows": [],
+        "breath_vs_p3_windows": []
+      }
+    }
+  ],
+  "hand_check_fight": {
+    "report": "VKYyGMLqmNBkWjvA",
+    "fight_id": 182,
+    "player": "呆西四号",
+    "url": "https://www.warcraftlogs.com/reports/VKYyGMLqmNBkWjvA#fight=182"
+  }
+}
