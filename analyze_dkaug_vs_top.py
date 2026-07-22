@@ -38,6 +38,8 @@ SPECS = [
         "our_char": "이디죽기",
         # 버프 유지율 추적(자기 버프): 어둠의 변신 (12.0 id 1233448 — player_spell_types 실측)
         "uptime_buffs": {1233448: "어둠의 변신"},
+        # n번째 시전 시각 비교 대상 (핵심 정렬 쿨기)
+        "timing": {"label": "어둠의 변신", "ids": {1233448}},
     },
     {
         "key": "aug",
@@ -47,6 +49,8 @@ SPECS = [
         "our_char": "하늘연달스물엿새",
         # 칠흑의 힘(395152)은 cast=buff 동일 id (app/aug_feedback.py 검증)
         "uptime_buffs": {395152: "칠흑의 힘"},
+        # 영겁의 숨결 — P1 수정쫄 3웨이브(3/76/155s) 정렬 여부 (실측 2026-07-22)
+        "timing": {"label": "영겁의 숨결", "ids": {442204, 403631}},
     },
 ]
 
@@ -97,10 +101,13 @@ def q3(values: list[float]) -> float | None:
 
 # ── 표본 1개(한 전투의 한 캐릭터) 지표 추출 ────────────────────────────────
 def sample_metrics(events: dict, start_ms: float, end_ms: float,
-                   uptime_buffs: dict[int, str]) -> dict:
+                   uptime_buffs: dict[int, str],
+                   timing_ids: set[int] | None = None) -> dict:
     duration_s = (end_ms - start_ms) / 1000.0
     casts = [(t, gid) for t, gid, typ in (events.get("casts") or []) if typ == "cast"]
     minutes = max(duration_s / 60.0, 0.01)
+    timing_times = sorted(round((t - start_ms) / 1000.0, 1)
+                          for t, gid in casts if gid in (timing_ids or set()))
     per_spell = Counter(gid for _, gid in casts)
 
     # player_spell_types.json 은 Viserio 라벨: Defensives/Immunities/DPS CD/Potions...
@@ -150,6 +157,7 @@ def sample_metrics(events: dict, start_ms: float, end_ms: float,
         "offensive_by_spell": dict(offensive_by_spell),
         "defensive_by_spell": dict(defensive_by_spell),
         "uptimes": {str(k): v for k, v in uptimes.items()},
+        "timing_times": timing_times,
         "opener": [[round((t - casts[0][0]) / 1000.0, 1), gid]
                    for t, gid in casts[:22]] if casts else [],
     }
@@ -184,9 +192,11 @@ def collect_top(v2: V2Data, cli: WCLV2, cfg: dict, partition: int) -> list[dict]
         f = next((x for x in (meta.get("fights") or []) if x.get("id") == int(fid)), None)
         if not f:
             continue
-        m = sample_metrics(ev, f["startTime"], f["endTime"], cfg["uptime_buffs"])
+        m = sample_metrics(ev, f["startTime"], f["endTime"], cfg["uptime_buffs"],
+                           (cfg.get("timing") or {}).get("ids"))
         m.update({"rank": rank, "char": char,
                   "dps": round(float(row.get("amount") or 0)),
+                  "stats": pf.get("stats") or {},
                   "gear": [g for g in (pf.get("gear") or []) if g.get("slot") in (12, 13)]})
         rows.append(m)
         if len(rows) % 10 == 0:
@@ -213,8 +223,10 @@ def collect_ours(v2: V2Data, cfg: dict) -> list[dict]:
             continue
         if not ev or not pf:
             continue
-        m = sample_metrics(ev, f["startTime"], f["endTime"], cfg["uptime_buffs"])
+        m = sample_metrics(ev, f["startTime"], f["endTime"], cfg["uptime_buffs"],
+                           (cfg.get("timing") or {}).get("ids"))
         m.update({"fight_id": fid,
+                  "stats": pf.get("stats") or {},
                   "gear": [g for g in (pf.get("gear") or []) if g.get("slot") in (12, 13)]})
         out.append(m)
         print(f"  [ours/{cfg['key']}] fight {fid} ok ({m['duration_s']:.0f}s, cpm {m['cpm']})")
@@ -265,6 +277,36 @@ def build_comparison(cfg: dict, top: list[dict], ours: list[dict]) -> dict:
             med([m["uptimes"].get(gid_s) for m in ours if m["uptimes"].get(gid_s) is not None]),
             med([m["uptimes"].get(gid_s) for m in top if m["uptimes"].get(gid_s) is not None]),
             "%")
+
+    # n번째 시전 시각 — 정렬 쿨기(영겁/어둠의 변신)가 얼마나 밀리는지 (빠를수록 좋음)
+    t_label = (cfg.get("timing") or {}).get("label")
+    if t_label:
+        max_n = 5
+        for n in range(1, max_n + 1):
+            tv = [m["timing_times"][n - 1] for m in top if len(m["timing_times"]) >= n]
+            ov = [m["timing_times"][n - 1] for m in ours if len(m["timing_times"]) >= n]
+            if len(tv) < len(top) * 0.6 or not ov:
+                continue
+            o_med, t_med = med(ov), med(tv)
+            # 타이밍은 비율이 아니라 절대 지연으로 판정 (1초 차이에 빨강 방지)
+            late = (o_med or 0) - (t_med or 0)
+            rows.append({
+                "cat": f"{t_label} 타이밍", "label": f"{n}번째 시전 시각",
+                "ours": o_med, "top": t_med, "unit": "초",
+                "verdict": "warn" if late >= 10 else ("mid" if late >= 4 else "good"),
+                "note": "상위는 전원 ±3초 이내 동일 — 웨이브·페이즈 고정 타이밍" if n <= 3 else "",
+            })
+
+    # 2차 스탯 — 사이클 문제 vs 스탯 문제 판별용
+    for key, label in (("Haste", "가속"), ("Crit", "치명타"),
+                       ("Mastery", "특화"), ("Versatility", "유연성"),
+                       ("Intellect", "주 스탯"), ("Strength", "주 스탯"),
+                       ("Item Level", "아이템 레벨")):
+        ov = [m["stats"].get(key) for m in ours if isinstance(m.get("stats"), dict) and m["stats"].get(key)]
+        tv = [m["stats"].get(key) for m in top if isinstance(m.get("stats"), dict) and m["stats"].get(key)]
+        if not ov or not tv:
+            continue
+        add("스탯", label, med(ov), med(tv))
 
     # 생존기·딜쿨 스킬별 섹션에 나올 gid — 딜패턴 핵심 목록에서 중복 제거용
     sectioned: set[int] = set()

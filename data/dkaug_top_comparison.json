@@ -57,6 +57,96 @@
      "note": ""
     },
     {
+     "cat": "어둠의 변신 타이밍",
+     "label": "1번째 시전 시각",
+     "ours": 3.3,
+     "top": 3.8,
+     "unit": "초",
+     "verdict": "good",
+     "note": "상위는 전원 ±3초 이내 동일 — 웨이브·페이즈 고정 타이밍"
+    },
+    {
+     "cat": "어둠의 변신 타이밍",
+     "label": "2번째 시전 시각",
+     "ours": 48.4,
+     "top": 49.0,
+     "unit": "초",
+     "verdict": "good",
+     "note": "상위는 전원 ±3초 이내 동일 — 웨이브·페이즈 고정 타이밍"
+    },
+    {
+     "cat": "어둠의 변신 타이밍",
+     "label": "3번째 시전 시각",
+     "ours": 94.25,
+     "top": 95.1,
+     "unit": "초",
+     "verdict": "good",
+     "note": "상위는 전원 ±3초 이내 동일 — 웨이브·페이즈 고정 타이밍"
+    },
+    {
+     "cat": "어둠의 변신 타이밍",
+     "label": "4번째 시전 시각",
+     "ours": 142.75,
+     "top": 140.45,
+     "unit": "초",
+     "verdict": "good",
+     "note": ""
+    },
+    {
+     "cat": "어둠의 변신 타이밍",
+     "label": "5번째 시전 시각",
+     "ours": 190.4,
+     "top": 186.3,
+     "unit": "초",
+     "verdict": "mid",
+     "note": ""
+    },
+    {
+     "cat": "스탯",
+     "label": "가속",
+     "ours": 281.0,
+     "top": 302.5,
+     "unit": "",
+     "verdict": "mid",
+     "note": ""
+    },
+    {
+     "cat": "스탯",
+     "label": "치명타",
+     "ours": 1189.0,
+     "top": 1145.5,
+     "unit": "",
+     "verdict": "good",
+     "note": ""
+    },
+    {
+     "cat": "스탯",
+     "label": "특화",
+     "ours": 1246.0,
+     "top": 1238.0,
+     "unit": "",
+     "verdict": "good",
+     "note": ""
+    },
+    {
+     "cat": "스탯",
+     "label": "주 스탯",
+     "ours": 2107.0,
+     "top": 2074.0,
+     "unit": "",
+     "verdict": "good",
+     "note": ""
+    },
+    {
+     "cat": "스탯",
+     "label": "아이템 레벨",
+     "ours": 292.0,
+     "top": 292.0,
+     "unit": "",
+     "verdict": "good",
+     "note": ""
+    },
+    {
      "cat": "딜패턴",
      "label": "스컬지의 일격(분당)",
      "ours": 20.03,
@@ -443,6 +533,96 @@
      "top": 75.45,
      "unit": "%",
      "verdict": "mid",
+     "note": ""
+    },
+    {
+     "cat": "영겁의 숨결 타이밍",
+     "label": "1번째 시전 시각",
+     "ours": 4.1,
+     "top": 3.0,
+     "unit": "초",
+     "verdict": "good",
+     "note": "상위는 전원 ±3초 이내 동일 — 웨이브·페이즈 고정 타이밍"
+    },
+    {
+     "cat": "영겁의 숨결 타이밍",
+     "label": "2번째 시전 시각",
+     "ours": 81.25,
+     "top": 76.25,
+     "unit": "초",
+     "verdict": "mid",
+     "note": "상위는 전원 ±3초 이내 동일 — 웨이브·페이즈 고정 타이밍"
+    },
+    {
+     "cat": "영겁의 숨결 타이밍",
+     "label": "3번째 시전 시각",
+     "ours": 170.1,
+     "top": 154.7,
+     "unit": "초",
+     "verdict": "warn",
+     "note": "상위는 전원 ±3초 이내 동일 — 웨이브·페이즈 고정 타이밍"
+    },
+    {
+     "cat": "영겁의 숨결 타이밍",
+     "label": "4번째 시전 시각",
+     "ours": 293.9,
+     "top": 274.7,
+     "unit": "초",
+     "verdict": "warn",
+     "note": ""
+    },
+    {
+     "cat": "스탯",
+     "label": "가속",
+     "ours": 872.0,
+     "top": 960.0,
+     "unit": "",
+     "verdict": "mid",
+     "note": ""
+    },
+    {
+     "cat": "스탯",
+     "label": "치명타",
+     "ours": 1417.0,
+     "top": 1396.5,
+     "unit": "",
+     "verdict": "good",
+     "note": ""
+    },
+    {
+     "cat": "스탯",
+     "label": "특화",
+     "ours": 345.0,
+     "top": 319.5,
+     "unit": "",
+     "verdict": "good",
+     "note": ""
+    },
+    {
+     "cat": "스탯",
+     "label": "유연성",
+     "ours": 92.0,
+     "top": 70.0,
+     "unit": "",
+     "verdict": "good",
+     "note": ""
+    },
+    {
+     "cat": "스탯",
+     "label": "주 스탯",
+     "ours": 2640.0,
+     "top": 2613.0,
+     "unit": "",
+     "verdict": "good",
+     "note": ""
+    },
+    {
+     "cat": "스탯",
+     "label": "아이템 레벨",
+     "ours": 292.0,
+     "top": 291.0,
+     "unit": "",
+     "verdict": "good",
      "note": ""
     },
     {
