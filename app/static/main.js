@@ -2543,6 +2543,8 @@ async function initReplayCanvas(replayId) {
     .map(e => `${e.spell} ${e.geometry.radius}m${e.geometry.confidence === 'estimated' ? '(추정)' : ''}`))];
   if (circleSpells.length) notes.push(`실반경 원: ${circleSpells.slice(0, 4).join(', ')} — 겹치면 빨강`);
   if (rc.crystalHolds.length) notes.push('◆ 금색 이름 = 여명의 수정 보유');
+  // 보스가 부여하는 룬 문양은 로그에 이벤트가 없음(클라 연출) — 실측 2026-07-24
+  if (Object.keys(rc.unitMarks).length) notes.push('머리 위 도형 = 공대장 지정 징표');
 
   msg.style.display = 'none';
   const note = $('#rc-note');
