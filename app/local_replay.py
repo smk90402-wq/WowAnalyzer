@@ -603,6 +603,19 @@ def list_replays(limit: int = 80) -> dict[str, Any]:
     sync_index = _lura_sync_index()
     artifact_ids = sync_index.get("artifact_ids") or set()
     captures = _load_captures(limit=limit)
+    # R2 미러 병합 — 로컬 캡처 폴더가 있어도 다른 PC가 올린 원격 캡처를 함께 노출.
+    # ensure_mirror() 가 json(소형)만 동기화하고 전투로그는 백그라운드로 내려받는다.
+    from app import cctv_sync
+    if cctv_sync.available():
+        local_root = cctv_dir()
+        mirror_root = cctv_sync.ensure_mirror()
+        if mirror_root != local_root:
+            seen_files = {str(cap.get("file") or "") for cap in captures}
+            for cap in _load_captures(mirror_root, limit=limit):
+                if str(cap.get("file") or "") not in seen_files:
+                    captures.append(cap)
+            captures.sort(key=lambda c: c.get("_start_dt") or datetime.min, reverse=True)
+            captures = captures[:max(1, limit)]
     log_paths = _standalone_log_paths()
     log_caps = _load_log_replay_caps(limit=max(limit, 1), paths=log_paths)
     try:
@@ -670,6 +683,14 @@ def _find_capture(replay_id: str) -> dict[str, Any]:
     for cap in _load_captures(limit=400):
         if cap.get("id") == replay_id:
             return cap
+    # 로컬에 없으면 R2 미러 캡처(다른 PC가 올린 json)에서 탐색
+    from app import cctv_sync
+    if cctv_sync.available():
+        mirror_root = cctv_sync.ensure_mirror()
+        if mirror_root != cctv_dir():
+            for cap in _load_captures(mirror_root, limit=400):
+                if cap.get("id") == replay_id:
+                    return cap
     raise ReplayError(f"replay not found: {replay_id}")
 
 
