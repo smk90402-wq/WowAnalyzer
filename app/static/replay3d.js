@@ -588,7 +588,10 @@ window.Replay3D = (() => {
         rec.group.rotation.y = Math.atan2(-Math.sin(cur.facing), -Math.cos(cur.facing));
       }
       const hl = mode === 1;
-      rec.mat.opacity = (anyHl && !hl ? 0.25 : 1) * (stale ? 0.5 : 1);
+      // 위상 필터 (rcRealmMode/rcRealmAt = main.js 공용) — 선택 안 된 쪽 흐리게
+      const realmDim = (rcRealmMode && u.kind === 'player'
+        && rcRealmAt(u.id, t) !== rcRealmMode) ? 0.13 : 1;
+      rec.mat.opacity = (anyHl && !hl ? 0.25 : 1) * (stale ? 0.5 : 1) * realmDim;
       // 부속 재질(머리·십자)도 본체와 같은 강조/흐림을 따라간다
       const dim = rec.mat.opacity;
       for (const [m, base] of rec.extras || []) m.opacity = base * dim;
@@ -643,6 +646,23 @@ window.Replay3D = (() => {
           rec.dome.position.y += 0.22;
           drapeToTerrain(rec.dome, 0.22);
         }
+      }
+      // 징표(레이드 타겟) — 머리 위 색 글리프 스프라이트 (변할 때만 재생성)
+      const mk = u.kind === 'player' ? rcMarkAt(u.id, t) : 0;
+      if ((rec.markId || 0) !== mk) {
+        if (rec.markSprite) {
+          rec.group.remove(rec.markSprite);
+          rec.markSprite.material.map?.dispose();
+          rec.markSprite.material.dispose();
+          rec.markSprite = null;
+        }
+        if (mk && RC_MARKS[mk]) {
+          const [glyph, mcolor] = RC_MARKS[mk];
+          rec.markSprite = makeTextSprite(glyph, mcolor);
+          rec.markSprite.position.y = 4.6;
+          rec.group.add(rec.markSprite);
+        }
+        rec.markId = mk;
       }
     }
 

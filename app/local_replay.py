@@ -1508,6 +1508,8 @@ def _stream_frames_window(
     long_cds = _long_cooldown_ids()
     # 적대(REACTION_HOSTILE) 판정된 Creature/Vehicle guid — npc 트랙 선별용
     hostile: set[str] = set()
+    # 징표 타임라인: guid → [(t, mark 1~8|0)] — destRaidFlags 변화 시점만
+    marks_raw: dict[str, list[tuple[float, int]]] = {}
     boss_track_events = frozenset({
         "SPELL_CAST_START", "SPELL_CAST_SUCCESS", "SPELL_AURA_APPLIED",
         "SPELL_DAMAGE", "SPELL_PERIODIC_DAMAGE", "RANGE_DAMAGE",
@@ -1632,6 +1634,15 @@ def _stream_frames_window(
                     round(max(t, 0.0), 2), event, _to_int(row[9]),
                     str(row[5]), str(row[1]), stacks))
 
+            # 징표(레이드 타겟 아이콘): destRaidFlags 하위 8비트 — 변화 시점만 기록
+            dest_g = str(row[5]) if len(row) > 5 else ""
+            if dest_g.startswith("Player-") and len(row) > 8:
+                rf = _flags_int(row[8]) & 0xFF
+                mark = rf.bit_length() if rf else 0   # 0x1→1(별) … 0x80→8(해골)
+                tl = marks_raw.setdefault(dest_g, [])
+                if not tl or tl[-1][1] != mark:
+                    tl.append((round(max(t, 0.0), 1), mark))
+
             adv = _adv_position_any(row)
             if not adv:
                 continue
@@ -1652,6 +1663,7 @@ def _stream_frames_window(
             "deaths": deaths, "map_counts": map_counts, "boss_raw": boss_raw,
             "aura_updates": aura_updates, "casts": casts,
             "player_raw": player_raw, "hostile": hostile,
+            "marks_raw": marks_raw,
             "counts": dict(activity_counts)}
 
 
@@ -2720,6 +2732,38 @@ def _lura_crystal_holds(
     return holds
 
 
+# 르우라 위상(암흑의 룬 1249609) — 룬 위상에 들어간 구간. P1 웨이브·P3 공용.
+_LURA_REALM_ID = 1249609
+
+
+def _aura_windows_for(
+    aura_updates: list[tuple[float, str, int, str, str, int]],
+    guid_to_id: dict[str, str],
+    duration_s: float,
+    want_sid: int,
+) -> list[dict[str, Any]]:
+    """특정 오라의 보유 구간 [{u, s, e}] — APPLIED→REMOVED, 짝 없으면 전투 끝까지."""
+    open_at: dict[str, float] = {}
+    out: list[dict[str, Any]] = []
+    for t, event, sid, dest, _src, _stacks in sorted(aura_updates):
+        if sid != want_sid:
+            continue
+        uid = guid_to_id.get(dest)
+        if not uid:
+            continue
+        if event == "SPELL_AURA_APPLIED":
+            open_at.setdefault(uid, t)
+        elif event in ("SPELL_AURA_REMOVED", "SPELL_AURA_BROKEN",
+                       "SPELL_AURA_BROKEN_SPELL"):
+            start = open_at.pop(uid, None)
+            if start is not None:
+                out.append({"u": uid, "s": start, "e": round(t, 2)})
+    for uid, start in open_at.items():
+        out.append({"u": uid, "s": start, "e": round(duration_s, 2)})
+    out.sort(key=lambda w: (w["s"], w["u"]))
+    return out
+
+
 # frames 결과 메모리 캐시: replay_id → (로그파일 시그니처, payload).
 # 로그 파일이 안 바뀌었으면 재파싱 생략 — 리스트에서 판 전환 시 즉시 로드.
 _frames_cache: dict[str, tuple[tuple[str, int, int], dict[str, Any]]] = {}
@@ -2872,6 +2916,7 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
 
     review_focus = None
     crystal_holds: list[dict[str, Any]] = []
+    realm_windows: list[dict[str, Any]] = []
     if encounter_id == 3183:
         review_focus = _lura_review_focus(
             parsed.get("boss_raw") or [], parsed.get("aura_updates") or [],
@@ -2879,6 +2924,9 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
             guid_to_id, float(duration_s or 0))
         crystal_holds = _lura_crystal_holds(
             parsed.get("aura_updates") or [], guid_to_id, float(duration_s or 0))
+        realm_windows = _aura_windows_for(
+            parsed.get("aura_updates") or [], guid_to_id, float(duration_s or 0),
+            _LURA_REALM_ID)
 
     # 맵 메타 + world→px 계수 (플레이어 실좌표로 축 뒤집힘 캘리브레이션)
     calib = player_world[::max(1, len(player_world) // 200)]  # 최대 ~200점만
@@ -2945,6 +2993,16 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
         out["review_focus"] = review_focus
     if crystal_holds:
         out["crystal_holds"] = crystal_holds
+    if realm_windows:
+        out["realm_windows"] = realm_windows
+    # 징표(레이드 타겟) 타임라인 — 변화 시점만, 실제 징표가 있던 유닛만
+    unit_marks: dict[str, list[list[Any]]] = {}
+    for guid, tl in (parsed.get("marks_raw") or {}).items():
+        uid = guid_to_id.get(guid)
+        if uid and any(mk for _, mk in tl):
+            unit_marks[uid] = [[t, mk] for t, mk in tl]
+    if unit_marks:
+        out["unit_marks"] = unit_marks
     if len(_frames_cache) >= _FRAMES_CACHE_MAX:
         _frames_cache.pop(next(iter(_frames_cache)))
     _frames_cache[replay_id] = (sig, out)

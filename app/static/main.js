@@ -2268,6 +2268,8 @@ const rc = {
   peByUnit: {},   // unitId → player_events 배열 (t 오름차순, 패널 강조용)
   casts: {},      // frames 응답 casts — unitId → [[t, 스킬이름], ...] (t 오름차순)
   crystalHolds: [], // frames 응답 crystal_holds — [{u, s, e}] 여명의 수정 보유 구간
+  realmWindows: [], // frames 응답 realm_windows — [{u, s, e}] 위상(암흑의 룬) 구간
+  unitMarks: {},    // frames 응답 unit_marks — unitId → [[t, 징표 1~8|0], ...]
   selectedUnit: null, // 3D 에서 클릭으로 선택한 unitId (정보 패널 대상)
   video: null,    // 영상 있는 풀이면 <video> — 재생/탐색/배속 동기화 대상
   videoOffset: 0, // meta.video_offset_s (영상 t − 이 값 = 캔버스 t)
@@ -2329,6 +2331,51 @@ function rcBind2dControls() {
   cv.addEventListener('contextmenu', (e) => { e.preventDefault(); rcCam2dReset(); });
 }
 
+// 위상 필터 (르우라 암흑의 룬) — '' 전체 / 'in' 위상만 / 'out' 외부만.
+// 선택 안 된 쪽은 반투명 (버튼: rcBuildRealmButtons)
+let rcRealmMode = '';
+
+function rcRealmAt(uid, t) {
+  return rc.realmWindows.some(w => w.u === uid && t >= w.s && t < w.e) ? 'in' : 'out';
+}
+
+function rcBuildRealmButtons() {
+  const controls = document.querySelector('.rc-controls');
+  let box = document.getElementById('rc-realm');
+  if (!rc.realmWindows.length) { box?.remove(); return; }
+  if (!box && controls) {
+    box = document.createElement('div');
+    box.id = 'rc-realm';
+    box.innerHTML = ['', 'in', 'out'].map(m =>
+      `<button type="button" data-realm="${m}" class="${m === rcRealmMode ? 'active' : ''}"
+        title="위상(암흑의 룬) 필터 — 선택 안 된 쪽은 흐리게">${m === 'in' ? '위상' : (m === 'out' ? '외부' : '전체')}</button>`).join('');
+    const scrub = controls.querySelector('.rc-scrub-wrap');
+    controls.insertBefore(box, scrub);
+    box.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+      rcRealmMode = b.dataset.realm;
+      box.querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b));
+      rcDraw();
+    }));
+  }
+}
+
+// 징표(레이드 타겟 아이콘) — 시각 t 의 징표 번호 (0=없음)
+const RC_MARKS = {
+  1: ['★', '#ffd100'], 2: ['●', '#ff7f3f'], 3: ['◆', '#d65ef2'], 4: ['▲', '#1eff00'],
+  5: ['☾', '#9ab8d8'], 6: ['■', '#00a8ff'], 7: ['✖', '#ff4040'], 8: ['☠', '#f0f0f0'],
+};
+
+function rcMarkAt(uid, t) {
+  const tl = rc.unitMarks[uid];
+  if (!tl) return 0;
+  let mark = 0;
+  for (const [mt, mk] of tl) {
+    if (mt > t) break;
+    mark = mk;
+  }
+  return mark;
+}
+
 function rcClock(sec) {
   const v = Math.max(0, Number(sec) || 0);
   return `${Math.floor(v / 60)}:${String(Math.floor(v % 60)).padStart(2, '0')}`;
@@ -2367,7 +2414,9 @@ async function initReplayCanvas(replayId) {
   rc.mode = {}; rc.t = 0; rc.speed = 1; rc.duration = 0;
   rc.bossEvents = []; rc.bossMechanics = []; rc.mechanicByKey = {}; rc.videoOffset = 0;
   rc.playerEvents = []; rc.peByUnit = {};
-  rc.casts = {}; rc.crystalHolds = []; rc.selectedUnit = null;
+  rc.casts = {}; rc.crystalHolds = []; rc.realmWindows = []; rc.unitMarks = {};
+  rc.selectedUnit = null;
+  rcRealmMode = '';
   rc.is3d = false; rc.replayId = replayId;   // 리플레이 바꾸면 2D 부터 (3D 씬은 폐기)
   rcCam2dReset(false);                       // 2D 줌·팬도 초기화
   rcBind2dControls();
@@ -2451,6 +2500,9 @@ async function initReplayCanvas(replayId) {
   }
   rc.casts = j.casts || {};
   rc.crystalHolds = j.crystal_holds || [];
+  rc.realmWindows = j.realm_windows || [];
+  rc.unitMarks = j.unit_marks || {};
+  rcBuildRealmButtons();
   rc.hpDrops = {};   // 체력 급감 캐시 — 리플레이별로 새로 계산
   rc.videoOffset = Number(meta.video_offset_s) || 0;
   rc.video = $('#replay-video');  // 영상 없는 풀(아카이브 등)은 null → 자립 시계
@@ -3387,7 +3439,10 @@ function rcDraw() {
 
     const color = rcUnitColor(u);
     const hl = rc.mode[u.id] === 1;
-    const baseA = (anyHl && !hl ? 0.25 : 1) * (stale ? 0.55 : 1);
+    // 위상 필터: 선택 안 된 쪽 플레이어는 흐리게 (보스/쫄은 유지)
+    const realmDim = (rcRealmMode && u.kind === 'player'
+      && rcRealmAt(u.id, t) !== rcRealmMode) ? 0.13 : 1;
+    const baseA = (anyHl && !hl ? 0.25 : 1) * (stale ? 0.55 : 1) * realmDim;
     const [x, y] = toPx(cur.x, cur.y);
 
     // 궤적 잔상 (최근 3초 페이드)
@@ -3429,6 +3484,17 @@ function rcDraw() {
     ctx.lineWidth = hl ? 2.5 : 1.2;
     ctx.strokeStyle = hl ? '#ffffff' : 'rgba(255,255,255,.55)';
     ctx.stroke();
+    // 징표(레이드 타겟) — 점 왼쪽 위에 색 글리프
+    const mark = u.kind === 'player' ? rcMarkAt(u.id, t) : 0;
+    if (mark && RC_MARKS[mark]) {
+      const [glyph, mcolor] = RC_MARKS[mark];
+      ctx.font = 'bold 15px sans-serif';
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#10141a';
+      ctx.strokeText(glyph, x - r - 9, y - r - 6);
+      ctx.fillStyle = mcolor;
+      ctx.fillText(glyph, x - r - 9, y - r - 6);
+    }
     // 여명의 수정 보유 — ◆ 배지 + 이름 금색 (보유 구간 내내)
     const holding = rc.crystalHolds.length > 0
       && rc.crystalHolds.some(h => h.u === u.id && t >= h.s && t < h.e);

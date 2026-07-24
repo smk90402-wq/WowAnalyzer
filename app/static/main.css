@@ -1093,6 +1093,14 @@ tr.lc-info .lc-mark::before { color: #4a5568; }
 .replay-main.view-map .replay-canvas-wrap { flex: 1 1 auto; min-height: 0; }
 .replay-main.view-map .rc-stage { flex: 1 1 auto; min-height: 0; aspect-ratio: auto; max-height: none; }
 .rc-controls .rc-viewbtn.active { border-color: #d19b38; background: #493315; color: #fff0c6; }
+/* 위상 필터 버튼 (전체/위상/외부) — 르우라 등 위상 데이터 있는 전투에서만 */
+#rc-realm { display: flex; gap: 3px; }
+#rc-realm button {
+  padding: 4px 8px; cursor: pointer; border: 1px solid var(--border);
+  border-radius: 5px; background: var(--bg-1); color: var(--text-mute); font-size: 11px;
+}
+#rc-realm button:hover { border-color: #79b7ff; color: #d6ebff; }
+#rc-realm button.active { border-color: #8f5fd1; background: #2f2247; color: #e3d2ff; }
 /* 캔버스 리플레이 (전투로그 좌표 재생) */
 .replay-canvas-wrap { display: flex; flex-direction: column; gap: 8px; }
 .rc-stage { position: relative; border: 1px solid var(--border); border-radius: 4px; background: #10141a; }
