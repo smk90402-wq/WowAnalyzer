@@ -5,8 +5,16 @@ $ErrorActionPreference = 'Stop'
 $Remote = 'r2:wowanalyzer-cache/data'
 $Include = @('v2_cache_*.json', 'cache.db', 'models/race_*.json', 'models/race_*.png', 'models/manifest.json')
 
+# rclone 탐색: PATH → winget 설치 폴더(버전 무관) — 없으면 설치 안내 후 종료
 $rclone = (Get-Command rclone -ErrorAction SilentlyContinue).Source
-if (-not $rclone) { $rclone = "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\Rclone.Rclone_Microsoft.Winget.Source_8wekyb3d8bbwe\rclone-v1.74.4-windows-amd64\rclone.exe" }
+if (-not $rclone) {
+    $rclone = Get-ChildItem "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\Rclone.Rclone_*\rclone-*\rclone.exe" -ErrorAction SilentlyContinue |
+        Sort-Object FullName -Descending | Select-Object -First 1 -ExpandProperty FullName
+}
+if (-not $rclone) {
+    Write-Error "rclone이 없습니다. 설치: winget install Rclone.Rclone (설치 후 새 창에서 다시 실행)"
+    exit 1
+}
 
 $dataDir = Join-Path $PSScriptRoot '..\data'
 $args = @('copy', $dataDir, $Remote, '--update', '--progress')
