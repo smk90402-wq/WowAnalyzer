@@ -158,8 +158,10 @@ def _remote_video_name(path: Path) -> str | None:
 
 
 def _capture_id(path: Path, data: dict[str, Any]) -> str:
+    # 파일명 기반 — 절대경로를 쓰면 exe(data 정션)/개발/미러/PC마다 id가 달라져
+    # 목록·상세 간 불일치("replay not found")가 났다. 같은 캡처=같은 id가 정답.
     raw = str(data.get("uniqueHash") or "").strip()
-    path_hash = hashlib.sha1(str(path).encode("utf-8", errors="ignore")).hexdigest()[:12]
+    path_hash = hashlib.sha1(path.name.encode("utf-8", errors="ignore")).hexdigest()[:12]
     if raw:
         return f"{raw[:8]}-{path_hash}"
     return path_hash
@@ -2892,6 +2894,15 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
                 "px_h": mmeta["px_h"],
                 "world_to_px": replay_map.world_to_px(mmeta, calib),
             }
+            # 존 전체 맵에 좌표가 얹힌 경우(전투 방 전용 지도가 없는 인스턴스 —
+            # 예: 살라다르 방은 UiMap 2529 존 맵뿐) 픽셀 밀도가 너무 낮아
+            # 확대해도 양피지 뭉개짐만 보인다 → 좌표 bounds 폴백이 차라리 읽힌다.
+            m = map_out["world_to_px"]
+            px_per_yd = (abs(m["a"] * m["e"] - m["b"] * m["d"])) ** 0.5
+            if px_per_yd < 1.5:
+                map_out = _fallback_map(
+                    dominant_map, player_world,
+                    f"전용 전투 지도 없음(존 맵 {px_per_yd:.1f}px/yd) — 좌표 기준 표시")
         except Exception as exc:
             # 오프라인/미지원 맵 폴백: 좌표 bounds 를 1000px 캔버스에 맞춤
             map_out = _fallback_map(dominant_map, player_world, str(exc))
