@@ -3,7 +3,8 @@
 $ErrorActionPreference = 'Stop'
 
 $Remote = 'r2:wowanalyzer-cache/data'
-$Include = @('v2_cache_*.json', 'cache.db', 'models/race_*.json', 'models/race_*.png', 'models/manifest.json')
+$Include = @('v2_cache_*.json', 'cache.db', 'models/race_*.json', 'models/race_*.png', 'models/manifest.json',
+              'maps/*_hd.png')   # AI 업스케일 지도 (Real-ESRGAN 4x — 재생성 비용 커서 공유)
 
 # rclone 탐색: PATH → winget 설치 폴더(버전 무관) — 없으면 설치 안내 후 종료
 $rclone = (Get-Command rclone -ErrorAction SilentlyContinue).Source

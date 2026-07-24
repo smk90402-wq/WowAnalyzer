@@ -76,6 +76,10 @@ window.Replay3D = (() => {
       renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
       // DPR 1 모니터에서도 1.6x 슈퍼샘플링 — 지도 텍스처·경계선 선명도 체감이 가장 큼
       renderer.setPixelRatio(Math.min(Math.max(window.devicePixelRatio || 1, 1.6), 2.5));
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;   // 영화식 톤매핑 — 명암 깊이감
+      renderer.toneMappingExposure = 1.08;
+      renderer.shadowMap.enabled = true;                    // 유닛 그림자 — 입체감/접지감
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       camera = new THREE.PerspectiveCamera(50, 1.6, 0.5, 6000);
       bindControls();
     } catch (e) {
@@ -316,18 +320,19 @@ window.Replay3D = (() => {
   }
 
   function makeUnit(u) {
-    // 실루엣 가독성 개선 (2026-07-24 사용자 요청):
-    //   플레이어 = 역할별 몸통(탱커 사각기둥/그 외 원기둥) + 머리 구 + 발밑 직업색 링
-    //   힐러 = 머리 위 십자, 보스 = 붉은 스파이크(8각뿔)+코어+펄스 링, NPC = 구 유지
+    // 실루엣 가독성 (2026-07-24):
+    //   플레이어 = 역할별 몸통(탱커 사각기둥/그 외 원기둥) + 머리 구, 힐러 = 머리 위 십자
+    //   보스 = 붉은 스파이크(8각뿔)+코어, NPC = 구 유지
+    // 발밑 링은 기믹 장판과 혼동돼 제거 (사용자 피드백). 재질은 Standard — 그림자/톤매핑용.
     // (종족 모델은 정지 포즈라 의미 없어 폐기 — 2026-07-11 사용자 결정)
     const color = new THREE.Color(rcUnitColor(u));
     const r = u.kind === 'boss' ? 2.6 : (u.kind === 'npc' ? 0.7 : 1.1);
-    const mat = new THREE.MeshLambertMaterial({ color, transparent: true });
+    const mat = new THREE.MeshStandardMaterial({
+      color, transparent: true, roughness: 0.55, metalness: 0.08 });
     const group = new THREE.Group();
     group.userData.uid = u.id;   // 클릭 픽킹에서 유닛 식별
     const extras = [];           // [재질, 기본투명도] — 강조 시 본체와 같이 흐려짐
     let body;
-    let bossRing = null;
     if (u.kind === 'player') {
       if (u.role === 'tank') {
         body = new THREE.Mesh(new THREE.BoxGeometry(r * 1.2, 1.9, r * 1.2), mat);
@@ -335,46 +340,35 @@ window.Replay3D = (() => {
         body = new THREE.Mesh(new THREE.CylinderGeometry(r * 0.6, r * 0.72, 1.9, 18), mat);
       }
       body.position.y = 0.95 + 0.3;
-      const headMat = new THREE.MeshLambertMaterial({
-        color: color.clone().lerp(new THREE.Color('#ffffff'), 0.35), transparent: true });
+      const headMat = new THREE.MeshStandardMaterial({
+        color: color.clone().lerp(new THREE.Color('#ffffff'), 0.35),
+        transparent: true, roughness: 0.45, metalness: 0.05 });
       const head = new THREE.Mesh(new THREE.SphereGeometry(r * 0.5, 14, 10), headMat);
       head.position.y = 2.25 + 0.3;
+      head.castShadow = true;
       group.add(head);
       extras.push([headMat, 1]);
       if (u.role === 'healer') {
-        const crossMat = new THREE.MeshLambertMaterial({ color: 0xdff5df, transparent: true });
+        const crossMat = new THREE.MeshStandardMaterial({
+          color: 0xdff5df, transparent: true, roughness: 0.5 });
         const v = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.9, 0.22), crossMat);
         const h = new THREE.Mesh(new THREE.BoxGeometry(0.66, 0.22, 0.22), crossMat);
         v.position.y = 3.35; h.position.y = 3.45;
         group.add(v); group.add(h);
         extras.push([crossMat, 1]);
       }
-      const ringMat = new THREE.MeshBasicMaterial({
-        color, transparent: true, opacity: 0.55, side: THREE.DoubleSide, depthWrite: false });
-      const ring = new THREE.Mesh(new THREE.RingGeometry(0.8, 1.0, 28), ringMat);
-      ring.rotation.x = -Math.PI / 2;
-      ring.scale.set(r * 1.7, r * 1.7, 1);
-      ring.position.y = 0.12;
-      group.add(ring);
-      extras.push([ringMat, 0.55]);
     } else if (u.kind === 'boss') {
       body = new THREE.Mesh(new THREE.ConeGeometry(r * 0.85, r * 2.6, 8), mat);
       body.position.y = r * 1.3 + 0.4;
       const core = new THREE.Mesh(new THREE.SphereGeometry(r * 0.55, 16, 12), mat);
       core.position.y = r * 0.5 + 0.35;
+      core.castShadow = true;
       group.add(core);
-      const ringMat = new THREE.MeshBasicMaterial({
-        color: 0xe06c6c, transparent: true, opacity: 0.6, side: THREE.DoubleSide, depthWrite: false });
-      bossRing = new THREE.Mesh(new THREE.RingGeometry(0.82, 1.0, 40), ringMat);
-      bossRing.rotation.x = -Math.PI / 2;
-      bossRing.scale.set(r * 2.0, r * 2.0, 1);
-      bossRing.position.y = 0.15;
-      group.add(bossRing);
-      extras.push([ringMat, 0.6]);
     } else {
       body = new THREE.Mesh(new THREE.SphereGeometry(r, 20, 14), mat);
       body.position.y = r + 0.5;          // 바닥에서 0.5yd 띄움
     }
+    body.castShadow = true;
     const arrow = new THREE.Mesh(new THREE.ConeGeometry(r * 0.45, r * 1.3, 10), mat);
     arrow.rotation.x = Math.PI / 2;       // 시선(facing) 방향 = 그룹 +Z
     arrow.position.set(0, r * 0.6 + 0.5, r + 0.9);
@@ -388,7 +382,7 @@ window.Replay3D = (() => {
     }
     group.visible = false;
     scene.add(group);
-    units[u.id] = { group, mat, label, r, u, extras, bossRing };
+    units[u.id] = { group, mat, label, r, u, extras };
   }
 
   function ensureLabel(rec) {
@@ -471,11 +465,23 @@ window.Replay3D = (() => {
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0x10141a);
-    scene.add(new THREE.HemisphereLight(0xcfd8ea, 0x2a251f, 1.05));
-    const sun = new THREE.DirectionalLight(0xffffff, 1.0);
+    const arenaSpan = Math.max(wr.maxX - wr.minX, wr.maxY - wr.minY);
+    // 깊이 안개 — 멀리 갈수록 배경색으로 잠겨 공간감 (전장 크기에 비례)
+    scene.fog = new THREE.Fog(0x10141a, arenaSpan * 1.6, arenaSpan * 4.5);
+    scene.add(new THREE.HemisphereLight(0xcfd8ea, 0x2a251f, 0.95));
+    const sun = new THREE.DirectionalLight(0xfff2df, 1.15);
     sun.position.set(120, 260, 160);
+    sun.castShadow = true;                       // 유닛 → 지형 그림자
+    sun.shadow.mapSize.set(2048, 2048);
+    const sc = Math.max(120, arenaSpan * 0.75);
+    sun.shadow.camera.left = -sc; sun.shadow.camera.right = sc;
+    sun.shadow.camera.top = sc; sun.shadow.camera.bottom = -sc;
+    sun.shadow.camera.near = 10; sun.shadow.camera.far = 900;
+    sun.shadow.bias = -0.0006;
     scene.add(sun);
-    scene.add(buildTerrainMesh(grid));
+    const terrainMesh = buildTerrainMesh(grid);
+    terrainMesh.receiveShadow = true;
+    scene.add(terrainMesh);
     for (const u of (rc.meta && rc.meta.units) || []) makeUnit(u);
 
     // 카메라: 방 중앙 바닥을 45도 틸트로 내려다봄, 북쪽이 화면 위 (2D 와 동일 방위)
@@ -583,13 +589,9 @@ window.Replay3D = (() => {
       }
       const hl = mode === 1;
       rec.mat.opacity = (anyHl && !hl ? 0.25 : 1) * (stale ? 0.5 : 1);
-      // 부속 재질(머리·십자·발밑 링)도 본체와 같은 강조/흐림을 따라간다
+      // 부속 재질(머리·십자)도 본체와 같은 강조/흐림을 따라간다
       const dim = rec.mat.opacity;
       for (const [m, base] of rec.extras || []) m.opacity = base * dim;
-      if (rec.bossRing) {   // 보스 발밑 링 펄스 — 멀리서도 보스 위치 각인
-        const ps = rec.r * 2.0 * (1 + 0.14 * Math.sin(t * 2.2));
-        rec.bossRing.scale.set(ps, ps, 1);
-      }
       // 클릭 선택 유닛은 살짝 밝게 (발밑 링은 아래에서)
       rec.mat.emissive.copy(rec.mat.color).multiplyScalar(u.id === rc.selectedUnit ? 0.45 : 0);
       const sc = hl ? 1.35 : 1;

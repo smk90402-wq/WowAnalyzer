@@ -79,3 +79,4 @@ data/cctv_r2/
 data/spell_tips.json
 # 리플레이 스파이크 (일회성 증명)
 tmp_replay_spike.html
+tools/

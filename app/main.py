@@ -1836,6 +1836,11 @@ def replay_map_png(ui_map_id: int) -> FileResponse:
         raise HTTPException(404, str(e))
     except Exception as e:
         raise HTTPException(500, f"replay map failed: {e}")
+    # AI 업스케일본(_hd, Real-ESRGAN 4x)이 있으면 우선 — 좌표계(meta px)는 원본 유지라
+    # 텍스처/드로잉 해상도만 올라간다 (tools/realesrgan + tmp 업스케일 배치)
+    hd = path.with_name(f"{path.stem}_hd{path.suffix}")
+    if hd.exists():
+        path = hd
     return FileResponse(path, media_type="image/png")
 
 

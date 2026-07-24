@@ -2275,6 +2275,60 @@ const rc = {
   replayId: null, // 현재 리플레이 id — 3D 지형 요청(/terrain)에 사용
 };
 
+// 2D 지도 카메라 — 휠 줌(커서 중심)·드래그 팬·우클릭/더블클릭 리셋 (3D 컨트롤과 짝)
+const rcCam2d = { z: 1, ox: 0, oy: 0 };
+
+function rcCam2dReset(draw = true) {
+  rcCam2d.z = 1; rcCam2d.ox = 0; rcCam2d.oy = 0;
+  if (draw) rcDraw();
+}
+
+function rcBind2dControls() {
+  const cv = $('#rc-canvas');
+  if (!cv || cv.dataset.nav2d) return;   // 캔버스는 리플레이마다 재생성 — 요소당 1회 바인딩
+  cv.dataset.nav2d = '1';
+  const toCanvas = (e) => {
+    const r = cv.getBoundingClientRect();
+    return [(e.clientX - r.left) * cv.width / r.width,
+            (e.clientY - r.top) * cv.height / r.height];
+  };
+  const clamp = () => {
+    rcCam2d.ox = Math.min(0, Math.max(cv.width * (1 - rcCam2d.z), rcCam2d.ox));
+    rcCam2d.oy = Math.min(0, Math.max(cv.height * (1 - rcCam2d.z), rcCam2d.oy));
+  };
+  cv.addEventListener('wheel', (e) => {
+    if (rc.is3d || !rc.meta) return;
+    e.preventDefault();
+    const [mx, my] = toCanvas(e);
+    const z0 = rcCam2d.z;
+    const z1 = Math.min(8, Math.max(1, z0 * Math.pow(1.0015, -e.deltaY)));
+    rcCam2d.ox = mx - (mx - rcCam2d.ox) * (z1 / z0);
+    rcCam2d.oy = my - (my - rcCam2d.oy) * (z1 / z0);
+    rcCam2d.z = z1;
+    clamp();
+    rcDraw();
+  }, { passive: false });
+  let drag = null;
+  cv.addEventListener('pointerdown', (e) => {
+    if (rc.is3d || !rc.meta) return;
+    drag = [e.clientX, e.clientY];
+    try { cv.setPointerCapture(e.pointerId); } catch (_) {}
+  });
+  cv.addEventListener('pointermove', (e) => {
+    if (!drag) return;
+    const k = cv.width / cv.getBoundingClientRect().width;
+    rcCam2d.ox += (e.clientX - drag[0]) * k;
+    rcCam2d.oy += (e.clientY - drag[1]) * k;
+    drag = [e.clientX, e.clientY];
+    clamp();
+    rcDraw();
+  });
+  cv.addEventListener('pointerup', () => { drag = null; });
+  cv.addEventListener('pointercancel', () => { drag = null; });
+  cv.addEventListener('dblclick', () => rcCam2dReset());
+  cv.addEventListener('contextmenu', (e) => { e.preventDefault(); rcCam2dReset(); });
+}
+
 function rcClock(sec) {
   const v = Math.max(0, Number(sec) || 0);
   return `${Math.floor(v / 60)}:${String(Math.floor(v % 60)).padStart(2, '0')}`;
@@ -2315,6 +2369,8 @@ async function initReplayCanvas(replayId) {
   rc.playerEvents = []; rc.peByUnit = {};
   rc.casts = {}; rc.crystalHolds = []; rc.selectedUnit = null;
   rc.is3d = false; rc.replayId = replayId;   // 리플레이 바꾸면 2D 부터 (3D 씬은 폐기)
+  rcCam2dReset(false);                       // 2D 줌·팬도 초기화
+  rcBind2dControls();
   if (window.Replay3D) window.Replay3D.reset();
   rcHideTip();   // 직전 리플레이 목록에 떠 있던 툴팁 제거
   const msg = $('#rc-msg');
@@ -3280,9 +3336,13 @@ function rcDraw() {
   const cv = $('#rc-canvas');
   if (!cv) return;
   const ctx = cv.getContext('2d');
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, cv.width, cv.height);
+  ctx.fillStyle = '#10141a';
+  ctx.fillRect(0, 0, cv.width, cv.height);   // 팬 여백 배경
+  // 2D 카메라(휠 줌·드래그 팬) — 이후 모든 드로잉이 같은 변환을 탄다
+  ctx.setTransform(rcCam2d.z, 0, 0, rcCam2d.z, rcCam2d.ox, rcCam2d.oy);
   if (rc.mapImg) ctx.drawImage(rc.mapImg, 0, 0, cv.width, cv.height);
-  else { ctx.fillStyle = '#10141a'; ctx.fillRect(0, 0, cv.width, cv.height); }
   if (rcSpaceAt()?.key === 'p2') {
     ctx.fillStyle = 'rgba(62, 34, 105, .20)';
     ctx.fillRect(0, 0, cv.width, cv.height);
