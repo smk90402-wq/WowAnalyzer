@@ -2269,7 +2269,7 @@ const rc = {
   casts: {},      // frames 응답 casts — unitId → [[t, 스킬이름], ...] (t 오름차순)
   crystalHolds: [], // frames 응답 crystal_holds — [{u, s, e}] 여명의 수정 보유 구간
   realmWindows: [], // frames 응답 realm_windows — [{u, s, e}] 위상(암흑의 룬) 구간
-  unitMarks: {},    // frames 응답 unit_marks — unitId → [[t, 징표 1~8|0], ...]
+  worldMarkers: [], // frames 응답 world_markers — [{i, x, y, s, e}] 바닥 징표(세계 표식)
   selectedUnit: null, // 3D 에서 클릭으로 선택한 unitId (정보 패널 대상)
   video: null,    // 영상 있는 풀이면 <video> — 재생/탐색/배속 동기화 대상
   videoOffset: 0, // meta.video_offset_s (영상 t − 이 값 = 캔버스 t)
@@ -2359,22 +2359,12 @@ function rcBuildRealmButtons() {
   }
 }
 
-// 징표(레이드 타겟 아이콘) — 시각 t 의 징표 번호 (0=없음)
-const RC_MARKS = {
-  1: ['★', '#ffd100'], 2: ['●', '#ff7f3f'], 3: ['◆', '#d65ef2'], 4: ['▲', '#1eff00'],
-  5: ['☾', '#9ab8d8'], 6: ['■', '#00a8ff'], 7: ['✖', '#ff4040'], 8: ['☠', '#f0f0f0'],
+// 바닥 징표(세계 표식) — 로그 인덱스(0~7)는 UI 세계 표식 1~8 순서로 가정:
+// 파랑네모/초록세모/보라다이아/빨강엑스/노랑별/주황동글/은색달/흰해골
+const RC_WM = {
+  0: ['■', '#00a8ff'], 1: ['▲', '#1eff00'], 2: ['◆', '#d65ef2'], 3: ['✖', '#ff4040'],
+  4: ['★', '#ffd100'], 5: ['●', '#ff7f3f'], 6: ['☾', '#c8d8e8'], 7: ['☠', '#f0f0f0'],
 };
-
-function rcMarkAt(uid, t) {
-  const tl = rc.unitMarks[uid];
-  if (!tl) return 0;
-  let mark = 0;
-  for (const [mt, mk] of tl) {
-    if (mt > t) break;
-    mark = mk;
-  }
-  return mark;
-}
 
 function rcClock(sec) {
   const v = Math.max(0, Number(sec) || 0);
@@ -2414,7 +2404,7 @@ async function initReplayCanvas(replayId) {
   rc.mode = {}; rc.t = 0; rc.speed = 1; rc.duration = 0;
   rc.bossEvents = []; rc.bossMechanics = []; rc.mechanicByKey = {}; rc.videoOffset = 0;
   rc.playerEvents = []; rc.peByUnit = {};
-  rc.casts = {}; rc.crystalHolds = []; rc.realmWindows = []; rc.unitMarks = {};
+  rc.casts = {}; rc.crystalHolds = []; rc.realmWindows = []; rc.worldMarkers = [];
   rc.selectedUnit = null;
   rcRealmMode = '';
   rc.is3d = false; rc.replayId = replayId;   // 리플레이 바꾸면 2D 부터 (3D 씬은 폐기)
@@ -2501,7 +2491,7 @@ async function initReplayCanvas(replayId) {
   rc.casts = j.casts || {};
   rc.crystalHolds = j.crystal_holds || [];
   rc.realmWindows = j.realm_windows || [];
-  rc.unitMarks = j.unit_marks || {};
+  rc.worldMarkers = j.world_markers || [];
   rcBuildRealmButtons();
   rc.hpDrops = {};   // 체력 급감 캐시 — 리플레이별로 새로 계산
   rc.videoOffset = Number(meta.video_offset_s) || 0;
@@ -2543,8 +2533,7 @@ async function initReplayCanvas(replayId) {
     .map(e => `${e.spell} ${e.geometry.radius}m${e.geometry.confidence === 'estimated' ? '(추정)' : ''}`))];
   if (circleSpells.length) notes.push(`실반경 원: ${circleSpells.slice(0, 4).join(', ')} — 겹치면 빨강`);
   if (rc.crystalHolds.length) notes.push('◆ 금색 이름 = 여명의 수정 보유');
-  // 보스가 부여하는 룬 문양은 로그에 이벤트가 없음(클라 연출) — 실측 2026-07-24
-  if (Object.keys(rc.unitMarks).length) notes.push('머리 위 도형 = 공대장 지정 징표');
+  if (rc.worldMarkers.length) notes.push('바닥 원+도형 = 공대 바닥 징표(세계 표식)');
 
   msg.style.display = 'none';
   const note = $('#rc-note');
@@ -3407,9 +3396,27 @@ function rcDraw() {
   const t = rc.t;
   const anyHl = Object.values(rc.mode).includes(1);
 
-  // 죽음 해골 마커 (죽은 자리에 고정) — 쫄몹은 제외 (지도가 해골로 뒤덮이지 않게)
+  // 바닥 징표(세계 표식) — 설치 구간 동안 지면 원+글리프 (유닛 아래 레이어)
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
+  for (const wm of rc.worldMarkers) {
+    if (t < wm.s || t > wm.e) continue;
+    const [x, y] = toPx(wm.x, wm.y);
+    const [glyph, color] = RC_WM[wm.i] || ['◈', '#cccccc'];
+    ctx.globalAlpha = 0.2;
+    ctx.beginPath(); ctx.arc(x, y, 11, 0, Math.PI * 2);
+    ctx.fillStyle = color; ctx.fill();
+    ctx.globalAlpha = 0.85;
+    ctx.lineWidth = 1.5; ctx.strokeStyle = color;
+    ctx.beginPath(); ctx.arc(x, y, 11, 0, Math.PI * 2); ctx.stroke();
+    ctx.font = 'bold 13px sans-serif';
+    ctx.lineWidth = 3; ctx.strokeStyle = '#10141a';
+    ctx.strokeText(glyph, x, y);
+    ctx.fillStyle = color; ctx.fillText(glyph, x, y);
+  }
+  ctx.globalAlpha = 1;
+
+  // 죽음 해골 마커 (죽은 자리에 고정) — 쫄몹은 제외 (지도가 해골로 뒤덮이지 않게)
   for (const d of rc.meta.deaths || []) {
     if (String(d.id).startsWith('n')) continue;
     if (Number(d.t) > t || rc.mode[d.id] === 2) continue;
@@ -3486,17 +3493,6 @@ function rcDraw() {
     ctx.lineWidth = hl ? 2.5 : 1.2;
     ctx.strokeStyle = hl ? '#ffffff' : 'rgba(255,255,255,.55)';
     ctx.stroke();
-    // 징표(레이드 타겟) — 점 왼쪽 위에 색 글리프
-    const mark = u.kind === 'player' ? rcMarkAt(u.id, t) : 0;
-    if (mark && RC_MARKS[mark]) {
-      const [glyph, mcolor] = RC_MARKS[mark];
-      ctx.font = 'bold 15px sans-serif';
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = '#10141a';
-      ctx.strokeText(glyph, x - r - 9, y - r - 6);
-      ctx.fillStyle = mcolor;
-      ctx.fillText(glyph, x - r - 9, y - r - 6);
-    }
     // 여명의 수정 보유 — ◆ 배지 + 이름 금색 (보유 구간 내내)
     const holding = rc.crystalHolds.length > 0
       && rc.crystalHolds.some(h => h.u === u.id && t >= h.s && t < h.e);

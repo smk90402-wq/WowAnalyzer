@@ -1508,8 +1508,6 @@ def _stream_frames_window(
     long_cds = _long_cooldown_ids()
     # 적대(REACTION_HOSTILE) 판정된 Creature/Vehicle guid — npc 트랙 선별용
     hostile: set[str] = set()
-    # 징표 타임라인: guid → [(t, mark 1~8|0)] — destRaidFlags 변화 시점만
-    marks_raw: dict[str, list[tuple[float, int]]] = {}
     boss_track_events = frozenset({
         "SPELL_CAST_START", "SPELL_CAST_SUCCESS", "SPELL_AURA_APPLIED",
         "SPELL_DAMAGE", "SPELL_PERIODIC_DAMAGE", "RANGE_DAMAGE",
@@ -1634,15 +1632,6 @@ def _stream_frames_window(
                     round(max(t, 0.0), 2), event, _to_int(row[9]),
                     str(row[5]), str(row[1]), stacks))
 
-            # 징표(레이드 타겟 아이콘): destRaidFlags 하위 8비트 — 변화 시점만 기록
-            dest_g = str(row[5]) if len(row) > 5 else ""
-            if dest_g.startswith("Player-") and len(row) > 8:
-                rf = _flags_int(row[8]) & 0xFF
-                mark = rf.bit_length() if rf else 0   # 0x1→1(별) … 0x80→8(해골)
-                tl = marks_raw.setdefault(dest_g, [])
-                if not tl or tl[-1][1] != mark:
-                    tl.append((round(max(t, 0.0), 1), mark))
-
             adv = _adv_position_any(row)
             if not adv:
                 continue
@@ -1663,7 +1652,6 @@ def _stream_frames_window(
             "deaths": deaths, "map_counts": map_counts, "boss_raw": boss_raw,
             "aura_updates": aura_updates, "casts": casts,
             "player_raw": player_raw, "hostile": hostile,
-            "marks_raw": marks_raw,
             "counts": dict(activity_counts)}
 
 
@@ -2769,6 +2757,101 @@ def _aura_windows_for(
 _frames_cache: dict[str, tuple[tuple[str, int, int], dict[str, Any]]] = {}
 _FRAMES_CACHE_MAX = 6
 
+# 바닥 징표(세계 표식) 이벤트 캐시: 파일 경로 → (시그니처, 이벤트 목록)
+_world_marker_cache: dict[str, tuple[tuple[str, int, int], list]] = {}
+
+
+def _world_marker_events(
+    log_path: Path,
+) -> list[tuple[datetime, str, int, float, float, int]]:
+    """파일 전체에서 WORLD_MARKER_PLACED/REMOVED 만 추출 (청크 스캔, 파일별 캐시).
+
+    바닥징은 풀 시작 전(전투 밖)에 설치되고 제거 전까지 유지되므로
+    인카운터 바이트 구간이 아니라 파일 전체를 봐야 한다. 이벤트가 극히
+    드물어(파일당 수 개~수백 개) 청크 단위 부분문자열 검사로 걸러낸다.
+    반환: (시각, 'placed'|'removed', 인덱스, x, y, 존ID) 시간순.
+    REMOVED 는 인덱스만 기록되므로 x/y/존ID 는 0.
+    """
+    sig = _file_sig(log_path)
+    hit = _world_marker_cache.get(str(log_path))
+    if hit and hit[0] == sig:
+        return hit[1]
+    needle = b"WORLD_MARKER"
+    events: list[tuple[datetime, str, int, float, float, int]] = []
+
+    def _take(raw: bytes) -> None:
+        m = _LOG_LINE_RE.match(raw.decode("utf-8-sig", errors="replace"))
+        if not m:
+            return
+        ts = _parse_log_ts(m.group(1))
+        row = _csv_row(m.group(2))
+        if not ts or not row:
+            return
+        if row[0] == "WORLD_MARKER_PLACED" and len(row) >= 5:
+            events.append((ts, "placed", _to_int(row[2]),
+                           float(row[3]), float(row[4]), _to_int(row[1])))
+        elif row[0] == "WORLD_MARKER_REMOVED" and len(row) >= 2:
+            events.append((ts, "removed", _to_int(row[1]), 0.0, 0.0, 0))
+
+    tail = b""
+    with log_path.open("rb") as fh:
+        while True:
+            chunk = fh.read(8 * 1024 * 1024)
+            if not chunk:
+                break
+            buf = tail + chunk
+            cut = buf.rfind(b"\n")
+            if cut < 0:
+                tail = buf
+                continue
+            body, tail = buf[:cut + 1], buf[cut + 1:]
+            if needle not in body:
+                continue
+            for raw in body.splitlines():
+                if needle in raw:
+                    _take(raw)
+    if tail and needle in tail:
+        _take(tail)
+    _world_marker_cache[str(log_path)] = (sig, events)
+    return events
+
+
+def _world_marker_windows(
+    log_path: Path, start_dt: datetime, duration_s: float, instance_id: int,
+) -> list[dict[str, Any]]:
+    """인카운터 [0, duration] 에 보이는 바닥징 구간 [{i, x, y, s, e}] 재구성.
+
+    설치는 인덱스별 상태로 누적(풀 전 설치 → s=0)하고, 다른 존에서 설치된
+    징은 결과에서 제외한다(REMOVED 는 존 정보가 없어 상태 갱신에만 쓴다).
+    """
+    try:
+        wm_events = _world_marker_events(log_path)
+    except OSError:
+        return []
+    out: list[dict[str, Any]] = []
+    active: dict[int, tuple[float, float, float, int]] = {}  # idx → (x, y, s, 존)
+
+    def _close(idx: int, end_t: float) -> None:
+        prev = active.pop(idx, None)
+        if prev is None or end_t <= 0:
+            return
+        x, y, s, zone = prev
+        if not instance_id or not zone or zone == instance_id:
+            out.append({"i": idx, "x": round(x, 2), "y": round(y, 2),
+                        "s": s, "e": round(min(end_t, duration_s), 1)})
+
+    for ts, kind, idx, x, y, zone in wm_events:
+        t = (ts - start_dt).total_seconds()
+        if t >= duration_s:
+            break
+        _close(idx, t)
+        if kind == "placed":
+            active[idx] = (x, y, round(max(t, 0.0), 1), zone)
+    for idx in list(active):
+        _close(idx, duration_s)
+    out.sort(key=lambda w: (w["s"], w["i"]))
+    return out
+
 
 def replay_frames(replay_id: str) -> dict[str, Any]:
     """GET /api/replay/{id}/frames 응답 본체 (API 계약 고정 포맷)."""
@@ -2995,14 +3078,11 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
         out["crystal_holds"] = crystal_holds
     if realm_windows:
         out["realm_windows"] = realm_windows
-    # 징표(레이드 타겟) 타임라인 — 변화 시점만, 실제 징표가 있던 유닛만
-    unit_marks: dict[str, list[list[Any]]] = {}
-    for guid, tl in (parsed.get("marks_raw") or {}).items():
-        uid = guid_to_id.get(guid)
-        if uid and any(mk for _, mk in tl):
-            unit_marks[uid] = [[t, mk] for t, mk in tl]
-    if unit_marks:
-        out["unit_marks"] = unit_marks
+    # 바닥 징표(세계 표식) — 풀 전 설치 포함, 좌표는 유닛과 같은 월드좌표
+    world_markers = _world_marker_windows(
+        log_path, start_dt, float(duration_s or 0), _to_int(enc.get("instance_id")))
+    if world_markers:
+        out["world_markers"] = world_markers
     if len(_frames_cache) >= _FRAMES_CACHE_MAX:
         _frames_cache.pop(next(iter(_frames_cache)))
     _frames_cache[replay_id] = (sig, out)

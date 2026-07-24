@@ -18,6 +18,7 @@ window.Replay3D = (() => {
   const center = { x: 0, y: 0, h: 0 };  // 월드 중심(씬 원점) + 기준 높이
   let units = {};          // unitId → {group, mat, label, r, u}
   let skulls = {};         // meta.deaths 인덱스 → {sprite|null}
+  let wmObjs = null;       // 바닥 징표(세계 표식) — [{group, wm}] (씬당 1회 생성)
   let rings = [];          // 보스 기믹 링 풀 (재사용)
   let selRing = null;      // 선택 유닛 발밑 링 (rc.selectedUnit)
   let builtFor = null;     // 씬을 만든 replayId
@@ -213,7 +214,7 @@ window.Replay3D = (() => {
         for (const m of mats) { if (m.map) m.map.dispose(); m.dispose(); }
       });
     }
-    scene = null; units = {}; skulls = {}; rings = []; selRing = null;
+    scene = null; units = {}; skulls = {}; wmObjs = null; rings = []; selRing = null;
     terrain = null; ready = false; builtFor = null;
   }
 
@@ -647,23 +648,6 @@ window.Replay3D = (() => {
           drapeToTerrain(rec.dome, 0.22);
         }
       }
-      // 징표(레이드 타겟) — 머리 위 색 글리프 스프라이트 (변할 때만 재생성)
-      const mk = u.kind === 'player' ? rcMarkAt(u.id, t) : 0;
-      if ((rec.markId || 0) !== mk) {
-        if (rec.markSprite) {
-          rec.group.remove(rec.markSprite);
-          rec.markSprite.material.map?.dispose();
-          rec.markSprite.material.dispose();
-          rec.markSprite = null;
-        }
-        if (mk && RC_MARKS[mk]) {
-          const [glyph, mcolor] = RC_MARKS[mk];
-          rec.markSprite = makeTextSprite(glyph, mcolor);
-          rec.markSprite.position.y = 4.6;
-          rec.group.add(rec.markSprite);
-        }
-        rec.markId = mk;
-      }
     }
 
     // 선택 유닛 발밑 링
@@ -704,6 +688,34 @@ window.Replay3D = (() => {
       }
       if (s.sprite) s.sprite.visible = Number(d.t) <= t && rc.mode[d.id] !== 2;
     });
+
+    // 바닥 징표(세계 표식) — 인게임 광선 기둥 느낌: 빔 + 바닥 원 + 글리프
+    if (!wmObjs) {
+      wmObjs = (rc.worldMarkers || []).map((wm) => {
+        const [glyph, color] = RC_WM[wm.i] || ['◈', '#cccccc'];
+        const g = new THREE.Group();
+        const beam = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.5, 0.9, 14, 12, 1, true),
+          new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.3,
+            blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+        beam.position.y = 7;
+        g.add(beam);
+        const base = new THREE.Mesh(
+          new THREE.CircleGeometry(1.6, 24),
+          new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.5, depthWrite: false }));
+        base.rotation.x = -Math.PI / 2;
+        base.position.y = 0.22;
+        g.add(base);
+        const spr = makeTextSprite(glyph, color);
+        spr.position.y = 3.4;
+        g.add(spr);
+        g.position.set(sceneX(wm.y), heightAt(wm.x, wm.y) - center.h, sceneZ(wm.x));
+        g.visible = false;
+        scene.add(g);
+        return { group: g, wm };
+      });
+    }
+    for (const o of wmObjs) o.group.visible = o.wm.s <= t && t <= o.wm.e;
 
     // DB2/수동 보정으로 확인된 원형·부채꼴·직선 장판을 월드 야드 단위로 표시한다.
     let ri = 0;

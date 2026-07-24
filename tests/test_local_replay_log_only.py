@@ -222,6 +222,32 @@ class LogOnlyReplayTests(unittest.TestCase):
         self.assertEqual([{"u": "p1", "s": 10.0, "e": 25.5},
                           {"u": "p2", "s": 30.0, "e": 40.0}], holds)
 
+    def test_world_marker_windows_from_log(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_raw:
+            tmp = Path(tmp_raw)
+            log_path = tmp / "WoWCombatLog-071926_140000.txt"
+            log_path.write_text(
+                # 풀 시작 전 설치 2개(하나는 풀 전에 제거) + 다른 존 1개 + 풀 중 설치/제거
+                _line("13:59:00.0000", "WORLD_MARKER_PLACED,42,3,100.5,-200.25")
+                + _line("13:59:10.0000", "WORLD_MARKER_PLACED,42,5,110.0,-210.0")
+                + _line("13:59:20.0000", "WORLD_MARKER_REMOVED,5")
+                + _line("13:59:30.0000", "WORLD_MARKER_PLACED,99,4,50.0,-50.0")
+                + _line("14:00:00.0000", 'ENCOUNTER_START,9001,"Test Boss",16,2,42')
+                + _line("14:00:05.0000", "WORLD_MARKER_PLACED,42,0,120.0,-220.0")
+                + _line("14:00:10.0000", "WORLD_MARKER_REMOVED,3")
+                + _line("14:00:30.0000", 'ENCOUNTER_END,9001,"Test Boss",16,2,1,30000'),
+                encoding="utf-8",
+            )
+            events = local_replay._world_marker_events(log_path)
+            self.assertEqual(6, len(events))
+            enc = local_replay._encounter_offsets(log_path)[0]
+            wins = local_replay._world_marker_windows(
+                log_path, enc["_start_dt"], 30.0, 42)
+            self.assertEqual([
+                {"i": 3, "x": 100.5, "y": -200.25, "s": 0.0, "e": 10.0},
+                {"i": 0, "x": 120.0, "y": -220.0, "s": 5.0, "e": 30.0},
+            ], wins)
+
     def test_frames_cache_survives_live_log_growth(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_raw:
             tmp = Path(tmp_raw)
