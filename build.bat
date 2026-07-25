@@ -11,6 +11,7 @@ echo.
 taskkill /F /IM LogAnalyze.exe >nul 2>&1
 
 python -m PyInstaller --noconfirm --windowed --name LogAnalyze ^
+    --icon "app\static\wow.ico" ^
     --add-data "app/static;app/static" ^
     --collect-submodules uvicorn ^
     --hidden-import "uvicorn.loops.auto" ^

@@ -160,20 +160,32 @@ def main() -> None:
         kw["x"] = max(0, (sw - win_w) // 2)    # 가운데 정렬
         kw["y"] = max(0, (sh - win_h) // 2)
         kw["min_size"] = (min(1400, win_w), min(860, win_h))
-    webview.create_window(
+    win = webview.create_window(
         "WoW 한밤 레이드 로그 분석기 (web)",
         url=f"http://127.0.0.1:{args.port}/",
         width=win_w, height=win_h,
         text_select=True,   # 가이드 문구 드래그 복사 허용 (pywebview 기본값이 선택 금지)
         **kw,
     )
+
+    def _apply_wow_icon(window) -> None:
+        # 타이틀바 아이콘 = WoW 아이콘. 작업표시줄은 exe 리소스(--icon)가 담당하지만
+        # WinForms Form 은 exe 아이콘을 자동으로 안 쓰므로 여기서 직접 지정.
+        try:
+            from System.Drawing import Icon  # pythonnet — Windows 백엔드 전제
+            ico = Path(getattr(sys, "_MEIPASS", str(_BASE_DIR))) / "app" / "static" / "wow.ico"
+            if ico.exists():
+                window.native.Icon = Icon(str(ico))
+        except Exception as e:
+            log.warning("타이틀바 아이콘 적용 실패: %s", e)
     # private_mode(기본 True)면 localStorage 가 창 닫을 때 날아가 화면 설정
     # (기믹 필터 저장 등)이 안 남는다 — 프로필을 로컬 디스크에 저장해 유지.
     # OneDrive 동기화 대상이 안 되게 LOCALAPPDATA 사용.
     storage = os.path.join(os.environ.get("LOCALAPPDATA") or str(_BASE_DIR),
                            "LogAnalyze", "webview")
     os.makedirs(storage, exist_ok=True)
-    webview.start(private_mode=False, storage_path=storage)  # 블로킹
+    webview.start(_apply_wow_icon, (win,),
+                  private_mode=False, storage_path=storage)  # 블로킹
 
     # 윈도우 종료 시 V2Data 캐시 명시적 flush — atexit 도 등록돼있지만
     # pywebview backend 가 os._exit 호출하면 atexit 못 잡는 경우 대비.

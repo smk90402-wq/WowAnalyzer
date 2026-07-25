@@ -396,6 +396,51 @@ const _S2_TIER_ORD = { S: 8, '상': 7, A: 6, B: 5, '중': 4, C: 3, '하': 2, D: 
 
 let _s2Mode = 'raid';   // raid | mplus
 
+// 보드 열 = 역할군 (탱/힐/근딜/원딜) — 티어표를 역할군 안에서 읽는 게 실제 사용 방식
+const _S2_COLS = [
+  { key: 'tank', label: '탱커', specs: [
+    'Death Knight|Blood', 'Demon Hunter|Vengeance', 'Druid|Guardian',
+    'Monk|Brewmaster', 'Paladin|Protection', 'Warrior|Protection'] },
+  { key: 'heal', label: '힐러', specs: [
+    'Druid|Restoration', 'Evoker|Preservation', 'Monk|Mistweaver',
+    'Paladin|Holy', 'Priest|Discipline', 'Priest|Holy', 'Shaman|Restoration'] },
+  { key: 'melee', label: '근딜', specs: [
+    'Warrior|Arms', 'Warrior|Fury', 'Paladin|Retribution', 'Death Knight|Frost',
+    'Death Knight|Unholy', 'Demon Hunter|Havoc', 'Demon Hunter|Devourer',
+    'Rogue|Assassination', 'Rogue|Outlaw', 'Rogue|Subtlety', 'Monk|Windwalker',
+    'Druid|Feral', 'Shaman|Enhancement', 'Hunter|Survival'] },
+  { key: 'ranged', label: '원딜', specs: [
+    'Hunter|Beast Mastery', 'Hunter|Marksmanship', 'Mage|Arcane', 'Mage|Fire',
+    'Mage|Frost', 'Warlock|Affliction', 'Warlock|Demonology', 'Warlock|Destruction',
+    'Priest|Shadow', 'Druid|Balance', 'Shaman|Elemental', 'Evoker|Devastation',
+    'Evoker|Augmentation'] },
+];
+// 클래스 색 (아이콘 테두리·카드 좌측 바) — Class|Spec 의 앞부분으로 매칭
+const _S2_CLASS_KEY = {
+  'Death Knight': 'deathknight', 'Demon Hunter': 'demonhunter', Druid: 'druid',
+  Evoker: 'evoker', Hunter: 'hunter', Mage: 'mage', Monk: 'monk', Paladin: 'paladin',
+  Priest: 'priest', Rogue: 'rogue', Shaman: 'shaman', Warlock: 'warlock', Warrior: 'warrior',
+};
+const _S2_TRENDS = {
+  up: ['▲', 's2-tr-up', '지난 갱신 대비 평가 상승'],
+  down: ['▼', 's2-tr-down', '지난 갱신 대비 평가 하락'],
+  new: ['N', 's2-tr-new', '이번 갱신에 새로 들어온 평가'],
+};
+
+function _s2Outlook(v, mode) { return ((v[mode] || {}).outlook) || '?'; }
+function _s2Band(outlook) {
+  if (['S', '상', 'A'].includes(outlook)) return 'top';
+  if (['B', '중'].includes(outlook)) return 'mid';
+  if (['C', '하', 'D'].includes(outlook)) return 'low';
+  return 'unk';
+}
+const _S2_BANDS = [
+  { key: 'top', label: '상', desc: '강할 거라는 예측' },
+  { key: 'mid', label: '중', desc: '무난 예측' },
+  { key: 'low', label: '하', desc: '약할 거라는 예측' },
+  { key: 'unk', label: '?', desc: '자료 부족' },
+];
+
 async function loadS2Meta() {
   // 수시 갱신 자료라 캐시 안 함 — 탭 열 때마다 재요청
   const board = $('#s2-board');
@@ -410,15 +455,6 @@ async function loadS2Meta() {
   }
 }
 
-// 티어표 행 정의 — outlook 값을 행으로 묶음 (S~D 자료가 들어와도 수용)
-const _S2_ROWS = [
-  { label: '상', match: ['S', '상', 'A'], cls: 'top', desc: '강할 거라는 예측' },
-  { label: '중', match: ['B', '중'], cls: 'mid', desc: '무난 예측' },
-  { label: '하', match: ['C', '하', 'D'], cls: 'low', desc: '약할 거라는 예측' },
-  { label: '?', match: ['?'], cls: 'unk', desc: '자료 부족' },
-];
-const _S2_ROLE = { '혈기': '탱', '보호': '탱', '수호': '탱', '양조': '탱', '복수': '탱',
-  '신성': '힐', '수양': '힐', '회복': '힐', '운무': '힐', '보존': '힐', '복원': '힐' };
 // 전문화 아이콘 (wowhead 표준 아이콘명 — 스킬 아이콘과 같은 CDN 사용)
 const _S2_SPEC_ICON = {
   'Warrior|Arms': 'ability_warrior_savageblow', 'Warrior|Fury': 'ability_warrior_innerrage', 'Warrior|Protection': 'ability_warrior_defensivestance',
@@ -436,58 +472,144 @@ const _S2_SPEC_ICON = {
   'Evoker|Devastation': 'classicon_evoker_devastation', 'Evoker|Preservation': 'classicon_evoker_preservation', 'Evoker|Augmentation': 'classicon_evoker_augmentation',
 };
 
+function _s2Card(key, v, meta) {
+  const cls = _S2_CLASS_KEY[key.split('|')[0]] || '';
+  const cc = CLASS_COLORS[cls] || '#7db7ff';
+  const ico = _S2_SPEC_ICON[key]
+    ? `<img class="s2-ico" src="https://wow.zamimg.com/images/wow/icons/medium/${_S2_SPEC_ICON[key]}.jpg" onerror="this.remove()">`
+    : '';
+  const [tg, tc, tt] = _S2_TRENDS[v.trend] || [];
+  const trend = tg ? `<span class="s2-trend ${tc}" title="${esc(tt)}">${tg}</span>` : '';
+  // 반대 모드 전망이 다르면 미니 배지로 함께 표시 (모드 전환 없이 양쪽 파악)
+  const altMode = _s2Mode === 'raid' ? 'mplus' : 'raid';
+  const altOut = _s2Outlook(v, altMode);
+  const alt = altOut !== _s2Outlook(v, _s2Mode) && altOut !== '?'
+    ? `<span class="s2-alt" title="${altMode === 'mplus' ? '쐐기' : '레이드'} 전망">${altMode === 'mplus' ? 'M' : 'R'} ${esc(altOut)}</span>`
+    : '';
+  // 신선도: 마지막 자료 날짜 — 최신 밸런스 패치 이전이면 흐리게 + 경고
+  const asOf = v.as_of || '';
+  const stale = asOf && meta.latest_patch && asOf < meta.latest_patch;
+  const asOfTxt = asOf
+    ? `<span class="s2-asof${stale ? ' stale' : ''}" title="${stale
+      ? `마지막 자료 ${esc(asOf)} — 이후 밸런스 패치(${esc(meta.latest_patch)}) 있음, 평가가 뒤집혔을 수 있음`
+      : `마지막 자료 ${esc(asOf)}`}">${stale ? '⚠ ' : ''}${esc(asOf.slice(5).replace('-', '/'))}</span>`
+    : '';
+  const nRefs = ((v.raid || {}).notes || []).length + ((v.mplus || {}).notes || []).length + (v.changes || []).length;
+  return `<div class="s2-card${stale ? ' s2-stale' : ''}" data-key="${esc(key)}" style="--cc:${cc}">
+    ${ico}
+    <div class="s2-card-main">
+      <div class="s2-card-name">${esc(v.kr || key)}${trend}${alt}</div>
+      <div class="s2-card-sub" title="${esc(v.summary || '')}">${esc(v.summary || '')}</div>
+    </div>
+    <div class="s2-card-side">${asOfTxt}<span class="s2-nrefs" title="근거 자료 수">${nRefs}</span></div>
+  </div>`;
+}
+
 function renderS2() {
-  const specs = Object.entries(_s2Data.specs || {});
+  const specs = _s2Data.specs || {};
   const meta = _s2Data._meta || {};
   $('#meta').textContent = `시즌2(${meta.patch || '12.1'}) 예측 — 자료 ${(meta.sources || []).length}건 · ${meta.updated || ''} 갱신 · 전부 추측입니다`;
-  if (!specs.length) {
+  if (!Object.keys(specs).length) {
     $('#s2-board').innerHTML = '<div class="empty">아직 자료 없음 — 영상/PTR 자료를 주시면 정리해서 채웁니다</div>';
     return;
   }
   $$('.s2-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.s2mode === _s2Mode));
-  const boardRows = _S2_ROWS.map(row => {
-    const chips = specs
-      .filter(([, v]) => row.match.includes(((v[_s2Mode] || {}).outlook) || '?'))
-      .sort((a, b) => (a[1].kr || a[0]).localeCompare(b[1].kr || b[0], 'ko'))
-      .map(([key, v]) => {
-        const spec = (v.kr || key).split(' ').pop();
-        const role = _S2_ROLE[spec] || '';
-        const nRefs = ((v.raid || {}).notes || []).length + ((v.mplus || {}).notes || []).length + (v.changes || []).length;
-        const ico = _S2_SPEC_ICON[key]
-          ? `<img class="s2-ico" src="https://wow.zamimg.com/images/wow/icons/medium/${_S2_SPEC_ICON[key]}.jpg" onerror="this.remove()">`
-          : '';
-        return `<div class="s2-chip ${role ? 'role-' + (role === '탱' ? 'tank' : 'heal') : ''}" data-key="${esc(key)}"
-          title="${esc(v.summary || '')}">
-          ${ico}${esc(v.kr || key)}${role ? `<span class="s2-role">${role}</span>` : ''}<span class="s2-nrefs">${nRefs}</span>
-        </div>`;
-      }).join('');
-    if (!chips) return '';
-    return `
-    <div class="s2-tier-row ${row.cls}">
-      <div class="s2-tier-label" title="${esc(row.desc)}">${row.label}</div>
-      <div class="s2-tier-cell">${chips}</div>
+
+  // 패치 타임라인 스트립 — 영상 시점 대비 "언제 또 바뀌었나"를 한 줄로
+  const pl = $('#s2-patchline');
+  if (pl) {
+    const evs = meta.patch_events || [];
+    pl.innerHTML = evs.length
+      ? `<span class="s2-pl-h">밸런스 패치</span>` + evs.map(ev =>
+        `<span class="s2-pl-dot${ev.date === meta.latest_patch ? ' latest' : ''}" title="${esc(ev.note || '')}">${esc((ev.date || '').slice(5).replace('-', '/'))}</span>`
+      ).join('<span class="s2-pl-line"></span>')
+      + `<span class="s2-pl-note">⚠ = 이 날짜 이전 자료뿐인 스펙 (평가 뒤집혔을 수 있음)</span>`
+      : '';
+  }
+
+  // 매트릭스: 열 = 역할군, 행 = 전망 밴드 — 가로로 훑으면 티어, 세로로 훑으면 역할군
+  const known = new Set(_S2_COLS.flatMap(c => c.specs));
+  const cols = _S2_COLS.map(c => ({ ...c, specs: [...c.specs] }));
+  for (const key of Object.keys(specs)) {           // 분류 밖 신규 스펙은 원딜 열에 수용
+    if (!known.has(key)) cols[3].specs.push(key);
+  }
+  const bands = _S2_BANDS.map(band => {
+    const cells = cols.map(col => {
+      const cards = col.specs
+        .filter(k => specs[k] && _s2Band(_s2Outlook(specs[k], _s2Mode)) === band.key)
+        .sort((a, b) => _S2_TIER_ORD[_s2Outlook(specs[b], _s2Mode)] - _S2_TIER_ORD[_s2Outlook(specs[a], _s2Mode)]
+          || (specs[a].kr || a).localeCompare(specs[b].kr || b, 'ko'))
+        .map(k => _s2Card(k, specs[k], meta)).join('');
+      return `<div class="s2-cell">${cards}</div>`;
+    });
+    if (!cells.some(c => c !== '<div class="s2-cell"></div>')) return '';
+    return `<div class="s2-band ${band.key}">
+      <div class="s2-band-label" title="${esc(band.desc)}">${band.label}</div>
+      ${cells.join('')}
     </div>`;
   }).join('');
-  $('#s2-board').innerHTML = boardRows || '<div class="empty">표시할 스펙 없음</div>';
+  $('#s2-board').innerHTML = `
+    <div class="s2-matrix">
+      <div class="s2-head-row"><div></div>${cols.map(c =>
+        `<div class="s2-col-h">${c.label}</div>`).join('')}</div>
+      ${bands}
+    </div>` || '<div class="empty">표시할 스펙 없음</div>';
 }
 
 function showS2Detail(key) {
   const v = (_s2Data.specs || {})[key];
   if (!v) return;
+  const meta = _s2Data._meta || {};
   const srcMap = {};
-  ((_s2Data._meta || {}).sources || []).forEach(s => { srcMap[s.id] = s; });
-  const noteList = (arr) => (arr || []).map(n => {
+  (meta.sources || []).forEach(s => { srcMap[s.id] = s; });
+
+  // 레이드/쐐기/변경 노트를 하나의 시간순 타임라인으로 — 같은 문장은 트랙 태그만 합침
+  const byText = new Map();
+  const put = (n, track) => {
+    if (!n || !n.note) return;
     const s = srcMap[n.src] || {};
-    return `<div class="fd-note">${esc(n.note)}<span class="fd-src">— ${esc(s.channel || n.src)}${n.date ? ' · ' + esc(n.date) : ''}</span></div>`;
+    const date = n.date || s.date || '';
+    const k = `${date}|${n.note}`;
+    const e = byText.get(k) || { note: n.note, date, src: s, tracks: [] };
+    if (!e.tracks.includes(track)) e.tracks.push(track);
+    byText.set(k, e);
+  };
+  ((v.raid || {}).notes || []).forEach(n => put(n, '레이드'));
+  ((v.mplus || {}).notes || []).forEach(n => put(n, '쐐기'));
+  (v.changes || []).forEach(n => put(n, '변경'));
+  const rows = [...byText.values()].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+  const trackTag = t => `<span class="s2-tl-tag t-${t === '레이드' ? 'raid' : t === '쐐기' ? 'mplus' : 'chg'}">${t}</span>`;
+  const timeline = rows.map(e => {
+    const stale = e.date && meta.latest_patch && e.date < meta.latest_patch;
+    const chan = e.src.channel || '';
+    const link = e.src.url ? `<a href="${esc(e.src.url)}" target="_blank" rel="noopener">${esc(chan)}</a>` : esc(chan);
+    return `<div class="s2-tl-row${stale ? ' stale' : ''}">
+      <div class="s2-tl-date" title="${stale ? '이후 밸런스 패치 있음 — 뒤집혔을 수 있음' : '자료 날짜'}">${esc((e.date || '?').slice(5).replace('-', '/'))}${stale ? '<span class="s2-tl-warn">⚠</span>' : ''}</div>
+      <div class="s2-tl-body">${e.tracks.map(trackTag).join('')}${esc(e.note)}
+        <span class="s2-tl-src">— ${link}</span></div>
+    </div>`;
   }).join('') || '<div class="sm-empty">자료 없음</div>';
+
+  const cls = _S2_CLASS_KEY[key.split('|')[0]] || '';
+  const cc = CLASS_COLORS[cls] || '#7db7ff';
+  const ico = _S2_SPEC_ICON[key]
+    ? `<img class="s2-ico big" src="https://wow.zamimg.com/images/wow/icons/large/${_S2_SPEC_ICON[key]}.jpg" onerror="this.remove()">` : '';
+  const outBadge = (label, out) => `<span class="s2-out-badge b-${_s2Band(out)}">${label} ${esc(out)}</span>`;
+  const [tg, tc, tt] = _S2_TRENDS[v.trend] || [];
   $('#s2-detail').innerHTML = `
-    <div class="fd-title">${esc(v.kr || key)} — 시즌2 전망 <span class="sm-muted">(예측 — 자료 들어오면 갱신)</span></div>
-    ${v.summary ? `<div class="fd-verify">${esc(v.summary)}</div>` : ''}
-    <div class="fl-track-h">레이드 (전망 ${esc((v.raid || {}).outlook || '?')})</div>
-    ${noteList((v.raid || {}).notes)}
-    <div class="fl-track-h" style="margin-top:10px">쐐기 (전망 ${esc((v.mplus || {}).outlook || '?')})</div>
-    ${noteList((v.mplus || {}).notes)}
-    ${(v.changes || []).length ? `<div class="fl-track-h" style="margin-top:10px">변경 사항</div>${noteList(v.changes)}` : ''}`;
+    <div class="s2-dh" style="--cc:${cc}">
+      ${ico}
+      <div class="s2-dh-main">
+        <div class="s2-dh-name">${esc(v.kr || key)}
+          ${tg ? `<span class="s2-trend ${tc}" title="${esc(tt)}">${tg}</span>` : ''}</div>
+        <div class="s2-dh-badges">${outBadge('레이드', _s2Outlook(v, 'raid'))}${outBadge('쐐기', _s2Outlook(v, 'mplus'))}
+          ${v.as_of ? `<span class="s2-asof">마지막 자료 ${esc(v.as_of)}</span>` : ''}</div>
+      </div>
+    </div>
+    ${v.summary ? `<div class="s2-dh-sum">${esc(v.summary)}</div>` : ''}
+    <div class="fl-track-h">근거 타임라인 <span class="sm-muted">(최신순 — 전부 예측·추측)</span></div>
+    <div class="s2-timeline">${timeline}</div>`;
   $('#s2-modal').classList.add('show');
 }
 function closeS2Modal() { $('#s2-modal')?.classList.remove('show'); }
@@ -3873,8 +3995,8 @@ function bind() {
   });
   const s2b = $('#s2-board');
   if (s2b) s2b.addEventListener('click', e => {
-    const chip = e.target.closest('.s2-chip');
-    if (chip) showS2Detail(chip.dataset.key);
+    const card = e.target.closest('.s2-card');
+    if (card) showS2Detail(card.dataset.key);
   });
   $$('.s2-mode-btn').forEach(b => b.addEventListener('click', () => {
     _s2Mode = b.dataset.s2mode;
