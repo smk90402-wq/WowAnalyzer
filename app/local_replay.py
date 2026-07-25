@@ -1502,6 +1502,7 @@ def _stream_frames_window(
     boss_raw: list[tuple[float, str, int, str, str, str, str, str]] = []
     # 플레이어 디버프 변화: 적용/중첩/갱신/해제를 모두 보존해 지속시간과 중첩을 재구성한다.
     aura_updates: list[tuple[float, str, int, str, str, int]] = []
+    aura_names: dict[int, str] = {}   # 디버프 spell_id → 표시명 (레이드프레임용)
     # 플레이어 이벤트 후보: (t, kind, src_guid, spell_id, spell, dest_guid, dest_name, 폴백여부)
     player_raw: list[tuple[float, str, str, int, str, str, str, bool]] = []
     spell_kinds = _player_spell_kinds()
@@ -1628,8 +1629,11 @@ def _stream_frames_window(
                 # 소스 flags 는 안 봄 — 시전자가 죽은 뒤 해제되는 오라도 매칭되게.
                 # APPLIED 로 수집된 (spell_id, dest) 짝만 실제로 쓰인다.
                 stacks = _to_int(row[13]) if len(row) > 13 else 0
+                aura_sid = _to_int(row[9])
+                if aura_sid not in aura_names:
+                    aura_names[aura_sid] = _clean_name(row[10])
                 aura_updates.append((
-                    round(max(t, 0.0), 2), event, _to_int(row[9]),
+                    round(max(t, 0.0), 2), event, aura_sid,
                     str(row[5]), str(row[1]), stacks))
 
             adv = _adv_position_any(row)
@@ -1650,7 +1654,7 @@ def _stream_frames_window(
 
     return {"samples": samples, "names": names, "specs": specs,
             "deaths": deaths, "map_counts": map_counts, "boss_raw": boss_raw,
-            "aura_updates": aura_updates, "casts": casts,
+            "aura_updates": aura_updates, "aura_names": aura_names, "casts": casts,
             "player_raw": player_raw, "hostile": hostile,
             "counts": dict(activity_counts)}
 
@@ -2270,7 +2274,7 @@ def _boss_mechanic_summaries(
         current.pop("observed_name", None)
         current["kinds"] = sorted(current["kinds"])
         for field in ("desc", "role_notes", "roles", "guide", "sources",
-                      "wowhead_url", "fallback_source_url"):
+                      "icon", "wowhead_url", "fallback_source_url"):
             value = tip.get(field)
             if value:
                 current[field] = value
@@ -2752,6 +2756,58 @@ def _aura_windows_for(
     return out
 
 
+def _unit_debuff_segments(
+    aura_updates: list[tuple[float, str, int, str, str, int]],
+    guid_to_id: dict[str, str],
+    duration_s: float,
+) -> dict[str, list[list[Any]]]:
+    """레이드프레임용 플레이어 디버프 구간 {uid: [[s, e, sid, stacks], ...]}.
+
+    스택이 변할 때마다 구간을 쪼개 시각 t 의 현재 스택을 바로 찾게 한다.
+    플레이어/펫이 건 디버프(자기 도트 등)는 제외 — 보스·환경 것만.
+    """
+    segs: dict[str, list[list[Any]]] = {}
+    active: dict[tuple[int, str], tuple[float, int]] = {}   # (sid, dest) → (시작, 스택)
+
+    def _close(key: tuple[int, str], end_t: float) -> None:
+        st = active.pop(key, None)
+        if st is None:
+            return
+        s, stacks = st
+        e = round(min(max(end_t, s), duration_s), 2)
+        if e <= s:
+            return
+        uid = guid_to_id.get(key[1])
+        if uid:
+            segs.setdefault(uid, []).append([s, e, key[0], stacks])
+
+    for t, event, sid, dest, src, stacks in aura_updates:
+        if src.startswith(("Player-", "Pet-")):
+            continue
+        key = (sid, dest)
+        if event in ("SPELL_AURA_APPLIED", "SPELL_AURA_APPLIED_DOSE",
+                     "SPELL_AURA_REMOVED_DOSE", "SPELL_AURA_REFRESH"):
+            cur = active.get(key)
+            # 스택 수는 *_DOSE 이벤트의 것만 신뢰 — APPLIED 의 마지막 파라미터는
+            # 보호막량 등 다른 수치일 수 있다 (26828 같은 값이 스택으로 새는 것 방지)
+            if event in ("SPELL_AURA_APPLIED_DOSE", "SPELL_AURA_REMOVED_DOSE"):
+                n = min(99, max(1, int(stacks or 0)))
+            else:
+                n = cur[1] if cur is not None else 1
+            if cur is None:
+                active[key] = (round(max(t, 0.0), 2), n)
+            elif cur[1] != n and event != "SPELL_AURA_REFRESH":
+                _close(key, t)
+                active[key] = (round(max(t, 0.0), 2), n)
+        else:   # REMOVED / BROKEN 계열
+            _close(key, t)
+    for key in list(active):
+        _close(key, duration_s)
+    for arr in segs.values():
+        arr.sort()
+    return segs
+
+
 # frames 결과 메모리 캐시: replay_id → (로그파일 시그니처, payload).
 # 로그 파일이 안 바뀌었으면 재파싱 생략 — 리스트에서 판 전환 시 즉시 로드.
 _frames_cache: dict[str, tuple[tuple[str, int, int], dict[str, Any]]] = {}
@@ -3083,6 +3139,14 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
         log_path, start_dt, float(duration_s or 0), _to_int(enc.get("instance_id")))
     if world_markers:
         out["world_markers"] = world_markers
+    # 레이드프레임 — 플레이어별 보스 디버프 구간 + 스펠명
+    unit_debuffs = _unit_debuff_segments(
+        parsed.get("aura_updates") or [], guid_to_id, float(duration_s or 0))
+    if unit_debuffs:
+        used_sids = {int(seg[2]) for arr in unit_debuffs.values() for seg in arr}
+        aura_names = parsed.get("aura_names") or {}
+        out["unit_debuffs"] = unit_debuffs
+        out["debuff_names"] = {str(s): aura_names.get(s) or "" for s in used_sids}
     if len(_frames_cache) >= _FRAMES_CACHE_MAX:
         _frames_cache.pop(next(iter(_frames_cache)))
     _frames_cache[replay_id] = (sig, out)

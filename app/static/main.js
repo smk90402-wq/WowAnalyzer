@@ -1877,6 +1877,20 @@ function rcMechanicMeta(key) {
   return (key && rc.mechanicByKey[key]) || null;
 }
 
+// 기믹 아이콘 캔버스 드로잉용 이미지 캐시 — 로드 완료된 것만 반환
+const rcIconCache = {};
+function rcIconImg(icon) {
+  if (!icon) return null;
+  let img = rcIconCache[icon];
+  if (img === undefined) {
+    img = new Image();
+    img.src = `https://wow.zamimg.com/images/wow/icons/medium/${icon}.jpg`;
+    img.onerror = () => { rcIconCache[icon] = null; };
+    rcIconCache[icon] = img;
+  }
+  return (img && img.complete && img.naturalWidth) ? img : null;
+}
+
 function rcPlaceMechanicPop(btn, pop) {
   pop.hidden = false;
   pop.style.maxHeight = `${Math.max(220, Math.min(440, window.innerHeight - 16))}px`;
@@ -2103,6 +2117,7 @@ function renderLocalReplayDetail(detail) {
           <canvas id="rc-canvas" width="1000" height="660"></canvas>
           <div id="rc-banner" class="rc-banner"></div>
           <div id="rc-space" class="rc-space"></div>
+          <div id="rc-raid" class="rc-raid"></div>
           <div id="rc-panel" class="rc-panel" style="display:none"></div>
           <div id="rc-msg" class="rc-msg">이동 경로 데이터 로딩…</div>
         </div>
@@ -2392,6 +2407,8 @@ const rc = {
   crystalHolds: [], // frames 응답 crystal_holds — [{u, s, e}] 여명의 수정 보유 구간
   realmWindows: [], // frames 응답 realm_windows — [{u, s, e}] 위상(암흑의 룬) 구간
   worldMarkers: [], // frames 응답 world_markers — [{i, x, y, s, e}] 바닥 징표(세계 표식)
+  unitDebuffs: {},  // frames 응답 unit_debuffs — uid → [[s, e, sid, stacks], ...]
+  debuffNames: {},  // frames 응답 debuff_names — sid(str) → 표시명
   selectedUnit: null, // 3D 에서 클릭으로 선택한 unitId (정보 패널 대상)
   video: null,    // 영상 있는 풀이면 <video> — 재생/탐색/배속 동기화 대상
   videoOffset: 0, // meta.video_offset_s (영상 t − 이 값 = 캔버스 t)
@@ -2527,7 +2544,9 @@ async function initReplayCanvas(replayId) {
   rc.bossEvents = []; rc.bossMechanics = []; rc.mechanicByKey = {}; rc.videoOffset = 0;
   rc.playerEvents = []; rc.peByUnit = {};
   rc.casts = {}; rc.crystalHolds = []; rc.realmWindows = []; rc.worldMarkers = [];
+  rc.unitDebuffs = {}; rc.debuffNames = {};
   rc.selectedUnit = null;
+  rcRaidBuiltFor = null;
   rcRealmMode = '';
   rc.is3d = false; rc.replayId = replayId;   // 리플레이 바꾸면 2D 부터 (3D 씬은 폐기)
   rcCam2dReset(false);                       // 2D 줌·팬도 초기화
@@ -2614,6 +2633,8 @@ async function initReplayCanvas(replayId) {
   rc.crystalHolds = j.crystal_holds || [];
   rc.realmWindows = j.realm_windows || [];
   rc.worldMarkers = j.world_markers || [];
+  rc.unitDebuffs = j.unit_debuffs || {};
+  rc.debuffNames = j.debuff_names || {};
   rcBuildRealmButtons();
   rc.hpDrops = {};   // 체력 급감 캐시 — 리플레이별로 새로 계산
   rc.videoOffset = Number(meta.video_offset_s) || 0;
@@ -3296,7 +3317,7 @@ function rcActiveHitsFor(uid, t) {
   return out;
 }
 
-// replay3d.js 픽킹이 부른다 — uid=null 이면 선택 해제
+// replay3d.js 픽킹·레이드프레임 클릭이 부른다 — uid=null 이면 선택 해제
 function rcSelectUnit(uid) {
   if (!rc.meta) return;
   rc.selectedUnit = uid || null;
@@ -3305,12 +3326,78 @@ function rcSelectUnit(uid) {
   rcDraw();
 }
 
+// ── 레이드 프레임 — 위상 라벨 아래 공대원 전체 체력·디버프 오버레이 ─────
+let rcRaidBuiltFor = null;   // 어느 리플레이용으로 행을 만들었는지
+let rcRaidLastKey = '';      // DOM 갱신 쓰로틀 키 (0.2초 격자 + 선택 유닛)
+
+function rcBuildRaidFrame() {
+  const root = $('#rc-raid');
+  if (!root || !rc.meta) return;
+  const players = (rc.meta.units || []).filter(u => u.kind === 'player');
+  root.innerHTML = players.map(u => `
+    <div class="rc-rf-row" data-uid="${esc(u.id)}">
+      <i class="rc-rf-fill"></i>
+      <span class="rc-rf-name" style="color:${rcUnitColor(u)}">${esc(String(u.name || u.id).split('-')[0])}</span>
+      <span class="rc-rf-hp"></span>
+      <span class="rc-rf-debuffs"></span>
+    </div>`).join('');
+  root.style.display = players.length ? '' : 'none';
+  root.onclick = (e) => {
+    const row = e.target.closest('.rc-rf-row');
+    if (!row) return;
+    // 캐릭터 클릭과 동일 동작 — 같은 행 재클릭은 선택 해제
+    rcSelectUnit(rc.selectedUnit === row.dataset.uid ? null : row.dataset.uid);
+  };
+  rcRaidBuiltFor = rc.replayId;
+  rcRaidLastKey = '';
+}
+
+function rcDebuffsAt(uid, t) {
+  const segs = rc.unitDebuffs[uid];
+  if (!segs) return [];
+  const out = [];
+  for (const s of segs) {
+    if (s[0] > t) break;          // 시작시각 오름차순 — 이후는 전부 미래
+    if (t <= s[1]) out.push(s);
+  }
+  return out;
+}
+
+function rcUpdateRaidFrame() {
+  const root = $('#rc-raid');
+  if (!root || !rc.meta) return;
+  if (rcRaidBuiltFor !== rc.replayId) rcBuildRaidFrame();
+  const t = rc.t;
+  const key = `${Math.round(t * 5)}|${rc.selectedUnit || ''}`;
+  if (key === rcRaidLastKey) return;
+  rcRaidLastKey = key;
+  for (const row of root.children) {
+    const uid = row.dataset.uid;
+    const dead = rcDeadAt(uid, t);
+    const hp = dead ? 0 : rcHpAt(rc.tracks[uid], t);
+    const v = dead ? 0 : (hp == null ? 100 : hp);
+    row.firstElementChild.style.width = `${v}%`;
+    row.classList.toggle('dead', !!dead);
+    row.classList.toggle('low', !dead && hp != null && hp <= 35);
+    row.classList.toggle('sel', uid === rc.selectedUnit);
+    row.querySelector('.rc-rf-hp').textContent = dead ? '☠' : (hp == null ? '' : `${hp}`);
+    const dbs = rcDebuffsAt(uid, t);
+    const html = dbs.slice(0, 3).map(s => {
+      const nm = rc.debuffNames[String(s[2])] || '디버프';
+      return `<b class="rc-rf-db" title="${esc(nm)}${s[3] > 1 ? ` ${s[3]}중첩` : ''}">${esc(nm.slice(0, 4).trim())}${s[3] > 1 ? `<em>${s[3]}</em>` : ''}</b>`;
+    }).join('');
+    const el = row.querySelector('.rc-rf-debuffs');
+    if (el.innerHTML !== html) el.innerHTML = html;
+    row.classList.toggle('debuffed', dbs.length > 0);
+  }
+}
+
 function rcUpdatePanel() {
   const panel = $('#rc-panel');
   if (!panel) return;
   const uid = rc.selectedUnit;
   const u = (uid && rc.meta) ? (rc.meta.units || []).find(v => v.id === uid) : null;
-  if (!u || !rc.is3d) {
+  if (!u) {
     if (panel.style.display !== 'none') { panel.style.display = 'none'; panel.innerHTML = ''; }
     rcPanelKey = '';
     return;
@@ -3492,6 +3579,7 @@ function rcUpdateBanner(bannerEv) {
 
 function rcDraw() {
   if (!rc.meta) return;
+  rcUpdateRaidFrame();   // 레이드 프레임은 2D/3D 공용 DOM 오버레이
   // 3D 모드면 렌더러만 교체 — 유닛/기믹 로직은 replay3d.js 가 rc 를 읽어 처리
   if (rc.is3d && window.Replay3D && window.Replay3D.isReady()) {
     window.Replay3D.draw();
@@ -3615,6 +3703,16 @@ function rcDraw() {
     ctx.lineWidth = hl ? 2.5 : 1.2;
     ctx.strokeStyle = hl ? '#ffffff' : 'rgba(255,255,255,.55)';
     ctx.stroke();
+    // 선택 유닛(레이드프레임/3D 클릭) — 흰 점선 링
+    if (u.id === rc.selectedUnit) {
+      ctx.setLineDash([4, 3]);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(x, y, r + 5, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
     // 여명의 수정 보유 — ◆ 배지 + 이름 금색 (보유 구간 내내)
     const holding = rc.crystalHolds.length > 0
       && rc.crystalHolds.some(h => h.u === u.id && t >= h.s && t < h.e);
@@ -3765,12 +3863,21 @@ function rcDraw() {
     const label = `${String(ev.spell || '')}${stacks ? ` ×${stacks}` : ''}`
       + (it.danger ? ` 겹침! ${unitNameById[it.anchorId] || ''}` : '');
     if (label) {
+      // 기믹 아이콘을 이름 왼쪽에 함께 — 어떤 기믹인지 한눈에
+      const ly = y + (drewArea ? 20 : rr + 11);
       ctx.font = 'bold 12px sans-serif';
+      const ic = rcIconImg(rcMechanicMeta(ev.mechanic_key)?.icon);
+      const lx = ic ? x + 11 : x;
+      if (ic) {
+        ctx.globalAlpha = it.fade;
+        ctx.drawImage(ic, x - ctx.measureText(label).width / 2 - 11, ly - 9, 18, 18);
+        ctx.globalAlpha = 0.9 * it.fade;
+      }
       ctx.lineWidth = 3;
       ctx.strokeStyle = '#10141a';
-      ctx.strokeText(label, x, y + (drewArea ? 20 : rr + 11));
+      ctx.strokeText(label, lx, ly);
       ctx.fillStyle = color;
-      ctx.fillText(label, x, y + (drewArea ? 20 : rr + 11));
+      ctx.fillText(label, lx, ly);
     }
   }
   ctx.globalAlpha = 1;

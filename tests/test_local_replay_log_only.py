@@ -222,6 +222,21 @@ class LogOnlyReplayTests(unittest.TestCase):
         self.assertEqual([{"u": "p1", "s": 10.0, "e": 25.5},
                           {"u": "p2", "s": 30.0, "e": 40.0}], holds)
 
+    def test_unit_debuff_segments(self) -> None:
+        boss = "Creature-0-0-0-0-99999-1"
+        ups = [
+            (5.0, "SPELL_AURA_APPLIED", 111, "Player-1-A", boss, 0),
+            (8.0, "SPELL_AURA_APPLIED_DOSE", 111, "Player-1-A", boss, 2),
+            (9.0, "SPELL_AURA_REFRESH", 111, "Player-1-A", boss, 0),   # 갱신 — 분절 없음
+            (11.0, "SPELL_AURA_REMOVED", 111, "Player-1-A", boss, 0),
+            (3.0, "SPELL_AURA_APPLIED", 222, "Player-1-A", "Player-1-B", 0),  # 플레이어 소스 제외
+            (20.0, "SPELL_AURA_APPLIED", 111, "Player-1-B", boss, 0),  # 미해제 → duration 마감
+        ]
+        segs = local_replay._unit_debuff_segments(
+            ups, {"Player-1-A": "p1", "Player-1-B": "p2"}, 30.0)
+        self.assertEqual({"p1": [[5.0, 8.0, 111, 1], [8.0, 11.0, 111, 2]],
+                          "p2": [[20.0, 30.0, 111, 1]]}, segs)
+
     def test_world_marker_windows_from_log(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_raw:
             tmp = Path(tmp_raw)
