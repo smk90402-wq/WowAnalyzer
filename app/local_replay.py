@@ -1086,9 +1086,20 @@ _SPEC_CLASS = {
     262: "shaman", 263: "shaman", 264: "shaman",
     265: "warlock", 266: "warlock", 267: "warlock",
     268: "monk", 269: "monk", 270: "monk",
-    577: "demonhunter", 581: "demonhunter",
+    577: "demonhunter", 581: "demonhunter", 1480: "demonhunter",
     1467: "evoker", 1468: "evoker", 1473: "evoker",
 }
+
+# 원거리 딜 스펙 (레이드프레임 근딜/원딜 정렬용 — damage 스펙만 의미 있음)
+_SPEC_RANGED = frozenset({
+    62, 63, 64,          # 마법사
+    253, 254,            # 야수·사격 (생존 255 는 근딜)
+    258,                 # 암사
+    102,                 # 조드
+    262,                 # 정기
+    265, 266, 267,       # 흑마
+    1467, 1473,          # 황폐·증강
+})
 
 _SPEC_ROLE = {
     65: "healer", 66: "tank", 70: "damage",
@@ -1695,6 +1706,7 @@ def _classify_units(
             units.append({"guid": guid, "name": name,
                           "cls": _SPEC_CLASS.get(specs.get(guid, 0)),
                           "role": _SPEC_ROLE.get(specs.get(guid, 0), "damage"),
+                          "rng": specs.get(guid, 0) in _SPEC_RANGED,
                           "kind": "player"})
         elif name and (name == encounter_name or any(tok in name for tok in tokens)
                        or any(al in name for al in aliases)):

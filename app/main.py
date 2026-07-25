@@ -251,6 +251,17 @@ def s2_meta() -> Response:
                     media_type="application/json")
 
 
+# ── 시즌2 PvP 전망 (대공세/1인조합전) — 예측 자료집 ───────────────────────
+@app.get("/api/s2-pvp")
+def s2_pvp() -> Response:
+    """data/s2_pvp_predictions.json — 매 요청 재로드 (수시 갱신 반영)."""
+    p = DATA_DIR / "s2_pvp_predictions.json"
+    if not p.exists():
+        raise HTTPException(404, "s2_pvp_predictions.json 없음")
+    return Response(content=p.read_text(encoding="utf-8"),
+                    media_type="application/json")
+
+
 # ── 르우라 스펙 비교 (우리 증강·죽기 vs 상위권) — 리플레이 분석 탭용 ───────
 @app.get("/api/lura-compare")
 def lura_compare() -> Response:

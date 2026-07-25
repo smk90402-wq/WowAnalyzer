@@ -18,6 +18,7 @@
       <button class="tab" data-tab="meta">메타 분석</button>
       <button class="tab" data-tab="fun">재미 분석</button>
       <button class="tab" data-tab="s2">시즌2 전망</button>
+      <button class="tab" data-tab="pvp">PvP 전망</button>
       <button class="tab" data-tab="rotation">딜사이클</button>
       <button class="tab" data-tab="stats">스탯</button>
       <button class="tab" data-tab="replay">리플레이</button>
@@ -298,7 +299,9 @@
         <button class="s2-mode-btn" data-s2mode="mplus">쐐기 (M+)</button>
         <span class="s2-hint">▲▼ = 지난 갱신 대비 · R/M 배지 = 반대 모드 전망이 다를 때 · ⚠ = 마지막 자료 이후 패치 있음 · 클릭 = 근거 타임라인</span>
       </div>
+      <div id="s2-reco"></div>
       <div id="s2-patchline"></div>
+      <div id="s2-issues"></div>
       <div id="s2-board"><div class="empty">로딩…</div></div>
     </section>
     <!-- 시즌2 상세 팝업 -->
@@ -306,6 +309,26 @@
       <div class="spec-modal-card">
         <button class="sm-close" title="닫기 (Esc)">✕</button>
         <div id="s2-detail"></div>
+      </div>
+    </div>
+  </main>
+
+  <main class="tab-pane" data-pane="pvp" id="pane-pvp">
+    <section class="meta-head">
+      <h2>PvP 전망 (12.1) <span class="meta-sub">— ★전부 예측·추측입니다★. 대공세·1인조합전 위주로 정리, 시즌1 기준 티어 자료는 표기. 카드 클릭 = 근거.</span></h2>
+    </section>
+    <section class="panel meta-panel" style="padding:14px 16px">
+      <div class="s2-toolbar">
+        <button class="s2-mode-btn active" data-pvpmode="blitz">대공세</button>
+        <button class="s2-mode-btn" data-pvpmode="shuffle">1인조합전</button>
+        <span class="s2-hint">B/S 배지 = 반대 모드 전망이 다를 때 · 클릭 = 근거 타임라인</span>
+      </div>
+      <div id="pvp-board"><div class="empty">로딩…</div></div>
+    </section>
+    <div id="pvp-modal">
+      <div class="spec-modal-card">
+        <button class="sm-close" title="닫기 (Esc)">✕</button>
+        <div id="pvp-detail"></div>
       </div>
     </div>
   </main>

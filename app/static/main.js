@@ -472,7 +472,7 @@ const _S2_SPEC_ICON = {
   'Evoker|Devastation': 'classicon_evoker_devastation', 'Evoker|Preservation': 'classicon_evoker_preservation', 'Evoker|Augmentation': 'classicon_evoker_augmentation',
 };
 
-function _s2Card(key, v, meta) {
+function _s2Card(key, v, meta, mode, altCfg) {
   const cls = _S2_CLASS_KEY[key.split('|')[0]] || '';
   const cc = CLASS_COLORS[cls] || '#7db7ff';
   const ico = _S2_SPEC_ICON[key]
@@ -481,10 +481,9 @@ function _s2Card(key, v, meta) {
   const [tg, tc, tt] = _S2_TRENDS[v.trend] || [];
   const trend = tg ? `<span class="s2-trend ${tc}" title="${esc(tt)}">${tg}</span>` : '';
   // 반대 모드 전망이 다르면 미니 배지로 함께 표시 (모드 전환 없이 양쪽 파악)
-  const altMode = _s2Mode === 'raid' ? 'mplus' : 'raid';
-  const altOut = _s2Outlook(v, altMode);
-  const alt = altOut !== _s2Outlook(v, _s2Mode) && altOut !== '?'
-    ? `<span class="s2-alt" title="${altMode === 'mplus' ? '쐐기' : '레이드'} 전망">${altMode === 'mplus' ? 'M' : 'R'} ${esc(altOut)}</span>`
+  const altOut = _s2Outlook(v, altCfg.mode);
+  const alt = altOut !== _s2Outlook(v, mode) && altOut !== '?'
+    ? `<span class="s2-alt" title="${esc(altCfg.label)} 전망">${esc(altCfg.glyph)} ${esc(altOut)}</span>`
     : '';
   // 신선도: 마지막 자료 날짜 — 최신 밸런스 패치 이전이면 흐리게 + 경고
   const asOf = v.as_of || '';
@@ -505,6 +504,79 @@ function _s2Card(key, v, meta) {
   </div>`;
 }
 
+// 공용 매트릭스: 열 = 역할군, 행 = 전망 밴드 (시즌2 PvE 보드와 PvP 보드가 같이 씀)
+function _specMatrixHTML(specs, meta, mode, altCfg) {
+  const known = new Set(_S2_COLS.flatMap(c => c.specs));
+  const cols = _S2_COLS.map(c => ({ ...c, specs: [...c.specs] }));
+  for (const key of Object.keys(specs)) {           // 분류 밖 신규 스펙은 원딜 열에 수용
+    if (!known.has(key)) cols[3].specs.push(key);
+  }
+  const bands = _S2_BANDS.map(band => {
+    const cells = cols.map(col => {
+      const cards = col.specs
+        .filter(k => specs[k] && _s2Band(_s2Outlook(specs[k], mode)) === band.key)
+        .sort((a, b) => _S2_TIER_ORD[_s2Outlook(specs[b], mode)] - _S2_TIER_ORD[_s2Outlook(specs[a], mode)]
+          || (specs[a].kr || a).localeCompare(specs[b].kr || b, 'ko'))
+        .map(k => _s2Card(k, specs[k], meta, mode, altCfg)).join('');
+      return `<div class="s2-cell">${cards}</div>`;
+    });
+    if (!cells.some(c => c !== '<div class="s2-cell"></div>')) return '';
+    return `<div class="s2-band ${band.key}">
+      <div class="s2-band-label" title="${esc(band.desc)}">${band.label}</div>
+      ${cells.join('')}
+    </div>`;
+  }).join('');
+  return `
+    <div class="s2-matrix">
+      <div class="s2-head-row"><div></div>${cols.map(c =>
+        `<div class="s2-col-h">${c.label}</div>`).join('')}</div>
+      ${bands}
+    </div>`;
+}
+
+// 시즌2 시작 추천 픽 — 다관점 지표 스코어카드 (워크플로 산출 _meta.reco)
+function _s2RecoHTML(reco) {
+  if (!reco || !reco.picks) return '';
+  const ROLE = { tank: '탱커', dps: '딜러', heal: '힐러' };
+  const specOf = (key) => (_s2Data.specs || {})[key] || {};
+  const pick = (role) => {
+    const p = reco.picks[role];
+    if (!p || !p.key) return '';
+    const cc = CLASS_COLORS[_S2_CLASS_KEY[p.key.split('|')[0]] || ''] || '#7db7ff';
+    const ico = _S2_SPEC_ICON[p.key]
+      ? `<img class="s2-ico" src="https://wow.zamimg.com/images/wow/icons/medium/${_S2_SPEC_ICON[p.key]}.jpg" onerror="this.remove()">` : '';
+    return `<div class="s2-reco-pick" style="--cc:${cc}" data-key="${esc(p.key)}">
+      <div class="s2-reco-role">${ROLE[role]}</div>
+      <div class="s2-reco-name">${ico}<b>${esc(specOf(p.key).kr || p.key)}</b></div>
+      <p>${esc(p.why || '')}</p>
+      ${p.swap ? `<small>↔ ${esc(p.swap)}</small>` : ''}
+    </div>`;
+  };
+  const alts = (reco.alternates || []).map(a =>
+    `<span class="s2-reco-alt" title="${esc(a.why || '')}">${ROLE[a.role] || a.role} 대안 · ${esc(specOf(a.key).kr || a.key)}</span>`).join('');
+  const sb = reco.scoreboard || [];
+  const sbHtml = sb.length ? `
+    <details class="s2-reco-sb"><summary>추천 지표 스코어보드 — ${sb.length}스펙 × 7지표 (1~5)</summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th>스펙</th><th title="정점·영웅특성·티어셋 설계가 수치 너프에 둔감한가">견고</th><th>성능</th><th title="난이도 대비 성능 — 쉽고 쎈가">쉬움×쎔</th><th>구직</th><th title="로그점수 뽑기 좋은 프로필·동스펙 경쟁">99점</th><th title="마력주입 비의존">PI독립</th><th title="클래스 내 탱딜/딜힐 스왑">스왑</th><th>합</th></tr></thead>
+        <tbody>${sb.map(r => {
+          const tot = (r.robustness + r.power + r.ease_power + r.recruit + r.parse_99 + r.pi_indep + r.swap_flex) || 0;
+          return `<tr title="${esc(r.note || '')}"><td>${esc(specOf(r.key).kr || r.key)}</td><td>${r.robustness}</td><td>${r.power}</td><td>${r.ease_power}</td><td>${r.recruit}</td><td>${r.parse_99}</td><td>${r.pi_indep}</td><td>${r.swap_flex}</td><td><b>${tot}</b></td></tr>`;
+        }).join('')}</tbody>
+      </table></div>
+    </details>` : '';
+  const swaps = (reco.swap_combos || []).map(s =>
+    `<span class="s2-reco-alt" title="${esc(s.note || '')}">↔ ${esc(s.cls)}</span>`).join('');
+  return `
+    <section class="s2-reco-card">
+      <div class="s2-reco-head"><b>시즌2 시작 추천 픽</b><span>${esc(reco.criteria_note || '')}</span></div>
+      <div class="s2-reco-picks">${pick('tank')}${pick('dps')}${pick('heal')}</div>
+      ${alts || swaps ? `<div class="s2-reco-alts">${alts}${swaps}</div>` : ''}
+      ${sbHtml}
+      ${reco.caveat ? `<div class="s2-reco-caveat">⚠ ${esc(reco.caveat)}</div>` : ''}
+    </section>`;
+}
+
 function renderS2() {
   const specs = _s2Data.specs || {};
   const meta = _s2Data._meta || {};
@@ -513,7 +585,10 @@ function renderS2() {
     $('#s2-board').innerHTML = '<div class="empty">아직 자료 없음 — 영상/PTR 자료를 주시면 정리해서 채웁니다</div>';
     return;
   }
-  $$('.s2-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.s2mode === _s2Mode));
+  $$('.s2-mode-btn[data-s2mode]').forEach(b => b.classList.toggle('active', b.dataset.s2mode === _s2Mode));
+
+  const reco = $('#s2-reco');
+  if (reco) reco.innerHTML = _s2RecoHTML(meta.reco);
 
   // 패치 타임라인 스트립 — 영상 시점 대비 "언제 또 바뀌었나"를 한 줄로
   const pl = $('#s2-patchline');
@@ -526,70 +601,104 @@ function renderS2() {
       + `<span class="s2-pl-note">⚠ = 이 날짜 이전 자료뿐인 스펙 (평가 뒤집혔을 수 있음)</span>`
       : '';
   }
-
-  // 매트릭스: 열 = 역할군, 행 = 전망 밴드 — 가로로 훑으면 티어, 세로로 훑으면 역할군
-  const known = new Set(_S2_COLS.flatMap(c => c.specs));
-  const cols = _S2_COLS.map(c => ({ ...c, specs: [...c.specs] }));
-  for (const key of Object.keys(specs)) {           // 분류 밖 신규 스펙은 원딜 열에 수용
-    if (!known.has(key)) cols[3].specs.push(key);
+  // 이슈 스트립 — 티어 외 유의미 이슈 (마우스 = 상세)
+  const isl = $('#s2-issues');
+  if (isl) {
+    const issues = meta.issues || [];
+    isl.innerHTML = issues.length
+      ? `<span class="s2-pl-h">이슈</span>` + issues.map(i =>
+        `<span class="s2-issue" title="${esc(i.note || '')} (${esc(i.date || '')})">${esc(i.topic || '')}</span>`).join('')
+      : '';
   }
-  const bands = _S2_BANDS.map(band => {
-    const cells = cols.map(col => {
-      const cards = col.specs
-        .filter(k => specs[k] && _s2Band(_s2Outlook(specs[k], _s2Mode)) === band.key)
-        .sort((a, b) => _S2_TIER_ORD[_s2Outlook(specs[b], _s2Mode)] - _S2_TIER_ORD[_s2Outlook(specs[a], _s2Mode)]
-          || (specs[a].kr || a).localeCompare(specs[b].kr || b, 'ko'))
-        .map(k => _s2Card(k, specs[k], meta)).join('');
-      return `<div class="s2-cell">${cards}</div>`;
-    });
-    if (!cells.some(c => c !== '<div class="s2-cell"></div>')) return '';
-    return `<div class="s2-band ${band.key}">
-      <div class="s2-band-label" title="${esc(band.desc)}">${band.label}</div>
-      ${cells.join('')}
-    </div>`;
-  }).join('');
-  $('#s2-board').innerHTML = `
-    <div class="s2-matrix">
-      <div class="s2-head-row"><div></div>${cols.map(c =>
-        `<div class="s2-col-h">${c.label}</div>`).join('')}</div>
-      ${bands}
-    </div>` || '<div class="empty">표시할 스펙 없음</div>';
+
+  const altCfg = _s2Mode === 'raid'
+    ? { mode: 'mplus', glyph: 'M', label: '쐐기' }
+    : { mode: 'raid', glyph: 'R', label: '레이드' };
+  $('#s2-board').innerHTML = _specMatrixHTML(specs, meta, _s2Mode, altCfg)
+    || '<div class="empty">표시할 스펙 없음</div>';
 }
 
-function showS2Detail(key) {
-  const v = (_s2Data.specs || {})[key];
+// ── PvP 전망 (대공세 blitz / 1인조합전 shuffle) — 시즌2 보드 재활용 ──────
+let _pvpData = null;
+let _pvpMode = 'blitz';
+
+async function loadPvpMeta() {
+  const board = $('#pvp-board');
+  board.innerHTML = '<div class="empty">로딩…</div>';
+  try {
+    const r = await fetch('/api/s2-pvp');
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    _pvpData = await r.json();
+    renderPvp();
+  } catch (e) {
+    board.innerHTML = `<div class="empty">로드 실패: ${esc(e.message)} — PvP 자료가 아직 없을 수 있습니다</div>`;
+  }
+}
+
+function renderPvp() {
+  if (!_pvpData) return;
+  const specs = _pvpData.specs || {};
+  const meta = _pvpData._meta || {};
+  $('#meta').textContent = `PvP 전망 — 자료 ${(meta.sources || []).length}건 · ${meta.updated || ''} 갱신 · 전부 추측입니다`;
+  $$('.s2-mode-btn[data-pvpmode]').forEach(b => b.classList.toggle('active', b.dataset.pvpmode === _pvpMode));
+  const altCfg = _pvpMode === 'blitz'
+    ? { mode: 'shuffle', glyph: 'S', label: '1인조합전' }
+    : { mode: 'blitz', glyph: 'B', label: '대공세' };
+  $('#pvp-board').innerHTML = Object.keys(specs).length
+    ? _specMatrixHTML(specs, meta, _pvpMode, altCfg)
+    : '<div class="empty">자료 없음</div>';
+}
+
+// 공용 상세 모달 — tracks = [{k, label, tag}] (s2: 레이드/쐐기, pvp: 대공세/1인조합전)
+function showSpecDetail(key, data, tracks, modalSel, detailSel) {
+  const v = ((data || {}).specs || {})[key];
   if (!v) return;
-  const meta = _s2Data._meta || {};
+  const meta = data._meta || {};
   const srcMap = {};
   (meta.sources || []).forEach(s => { srcMap[s.id] = s; });
 
-  // 레이드/쐐기/변경 노트를 하나의 시간순 타임라인으로 — 같은 문장은 트랙 태그만 합침
+  // 트랙별 노트 + 변경을 하나의 시간순 타임라인으로 — 같은 문장은 트랙 태그만 합침
   const byText = new Map();
-  const put = (n, track) => {
+  const put = (n, label, tag) => {
     if (!n || !n.note) return;
     const s = srcMap[n.src] || {};
     const date = n.date || s.date || '';
     const k = `${date}|${n.note}`;
     const e = byText.get(k) || { note: n.note, date, src: s, tracks: [] };
-    if (!e.tracks.includes(track)) e.tracks.push(track);
+    if (!e.tracks.some(t => t[0] === label)) e.tracks.push([label, tag]);
     byText.set(k, e);
   };
-  ((v.raid || {}).notes || []).forEach(n => put(n, '레이드'));
-  ((v.mplus || {}).notes || []).forEach(n => put(n, '쐐기'));
-  (v.changes || []).forEach(n => put(n, '변경'));
+  for (const tr of tracks) ((v[tr.k] || {}).notes || []).forEach(n => put(n, tr.label, tr.tag));
+  (v.changes || []).forEach(n => put(n, '변경', 'chg'));
   const rows = [...byText.values()].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
-  const trackTag = t => `<span class="s2-tl-tag t-${t === '레이드' ? 'raid' : t === '쐐기' ? 'mplus' : 'chg'}">${t}</span>`;
   const timeline = rows.map(e => {
     const stale = e.date && meta.latest_patch && e.date < meta.latest_patch;
     const chan = e.src.channel || '';
     const link = e.src.url ? `<a href="${esc(e.src.url)}" target="_blank" rel="noopener">${esc(chan)}</a>` : esc(chan);
     return `<div class="s2-tl-row${stale ? ' stale' : ''}">
       <div class="s2-tl-date" title="${stale ? '이후 밸런스 패치 있음 — 뒤집혔을 수 있음' : '자료 날짜'}">${esc((e.date || '?').slice(5).replace('-', '/'))}${stale ? '<span class="s2-tl-warn">⚠</span>' : ''}</div>
-      <div class="s2-tl-body">${e.tracks.map(trackTag).join('')}${esc(e.note)}
+      <div class="s2-tl-body">${e.tracks.map(([lb, tg2]) => `<span class="s2-tl-tag t-${tg2}">${lb}</span>`).join('')}${esc(e.note)}
         <span class="s2-tl-src">— ${link}</span></div>
     </div>`;
   }).join('') || '<div class="sm-empty">자료 없음</div>';
+
+  // 시즌1 대비 비교 (S1 실측 + 영상 종합) — 있는 스펙만
+  const ROT = { easier: ['⬇ 쉬워짐', '#8fdb70'], similar: ['≒ 비슷', '#b7bfcc'],
+                harder: ['⬆ 어려워짐', '#ff9d85'], unknown: ['? 불명', '#798391'] };
+  const vs = v.vs_s1;
+  const vsRow = (label, text) => text
+    ? `<div class="s2-vs-row"><b class="s2-vs-k">${label}</b>${esc(text)}</div>` : '';
+  const vsHtml = vs ? `
+    <div class="fl-track-h" style="margin-top:10px">시즌1 대비 <span class="sm-muted">(S1 실측 지표 + 영상 종합)</span></div>
+    <div class="s2-vs">
+      ${(vs.better || []).map(b => `<div class="s2-vs-row good">▲ ${esc(b)}</div>`).join('')}
+      ${(vs.worse || []).map(b => `<div class="s2-vs-row bad">▼ ${esc(b)}</div>`).join('')}
+      <div class="s2-vs-row"><b class="s2-vs-k">딜사이클</b><b style="color:${(ROT[vs.rotation_change] || ROT.unknown)[1]}">${(ROT[vs.rotation_change] || ROT.unknown)[0]}</b> ${esc(vs.rotation_note || '')}</div>
+      ${vsRow('마력주입', vs.pi_note)}
+      ${vsRow('로그점수', vs.profile_note)}
+      ${vsRow('구직', vs.recruit_note)}
+    </div>` : '';
 
   const cls = _S2_CLASS_KEY[key.split('|')[0]] || '';
   const cc = CLASS_COLORS[cls] || '#7db7ff';
@@ -597,21 +706,34 @@ function showS2Detail(key) {
     ? `<img class="s2-ico big" src="https://wow.zamimg.com/images/wow/icons/large/${_S2_SPEC_ICON[key]}.jpg" onerror="this.remove()">` : '';
   const outBadge = (label, out) => `<span class="s2-out-badge b-${_s2Band(out)}">${label} ${esc(out)}</span>`;
   const [tg, tc, tt] = _S2_TRENDS[v.trend] || [];
-  $('#s2-detail').innerHTML = `
+  $(detailSel).innerHTML = `
     <div class="s2-dh" style="--cc:${cc}">
       ${ico}
       <div class="s2-dh-main">
         <div class="s2-dh-name">${esc(v.kr || key)}
           ${tg ? `<span class="s2-trend ${tc}" title="${esc(tt)}">${tg}</span>` : ''}</div>
-        <div class="s2-dh-badges">${outBadge('레이드', _s2Outlook(v, 'raid'))}${outBadge('쐐기', _s2Outlook(v, 'mplus'))}
+        <div class="s2-dh-badges">${tracks.map(tr => outBadge(tr.label, _s2Outlook(v, tr.k))).join('')}
           ${v.as_of ? `<span class="s2-asof">마지막 자료 ${esc(v.as_of)}</span>` : ''}</div>
       </div>
     </div>
     ${v.summary ? `<div class="s2-dh-sum">${esc(v.summary)}</div>` : ''}
-    <div class="fl-track-h">근거 타임라인 <span class="sm-muted">(최신순 — 전부 예측·추측)</span></div>
+    ${vsHtml}
+    <div class="fl-track-h" style="margin-top:10px">근거 타임라인 <span class="sm-muted">(최신순 — 전부 예측·추측)</span></div>
     <div class="s2-timeline">${timeline}</div>`;
-  $('#s2-modal').classList.add('show');
+  $(modalSel).classList.add('show');
 }
+
+function showS2Detail(key) {
+  showSpecDetail(key, _s2Data,
+    [{ k: 'raid', label: '레이드', tag: 'raid' }, { k: 'mplus', label: '쐐기', tag: 'mplus' }],
+    '#s2-modal', '#s2-detail');
+}
+function showPvpDetail(key) {
+  showSpecDetail(key, _pvpData,
+    [{ k: 'blitz', label: '대공세', tag: 'raid' }, { k: 'shuffle', label: '1인조합전', tag: 'mplus' }],
+    '#pvp-modal', '#pvp-detail');
+}
+function closePvpModal() { $('#pvp-modal')?.classList.remove('show'); }
 function closeS2Modal() { $('#s2-modal')?.classList.remove('show'); }
 
 // ── 스킬명 → 아이콘 + wowhead 마우스오버 툴팁 ──────────────────────────
@@ -3355,13 +3477,15 @@ let rcRaidLastKey = '';      // DOM 갱신 쓰로틀 키 (0.2초 격자 + 선택
 function rcBuildRaidFrame() {
   const root = $('#rc-raid');
   if (!root || !rc.meta) return;
-  const roleOrd = { tank: 0, healer: 1 };
-  const roleTag = { tank: ['탱', 'r-tank'], healer: ['힐', 'r-heal'] };
+  // 정렬·배지: 탱 → 힐 → 근딜 → 원딜
+  const ord = (u) => u.role === 'tank' ? 0 : u.role === 'healer' ? 1 : (u.rng ? 3 : 2);
   const players = (rc.meta.units || []).filter(u => u.kind === 'player')
-    .sort((a, b) => (roleOrd[a.role] ?? 2) - (roleOrd[b.role] ?? 2)
+    .sort((a, b) => ord(a) - ord(b)
       || String(a.name || '').localeCompare(String(b.name || ''), 'ko'));
   root.innerHTML = players.map(u => {
-    const [rg, rcls] = roleTag[u.role] || ['딜', 'r-dps'];
+    const [rg, rcls] = u.role === 'tank' ? ['탱', 'r-tank']
+      : u.role === 'healer' ? ['힐', 'r-heal']
+      : u.rng ? ['원', 'r-rng'] : ['근', 'r-mel'];
     return `
     <div class="rc-rf-row" data-uid="${esc(u.id)}">
       <i class="rc-rf-fill"></i>
@@ -3931,6 +4055,7 @@ function switchTab(tab) {
               : (tab === 'meta') ? 'meta'
               : (tab === 'fun') ? 'fun'
               : (tab === 's2') ? 's2'
+              : (tab === 'pvp') ? 'pvp'
               : (tab === 'rotation') ? 'rotation'
               : (tab === 'stats') ? 'stats'
               : (tab === 'replay') ? 'replay'
@@ -3955,6 +4080,9 @@ function bind() {
     } else if (tab === 's2') {
       $('#meta').textContent = '시즌2(12.1) 예측 자료집 — 실측 아님, 수시 갱신';
       loadS2Meta();
+    } else if (tab === 'pvp') {
+      $('#meta').textContent = 'PvP 전망 — 대공세·1인조합전 예측 자료집';
+      loadPvpMeta();
     } else if (tab === 'rotation') {
       $('#meta').textContent = '표본: 신화 top100';
       loadRotation();
@@ -4135,12 +4263,31 @@ function bind() {
     const card = e.target.closest('.s2-card');
     if (card) showS2Detail(card.dataset.key);
   });
-  $$('.s2-mode-btn').forEach(b => b.addEventListener('click', () => {
+  const s2r = $('#s2-reco');
+  if (s2r) s2r.addEventListener('click', e => {
+    const pick = e.target.closest('.s2-reco-pick');
+    if (pick) showS2Detail(pick.dataset.key);
+  });
+  $$('.s2-mode-btn[data-s2mode]').forEach(b => b.addEventListener('click', () => {
     _s2Mode = b.dataset.s2mode;
     if (_s2Data) renderS2();
   }));
+  // PvP 탭 — 모드 전환·카드 클릭·모달 닫기
+  $$('.s2-mode-btn[data-pvpmode]').forEach(b => b.addEventListener('click', () => {
+    _pvpMode = b.dataset.pvpmode;
+    if (_pvpData) renderPvp();
+  }));
+  const pvb = $('#pvp-board');
+  if (pvb) pvb.addEventListener('click', e => {
+    const card = e.target.closest('.s2-card');
+    if (card) showPvpDetail(card.dataset.key);
+  });
+  const pvm = $('#pvp-modal');
+  if (pvm) pvm.addEventListener('click', e => {
+    if (e.target === pvm || e.target.closest('.sm-close')) closePvpModal();
+  });
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeSpecModal(); closeFunModal(); closeS2Modal(); $('#gear-modal')?.classList.remove('show'); }
+    if (e.key === 'Escape') { closeSpecModal(); closeFunModal(); closeS2Modal(); closePvpModal(); $('#gear-modal')?.classList.remove('show'); }
     // 리플레이 단축키 (리플레이 탭 + 글자 입력 중 아닐 때).
     // 타임라인 바(range)는 예외로 허용 — 스크럽을 잡은 채로도 단축키가 먹는다.
     const rcKeysOk = rc.meta

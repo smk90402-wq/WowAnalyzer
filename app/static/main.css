@@ -1206,7 +1206,8 @@ tr.lc-info .lc-mark::before { color: #4a5568; }
 }
 .rc-rf-role.r-tank { background: rgba(58, 110, 190, .85); color: #dcebff; }
 .rc-rf-role.r-heal { background: rgba(46, 140, 80, .85); color: #dcffe8; }
-.rc-rf-role.r-dps { background: rgba(120, 120, 130, .5); color: #d5d9e0; }
+.rc-rf-role.r-mel { background: rgba(176, 96, 60, .7); color: #ffe3d4; }
+.rc-rf-role.r-rng { background: rgba(130, 100, 190, .7); color: #ead9ff; }
 .rc-rf-fill {
   position: absolute; inset: 0 auto 0 0; width: 100%;
   background: rgba(46, 94, 50, .78); transition: width .18s linear;
@@ -1669,6 +1670,61 @@ tr.lc-info .lc-mark::before { color: #4a5568; }
 .s2-ico { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0;
   outline: 1px solid rgba(255,255,255,0.14); }
 .s2-ico.big { width: 40px; height: 40px; outline: 2px solid var(--cc); }
+
+/* 시즌2 추천 픽 카드 */
+.s2-reco-card {
+  border: 1px solid var(--accent-dim); border-radius: 10px;
+  background: rgba(240, 179, 95, 0.05); padding: 10px 12px; margin-bottom: 10px;
+}
+.s2-reco-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+.s2-reco-head b { font-size: 14px; color: var(--accent); }
+.s2-reco-head span { font-size: 11px; color: var(--text-mute); }
+.s2-reco-picks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.s2-reco-pick {
+  background: var(--bg-0); border: 1px solid var(--border); border-left: 3px solid var(--cc);
+  border-radius: 8px; padding: 8px 10px; cursor: pointer;
+  transition: transform .06s ease, border-color .06s ease;
+}
+.s2-reco-pick:hover { transform: translateY(-1px); border-color: var(--accent); border-left-color: var(--cc); }
+.s2-reco-role { font-size: 10px; font-weight: 700; color: var(--text-mute); letter-spacing: 2px; }
+.s2-reco-name { display: flex; align-items: center; gap: 6px; margin: 3px 0 5px; font-size: 14px; }
+.s2-reco-pick p { margin: 0; font-size: 11px; color: var(--text-mute); line-height: 1.5; }
+.s2-reco-pick small { display: block; margin-top: 5px; font-size: 10.5px; color: #8fdb70; }
+.s2-reco-alts { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.s2-reco-alt {
+  font-size: 10.5px; color: var(--text-mute); background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border-soft); border-radius: 999px; padding: 2px 9px; cursor: default;
+}
+.s2-reco-sb { margin-top: 8px; }
+.s2-reco-sb summary { font-size: 11.5px; color: var(--text-mute); cursor: pointer; }
+.s2-reco-sb table { width: 100%; border-collapse: collapse; font-size: 11.5px; margin-top: 6px; }
+.s2-reco-sb th { color: var(--text-dim); font-weight: 600; padding: 3px 6px; text-align: center;
+  border-bottom: 1px solid var(--border); }
+.s2-reco-sb td { padding: 3px 6px; text-align: center; border-bottom: 1px solid var(--border-soft);
+  font-variant-numeric: tabular-nums; }
+.s2-reco-sb td:first-child, .s2-reco-sb th:first-child { text-align: left; }
+.s2-reco-caveat { margin-top: 8px; font-size: 10.5px; color: var(--text-dim); }
+/* 이슈 스트립 */
+#s2-issues { display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 10px; font-size: 11px; color: var(--text-mute); }
+#s2-issues:empty { display: none; }
+.s2-issue {
+  background: rgba(125, 183, 255, 0.08); border: 1px solid rgba(125, 183, 255, 0.3);
+  color: #a7ccff; border-radius: 999px; padding: 2px 9px; cursor: default;
+}
+/* PvP 상세 모달 — 시즌2 모달과 동일 룩 */
+#pvp-modal { display: none; position: fixed; inset: 0; z-index: 100;
+  background: rgba(0,0,0,0.55); align-items: center; justify-content: center; }
+#pvp-modal.show { display: flex; }
+#pvp-modal .spec-modal-card { width: min(720px, 94vw); }
+/* 시즌1 대비 섹션 */
+.s2-vs { display: flex; flex-direction: column; margin-bottom: 4px; }
+.s2-vs-row { font-size: 12px; color: var(--text-mute); padding: 3px 2px; line-height: 1.5;
+  border-bottom: 1px solid var(--border-soft); }
+.s2-vs-row:last-child { border-bottom: none; }
+.s2-vs-row.good { color: #a5e58c; }
+.s2-vs-row.bad { color: #ffb39d; }
+.s2-vs-k { color: var(--text-dim); font-size: 10.5px; margin-right: 6px; font-weight: 700; }
 
 /* 시즌2 상세 — 근거 타임라인 */
 .s2-dh { display: flex; align-items: center; gap: 12px; padding-bottom: 10px;
