@@ -3865,12 +3865,12 @@ function rcDraw() {
     if (label) {
       // 기믹 아이콘을 이름 왼쪽에 함께 — 어떤 기믹인지 한눈에
       const ly = y + (drewArea ? 20 : rr + 11);
-      ctx.font = 'bold 12px sans-serif';
+      ctx.font = 'bold 11px sans-serif';
       const ic = rcIconImg(rcMechanicMeta(ev.mechanic_key)?.icon);
-      const lx = ic ? x + 11 : x;
+      const lx = ic ? x + 10 : x;
       if (ic) {
         ctx.globalAlpha = it.fade;
-        ctx.drawImage(ic, x - ctx.measureText(label).width / 2 - 11, ly - 9, 18, 18);
+        ctx.drawImage(ic, x - ctx.measureText(label).width / 2 - 10, ly - 8, 16, 16);
         ctx.globalAlpha = 0.9 * it.fade;
       }
       ctx.lineWidth = 3;

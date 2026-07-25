@@ -378,6 +378,7 @@ window.Replay3D = (() => {
     let label = null;
     if (u.kind === 'boss') {
       label = makeTextSprite(`★ ${String(u.name || '').split('-')[0]}`, '#ffd8d8');
+      label.scale.multiplyScalar(0.7);      // 유닛을 가리지 않게 축소 (사용자 피드백)
       label.position.y = r * 2 + 3.2;
       group.add(label);
     }
@@ -389,7 +390,7 @@ window.Replay3D = (() => {
   function ensureLabel(rec) {
     if (rec.label) return;
     rec.label = makeTextSprite(String(rec.u.name || rec.u.id).split('-')[0], '#f0f0f0');
-    rec.label.scale.multiplyScalar(0.62);   // 플레이어 이름은 작게 — 20명 겹칠 때 가독성
+    rec.label.scale.multiplyScalar(0.5);    // 플레이어 이름은 작게 — 20명 겹칠 때 가독성
     rec.label.position.y = rec.r * 2 + 2.6;
     rec.group.add(rec.label);
   }
@@ -718,6 +719,7 @@ window.Replay3D = (() => {
     for (const o of wmObjs) o.group.visible = o.wm.s <= t && t <= o.wm.e;
 
     // DB2/수동 보정으로 확인된 원형·부채꼴·직선 장판을 월드 야드 단위로 표시한다.
+    const mechByUnit = {};   // uid → 이번 프레임에 하이라이트된 기믹명 (스프라이트용)
     let ri = 0;
     for (const it of rcRingEventsAt(t)) {
       const ev = it.ev;
@@ -774,12 +776,39 @@ window.Replay3D = (() => {
           if (!circleGeom || it.danger) {
             ensureLabel(drec);
             drec.label.visible = true;
+            mechByUnit[ev.dest_id] ??= String(ev.spell || '');
           }
         }
       }
       if (ri >= RC_RING_MAX) break;   // main.js 상수 공유 (링 풀 상한)
     }
     for (let i = ri; i < rings.length; i++) if (rings[i]) rings[i].visible = false;
+
+    // 기믹 이름 스프라이트 — 하이라이트 링 바깥(오른쪽 아래)에 작게, 이름과 안 겹치게.
+    // 씬 직속: 그룹에 넣으면 유닛 시선 회전을 따라 돌아버려서 매 프레임 위치만 따라간다.
+    for (const rec of Object.values(units)) {
+      const want = mechByUnit[rec.u.id] || '';
+      if ((rec.mechText || '') !== want) {
+        if (rec.mechSprite) {
+          scene.remove(rec.mechSprite);
+          rec.mechSprite.material.map?.dispose();
+          rec.mechSprite.material.dispose();
+          rec.mechSprite = null;
+        }
+        if (want) {
+          rec.mechSprite = makeTextSprite(`⚠ ${want}`, '#ffc46e');
+          rec.mechSprite.scale.multiplyScalar(0.48);
+          scene.add(rec.mechSprite);
+        }
+        rec.mechText = want;
+      }
+      if (rec.mechSprite) {
+        rec.mechSprite.position.set(rec.group.position.x + 2.6,
+                                    rec.group.position.y + 0.8,
+                                    rec.group.position.z + 0.6);
+        rec.mechSprite.visible = rec.group.visible;
+      }
+    }
 
     renderer.render(scene, camera);
   }
