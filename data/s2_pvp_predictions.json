@@ -19,7 +19,7 @@
   "Death Knight|Blood": {
    "kr": "죽기 혈기",
    "blitz": {
-    "outlook": "하(S1 기준)",
+    "outlook": "하",
     "notes": [
      {
       "src": "s2_22",
@@ -39,7 +39,7 @@
   "Demon Hunter|Vengeance": {
    "kr": "악딜 복수",
    "blitz": {
-    "outlook": "하(S1 기준)",
+    "outlook": "하",
     "notes": [
      {
       "src": "s2_22",
@@ -59,7 +59,7 @@
   "Druid|Guardian": {
    "kr": "드루 수호",
    "blitz": {
-    "outlook": "하(S1 기준)",
+    "outlook": "하",
     "notes": [
      {
       "src": "s2_22",
@@ -79,7 +79,7 @@
   "Warrior|Protection": {
    "kr": "전사 방어",
    "blitz": {
-    "outlook": "하(S1 기준)",
+    "outlook": "하",
     "notes": [
      {
       "src": "s2_22",
@@ -99,7 +99,7 @@
   "Druid|Restoration": {
    "kr": "드루 회복",
    "blitz": {
-    "outlook": "중(S1 기준, 12.1 재산정 필요)",
+    "outlook": "중",
     "notes": [
      {
       "src": "s2_22",
@@ -119,7 +119,7 @@
   "Evoker|Preservation": {
    "kr": "기원 보존",
    "blitz": {
-    "outlook": "상(S1 기준)",
+    "outlook": "상",
     "notes": [
      {
       "src": "s2_22",
@@ -139,7 +139,7 @@
   "Monk|Mistweaver": {
    "kr": "수도 운무",
    "blitz": {
-    "outlook": "상(S1 기준, 12.1 재산정 필요)",
+    "outlook": "상",
     "notes": [
      {
       "src": "s2_22",
@@ -159,7 +159,7 @@
   "Paladin|Holy": {
    "kr": "성기 신성",
    "blitz": {
-    "outlook": "하(S1 기준)",
+    "outlook": "하",
     "notes": [
      {
       "src": "s2_22",
@@ -179,7 +179,7 @@
   "Priest|Discipline": {
    "kr": "사제 수양",
    "blitz": {
-    "outlook": "상(S1 기준)",
+    "outlook": "상",
     "notes": [
      {
       "src": "s2_22",
@@ -199,7 +199,7 @@
   "Priest|Holy": {
    "kr": "사제 신성",
    "blitz": {
-    "outlook": "중(S1 기준)",
+    "outlook": "중",
     "notes": [
      {
       "src": "s2_22",
@@ -219,7 +219,7 @@
   "Shaman|Restoration": {
    "kr": "주술 복원",
    "blitz": {
-    "outlook": "중(S1 기준)",
+    "outlook": "중",
     "notes": [
      {
       "src": "s2_22",
@@ -239,7 +239,7 @@
   "Warrior|Arms": {
    "kr": "전사 무기",
    "blitz": {
-    "outlook": "중(S1 기준)",
+    "outlook": "중",
     "notes": [
      {
       "src": "s2_22",
@@ -259,7 +259,7 @@
   "Warrior|Fury": {
    "kr": "전사 분노",
    "blitz": {
-    "outlook": "상(S1 기준)",
+    "outlook": "상",
     "notes": [
      {
       "src": "s2_22",
@@ -279,7 +279,7 @@
   "Paladin|Retribution": {
    "kr": "성기 징벌",
    "blitz": {
-    "outlook": "상(S1 기준)",
+    "outlook": "상",
     "notes": [
      {
       "src": "s2_22",
@@ -299,7 +299,7 @@
   "Death Knight|Frost": {
    "kr": "죽기 냉기",
    "blitz": {
-    "outlook": "상(S1 기준)",
+    "outlook": "상",
     "notes": [
      {
       "src": "s2_22",
@@ -319,7 +319,7 @@
   "Death Knight|Unholy": {
    "kr": "죽기 부정",
    "blitz": {
-    "outlook": "상(S1 기준)",
+    "outlook": "상",
     "notes": [
      {
       "src": "s2_22",
@@ -339,7 +339,7 @@
   "Demon Hunter|Havoc": {
    "kr": "악딜 파멸",
    "blitz": {
-    "outlook": "상(S1 기준)",
+    "outlook": "상",
     "notes": [
      {
       "src": "s2_22",
@@ -359,7 +359,7 @@
   "Demon Hunter|Devourer": {
    "kr": "악딜 포식",
    "blitz": {
-    "outlook": "상(S1 기준)",
+    "outlook": "상",
     "notes": [
      {
       "src": "s2_22",
@@ -379,7 +379,7 @@
   "Rogue|Assassination": {
    "kr": "도적 암살",
    "blitz": {
-    "outlook": "상(S1 기준)",
+    "outlook": "상",
     "notes": [
      {
       "src": "s2_22",
@@ -399,7 +399,7 @@
   "Rogue|Outlaw": {
    "kr": "도적 무법",
    "blitz": {
-    "outlook": "중(S1 기준)",
+    "outlook": "중",
     "notes": [
      {
       "src": "s2_22",
@@ -419,7 +419,7 @@
   "Rogue|Subtlety": {
    "kr": "도적 잠행",
    "blitz": {
-    "outlook": "상(S1 기준)",
+    "outlook": "상",
     "notes": [
      {
       "src": "s2_22",
@@ -439,7 +439,7 @@
   "Monk|Windwalker": {
    "kr": "수도 풍운",
    "blitz": {
-    "outlook": "중(S1 기준)",
+    "outlook": "중",
     "notes": [
      {
       "src": "s2_22",
@@ -459,7 +459,7 @@
   "Druid|Feral": {
    "kr": "드루 야성",
    "blitz": {
-    "outlook": "중(S1 기준)",
+    "outlook": "중",
     "notes": [
      {
       "src": "s2_22",
@@ -479,7 +479,7 @@
   "Shaman|Enhancement": {
    "kr": "주술 고양",
    "blitz": {
-    "outlook": "중(S1 기준)",
+    "outlook": "중",
     "notes": [
      {
       "src": "s2_22",
@@ -499,7 +499,7 @@
   "Hunter|Survival": {
    "kr": "사냥 생존",
    "blitz": {
-    "outlook": "중(S1 기준)",
+    "outlook": "중",
     "notes": [
      {
       "src": "s2_22",
@@ -519,7 +519,7 @@
   "Hunter|Beast Mastery": {
    "kr": "사냥 야수",
    "blitz": {
-    "outlook": "하(S1 기준)",
+    "outlook": "하",
     "notes": [
      {
       "src": "s2_22",
@@ -539,7 +539,7 @@
   "Hunter|Marksmanship": {
    "kr": "사냥 사격",
    "blitz": {
-    "outlook": "상(S1 기준)",
+    "outlook": "상",
     "notes": [
      {
       "src": "s2_22",
@@ -559,7 +559,7 @@
   "Mage|Arcane": {
    "kr": "마법 비전",
    "blitz": {
-    "outlook": "하(S1 기준)",
+    "outlook": "하",
     "notes": [
      {
       "src": "s2_22",
@@ -579,7 +579,7 @@
   "Mage|Fire": {
    "kr": "마법 화염",
    "blitz": {
-    "outlook": "중(S1 기준)",
+    "outlook": "중",
     "notes": [
      {
       "src": "s2_22",
@@ -599,7 +599,7 @@
   "Mage|Frost": {
    "kr": "마법 냉기",
    "blitz": {
-    "outlook": "상(S1 기준)",
+    "outlook": "상",
     "notes": [
      {
       "src": "s2_22",
@@ -619,7 +619,7 @@
   "Warlock|Affliction": {
    "kr": "흑마 고통",
    "blitz": {
-    "outlook": "중(S1 기준)",
+    "outlook": "중",
     "notes": [
      {
       "src": "s2_22",
@@ -639,7 +639,7 @@
   "Warlock|Demonology": {
    "kr": "흑마 악마",
    "blitz": {
-    "outlook": "하(S1 기준)",
+    "outlook": "하",
     "notes": [
      {
       "src": "s2_22",
@@ -659,7 +659,7 @@
   "Warlock|Destruction": {
    "kr": "흑마 파괴",
    "blitz": {
-    "outlook": "중(S1 기준)",
+    "outlook": "중",
     "notes": [
      {
       "src": "s2_22",
@@ -679,7 +679,7 @@
   "Priest|Shadow": {
    "kr": "사제 암흑",
    "blitz": {
-    "outlook": "하(S1 기준)",
+    "outlook": "하",
     "notes": [
      {
       "src": "s2_22",
@@ -699,7 +699,7 @@
   "Druid|Balance": {
    "kr": "드루 조화",
    "blitz": {
-    "outlook": "상(S1 기준)",
+    "outlook": "상",
     "notes": [
      {
       "src": "s2_22",
@@ -719,7 +719,7 @@
   "Shaman|Elemental": {
    "kr": "주술 정기",
    "blitz": {
-    "outlook": "중(S1 기준)",
+    "outlook": "중",
     "notes": [
      {
       "src": "s2_22",
@@ -739,7 +739,7 @@
   "Evoker|Devastation": {
    "kr": "기원 황폐",
    "blitz": {
-    "outlook": "중(S1 기준)",
+    "outlook": "중",
     "notes": [
      {
       "src": "s2_22",
@@ -759,7 +759,7 @@
   "Evoker|Augmentation": {
    "kr": "기원 증강",
    "blitz": {
-    "outlook": "하(S1 기준)",
+    "outlook": "하",
     "notes": [
      {
       "src": "s2_22",
