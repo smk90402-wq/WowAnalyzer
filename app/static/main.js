@@ -406,14 +406,15 @@ const _S2_COLS = [
     'Paladin|Holy', 'Priest|Discipline', 'Priest|Holy', 'Shaman|Restoration'] },
   { key: 'melee', label: '근딜', specs: [
     'Warrior|Arms', 'Warrior|Fury', 'Paladin|Retribution', 'Death Knight|Frost',
-    'Death Knight|Unholy', 'Demon Hunter|Havoc', 'Demon Hunter|Devourer',
+    'Death Knight|Unholy', 'Demon Hunter|Havoc',
     'Rogue|Assassination', 'Rogue|Outlaw', 'Rogue|Subtlety', 'Monk|Windwalker',
     'Druid|Feral', 'Shaman|Enhancement', 'Hunter|Survival'] },
+  // 포식(Devourer)은 게임 판정이 원거리 딜러 — 현 최적 빌드(Void Scythe)만 근접형
   { key: 'ranged', label: '원딜', specs: [
     'Hunter|Beast Mastery', 'Hunter|Marksmanship', 'Mage|Arcane', 'Mage|Fire',
     'Mage|Frost', 'Warlock|Affliction', 'Warlock|Demonology', 'Warlock|Destruction',
-    'Priest|Shadow', 'Druid|Balance', 'Shaman|Elemental', 'Evoker|Devastation',
-    'Evoker|Augmentation'] },
+    'Priest|Shadow', 'Druid|Balance', 'Shaman|Elemental', 'Demon Hunter|Devourer',
+    'Evoker|Devastation', 'Evoker|Augmentation'] },
 ];
 // 클래스 색 (아이콘 테두리·카드 좌측 바) — Class|Spec 의 앞부분으로 매칭
 const _S2_CLASS_KEY = {
