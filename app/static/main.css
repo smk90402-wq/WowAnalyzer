@@ -1158,20 +1158,55 @@ tr.lc-info .lc-mark::before { color: #4a5568; }
   color: #eadcff;
 }
 .rc-space:empty { display: none; }
+/* 전멸 인과 사슬 — 표면 원인 vs 근본 원인 */
+.wipe-chain .wc-verdict {
+  font-size: 12.5px; font-weight: 700; color: #ffb3b3;
+  background: rgba(255, 91, 91, 0.10); border-left: 3px solid #ff5b5b;
+  border-radius: 5px; padding: 6px 9px; margin: 8px 0 6px;
+}
+.wipe-chain .wc-warning {
+  font-size: 12px; color: #ffe2ae;
+  background: rgba(232, 179, 79, 0.10); border-left: 3px solid #e8b34f;
+  border-radius: 5px; padding: 6px 9px; margin-bottom: 8px; line-height: 1.5;
+}
+.wipe-chain .wc-steps { display: flex; flex-direction: column; }
+.wipe-chain .wc-step {
+  display: flex; align-items: baseline; gap: 7px; padding: 4px 2px;
+  border-bottom: 1px solid var(--border-soft); font-size: 12px; line-height: 1.45;
+}
+.wipe-chain .wc-step:last-child { border-bottom: none; }
+.wipe-chain .wc-glyph { width: 14px; text-align: center; flex-shrink: 0; }
+.wipe-chain .wc-step.root { background: rgba(255, 91, 91, 0.08); }
+.wipe-chain .wc-step.root .wc-text { color: #ffb3b3; font-weight: 700; }
+.wipe-chain .wc-step.crystal .wc-text { color: #f5d76e; }
+.wipe-chain .wc-step.death .wc-text, .wipe-chain .wc-step.wipe .wc-text { color: var(--text-mute); }
+.wipe-chain .wc-step button {
+  background: var(--bg-0); border: 1px solid var(--border); color: var(--text-mute);
+  border-radius: 5px; padding: 1px 7px; font-size: 11px; cursor: pointer;
+  font-variant-numeric: tabular-nums; flex-shrink: 0;
+}
+.wipe-chain .wc-step button:hover { border-color: var(--accent); color: var(--accent); }
 /* 레이드 프레임 — 위상 라벨 아래 공대원 전체 체력·디버프 */
 .rc-raid {
   position: absolute; top: 34px; right: 8px; z-index: 2;
-  display: flex; flex-direction: column; gap: 2px;
-  width: 178px; max-height: calc(100% - 46px); overflow-y: auto;
+  display: flex; flex-direction: column; gap: 1px;
+  width: 196px; max-height: calc(100% - 46px); overflow-y: auto;
   background: rgba(10, 13, 18, .62); border: 1px solid rgba(180, 194, 218, .22);
-  border-radius: 6px; padding: 4px;
+  border-radius: 6px; padding: 3px;
 }
 .rc-raid:empty { display: none; }
 .rc-rf-row {
-  position: relative; display: flex; align-items: center; gap: 5px;
-  height: 19px; padding: 0 5px; border-radius: 3px; overflow: hidden;
+  position: relative; display: flex; align-items: center; gap: 4px;
+  height: 18px; padding: 0 4px; border-radius: 3px; overflow: hidden;
   background: rgba(52, 16, 16, .55); cursor: pointer; flex-shrink: 0;
 }
+.rc-rf-role {
+  position: relative; z-index: 1; font-size: 8.5px; font-weight: 800;
+  border-radius: 3px; padding: 0 3px; flex-shrink: 0; line-height: 12px;
+}
+.rc-rf-role.r-tank { background: rgba(58, 110, 190, .85); color: #dcebff; }
+.rc-rf-role.r-heal { background: rgba(46, 140, 80, .85); color: #dcffe8; }
+.rc-rf-role.r-dps { background: rgba(120, 120, 130, .5); color: #d5d9e0; }
 .rc-rf-fill {
   position: absolute; inset: 0 auto 0 0; width: 100%;
   background: rgba(46, 94, 50, .78); transition: width .18s linear;
@@ -1182,13 +1217,13 @@ tr.lc-info .lc-mark::before { color: #4a5568; }
 .rc-rf-row.sel { outline: 1.5px solid #fff; }
 .rc-rf-row:hover { outline: 1px solid var(--focus); }
 .rc-rf-name {
-  position: relative; z-index: 1; font-size: 10.5px; font-weight: 700;
-  max-width: 62px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, .9);
+  position: relative; z-index: 1; font-size: 10px; font-weight: 700;
+  flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis;
+  white-space: nowrap; text-shadow: 0 1px 2px rgba(0, 0, 0, .9);
 }
 .rc-rf-hp {
-  position: relative; z-index: 1; font-size: 9.5px; color: #dfe6f0;
-  font-variant-numeric: tabular-nums; width: 20px; text-align: right; flex-shrink: 0;
+  position: relative; z-index: 1; font-size: 9px; color: #dfe6f0;
+  font-variant-numeric: tabular-nums; flex-shrink: 0;
 }
 .rc-rf-debuffs {
   position: relative; z-index: 1; display: flex; gap: 2px; margin-left: auto;

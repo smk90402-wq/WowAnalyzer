@@ -1663,10 +1663,32 @@ function _replayFocusCard(focus, canReplay, loading = false) {
     </section>`;
 }
 
-function renderReplayFocus(focus, canReplay = true) {
+// 전멸 인과 사슬 — 표면 원인(첫 사망자)과 근본 원인(방아쇠 기믹)을 구분해 오독 방지
+function _wipeChainCard(chain, canReplay) {
+  if (!chain || !(chain.steps || []).length) return '';
+  const KIND = { info: ['·', 'info'], root: ['★', 'root'], crystal: ['◆', 'crystal'],
+                 death: ['☠', 'death'], wipe: ['✖', 'wipe'] };
+  return `
+    <section class="replay-focus-card wipe-chain">
+      <div class="rf-title"><b>전멸 인과 사슬</b><span>누가 방아쇠였나 — 시각 클릭 = 리플레이 이동</span></div>
+      ${chain.verdict ? `<div class="wc-verdict">${esc(chain.verdict)}</div>` : ''}
+      ${chain.warning ? `<div class="wc-warning">⚠ ${esc(chain.warning)}</div>` : ''}
+      <div class="wc-steps">
+        ${(chain.steps || []).map(s => {
+          const [glyph, cls] = KIND[s.kind] || KIND.info;
+          const tBtn = canReplay
+            ? `<button type="button" data-focus-jump="${Number(s.t) || 0}" title="이 시각으로 이동">${rcClock(s.t || 0)}</button>`
+            : `<i>${rcClock(s.t || 0)}</i>`;
+          return `<div class="wc-step ${cls}"><span class="wc-glyph">${glyph}</span>${tBtn}<span class="wc-text">${esc(s.text)}</span></div>`;
+        }).join('')}
+      </div>
+    </section>`;
+}
+
+function renderReplayFocus(focus, canReplay = true, wipeChain = null) {
   const host = $('#replay-review-focus');
   if (!host) return;
-  host.innerHTML = _replayFocusCard(focus, canReplay);
+  host.innerHTML = _wipeChainCard(wipeChain, canReplay) + _replayFocusCard(focus, canReplay);
   host.querySelectorAll('[data-focus-jump]').forEach(button => {
     button.addEventListener('click', () => rcSeek(Number(button.dataset.focusJump) || 0));
   });
@@ -2588,7 +2610,7 @@ async function initReplayCanvas(replayId) {
     if (node) node.textContent = Number(frameCounts[key] || 0).toLocaleString();
   }
   if (!frames.length) {
-    renderReplayFocus(j.review_focus, false);
+    renderReplayFocus(j.review_focus, false, j.wipe_chain);
     msg.textContent = '이 전투에는 좌표 데이터가 없습니다 (고급 전투 정보 로그 필요)';
     rcSetFeedEnabled(false, '좌표 데이터가 없어 종류별 목록을 쓸 수 없습니다');
     renderReplayEventRowsRaw();
@@ -2605,7 +2627,7 @@ async function initReplayCanvas(replayId) {
   }
   for (const d of meta.deaths || []) (rc.deathsBy[d.id] ??= []).push(d.t);
   rc.meta = meta;
-  renderReplayFocus(j.review_focus, true);
+  renderReplayFocus(j.review_focus, true, j.wipe_chain);
   rc.duration = Math.max(Number(meta.duration_s) || 0, frames[frames.length - 1].t);
   rc.bossEvents = j.boss_events || [];
   rc.bossMechanics = j.boss_mechanics || [];
@@ -3333,14 +3355,22 @@ let rcRaidLastKey = '';      // DOM 갱신 쓰로틀 키 (0.2초 격자 + 선택
 function rcBuildRaidFrame() {
   const root = $('#rc-raid');
   if (!root || !rc.meta) return;
-  const players = (rc.meta.units || []).filter(u => u.kind === 'player');
-  root.innerHTML = players.map(u => `
+  const roleOrd = { tank: 0, healer: 1 };
+  const roleTag = { tank: ['탱', 'r-tank'], healer: ['힐', 'r-heal'] };
+  const players = (rc.meta.units || []).filter(u => u.kind === 'player')
+    .sort((a, b) => (roleOrd[a.role] ?? 2) - (roleOrd[b.role] ?? 2)
+      || String(a.name || '').localeCompare(String(b.name || ''), 'ko'));
+  root.innerHTML = players.map(u => {
+    const [rg, rcls] = roleTag[u.role] || ['딜', 'r-dps'];
+    return `
     <div class="rc-rf-row" data-uid="${esc(u.id)}">
       <i class="rc-rf-fill"></i>
+      <span class="rc-rf-role ${rcls}">${rg}</span>
       <span class="rc-rf-name" style="color:${rcUnitColor(u)}">${esc(String(u.name || u.id).split('-')[0])}</span>
       <span class="rc-rf-hp"></span>
       <span class="rc-rf-debuffs"></span>
-    </div>`).join('');
+    </div>`;
+  }).join('');
   root.style.display = players.length ? '' : 'none';
   root.onclick = (e) => {
     const row = e.target.closest('.rc-rf-row');

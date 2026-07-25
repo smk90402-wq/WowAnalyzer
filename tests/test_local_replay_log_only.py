@@ -222,6 +222,35 @@ class LogOnlyReplayTests(unittest.TestCase):
         self.assertEqual([{"u": "p1", "s": 10.0, "e": 25.5},
                           {"u": "p2", "s": 30.0, "e": 40.0}], holds)
 
+    def test_lura_wipe_chain_separates_root_cause_from_first_death(self) -> None:
+        boss = "Creature-0-BOSS"
+        g = lambda i: f"Player-1-{i:02d}"  # noqa: E731
+        gid = {g(i): f"p{i}" for i in range(1, 21)}
+        names = {f"p{i}": f"멤버{i}-아즈샤라-KR" for i in range(1, 21)}
+        deaths = [(355.0 + i * 0.1, g(i)) for i in range(1, 15)]   # 14명 연쇄 사망
+        aura = (
+            [(353.2, "SPELL_AURA_APPLIED", 1249609, g(i), boss, 0)
+             for i in (3, 8, 11, 12, 17, 18)]
+            + [(354.9, "SPELL_AURA_APPLIED", 1249584, g(12), boss, 0),
+               (354.9, "SPELL_AURA_APPLIED", 1249584, g(18), boss, 0),
+               (354.5, "SPELL_AURA_APPLIED_DOSE", 1263514, g(1), boss, 4)]
+        )
+        crystal = [{"u": "p2", "s": 333.0, "e": 355.1}]   # 보유 중 사망(355.2)
+        realm = [{"u": f"p{i}", "s": 353.2, "e": 362.0} for i in (3, 8, 11, 12, 17, 18)]
+        chain = local_replay._lura_wipe_chain(
+            deaths, aura, crystal, realm, gid, names, 362.0)
+        self.assertIsNotNone(chain)
+        kinds = [s["kind"] for s in chain["steps"]]
+        self.assertIn("root", kinds)
+        self.assertIn("crystal", kinds)
+        root = next(s for s in chain["steps"] if s["kind"] == "root")
+        self.assertIn("멤버12", root["text"])
+        self.assertIn("멤버18", root["text"])
+        self.assertIn("멤버2", chain["warning"])       # 수정특임 = 표면 원인
+        self.assertIn("멤버12", chain["warning"])      # 실제 원인 = 문양 실패조
+        first = next(s for s in chain["steps"] if s["kind"] == "death")
+        self.assertIn("한밤 4중첩", first["text"])
+
     def test_unit_debuff_segments(self) -> None:
         boss = "Creature-0-0-0-0-99999-1"
         ups = [

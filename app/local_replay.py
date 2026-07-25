@@ -2756,6 +2756,118 @@ def _aura_windows_for(
     return out
 
 
+_LURA_DISCORD_IDS = frozenset({1249584, 1249585})   # 불화 — 문양 매칭 실패 페널티
+
+
+def _lura_wipe_chain(
+    deaths: list[tuple[float, str]],
+    aura_updates: list[tuple[float, str, int, str, str, int]],
+    crystal_holds: list[dict[str, Any]],
+    realm_windows: list[dict[str, Any]],
+    guid_to_id: dict[str, str],
+    uid_names: dict[str, str],
+    duration_s: float,
+) -> dict[str, Any] | None:
+    """전멸 인과 사슬 — 표면 원인(첫 사망자)과 근본 원인을 구분해 시간순 재구성.
+
+    수정특임이 첫 희생자라 수정 실수처럼 보여도, 실제 방아쇠(반대 조 문양
+    실패 → 불화 광역)를 짚어준다. 사망 8명 미만이면 전멸로 안 봐서 생략.
+    """
+    ds = sorted((round(t, 1), guid_to_id.get(g, "")) for t, g in deaths)
+    ds = [(t, u) for t, u in ds if u]
+    if len(ds) < 8:
+        return None
+    # 마지막 밀집 클러스터(사망 간격 4초 이내 연결)를 전멸 구간으로 본다
+    clusters: list[list[tuple[float, str]]] = [[ds[0]]]
+    for prev, nxt in zip(ds, ds[1:]):
+        if nxt[0] - prev[0] <= 4.0:
+            clusters[-1].append(nxt)
+        else:
+            clusters.append([nxt])
+    wipe = clusters[-1]
+    if len(wipe) < 8:
+        return None
+    w0 = wipe[0][0]
+    lead = max(0.0, round(w0 - 12.0, 1))
+
+    def name(uid: str) -> str:
+        return (uid_names.get(uid) or uid).split("-")[0]
+
+    steps: list[dict[str, Any]] = []
+
+    # 1) 전멸 직전 문양 룬 부여
+    runes = [w for w in realm_windows if lead <= w["s"] <= w0 + 2]
+    if runes:
+        steps.append({"t": min(w["s"] for w in runes), "kind": "info",
+                      "text": f"문양 룬 {len(runes)}명 부여: "
+                              + "·".join(sorted(name(w["u"]) for w in runes))})
+
+    # 2) 불화(문양 실패) — 근본 원인
+    discord: dict[str, float] = {}
+    for t, event, sid, dest, _src, _stacks in aura_updates:
+        if (sid in _LURA_DISCORD_IDS and event == "SPELL_AURA_APPLIED"
+                and lead <= t <= w0 + 3):
+            uid = guid_to_id.get(dest)
+            if uid and uid not in discord:
+                discord[uid] = round(t, 1)
+    root_t = min(discord.values()) if discord else None
+    fail_names = "·".join(sorted(name(u) for u in discord))
+    if discord:
+        steps.append({"t": root_t, "kind": "root",
+                      "text": f"문양 매칭 실패 → 불화: {fail_names}"
+                              " — 공대 전체 광역 폭발 시작"})
+
+    # 3) 수정특임 사망 → 수정 방치 (근본 원인 이후면 '희생자' 명시)
+    death_by_uid: dict[str, float] = {}
+    for t, u in wipe:
+        death_by_uid.setdefault(u, t)
+    crystal_victims: list[tuple[float, str]] = []
+    for h in crystal_holds:
+        du = death_by_uid.get(h["u"])
+        if du is not None and h["s"] <= du <= h["e"] + 0.6:
+            crystal_victims.append((du, h["u"]))
+    crystal_victims = sorted(set(crystal_victims))
+    if crystal_victims:
+        du, u = crystal_victims[0]
+        after = root_t is not None and du >= root_t
+        steps.append({"t": du, "kind": "crystal",
+                      "text": f"수정특임 {name(u)} 사망 → 수정 방치"
+                              + (" (수정 자가딜로 저체력 상태에서 불화 광역에 희생)"
+                                 if after else "")})
+        rest = crystal_victims[1:]
+        if rest:
+            steps.append({"t": rest[0][0], "kind": "crystal",
+                          "text": f"수정특임 {len(rest)}명 추가 사망 → 수정 전부 방치: "
+                                  + "·".join(name(u2) for _, u2 in rest)})
+
+    # 4) 첫 사망 컨텍스트(한밤 중첩 = 돔 밖) + 연쇄 규모
+    first_t, first_u = wipe[0]
+    mx = 0
+    for t, event, sid, dest, _src, stacks in aura_updates:
+        if (sid == 1263514 and event == "SPELL_AURA_APPLIED_DOSE"
+                and guid_to_id.get(dest) == first_u and first_t - 6 <= t <= first_t):
+            mx = max(mx, int(stacks or 0))
+    ctx = f" (한밤 {mx}중첩 — 보호 돔 밖)" if mx >= 2 else ""
+    steps.append({"t": first_t, "kind": "death", "text": f"첫 사망 {name(first_u)}{ctx}"})
+    steps.append({"t": wipe[-1][0], "kind": "wipe",
+                  "text": f"{round(wipe[-1][0] - first_t, 1)}초 동안 {len(wipe)}명 연쇄 사망 — 전멸"})
+
+    steps.sort(key=lambda s: (s["t"], s["kind"] != "info"))
+    verdict = ""
+    warning = ""
+    if discord:
+        verdict = "근본 원인: 문양 매칭 실패(불화) — 이후 사망은 전부 그 결과"
+        after_victims = [(du, u) for du, u in crystal_victims
+                         if du >= (root_t or 0) and u not in discord]
+        if after_victims:
+            head = name(after_victims[0][1])
+            more = f" 외 {len(after_victims) - 1}명" if len(after_victims) > 1 else ""
+            warning = (f"수정특임({head}{more}) 사망이 전멸 방아쇠처럼 보이지만,"
+                       f" 실제 원인은 반대 조 문양 실패({fail_names})의 불화 광역입니다")
+    return {"window": [lead, wipe[-1][0]], "verdict": verdict,
+            "warning": warning, "steps": steps}
+
+
 def _unit_debuff_segments(
     aura_updates: list[tuple[float, str, int, str, str, int]],
     guid_to_id: dict[str, str],
@@ -3134,6 +3246,16 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
         out["crystal_holds"] = crystal_holds
     if realm_windows:
         out["realm_windows"] = realm_windows
+    # 전멸 인과 사슬 — 첫 사망자(표면)와 방아쇠(근본)를 구분해 오독 방지
+    if encounter_id == 3183:
+        uid_names = {guid_to_id[u["guid"]]: str(u.get("name") or "")
+                     for u in units if u["guid"] in guid_to_id}
+        wipe_chain = _lura_wipe_chain(
+            parsed.get("deaths") or [], parsed.get("aura_updates") or [],
+            crystal_holds, realm_windows, guid_to_id, uid_names,
+            float(duration_s or 0))
+        if wipe_chain:
+            out["wipe_chain"] = wipe_chain
     # 바닥 징표(세계 표식) — 풀 전 설치 포함, 좌표는 유닛과 같은 월드좌표
     world_markers = _world_marker_windows(
         log_path, start_dt, float(duration_s or 0), _to_int(enc.get("instance_id")))
