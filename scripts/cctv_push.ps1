@@ -1,4 +1,5 @@
-# 리플레이 원본(영상+json+전투로그)을 R2로 백업 (새/갱신 파일만, 삭제 없음)
+# 유효 리플레이(르우라 P2 진입 / 그 외 120초 이상)와 전투로그를 R2로 백업.
+# 새/갱신 파일만 올리며 기존 원격 파일은 삭제하지 않음.
 # 사용: .\scripts\cctv_push.ps1 [-CctvDir E:\cctv] [-LogDir "C:\Program Files (x86)\World of Warcraft\_retail_\Logs"]
 param(
     [string]$CctvDir = $(if ($env:WARCRAFTCCTV_DIR) { $env:WARCRAFTCCTV_DIR } else { 'E:\cctv' }),
@@ -7,6 +8,7 @@ param(
 $ErrorActionPreference = 'Stop'
 
 $Remote = 'r2:wowanalyzer-cctv'
+. (Join-Path $PSScriptRoot 'cctv_upload_policy.ps1')
 
 # rclone 탐색: PATH → winget 설치 폴더(버전 무관) — 없으면 설치 안내 후 종료
 $rclone = (Get-Command rclone -ErrorAction SilentlyContinue).Source
@@ -20,8 +22,19 @@ if (-not $rclone) {
 }
 
 if (Test-Path $CctvDir) {
-    Write-Host "== cctv 업로드: $CctvDir -> $Remote/cctv"
-    & $rclone copy $CctvDir "$Remote/cctv" --update --progress --transfers 4
+    $manifest = New-CctvUploadManifest -SourceDir $CctvDir -LogDir $LogDir
+    try {
+        Write-Host (
+            "== cctv 업로드: 유지 {0}개 / 제외 {1}개 / 르우라 로그 미확인 {2}개 ({3}개 파일)" -f
+            $manifest.KeptCaptures, $manifest.ExcludedCaptures,
+            $manifest.LuraUnknown, $manifest.Files
+        )
+        & $rclone copy $CctvDir "$Remote/cctv" --update --progress --transfers 4 `
+            --files-from-raw $manifest.Path
+        if ($LASTEXITCODE -ne 0) { throw "cctv 업로드 실패: $LASTEXITCODE" }
+    } finally {
+        Remove-Item -LiteralPath $manifest.Path -Force -ErrorAction SilentlyContinue
+    }
 } else {
     Write-Warning "cctv 폴더 없음: $CctvDir (건너뜀)"
 }
@@ -29,6 +42,7 @@ if (Test-Path $CctvDir) {
 if (Test-Path $LogDir) {
     Write-Host "== 전투로그 업로드: $LogDir -> $Remote/logs"
     & $rclone copy $LogDir "$Remote/logs" --update --progress --include 'WoWCombatLog*.txt'
+    if ($LASTEXITCODE -ne 0) { throw "전투로그 업로드 실패: $LASTEXITCODE" }
 } else {
     Write-Warning "로그 폴더 없음: $LogDir (건너뜀)"
 }
