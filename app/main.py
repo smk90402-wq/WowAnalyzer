@@ -78,7 +78,19 @@ app = FastAPI(title="WowAnalyzer API", version="0.1.0")
 # three.module.js dynamic import 가 동작하도록 강제 (ESM 은 MIME 검사함)
 mimetypes.add_type("text/javascript", ".js")
 mimetypes.add_type("text/javascript", ".mjs")
-app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+
+class _RevalidatedStatic(StaticFiles):
+    """정적 파일에 no-cache(매번 재검증) — 재빌드 후 exe 의 영구 프로필(webview)
+    이 옛 main.js/css 를 계속 쓰는 문제 방지. 파일이 안 바뀌면 304 라 비용 없음."""
+
+    def file_response(self, *args, **kwargs):  # type: ignore[override]
+        resp = super().file_response(*args, **kwargs)
+        resp.headers["Cache-Control"] = "no-cache"
+        return resp
+
+
+app.mount("/static", _RevalidatedStatic(directory=STATIC_DIR), name="static")
 
 # ── 인증 게이트 (2026-06-13 재활성 — 공개 배포용 단일 공유계정 rtv) ───────────
 # 로그인 없이 통과: 로그인 페이지/정적/로그인 API/헬스. 그 외 전부 차단.

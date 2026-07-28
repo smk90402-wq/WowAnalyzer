@@ -22,6 +22,7 @@ DEFAULT_LOG_DIR = Path(os.environ.get(
 ))
 DEFAULT_CCTV_DIR = Path(os.environ.get("WARCRAFTCCTV_DIR", r"E:\cctv"))
 LURA_SYNC_NAME = "lura_trials_20260719_sync.json"
+LURA_REPLAY_MIN_DURATION_S = 120.0
 
 # 함수 안 지연 임포트만 있으면 PyInstaller 번들 누락 위험 — 최상위에서 명시 임포트
 from app import cctv_sync as _cctv_sync  # noqa: E402
@@ -184,6 +185,15 @@ def _json_start_local(path: Path, data: dict[str, Any]) -> datetime | None:
 
 def _public_capture(cap: dict[str, Any]) -> dict[str, Any]:
     return {k: v for k, v in cap.items() if not k.startswith("_")}
+
+
+def _is_short_lura_replay(row: dict[str, Any]) -> bool:
+    if _to_int(row.get("encounter_id")) != 3183:
+        return False
+    duration = _to_float(row.get("duration"))
+    if duration is None:
+        duration = _to_float((row.get("analysis") or {}).get("duration_s"))
+    return duration is not None and duration < LURA_REPLAY_MIN_DURATION_S
 
 
 def _lura_sync_path() -> Path:
@@ -645,6 +655,7 @@ def list_replays(limit: int = 80) -> dict[str, Any]:
         row["log_match"] = _public_encounter(log_cap.get("_log_encounter"))
         rows.append(row)
 
+    rows = [row for row in rows if not _is_short_lura_replay(row)]
     rows.sort(key=lambda row: str(row.get("start_local") or ""), reverse=True)
     rows = rows[:max(1, limit)]
     coordinates_hidden = len(sync_index.get("wcl_only") or [])
@@ -3240,7 +3251,7 @@ def replay_frames(replay_id: str) -> dict[str, Any]:
             "units": [
                 {"id": guid_to_id[u["guid"]], "name": u["name"],
                  "cls": u["cls"], "kind": u["kind"],
-                 "role": u.get("role"),
+                 "role": u.get("role"), "rng": u.get("rng", False),
                  "race": u.get("race"), "sex": u.get("sex")}
                 for u in units
             ],

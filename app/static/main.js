@@ -2186,10 +2186,33 @@ async function loadLuraCompare() {
 function _luraCompareCard(tab) {
   if (!tab) return '<div class="lc-empty">비교 데이터가 아직 없습니다 — 분석을 다시 만들면 표시됩니다.</div>';
   const vc = v => ({ good: 'lc-good', warn: 'lc-warn', bad: 'lc-bad' }[v] || 'lc-info');
+  const problemRows = p => {
+    const modern = ['good', 'loss', 'next_pull', 'evidence'].some(k => p[k]);
+    const rows = modern
+      ? [['잘한 점', p.good], ['가장 큰 손실', p.loss], ['원인', p.cause],
+         ['다음 풀', p.next_pull || p.fix], ['근거', p.evidence]]
+      : [['문제', p.problem], ['안 고치면', p.cost], ['왜 그랬나', p.cause], ['어떻게', p.fix]];
+    return rows.filter(([, value]) => value);
+  };
   return `
     <section class="lura-compare">
       <div class="lc-title"><b>${esc(tab.title || '')}</b><span>${esc(tab.sample_note || '')}</span></div>
       ${(tab.highlights || []).map(h => `<div class="lc-hl ${vc(h.severity)}">${esc(h.text)}</div>`).join('')}
+      ${tab.plan && (tab.plan.items || []).length ? `
+        <div class="lc-plan">
+          <div class="lc-plan-title">${esc(tab.plan.title || '다음 풀 체크리스트')}</div>
+          ${(tab.plan.items || []).map(item => `
+            <div class="lc-plan-row">
+              <b>${esc(item.when || '')}</b>
+              <span><strong>${esc(item.action || '')}</strong>${item.check ? `<small>${esc(item.check)}</small>` : ''}</span>
+            </div>`).join('')}
+        </div>` : ''}
+      ${(tab.problems || []).map(p => `
+        <div class="lc-prob ${vc(p.severity)}">
+          <div class="lc-prob-title">${esc(p.title || '')}</div>
+          ${problemRows(p).map(([label, value]) => `
+            <div class="lc-prob-row"><b>${esc(label)}</b><span>${esc(value)}</span></div>`).join('')}
+        </div>`).join('')}
       ${(tab.sections || []).map(sec => `
         <div class="lc-sec">
           <div class="lc-sec-title">${esc(sec.title || '')}</div>
@@ -2197,7 +2220,7 @@ function _luraCompareCard(tab) {
             <thead><tr><th></th><th>나</th><th>상위권</th><th></th></tr></thead>
             <tbody>${(sec.rows || []).map(row => `
               <tr class="${vc(row.verdict)}" title="${esc(row.note || '')}">
-                <td>${esc(row.label || '')}</td><td>${esc(String(row.mine ?? ''))}</td>
+                <td><span>${esc(row.label || '')}</span>${row.note ? `<small class="lc-row-note">${esc(row.note)}</small>` : ''}</td><td>${esc(String(row.mine ?? ''))}</td>
                 <td>${esc(String(row.top ?? ''))}</td><td class="lc-mark"></td>
               </tr>`).join('')}</tbody>
           </table>
@@ -2274,8 +2297,8 @@ function renderLocalReplayDetail(detail) {
       <button id="rc-side-toggle" type="button" title="분석 패널 접기/펴기 — 접으면 지도가 화면 전체를 씁니다">${rcSideOpen ? '분석 접기 ▸' : '◂ 분석'}</button>
       ${isLura ? `<div class="rc-side-tabs">
         <button type="button" data-stab="all" class="${rcSideTab === 'all' ? 'active' : ''}">전체 분석</button>
-        <button type="button" data-stab="aug" class="${rcSideTab === 'aug' ? 'active' : ''}">증강 전용</button>
-        <button type="button" data-stab="udk" class="${rcSideTab === 'udk' ? 'active' : ''}">죽기 전용</button>
+        <button type="button" data-stab="aug" class="${rcSideTab === 'aug' ? 'active' : ''}">하늘연달</button>
+        <button type="button" data-stab="udk" class="${rcSideTab === 'udk' ? 'active' : ''}">이디라아</button>
       </div>` : ''}
       <div class="rc-side-body">
         <div id="rc-stab-all" ${isLura && rcSideTab !== 'all' ? 'hidden' : ''}>

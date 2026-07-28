@@ -201,6 +201,53 @@ class LogOnlyReplayTests(unittest.TestCase):
                 self.assertEqual(42, terrain["instance_id"])
                 self.assertEqual((10.0, 10.0, 20.0, 20.0), terrain["bbox"])
 
+    def test_replay_list_hides_only_lura_pulls_under_two_minutes(self) -> None:
+        captures = [
+            {
+                "id": "lura-short",
+                "encounter_id": 3183,
+                "encounter": "한밤의 도래",
+                "duration": 119.999,
+                "start_local": "2026-07-19 12:03:00",
+            },
+            {
+                "id": "lura-boundary",
+                "encounter_id": 3183,
+                "encounter": "한밤의 도래",
+                "duration": 120.0,
+                "start_local": "2026-07-19 12:02:00",
+            },
+            {
+                "id": "other-short",
+                "encounter_id": 9001,
+                "encounter": "Test Boss",
+                "duration": 10.0,
+                "start_local": "2026-07-19 12:01:00",
+            },
+        ]
+        with tempfile.TemporaryDirectory() as tmp_raw:
+            tmp = Path(tmp_raw)
+            with (
+                patch.object(local_replay, "_load_captures", return_value=captures),
+                patch.object(local_replay, "_standalone_log_paths", return_value=[]),
+                patch.object(local_replay, "_load_log_replay_caps", return_value=[]),
+                patch.object(local_replay, "latest_log_path", return_value=None),
+                patch.object(local_replay, "wow_log_dir", return_value=tmp),
+                patch.object(local_replay, "cctv_dir", return_value=tmp),
+                patch.object(
+                    local_replay,
+                    "_lura_sync_index",
+                    return_value=local_replay._empty_lura_sync_index(),
+                ),
+                patch("app.cctv_sync.available", return_value=False),
+            ):
+                listing = local_replay.list_replays()
+
+        self.assertEqual(
+            {"lura-boundary", "other-short"},
+            {row["id"] for row in listing["rows"]},
+        )
+
     def test_lura_geometry_overrides_and_crystal_holds(self) -> None:
         from app import replay_mechanics
         crit = replay_mechanics.mechanic_profile(1281184, "임계점", 3183, 16).get("geometry") or {}
@@ -358,7 +405,7 @@ class LogOnlyReplayTests(unittest.TestCase):
                 + _position_event(
                     "12:00:01.2000", boss, "한밤의 도래", "0x10a48",
                     player, "Tester-Realm", boss, 15.0, 25.0)
-                + _line("12:00:03.0000", 'ENCOUNTER_END,3183,"한밤의 도래",16,20,0,2000'),
+                + _line("12:02:01.0000", 'ENCOUNTER_END,3183,"한밤의 도래",16,20,0,120000'),
                 encoding="utf-8",
             )
             encounters = local_replay._encounter_offsets(log_path)
@@ -403,9 +450,9 @@ class LogOnlyReplayTests(unittest.TestCase):
                         "pull": 1, "fight_id": 11,
                         "wcl_url": "https://ko.warcraftlogs.com/reports/CPA42mqBHXMyca86#fight=11",
                         "start_kst": "2026-07-19T12:00:01.000+09:00",
-                        "duration_s": 1.95, "boss_remaining_pct": 41.6,
+                        "duration_s": 120.0, "boss_remaining_pct": 41.6,
                         "last_phase": 3, "source": "local+wcl",
-                        "local_replay_id": replay_id, "duration_delta_ms": 50,
+                        "local_replay_id": replay_id, "duration_delta_ms": 0,
                     },
                     {
                         **common,
@@ -443,7 +490,7 @@ class LogOnlyReplayTests(unittest.TestCase):
 
                     local_row = next(
                         row for row in listing["rows"] if not row.get("analysis_only"))
-                    self.assertEqual(2.0, local_row["duration"])
+                    self.assertEqual(120.0, local_row["duration"])
                     self.assertEqual(41.6, local_row["boss_percent"])
                     self.assertEqual(11, local_row["analysis"]["fight_id"])
                     self.assertEqual("P3", local_row["analysis"]["phase"])
