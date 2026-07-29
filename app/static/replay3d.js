@@ -25,6 +25,7 @@ window.Replay3D = (() => {
   let ready = false;
   let renderQueued = false;
   let epoch = 0;           // reset()/새 enter() 마다 증가 — 진행 중이던 이전 enter() 무효화
+  const mechanicIconCache = new Map();  // spell_id → Image|null (/api/spell-icon 디스크 캐시 재사용)
   // sx/sy/moved: pointerdown 위치·이동 여부 — 4px 미만 이동이면 클릭(픽킹)으로 인정
   const cam = { yaw: 0, pitch: Math.PI / 4, dist: 120, target: null, drag: 0, px: 0, py: 0,
                 sx: 0, sy: 0, moved: false };
@@ -318,6 +319,64 @@ window.Replay3D = (() => {
     const k = 0.06;                       // 텍스처 px → yd
     spr.scale.set(w * k, h * k, 1);
     return spr;
+  }
+
+  function makeMechanicSprite(rows, color) {
+    const cnv = document.createElement('canvas');
+    const ctx = cnv.getContext('2d');
+    const font = 'bold 44px sans-serif';
+    const rowH = 58;
+    const iconSize = 44;
+    const iconGap = 8;
+    const hasIcon = rows.some(row => row.icon);
+    ctx.font = font;
+    const textW = Math.max(...rows.map(row => ctx.measureText(`⚠ ${row.text}`).width));
+    const w = Math.ceil(textW) + 18 + (hasIcon ? iconSize + iconGap : 0);
+    const h = rowH * rows.length;
+    cnv.width = w; cnv.height = h;
+    ctx.font = font;
+    ctx.textAlign = hasIcon ? 'left' : 'center';
+    ctx.textBaseline = 'middle';
+    rows.forEach((row, i) => {
+      const y = i * rowH;
+      if (row.icon) {
+        ctx.drawImage(row.icon, 9, y + 7, iconSize, iconSize);
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#10141a';
+        ctx.strokeRect(9, y + 7, iconSize, iconSize);
+      }
+      const tx = hasIcon ? 9 + iconSize + iconGap : w / 2;
+      ctx.lineWidth = 7;
+      ctx.strokeStyle = '#10141a';
+      ctx.strokeText(`⚠ ${row.text}`, tx, y + rowH / 2);
+      ctx.fillStyle = color;
+      ctx.fillText(`⚠ ${row.text}`, tx, y + rowH / 2);
+    });
+    const tex = new THREE.CanvasTexture(cnv);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    const spr = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, depthTest: false }));
+    spr.userData.hasIcon = rows.some(row => row.icon);
+    spr.userData.mechanics = rows.map(row => row.text);
+    const k = 0.06;
+    spr.scale.set(w * k, h * k, 1);
+    return spr;
+  }
+
+  function mechanicIconImage(spellId) {
+    const sid = Math.trunc(Number(spellId) || 0);
+    if (!sid) return null;
+    if (!mechanicIconCache.has(sid)) {
+      const img = new Image();
+      mechanicIconCache.set(sid, img);
+      img.onload = scheduleRender;
+      img.onerror = () => {
+        mechanicIconCache.set(sid, null);
+        scheduleRender();
+      };
+      img.src = `/api/spell-icon/${sid}.png`;
+    }
+    const img = mechanicIconCache.get(sid);
+    return (img && img.complete && img.naturalWidth) ? img : null;
   }
 
   function makeUnit(u) {
@@ -719,7 +778,7 @@ window.Replay3D = (() => {
     for (const o of wmObjs) o.group.visible = o.wm.s <= t && t <= o.wm.e;
 
     // DB2/수동 보정으로 확인된 원형·부채꼴·직선 장판을 월드 야드 단위로 표시한다.
-    const mechByUnit = {};   // uid → 이번 프레임에 하이라이트된 기믹명 (스프라이트용)
+    const mechByUnit = {};   // uid → 이번 프레임의 기믹 목록 (아이콘+기믹명 스프라이트용)
     let ri = 0;
     for (const it of rcRingEventsAt(t)) {
       const ev = it.ev;
@@ -763,20 +822,29 @@ window.Replay3D = (() => {
         : ({ hit: '#b18cf0', impact: '#ef6b62', summon: '#4fc9b0' }[ev.kind] || '#e8a34c'));
       mesh.material.opacity = (shape === 'target' ? 0.9 : (it.danger ? 0.42 : 0.24)) * it.fade;
       mesh.visible = true;
-      // 대상 유닛 강조: 표시 기간 내내 구체 펄스 + 이름표 (기간형은 살짝만 왕복).
-      // 실반경 원 기믹(임계점 등)은 전원이 대상이라 이름을 다 띄우면 화면이 덮임 —
-      // 겹침(danger)으로 빨간 원이 된 사람만 이름을 보여 범인을 바로 찾게 한다.
+      // 대상 유닛 강조: 표시 기간 내내 구체 펄스 + 기믹명 (기간형은 살짝만 왕복).
+      // 실반경 원 기믹은 플레이어 이름만 겹침(danger) 대상에 제한하고,
+      // 작은 기믹명은 체크된 모든 대상에게 표시한다.
       const drec = units[ev.dest_id];
       if (drec && drec.group.visible) {
         const pu = 1 + (it.durable ? 0.12 : 0.25) * Math.abs(Math.sin(age * Math.PI * 2));
         const ps = (drec.baseScale || 1) * pu;
         drec.group.scale.set(ps, ps, ps);
         if (drec.u.kind !== 'boss') {
+          drec.mat.emissive.copy(drec.mat.color).multiplyScalar(it.danger ? 0.65 : 0.35);
+          const mechanic = typeof rcMechanicMeta === 'function' ? rcMechanicMeta(ev.mechanic_key) : null;
+          const item = {
+            key: String(ev.mechanic_key || `${ev.root_spell_id || ev.spell_id}:${ev.spell || ''}`),
+            text: String(mechanic?.name || ev.spell || ''),
+            spellId: Number(mechanic?.spell_id || ev.root_spell_id || ev.spell_id) || 0,
+            t: Number(ev.t) || 0,
+          };
+          const unitMechanics = mechByUnit[ev.dest_id] ??= [];
+          if (!unitMechanics.some(v => v.key === item.key)) unitMechanics.push(item);
           const circleGeom = shape === 'circle' && Number(geometry.radius) > 0;
           if (!circleGeom || it.danger) {
             ensureLabel(drec);
             drec.label.visible = true;
-            mechByUnit[ev.dest_id] ??= String(ev.spell || '');
           }
         }
       }
@@ -787,20 +855,23 @@ window.Replay3D = (() => {
     // 기믹 이름 스프라이트 — 하이라이트 링 바깥(오른쪽 아래)에 작게, 이름과 안 겹치게.
     // 씬 직속: 그룹에 넣으면 유닛 시선 회전을 따라 돌아버려서 매 프레임 위치만 따라간다.
     for (const rec of Object.values(units)) {
-      const want = mechByUnit[rec.u.id] || '';
-      if ((rec.mechText || '') !== want) {
+      const wanted = (mechByUnit[rec.u.id] || []).sort((a, b) => b.t - a.t);
+      const rows = wanted.map(item => ({ ...item, icon: mechanicIconImage(item.spellId) }));
+      const wantKey = rows.map(row => `${row.key}|${row.text}|${row.icon ? row.spellId : 0}`).join(';');
+      if ((rec.mechKey || '') !== wantKey) {
         if (rec.mechSprite) {
           scene.remove(rec.mechSprite);
           rec.mechSprite.material.map?.dispose();
           rec.mechSprite.material.dispose();
           rec.mechSprite = null;
         }
-        if (want) {
-          rec.mechSprite = makeTextSprite(`⚠ ${want}`, '#ffc46e');
+        if (rows.length) {
+          rec.mechSprite = makeMechanicSprite(rows, '#ffc46e');
           rec.mechSprite.scale.multiplyScalar(0.48);
           scene.add(rec.mechSprite);
         }
-        rec.mechText = want;
+        rec.mechKey = wantKey;
+        rec.mechText = rows.map(row => row.text).join(' · ');
       }
       if (rec.mechSprite) {
         rec.mechSprite.position.set(rec.group.position.x + 2.6,
@@ -823,6 +894,7 @@ window.Replay3D = (() => {
         x: r.group.position.x, y: r.group.position.y, z: r.group.position.z,
         sx: (v.x + 1) / 2 * canvas.clientWidth, sy: (1 - v.y) / 2 * canvas.clientHeight,
         scale: r.group.scale.x, labelShown: !!(r.label && r.label.visible),
+        mechanicText: r.mechText || '', mechanicIconShown: !!r.mechSprite?.userData.hasIcon,
       };
     });
     return {
