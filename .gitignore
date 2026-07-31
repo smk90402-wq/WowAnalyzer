@@ -75,6 +75,9 @@ data/maps/
 data/models/
 # R2 캡처 미러 (E:\cctv 없는 PC 폴백 — app/cctv_sync.py 가 자동 생성)
 data/cctv_r2/
+data/public_replay_publish/
+data/public_replay_private/
+data/public_replay_cache/
 # 스킬 툴팁 누적 캐시 (wago.tools에서 재생성 가능)
 data/spell_tips.json
 # 리플레이 스파이크 (일회성 증명)

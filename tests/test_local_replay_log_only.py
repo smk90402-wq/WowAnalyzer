@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import tempfile
 import unittest
+from datetime import datetime
 from pathlib import Path
 from unittest.mock import patch
 
@@ -138,15 +139,15 @@ class LogOnlyReplayTests(unittest.TestCase):
                 + _position_event(
                     "12:00:01.2000", boss, "Test Boss", "0x10a48",
                     player, "Tester-Realm", boss, 15.0, 25.0)
-                + _line("12:00:03.0000", 'ENCOUNTER_END,9001,"Test Boss",16,2,1,2000')
-                + _line("12:00:04.0000", 'ENCOUNTER_START,9001,"Test Boss",16,2,42')
+                + _line("12:02:01.0000", 'ENCOUNTER_END,9001,"Test Boss",16,2,1,120000')
+                + _line("12:02:04.0000", 'ENCOUNTER_START,9001,"Test Boss",16,2,42')
                 + _position_event(
-                    "12:00:04.1000", player, "Tester-Realm", "0x511",
+                    "12:02:04.1000", player, "Tester-Realm", "0x511",
                     boss, "Test Boss", player, 30.0, 40.0)
                 + _position_event(
-                    "12:00:04.2000", boss, "Test Boss", "0x10a48",
+                    "12:02:04.2000", boss, "Test Boss", "0x10a48",
                     player, "Tester-Realm", boss, 35.0, 45.0)
-                + _line("12:00:06.0000", 'ENCOUNTER_END,9001,"Test Boss",16,2,0,2000'),
+                + _line("12:04:04.0000", 'ENCOUNTER_END,9001,"Test Boss",16,2,0,120000'),
                 encoding="utf-8",
             )
             duplicate_path = tmp / "Copy-WoWCombatLog-071926_120000.txt"
@@ -200,6 +201,185 @@ class LogOnlyReplayTests(unittest.TestCase):
 
                 self.assertEqual(42, terrain["instance_id"])
                 self.assertEqual((10.0, 10.0, 20.0, 20.0), terrain["bbox"])
+
+    def test_replay_list_uses_lura_p2_and_other_boss_duration_rules(self) -> None:
+        captures = [
+            {
+                "id": "lura-no-p2",
+                "encounter_id": 3183,
+                "encounter": "한밤의 도래",
+                "duration": 300.0,
+                "lura_p2_state": "not_reached",
+                "start_local": "2026-07-19 12:05:00",
+            },
+            {
+                "id": "lura-p2",
+                "encounter_id": 3183,
+                "encounter": "한밤의 도래",
+                "duration": 100.0,
+                "lura_p2_state": "reached",
+                "start_local": "2026-07-19 12:04:00",
+            },
+            {
+                "id": "lura-unknown",
+                "encounter_id": 3183,
+                "encounter": "한밤의 도래",
+                "duration": 10.0,
+                "start_local": "2026-07-19 12:03:00",
+            },
+            {
+                "id": "lura-unknown-long",
+                "encounter_id": 3183,
+                "encounter": "한밤의 도래",
+                "duration": 300.0,
+                "start_local": "2026-07-19 12:02:30",
+            },
+            {
+                "id": "other-short",
+                "encounter_id": 9001,
+                "encounter": "Test Boss",
+                "duration": 119.999,
+                "start_local": "2026-07-19 12:02:00",
+            },
+            {
+                "id": "other-boundary",
+                "encounter_id": 9001,
+                "encounter": "Test Boss",
+                "duration": 120.0,
+                "start_local": "2026-07-19 12:01:00",
+            },
+        ]
+
+        def load_all_captures(cctv_dir_arg=None, limit=80):
+            self.assertIsNone(limit)
+            return captures
+
+        with tempfile.TemporaryDirectory() as tmp_raw:
+            tmp = Path(tmp_raw)
+            with (
+                patch.object(
+                    local_replay,
+                    "_load_captures",
+                    side_effect=load_all_captures,
+                ),
+                patch.object(local_replay, "_standalone_log_paths", return_value=[]),
+                patch.object(
+                    local_replay,
+                    "_load_log_replay_caps",
+                    return_value=[],
+                ) as load_log_caps,
+                patch.object(local_replay, "latest_log_path", return_value=None),
+                patch.object(local_replay, "wow_log_dir", return_value=tmp),
+                patch.object(local_replay, "cctv_dir", return_value=tmp),
+                patch.object(
+                    local_replay,
+                    "_lura_sync_index",
+                    return_value=local_replay._empty_lura_sync_index(),
+                ),
+                patch("app.cctv_sync.ensure_mirror", return_value=tmp),
+                patch("app.cctv_sync.sync_status", return_value={}),
+            ):
+                listing = local_replay.list_replays()
+                limited = local_replay.list_replays(limit=2)
+                all_rows = local_replay.list_replays(limit=None)
+
+        self.assertEqual(3, load_log_caps.call_count)
+        self.assertTrue(all(
+            item.kwargs == {"limit": None, "paths": []}
+            for item in load_log_caps.call_args_list
+        ))
+        self.assertEqual(
+            {"lura-p2", "lura-unknown-long", "other-boundary"},
+            {row["id"] for row in listing["rows"]},
+        )
+        self.assertEqual(
+            ["lura-p2", "lura-unknown-long"],
+            [row["id"] for row in limited["rows"]],
+        )
+        self.assertEqual(
+            ["lura-p2", "lura-unknown-long", "other-boundary"],
+            [row["id"] for row in all_rows["rows"]],
+        )
+
+    def test_replay_list_uses_archived_lura_log_phase(self) -> None:
+        started = datetime(2026, 7, 19, 12, 0, 0)
+        capture = {
+            "id": "lura-archived-no-p2",
+            "encounter_id": 3183,
+            "encounter": "한밤의 도래",
+            "duration": 300.0,
+            "start_local": "2026-07-19 12:00:00",
+            "_start_dt": started,
+        }
+        archived_encounter = {
+            "encounter_id": 3183,
+            "lura_p2_state": "not_reached",
+            "_start_dt": started,
+        }
+        with tempfile.TemporaryDirectory() as tmp_raw:
+            tmp = Path(tmp_raw)
+            with (
+                patch.object(local_replay, "_load_captures", return_value=[capture]),
+                patch.object(local_replay, "_standalone_log_paths", return_value=[]),
+                patch.object(local_replay, "_load_log_replay_caps", return_value=[]),
+                patch.object(local_replay, "latest_log_path", return_value=None),
+                patch.object(local_replay, "wow_log_dir", return_value=tmp),
+                patch.object(local_replay, "cctv_dir", return_value=tmp),
+                patch.object(
+                    local_replay,
+                    "_find_frames_encounter",
+                    return_value=(tmp / "Archive-WoWCombatLog.txt", archived_encounter),
+                ) as find_archived,
+                patch.object(
+                    local_replay,
+                    "_lura_sync_index",
+                    return_value=local_replay._empty_lura_sync_index(),
+                ),
+                patch("app.cctv_sync.ensure_mirror", return_value=tmp),
+                patch("app.cctv_sync.sync_status", return_value={}),
+            ):
+                listing = local_replay.list_replays()
+
+        find_archived.assert_called_once_with(capture)
+        self.assertEqual([], listing["rows"])
+
+    def test_lura_p2_requires_success_or_p2_only_spell(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_raw:
+            log_path = Path(tmp_raw) / "WoWCombatLog-071926_150000.txt"
+            log_path.write_text(
+                _line("15:00:00.0000", 'ENCOUNTER_START,3183,"한밤의 도래",16,20,2913')
+                + _line(
+                    "15:03:45.0000",
+                    'SPELL_CAST_START,Vehicle-0-BOSS,"르우라",0x10a48,0x0,'
+                    '0000000000000000,nil,0x0,0x0,1282043,"암흑샘 속으로",0x6a',
+                )
+                + _line("15:05:00.0000", 'ENCOUNTER_END,3183,"한밤의 도래",16,20,0,300000')
+                + _line("15:06:00.0000", 'ENCOUNTER_START,3183,"한밤의 도래",16,20,2913')
+                + _line(
+                    "15:09:51.0000",
+                    'SPELL_CAST_SUCCESS,Vehicle-0-BOSS,"르우라",0x10a48,0x0,'
+                    '0000000000000000,nil,0x0,0x0,1282043,"암흑샘 속으로",0x6a',
+                )
+                + _line("15:11:00.0000", 'ENCOUNTER_END,3183,"한밤의 도래",16,20,0,300000')
+                + _line("15:12:00.0000", 'ENCOUNTER_START,3183,"한밤의 도래",16,20,2913')
+                + _line(
+                    "15:15:52.0000",
+                    'SPELL_CAST_START,Vehicle-0-BOSS,"르우라",0x10a48,0x0,'
+                    '0000000000000000,nil,0x0,0x0,1284528,"활력 주입",0x6a',
+                )
+                + _line("15:17:00.0000", 'ENCOUNTER_END,3183,"한밤의 도래",16,20,0,300000'),
+                encoding="utf-8",
+            )
+
+            encounters = local_replay._encounter_offsets(log_path)
+
+        self.assertEqual(
+            ["not_reached", "reached", "reached"],
+            [enc["lura_p2_state"] for enc in encounters],
+        )
+        self.assertNotIn("lura_p2_evidence", encounters[0])
+        self.assertEqual(1282043, encounters[1]["lura_p2_evidence"]["spell_id"])
+        self.assertEqual(1284528, encounters[2]["lura_p2_evidence"]["spell_id"])
 
     def test_lura_geometry_overrides_and_crystal_holds(self) -> None:
         from app import replay_mechanics
@@ -306,7 +486,7 @@ class LogOnlyReplayTests(unittest.TestCase):
                 + _position_event(
                     "13:00:01.2000", boss, "Test Boss", "0x10a48",
                     player, "Tester-Realm", boss, 15.0, 25.0)
-                + _line("13:00:03.0000", 'ENCOUNTER_END,9001,"Test Boss",16,2,1,2000'),
+                + _line("13:02:01.0000", 'ENCOUNTER_END,9001,"Test Boss",16,2,1,120000'),
                 encoding="utf-8",
             )
             with (
@@ -337,7 +517,7 @@ class LogOnlyReplayTests(unittest.TestCase):
                     local_replay.replay_frames(replay_id)
                     # 활성 로그 성장 시뮬레이션 — 완료된 전투 구간은 불변이라 캐시 유지
                     with log_path.open("a", encoding="utf-8") as fh:
-                        fh.write(_line("13:00:05.0000", "SPELL_CAST_SUCCESS,junk"))
+                        fh.write(_line("13:02:05.0000", "SPELL_CAST_SUCCESS,junk"))
                     local_replay.replay_frames(replay_id)
                     self.assertEqual(1, stream_frames.call_count)
 

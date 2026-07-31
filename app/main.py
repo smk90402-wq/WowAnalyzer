@@ -49,6 +49,7 @@ from app import talent_tree as tt_render
 from app import timeline as tl_render
 from app import aug_feedback
 from app import local_replay
+from app import public_replay_client
 from app import replay_map
 from app import replay_terrain
 from app import spell_tips
@@ -181,6 +182,14 @@ def _save_cache_manifest() -> None:
 @app.get("/api/ping")
 def ping() -> dict:
     return {"ok": True, "msg": "WowAnalyzer API live"}
+
+
+@app.get("/api/public-replay/status")
+def public_replay_status() -> dict:
+    return {
+        "configured": public_replay_client.configured(),
+        "release_mode": public_replay_client.release_mode(),
+    }
 
 
 # ── frontend 로그 → 백엔드 .log 파일 ────────────────────────────────────────
@@ -1788,16 +1797,30 @@ def character_reports(name: str, server: str, region: str = "kr",
 @app.get("/api/local-replay/list")
 def local_replay_list(limit: int = 80, refresh: int = 0) -> JSONResponse:
     try:
+        public_only = public_replay_client.release_mode()
         if refresh:
-            from app import cctv_sync
-            cctv_sync.invalidate()   # 새로고침 = R2 미러/원격 목록 강제 재동기화
-        return JSONResponse(local_replay.list_replays(limit=limit))
+            if not public_only:
+                from app import cctv_sync
+                cctv_sync.invalidate()   # 관리자판만 비공개 R2 미러 갱신
+            public_replay_client.invalidate()
+        listing = (
+            {"sources": {"release_mode": True}, "rows": []}
+            if public_only
+            else local_replay.list_replays(limit=limit)
+        )
+        return JSONResponse(public_replay_client.merge_listing(
+            listing,
+            limit=limit,
+            force=bool(refresh),
+        ))
     except Exception as e:
         raise HTTPException(500, f"local replay list failed: {e}")
 
 
 @app.get("/api/local-replay/video/{replay_id}")
 def local_replay_video(replay_id: str) -> FileResponse:
+    if public_replay_client.release_mode():
+        raise HTTPException(404, "local replay unavailable in public release")
     try:
         video = local_replay.replay_video_path(replay_id)
     except local_replay.ReplayError as e:
@@ -1805,22 +1828,52 @@ def local_replay_video(replay_id: str) -> FileResponse:
     return FileResponse(video, media_type="video/mp4", filename=video.name, content_disposition_type="inline")
 
 
+def _is_public_replay(replay_id: str) -> bool:
+    try:
+        return public_replay_client.has_replay(replay_id)
+    except public_replay_client.PublicReplayError:
+        return False
+
+
 @app.get("/api/local-replay/video-remote/{replay_id}")
 def local_replay_video_remote(replay_id: str) -> RedirectResponse:
-    """로컬에 없는 영상 — R2 presigned URL 로 302 (브라우저가 직접 스트리밍)."""
+    """로컬에 없는 영상 — 공개 gateway 또는 R2 presigned URL 로 302."""
+    if _is_public_replay(replay_id):
+        try:
+            return RedirectResponse(
+                public_replay_client.video_url(replay_id),
+                status_code=302,
+            )
+        except public_replay_client.PublicReplayError as e:
+            raise HTTPException(502, str(e))
+    if public_replay_client.release_mode():
+        raise HTTPException(404, "replay not found")
     try:
         url = local_replay.replay_video_remote_url(replay_id)
     except local_replay.ReplayError as e:
-        raise HTTPException(404, str(e))
+        try:
+            url = public_replay_client.video_url(replay_id)
+        except public_replay_client.PublicReplayError:
+            raise HTTPException(404, str(e))
     return RedirectResponse(url, status_code=302)
 
 
 @app.get("/api/local-replay/{replay_id}")
 def local_replay_detail(replay_id: str) -> JSONResponse:
+    if _is_public_replay(replay_id):
+        try:
+            return JSONResponse(public_replay_client.detail(replay_id))
+        except public_replay_client.PublicReplayError as e:
+            raise HTTPException(502, str(e))
+    if public_replay_client.release_mode():
+        raise HTTPException(404, "replay not found")
     try:
         return JSONResponse(local_replay.replay_detail(replay_id))
     except local_replay.ReplayError as e:
-        raise HTTPException(404, str(e))
+        try:
+            return JSONResponse(public_replay_client.detail(replay_id))
+        except public_replay_client.PublicReplayError:
+            raise HTTPException(404, str(e))
     except Exception as e:
         raise HTTPException(500, f"local replay detail failed: {e}")
 
@@ -1858,10 +1911,20 @@ def replay_map_png(ui_map_id: int) -> FileResponse:
 @app.get("/api/replay/{replay_id}/frames")
 def replay_frames(replay_id: str) -> JSONResponse:
     """풀 1개의 0.5초 다운샘플 좌표 프레임 + 유닛/죽음/맵 변환 계수."""
+    if _is_public_replay(replay_id):
+        try:
+            return JSONResponse(public_replay_client.frames(replay_id))
+        except public_replay_client.PublicReplayError as e:
+            raise HTTPException(502, str(e))
+    if public_replay_client.release_mode():
+        raise HTTPException(404, "replay not found")
     try:
         return JSONResponse(local_replay.replay_frames(replay_id))
     except local_replay.ReplayError as e:
-        raise HTTPException(404, str(e))
+        try:
+            return JSONResponse(public_replay_client.frames(replay_id))
+        except public_replay_client.PublicReplayError:
+            raise HTTPException(404, str(e))
     except Exception as e:
         raise HTTPException(500, f"replay frames failed: {e}")
 
@@ -1873,11 +1936,21 @@ def replay_terrain_grid(replay_id: str) -> JSONResponse:
     frames 와 같은 좌표 소스(플레이어 고급좌표) bbox 기준. 좌표가 없거나
     지형을 못 만들면 404 + 사유.
     """
+    if _is_public_replay(replay_id):
+        try:
+            return JSONResponse(public_replay_client.terrain(replay_id))
+        except public_replay_client.PublicReplayError as e:
+            raise HTTPException(502, str(e))
+    if public_replay_client.release_mode():
+        raise HTTPException(404, "replay not found")
     try:
         req = local_replay.replay_terrain_request(replay_id)
         grid = replay_terrain.terrain_grid(req["instance_id"], req["bbox"])
     except (local_replay.ReplayError, replay_map.MapError) as e:
-        raise HTTPException(404, str(e))
+        try:
+            return JSONResponse(public_replay_client.terrain(replay_id))
+        except public_replay_client.PublicReplayError:
+            raise HTTPException(404, str(e))
     except Exception as e:
         raise HTTPException(500, f"replay terrain failed: {e}")
     return JSONResponse(grid)

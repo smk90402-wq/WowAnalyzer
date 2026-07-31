@@ -1,0 +1,29 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
+  "name": "wowanalyzer-r2-public-gateway",
+  "main": "src/index.js",
+  "compatibility_date": "2026-07-31",
+  "workers_dev": true,
+  "cache": {
+    "enabled": false
+  },
+  "r2_buckets": [
+    {
+      "binding": "PUBLIC_DATA",
+      "bucket_name": "wowanalyzer-cctv"
+    }
+  ],
+  "vars": {
+    "CORS_ALLOW_ORIGINS": "*",
+    "ASSET_CACHE_CONTROL": "public, no-cache, must-revalidate",
+    "MANIFEST_CACHE_CONTROL": "public, max-age=60, s-maxage=300"
+  }
+
+  // workers.dev is used until a Cloudflare-managed domain is added. Keep the
+  // raw R2 bucket private and do not enable its r2.dev URL.
+  //
+  // To move to a custom domain later, set workers_dev to false and use:
+  // "routes": [
+  //   { "pattern": "replays.example.com", "custom_domain": true }
+  // ]
+}

@@ -22,6 +22,9 @@ DEFAULT_LOG_DIR = Path(os.environ.get(
 ))
 DEFAULT_CCTV_DIR = Path(os.environ.get("WARCRAFTCCTV_DIR", r"E:\cctv"))
 LURA_SYNC_NAME = "lura_trials_20260719_sync.json"
+REPLAY_MIN_DURATION_S = 120.0
+LURA_ENCOUNTER_ID = 3183
+LURA_P2_EARLIEST_S = 231.0
 
 # 함수 안 지연 임포트만 있으면 PyInstaller 번들 누락 위험 — 최상위에서 명시 임포트
 from app import cctv_sync as _cctv_sync  # noqa: E402
@@ -184,6 +187,49 @@ def _json_start_local(path: Path, data: dict[str, Any]) -> datetime | None:
 
 def _public_capture(cap: dict[str, Any]) -> dict[str, Any]:
     return {k: v for k, v in cap.items() if not k.startswith("_")}
+
+
+def _lura_p2_state(row: dict[str, Any]) -> str:
+    states: set[str] = set()
+    if bool(row.get("result")):
+        states.add("reached")
+
+    log_state = str(row.get("lura_p2_state") or "")
+    log_match = row.get("log_match")
+    if not log_state and isinstance(log_match, dict):
+        log_state = str(log_match.get("lura_p2_state") or "")
+    if log_state in {"reached", "not_reached"}:
+        states.add(log_state)
+
+    analysis = row.get("analysis")
+    if isinstance(analysis, dict):
+        last_phase = _to_int(analysis.get("last_phase"))
+        if last_phase >= 2:
+            states.add("reached")
+        elif last_phase == 1:
+            states.add("not_reached")
+
+    if len(states) > 1:
+        return "conflict"
+    return next(iter(states), "unknown")
+
+
+def _is_hidden_replay(row: dict[str, Any]) -> bool:
+    if _to_int(row.get("encounter_id")) == LURA_ENCOUNTER_ID:
+        state = _lura_p2_state(row)
+        if state == "not_reached":
+            return True
+        if state != "unknown":
+            return False
+        # 로그가 없어도 이 시각 전 종료된 풀은 P2에 물리적으로 도달할 수 없다.
+        duration = _to_float(row.get("duration"))
+        if duration is None:
+            duration = _to_float((row.get("analysis") or {}).get("duration_s"))
+        return duration is not None and duration < LURA_P2_EARLIEST_S
+    duration = _to_float(row.get("duration"))
+    if duration is None:
+        duration = _to_float((row.get("analysis") or {}).get("duration_s"))
+    return duration is not None and duration < REPLAY_MIN_DURATION_S
 
 
 def _lura_sync_path() -> Path:
@@ -461,7 +507,10 @@ def _find_wcl_only_cap(replay_id: str) -> dict[str, Any] | None:
     )
 
 
-def _load_captures(cctv_dir_arg: Path | None = None, limit: int = 80) -> list[dict[str, Any]]:
+def _load_captures(
+    cctv_dir_arg: Path | None = None,
+    limit: int | None = 80,
+) -> list[dict[str, Any]]:
     cctv_dir_arg = cctv_dir_arg or cctv_dir()
     if not cctv_dir_arg.exists():
         return []
@@ -469,7 +518,9 @@ def _load_captures(cctv_dir_arg: Path | None = None, limit: int = 80) -> list[di
         cctv_dir_arg.glob("*.json"),
         key=lambda p: p.stat().st_mtime_ns,
         reverse=True,
-    )[:max(1, limit)]
+    )
+    if limit is not None:
+        paths = paths[:max(1, limit)]
     out: list[dict[str, Any]] = []
     for path in paths:
         try:
@@ -516,6 +567,7 @@ def _encounter_index_cached(path_str: str, mtime_ns: int, size: int) -> list[dic
     current: dict[str, Any] | None = None
     with path.open("r", encoding="utf-8-sig", errors="replace", newline="") as fh:
         for line_no, line in enumerate(fh, 1):
+            _mark_lura_p2(current, line)
             if "ENCOUNTER_" not in line:
                 continue
             m = _LOG_LINE_RE.match(line.rstrip("\r\n"))
@@ -537,20 +589,29 @@ def _encounter_index_cached(path_str: str, mtime_ns: int, size: int) -> list[dic
                     "start_line": line_no,
                     "_start_dt": ts,
                 }
+                if current["encounter_id"] == LURA_ENCOUNTER_ID:
+                    current["lura_p2_state"] = "unknown"
             elif event == "ENCOUNTER_END" and len(row) >= 7:
                 if current and current.get("encounter_id") == _to_int(row[1]):
+                    success = bool(_to_int(row[5]))
                     current.update({
-                        "success": bool(_to_int(row[5])),
+                        "success": success,
                         "duration_ms": _to_int(row[6]),
                         "duration": round(_to_int(row[6]) / 1000, 3),
                         "end_local": ts.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3],
                         "end_line": line_no,
                         "_end_dt": ts,
                     })
+                    if current["encounter_id"] == LURA_ENCOUNTER_ID:
+                        current["lura_p2_state"] = (
+                            "reached"
+                            if success or current.get("lura_p2_state") == "reached"
+                            else "not_reached"
+                        )
                     encounters.append(current)
                     current = None
                 else:
-                    encounters.append({
+                    orphan = {
                         "encounter_id": _to_int(row[1]),
                         "encounter": _clean_name(row[2]),
                         "difficulty_id": _to_int(row[3]),
@@ -561,7 +622,12 @@ def _encounter_index_cached(path_str: str, mtime_ns: int, size: int) -> list[dic
                         "end_local": ts.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3],
                         "end_line": line_no,
                         "_end_dt": ts,
-                    })
+                    }
+                    if orphan["encounter_id"] == LURA_ENCOUNTER_ID:
+                        orphan["lura_p2_state"] = (
+                            "reached" if orphan["success"] else "unknown"
+                        )
+                    encounters.append(orphan)
     return encounters
 
 
@@ -600,26 +666,55 @@ def _match_capture(cap: dict[str, Any], encounters: list[dict[str, Any]]) -> dic
     return None
 
 
-def list_replays(limit: int = 80) -> dict[str, Any]:
+def _listing_log_match(
+    cap: dict[str, Any],
+    latest_encounters: list[dict[str, Any]],
+    log_caps: list[dict[str, Any]],
+) -> dict[str, Any] | None:
+    match = _match_capture(cap, latest_encounters)
+    if match:
+        return match
+
+    # 이미 목록용으로 인덱싱한 다른 직접 로그도 CCTV에 연결한다.
+    for log_cap in log_caps:
+        if _same_encounter(cap, log_cap):
+            enc = log_cap.get("_log_encounter")
+            return dict(enc) if isinstance(enc, dict) else None
+
+    # 르우라는 오래된 로그가 archive로 이동한 뒤에도 P2 판정이 풀리지
+    # 않도록 해당 캡처의 후보 로그만 찾아 한 번 인덱싱한다.
+    if (
+        _to_int(cap.get("encounter_id")) == LURA_ENCOUNTER_ID
+        and _lura_p2_state(cap) == "unknown"
+    ):
+        try:
+            _, enc = _find_frames_encounter(cap)
+            return dict(enc)
+        except (OSError, ReplayError):
+            pass
+    return None
+
+
+def list_replays(limit: int | None = 80) -> dict[str, Any]:
     log_path = latest_log_path()
     sync_index = _lura_sync_index()
     artifact_ids = sync_index.get("artifact_ids") or set()
-    captures = _load_captures(limit=limit)
+    # 제외 정책을 먼저 적용한 뒤 limit을 자른다. 그렇지 않으면 최신 제외
+    # 캡처가 슬롯을 차지해 그 이전의 유효 리플레이가 목록에서 사라진다.
+    captures = _load_captures(limit=None)
     # R2 미러 병합 — 로컬 캡처 폴더가 있어도 다른 PC가 올린 원격 캡처를 함께 노출.
     # ensure_mirror() 가 json(소형)만 동기화하고 전투로그는 백그라운드로 내려받는다.
     from app import cctv_sync
-    if cctv_sync.available():
-        local_root = cctv_dir()
-        mirror_root = cctv_sync.ensure_mirror()
-        if mirror_root != local_root:
-            seen_files = {str(cap.get("file") or "") for cap in captures}
-            for cap in _load_captures(mirror_root, limit=limit):
-                if str(cap.get("file") or "") not in seen_files:
-                    captures.append(cap)
-            captures.sort(key=lambda c: c.get("_start_dt") or datetime.min, reverse=True)
-            captures = captures[:max(1, limit)]
+    local_root = cctv_dir()
+    mirror_root = cctv_sync.ensure_mirror()
+    if mirror_root != local_root:
+        seen_files = {str(cap.get("file") or "") for cap in captures}
+        for cap in _load_captures(mirror_root, limit=None):
+            if str(cap.get("file") or "") not in seen_files:
+                captures.append(cap)
+        captures.sort(key=lambda c: c.get("_start_dt") or datetime.min, reverse=True)
     log_paths = _standalone_log_paths()
-    log_caps = _load_log_replay_caps(limit=max(limit, 1), paths=log_paths)
+    log_caps = _load_log_replay_caps(limit=None, paths=log_paths)
     try:
         encounters = list(_encounter_offsets(log_path)) if log_path else []
     except OSError:
@@ -628,7 +723,7 @@ def list_replays(limit: int = 80) -> dict[str, Any]:
     for cap in captures:
         if cap.get("id") in artifact_ids:
             continue
-        match = _match_capture(cap, encounters)
+        match = _listing_log_match(cap, encounters, log_caps)
         row = _public_capture(cap)
         row["log_match"] = _public_encounter(match)
         rows.append(row)
@@ -645,8 +740,10 @@ def list_replays(limit: int = 80) -> dict[str, Any]:
         row["log_match"] = _public_encounter(log_cap.get("_log_encounter"))
         rows.append(row)
 
+    rows = [row for row in rows if not _is_hidden_replay(row)]
     rows.sort(key=lambda row: str(row.get("start_local") or ""), reverse=True)
-    rows = rows[:max(1, limit)]
+    if limit is not None:
+        rows = rows[:max(1, limit)]
     coordinates_hidden = len(sync_index.get("wcl_only") or [])
     return {
         "sources": {
@@ -665,6 +762,7 @@ def list_replays(limit: int = 80) -> dict[str, Any]:
             "coordinates_hidden": coordinates_hidden,
             "artifacts_hidden": len(artifact_ids),
             "wcl_session": sync_index.get("session") or {},
+            "private_remote": cctv_sync.sync_status(),
         },
         "rows": rows,
     }
@@ -687,12 +785,11 @@ def _find_capture(replay_id: str) -> dict[str, Any]:
             return cap
     # 로컬에 없으면 R2 미러 캡처(다른 PC가 올린 json)에서 탐색
     from app import cctv_sync
-    if cctv_sync.available():
-        mirror_root = cctv_sync.ensure_mirror()
-        if mirror_root != cctv_dir():
-            for cap in _load_captures(mirror_root, limit=400):
-                if cap.get("id") == replay_id:
-                    return cap
+    mirror_root = cctv_sync.ensure_mirror()
+    if mirror_root != cctv_dir():
+        for cap in _load_captures(mirror_root, limit=400):
+            if cap.get("id") == replay_id:
+                return cap
     raise ReplayError(f"replay not found: {replay_id}")
 
 
@@ -1208,6 +1305,28 @@ def _candidate_logs(cap_start: datetime, log_dir: Path | None = None) -> list[Pa
     return [p for _, p in cands]
 
 
+def _lura_p2_evidence(raw: str | bytes) -> dict[str, Any] | None:
+    line = raw.encode("utf-8", errors="ignore") if isinstance(raw, str) else raw
+    checks = (
+        (b"SPELL_CAST_SUCCESS,", b",1282043,", "SPELL_CAST_SUCCESS", 1282043),
+        (b"SPELL_CAST_START,", b",1284528,", "SPELL_CAST_START", 1284528),
+        (b"SPELL_CAST_SUCCESS,", b",1284525,", "SPELL_CAST_SUCCESS", 1284525),
+    )
+    for event_token, spell_token, event, spell_id in checks:
+        if event_token in line and spell_token in line:
+            return {"event": event, "spell_id": spell_id}
+    return None
+
+
+def _mark_lura_p2(current: dict[str, Any] | None, raw: str | bytes) -> None:
+    if not current or _to_int(current.get("encounter_id")) != LURA_ENCOUNTER_ID:
+        return
+    evidence = _lura_p2_evidence(raw)
+    if evidence:
+        current["lura_p2_state"] = "reached"
+        current["lura_p2_evidence"] = evidence
+
+
 def _apply_encounter_line(
     raw: bytes,
     line_off: int,
@@ -1216,6 +1335,7 @@ def _apply_encounter_line(
     current: dict[str, Any] | None,
 ) -> dict[str, Any] | None:
     """한 줄에서 ENCOUNTER_START/END 를 파싱해 encounters 갱신, 새 current 반환."""
+    _mark_lura_p2(current, raw)
     if b"ENCOUNTER_" not in raw:
         return current
     # utf-8-sig: 파일 첫 줄 BOM 제거용
@@ -1227,7 +1347,7 @@ def _apply_encounter_line(
     if not ts or not row:
         return current
     if row[0] == "ENCOUNTER_START" and len(row) >= 6:
-        return {
+        started = {
             "encounter_id": _to_int(row[1]),
             "encounter": _clean_name(row[2]),
             "difficulty_id": _to_int(row[3]),
@@ -1236,14 +1356,24 @@ def _apply_encounter_line(
             "start_off": line_off,
             "_start_dt": ts,
         }
+        if started["encounter_id"] == LURA_ENCOUNTER_ID:
+            started["lura_p2_state"] = "unknown"
+        return started
     if row[0] == "ENCOUNTER_END" and len(row) >= 7:
         if current and current.get("encounter_id") == _to_int(row[1]):
+            success = bool(_to_int(row[5]))
             current.update({
-                "success": bool(_to_int(row[5])),
+                "success": success,
                 "duration_s": round(_to_int(row[6]) / 1000, 3),
                 "end_off": line_end,   # END 줄 끝까지 포함
                 "_end_dt": ts,
             })
+            if current["encounter_id"] == LURA_ENCOUNTER_ID:
+                current["lura_p2_state"] = (
+                    "reached"
+                    if success or current.get("lura_p2_state") == "reached"
+                    else "not_reached"
+                )
             encounters.append(current)
         return None
     return current
@@ -1394,6 +1524,7 @@ def _log_replay_cap(path: Path, enc: dict[str, Any]) -> dict[str, Any]:
         "video_remote": False,
         "video_size_mb": 0,
         "log_only": True,
+        "lura_p2_state": enc.get("lura_p2_state"),
         "_start_dt": start_dt,
         "_log_path": path,
         "_log_encounter": enc,
@@ -1402,7 +1533,7 @@ def _log_replay_cap(path: Path, enc: dict[str, Any]) -> dict[str, Any]:
 
 
 def _load_log_replay_caps(
-    limit: int = 80,
+    limit: int | None = 80,
     paths: list[Path] | None = None,
 ) -> list[dict[str, Any]]:
     caps: list[dict[str, Any]] = []
@@ -1420,6 +1551,8 @@ def _load_log_replay_caps(
             seen.add(key)
             caps.append(cap)
     caps.sort(key=lambda cap: cap.get("_start_dt") or datetime.min, reverse=True)
+    if limit is None:
+        return caps
     return caps[:max(1, limit)]
 
 

@@ -1834,9 +1834,25 @@ async function loadLocalReplays(force = false) {
     const src = j.sources || {};
     const session = src.wcl_session || {};
     if (status) {
-      status.textContent = session.pulls
+      const remote = src.public_remote || {};
+      const privateRemote = src.private_remote || {};
+      const localText = session.pulls
         ? `${session.pulls}풀 · 좌표 리플레이 ${src.analysis_replay ?? 0} · 좌표 없음 숨김 ${src.coordinates_hidden ?? src.wcl_only ?? 0} · 최고 ${session.best_boss_remaining_pct}% · 블러드 ${session.bloodlust_casts ?? 0}회`
         : `${replayState.rows.length}개 리플레이 · 로그 전용 ${src.log_only ?? 0}개`;
+      let remoteText = '';
+      if (remote.configured) {
+        remoteText = remote.available
+          ? ` · 공개 서버 ${src.public_replays ?? remote.replays ?? 0}개${remote.stale ? ' (저장본)' : ''}`
+          : ' · 공개 서버 연결 실패';
+      } else if (privateRemote.rclone_found && !privateRemote.remote_configured) {
+        remoteText = ` · R2 설정 없음${privateRemote.mirror_captures ? ` · 저장본 ${privateRemote.mirror_captures}개` : ''}`;
+      }
+      status.textContent = localText + remoteText;
+      status.title = remote.error || privateRemote.error || '';
+      status.classList.toggle('warn', Boolean(
+        (remote.configured && !remote.available)
+        || (!remote.configured && privateRemote.rclone_found && !privateRemote.remote_configured)
+      ));
     }
     if (replayState.rows.length && !replayState.selectedId) {
       const firstPlayable = replayState.rows.find(row => row.capabilities?.frames !== false);
@@ -4950,6 +4966,19 @@ window.addEventListener('DOMContentLoaded', () => {
   bindComparison();
   bindTimelineSync();
   loadAuthInfo();
-  loadRankings('heroic');
+  fetch('/api/public-replay/status')
+    .then(r => r.ok ? r.json() : null)
+    .then(mode => {
+      if (mode?.release_mode) {
+        switchTab('replay');
+        $('#meta').textContent = mode.configured
+          ? '공개 리플레이 서버'
+          : '공개 리플레이 서버 주소 설정 필요';
+        loadLocalReplays();
+      } else {
+        loadRankings('heroic');
+      }
+    })
+    .catch(() => loadRankings('heroic'));
   loadCharList();
 });

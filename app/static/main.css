@@ -393,6 +393,7 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 }
 .arb-controls button:hover { background: var(--accent); }
 .arb-status { color: var(--text-mute); font-size: 11.5px; margin-left: auto; }
+.arb-status.warn { color: #ff9c7a; }
 
 /* ── 메인 split (좌 랭킹 / 우 빌드) ─────────────────────────────────── */
 /* 랭킹은 캐릭/길드/서버/DPS/ilvl 텍스트 안 잘릴 정도만 (~560px 고정).

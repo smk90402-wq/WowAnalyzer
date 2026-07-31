@@ -1,0 +1,20 @@
+# Public release data: exact, reviewed, non-personal files only.
+data/spell_db.json
+data/replay_spell_geometry.json
+data/replay_geometry_overrides.json
+data/replay_mechanic_overrides.json
+data/boss_spell_priority.json
+data/player_spell_types.json
+data/spell_cooldowns.json
+data/rotation_data.json
+data/boss_dealcycle.json
+data/stat_dr.json
+data/spec_meta_ranking.csv
+data/spec_population.csv
+data/kr_pug_market.json
+data/spec_fun.json
+data/spec_guide.json
+data/s2_meta_predictions.json
+data/s2_pvp_predictions.json
+data/official_sources.json
+data/transcripts/official_youtube_1207_gear_overview.txt
