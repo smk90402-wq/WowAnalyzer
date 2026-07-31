@@ -11,6 +11,9 @@ WoW 한밤(Midnight) 확장 첫 레이드의 WarcraftLogs 톱100 로그를 긁�
 
 ## 새 PC 에서 셋업 (회사 PC 등에서 pull 후)
 
+PC 역할별로 서로 다른 R2 토큰·로컬 경로·Worker 로그인·공개판 설정은
+[PC_SETUP_GUIDE.md](PC_SETUP_GUIDE.md)를 먼저 확인한다.
+
 ```bash
 git clone https://github.com/smk90402-wq/WowAnalyzer
 cd WowAnalyzer
@@ -18,12 +21,15 @@ python bootstrap_dev.py
 ```
 
 `bootstrap_dev.py` 가 자동으로:
-1. `git lfs install` + `git lfs pull` — `data/v2_cache_*.json` (380MB+) 받기
+1. `git lfs install` + `git lfs pull` — 이전 LFS 파일 호환 확인
 2. `pip install -r requirements.txt`
 3. `.env` 없으면 `.env.example` 복사 (4개 키 수동 입력 필요)
 4. `dist/LogAnalyze` 존재 시 data junction + .env 복사
 
-`.env` 키 4개 (메인 PC 의 `keys_local.txt` 그대로 옮김):
+현재 `data/v2_cache_*.json` 대용량 캐시는 Git에서 제외되어 있다. 관리자·분석
+PC는 PC별 R2 인증을 만든 뒤 `scripts\cache_pull.ps1`로 별도 동기화한다.
+
+`.env` 키 4개 (신뢰하는 관리자 PC에만 안전한 경로로 전달):
 - `WCL_V2_CLIENT_ID`, `WCL_V2_CLIENT_SECRET` — WarcraftLogs V2 GraphQL
 - `BLIZZARD_CLIENT_ID`, `BLIZZARD_CLIENT_SECRET` — Blizzard Game Data (한글 메타)
 
@@ -79,9 +85,13 @@ git 으로 동기화되는 메타데이터:
 - `data/cache_manifest.json` — V2 캐시 key 목록 (`.exe` 가 atexit 으로 갱신)
 - `data/update_log.json` — 데이터 갱신 작업 history (스크립트가 끝날 때 자동 기록)
 
-git 으로 안 가는 것 (LFS bandwidth 부담):
+git 으로 안 가는 것 (대용량·로컬 캐시):
 - `data/v2_cache_*.json` — 380MB+ 누적 캐시. 회사 PC 가 manifest 보고 누락 분
   비교 탭에서 캐릭 클릭 → 자동 페치로 채움.
+
+대용량 캐시 전체를 PC 사이에 넘길 때는 작업 시작 전
+`scripts\cache_pull.ps1`, 작업 종료 후 `scripts\cache_push.ps1`을 사용한다.
+두 PC에서 같은 캐시를 동시에 갱신하지 않는다.
 
 **history 조회:**
 ```

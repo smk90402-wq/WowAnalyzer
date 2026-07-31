@@ -46,11 +46,14 @@ Cloudflare Worker가 공개 허용 경로만 대신 읽어 주는 구조를 사�
 }
 ```
 
-## 두 PC에서 운영하기
+## 여러 PC에서 운영하기
+
+역할별 전체 설정표와 최초 설치·일상 동기화 체크리스트는
+[PC_SETUP_GUIDE.md](PC_SETUP_GUIDE.md)를 함께 참고한다.
 
 `git pull`과 R2/Cloudflare 인증은 서로 독립이다. 다른 PC에서 저장소를
-받는다고 R2 비밀키를 다시 입력하지 않으며, 각 PC에서 아래 항목을 최초
-1회만 설정한다.
+받아도 R2 비밀키와 Cloudflare 로그인은 자동으로 따라오지 않으며, 각 PC에서
+아래 항목을 최초 1회만 설정한다.
 
 1. GitHub HTTPS 인증은 Git Credential Manager로 로그인한다.
 2. R2 토큰은 PC마다 별도로 만들고 `wowanalyzer-cctv`와
